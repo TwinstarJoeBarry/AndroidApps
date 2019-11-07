@@ -79,6 +79,14 @@ public class GuestForm extends AppCompatActivity {
     }
 
 
+    /**
+     * Submits user-data when click is received.
+     * Notifies user in a toast if the adding is successful
+     *
+     * @param view
+     */
+
+
     public void onClick(View view) {
 
         //variable used for checks
