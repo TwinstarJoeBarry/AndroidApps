@@ -63,6 +63,11 @@ public class VolunteerForm extends AppCompatActivity implements View.OnClickList
         submit.setOnClickListener(this);
     }
 
+/** onClick - retrieves the view as a parameter, gets the id and checks if
+ * the submit button was clicked. Also checks if the checkFill()
+ * method is true, if so the intent is started as the new activity
+ * @param - v: View
+ **/
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.submit_button:
