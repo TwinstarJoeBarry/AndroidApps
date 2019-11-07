@@ -55,6 +55,14 @@ public class Choose extends AppCompatActivity implements OnClickListener {
     }
 
 
+    /**
+     *
+     * Title : onClick Method -- Whenever a certain button is clicked it would
+     * call the method and inside that method would launch an activity and display to the user
+     * and then would break afterwords..
+     *
+     * @param v - The activity that was clicked by the user.
+     */
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.inventoryBtn:
