@@ -59,6 +59,10 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * onCLick method - responds to a click by the user
+     * @paran the view object clicked by the user
+     */
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.forgotPass:
