@@ -80,6 +80,11 @@ public class Choose extends AppCompatActivity implements OnClickListener {
             case R.id.signUpBtn:
                 createAccountDialog();
                 break;
+            case R.id.addToInventoryBtn:
+                launchAddToInventory();
+                break;
+
+
         }
     }
 
@@ -153,6 +158,13 @@ public class Choose extends AppCompatActivity implements OnClickListener {
         Intent intent = new Intent(this, VolunteerForm.class);
         startActivity(intent);
     }
+
+    public void launchAddToInventory()
+    {
+        Intent intent = new Intent(this, addToInventory.class);
+        startActivity(intent);
+    }
+
 
 
 }

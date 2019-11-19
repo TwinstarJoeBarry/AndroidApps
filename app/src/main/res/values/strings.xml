@@ -116,4 +116,5 @@
         <item>Mobile call</item>
         <item>Text Message</item>
     </string-array>
+    <string name="title_activity_add_to_inventory">addToInventory</string>
 </resources>
