@@ -99,6 +99,7 @@
         android:layout_height="71dp"
         android:layout_above="@id/inventoryBtn"
         android:layout_centerHorizontal="true"
+        android:onClick="onClick"
         android:text="Add To Inventory" />
 
 

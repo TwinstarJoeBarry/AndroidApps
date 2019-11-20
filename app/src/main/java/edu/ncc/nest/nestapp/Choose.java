@@ -32,11 +32,12 @@ import android.view.View.OnClickListener;
 
 public class Choose extends AppCompatActivity implements OnClickListener {
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose);
-
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -65,6 +66,9 @@ public class Choose extends AppCompatActivity implements OnClickListener {
      */
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.addToInventoryBtn:
+                launchAddToInventory();
+                break;
             case R.id.inventoryBtn:
                 launchInventory();
                 break;
@@ -80,11 +84,6 @@ public class Choose extends AppCompatActivity implements OnClickListener {
             case R.id.signUpBtn:
                 createAccountDialog();
                 break;
-            case R.id.addToInventoryBtn:
-                launchAddToInventory();
-                break;
-
-
         }
     }
 
@@ -159,6 +158,9 @@ public class Choose extends AppCompatActivity implements OnClickListener {
         startActivity(intent);
     }
 
+    /**
+     * launchVolForm - starts the Volunteer activity
+     */
     public void launchAddToInventory()
     {
         Intent intent = new Intent(this, addToInventory.class);

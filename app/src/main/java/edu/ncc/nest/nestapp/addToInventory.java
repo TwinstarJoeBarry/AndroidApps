@@ -1,38 +1,37 @@
 package edu.ncc.nest.nestapp;
 
 import android.content.Intent;
-import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
 import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
-
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
+import android.widget.GridView;
 
 public class addToInventory extends AppCompatActivity {
+    private GridView gridView;
+    public static int categoryImages[] = {R.drawable.baby_food, R.drawable.baked_goods,R.drawable.beverages, R.drawable.condiments_sauce_and_can_goods};
+    public static String categoryName[] = {"Baby Food", "Baked Goods", "Beverages", "Condiments, Sauces, and Canned Goods"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_to_inventory);
+
+
+
+        gridView = (GridView) findViewById(R.id.gridView);
+        CategoryAdapter adapter = new CategoryAdapter(this );
+        gridView.setAdapter(adapter);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
     }
 
+    //implements the menu options for the toolbar
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
         MenuInflater inflater = getMenuInflater();
