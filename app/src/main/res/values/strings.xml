@@ -116,4 +116,13 @@
         <item>Mobile call</item>
         <item>Text Message</item>
     </string-array>
+
+    <!-- String for activity_item_info -->
+    <string name="UPC_label">Enter the UPC manually or click the button to open the camera:</string>
+    <string name="open_camera">Open Camera</string>
+    <string name="category_label">Select the category of the item:</string>
+    <string name="product_id_label">Enter the product ID:</string>
+    <string name="exp_date_label">Enter the expiration date of the item:</string>
+    <string name="open_datepicker">Open Calendar</string>
+    <string name="calculate_pantry">Calculate Pantry Life</string>
 </resources>
