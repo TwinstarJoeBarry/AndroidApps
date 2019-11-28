@@ -45,7 +45,7 @@
             android:id="@+id/category_spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/category_label"
+            android:layout_toEndOf="@id/category_label"
             android:layout_alignBaseline="@id/category_label"/>
 
         <TextView
@@ -62,7 +62,7 @@
             android:ems="10"
             android:inputType="textPersonName"
             android:text=""
-            android:layout_toRightOf="@id/product_id_label"
+            android:layout_toEndOf="@id/product_id_label"
             android:layout_alignBaseline="@id/product_id_label"/>
 
         <TextView
@@ -77,7 +77,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/open_datepicker"
-            android:layout_toRightOf="@id/exp_date_label"
+            android:layout_toEndOf="@id/exp_date_label"
             android:layout_alignBaseline="@id/exp_date_label"/>
 
         <TextView
