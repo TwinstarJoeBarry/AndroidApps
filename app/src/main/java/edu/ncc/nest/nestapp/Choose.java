@@ -118,6 +118,8 @@ public class Choose extends AppCompatActivity implements OnClickListener {
      * launchInventory - starts the Inventory activity
      */
     public void launchInventory() {
+        //UNCOMMENT BELOW DELETE BELOW THAT
+        //Intent intent = new Intent(this, Inventory.class);
         Intent intent = new Intent(this, Inventory.class);
         startActivity(intent);
     }

@@ -130,4 +130,14 @@
     <string name="UPC_message">UPC number from scan:</string>
     <string name="item_name_message">Item name from scan:</string>
     <string name="final_date_message">Final date of item from scan:</string>
+    <string name="select_cat_and_item">Select category and item:</string>
+    <string name="select_category">Select Category</string>
+    <string name="select_item">Select Item</string>
+    <string name="category_lbl">Category:</string>
+    <string name="item_lbl">Item:</string>
+    <string name="select_expiration">Select expiration date:</string>
+    <string name="select_expiration_btn">Select Expiration</string>
+    <string name="expiration_lbl">Expiration:</string>
+    <string name="calculate">Calculate</string>
+    <string name="result_placeholder">[result will display here]</string>
 </resources>

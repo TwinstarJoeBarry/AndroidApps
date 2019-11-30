@@ -12,104 +12,158 @@
         android:gravity="center">
 
         <TextView
-            android:id="@+id/UPC_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/UPC_label" />
+            android:text="@string/UPC_label"
+            android:id="@+id/label1"
+            android:layout_marginTop="40dp"
+            android:layout_marginLeft="10dp" />
 
         <EditText
-            android:id="@+id/UPC_entry"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text=""
-            android:layout_below="@id/UPC_label" />
+            android:id="@+id/UPCentry"
+            android:ems="11"
+            android:layout_below="@id/label1"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="2dp"/>
 
         <Button
-            android:id="@+id/camera_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/open_camera"
             android:text="@string/open_camera"
-            android:layout_toRightOf="@id/UPC_entry"
-            android:layout_alignBaseline="@id/UPC_entry"/>
+            android:layout_below="@id/label1"
+            android:layout_toRightOf="@id/UPCentry"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="2dp"/>
 
         <TextView
-            android:id="@+id/category_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/category_label"
-            android:layout_below="@id/UPC_entry" />
-
-        <Spinner
-            android:id="@+id/category_spinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/category_label"
-            android:layout_alignBaseline="@id/category_label"/>
-
-        <TextView
-            android:id="@+id/product_id_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/product_id_label"
-            android:layout_below="@id/category_spinner"/>
-
-        <EditText
-            android:id="@+id/product_id_entry"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text=""
-            android:layout_toEndOf="@id/product_id_label"
-            android:layout_alignBaseline="@id/product_id_label"/>
-
-        <TextView
-            android:id="@+id/exp_date_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/product_id_entry"
-            android:text="@string/exp_date_label" />
+            android:text="@string/select_cat_and_item"
+            android:id="@+id/selection_label"
+            android:layout_below="@id/open_camera"
+            android:layout_marginTop="38dp"
+            android:layout_marginLeft="10dp" />
 
         <Button
-            android:id="@+id/datepicker_open"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/open_datepicker"
-            android:layout_toEndOf="@id/exp_date_label"
-            android:layout_alignBaseline="@id/exp_date_label"/>
+            android:id="@+id/cat_select_btn"
+            android:text="@string/select_category"
+            android:layout_below="@id/selection_label"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="2dp"
+            android:onClick="showCatMenu" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/item_select_btn"
+            android:text="@string/select_item"
+            android:layout_below="@id/selection_label"
+            android:layout_toRightOf="@id/cat_select_btn"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="2dp"
+            android:onClick="showItemMenu" />
 
         <TextView
-            android:id="@+id/exp_date_confirmation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/category_lbl"
+            android:id="@+id/cat_result_lbl"
+            android:layout_below="@id/item_select_btn"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="2dp" />
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""
-            android:layout_below="@id/exp_date_label"/>
-
-        <Button
-            android:id="@+id/calculate_pantry_life_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/calculate_pantry"
-            android:layout_below="@id/exp_date_confirmation"
-            android:layout_centerHorizontal="true"/>
+            android:id="@+id/cat_result"
+            android:layout_below="@id/item_select_btn"
+            android:layout_toRightOf="@id/cat_result_lbl"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="2dp" />
 
         <TextView
-            android:id="@+id/pantry_life_confirmation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/item_lbl"
+            android:id="@+id/item_result_lbl"
+            android:layout_below="@id/cat_result"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="2dp" />
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""
-            android:layout_below="@id/calculate_pantry_life_button"
-            android:layout_centerHorizontal="true"/>
+            android:id="@+id/item_result"
+            android:layout_below="@id/cat_result"
+            android:layout_toRightOf="@id/item_result_lbl"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="2dp" />
 
-        <Button
-            android:id="@+id/submit_button"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/submitBtn_lbl"
-            android:layout_below="@id/pantry_life_confirmation"
-            android:layout_centerHorizontal="true"/>
+            android:text="@string/select_expiration"
+            android:id="@+id/expiration_select_label"
+            android:layout_below="@id/item_result"
+            android:layout_marginTop="38dp"
+            android:layout_marginLeft="10dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/select_expiration_btn"
+            android:id="@+id/date_select_btn"
+            android:layout_below="@id/expiration_select_label"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="2dp"
+            android:onClick="showDatePickerDialog" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/expiration_lbl"
+            android:id="@+id/exp_result_lbl"
+            android:layout_below="@id/date_select_btn"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="2dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:id="@+id/exp_result"
+            android:layout_below="@id/date_select_btn"
+            android:layout_toRightOf="@id/exp_result_lbl"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="2dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/calculate"
+            android:id="@+id/calculate_button"
+            android:layout_below="@id/exp_result"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="45dp"
+            android:onClick="calculateResult" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/result_placeholder"
+            android:id="@+id/result"
+            android:layout_below="@id/calculate_button"
+            android:layout_marginTop="45dp"
+            android:layout_centerHorizontal="true" />
+
     </RelativeLayout>
 
 
