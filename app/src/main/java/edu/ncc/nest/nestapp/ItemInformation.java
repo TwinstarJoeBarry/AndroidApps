@@ -17,6 +17,8 @@ package edu.ncc.nest.nestapp;
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+// still need to implement camera, API call for category, connecting to scanner layout
+
 import android.content.Intent;
 import android.os.Bundle;
 
