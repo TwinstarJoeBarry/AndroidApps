@@ -93,5 +93,14 @@
         android:onClick="onClick"
         android:text="Create NEST account" />
 
+    <Button
+        android:id="@+id/scanBtn"
+        android:onClick="onClick"
+        android:layout_width="138dp"
+        android:layout_height="71dp"
+        android:layout_above="@id/inventoryBtn"
+        android:layout_centerHorizontal="true"
+        android:text="Scan" />
+
 
 </RelativeLayout>

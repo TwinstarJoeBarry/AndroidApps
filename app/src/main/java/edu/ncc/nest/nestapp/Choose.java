@@ -80,6 +80,9 @@ public class Choose extends AppCompatActivity implements OnClickListener {
             case R.id.signUpBtn:
                 createAccountDialog();
                 break;
+            case R.id.scanBtn:
+                launchScanner();
+                break;
         }
     }
 
@@ -151,6 +154,14 @@ public class Choose extends AppCompatActivity implements OnClickListener {
      */
     public void launchVolForm() {
         Intent intent = new Intent(this, VolunteerForm.class);
+        startActivity(intent);
+    }
+
+    /**
+     * launchScanner - starts the Scanner activity
+     */
+    public void launchScanner() {
+        Intent intent = new Intent(this, Scanner.class);
         startActivity(intent);
     }
 
