@@ -116,4 +116,28 @@
         <item>Mobile call</item>
         <item>Text Message</item>
     </string-array>
+
+    <!-- String for activity_item_info -->
+    <string name="UPC_label">Enter the UPC manually or click the button to open the camera:</string>
+    <string name="open_camera">Open Camera</string>
+    <string name="category_label">Select the category of the item:</string>
+    <string name="product_id_label">Enter the product ID:</string>
+    <string name="exp_date_label">Enter the expiration date of the item:</string>
+    <string name="open_datepicker">Open Calendar</string>
+    <string name="calculate_pantry">Calculate Pantry Life</string>
+
+    <!-- String for activity_item_info_scanner -->
+    <string name="UPC_message">UPC number from scan:</string>
+    <string name="item_name_message">Item name from scan:</string>
+    <string name="final_date_message">Final date of item from scan:</string>
+    <string name="select_cat_and_item">Select category and item:</string>
+    <string name="select_category">Select Category</string>
+    <string name="select_item">Select Item</string>
+    <string name="category_lbl">Category:</string>
+    <string name="item_lbl">Item:</string>
+    <string name="select_expiration">Select expiration date:</string>
+    <string name="select_expiration_btn">Select Expiration</string>
+    <string name="expiration_lbl">Expiration:</string>
+    <string name="calculate">Calculate</string>
+    <string name="result_placeholder">[result will display here]</string>
 </resources>

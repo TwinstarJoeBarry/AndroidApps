@@ -16,6 +16,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        
+        <activity android:name=".ItemInformation"></activity>
         <activity android:name=".FoodItem"></activity>
         <activity android:name=".Scanner" />
         <activity android:name=".GuestForm" />
@@ -35,7 +37,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity"></activity>
 
         <service android:name="services.MyFirebaseMessagingService">
             <intent-filter>
