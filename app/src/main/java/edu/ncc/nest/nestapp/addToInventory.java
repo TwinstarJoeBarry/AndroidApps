@@ -27,12 +27,9 @@ import android.widget.Toast;
 public class addToInventory extends AppCompatActivity {
 
     ListView listView;
-
     String[] mCategory = {"Baby Food", "Baked Goods", "Beverages", "Condiments, Sauces & Canned Goods", "Dairy Products & Eggs", "Deli & Prepared Foods", "Food Purchased Frozen", "Grains, Beans & Pasta", "Meat", "Poultry", "Produce", "Seafood", "Shelf Stable Food", "Vegetarian Proteins"};
-
-    String[] mSubExamples = {"Cereal, Dinners, Formula, etc.", "Baking, Refrigerated Dough, etc", "Sodas, Juices, Wine, Coffee, etc.", "BBQ, Ketchup, Broth, Cans, etc.", "Butter, Milk, Cheese, etc.", "Prepackaged Meat, Left Overs, Salads, PreCooked Foods, etc.", "Frozen Pizza, Frozen Stuff, Ice cream, etc.", "Dried Vegetables, Grains, Whole Foods, etc.", "Fresh Meat, Smoked, Stuffed, etc.", "Chicken, Birds, Something That Can Flap It's Wings, etc.", "Fruits, Vegetables, etc.", "Fresh Fish, Shellfish, Smoked, etc.", "Chocolate Syrup, oils, canned fruits, etc.", "Miso, Tofu, Soy..., etc."};
-
-    int[] images = {R.drawable.baby_food, R.drawable.baked_goods, R.drawable.beverages, R.drawable.condiments_sauce_and_can_goods, R.drawable.dairy_products, R.drawable.deli_products, R.drawable.frozen_foods, R.drawable.grains_beans_pasta, R.drawable.meats, R.drawable.poultry, R.drawable.product_grocery, R.drawable.fishes, R.drawable.shelf, R.drawable.vegetales};
+    String[] mSubExamples = {"Cereal, Dinners, Formula, etc.", "Baking, Refrigerated Dough, etc", "Sodas, Juices, Wine, Coffee, etc.", "BBQ, Ketchup, Broth, Cans, etc.", "Butter, Milk, Cheese, etc.", "Prepackaged Meat, Salads, PreCooked Foods, etc.", "Frozen Pizza, Frozen Stuff, Ice cream, etc.", "Dried Vegetables, Grains, Whole Foods, etc.", "Fresh Meat, Smoked, Stuffed, etc.", "Chicken, Birds, etc.", "Fruits, Vegetables, etc.", "Fresh Fish, Shellfish, Smoked, etc.", "Chocolate Syrup, oils, canned fruits, etc.", "Miso, Tofu, Soy..., etc."};
+    int[] images = {R.drawable.baby_food, R.drawable.baked_goods, R.drawable.beverages, R.drawable.condiments_sauce_and_can_goods, R.drawable.dairy, R.drawable.deli_meats, R.drawable.frozen_foods, R.drawable.grains_beans_pasta, R.drawable.meats, R.drawable.poultry, R.drawable.product_grocery, R.drawable.fishes, R.drawable.shelf, R.drawable.vegetales};
 
 
     @Override
@@ -178,4 +175,5 @@ public class addToInventory extends AppCompatActivity {
         Intent intent = new Intent(this, Choose.class);
         startActivity(intent);
     }
+
 }

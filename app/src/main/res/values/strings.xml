@@ -117,6 +117,70 @@
         <item>Text Message</item>
     </string-array>
 
+    <string-array name="baby_list">
+        <item>Cereal, dry mixes</item>
+        <item>Dinners</item>
+        <item>Formula prepared</item>
+        <item>Fruit</item>
+        <item>Jars or pouches</item>
+        <item>Liquid concentrate or ready-to-feed formula</item>
+        <item>Vegetables</item>
+    </string-array>
+
+    <string-array name="baking_cooking">
+        <item>Almond extract</item>
+        <item>Amaranth flour, meal</item>
+        <item>Baking powder</item>
+        <item>Baking soda</item>
+        <item>Barley flour, meal</item>
+        <item>Biscuit or pancake mix</item>
+        <item>Buckwheat flour, meal</item>
+        <item>Butter flavor</item>
+        <item>Cake, brownie, bread mixes</item>
+        <item>Chili powder</item>
+        <item>Chocolate unsweetened and semi-sweet, solid</item>
+        <item>Cinnamon extract</item>
+        <item>Cocoa and cocoa mixes</item>
+        <item>Coconut flavor</item>
+        <item>Cornmeal regular, degerminated</item>
+        <item>Cornmeal stone ground or blue</item>
+        <item>Cornstarch</item>
+        <item>Farro flour, meal</item>
+        <item>Flavored or herb mixes</item>
+        <item>Flour white</item>
+        <item>Flour whole wheat</item>
+        <item>Frosting or icing</item>
+        <item>Garam masala</item>
+        <item>Garlic chopped, commercial jars</item>
+        <item>Gelatin flavored</item>
+        <item>Gelatin unflavored</item>
+        <item>Herbs dried</item>
+        <item>Lemon extract</item>
+        <item>Millet flour, meal</item>
+        <item>Nut oils</item>
+        <item> Oats flour, meal</item>
+        <item> Oils olive or vegetable</item>
+        <item>Pure vanilla extract</item>
+        <item>Rye flour, meal</item>
+        <item>Seasoning blends</item>
+        <item> Shortening solid</item>
+        <item>Sorghum flour, meal</item>
+        <item>Spelt flour, meal</item>
+        <item>Spice/spices ground</item>
+        <item>Spice/spices whole</item>
+        <item>Sugar substitutes</item>
+        <item>Sugar brown</item>
+        <item> Sugar confectioners</item>
+        <item> Sugar granulated</item>
+        <item> Tamarind paste</item>
+        <item> Tapiocas</item>
+        <item> Teff flour, meal</item>
+        <item>Vegetable oil sprays</item>
+        <item>Whole wheat flour</item>
+        <item>Yeast packaged</item>
+    </string-array>
+
+
 
 
     <string name="title_activity_add_to_inventory">Add To Inventory</string>
