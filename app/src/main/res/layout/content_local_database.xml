@@ -17,40 +17,39 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -->
 <RelativeLayout
+
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Scanner">
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".LocalDatabase"
+    tools:showIn="@layout/activity_local_database">
 
 
-    <me.dm7.barcodescanner.zxing.ZXingScannerView
-        android:id="@+id/zxscan"
-        android:layout_above="@id/layout_result"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+    <Button
+        android:id="@+id/show"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:text="display_inventory" />
 
-    <LinearLayout
-        android:id="@+id/layout_result"
+    <Button
+        android:id="@+id/delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:text="Delete Record"
+        android:layout_toRightOf="@id/show"/>
+
+
+    <ListView
+        android:id="@android:id/list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:layout_alignParentBottom="true"
-        android:background="@color/colorPrimaryDark"
-        android:orientation="vertical">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textSize="24sp"
-        android:text="..."
-        android:id="@+id/txt_result"
-        android:textColor="@android:color/white"/>
-
-
-    </LinearLayout>
+        android:text="nest_food_categories"
+        android:layout_below="@id/show"/>
 
 
 </RelativeLayout>

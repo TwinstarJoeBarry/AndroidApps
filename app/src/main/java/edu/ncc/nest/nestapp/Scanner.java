@@ -292,9 +292,6 @@ public class Scanner extends AppCompatActivity implements ZXingScannerView.Resul
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_scanner);
 
-            Intent intent = getIntent();
-
-            //init
             scannerView = (ZXingScannerView) findViewById(R.id.zxscan);
             txtResult = (TextView) findViewById(R.id.txt_result);
             //request permission
@@ -309,7 +306,7 @@ public class Scanner extends AppCompatActivity implements ZXingScannerView.Resul
 
                         @Override
                         public void onPermissionDenied(PermissionDeniedResponse response) {
-                            Toast.makeText(Scanner.this, "you must acccept this permission", Toast.LENGTH_LONG);
+                            Toast.makeText(Scanner.this, "you must accept this permission", Toast.LENGTH_LONG).show();
                         }
 
                         @Override
@@ -329,9 +326,10 @@ public class Scanner extends AppCompatActivity implements ZXingScannerView.Resul
         public void handleResult(Result rawResult) {
             //here we can recieve rawResult
             txtResult.setText(rawResult.getText());
-            //scannerView.startCamera();
-            String str = rawResult.getText().toString();
+            scannerView.startCamera();
+            String str = rawResult.getText();
             Intent intent = new Intent(this, FoodItem.class);
+
             intent.putExtra("barcode", str);
             startActivity(intent);
             finish();
