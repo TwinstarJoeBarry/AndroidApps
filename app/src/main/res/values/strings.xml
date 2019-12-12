@@ -116,6 +116,7 @@
         <item>Mobile call</item>
         <item>Text Message</item>
     </string-array>
-    <string name="title_activity_alert_dialog">alertDialog</string>
     <string name="title_activity_local_database">LocalDatabase</string>
+    <string name="title_activity_alert_dialog">alertDialog</string>
+
 </resources>
