@@ -54,7 +54,6 @@ public class Choose extends AppCompatActivity implements OnClickListener {
 
     }
 
-
     /**
      *
      * Title : onClick Method -- Whenever a certain button is clicked it would
@@ -82,6 +81,9 @@ public class Choose extends AppCompatActivity implements OnClickListener {
                 break;
             case R.id.scanBtn:
                 launchScanner();
+                break;
+            case R.id.donateBtn:
+                launchDonate();
                 break;
         }
     }
@@ -115,6 +117,14 @@ public class Choose extends AppCompatActivity implements OnClickListener {
         AlertDialog alert = alertBuilder.create();
 
         alert.show();
+    }
+
+    /**
+     * launchDonate - starts the Donate activity
+     */
+    public void launchDonate() {
+        Intent intent = new Intent(this, Donate.class);
+        startActivity(intent);
     }
 
     /**
@@ -165,7 +175,4 @@ public class Choose extends AppCompatActivity implements OnClickListener {
         startActivity(intent);
     }
 
-
 }
-
-
