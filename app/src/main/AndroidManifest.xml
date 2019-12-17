@@ -16,10 +16,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
             android:name=".LocalDatabase"
             android:label="@string/title_activity_local_database"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".Donate"></activity>
+        <activity android:name=".ItemInformation" />
+
         <activity android:name=".FoodItem" />
         <activity android:name=".Scanner" />
         <activity android:name=".GuestForm" />
@@ -39,7 +43,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
 
         <service android:name="services.MyFirebaseMessagingService">
             <intent-filter>
