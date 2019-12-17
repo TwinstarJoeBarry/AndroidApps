@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/UPC_label"
+            android:id="@+id/label1"
+            android:layout_marginTop="40dp"
+            android:layout_marginLeft="10dp" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/UPCentry"
+            android:ems="11"
+            android:layout_below="@id/label1"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="2dp"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/open_camera"
+            android:text="@string/open_camera"
+            android:layout_below="@id/label1"
+            android:layout_toRightOf="@id/UPCentry"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="2dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/select_cat_and_item"
+            android:id="@+id/selection_label"
+            android:layout_below="@id/open_camera"
+            android:layout_marginTop="38dp"
+            android:layout_marginLeft="10dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/cat_select_btn"
+            android:text="@string/select_category"
+            android:layout_below="@id/selection_label"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="2dp"
+            android:onClick="showCatMenu" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/item_select_btn"
+            android:text="@string/select_item"
+            android:layout_below="@id/selection_label"
+            android:layout_toRightOf="@id/cat_select_btn"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="2dp"
+            android:onClick="showItemMenu" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/category_lbl"
+            android:id="@+id/cat_result_lbl"
+            android:layout_below="@id/item_select_btn"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="2dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:id="@+id/cat_result"
+            android:layout_below="@id/item_select_btn"
+            android:layout_toRightOf="@id/cat_result_lbl"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="2dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/item_lbl"
+            android:id="@+id/item_result_lbl"
+            android:layout_below="@id/cat_result"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="2dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:id="@+id/item_result"
+            android:layout_below="@id/cat_result"
+            android:layout_toRightOf="@id/item_result_lbl"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="2dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/select_expiration"
+            android:id="@+id/expiration_select_label"
+            android:layout_below="@id/item_result"
+            android:layout_marginTop="38dp"
+            android:layout_marginLeft="10dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/select_expiration_btn"
+            android:id="@+id/date_select_btn"
+            android:layout_below="@id/expiration_select_label"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="2dp"
+            android:onClick="showDatePickerDialog" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/expiration_lbl"
+            android:id="@+id/exp_result_lbl"
+            android:layout_below="@id/date_select_btn"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="2dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:id="@+id/exp_result"
+            android:layout_below="@id/date_select_btn"
+            android:layout_toRightOf="@id/exp_result_lbl"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="2dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/calculate"
+            android:id="@+id/calculate_button"
+            android:layout_below="@id/exp_result"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="45dp"
+            android:onClick="calculateResult" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/result_placeholder"
+            android:id="@+id/result"
+            android:layout_below="@id/calculate_button"
+            android:layout_marginTop="45dp"
+            android:layout_centerHorizontal="true" />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
