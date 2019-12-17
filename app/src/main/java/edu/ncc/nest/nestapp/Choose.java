@@ -83,6 +83,9 @@ public class Choose extends AppCompatActivity implements OnClickListener {
             case R.id.scanBtn:
                 launchScanner();
                 break;
+            case R.id.donateBtn:
+                launchDonate();
+                break;
             case R.id.interfaceTestBtn:
                 launchInterfaceTest();
                 break;
