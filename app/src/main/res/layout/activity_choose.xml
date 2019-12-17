@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
- *
- * Copyright (C) 2019 The LibreFoodPantry Developers.
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+*
+* Copyright (C) 2019 The LibreFoodPantry Developers.
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -32,9 +32,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@id/inventoryBtn"
+        android:layout_above="@id/scanBtn"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="84dp"
+        android:layout_marginBottom="34dp"
         android:shadowColor="#000000"
         android:shadowDx="2"
         android:shadowDy="2"
@@ -58,9 +58,9 @@
         android:layout_width="138dp"
         android:layout_height="71dp"
         android:layout_centerInParent="true"
+        android:layout_centerVertical="false"
         android:onClick="onClick"
         android:text="Schedule" />
-
 
     <Button
         android:id="@+id/guestFormBtn"
@@ -89,7 +89,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginTop="159dp"
         android:layout_marginEnd="9dp"
-        android:layout_marginBottom="27dp"
+        android:layout_marginBottom="14dp"
         android:onClick="onClick"
         android:text="Create NEST account" />
 
@@ -102,5 +102,13 @@
         android:layout_centerHorizontal="true"
         android:text="Scan" />
 
+    <Button
+        android:id="@+id/donateBtn"
+        android:onClick="onClick"
+        android:layout_width="138dp"
+        android:layout_height="71dp"
+        android:layout_below="@id/volunteerFormBtn"
+        android:layout_centerHorizontal="true"
+        android:text="Donate" />
 
 </RelativeLayout>
