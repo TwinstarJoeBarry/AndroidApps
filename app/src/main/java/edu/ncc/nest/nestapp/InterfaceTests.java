@@ -53,7 +53,8 @@ public class InterfaceTests extends AppCompatActivity implements View.OnClickLis
 
     // launches interface three
     public void launchInterfaceThree() {
-
+        Intent intent = new Intent(this, Donate.class);
+        startActivity(intent);
     }
 
     // launches interface four
