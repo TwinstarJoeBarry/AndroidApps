@@ -85,6 +85,9 @@ public class Choose extends AppCompatActivity implements OnClickListener {
             case R.id.donateBtn:
                 launchDonate();
                 break;
+            case R.id.interfaceTestBtn:
+                launchInterfaceTest();
+                break;
         }
     }
 
@@ -175,4 +178,15 @@ public class Choose extends AppCompatActivity implements OnClickListener {
         startActivity(intent);
     }
 
+    /**
+     * launchInterfaceTest - starts the UI test activity
+     */
+    public void launchInterfaceTest() {
+        Intent intent = new Intent(this, InterfaceTests.class);
+        startActivity(intent);
+    }
+
+
 }
+
+
