@@ -117,6 +117,7 @@
         <item>Text Message</item>
     </string-array>
 
+
     <!-- String for activity_item_info -->
     <string name="UPC_label">Enter the UPC manually or click the button to open the camera:</string>
     <string name="open_camera">Open Camera</string>
@@ -133,6 +134,8 @@
     <string name="expiration_lbl">Expiration:</string>
     <string name="calculate">Calculate</string>
     <string name="result_placeholder">[result will display here]</string>
+    <string name="title_activity_local_database">LocalDatabase</string>
+    <string name="title_activity_alert_dialog">alertDialog</string>
     <string name="title_activity_interface_tests">interface_tests</string>
 
     <!-- String names for donate activity -->
@@ -848,3 +851,7 @@
     <string name="submit">Submit</string>
 
 </resources>
+<<<<<<< app/src/main/res/values/strings.xml
+
+=======
+>>>>>>> app/src/main/res/values/strings.xml
