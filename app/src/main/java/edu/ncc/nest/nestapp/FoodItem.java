@@ -104,7 +104,7 @@ public class FoodItem extends AppCompatActivity {
      * @param view
      */
     public void lookUpItem(View view) {
-        EditText edit = findViewById(R.id.edit_txt);
+        EditText edit = findViewById(R.id.edit2_txt);
         foodItemTest = edit.getText().toString();
 
        List<InventoryEntry> productList = datasource.findProducts(upc); //first search LocalDatabase, if not found, then call FoodKeeperAPi
