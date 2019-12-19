@@ -48,7 +48,8 @@ public class InterfaceTests extends AppCompatActivity implements View.OnClickLis
 
     // launches interface two
     public void launchInterfaceTwo() {
-
+        Intent intent = new Intent(this, Scanner.class);
+        startActivity(intent);
     }
 
     // launches interface three
