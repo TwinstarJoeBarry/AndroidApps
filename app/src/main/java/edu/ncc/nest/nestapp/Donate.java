@@ -476,7 +476,7 @@ public class Donate extends AppCompatActivity implements View.OnClickListener, A
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         //Stores the date in the format month/dayOfMonth/year in the variable date
-        String date = " " + month + "/" + dayOfMonth + "/" + year;
+        String date = " " + (month+1) + "/" + dayOfMonth + "/" + year;
         //Updates the TextView expirationDate to display the expiration date
         theDate.setText(date);
     }
