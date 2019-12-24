@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/interfaceTwoBtn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="84dp"
+        android:text="Please select a UI design to open:"
+        android:textSize="30dp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/interfaceOneBtn"
+        android:onClick="onClick"
+        android:layout_width="138dp"
+        android:layout_height="71dp"
+        android:layout_above="@id/interfaceTwoBtn"
+        android:layout_centerHorizontal="true"
+        android:text="UI #1" />
+
+    <Button
+        android:id="@+id/interfaceTwoBtn"
+        android:layout_width="138dp"
+        android:layout_height="71dp"
+        android:layout_above="@id/interfaceThreeBtn"
+        android:layout_centerHorizontal="true"
+        android:onClick="onClick"
+        android:text="UI #2" />
+
+    <Button
+        android:id="@+id/interfaceThreeBtn"
+        android:layout_width="138dp"
+        android:layout_height="71dp"
+        android:layout_centerInParent="true"
+        android:onClick="onClick"
+        android:text="UI #3" />
+
+
+    <Button
+        android:id="@+id/interfaceFourBtn"
+        android:layout_width="138dp"
+        android:layout_height="71dp"
+        android:layout_below="@id/interfaceThreeBtn"
+        android:layout_centerHorizontal="true"
+        android:onClick="onClick"
+        android:text="UI #4" />
+</RelativeLayout>
