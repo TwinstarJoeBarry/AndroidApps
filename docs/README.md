@@ -3,7 +3,7 @@ NEST
 
 - Source code licensed under [GPLv3](https://www.gnu.org/licenses/gpl-3.0.txt)
 - Content licensed under [CC-BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
-- [Code of Conduct](https://librefoodpantry.org/#/code-of-conduct/)
+- [Code of Conduct](https://librefoodpantry.org/#/overview/code-of-conduct/)
 - [Discord server](https://discord.gg/PRth8YK)
 - [Source code and issue tracker](https://gitlab.com/LibreFoodPantry/NEST)
 - [What's New](./CHANGELOG.md)
