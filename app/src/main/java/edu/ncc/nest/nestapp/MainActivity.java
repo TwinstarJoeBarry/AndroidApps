@@ -31,7 +31,8 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * onCreate--
-     * MainActivity is initialized here
+     * MainActivity is initialized here, calls SetBeackgroundDrawableResource to set
+     * the background image veg_table
      * @param savedInstanceState
      */
     @Override
