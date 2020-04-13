@@ -29,6 +29,14 @@ import android.view.View;
 public class MainActivity extends AppCompatActivity {
     private Intent intent;
 
+    /**
+     * onCreate method --
+     * This method creates the App Bar, sets up the ContentView,
+     * and sets the BackgroundDrawableResource.
+     * @param savedInstanceState, a Bundle that contains data in
+     * the app that can be accessed to restore values of views in
+     * the app if the app is recreated
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
