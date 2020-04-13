@@ -29,6 +29,11 @@ import android.view.View;
 public class MainActivity extends AppCompatActivity {
     private Intent intent;
 
+    /**
+     * onCreate--
+     * MainActivity is initialized here
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
