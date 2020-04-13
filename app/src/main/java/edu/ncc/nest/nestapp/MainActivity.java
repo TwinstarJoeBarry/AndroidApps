@@ -29,6 +29,12 @@ import android.view.View;
 public class MainActivity extends AppCompatActivity {
     private Intent intent;
 
+    /**
+     * onCreate--
+     * MainActivity is initialized here, calls SetBeackgroundDrawableResource to set
+     * the background image veg_table
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
