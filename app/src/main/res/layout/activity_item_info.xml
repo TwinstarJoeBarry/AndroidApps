@@ -1,6 +1,24 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?><!--
+ *
+ * Copyright (C) 2019 The LibreFoodPantry Developers.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+-->
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <include
         android:id="@+id/toolbar"
@@ -12,157 +30,157 @@
         android:gravity="center">
 
         <TextView
+            android:id="@+id/label1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/UPC_label"
-            android:id="@+id/label1"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="40dp"
-            android:layout_marginLeft="10dp" />
+            android:text="@string/UPC_label" />
 
         <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/UPCentry"
-            android:ems="11"
-            android:layout_below="@id/label1"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="2dp"/>
-
-        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/label1"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="2dp"
+            android:ems="11" />
+
+        <Button
             android:id="@+id/open_camera"
-            android:text="@string/open_camera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_below="@id/label1"
-            android:layout_toRightOf="@id/UPCentry"
             android:layout_marginLeft="20dp"
+            android:layout_marginTop="2dp"
             android:layout_marginRight="10dp"
-            android:layout_marginTop="2dp"/>
+            android:layout_toRightOf="@id/UPCentry"
+            android:text="@string/open_camera" />
 
         <TextView
+            android:id="@+id/selection_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/select_cat_and_item"
-            android:id="@+id/selection_label"
             android:layout_below="@id/open_camera"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="38dp"
-            android:layout_marginLeft="10dp" />
+            android:text="@string/select_cat_and_item" />
 
         <Button
+            android:id="@+id/cat_select_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/cat_select_btn"
-            android:text="@string/select_category"
             android:layout_below="@id/selection_label"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="2dp"
-            android:onClick="showCatMenu" />
+            android:onClick="showCatMenu"
+            android:text="@string/select_category" />
 
         <Button
+            android:id="@+id/item_select_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/item_select_btn"
-            android:text="@string/select_item"
             android:layout_below="@id/selection_label"
-            android:layout_toRightOf="@id/cat_select_btn"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="2dp"
-            android:onClick="showItemMenu" />
+            android:layout_toRightOf="@id/cat_select_btn"
+            android:onClick="showItemMenu"
+            android:text="@string/select_item" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/category_lbl"
             android:id="@+id/cat_result_lbl"
-            android:layout_below="@id/item_select_btn"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="2dp" />
-
-        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""
+            android:layout_below="@id/item_select_btn"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="2dp"
+            android:text="@string/category_lbl" />
+
+        <TextView
             android:id="@+id/cat_result"
-            android:layout_below="@id/item_select_btn"
-            android:layout_toRightOf="@id/cat_result_lbl"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="2dp" />
-
-        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/item_lbl"
+            android:layout_below="@id/item_select_btn"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="2dp"
+            android:layout_toRightOf="@id/cat_result_lbl"
+            android:text="" />
+
+        <TextView
             android:id="@+id/item_result_lbl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_below="@id/cat_result"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="2dp" />
+            android:layout_marginTop="2dp"
+            android:text="@string/item_lbl" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
             android:id="@+id/item_result"
-            android:layout_below="@id/cat_result"
-            android:layout_toRightOf="@id/item_result_lbl"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="2dp" />
-
-        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/select_expiration"
+            android:layout_below="@id/cat_result"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="2dp"
+            android:layout_toRightOf="@id/item_result_lbl"
+            android:text="" />
+
+        <TextView
             android:id="@+id/expiration_select_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_below="@id/item_result"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="38dp"
-            android:layout_marginLeft="10dp" />
+            android:text="@string/select_expiration" />
 
         <Button
+            android:id="@+id/date_select_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/select_expiration_btn"
-            android:id="@+id/date_select_btn"
             android:layout_below="@id/expiration_select_label"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="2dp"
-            android:onClick="showDatePickerDialog" />
+            android:onClick="showDatePickerDialog"
+            android:text="@string/select_expiration_btn" />
 
         <TextView
+            android:id="@+id/exp_result_lbl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/expiration_lbl"
-            android:id="@+id/exp_result_lbl"
             android:layout_below="@id/date_select_btn"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="2dp" />
+            android:layout_marginTop="2dp"
+            android:text="@string/expiration_lbl" />
 
         <TextView
+            android:id="@+id/exp_result"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""
-            android:id="@+id/exp_result"
             android:layout_below="@id/date_select_btn"
-            android:layout_toRightOf="@id/exp_result_lbl"
             android:layout_marginLeft="15dp"
-            android:layout_marginTop="2dp" />
+            android:layout_marginTop="2dp"
+            android:layout_toRightOf="@id/exp_result_lbl"
+            android:text="" />
 
         <Button
+            android:id="@+id/calculate_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/calculate"
-            android:id="@+id/calculate_button"
             android:layout_below="@id/exp_result"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="45dp"
-            android:onClick="calculateResult" />
+            android:onClick="calculateResult"
+            android:text="@string/calculate" />
 
         <TextView
+            android:id="@+id/result"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/result_placeholder"
-            android:id="@+id/result"
             android:layout_below="@id/calculate_button"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="45dp"
-            android:layout_centerHorizontal="true" />
+            android:text="@string/result_placeholder" />
 
     </RelativeLayout>
 
