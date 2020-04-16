@@ -38,6 +38,10 @@ public class Donate extends AppCompatActivity implements View.OnClickListener, A
     private TextView theDate;
     private Button btnForCalender;
 
+	/**
+	 * onCreate method 
+	 * sets up a Spinner that contains all the FoodKeeper categories
+	 */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
