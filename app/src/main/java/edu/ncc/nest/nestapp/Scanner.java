@@ -286,7 +286,10 @@ public class Scanner extends AppCompatActivity implements ZXingScannerView.Resul
 
         private ZXingScannerView scannerView;
         private TextView txtResult;
-
+		/**
+		 * Name: onCreate Method
+		 * displays initial scanner layout. request permission to use the camera.
+		 */		
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
