@@ -46,6 +46,12 @@ public class VolunteerForm extends AppCompatActivity implements View.OnClickList
             "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
                     + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 
+    /**
+     * Retrieves references to fields within user interface
+     * also sets up a listener for the submit button
+     *
+     * @param savedInstanceState
+     */
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
