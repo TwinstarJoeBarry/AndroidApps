@@ -16,7 +16,6 @@ package edu.ncc.nest.nestapp;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
