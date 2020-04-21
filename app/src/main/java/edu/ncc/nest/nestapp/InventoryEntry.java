@@ -71,7 +71,7 @@ public class InventoryEntry {
         this.itemId = Long.toString(foodKeeperID);
         this.itemName = foodKeeperData.getString("name");
         this.pantryLife = pantryLifeData.get("min") == null ? null : Integer.toString(pantryLifeData.getInt("min")) + "-" + Integer.toString(pantryLifeData.getInt("max")) + " " + pantryLifeData.getString("metric");
-        this.barcodeNum = null; // TODO: the FoodPantry API doesn't have a way to get the barcode.
+        this.barcodeNum = null; // TODO: the FoodKeeper API doesn't have a way to get the barcode.
     }
 
     public InventoryEntry(long id, String itemId, String itemName, String pantryLife, String upc)
