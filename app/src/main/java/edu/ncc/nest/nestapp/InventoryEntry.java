@@ -40,11 +40,11 @@ public class InventoryEntry {
      * @throws IOException if the connection fails
      * @throws JSONException if the FoodKeeper API sends back malformed JSON
      */
-    public InventoryEntry(int foodKeeperID) throws IOException, JSONException
+    public InventoryEntry(long foodKeeperID) throws IOException, JSONException
     {
         URL foodKeeperURL = null;
         try {
-            foodKeeperURL = new URL("https://foodkeeper-api.herokuapp.com/products/" + Integer.toString(foodKeeperID));
+            foodKeeperURL = new URL("https://foodkeeper-api.herokuapp.com/products/" + Long.toString(foodKeeperID));
         }catch(MalformedURLException ex) {}
         URLConnection foodKeeperConnection = foodKeeperURL.openConnection();
         foodKeeperConnection.connect();
@@ -64,7 +64,7 @@ public class InventoryEntry {
         JSONObject pantryLifeData = foodKeeperData.getJSONObject("pantryLife");
 
         this.id = foodKeeperID;
-        this.itemId = Integer.toString(foodKeeperID);
+        this.itemId = Long.toString(foodKeeperID);
         this.itemName = foodKeeperData.getString("name");
         this.pantryLife = pantryLifeData.get("min") == null ? null : Integer.toString(pantryLifeData.getInt("min")) + "-" + Integer.toString(pantryLifeData.getInt("max")) + " " + pantryLifeData.getString("metric");
         this.barcodeNum = null; // TODO: the FoodPantry API doesn't have a way to get the barcode.
