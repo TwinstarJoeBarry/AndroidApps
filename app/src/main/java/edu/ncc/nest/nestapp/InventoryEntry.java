@@ -67,7 +67,7 @@ public class InventoryEntry {
         this.id = foodKeeperID;
         this.itemId = Integer.toString(foodKeeperID);
         this.itemName = foodKeeperData.getString("name");
-        this.pantryLife = pantryLifeData.get("min") == null ? null : Integer.toString(pantryLifeData.getInt("min")) + " " + pantryLifeData.getString("metric");
+        this.pantryLife = pantryLifeData.get("min") == null ? null : Integer.toString(pantryLifeData.getInt("min")) + "-" + Integer.toString(pantryLifeData.getInt("max")) + " " + pantryLifeData.getString("metric");
         this.barcodeNum = null; // TODO: the FoodPantry API doesn't have a way to get the barcode.
     }
 
