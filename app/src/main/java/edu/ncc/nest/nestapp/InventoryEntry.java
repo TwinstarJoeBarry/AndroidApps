@@ -39,6 +39,7 @@ public class InventoryEntry {
      * @param foodKeeperID the id number of the food item in the FoodKeeper API
      * @throws IOException if the connection fails
      * @throws JSONException if the FoodKeeper API sends back malformed JSON
+     * @throws IllegalArgumentException if <code>foodKeeperID</code> is not positive
      */
     public InventoryEntry(long foodKeeperID) throws IOException, JSONException
     {
