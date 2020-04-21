@@ -98,7 +98,7 @@ public class InventoryEntry {
 
     public boolean equals(Object otherDept)
     {
-        return this.id == ((InventoryEntry)otherDept).id;
+        return otherDept != null && otherDept instanceof InventoryEntry && this.id == ((InventoryEntry)otherDept).id;
     }
 
     // Will be used by the ArrayAdapter in the ListView
