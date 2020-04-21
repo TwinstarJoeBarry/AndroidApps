@@ -42,6 +42,9 @@ public class InventoryEntry {
      */
     public InventoryEntry(long foodKeeperID) throws IOException, JSONException
     {
+        if(foodKeeperID <= 0) {
+            throw new IllegalArgumentException("foodKeeperID cannot be zero or negative");
+        }
         URL foodKeeperURL = null;
         try {
             foodKeeperURL = new URL("https://foodkeeper-api.herokuapp.com/products/" + Long.toString(foodKeeperID));
