@@ -19,15 +19,22 @@ package edu.ncc.nest.nestapp;
 
 import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.AsyncTask;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
+
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
+
+
 public class MainActivity extends AppCompatActivity {
     private Intent intent;
+    private static final String TAG = "testing";
 
     /**
      * onCreate--
@@ -44,6 +51,9 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         this.getWindow().setBackgroundDrawableResource(R.drawable.veg_table);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
     }
 
     //implements the menu options for the toolbar
@@ -93,4 +103,6 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, Choose.class);
         startActivity(intent);
     }
+
+
 }
