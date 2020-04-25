@@ -21,6 +21,24 @@
     <string name="sign_up_str">Sign up</string>
     <string name="title_activity_forgot_password">ForgotPassword</string>
 
+    <!-- String names for activity_inventory activity -->
+    <string name="textview">NEST Inventory</string>
+    <string name="textview2">Most Popular</string>
+    <string name="textview3">Baby Food</string>
+    <string name="textview4">Baked Goods</string>
+    <string name="textview5">Beverages</string>
+    <string name="textview6">Condiments, Sauces, and Canned Goods</string>
+    <string name="textview7">Dairy Products, and Eggs</string>
+    <string name="textview8">Deli and Prepared Foods</string>
+    <string name="textview9">Food Purchased Frozen</string>
+    <string name="textview10">Grains, Beans, and Pasta</string>
+    <string name="textview11">Meat</string>
+    <string name="textview12">Poultry</string>
+    <string name="textview13">Produce</string>
+    <string name="textview14">Seafood</string>
+    <string name="textview15">Shelf Stable Foods</string>
+    <string name="textview16">Vegetarian Proteins</string>
+
     <!-- String names for activity_forgot_password activity -->
     <string name="forgot_pass">Enter your email address</string>
     <string name="reset">Send me the link!</string>
@@ -47,7 +65,6 @@
     <string name="volFirstName_lbl">What is the first name of the volunteer who helped you today?</string>
     <string name="volLastName_lbl">What is the last name of the volunteer who helped you today?</string>
     <string name="submitBtn_lbl">Submit</string>
-    <string name="textview">Inventory Layout Placeholder</string>
     <string name="contact_method">Preffered method of contact:</string>
     <string name="push_notif">Would you like to receive Push Notifications?</string>
     <string name="yes_to_push">Yes, I would like to receive push notifications.</string>
