@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FinalDate">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
+
+    <TextView
+        android:id="@+id/finalDate_lbl"
+        android:layout_width="110sp"
+        android:layout_height="wrap_content"
+        android:text="@string/final_date"
+        android:layout_below="@id/toolbar"/>
+
+
+    <TextView
+        android:id="@+id/finalDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar"
+        android:layout_toRightOf="@id/finalDate_lbl" />
+
+
+    <TextView
+        android:id="@+id/expirationDate_lbl"
+        android:layout_width="110sp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/finalDate_lbl"
+        android:text="@string/expirationDate"/>
+
+
+
+    <TextView
+        android:id="@+id/expDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/finalDate_lbl"
+        android:layout_toRightOf="@id/expirationDate_lbl"
+        />
+
+    <TextView
+        android:id="@+id/metric_lbl"
+        android:layout_width="110sp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/expirationDate_lbl"
+        android:text="@string/metric"/>
+
+    <TextView
+        android:id="@+id/metric"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/expirationDate_lbl"
+        android:layout_toRightOf="@id/metric_lbl"
+        />
+
+    <TextView
+        android:id="@+id/maxdop_pantryL_lbl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/metric_lbl"
+        android:text="@string/MaxDoppantryLife"/>
+
+    <TextView
+        android:id="@+id/maxDopPantryL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/metric_lbl"
+        android:layout_toRightOf="@id/maxdop_pantryL_lbl"
+        />
+
+</RelativeLayout>
