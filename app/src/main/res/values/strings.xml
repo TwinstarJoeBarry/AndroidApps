@@ -59,6 +59,12 @@
     <string name="wednesday">Wednesday</string>
     <string name="thursday">Thursday</string>
     <string name="friday">Friday</string>
+    <string name="api">Api</string>
+    <string name="final_date">Final Date:</string>
+    <string name="FinalDate">Final Date</string>
+    <string name="expirationDate">Expiration Date:</string>
+    <string name="metric">Metric:</string>
+    <string name="MaxDoppantryLife">Max dop_pantryLife:</string>
     <string-array name="states_array">
         <item>Alabama</item>
         <item>Alaska</item>

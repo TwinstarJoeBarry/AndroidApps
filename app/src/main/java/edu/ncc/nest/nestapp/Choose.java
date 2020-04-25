@@ -99,6 +99,9 @@ public class Choose extends AppCompatActivity implements OnClickListener {
             case R.id.scanBtn:
                 launchScanner();
                 break;
+            case R.id.finalDBtn:
+                launchFinalDate();
+                break;
             case R.id.donateBtn:
                 launchDonate();
                 break;
@@ -275,6 +278,12 @@ public class Choose extends AppCompatActivity implements OnClickListener {
         startActivity(intent);
     }
 
+    public void launchFinalDate()
+    {
+        Intent intent = new Intent(this, FinalDate.class);
+        startActivity(intent);
+    }
+
     /**
      * launchInterfaceTest - starts the UI test activity
      */
@@ -282,7 +291,6 @@ public class Choose extends AppCompatActivity implements OnClickListener {
         Intent intent = new Intent(this, InterfaceTests.class);
         startActivity(intent);
     }
-
 
 }
 

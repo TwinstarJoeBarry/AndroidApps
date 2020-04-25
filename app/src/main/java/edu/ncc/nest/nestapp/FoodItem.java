@@ -48,6 +48,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+
+
 public class FoodItem extends AppCompatActivity {
 
     private static final String TAG = "TESTING";
@@ -56,6 +58,8 @@ public class FoodItem extends AppCompatActivity {
 
     public TextView itemName;
     public TextView barcodeNum;
+    public TextView finalDate;
+    private static final String TAG = "TESTING";
     public TextView pantryLife;
 
     private AlertDialog.Builder message;
@@ -71,6 +75,14 @@ public class FoodItem extends AppCompatActivity {
         pantryLife = findViewById(R.id.textView_finalDate);
 
         Intent intent = getIntent();
+        String str = intent.getStringExtra("barcode");
+        String var="";
+
+        var = barcodeNum.getText().toString();
+        barcodeNum.setText(var+str);
+
+        }
+
         upc = intent.getStringExtra("barcode");
         String var = "";
         var = barcodeNum.getText().toString();
@@ -356,5 +368,3 @@ public class FoodItem extends AppCompatActivity {
     }
 
 }
-
-
