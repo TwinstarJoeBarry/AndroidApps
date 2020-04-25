@@ -1,0 +1,666 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".UIFoods.ShelfFoods">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/toolbar"
+            android:layout_centerHorizontal="true"
+            android:text="Shelf Stable Foods"
+            android:textSize="21.5sp" />
+
+        <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textView2"
+            android:layout_centerHorizontal="true">
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/btn1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Genuine Maple syrup unopened, glass" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Genuine Maple syrup unopened, plastic" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Almond butter" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Almond Oil" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Almonds no shell" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Almonds shell" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Applesauce commercial" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bacon bits imitation" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Black pepper cracked, dried, commercially bottled or purchased in bulk" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Black pepper ground, dried, commercially bottled or purchased in bulk" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cajun seasoning blend ground, dried, commercially bottled or purchased in bulk" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Canned goods high acid(such as juices, fruit, pickles, sauerkraut, tomato soup, and foods in vinegar-based sauce" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Canned goods low acid(such as meat, poultry, fish, gravy, stew, soups, beans, carrots, corn, pasta, peas, potatoes, spinach" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Canola oil" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cashew butter" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn17"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cashews no shell" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn18"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cereal cook before eating(oatmeal, etc.)" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn19"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cereal ready-to-eat" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn20"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Chia seeds" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn21"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Chocolate syrup" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn22"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cinnamon ground, dried, commercially bottled or purchased in bulk" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn23"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Coconut oil" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Crackers" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn25"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cumin ground, dried, commercially bottled or purchased in bulk, opened or unopened" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn26"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Dry stuffing mix commercially packaged" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn27"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Flaxseed ground" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn28"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Flaxseed whole seed" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn29"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Fruit cocktail canned" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn30"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Fruits, dried raisins, apricots, mangoes, cranberries, etc." />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn31"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Garlic powder dried, commercially bottled or purchased in bulk" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn32"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Graham cracker/animal cracker" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn33"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Granola" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn34"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Grapeseed oil" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn35"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Gummy(fruit) snacks" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn36"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Macadamias no shell" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn37"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Marshmallow crème" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn38"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Marshmallows" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn39"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Milk canned evaporated or condensed" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn40"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Molasses" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn41"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mushrooms dried" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn42"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nutmeg ground, dried, commercially bottled or purchased in bulk" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn43"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nuts, jars, or cans" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn44"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Onion powder dried, commercially bottled or purchased in bulk" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn45"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Peanut butter commercial" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn46"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Peanut butter commercially produced, containing hydrogenated fat or other stabilizers" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn47"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Peanut butter natural" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn48"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Peanuts no shell" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn49"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Peanuts shell" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn50"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pecans no shell" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn51"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pecans shell" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn52"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pectin" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn53"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pistachios shell or no shell" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn54"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Popcorn commercially popped in bags" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn55"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Popcorn dry kernels in jar" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn56"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Popcorn microwave packets" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn57"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pork rinds" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn58"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Potato chips" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn59"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Potatoes instant" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn60"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pretzels" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn61"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pudding mixes" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn62"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Roasted red peppers jar" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn63"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Salt table, plain, or iodized" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn64"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Soup mixes dry bouillon" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn65"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sun dried tomatoes" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn66"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sunflower oil" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn67"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Syrup" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn68"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tapenade" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn69"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Toaster pastries" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn70"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tomato paste" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn71"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Walnuts shell or no shell" />
+            </TableRow>
+        </TableLayout>
+    </RelativeLayout>
+</ScrollView>

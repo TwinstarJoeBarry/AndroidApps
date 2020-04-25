@@ -16,6 +16,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ItemInformation"></activity>
+        <activity android:name=".FoodItem"></activity>
         <activity android:name=".FinalDate"></activity>
         <activity
             android:name=".LocalDatabase"
@@ -30,7 +32,23 @@
         <activity android:name=".Inventory" />
         <activity android:name=".Schedule" />
         <activity android:name=".VolunteerForm" />
-        <activity android:name=".availability" />
+
+        <activity android:name=".UIFoods.BabyFood" />
+        <activity android:name=".UIFoods.BakedGoods" />
+        <activity android:name=".UIFoods.Beverages" />
+        <activity android:name=".UIFoods.Condiments" />
+        <activity android:name=".UIFoods.Dairy" />
+        <activity android:name=".UIFoods.Deli" />
+        <activity android:name=".UIFoods.FrozenFood" />
+        <activity android:name=".UIFoods.Grains" />
+        <activity android:name=".UIFoods.Meat" />
+        <activity android:name=".UIFoods.Poultry" />
+        <activity android:name=".UIFoods.Produce" />
+        <activity android:name=".UIFoods.Seafood" />
+        <activity android:name=".UIFoods.ShelfFoods" />
+        <activity android:name=".UIFoods.VegProteins" />
+
+
         <activity
             android:name=".SignUp"
             android:label="@string/title_activity_sign_up" />
@@ -51,5 +69,4 @@
             </intent-filter>
         </service>
     </application>
-
 </manifest>
