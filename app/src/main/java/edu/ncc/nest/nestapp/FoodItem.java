@@ -19,7 +19,15 @@ package edu.ncc.nest.nestapp;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
+import androidx.fragment.app.DialogFragment;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.content.Intent;
+import android.icu.util.Calendar;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.nfc.Tag;
@@ -50,7 +58,17 @@ import java.util.List;
 
 
 
-public class FoodItem extends AppCompatActivity {
+import java.text.DateFormat;
+
+public class FoodItem extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
+
+
+    /**
+     *
+     *
+     *
+     */
+
 
     private static final String TAG = "TESTING";
     public String upc;              //reference variable for the barcode number
@@ -80,9 +98,6 @@ public class FoodItem extends AppCompatActivity {
 
         var = barcodeNum.getText().toString();
         barcodeNum.setText(var+str);
-
-        }
-
         upc = intent.getStringExtra("barcode");
         String var = "";
         var = barcodeNum.getText().toString();
@@ -105,6 +120,55 @@ public class FoodItem extends AppCompatActivity {
                     +itemList.get(0).getItemName()).show();
 
         }
+        
+        // created merge conflict - not sure about where this should be 
+        Button dateButton = (Button) findViewById(R.id.expiration_date_entry);
+        dateButton.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v){
+
+                //create DatePicker
+                DialogFragment datePicker = new DatePickerFragment();
+                //show the DatePicker
+                datePicker.show(getSupportFragmentManager(), "date picker");
+
+            }
+
+        });
+    }
+    
+    /**
+     * A method that is called when the Ok button on the Calendar is clicked,
+     * formatting the selected date into a string that is stored in an intent
+     * and sent to the FinalDate activity for calculation
+     *
+     * @param view
+     * @param year
+     * @param month
+     * @param dayOfMonth
+     */
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth){
+
+        Calendar c = Calendar.getInstance(); //get the current calendar instance
+
+        c.set(Calendar.YEAR, year); //store the Calendar's year in the year variable
+        c.set(Calendar.MONTH, month); //store the Calendar's month in the month variable
+        c.set(Calendar.DAY_OF_MONTH, dayOfMonth); //store the Calendar's day of the month in dayOfMonth
+
+        //Format the date into a string
+        String currentDateString = DateFormat.getDateInstance(DateFormat.SHORT).format(c.getTime());
+
+
+        Intent intent = new Intent(this, FinalDate.class);
+
+        //put the selected date in the intent
+        intent.putExtra("SELECTED_DATE", currentDateString);
+
+        //start the new activity with the formatted date from calendar
+        startActivity(intent);
+
     }
 
     /**
@@ -366,5 +430,6 @@ public class FoodItem extends AppCompatActivity {
 
         }
     }
+>>>>>>> app/src/main/java/edu/ncc/nest/nestapp/FoodItem.java
 
 }
