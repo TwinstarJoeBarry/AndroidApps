@@ -77,7 +77,6 @@ public class FoodItem extends AppCompatActivity implements DatePickerDialog.OnDa
     public TextView itemName;
     public TextView barcodeNum;
     public TextView finalDate;
-    private static final String TAG = "TESTING";
     public TextView pantryLife;
 
     private AlertDialog.Builder message;
@@ -94,14 +93,11 @@ public class FoodItem extends AppCompatActivity implements DatePickerDialog.OnDa
 
         Intent intent = getIntent();
         String str = intent.getStringExtra("barcode");
-        String var="";
+        String var = "";
 
         var = barcodeNum.getText().toString();
         barcodeNum.setText(var+str);
         upc = intent.getStringExtra("barcode");
-        String var = "";
-        var = barcodeNum.getText().toString();
-        barcodeNum.setText(var + upc);
 
         datasource = new InventoryInfoSource(this);
         datasource.open();
@@ -430,6 +426,4 @@ public class FoodItem extends AppCompatActivity implements DatePickerDialog.OnDa
 
         }
     }
->>>>>>> app/src/main/java/edu/ncc/nest/nestapp/FoodItem.java
-
 }
