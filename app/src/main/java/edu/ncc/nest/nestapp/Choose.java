@@ -45,11 +45,11 @@ import java.net.URL;
 
 public class Choose extends AppCompatActivity implements OnClickListener {
     private static final String TAG = "testing";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose);
-
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -81,6 +81,9 @@ public class Choose extends AppCompatActivity implements OnClickListener {
      */
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.addToInventoryBtn:
+                launchAddToInventory();
+                break;
             case R.id.inventoryBtn:
                 launchInventory();
                 break;
@@ -189,6 +192,7 @@ public class Choose extends AppCompatActivity implements OnClickListener {
         Intent intent = new Intent(this, VolunteerForm.class);
         startActivity(intent);
     }
+
     private class GetLocations extends AsyncTask<Void, Void, Void> {
         String result = "";
         @Override
@@ -292,6 +296,14 @@ public class Choose extends AppCompatActivity implements OnClickListener {
         startActivity(intent);
     }
 
+    /**
+     * launchVolForm - starts the Volunteer activity
+     */
+    public void launchAddToInventory()
+    {
+        Intent intent = new Intent(this, addToInventory.class);
+        startActivity(intent);
+    }
 }
 
 

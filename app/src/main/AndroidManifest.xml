@@ -16,18 +16,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ItemInformation"></activity>
-        <activity android:name=".FoodItem"></activity>
-        <activity android:name=".FinalDate"></activity>
+
+        <activity android:name=".ItemInformation" />
+        <activity android:name=".FoodItem" />
+        <activity android:name=".FinalDate" />
         <activity
             android:name=".LocalDatabase"
             android:label="@string/title_activity_local_database"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".Donate"></activity>
-        <activity android:name=".ItemInformation" />
-        <activity android:name=".FoodItem" />
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Donate" />
         <activity android:name=".Scanner" />
         <activity android:name=".InterfaceTests" />
+        <activity
+            android:name=".addToInventory"
+            android:label="@string/title_activity_add_to_inventory"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".GuestForm" />
         <activity android:name=".Inventory" />
         <activity android:name=".Schedule" />
@@ -48,7 +51,6 @@
         <activity android:name=".UIFoods.ShelfFoods" />
         <activity android:name=".UIFoods.VegProteins" />
 
-
         <activity
             android:name=".SignUp"
             android:label="@string/title_activity_sign_up" />
@@ -61,6 +63,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".MainActivity" />
 
         <service android:name="services.MyFirebaseMessagingService">

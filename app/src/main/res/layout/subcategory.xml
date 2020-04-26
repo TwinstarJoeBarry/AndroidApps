@@ -17,8 +17,7 @@
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/listview"
+        android:id="@+id/subview"
         ></ListView>
->>>>>>> Sixtoi2000/NEST-issue_18_create_UI
 
 </LinearLayout>
