@@ -119,6 +119,7 @@
         android:text="@string/FinalDate"
         />
 
+    <Button
         android:id="@+id/interfaceTestBtn"
         android:onClick="onClick"
         android:layout_width="wrap_content"
