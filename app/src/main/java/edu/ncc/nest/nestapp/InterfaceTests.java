@@ -60,6 +60,7 @@ public class InterfaceTests extends AppCompatActivity implements View.OnClickLis
 
     // launches interface four
     public void launchInterfaceFour() {
-
+        Intent intent = new Intent(this, UPCLookup.class);
+        startActivity(intent);
     }
 }
