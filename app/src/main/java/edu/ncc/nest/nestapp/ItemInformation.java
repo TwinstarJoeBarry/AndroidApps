@@ -19,7 +19,9 @@ package edu.ncc.nest.nestapp;
 
 // still need to implement camera, API call for category, connecting to scanner layout
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -37,8 +39,19 @@ import android.widget.TextView;
 import android.app.DatePickerDialog;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
+
+import javax.net.ssl.HttpsURLConnection;
 
 
 public class ItemInformation extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener, DatePickerDialog.OnDateSetListener {
@@ -74,11 +87,7 @@ public class ItemInformation extends AppCompatActivity implements PopupMenu.OnMe
         categories = new ArrayList<String>();
         items = new ArrayList<String>();
 
-        //for now, manual loading of example categories
-        categories.add("Bakery");
-        categories.add("Dairy");
-        categories.add("Beverages");
-        categories.add("Fruit");
+        new GetCategories().execute();
 
     }
 
@@ -273,4 +282,91 @@ public class ItemInformation extends AppCompatActivity implements PopupMenu.OnMe
             resultDisplay.setText("Calculated result for " + itemDisplay.getText() + ", expiring " +
                     expirationMonth + "/" + expirationDay + "/" + expirationYear + " will go here.");
     }
+
+
+
+
+
+
+
+
+
+
+    /**
+     * inner class that will access the rest API and process the JSON returned
+     */
+    private static class GetCategories extends AsyncTask<Void, Void, Void> {
+        private static final String TAG = GetCategories.class.getSimpleName();
+
+        private String result = "";
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            Log.d(TAG, "on pre execute");
+        }
+
+        @Override
+        protected Void doInBackground(Void... arg0) {
+            HttpURLConnection urlConnection;
+            BufferedReader reader;
+
+            try {
+                // set the URL for the API call
+                String apiCall = "https://foodkeeper-api.herokuapp.com/categories";
+                Log.d(TAG, "apiCall = " + apiCall);
+                URL url = new URL(apiCall);
+                // connect to the site to read information
+                urlConnection = (HttpsURLConnection) url.openConnection();
+                urlConnection.setRequestMethod("GET");
+                urlConnection.connect();
+
+                // store the data retrieved by the request
+                InputStream inputStream = urlConnection.getInputStream();
+                // no data returned by the request, so terminate the method
+                if (inputStream == null) {
+                    // Nothing to do.
+                    return null;
+                }
+
+                // connect a BufferedReader to the input stream at URL
+                reader = new BufferedReader(new InputStreamReader(inputStream));
+                // store the data in a string and display in the Logcat window
+                result = reader.readLine();
+                Log.d(TAG, "returned string: " + result);
+
+            } catch (Exception e) {
+                Log.d(TAG, "EXCEPTION in HttpAsyncTask: " + e.getMessage());
+            }
+
+            return null;
+        }
+
+        @SuppressLint("DefaultLocale")
+        @Override
+        protected void onPostExecute(Void r) {
+            super.onPostExecute(r);
+
+            if (result != null) {
+                Log.d(TAG, "about to start the JSON parsing" + result);
+                try {
+                    // code to parse the JSON objects here (retrieve city name, latitude and longitude)
+                    JSONArray jsonArray = new JSONArray(result);
+                    int size = jsonArray.length();
+                    Log.d(TAG, size + " category entries received.");
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            } else {
+                Log.d(TAG, "Couldn't get any data from the url");
+            }
+
+        }
+    }
+
+
+
+
 }
