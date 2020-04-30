@@ -934,4 +934,6 @@
     <string name="expiration_date">Expiration Date: </string>
     <string name="submit">Submit</string>
     <string name="title_activity_add_to_inventory">Add To Inventory</string>
+    <string name="upcTitleText">UPC Lookup Tool</string>
+    <string name="upcSearchBtn">Search</string>
 </resources>
