@@ -1,5 +1,6 @@
 package edu.ncc.nest.nestapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.AsyncTask;
@@ -41,9 +42,34 @@ public class UPCLookup extends AppCompatActivity {
         upcInput = findViewById(R.id.upcEditText);
         fdcidText = findViewById(R.id.fdcidText);
         usdaText = findViewById(R.id.usdaText);
+    }
 
-        Toast.makeText(getApplicationContext(), "Creating UPC Lookup Table", Toast.LENGTH_SHORT).show();
+    @Override
+    protected void onSaveInstanceState(Bundle outstate) {
 
+        outstate.putSerializable("upcMap", upcMap);
+        outstate.putString("upc", upc);
+        outstate.putString("fdcid", fdcid);
+        outstate.putString("upcInput", upcInput.getText().toString());
+        outstate.putString("fdcidText", fdcidText.getText().toString());
+        outstate.putString("usdaText", usdaText.getText().toString());
+        super.onSaveInstanceState(outstate);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        upcMap = (HashMap) savedInstanceState.getSerializable("upcMap");
+        upc = savedInstanceState.getString("upc");
+        fdcid = savedInstanceState.getString("fdcid");
+        upcInput.setText(savedInstanceState.getString("upcInput"));
+        fdcidText.setText(savedInstanceState.getString("fdcidText"));
+        usdaText.setText(savedInstanceState.getString("usdaText"));
+    }
+
+    public void createLookupTable() {
+        fdcidText.setText("Generating Lookup Table...");
         // Parse .csv to create hashmap of UPC and FDCID
         upcMap = new HashMap<String, String>();
         try {
@@ -63,17 +89,18 @@ public class UPCLookup extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-//        Log.d("INFO", "There are " + Integer.toString(this.upcMap.size()) + " objects in the HashMap.");
     }
 
     public void search(View v) {
+
         fdcid = "";
         upc = upcInput.getText().toString();
         upcArray = upc.toCharArray();
 
         // UPC must be 12 digits in length
         if (upcArray.length != 12) {
-            Toast.makeText(getApplicationContext(), "Bad UPC", Toast.LENGTH_SHORT).show();
+            fdcidText.setText("Bad UPC");
+            usdaText.setText("");
             return;
         }
 
@@ -83,6 +110,8 @@ public class UPCLookup extends AppCompatActivity {
             sb.append(upcArray[i]);
         }
         upc = sb.toString();
+        if (upcMap == null)
+            createLookupTable();
         fdcid = upcMap.get(upc);
 
         if (fdcid == null) {
@@ -91,7 +120,7 @@ public class UPCLookup extends AppCompatActivity {
             return;
         }
         fdcidText.setText("Match found\nFDCID: " + fdcid);
-
+        usdaText.setText("Retrieving JSON...");
         new getJSON().execute();
     }
 
@@ -114,7 +143,7 @@ public class UPCLookup extends AppCompatActivity {
                 InputStream httpInputStream = httpConnection.getInputStream();
 
                 if (httpInputStream == null) {
-                    Toast.makeText(getApplicationContext(), "No response from USDA API", Toast.LENGTH_SHORT).show();
+                    usdaText.setText("No response from USDA API");
                     return null;
                 }
                 // store the data into a BufferedReader so it can be stored into a string
@@ -130,7 +159,6 @@ public class UPCLookup extends AppCompatActivity {
 
             } catch (Exception e) {
                 e.printStackTrace();
-                Log.i("HttpAsyncTask", "EXCEPTION: " + e.getMessage());
             }
             return null;
         }
@@ -140,7 +168,7 @@ public class UPCLookup extends AppCompatActivity {
             super.onPostExecute(aVoid);
 
             if (result == null) {
-                Toast.makeText(getApplicationContext(), "Bad response from USDA API", Toast.LENGTH_SHORT).show();
+                usdaText.setText("NULL response from USDA API");
                 return;
             }
             try {
