@@ -21,12 +21,24 @@
         android:id="@+id/upcEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         android:ems="10"
         android:hint="Enter UPC"
         android:inputType="number"
-        app:layout_constraintEnd_toStartOf="@+id/searchBtn"
+        app:layout_constraintEnd_toStartOf="@+id/ScanBtn"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleText" />
+
+    <Button
+        android:id="@+id/ScanBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="scan"
+        android:text="@string/upcScanBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/upcEditText"
         app:layout_constraintTop_toBottomOf="@+id/titleText" />
 
     <Button
@@ -35,10 +47,10 @@
         android:layout_height="wrap_content"
         android:onClick="search"
         android:text="@string/upcSearchBtn"
-        app:layout_constraintBaseline_toBaselineOf="@+id/upcEditText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/upcEditText" />
+        app:layout_constraintStart_toEndOf="@+id/upcEditText"
+        app:layout_constraintTop_toBottomOf="@+id/ScanBtn" />
 
     <TextView
         android:id="@+id/fdcidText"
@@ -48,7 +60,7 @@
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/upcEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/searchBtn" />
 
     <TextView
         android:id="@+id/usdaText"

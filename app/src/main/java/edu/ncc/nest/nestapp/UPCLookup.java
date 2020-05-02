@@ -3,6 +3,7 @@ package edu.ncc.nest.nestapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,6 +32,7 @@ public class UPCLookup extends AppCompatActivity {
     private String fdcid;
     private EditText upcInput;
     private TextView fdcidText, usdaText;
+    private Intent intent;
     private final String API_KEY = "DJ7sr2PMzfeIJCdvwYaPhHYTD2uQ3IKU0O9RrQu0"; // THE MAINTAINERS OF THIS PROJECT SHOULD GENERATE
     // AN API KEY FOR THIS PROJECT, THIS IS A STUDENTS API KEY.
 
@@ -42,6 +44,12 @@ public class UPCLookup extends AppCompatActivity {
         upcInput = findViewById(R.id.upcEditText);
         fdcidText = findViewById(R.id.fdcidText);
         usdaText = findViewById(R.id.usdaText);
+
+        intent = getIntent();
+        if (intent.getStringExtra("barcode") != null) {
+            upcInput.setText(intent.getStringExtra("barcode"));
+            search(null);
+        }
     }
 
     @Override
@@ -80,7 +88,7 @@ public class UPCLookup extends AppCompatActivity {
             String line;
             while ((line = csvBuffReader.readLine()) != null) {
                 String[] splitLine = line.split(",");
-                this.upcMap.put(splitLine[1], splitLine[0]);
+                upcMap.put(splitLine[1], splitLine[0]);
             }
             csvBuffReader.close();
             csvStreamReader.close();
@@ -89,6 +97,11 @@ public class UPCLookup extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void scan(View v) {
+        Intent upcScanner = new Intent(this, UPCScanner.class);
+        startActivity(upcScanner);
     }
 
     public void search(View v) {
