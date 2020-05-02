@@ -138,4 +138,13 @@
         android:layout_alignBaseline="@id/signUpBtn"
         android:layout_toLeftOf="@id/signUpBtn"/>
 
+    <Button
+        android:id="@+id/enterUPCBtn"
+        android:onClick="onClick"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/inventoryBtn"
+        android:layout_toRightOf="@id/scanBtn"
+        android:text="Enter UPC" />
+
 </RelativeLayout>
