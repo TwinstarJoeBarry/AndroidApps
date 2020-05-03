@@ -24,20 +24,36 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 public class EnterUPC extends AppCompatActivity {
 
     @Override
     /**
      * onCreate method -
-     * loads the 'activity_enterupc layout' which has only a TextView as a placeholder for now
+     * loads the 'activity_enter_upc layout' which has only a TextView as a placeholder for now
      */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enter_upc);
 
+
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+    }
+
+    public void retrieveUPC(View view) {
+        EditText editText = findViewById(R.id.enter_UPC_editText);
+        String upc = editText.getText().toString();
+
+        Intent intent = new Intent(this, FoodItem.class);
+
+        intent.putExtra("barcode", upc);
+        startActivity(intent);
+        finish();
     }
 
     //implements the menu options for the toolbar

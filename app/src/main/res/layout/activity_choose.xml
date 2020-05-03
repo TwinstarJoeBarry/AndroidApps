@@ -143,7 +143,7 @@
         android:onClick="onClick"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@id/inventoryBtn"
+        android:layout_above="@id/addToInventoryBtn"
         android:layout_toRightOf="@id/scanBtn"
         android:text="Enter UPC" />
 
