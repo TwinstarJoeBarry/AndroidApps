@@ -27,6 +27,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class EnterUPC extends AppCompatActivity {
 
@@ -51,9 +52,14 @@ public class EnterUPC extends AppCompatActivity {
 
         Intent intent = new Intent(this, FoodItem.class);
 
-        intent.putExtra("barcode", upc);
-        startActivity(intent);
-        finish();
+        if(upc.equals("") || upc.length() < 12 || upc.length() >12){
+            Toast.makeText(getApplicationContext(),"UPC length is 12 numbers, please enter aravble number", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            intent.putExtra("barcode", upc);
+            startActivity(intent);
+            finish();
+        }
     }
 
     //implements the menu options for the toolbar
