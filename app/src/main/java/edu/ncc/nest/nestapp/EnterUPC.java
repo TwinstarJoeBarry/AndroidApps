@@ -77,6 +77,7 @@ public class EnterUPC extends AppCompatActivity {
 
     /**
      * home method - goes to the home screen
+     * This comm is for me to test the push in xxxxxxxxx
      */
     public void home() {
         Intent intent = new Intent(this, Choose.class);
