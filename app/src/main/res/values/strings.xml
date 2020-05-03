@@ -934,4 +934,10 @@
     <string name="expiration_date">Expiration Date: </string>
     <string name="submit">Submit</string>
     <string name="title_activity_add_to_inventory">Add To Inventory</string>
+
+    <!-- String names for ATIQuestionaire activity -->
+    <string name="atiqTitle">Expiration</string>
+    <string name="categorySelec">UITest4</string>
+    <string name="returnToATI">Validating</string>
+    <!-- String names for ATIQuestionaire activity -->
 </resources>
