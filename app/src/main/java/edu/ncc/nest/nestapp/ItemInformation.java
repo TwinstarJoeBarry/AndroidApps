@@ -35,6 +35,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.DatePicker;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.app.DatePickerDialog;
 import android.widget.Toast;
@@ -50,6 +53,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -58,6 +62,9 @@ public class ItemInformation extends AppCompatActivity implements PopupMenu.OnMe
 
     ArrayList<String> categories;
     ArrayList<String> items;
+    public static final String TAG_NAME = "name";
+    ArrayList<HashMap<String, String>> locationList;
+
 
     TextView catDisplay, itemDisplay, expDisplay, resultDisplay;
 
@@ -285,17 +292,11 @@ public class ItemInformation extends AppCompatActivity implements PopupMenu.OnMe
 
 
 
-
-
-
-
-
-
-
     /**
      * inner class that will access the rest API and process the JSON returned
+     *
      */
-    private static class GetCategories extends AsyncTask<Void, Void, Void> {
+    private class GetCategories extends AsyncTask<Void, Void, Void> {
         private static final String TAG = GetCategories.class.getSimpleName();
 
         private String result = "";
@@ -339,6 +340,7 @@ public class ItemInformation extends AppCompatActivity implements PopupMenu.OnMe
                 Log.d(TAG, "EXCEPTION in HttpAsyncTask: " + e.getMessage());
             }
 
+
             return null;
         }
 
@@ -350,10 +352,38 @@ public class ItemInformation extends AppCompatActivity implements PopupMenu.OnMe
             if (result != null) {
                 Log.d(TAG, "about to start the JSON parsing" + result);
                 try {
-                    // code to parse the JSON objects here (retrieve city name, latitude and longitude)
+                    Toast.makeText(getApplicationContext(),"Gathering the food categories please wait",Toast.LENGTH_SHORT).show();
                     JSONArray jsonArray = new JSONArray(result);
-                    int size = jsonArray.length();
-                    Log.d(TAG, size + " category entries received.");
+
+                    for(int i = 0; i < jsonArray.length(); i++){
+                        //pulling an object out of the array based on the index number
+                        JSONObject jsonObj = jsonArray.getJSONObject(i);
+                        //getting the name of the main name of the category
+                        String name = jsonObj.getString("name");
+
+                        //putting it into a hash map
+                        HashMap<String, String> theFood = new HashMap<>();
+                        theFood.put(TAG_NAME, name);
+                        locationList.add(theFood);
+
+                    }
+
+
+                    //creating an adapater
+                    ListAdapter adapter =  new SimpleAdapter(
+                            //getting the array list
+                            ItemInformation.this, locationList,
+                            R.layout.subcategory,
+                            new String[]{TAG_NAME},
+                            new int[]{ R.id.selectCategoryTxt}
+                );
+
+
+                    //need to find a way to pass this data into a new activity when select categories is choosen, not yet working
+                    //
+                    ListView mylist = findViewById(R.id.selectCategoryTxt);
+
+                    mylist.setAdapter(adapter);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
