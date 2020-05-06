@@ -138,10 +138,9 @@ public class UPCLookup extends AppCompatActivity {
      * @param v unused
      */
     public void search(View v) {
-        upc = upcInput.getText().toString().substring(1);
-
-        // UPC must be 12 digits in length
-        if (upc.length() != 12) {
+        upc = upcInput.getText().toString().substring(1); // get rid of an extra zero
+        
+        if (upc.length() != 11) {
             fdcidText.setText(R.string.upc_lookup_bad_upc);
             usdaText.setText("");
             fdcid = "";
