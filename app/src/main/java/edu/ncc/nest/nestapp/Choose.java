@@ -114,6 +114,9 @@ public class Choose extends AppCompatActivity implements OnClickListener {
             case R.id.enterUPCBtn:
                 launchEnterUPC();
                 break;
+            case R.id.getUPCBtn:
+                launchGetUPC();
+                break;
         }
     }
 
@@ -313,6 +316,14 @@ public class Choose extends AppCompatActivity implements OnClickListener {
      */
     public void launchEnterUPC() {
         Intent intent = new Intent(this, EnterUPC.class);
+        startActivity(intent);
+    }
+
+    /**
+     * launchGetUPC - starts the Get UPC activity
+     */
+    public void launchGetUPC() {
+        Intent intent = new Intent(this, GetUPC.class);
         startActivity(intent);
     }
 }

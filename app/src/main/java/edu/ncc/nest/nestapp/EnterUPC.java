@@ -34,7 +34,7 @@ public class EnterUPC extends AppCompatActivity {
     @Override
     /**
      * onCreate method -
-     * loads the 'activity_enter_upc layout' which has only a TextView as a placeholder for now
+     * loads the 'activity_enter_upc layout' and creates the toolbar
      */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +46,12 @@ public class EnterUPC extends AppCompatActivity {
         setSupportActionBar(toolbar);
     }
 
+    /**
+     * retrieveUPC method -
+     * Gets the UPC from the EditText object the user entered the UPC into
+     * and starts the FoodItem activity with the entered UPC
+     * @param view
+     */
     public void retrieveUPC(View view) {
         EditText editText = findViewById(R.id.enter_UPC_editText);
         String upc = editText.getText().toString();
@@ -62,7 +68,12 @@ public class EnterUPC extends AppCompatActivity {
         }
     }
 
-    //implements the menu options for the toolbar
+    /**
+     * onCreateOptionsMenu method --
+     * Creates the objects in the app bar
+     * @param menu - a default menu object
+     * @return true if method runs correctly
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -72,6 +83,12 @@ public class EnterUPC extends AppCompatActivity {
 
     }
 
+    /**
+     * onOptionsItemSelected method --
+     * Determines what happens based on which item in the app bar was selected
+     * @param item - the item that was selected
+     * @return super.onOptionsItemSelected(item), a command to start the method again
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.homeBtn) {
@@ -83,7 +100,6 @@ public class EnterUPC extends AppCompatActivity {
 
     /**
      * home method - goes to the home screen
-     * This comm is for me to test the push in xxxxxxxxx
      */
     public void home() {
         Intent intent = new Intent(this, Choose.class);

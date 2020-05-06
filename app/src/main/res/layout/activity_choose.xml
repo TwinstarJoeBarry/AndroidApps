@@ -147,4 +147,13 @@
         android:layout_toRightOf="@id/scanBtn"
         android:text="Enter UPC" />
 
+    <Button
+        android:id="@+id/getUPCBtn"
+        android:onClick="onClick"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/addToInventoryBtn"
+        android:layout_toLeftOf="@id/scanBtn"
+        android:text="Get UPC" />
+
 </RelativeLayout>

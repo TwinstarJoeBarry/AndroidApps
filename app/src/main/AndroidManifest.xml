@@ -16,7 +16,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".EnterUPC"></activity>
+        <activity android:name=".GetUPC"></activity>
+        <activity android:name=".EnterUPC" />
         <activity android:name=".ItemInformation" />
         <activity android:name=".FoodItem" />
         <activity android:name=".FinalDate" />
