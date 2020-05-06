@@ -1,4 +1,22 @@
 package edu.ncc.nest.nestapp;
+/*
+ * Copyright (C) 2019 The LibreFoodPantry Developers.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ *
+ * U.S. Department of Agriculture, Agricultural Research Service. FoodData Central, 2019. fdc.nal.usda.gov.
+ */
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -6,11 +24,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,15 +41,19 @@ import java.util.HashMap;
 
 import javax.net.ssl.HttpsURLConnection;
 
+/**
+ * An Activity that takes a UPC and finds its corresponding FDCID.
+ *
+ * @author Matthew Vitelli, Andrew Stager
+ */
 public class UPCLookup extends AppCompatActivity {
-    private HashMap<String, String> upcMap;
+    private HashMap<String, String> upcMap; // keys are UPC, values are FDCID
     private String upc;
-    private char[] upcArray;
     private String fdcid;
     private EditText upcInput;
     private TextView fdcidText, usdaText;
-    private Intent intent;
-    private final String API_KEY = "DJ7sr2PMzfeIJCdvwYaPhHYTD2uQ3IKU0O9RrQu0"; // THE MAINTAINERS OF THIS PROJECT SHOULD GENERATE
+
+    private static final String API_KEY = "DJ7sr2PMzfeIJCdvwYaPhHYTD2uQ3IKU0O9RrQu0"; // THE MAINTAINERS OF THIS PROJECT SHOULD GENERATE
     // AN API KEY FOR THIS PROJECT, THIS IS A STUDENTS API KEY.
 
     @Override
@@ -45,7 +65,8 @@ public class UPCLookup extends AppCompatActivity {
         fdcidText = findViewById(R.id.fdcidText);
         usdaText = findViewById(R.id.usdaText);
 
-        intent = getIntent();
+        // if the last activity has a barcode to give this one, search it
+        Intent intent = getIntent();
         if (intent.getStringExtra("barcode") != null) {
             upcInput.setText(intent.getStringExtra("barcode"));
             search(null);
@@ -54,7 +75,6 @@ public class UPCLookup extends AppCompatActivity {
 
     @Override
     protected void onSaveInstanceState(Bundle outstate) {
-
         outstate.putSerializable("upcMap", upcMap);
         outstate.putString("upc", upc);
         outstate.putString("fdcid", fdcid);
@@ -76,8 +96,11 @@ public class UPCLookup extends AppCompatActivity {
         usdaText.setText(savedInstanceState.getString("usdaText"));
     }
 
+    /**
+     * Creates the HashMap that stores the UPC and FDCID codes.
+     */
     public void createLookupTable() {
-        fdcidText.setText("Generating Lookup Table...");
+        fdcidText.setText(R.string.upc_lookup_generating_table);
         // Parse .csv to create hashmap of UPC and FDCID
         upcMap = new HashMap<String, String>();
         try {
@@ -88,7 +111,7 @@ public class UPCLookup extends AppCompatActivity {
             String line;
             while ((line = csvBuffReader.readLine()) != null) {
                 String[] splitLine = line.split(",");
-                upcMap.put(splitLine[1], splitLine[0]);
+                upcMap.put(splitLine[1], splitLine[0]); // The csv file is flipped; UPCs are on the right and FDCIDs are on the left.
             }
             csvBuffReader.close();
             csvStreamReader.close();
@@ -99,50 +122,56 @@ public class UPCLookup extends AppCompatActivity {
         }
     }
 
+    /**
+     * Called when you press the scan button.  Starts up the activity that uses the camera.
+     *
+     * @param v unused
+     */
     public void scan(View v) {
         Intent upcScanner = new Intent(this, UPCScanner.class);
         startActivity(upcScanner);
     }
 
+    /**
+     * Called when the search button is pressed.  Looks up the UPC code in the text box and sets the text view to the corresponding FDCID code.
+     *
+     * @param v unused
+     */
     public void search(View v) {
-
-        fdcid = "";
-        upc = upcInput.getText().toString();
-        upcArray = upc.toCharArray();
+        upc = upcInput.getText().toString().substring(1);
 
         // UPC must be 12 digits in length
-        if (upcArray.length != 12) {
-            fdcidText.setText("Bad UPC");
+        if (upc.length() != 12) {
+            fdcidText.setText(R.string.upc_lookup_bad_upc);
             usdaText.setText("");
+            fdcid = "";
             return;
         }
 
-        //  UPC's in the USDA database ommit the first digit.
-        StringBuilder sb = new StringBuilder();
-        for (int i = 1; i < 12; i++) {
-            sb.append(upcArray[i]);
-        }
-        upc = sb.toString();
-        if (upcMap == null)
+        // This is here because if we put it in onCreate, it will remake itself every time.
+        if (upcMap == null) {
             createLookupTable();
-        fdcid = upcMap.get(upc);
-
-        if (fdcid == null) {
-            fdcidText.setText("No match found");
-            usdaText.setText("");
-            return;
         }
-        fdcidText.setText("Match found\nFDCID: " + fdcid);
-        usdaText.setText("Retrieving JSON...");
-        new getJSON().execute();
+
+        fdcid = upcMap.get(upc);
+        if (fdcid == null) {
+            fdcidText.setText(R.string.upc_lookup_no_match_found);
+            usdaText.setText("");
+        } else {
+            fdcidText.setText(getString(R.string.upc_lookup_match_found, fdcid));
+            usdaText.setText(R.string.upc_lookup_retreiving_json);
+            new JSONGetter().execute();
+        }
     }
 
-    private class getJSON extends AsyncTask<Void, Void, Void> {
+    /**
+     * Class for pulling from the USDA database.  It runs asynchronously from everything else in this class to prevent freezing while looking up.
+     */
+    private class JSONGetter extends AsyncTask<Void, Void, Void> {
         String result = "";
 
         @Override
         protected Void doInBackground(Void... voids) {
-
             HttpURLConnection httpConnection;
             BufferedReader httpBuffReader;
 
@@ -156,17 +185,21 @@ public class UPCLookup extends AppCompatActivity {
                 InputStream httpInputStream = httpConnection.getInputStream();
 
                 if (httpInputStream == null) {
-                    usdaText.setText("No response from USDA API");
+                    usdaText.setText(R.string.upc_lookup_usda_no_response);
                     return null;
                 }
                 // store the data into a BufferedReader so it can be stored into a string
-                httpBuffReader = new BufferedReader(new InputStreamReader(httpInputStream));
+                InputStreamReader httpInStreamReader = new InputStreamReader(httpInputStream);
+                httpBuffReader = new BufferedReader(httpInStreamReader);
 
+                StringBuilder resultBuilder = new StringBuilder();
                 String line;
                 while ((line = httpBuffReader.readLine()) != null) {
-                    result += line;
+                    resultBuilder.append(line);
                 }
+                result = resultBuilder.toString();
                 httpBuffReader.close();
+                httpInStreamReader.close();
                 httpInputStream.close();
                 httpConnection.disconnect();
 
@@ -181,7 +214,7 @@ public class UPCLookup extends AppCompatActivity {
             super.onPostExecute(aVoid);
 
             if (result == null) {
-                usdaText.setText("NULL response from USDA API");
+                usdaText.setText(R.string.upc_lookup_usda_null_response);
                 return;
             }
             try {

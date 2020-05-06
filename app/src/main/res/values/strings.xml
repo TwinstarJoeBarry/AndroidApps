@@ -178,6 +178,15 @@
         <item>Vegetarian Proteins</item>
     </string-array>
 
+    <!-- String names for activity_u_p_c_lookup-->
+    <string name="upc_lookup_generating_table">Generating Lookup Table…</string>
+    <string name="upc_lookup_retreiving_json">Retrieving JSON…</string>
+    <string name="upc_lookup_match_found">Match found\nFDCID: %s</string>
+    <string name="upc_lookup_no_match_found">No match found</string>
+    <string name="upc_lookup_bad_upc">Bad UPC</string>
+    <string name="upc_lookup_usda_null_response">NULL response from USDA API</string>
+    <string name="upc_lookup_usda_no_response">No response from USDA API</string>
+
     <string-array name="baked_goods_subcategories">
         <item>Bakery</item>
         <item>Baking and Cooking</item>
