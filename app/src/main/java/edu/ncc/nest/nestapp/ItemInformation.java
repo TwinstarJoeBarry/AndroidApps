@@ -32,6 +32,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 import android.app.DatePickerDialog;
@@ -46,9 +47,11 @@ public class ItemInformation extends AppCompatActivity implements PopupMenu.OnMe
     ArrayList<String> categories;
     ArrayList<String> items;
 
-    TextView catDisplay, itemDisplay, expDisplay, resultDisplay;
+    TextView catDisplay, itemDisplay, expDisplay, resultDisplay, tipDisplay;
+    Button tipBut;
 
     int expirationMonth, expirationDay, expirationYear;
+    String tip;
 
     @Override
     /**
@@ -68,6 +71,8 @@ public class ItemInformation extends AppCompatActivity implements PopupMenu.OnMe
         itemDisplay = (TextView)findViewById(R.id.item_result);
         expDisplay = (TextView)findViewById(R.id.exp_result);
         resultDisplay = (TextView)findViewById(R.id.result);
+        tipDisplay = (TextView)findViewById(R.id.tipDisplay);
+        tipBut = (Button)findViewById(R.id.tips_button);
 
         expirationYear = -1; //for testing in calculateResult method
 
@@ -264,13 +269,29 @@ public class ItemInformation extends AppCompatActivity implements PopupMenu.OnMe
     public void calculateResult(View v){
         //read from database using UPC code, or read from FoodKeeper and store to database if new item
         //calculate result using DOP of selected item and given expiration date, then set result label
-
-        //placeholder code:
+        //calculates if tip button will appear then sets it to visible
+        tipBut.setVisibility(Button.INVISIBLE);
+        tipBut.setClickable(false);
+        tipDisplay.setVisibility(TextView.INVISIBLE);
+        //placeholder code
         if(expirationYear == -1 || itemDisplay.getText().toString().equals(""))
             Toast.makeText(getApplicationContext(), "Cannot calculate. Please select an item and " +
                     "date, then try again.", Toast.LENGTH_LONG).show();
         else
             resultDisplay.setText("Calculated result for " + itemDisplay.getText() + ", expiring " +
                     expirationMonth + "/" + expirationDay + "/" + expirationYear + " will go here.");
+
+        if(tip!=null)
+        {
+            tipDisplay.setVisibility(TextView.VISIBLE);
+            tipDisplay.setVisibility(TextView.VISIBLE);
+            tipBut.setVisibility(Button.VISIBLE);
+            tipBut.setClickable(true);
+        }
     }
+
+    public void tipFound(View v){
+        tipDisplay.setText("Tip(s):"+tip);
+    }
+
 }

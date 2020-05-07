@@ -181,9 +181,9 @@
             android:layout_marginLeft="200dp"
             android:layout_marginTop="100dp"
             android:layout_toRightOf="@id/exp_result"
-            android:onClick="calculateResult"
-            android:visibility="invisible"
-            android:text="@string/tips" />
+            android:onClick="tipFound"
+            android:text="@string/tips"
+            android:visibility="invisible" />
 
         <TextView
             android:id="@+id/tipDisplay"
