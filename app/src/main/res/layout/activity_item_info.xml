@@ -173,13 +173,34 @@
             android:onClick="calculateResult"
             android:text="@string/calculate" />
 
+        <Button
+            android:id="@+id/tips_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/cat_select_btn"
+            android:layout_marginLeft="200dp"
+            android:layout_marginTop="100dp"
+            android:layout_toRightOf="@id/exp_result"
+            android:onClick="calculateResult"
+            android:visibility="invisible"
+            android:text="@string/tips" />
+
+        <TextView
+            android:id="@+id/tipDisplay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/calculate_button"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="@string/empty_string" />
+
         <TextView
             android:id="@+id/result"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/calculate_button"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="45dp"
+            android:layout_marginTop="60dp"
             android:text="@string/result_placeholder" />
 
     </RelativeLayout>
