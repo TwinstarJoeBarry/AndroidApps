@@ -48,10 +48,11 @@ import javax.net.ssl.HttpsURLConnection;
  */
 public class UPCLookup extends AppCompatActivity {
     private HashMap<String, String> upcMap; // keys are UPC, values are FDCID
+    private HashMap<String, String[]> foodKeeperMap; // correlates USDA description to a foodKeeper category
     private String upc;
     private String fdcid;
     private EditText upcInput;
-    private TextView fdcidText, usdaText;
+    private TextView fdcidText, usdaText, foodKeeperText;
 
     private static final String API_KEY = "DJ7sr2PMzfeIJCdvwYaPhHYTD2uQ3IKU0O9RrQu0"; // THE MAINTAINERS OF THIS PROJECT SHOULD GENERATE
     // AN API KEY FOR THIS PROJECT, THIS IS A STUDENTS API KEY.
@@ -64,6 +65,7 @@ public class UPCLookup extends AppCompatActivity {
         upcInput = findViewById(R.id.upcEditText);
         fdcidText = findViewById(R.id.fdcidText);
         usdaText = findViewById(R.id.usdaText);
+        foodKeeperText = findViewById(R.id.foodKeeperText);
 
         // if the last activity has a barcode to give this one, search it
         Intent intent = getIntent();
@@ -76,11 +78,13 @@ public class UPCLookup extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(Bundle outstate) {
         outstate.putSerializable("upcMap", upcMap);
+        outstate.putSerializable("foodKeeperMap", foodKeeperMap);
         outstate.putString("upc", upc);
         outstate.putString("fdcid", fdcid);
         outstate.putString("upcInput", upcInput.getText().toString());
         outstate.putString("fdcidText", fdcidText.getText().toString());
         outstate.putString("usdaText", usdaText.getText().toString());
+        outstate.putString("foodKeeperText", foodKeeperText.getText().toString());
         super.onSaveInstanceState(outstate);
     }
 
@@ -89,17 +93,19 @@ public class UPCLookup extends AppCompatActivity {
         super.onRestoreInstanceState(savedInstanceState);
 
         upcMap = (HashMap) savedInstanceState.getSerializable("upcMap");
+        foodKeeperMap = (HashMap) savedInstanceState.getSerializable("foodKeeperMap");
         upc = savedInstanceState.getString("upc");
         fdcid = savedInstanceState.getString("fdcid");
         upcInput.setText(savedInstanceState.getString("upcInput"));
         fdcidText.setText(savedInstanceState.getString("fdcidText"));
         usdaText.setText(savedInstanceState.getString("usdaText"));
+        foodKeeperText.setText(savedInstanceState.getString("foodKeeperText"));
     }
 
     /**
      * Creates the HashMap that stores the UPC and FDCID codes.
      */
-    public void createLookupTable() {
+    public void createUPCMap() {
         fdcidText.setText(R.string.upc_lookup_generating_table);
         // Parse .csv to create hashmap of UPC and FDCID
         upcMap = new HashMap<String, String>();
@@ -122,6 +128,46 @@ public class UPCLookup extends AppCompatActivity {
         }
     }
 
+    public void createFoodKeeperMap() {
+        foodKeeperText.setText("Generating Lookup Table...");
+        foodKeeperMap = new HashMap<String, String[]>();
+        try {
+            InputStream csvInputStream = getResources().openRawResource(R.raw.foodkeeper_category);
+            InputStreamReader csvStreamReader = new InputStreamReader(csvInputStream);
+            BufferedReader csvBuffReader = new BufferedReader(csvStreamReader);
+
+            String line = csvBuffReader.readLine(); // skip first row which is the column's titles
+            String descr = "null";
+            String[] catId = {"null", "null"};
+            int size = 0;
+            while ((line = csvBuffReader.readLine()) != null) {
+
+                String[] splitLine = line.split(",");
+                size = splitLine.length;
+
+                // The csv has three columns, USDAdescription, FoodKeepercategory, FoodKeeperID
+                switch (size) {
+                    case 3:
+                        catId[1] = splitLine[2];
+                    case 2:
+                        catId[0] = splitLine[1];
+                    default:
+                        descr = splitLine[0];
+                }
+                foodKeeperMap.put(descr, catId);
+                descr = "null";
+                catId = new String[]{"null", "null"};
+            }
+            csvBuffReader.close();
+            csvStreamReader.close();
+            csvInputStream.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     /**
      * Called when you press the scan button.  Starts up the activity that uses the camera.
      *
@@ -138,8 +184,8 @@ public class UPCLookup extends AppCompatActivity {
      * @param v unused
      */
     public void search(View v) {
-        upc = upcInput.getText().toString().substring(1); // get rid of an extra zero
-        
+        upc = upcInput.getText().toString().substring(1); // get rid of first digit since the USDA database removes the number system character
+
         if (upc.length() != 11) {
             fdcidText.setText(R.string.upc_lookup_bad_upc);
             usdaText.setText("");
@@ -149,7 +195,7 @@ public class UPCLookup extends AppCompatActivity {
 
         // This is here because if we put it in onCreate, it will remake itself every time.
         if (upcMap == null) {
-            createLookupTable();
+            createUPCMap();
         }
 
         fdcid = upcMap.get(upc);
@@ -221,6 +267,20 @@ public class UPCLookup extends AppCompatActivity {
                 usdaText.setText(resultJSON.getString("brandedFoodCategory"));
             } catch (JSONException e) {
                 e.printStackTrace();
+            }
+            if (foodKeeperMap == null) {
+                createFoodKeeperMap();
+            }
+
+            // Get first word of FDA description
+            String[] description = usdaText.getText().toString().split(" ");
+            // Make it lowercase since foodKeeperMap is all lowercase
+            description[0] = description[0].toLowerCase();
+            String[] foodKeeperData = foodKeeperMap.get(description[0]);
+            if (foodKeeperData != null) {
+                foodKeeperText.setText("FoodKeeperCategory " + foodKeeperData[0] + ", ID " + foodKeeperData[1]);
+            } else {
+                foodKeeperText.setText("No Food Keeper category match found");
             }
         }
     }
