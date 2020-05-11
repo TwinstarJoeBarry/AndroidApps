@@ -128,6 +128,14 @@ public class UPCLookup extends AppCompatActivity {
         }
     }
 
+    /**
+     * Creates a HashMap that associates the USDA description to a FoodKeeper category and JSONArray ID in that category.
+     * The .json file used still needs to be completed so more descriptions are mapped to FoodKeeper categories.
+     * <p>
+     * The HashMap returns a string array.
+     * position `0' is the FoodKeeper category.
+     * position `1' is the JSONArray position in that category.
+     */
     public void createFoodKeeperMap() {
         foodKeeperText.setText("Generating Lookup Table...");
         foodKeeperMap = new HashMap<String, String[]>();
@@ -202,6 +210,7 @@ public class UPCLookup extends AppCompatActivity {
         if (fdcid == null) {
             fdcidText.setText(R.string.upc_lookup_no_match_found);
             usdaText.setText("");
+            foodKeeperText.setText("");
         } else {
             fdcidText.setText(getString(R.string.upc_lookup_match_found, fdcid));
             usdaText.setText(R.string.upc_lookup_retreiving_json);
@@ -271,7 +280,6 @@ public class UPCLookup extends AppCompatActivity {
             if (foodKeeperMap == null) {
                 createFoodKeeperMap();
             }
-
             // Get first word of FDA description
             String[] description = usdaText.getText().toString().split(" ");
             // Make it lowercase since foodKeeperMap is all lowercase
