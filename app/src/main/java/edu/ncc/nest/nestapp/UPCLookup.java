@@ -137,7 +137,7 @@ public class UPCLookup extends AppCompatActivity {
      * position `1' is the JSONArray position in that category.
      */
     public void createFoodKeeperMap() {
-        foodKeeperText.setText("Generating Lookup Table...");
+        foodKeeperText.setText(R.string.upc_lookup_generating_table);
         foodKeeperMap = new HashMap<String, String[]>();
         try {
             InputStream csvInputStream = getResources().openRawResource(R.raw.foodkeeper_category);
@@ -162,9 +162,10 @@ public class UPCLookup extends AppCompatActivity {
                     default:
                         descr = splitLine[0];
                 }
-                foodKeeperMap.put(descr, catId);
+                foodKeeperMap.put(splitLine[0], catId);
                 descr = "null";
-                catId = new String[]{"null", "null"};
+                catId[0] = "null";
+                catId[1] = "null";
             }
             csvBuffReader.close();
             csvStreamReader.close();
@@ -173,7 +174,6 @@ public class UPCLookup extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     /**
@@ -286,9 +286,9 @@ public class UPCLookup extends AppCompatActivity {
             description[0] = description[0].toLowerCase();
             String[] foodKeeperData = foodKeeperMap.get(description[0]);
             if (foodKeeperData != null) {
-                foodKeeperText.setText("FoodKeeperCategory " + foodKeeperData[0] + ", ID " + foodKeeperData[1]);
+                foodKeeperText.setText(getString(R.string.upc_lookup_foodkeeper_category_match_found, foodKeeperData[0], foodKeeperData[1]));
             } else {
-                foodKeeperText.setText("No Food Keeper category match found");
+                foodKeeperText.setText(R.string.upc_lookup_no_foodkeeper_category_match_found);
             }
         }
     }
