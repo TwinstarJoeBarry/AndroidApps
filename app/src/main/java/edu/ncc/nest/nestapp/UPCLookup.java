@@ -280,11 +280,14 @@ public class UPCLookup extends AppCompatActivity {
             if (foodKeeperMap == null) {
                 createFoodKeeperMap();
             }
-            // Get first word of FDA description
+
             String[] description = usdaText.getText().toString().split(" ");
+            String[] foodKeeperData = null;
             // Make it lowercase since foodKeeperMap is all lowercase
-            description[0] = description[0].toLowerCase();
-            String[] foodKeeperData = foodKeeperMap.get(description[0]);
+            for (int i = 0; i < description.length && foodKeeperData == null; i++) {
+                description[i] = description[i].toLowerCase();
+                foodKeeperData = foodKeeperMap.get(description[i]);
+            }
             if (foodKeeperData != null) {
                 foodKeeperText.setText(getString(R.string.upc_lookup_foodkeeper_category_match_found, foodKeeperData[0], foodKeeperData[1]));
             } else {
