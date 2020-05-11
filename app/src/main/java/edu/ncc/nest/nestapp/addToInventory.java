@@ -67,86 +67,72 @@ public class addToInventory extends AppCompatActivity {
                 if(position == 0)
                 {
                     Toast.makeText(addToInventory.this, "Baby Food Test", Toast.LENGTH_SHORT).show();
-                    launchBabyFood();
-                    //questionaire(mCategory[0]);
+                    questionaire(mCategory[0]);
                 }
                 if(position == 1)
                 {
                     Toast.makeText(addToInventory.this, "Baked Goods Test", Toast.LENGTH_SHORT).show();
-                    launchBakedGoods();
-                    //questionaire(mCategory[1]);
+                    questionaire(mCategory[1]);
                 }
                 if(position == 2)
                 {
                     Toast.makeText(addToInventory.this, "Beverages Test", Toast.LENGTH_SHORT).show();
-                    launchBeverages();
-                   //questionaire(mCategory[2]);
+                   questionaire(mCategory[2]);
                 }
                 if(position == 3)
                 {
                     Toast.makeText(addToInventory.this, "Condiments Test", Toast.LENGTH_SHORT).show();
-                    launchCondiments();
-                    //questionaire(mCategory[3]);
+                    questionaire(mCategory[3]);
                 }
                 if(position == 4)
                 {
                     Toast.makeText(addToInventory.this, "Dairy Test", Toast.LENGTH_SHORT).show();
-                    launchDairy();
-                    //questionaire(mCategory[4]);
+                    questionaire(mCategory[4]);
                 }
                 if(position == 5)
                 {
                     Toast.makeText(addToInventory.this, "Deli Test", Toast.LENGTH_SHORT).show();
-                    launchDeli();
-                    //questionaire(mCategory[5]);
+                    questionaire(mCategory[5]);
                 }
                 if(position == 6)
                 {
                     Toast.makeText(addToInventory.this, "Food Purchased Frozen Test", Toast.LENGTH_SHORT).show();
-                    launchFrozenFoods();
-                    //questionaire(mCategory[6]);
+                    questionaire(mCategory[6]);
                 }
                 if(position == 7)
                 {
                     Toast.makeText(addToInventory.this, "Grains Test", Toast.LENGTH_SHORT).show();
-                    launchGrains();
-                    //questionaire(mCategory[7]);
+                    questionaire(mCategory[7]);
                 }
                 if(position == 8)
                 {
                     Toast.makeText(addToInventory.this, "Meat Test", Toast.LENGTH_SHORT).show();
-                    launchMeat();
-                    //questionaire(mCategory[8]);
+                    questionaire(mCategory[8]);
                 }
                 if(position == 9)
                 {
                     Toast.makeText(addToInventory.this, "Poultry Test", Toast.LENGTH_SHORT).show();
-                    launchPoultry();
-                    //questionaire(mCategory[9]);
+                    questionaire(mCategory[9]);
                 }
                 if(position == 10)
                 {
                     Toast.makeText(addToInventory.this, "Produce Test", Toast.LENGTH_SHORT).show();
-                    launchProduce();
-                    //questionaire(mCategory[10]);
+                    questionaire(mCategory[10]);
                 }
                 if(position == 11)
                 {
                     Toast.makeText(addToInventory.this, "Sea food test", Toast.LENGTH_SHORT).show();
-                    launchSeafood();
-                    //questionaire(mCategory[11]);
+                    questionaire(mCategory[11]);
                 }
                 if(position == 12)
                 {
                     Toast.makeText(addToInventory.this, "Shelf food", Toast.LENGTH_SHORT).show();
-                    launchShelfFoods();
-                    //questionaire(mCategory[12]);
+                    questionaire(mCategory[12]);
                 }
                 if(position == 13)
                 {
                     Toast.makeText(addToInventory.this, "Vegetales Test", Toast.LENGTH_SHORT).show();
-                    launchVegProteins();
-                    //questionaire(mCategory[13]);
+                    questionaire(mCategory[13]);
                 }
             }
         });
@@ -230,6 +216,7 @@ public class addToInventory extends AppCompatActivity {
         startActivity(intent);
     }
 
+    //--------May or may not be used for this activity-----------
     /**
      * launchBabyFood - starts the BabyFood activity
      */
