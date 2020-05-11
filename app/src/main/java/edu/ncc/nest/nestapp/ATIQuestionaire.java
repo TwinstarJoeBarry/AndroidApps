@@ -357,7 +357,29 @@ public class ATIQuestionaire extends AppCompatActivity implements View.OnClickLi
      */
     @Override
         public void onClick(View view) {
-        new Items().execute();
+        // this method should differentiate which button is clicked in the new activity
+        // either for list view, ui#1, donate
+        switch (view.getId()){
+            case R.id.atibutton:
+                new Items().execute();
+                break;
+            case R.id.uiLink:
+                launchInterfaceOne();
+                break;
+            case R.id.donateLink:
+                launchDonate();
+                break;
+        }
+
     }
 
+    public void launchInterfaceOne() {
+        Intent intent = new Intent(this, ItemInformation.class);
+        startActivity(intent);
+    }
+
+    public void launchDonate() {
+        Intent intent = new Intent(this, Donate.class);
+        startActivity(intent);
+    }
 }
