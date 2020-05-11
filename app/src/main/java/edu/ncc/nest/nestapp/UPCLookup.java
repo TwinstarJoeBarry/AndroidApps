@@ -145,7 +145,6 @@ public class UPCLookup extends AppCompatActivity {
             BufferedReader csvBuffReader = new BufferedReader(csvStreamReader);
 
             String line = csvBuffReader.readLine(); // skip first row which is the column's titles
-            //String descr = "null";
             String[] catId = {"null", "null"};
             int size;
             while ((line = csvBuffReader.readLine()) != null) {
@@ -159,13 +158,9 @@ public class UPCLookup extends AppCompatActivity {
                         catId[1] = splitLine[2];
                     case 2:
                         catId[0] = splitLine[1];
-                    //default:
-                    //    descr = splitLine[0];
                 }
                 foodKeeperMap.put(splitLine[0], catId);
-                //descr = "null";
-                catId[0] = "null";
-                catId[1] = "null";
+                catId = new String[]{"null", "null"};
             }
             csvBuffReader.close();
             csvStreamReader.close();
@@ -283,8 +278,8 @@ public class UPCLookup extends AppCompatActivity {
 
             String[] description = usdaText.getText().toString().split(" ");
             String[] foodKeeperData = null;
-            // Make it lowercase since foodKeeperMap is all lowercase
             for (int i = 0; i < description.length && foodKeeperData == null; i++) {
+                // Make it lowercase since foodKeeperMap is all lowercase
                 description[i] = description[i].toLowerCase();
                 foodKeeperData = foodKeeperMap.get(description[i]);
             }
