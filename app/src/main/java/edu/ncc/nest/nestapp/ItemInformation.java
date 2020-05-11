@@ -21,6 +21,7 @@ package edu.ncc.nest.nestapp;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.nfc.Tag;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -63,7 +64,8 @@ public class ItemInformation extends AppCompatActivity implements PopupMenu.OnMe
     ArrayList<String> categories;
     ArrayList<String> items;
     public static final String TAG_NAME = "name";
-    ArrayList<HashMap<String, String>> locationList;
+    public static final String TAG_TEST = "Testing";
+  //  ArrayList<HashMap<String, String>> locationList;
 
 
     TextView catDisplay, itemDisplay, expDisplay, resultDisplay;
@@ -84,6 +86,7 @@ public class ItemInformation extends AppCompatActivity implements PopupMenu.OnMe
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+       // locationList = new ArrayList<>();
         catDisplay = (TextView)findViewById(R.id.cat_result);
         itemDisplay = (TextView)findViewById(R.id.item_result);
         expDisplay = (TextView)findViewById(R.id.exp_result);
@@ -95,6 +98,7 @@ public class ItemInformation extends AppCompatActivity implements PopupMenu.OnMe
         items = new ArrayList<String>();
 
         new GetCategories().execute();
+
 
     }
 
@@ -139,7 +143,9 @@ public class ItemInformation extends AppCompatActivity implements PopupMenu.OnMe
      * @param v - the Category button
      */
     public void showCatMenu(View v){
+        Log.d(TAG_TEST, "testing");
         PopupMenu catPop = new PopupMenu(this, v);
+
         catPop.setOnMenuItemClickListener(this);
         for(int i = 0; i < categories.size(); i++) //loop to load menu using ArrayList
             catPop.getMenu().add(i, Menu.FIRST, i, categories.get(i));
@@ -297,7 +303,7 @@ public class ItemInformation extends AppCompatActivity implements PopupMenu.OnMe
      *
      */
     private class GetCategories extends AsyncTask<Void, Void, Void> {
-        private static final String TAG = GetCategories.class.getSimpleName();
+        private final String TAG = GetCategories.class.getSimpleName();
 
         private String result = "";
 
@@ -329,12 +335,12 @@ public class ItemInformation extends AppCompatActivity implements PopupMenu.OnMe
                     // Nothing to do.
                     return null;
                 }
-
+                Log.d("********", "Here!!");
                 // connect a BufferedReader to the input stream at URL
                 reader = new BufferedReader(new InputStreamReader(inputStream));
                 // store the data in a string and display in the Logcat window
                 result = reader.readLine();
-                Log.d(TAG, "returned string: " + result);
+                Log.d(TAG, "returned string HENRY: " + result);
 
             } catch (Exception e) {
                 Log.d(TAG, "EXCEPTION in HttpAsyncTask: " + e.getMessage());
@@ -360,30 +366,9 @@ public class ItemInformation extends AppCompatActivity implements PopupMenu.OnMe
                         JSONObject jsonObj = jsonArray.getJSONObject(i);
                         //getting the name of the main name of the category
                         String name = jsonObj.getString("name");
-
-                        //putting it into a hash map
-                        HashMap<String, String> theFood = new HashMap<>();
-                        theFood.put(TAG_NAME, name);
-                        locationList.add(theFood);
-
+                            categories.add(name);
                     }
 
-
-                    //creating an adapater
-                    ListAdapter adapter =  new SimpleAdapter(
-                            //getting the array list
-                            ItemInformation.this, locationList,
-                            R.layout.subcategory,
-                            new String[]{TAG_NAME},
-                            new int[]{ R.id.selectCategoryTxt}
-                );
-
-
-                    //need to find a way to pass this data into a new activity when select categories is choosen, not yet working
-                    //
-                    ListView mylist = findViewById(R.id.selectCategoryTxt);
-
-                    mylist.setAdapter(adapter);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
