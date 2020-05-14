@@ -75,7 +75,7 @@
             android:layout_marginTop="2dp"
             android:onClick="showCatMenu"
             android:text="@string/select_category" />
-
+        
         <Button
             android:id="@+id/item_select_btn"
             android:layout_width="wrap_content"
@@ -172,6 +172,14 @@
             android:layout_marginTop="45dp"
             android:onClick="calculateResult"
             android:text="@string/calculate" />
+
+        <ProgressBar
+            android:id="@+id/progressbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:layout_below="@id/calculate_button"
+            android:layout_centerInParent="true"/>
 
         <TextView
             android:id="@+id/result"
