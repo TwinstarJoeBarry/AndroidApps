@@ -262,17 +262,20 @@ public class ItemInformation extends AppCompatActivity implements PopupMenu.OnMe
     /**
      * calculateResult method --
      * onClick for the Calculate button; currently ensures an item and date have been selected,
-     * and edits the Result label.
+     * and edits the Result label. Also displays the tip button if necessary
      *
      * @param v - the Calculate button
      */
     public void calculateResult(View v){
         //read from database using UPC code, or read from FoodKeeper and store to database if new item
         //calculate result using DOP of selected item and given expiration date, then set result label
-        //calculates if tip button will appear then sets it to visible
+
+        //ensures tip button and display is not visible
         tipBut.setVisibility(Button.INVISIBLE);
         tipBut.setClickable(false);
+        tipDisplay.setText(R.string.empty_string);
         tipDisplay.setVisibility(TextView.INVISIBLE);
+
         //placeholder code
         if(expirationYear == -1 || itemDisplay.getText().toString().equals(""))
             Toast.makeText(getApplicationContext(), "Cannot calculate. Please select an item and " +
@@ -281,6 +284,7 @@ public class ItemInformation extends AppCompatActivity implements PopupMenu.OnMe
             resultDisplay.setText("Calculated result for " + itemDisplay.getText() + ", expiring " +
                     expirationMonth + "/" + expirationDay + "/" + expirationYear + " will go here.");
 
+        //sets the button and display to visible when there is a tip to display
         if(tip!=null)
         {
             tipDisplay.setVisibility(TextView.VISIBLE);
@@ -289,6 +293,11 @@ public class ItemInformation extends AppCompatActivity implements PopupMenu.OnMe
         }
     }
 
+    /**
+     * tipFound method --
+     * onClick for the tip button; sets the text of the text display.
+     * @param v - the tip button
+     */
     public void tipFound(View v){
         tipDisplay.setText("Tip(s):"+tip);
     }
