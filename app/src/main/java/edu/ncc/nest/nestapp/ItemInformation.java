@@ -284,7 +284,6 @@ public class ItemInformation extends AppCompatActivity implements PopupMenu.OnMe
         if(tip!=null)
         {
             tipDisplay.setVisibility(TextView.VISIBLE);
-            tipDisplay.setVisibility(TextView.VISIBLE);
             tipBut.setVisibility(Button.VISIBLE);
             tipBut.setClickable(true);
         }
