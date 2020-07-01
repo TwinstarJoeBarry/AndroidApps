@@ -78,7 +78,7 @@ public class VolunteerForm extends AppCompatActivity implements View.OnClickList
         switch (v.getId()) {
             case R.id.submit_button:
                 if (checkFill() == true) {
-                    //intent = new Intent(this, availability.class);
+                    intent = new Intent(this, ItemInformation.class);
                     startActivity(intent);
                 }
 
@@ -89,24 +89,24 @@ public class VolunteerForm extends AppCompatActivity implements View.OnClickList
 
 
     public boolean checkFill() {
-        Toast fix = null;
-        if (firstName.getText().toString().equals("")) {
-            fix.makeText(this, "Please fill out the First Name field", Toast.LENGTH_SHORT).show();
-            return false;
-
-        } else if (lastName.getText().toString().equals("")) {
-            fix.makeText(this, "Please fill out the Last Name field", Toast.LENGTH_SHORT).show();
-            return false;
-
-        } else if (phone.getText().toString().equals("") || phone.getText().toString().length() != 10 || !isNumeric(phone.getText().toString())) {
-            fix.makeText(this, "Please enter a proper phone number with no hyphens i.e. 5165558888", Toast.LENGTH_SHORT).show();
-            return false;
-
-        } else if (!isValid(email.getText().toString())) {
-            fix.makeText(this, "Please enter a valid email address", Toast.LENGTH_SHORT).show();
-            return false;
-
-        }
+//        Toast fix = null;
+//        if (firstName.getText().toString().equals("")) {
+//            fix.makeText(this, "Please fill out the First Name field", Toast.LENGTH_SHORT).show();
+//            return false;
+//
+//        } else if (lastName.getText().toString().equals("")) {
+//            fix.makeText(this, "Please fill out the Last Name field", Toast.LENGTH_SHORT).show();
+//            return false;
+//
+//        } else if (phone.getText().toString().equals("") || phone.getText().toString().length() != 10 || !isNumeric(phone.getText().toString())) {
+//            fix.makeText(this, "Please enter a proper phone number with no hyphens i.e. 5165558888", Toast.LENGTH_SHORT).show();
+//            return false;
+//
+//        } else if (!isValid(email.getText().toString())) {
+//            fix.makeText(this, "Please enter a valid email address", Toast.LENGTH_SHORT).show();
+//            return false;
+//
+//        }
         return true;
     }
 
