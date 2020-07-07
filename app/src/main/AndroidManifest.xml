@@ -16,7 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity android:name=".ATIQuestionaire"></activity>
         <activity android:name=".ItemInformation" />
         <activity android:name=".FoodItem" />
         <activity android:name=".FinalDate" />
@@ -35,7 +35,6 @@
         <activity android:name=".Inventory" />
         <activity android:name=".Schedule" />
         <activity android:name=".VolunteerForm" />
-
         <activity android:name=".UIFoods.BabyFood" />
         <activity android:name=".UIFoods.BakedGoods" />
         <activity android:name=".UIFoods.Beverages" />
@@ -50,7 +49,6 @@
         <activity android:name=".UIFoods.Seafood" />
         <activity android:name=".UIFoods.ShelfFoods" />
         <activity android:name=".UIFoods.VegProteins" />
-
         <activity
             android:name=".SignUp"
             android:label="@string/title_activity_sign_up" />
@@ -63,7 +61,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".MainActivity" />
 
         <service android:name="services.MyFirebaseMessagingService">
@@ -72,4 +69,5 @@
             </intent-filter>
         </service>
     </application>
+
 </manifest>
