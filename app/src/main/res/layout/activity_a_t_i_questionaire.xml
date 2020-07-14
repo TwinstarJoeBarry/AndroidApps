@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".ATIQuestionaire"
+    tools:showIn="@layout/activity_a_t_i_questionaire">
+
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"/>
+
+    <TextView
+        android:id="@+id/questionaire"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/atiqTitle"
+        android:layout_below="@id/categoryChosen"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/categoryChosen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar"
+        android:text="@string/categorySelec"
+        android:layout_centerHorizontal="true"/>
+
+    <Button
+        android:id="@+id/atibutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/returnToATI"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/questionaire"/>
+
+    <TextView
+        android:id="@+id/centerPoint"
+        android:text=""
+        android:layout_width="10dip"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true" />
+
+
+    <Button
+        android:id="@+id/uiLink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:text="Jump 2 UI#1"
+        android:layout_toLeftOf="@id/centerPoint"
+        android:layout_alignParentBottom="true"/>
+
+    <Button
+        android:id="@+id/donateLink"
+        android:onClick="onClick"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Jump 2 Donate"
+        android:layout_toRightOf="@id/centerPoint"
+        android:layout_alignParentBottom="true" />
+
+    <ListView
+        android:id="@+id/listATI"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/atibutton"
+        android:scrollbars="vertical"
+        android:layout_above="@id/uiLink"/>
+
+
+
+</RelativeLayout>
