@@ -39,9 +39,6 @@ public class EnterUPC extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enter_upc);
-
-
-
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
     }
@@ -59,7 +56,7 @@ public class EnterUPC extends AppCompatActivity {
         Intent intent = new Intent(this, FoodItem.class);
 
         if(upc.equals("") || upc.length() < 12 || upc.length() >12){
-            Toast.makeText(getApplicationContext(),"UPC length is 12 numbers, please enter aravble number", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),"UPC length is 12 numbers, please enter larger number", Toast.LENGTH_SHORT).show();
         }
         else{
             intent.putExtra("barcode", upc);
