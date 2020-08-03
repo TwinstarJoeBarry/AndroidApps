@@ -25,6 +25,9 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.icu.util.Calendar;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -70,7 +73,7 @@ public class FoodItem extends AppCompatActivity implements DatePickerDialog.OnDa
      */
 
 
-    private static final String TAG = "TESTING";
+    private static final String TAG = "Henry";
     public String upc;              //reference variable for the barcode number
     private String foodItemTest;    //reference variable for the name of the item that the user inputs
 
@@ -84,8 +87,16 @@ public class FoodItem extends AppCompatActivity implements DatePickerDialog.OnDa
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
+        Log.d(TAG,"we are in the on create method Hank");
+
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_item);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         itemName = findViewById(R.id.textView_itemName);
         barcodeNum = findViewById(R.id.txtView_barcode);
@@ -132,6 +143,42 @@ public class FoodItem extends AppCompatActivity implements DatePickerDialog.OnDa
             }
 
         });
+    }
+
+    //implements the menu options for the toolbar
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+
+        return true;
+
+    }
+
+
+
+    /**
+     * onOptionsItemSelected method --
+     * Determines what happens based on which item in the app bar was selected
+     * @param item - the item that was selected
+     * @return super.onOptionsItemSelected(item), a command to start the method again
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.homeBtn) {
+            home();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * home method - goes to the home screen
+     */
+    public void home() {
+        Intent intent = new Intent(this, Choose.class);
+        startActivity(intent);
     }
     
     /**
@@ -426,4 +473,5 @@ public class FoodItem extends AppCompatActivity implements DatePickerDialog.OnDa
 
         }
     }
+
 }

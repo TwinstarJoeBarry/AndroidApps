@@ -1,5 +1,5 @@
 package edu.ncc.nest.nestapp;
-/**
+/*
  *
  * Copyright (C) 2019 The LibreFoodPantry Developers.
  *
@@ -17,9 +17,10 @@ package edu.ncc.nest.nestapp;
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-// still need to implement camera, API call for category, connecting to scanner layout
+// still need to implement camera, API call for items in category, connecting to scanner layout
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,32 +32,53 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.DatePicker;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.app.DatePickerDialog;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import javax.net.ssl.HttpsURLConnection;
 
-public class ItemInformation extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener, DatePickerDialog.OnDateSetListener {
 
-    ArrayList<String> categories;
-    ArrayList<String> items;
+public class ItemInformation extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
+    // category list and current selected category id
+    private ArrayList<String> categories;
+    private int selectedCategoryId;
+    private boolean waitingForCategories;
+
+    // product item list and current selected item id
+    private ArrayList<Product> items;
+    private int selectedItemPosition;
+    private boolean waitingForItems;
+
+    // Views that are updated programmatically
+    ProgressBar progressBar;
     TextView catDisplay, itemDisplay, expDisplay, resultDisplay;
 
+    // used for expiration date calculation
     int expirationMonth, expirationDay, expirationYear;
 
-    @Override
     /**
      * onCreate method --
      * sets up the activity for use. The categories list is currently loading 4 hardcoded categories,
      * but should eventually be changed to loading the categories from a database (Google API or
      * FoodKeeper?).
      */
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_info);
@@ -64,21 +86,24 @@ public class ItemInformation extends AppCompatActivity implements PopupMenu.OnMe
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        catDisplay = (TextView)findViewById(R.id.cat_result);
-        itemDisplay = (TextView)findViewById(R.id.item_result);
-        expDisplay = (TextView)findViewById(R.id.exp_result);
-        resultDisplay = (TextView)findViewById(R.id.result);
+        progressBar = findViewById(R.id.progressbar);
+        catDisplay = findViewById(R.id.cat_result);
+        itemDisplay = findViewById(R.id.item_result);
+        expDisplay = findViewById(R.id.exp_result);
+        resultDisplay = findViewById(R.id.result);
 
         expirationYear = -1; //for testing in calculateResult method
 
-        categories = new ArrayList<String>();
-        items = new ArrayList<String>();
+        // initialize category list and current selection
+        categories = new ArrayList<>();
+        selectedCategoryId = -1;
 
-        //for now, manual loading of example categories
-        categories.add("Bakery");
-        categories.add("Dairy");
-        categories.add("Beverages");
-        categories.add("Fruit");
+        // initialize item list and current selection
+        items = new ArrayList<>();
+        selectedItemPosition = -1;
+
+        // load categories into list
+        new GetCategories().execute();
 
     }
 
@@ -86,7 +111,7 @@ public class ItemInformation extends AppCompatActivity implements PopupMenu.OnMe
      * onCreateOptionsMenu method --
      * creates the main menu in toolbar
      *
-     * @param menu
+     * @param menu the menu whose options are being created
      * @return boolean
      */
     @Override
@@ -98,12 +123,17 @@ public class ItemInformation extends AppCompatActivity implements PopupMenu.OnMe
 
     }
 
+    /**
+     * onOptionsItemSelected method --
+     * executes actions in response to menu item being selected
+     * @param item the MenuItem that was selected
+     * @return true if the item was handled, false otherwise
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.homeBtn) {
             home();
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -123,10 +153,41 @@ public class ItemInformation extends AppCompatActivity implements PopupMenu.OnMe
      * @param v - the Category button
      */
     public void showCatMenu(View v){
+        // nothing to show? skip it
+        // todo show a message if waiting?
+        if (waitingForCategories || waitingForItems || categories.isEmpty())
+            return;
+        // create popup menu for category selection
         PopupMenu catPop = new PopupMenu(this, v);
-        catPop.setOnMenuItemClickListener(this);
-        for(int i = 0; i < categories.size(); i++) //loop to load menu using ArrayList
-            catPop.getMenu().add(i, Menu.FIRST, i, categories.get(i));
+        // attach method to take action when category is selected by the user
+        catPop.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                // Get the id of the selected category from the chosen menu item
+                int newSelectedId = item.getItemId();
+                // if category selection has changed, a new item will need to be selected
+                // as well so clear out the selected item, its display and the items list
+                // and fire off the AsyncTask to get the items list for the newly selected category
+                if (newSelectedId != selectedCategoryId) {
+                    selectedCategoryId = newSelectedId;
+                    selectedItemPosition = -1;
+                    itemDisplay.setText("");
+                    items.clear();
+                    new GetItemsForCategory().execute();
+                }
+                // update selected category id and display
+                catDisplay.setText(item.getTitle().toString());
+                return true;
+            }
+        });
+        // build the popup menu content by creating menuitems from the categories list
+        for(int i = 0; i < categories.size(); i++)
+            // Menu.NONE means this menuitem should not be part of any group
+            // i + 1 is our desired unique Id for this menuitem (it equals the category id)
+            // i is for the menuitem's display ordering position
+            // categories.get(i) is the "category (subcategory)" description
+            catPop.getMenu().add(Menu.NONE, i+1, i, categories.get(i));
+        // show the popup menu
         catPop.show();
     }
 
@@ -138,80 +199,36 @@ public class ItemInformation extends AppCompatActivity implements PopupMenu.OnMe
      * @param v - the Item button
      */
     public void showItemMenu(View v){
-        //show item menu
+        // nothing to show? skip it
+        // todo show a message if waiting?
+        if (waitingForItems || items.isEmpty())
+            return;
+        // create popup menu for item selection
         PopupMenu itemPop = new PopupMenu(this, v);
-        itemPop.setOnMenuItemClickListener(this);
-        for(int i = 0; i < items.size(); i++) //loop to load menu using ArrayList
-            itemPop.getMenu().add(i, Menu.FIRST, i, items.get(i));
+        // attach method to take action when item is selected by the user
+        itemPop.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                // update selected item position and display
+                selectedItemPosition = item.getItemId();
+                itemDisplay.setText(item.getTitle().toString());
+                // todo do something regarding calculate button here (? - depends on implementation)
+                // todo make use of ShelfLife (may need to have user choose) of selected Product to calc date
+                return true;
+            }
+        });
+        // build the popup menu content by creating menuitems from the items list
+        for(int i = 0; i < items.size(); i++)
+            // Menu.NONE means this menuitem should not be part of any group
+            // i is our desired "Id" (position in the list, actually) for this menuitem
+            // i is also for the menuitem's display ordering position
+            // items.get(i). is the "item (subitem)" description
+            itemPop.getMenu().add(Menu.NONE, i, i, items.get(i).getName());
+            // todo should add subtitle if applicable, but this will necessitate using something other than PopupMenu
+        // show the popup menu
         itemPop.show();
     }
 
-    @Override
-    /**
-     * onMenuItemClick menu --
-     * will handle menu item clicks on the two popup menus (category and item). This section will
-     * need to be rewritten depending on how the data comes in from the API call. Currently, there is
-     * a switch statement to handle any category clicks, with a default case that handles every item
-     * click in the same way (if the menu selection is not in the categories ArrayList, we know it
-     * is actually an item).
-     *
-     * @param item -- the MenuItem selected
-     */
-    public boolean onMenuItemClick(MenuItem item) {
-        Log.d("TESTING", item.getTitle().toString());
-        String selection = item.getTitle().toString();
-        switch(categories.indexOf(selection)){
-            case 0:
-                //bakery
-                items.clear();
-                items.add("Pie");
-                items.add("Cookie");
-                items.add("Cannoli");
-                items.add("Cake");
-
-                catDisplay.setText(selection);
-                itemDisplay.setText("");
-                return true;
-            case 1:
-                //dairy
-                items.clear();
-                items.add("Milk");
-                items.add("Cheddar cheese");
-                items.add("Cream cheese");
-
-                catDisplay.setText(selection);
-                itemDisplay.setText("");
-                return true;
-            case 2:
-                //beverages
-                items.clear();
-                items.add("Pepsi");
-                items.add("Coffee");
-                items.add("Orange juice");
-                items.add("Lemonade");
-                items.add("Iced tea");
-
-                catDisplay.setText(selection);
-                itemDisplay.setText("");
-                return true;
-            case 3:
-                //fruit
-                items.clear();
-                items.add("Orange");
-                items.add("Apple");
-
-                catDisplay.setText(selection);
-                itemDisplay.setText("");
-                return true;
-            default:
-                //item selection
-                itemDisplay.setText(selection);
-                //add code to store as instance variable (String itemName, or int productId?)
-                //depends on implementation of calculate button
-                return true;
-        }
-        //return false;
-    }
 
     /**
      * showDatePickerDialog method --
@@ -273,4 +290,180 @@ public class ItemInformation extends AppCompatActivity implements PopupMenu.OnMe
             resultDisplay.setText("Calculated result for " + itemDisplay.getText() + ", expiring " +
                     expirationMonth + "/" + expirationDay + "/" + expirationYear + " will go here.");
     }
+
+
+    /**
+     * Inner class to retrieve all categories from the FoodKeeper API
+     */
+    private class GetCategories extends AsyncTask<Void, Void, Void> {
+        private final String TAG = GetCategories.class.getSimpleName();
+        private String result = "";
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            Log.d(TAG, "on pre execute");
+            // give a little Toast message to explain any delay...
+            Toast.makeText(getApplicationContext(),"Gathering the food categories please wait",
+                    Toast.LENGTH_SHORT).show();
+            // show the progress circle
+            progressBar.setVisibility(View.VISIBLE);
+            waitingForCategories = true;
+        }
+
+        @Override
+        protected Void doInBackground(Void... arg0) {
+            HttpURLConnection urlConnection;
+            BufferedReader reader;
+
+            try {
+                // set the URL for the API call
+                String apiCall = "https://foodkeeper-api.herokuapp.com/categories";
+                Log.d(TAG, "apiCall = " + apiCall);
+                URL url = new URL(apiCall);
+                // connect to the site to read information
+                urlConnection = (HttpsURLConnection) url.openConnection();
+                urlConnection.setRequestMethod("GET");
+                urlConnection.connect();
+
+                // store the data retrieved by the request
+                InputStream inputStream = urlConnection.getInputStream();
+                // no data returned by the request, so terminate the method
+                if (inputStream == null) {
+                    // Nothing to do.
+                    return null;
+                }
+
+                // connect a BufferedReader to the input stream at URL
+                reader = new BufferedReader(new InputStreamReader(inputStream));
+                // store the data in a string and display in the Logcat window
+                result = reader.readLine();
+                Log.d(TAG, "returned string: " + result);
+
+            } catch (Exception e) {
+                Log.d(TAG, "EXCEPTION in HttpAsyncTask: " + e.getMessage());
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void r) {
+            super.onPostExecute(r);
+
+            if (result != null) {
+                Log.d(TAG, "about to start the JSON parsing" + result);
+                try {
+                    // Note: the categories are returned in category id order by the API.  This
+                    // lets us just use the position in our categories arraylist to figure out
+                    // the corresponding category id (position + 1).
+                    // The result is expected to be an array of category entries so start with that
+                    JSONArray jsonArray = new JSONArray(result);
+                    // iterate through the entries in the array
+                    for(int i = 0; i < jsonArray.length(); i++){
+                        //pulling an object out of the array based on the index number
+                        JSONObject jsonObj = jsonArray.getJSONObject(i);
+                        //getting the name of the main name of the category
+                        String name = jsonObj.getString("name");
+                        // if the subcategory is not null, get it and append it to the name
+                        if (!jsonObj.isNull("subcategory"))
+                            name += " (" + jsonObj.getString("subcategory") + ")";
+                        // add the category to the list
+                        categories.add(name);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                Log.d(TAG, "Couldn't get any data from the url");
+            }
+            // hide the progress circle
+            progressBar.setVisibility(View.INVISIBLE);
+            waitingForCategories = false;
+
+        }
+    }
+
+    /**
+     * Inner class to retrieve all items for the currently selected category from the FoodKeeper API
+     */
+    private class GetItemsForCategory extends AsyncTask<Void, Void, Void> {
+        private final String TAG = GetItemsForCategory.class.getSimpleName();
+        private String result = "";
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            Log.d(TAG, "on pre execute");
+            // give a little Toast message to explain any delay...
+            Toast.makeText(getApplicationContext(),"Gathering items for selected category, please wait",
+                    Toast.LENGTH_SHORT).show();
+            // show the progress circle
+            progressBar.setVisibility(View.VISIBLE);
+            waitingForItems = true;
+        }
+
+        @Override
+        protected Void doInBackground(Void... arg0) {
+            HttpURLConnection urlConnection;
+            BufferedReader reader;
+
+            try {
+                // set the URL for the API call
+                String apiCall = "https://foodkeeper-api.herokuapp.com/products/category/"
+                        + selectedCategoryId;
+                Log.d(TAG, "apiCall = " + apiCall);
+                URL url = new URL(apiCall);
+                // connect to the site to read information
+                urlConnection = (HttpsURLConnection) url.openConnection();
+                urlConnection.setRequestMethod("GET");
+                urlConnection.connect();
+
+                // store the data retrieved by the request
+                InputStream inputStream = urlConnection.getInputStream();
+                // no data returned by the request, so terminate the method
+                if (inputStream == null) {
+                    // Nothing to do.
+                    return null;
+                }
+
+                // connect a BufferedReader to the input stream at URL
+                reader = new BufferedReader(new InputStreamReader(inputStream));
+                // store the data in a string and display in the Logcat window
+                result = reader.readLine();
+                Log.d(TAG, "returned string: " + result);
+
+            } catch (Exception e) {
+                Log.d(TAG, "EXCEPTION in HttpAsyncTask: " + e.getMessage());
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void r) {
+            super.onPostExecute(r);
+
+            if (result != null) {
+                Log.d(TAG, "about to start the JSON parsing" + result);
+                try {
+                    // The result is expected to be an array of product entries so start with that
+                    JSONArray jsonArray = new JSONArray(result);
+                    // iterate through the entries in the array
+                    for(int i = 0; i < jsonArray.length(); i++){
+                        // add the product to the list
+                        items.add(new Product(jsonArray.getJSONObject(i)));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                Log.d(TAG, "Couldn't get any data from the url");
+            }
+            // hide the progress circle
+            progressBar.setVisibility(View.INVISIBLE);
+            waitingForItems = false;
+        }
+    }
+
 }

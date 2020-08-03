@@ -23,6 +23,21 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import edu.ncc.nest.nestapp.UIFoods.BabyFood;
+import edu.ncc.nest.nestapp.UIFoods.BakedGoods;
+import edu.ncc.nest.nestapp.UIFoods.Beverages;
+import edu.ncc.nest.nestapp.UIFoods.Condiments;
+import edu.ncc.nest.nestapp.UIFoods.Dairy;
+import edu.ncc.nest.nestapp.UIFoods.Deli;
+import edu.ncc.nest.nestapp.UIFoods.FrozenFood;
+import edu.ncc.nest.nestapp.UIFoods.Grains;
+import edu.ncc.nest.nestapp.UIFoods.Meat;
+import edu.ncc.nest.nestapp.UIFoods.Poultry;
+import edu.ncc.nest.nestapp.UIFoods.Produce;
+import edu.ncc.nest.nestapp.UIFoods.Seafood;
+import edu.ncc.nest.nestapp.UIFoods.ShelfFoods;
+import edu.ncc.nest.nestapp.UIFoods.VegProteins;
+
 
 public class addToInventory extends AppCompatActivity {
 
@@ -52,58 +67,72 @@ public class addToInventory extends AppCompatActivity {
                 if(position == 0)
                 {
                     Toast.makeText(addToInventory.this, "Baby Food Test", Toast.LENGTH_SHORT).show();
+                    questionaire(mCategory[0]);
                 }
                 if(position == 1)
                 {
                     Toast.makeText(addToInventory.this, "Baked Goods Test", Toast.LENGTH_SHORT).show();
+                    questionaire(mCategory[1]);
                 }
                 if(position == 2)
                 {
                     Toast.makeText(addToInventory.this, "Beverages Test", Toast.LENGTH_SHORT).show();
+                   questionaire(mCategory[2]);
                 }
                 if(position == 3)
                 {
                     Toast.makeText(addToInventory.this, "Condiments Test", Toast.LENGTH_SHORT).show();
+                    questionaire(mCategory[3]);
                 }
                 if(position == 4)
                 {
                     Toast.makeText(addToInventory.this, "Dairy Test", Toast.LENGTH_SHORT).show();
+                    questionaire(mCategory[4]);
                 }
                 if(position == 5)
                 {
                     Toast.makeText(addToInventory.this, "Deli Test", Toast.LENGTH_SHORT).show();
+                    questionaire(mCategory[5]);
                 }
                 if(position == 6)
                 {
                     Toast.makeText(addToInventory.this, "Food Purchased Frozen Test", Toast.LENGTH_SHORT).show();
+                    questionaire(mCategory[6]);
                 }
                 if(position == 7)
                 {
                     Toast.makeText(addToInventory.this, "Grains Test", Toast.LENGTH_SHORT).show();
+                    questionaire(mCategory[7]);
                 }
                 if(position == 8)
                 {
                     Toast.makeText(addToInventory.this, "Meat Test", Toast.LENGTH_SHORT).show();
+                    questionaire(mCategory[8]);
                 }
                 if(position == 9)
                 {
                     Toast.makeText(addToInventory.this, "Poultry Test", Toast.LENGTH_SHORT).show();
+                    questionaire(mCategory[9]);
                 }
                 if(position == 10)
                 {
                     Toast.makeText(addToInventory.this, "Produce Test", Toast.LENGTH_SHORT).show();
+                    questionaire(mCategory[10]);
                 }
                 if(position == 11)
                 {
                     Toast.makeText(addToInventory.this, "Sea food test", Toast.LENGTH_SHORT).show();
+                    questionaire(mCategory[11]);
                 }
                 if(position == 12)
                 {
-                    Toast.makeText(addToInventory.this, "shelf food", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(addToInventory.this, "Shelf food", Toast.LENGTH_SHORT).show();
+                    questionaire(mCategory[12]);
                 }
                 if(position == 13)
                 {
-                    Toast.makeText(addToInventory.this, "vegetales Test", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(addToInventory.this, "Vegetales Test", Toast.LENGTH_SHORT).show();
+                    questionaire(mCategory[13]);
                 }
             }
         });
@@ -169,10 +198,134 @@ public class addToInventory extends AppCompatActivity {
     }
 
     /**
-     * home method - goes to the home screen
+     * home method - goes to the nest home screen
      */
     public void home() {
         Intent intent = new Intent(this, Choose.class);
+        startActivity(intent);
+    }
+
+    /**
+     * questionaire method -- sends out the intent(name of category) to the ATIQuestionaire activity
+     * @param category
+     */
+    public void questionaire(String category){
+        Intent intent = new Intent(this,ATIQuestionaire.class);
+        String catName = category;
+        intent.putExtra("categoryLabel",catName);
+        startActivity(intent);
+    }
+
+    //--------May or may not be used for this activity-----------
+    /**
+     * launchBabyFood - starts the BabyFood activity
+     */
+    public void launchBabyFood() {
+        Intent intent = new Intent(this, BabyFood.class);
+        startActivity(intent);
+    }
+
+    /**
+     * launchBakedGoods - starts the BakedGoods activity
+     */
+    public void launchBakedGoods() {
+        Intent intent = new Intent(this, BakedGoods.class);
+        startActivity(intent);
+    }
+
+    /**
+     * launchBakedBeverages - starts the Beverages activity
+     */
+    public void launchBeverages() {
+        Intent intent = new Intent(this, Beverages.class);
+        startActivity(intent);
+    }
+
+    /**
+     * launchCondiments - starts the Condiments activity
+     */
+    public void launchCondiments() {
+        Intent intent = new Intent(this, Condiments.class);
+        startActivity(intent);
+    }
+
+    /**
+     * launchDairy - starts the Diary activity
+     */
+    public void launchDairy() {
+        Intent intent = new Intent(this, Dairy.class);
+        startActivity(intent);
+    }
+
+    /**
+     * launchDeli - starts the Deli activity
+     */
+    public void launchDeli() {
+        Intent intent = new Intent(this, Deli.class);
+        startActivity(intent);
+    }
+
+    /**
+     * launchFrozenFood - starts the FrozenFoods activity
+     */
+    public void launchFrozenFoods() {
+        Intent intent = new Intent(this, FrozenFood.class);
+        startActivity(intent);
+    }
+
+    /**
+     * launchGrains - starts the Grains activity
+     */
+    public void launchGrains() {
+        Intent intent = new Intent(this, Grains.class);
+        startActivity(intent);
+    }
+
+    /**
+     * launchMeta - starts the Meat activity
+     */
+    public void launchMeat() {
+        Intent intent = new Intent(this, Meat.class);
+        startActivity(intent);
+    }
+
+    /**
+     * launchPoultry - starts the Poultry activity
+     */
+    public void launchPoultry() {
+        Intent intent = new Intent(this, Poultry.class);
+        startActivity(intent);
+    }
+
+    /**
+     * launchProduce - starts the Produce activity
+     */
+    public void launchProduce() {
+        Intent intent = new Intent(this, Produce.class);
+        startActivity(intent);
+    }
+
+    /**
+     * launchSeafood - starts the Seafood activity
+     */
+    public void launchSeafood() {
+        Intent intent = new Intent(this, Seafood.class);
+        startActivity(intent);
+    }
+
+    /**
+     * launchShelfFoods - starts the ShelfFoods activity
+     */
+    public void launchShelfFoods() {
+        Intent intent = new Intent(this, ShelfFoods.class);
+        startActivity(intent);
+    }
+
+    /**
+     * launchVegProteins - starts the VegProteins activity
+     */
+    public void launchVegProteins() {
+        Intent intent = new Intent(this, VegProteins.class);
         startActivity(intent);
     }
 

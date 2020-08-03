@@ -43,20 +43,12 @@
         android:textSize="30dp"
         android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/scanBtn"
-        android:onClick="onClick"
-        android:layout_width="138dp"
-        android:layout_height="71dp"
-        android:layout_below="@id/nestTxt"
-        android:layout_centerHorizontal="true"
-        android:text="Scan" />
 
     <Button
         android:id="@+id/addToInventoryBtn"
         android:layout_width="138dp"
         android:layout_height="71dp"
-        android:layout_below="@id/scanBtn"
+        android:layout_below="@id/getUPCBtn"
         android:layout_centerHorizontal="true"
         android:onClick="onClick"
         android:text="Add To Inventory" />
@@ -108,13 +100,14 @@
 
     <Button
         android:id="@+id/finalDBtn"
-        android:onClick="onClick"
         android:layout_width="138dp"
         android:layout_height="71dp"
-        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/interfaceTestBtn"
         android:layout_below="@id/donateBtn"
-        android:text="@string/FinalDate"
-        />
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="27dp"
+        android:onClick="onClick"
+        android:text="@string/FinalDate" />
 
     <Button
         android:id="@+id/signUpBtn"
@@ -130,12 +123,23 @@
 
     <Button
         android:id="@+id/interfaceTestBtn"
-        android:onClick="onClick"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Interface Tests"
-        android:layout_alignParentBottom="true"
         android:layout_alignBaseline="@id/signUpBtn"
-        android:layout_toLeftOf="@id/signUpBtn"/>
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="54dp"
+        android:layout_marginBottom="16dp"
+        android:layout_toLeftOf="@id/signUpBtn"
+        android:onClick="onClick"
+        android:text="Interface Tests" />
+
+    <Button
+        android:id="@+id/getUPCBtn"
+        android:layout_width="138dp"
+        android:layout_height="71dp"
+        android:layout_below="@id/nestTxt"
+        android:layout_centerHorizontal="true"
+        android:onClick="onClick"
+        android:text="Get UPC" />
 
 </RelativeLayout>

@@ -17,9 +17,14 @@ package edu.ncc.nest.nestapp;
  */
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -47,6 +52,9 @@ public class Donate extends AppCompatActivity implements View.OnClickListener, A
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_donate);
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         //This block of code sets up the category spinner listing all the foodkeeper categories as options
         Spinner spinner = findViewById(R.id.categorySpinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -67,6 +75,34 @@ public class Donate extends AppCompatActivity implements View.OnClickListener, A
         btnForCalender = (Button) findViewById(R.id.selectDateBtn);
         //Sets the onClick for btnForCalendar
         btnForCalender.setOnClickListener(this);
+    }
+
+
+    //implements the menu options for the toolbar
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        return true;
+
+    }
+
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.homeBtn) {
+            home();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * home method - goes to the home screen
+     */
+    public void home() {
+        Intent intent = new Intent(this, Choose.class);
+        startActivity(intent);
     }
 
     @Override
