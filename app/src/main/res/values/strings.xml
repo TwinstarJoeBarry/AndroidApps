@@ -65,7 +65,7 @@
     <string name="volFirstName_lbl">What is the first name of the volunteer who helped you today?</string>
     <string name="volLastName_lbl">What is the last name of the volunteer who helped you today?</string>
     <string name="submitBtn_lbl">Submit</string>
-    <string name="contact_method">Preffered method of contact:</string>
+    <string name="contact_method">Prefered method of contact:</string>
     <string name="push_notif">Would you like to receive Push Notifications?</string>
     <string name="yes_to_push">Yes, I would like to receive push notifications.</string>
     <string name="re_enter">Re-enter Password</string>
@@ -934,4 +934,11 @@
     <string name="expiration_date">Expiration Date: </string>
     <string name="submit">Submit</string>
     <string name="title_activity_add_to_inventory">Add To Inventory</string>
+
+    <!-- String names for ATIQuestionaire activity -->
+    <string name="atiqTitle">List View of All Products</string>
+    <string name="categorySelec">UITest4</string>
+    <string name="returnToATI">Press to See Related Products</string>
+    <string name="productsATI">Product:  </string>
+    <!-- String names for ATIQuestionaire activity -->
 </resources>

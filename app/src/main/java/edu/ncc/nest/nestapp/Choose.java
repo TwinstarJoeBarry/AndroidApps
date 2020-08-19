@@ -99,9 +99,6 @@ public class Choose extends AppCompatActivity implements OnClickListener {
             case R.id.signUpBtn:
                 createAccountDialog();
                 break;
-            case R.id.scanBtn:
-                launchScanner();
-                break;
             case R.id.finalDBtn:
                 launchFinalDate();
                 break;
@@ -110,6 +107,9 @@ public class Choose extends AppCompatActivity implements OnClickListener {
                 break;
             case R.id.interfaceTestBtn:
                 launchInterfaceTest();
+                break;
+            case R.id.getUPCBtn:
+                launchGetUPC();
                 break;
         }
     }
@@ -302,6 +302,22 @@ public class Choose extends AppCompatActivity implements OnClickListener {
     public void launchAddToInventory()
     {
         Intent intent = new Intent(this, addToInventory.class);
+        startActivity(intent);
+    }
+
+    /**
+     * launchEnterUPC - starts the Enter UPC activity
+     */
+    public void launchEnterUPC() {
+        Intent intent = new Intent(this, EnterUPC.class);
+        startActivity(intent);
+    }
+
+    /**
+     * launchGetUPC - starts the Get UPC activity
+     */
+    public void launchGetUPC() {
+        Intent intent = new Intent(this, GetUPC.class);
         startActivity(intent);
     }
 }
