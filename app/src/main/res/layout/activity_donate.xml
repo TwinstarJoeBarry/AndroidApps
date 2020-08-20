@@ -28,29 +28,31 @@
         android:id="@+id/titleTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="115dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="68dp"
         android:text="@string/title_donate"
         android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/selectCategoryTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="70dp"
-        android:textSize="20dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="112dp"
         android:text="@string/category_txt"
+        android:textSize="20dp"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
         android:id="@+id/categorySpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
+        android:layout_marginTop="4dp"
         app:layout_constraintLeft_toLeftOf="@id/selectCategoryTxt"
         app:layout_constraintTop_toBottomOf="@id/selectCategoryTxt" />
 
@@ -58,29 +60,30 @@
         android:id="@+id/subcategoryMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
         android:layout_marginTop="40dp"
-        android:textSize="15dp"
         android:text="@string/waiting_for_a_category_to_be_selected"
+        android:textSize="15dp"
+        app:layout_constraintBottom_toTopOf="@id/selectSubcategoryTxt"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/selectCategoryTxt"
-        app:layout_constraintBottom_toTopOf="@id/selectSubcategoryTxt" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/selectCategoryTxt" />
 
     <TextView
         android:id="@+id/selectSubcategoryTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:textSize="20dp"
+        android:layout_marginTop="16dp"
         android:text="@string/select_a_subcategory"
+        android:textSize="20dp"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/subcategoryMessage" />
 
     <Spinner
         android:id="@+id/subcategorySpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintLeft_toLeftOf="@id/selectSubcategoryTxt"
         app:layout_constraintTop_toBottomOf="@id/selectSubcategoryTxt" />
 
@@ -88,18 +91,19 @@
         android:id="@+id/selectItemTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="45dp"
-        android:textSize="20dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="68dp"
         android:text="@string/select_an_item"
+        android:textSize="20dp"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/selectSubcategoryTxt" />
 
     <Spinner
         android:id="@+id/itemSpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintLeft_toLeftOf="@id/selectItemTxt"
         app:layout_constraintTop_toBottomOf="@id/selectItemTxt" />
 
@@ -107,31 +111,36 @@
         android:id="@+id/selectDateTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="15dp"
+        android:layout_marginTop="32dp"
         android:text="@string/press_to_select_the_expiration_date"
-        android:layout_marginTop="25dp"
-        android:layout_marginLeft="60dp"
+        android:textSize="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/itemSpinner"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/itemSpinner" />
 
     <Button
         android:id="@+id/selectDateBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:text="@string/select_date"
-        android:layout_marginLeft="115dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="@id/selectItemTxt"
-        app:layout_constraintTop_toBottomOf="@id/selectDateTxt"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/selectDateTxt" />
 
     <TextView
         android:id="@+id/expirationDateTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="44dp"
         android:text="@string/expiration_date"
-        android:layout_marginTop="20dp"
+        android:textSize="20dp"
         app:layout_constraintLeft_toLeftOf="@id/selectItemTxt"
-        app:layout_constraintTop_toBottomOf="@id/selectDateBtn"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/selectDateBtn" />
 
     <TextView
         android:id="@+id/expirationDate"
@@ -146,10 +155,24 @@
         android:id="@+id/submitBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:text="@string/submit"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="140dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/expirationDateTxt"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/expirationDateTxt" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="420sp"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.555"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="0dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

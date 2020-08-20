@@ -19,7 +19,12 @@ package edu.ncc.nest.nestapp;
 
 import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -67,6 +72,8 @@ public class VolunteerForm extends AppCompatActivity implements View.OnClickList
         push_not = findViewById(R.id.push_not);
         submit = findViewById(R.id.submit_button);
         submit.setOnClickListener(this);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
     }
 
 /** onClick - retrieves the view as a parameter, gets the id and checks if
@@ -74,11 +81,38 @@ public class VolunteerForm extends AppCompatActivity implements View.OnClickList
  * method is true, if so the intent is started as the new activity
  * @param - v: View
  **/
+
+//implements the menu options for the toolbar
+@Override
+public boolean onCreateOptionsMenu(Menu menu) {
+
+    MenuInflater inflater = getMenuInflater();
+    inflater.inflate(R.menu.menu_main, menu);
+    return true;
+
+}
+
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.homeBtn) {
+            home();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * home method - goes to the home screen
+     */
+    public void home() {
+        Intent intent = new Intent(this, Choose.class);
+        startActivity(intent);
+    }
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.submit_button:
                 if (checkFill() == true) {
-                    //intent = new Intent(this, availability.class);
+                    intent = new Intent(this, ItemInformation.class);
                     startActivity(intent);
                 }
 
@@ -89,24 +123,24 @@ public class VolunteerForm extends AppCompatActivity implements View.OnClickList
 
 
     public boolean checkFill() {
-        Toast fix = null;
-        if (firstName.getText().toString().equals("")) {
-            fix.makeText(this, "Please fill out the First Name field", Toast.LENGTH_SHORT).show();
-            return false;
-
-        } else if (lastName.getText().toString().equals("")) {
-            fix.makeText(this, "Please fill out the Last Name field", Toast.LENGTH_SHORT).show();
-            return false;
-
-        } else if (phone.getText().toString().equals("") || phone.getText().toString().length() != 10 || !isNumeric(phone.getText().toString())) {
-            fix.makeText(this, "Please enter a proper phone number with no hyphens i.e. 5165558888", Toast.LENGTH_SHORT).show();
-            return false;
-
-        } else if (!isValid(email.getText().toString())) {
-            fix.makeText(this, "Please enter a valid email address", Toast.LENGTH_SHORT).show();
-            return false;
-
-        }
+//        Toast fix = null;
+//        if (firstName.getText().toString().equals("")) {
+//            fix.makeText(this, "Please fill out the First Name field", Toast.LENGTH_SHORT).show();
+//            return false;
+//
+//        } else if (lastName.getText().toString().equals("")) {
+//            fix.makeText(this, "Please fill out the Last Name field", Toast.LENGTH_SHORT).show();
+//            return false;
+//
+//        } else if (phone.getText().toString().equals("") || phone.getText().toString().length() != 10 || !isNumeric(phone.getText().toString())) {
+//            fix.makeText(this, "Please enter a proper phone number with no hyphens i.e. 5165558888", Toast.LENGTH_SHORT).show();
+//            return false;
+//
+//        } else if (!isValid(email.getText().toString())) {
+//            fix.makeText(this, "Please enter a valid email address", Toast.LENGTH_SHORT).show();
+//            return false;
+//
+//        }
         return true;
     }
 
