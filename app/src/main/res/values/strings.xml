@@ -941,4 +941,7 @@
     <string name="returnToATI">Press to See Related Products</string>
     <string name="productsATI">Product:  </string>
     <!-- String names for ATIQuestionaire activity -->
+
+    <string name="empty_string" />
+    <string name="tips">TIP</string>
 </resources>
