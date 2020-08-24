@@ -3,14 +3,9 @@ package edu.ncc.nest.nestapp;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 
 public class InterfaceTests extends AppCompatActivity implements View.OnClickListener {
@@ -60,6 +55,7 @@ public class InterfaceTests extends AppCompatActivity implements View.OnClickLis
 
     // launches interface four
     public void launchInterfaceFour() {
-
+        Intent intent = new Intent(this, UPCLookup.class);
+        startActivity(intent);
     }
 }
