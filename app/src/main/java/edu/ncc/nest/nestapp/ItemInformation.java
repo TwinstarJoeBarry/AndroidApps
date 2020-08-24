@@ -32,6 +32,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -65,12 +66,13 @@ public class ItemInformation extends AppCompatActivity implements DatePickerDial
     private int selectedItemPosition;
     private boolean waitingForItems;
 
-    // Views that are updated programmatically
     ProgressBar progressBar;
-    TextView catDisplay, itemDisplay, expDisplay, resultDisplay;
+    TextView catDisplay, itemDisplay, expDisplay, resultDisplay, tipDisplay;
+    Button tipBut;
 
     // used for expiration date calculation
     int expirationMonth, expirationDay, expirationYear;
+    String tip = "This tip text should to be populated from the selected Item (Product)";
 
     /**
      * onCreate method --
@@ -87,10 +89,12 @@ public class ItemInformation extends AppCompatActivity implements DatePickerDial
         setSupportActionBar(toolbar);
 
         progressBar = findViewById(R.id.progressbar);
-        catDisplay = findViewById(R.id.cat_result);
-        itemDisplay = findViewById(R.id.item_result);
-        expDisplay = findViewById(R.id.exp_result);
-        resultDisplay = findViewById(R.id.result);
+        catDisplay = (TextView)findViewById(R.id.cat_result);
+        itemDisplay = (TextView)findViewById(R.id.item_result);
+        expDisplay = (TextView)findViewById(R.id.exp_result);
+        resultDisplay = (TextView)findViewById(R.id.result);
+        tipDisplay = (TextView)findViewById(R.id.tipDisplay);
+        tipBut = (Button)findViewById(R.id.tips_button);
 
         expirationYear = -1; //for testing in calculateResult method
 
@@ -213,7 +217,7 @@ public class ItemInformation extends AppCompatActivity implements DatePickerDial
                 selectedItemPosition = item.getItemId();
                 itemDisplay.setText(item.getTitle().toString());
                 // todo do something regarding calculate button here (? - depends on implementation)
-                // todo make use of ShelfLife (may need to have user choose) of selected Product to calc date
+                // todo make use of ShelfLife (may need to have user choose) of selected `Product` to calc date
                 return true;
             }
         });
@@ -274,7 +278,7 @@ public class ItemInformation extends AppCompatActivity implements DatePickerDial
     /**
      * calculateResult method --
      * onClick for the Calculate button; currently ensures an item and date have been selected,
-     * and edits the Result label.
+     * and edits the Result label. Also displays the tip button if necessary
      *
      * @param v - the Calculate button
      */
@@ -282,15 +286,37 @@ public class ItemInformation extends AppCompatActivity implements DatePickerDial
         //read from database using UPC code, or read from FoodKeeper and store to database if new item
         //calculate result using DOP of selected item and given expiration date, then set result label
 
-        //placeholder code:
+        //ensures tip button and display is not visible
+        tipBut.setVisibility(Button.INVISIBLE);
+        tipBut.setClickable(false);
+        tipDisplay.setText(R.string.empty_string);
+        tipDisplay.setVisibility(TextView.INVISIBLE);
+
+        //placeholder code
         if(expirationYear == -1 || itemDisplay.getText().toString().equals(""))
             Toast.makeText(getApplicationContext(), "Cannot calculate. Please select an item and " +
                     "date, then try again.", Toast.LENGTH_LONG).show();
         else
             resultDisplay.setText("Calculated result for " + itemDisplay.getText() + ", expiring " +
                     expirationMonth + "/" + expirationDay + "/" + expirationYear + " will go here.");
+
+        //sets the button and display to visible when there is a tip to display
+        if(tip!=null)
+        {
+            tipDisplay.setVisibility(TextView.VISIBLE);
+            tipBut.setVisibility(Button.VISIBLE);
+            tipBut.setClickable(true);
+        }
     }
 
+    /**
+     * tipFound method --
+     * onClick for the tip button; sets the text of the text display.
+     * @param v - the tip button
+     */
+    public void tipFound(View v){
+        tipDisplay.setText("Tip(s):"+tip);
+    }
 
     /**
      * Inner class to retrieve all categories from the FoodKeeper API

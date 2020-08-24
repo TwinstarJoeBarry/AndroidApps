@@ -22,8 +22,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Choose">
-    
+    tools:context=".Choose"
+    android:id="@+id/RelativeLayoutMain" >
+
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
@@ -33,113 +34,119 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="34dp"
-        android:shadowColor="#000000"
-        android:shadowDx="2"
-        android:shadowDy="2"
-        android:shadowRadius="1.5"
         android:text="@string/make_choice"
-        android:textColor="#FFFCFC"
         android:textSize="30dp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:fontFamily="casual"
+        android:layout_below="@id/toolbar"/>
 
-
-    <Button
-        android:id="@+id/addToInventoryBtn"
-        android:layout_width="138dp"
-        android:layout_height="71dp"
-        android:layout_below="@id/getUPCBtn"
-        android:layout_centerHorizontal="true"
-        android:onClick="onClick"
-        android:text="Add To Inventory" />
-
-    <Button
-        android:id="@+id/inventoryBtn"
-        android:layout_width="138dp"
-        android:layout_height="71dp"
-        android:layout_below="@id/addToInventoryBtn"
-        android:layout_centerHorizontal="true"
-        android:onClick="onClick"
-        android:text="Inventory" />
-
-    <Button
-        android:id="@+id/scheduleBtn"
-        android:layout_width="138dp"
-        android:layout_height="71dp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/inventoryBtn"
-        android:onClick="onClick"
-        android:text="Schedule" />
-
-    <Button
-        android:id="@+id/guestFormBtn"
-        android:layout_width="138dp"
-        android:layout_height="71dp"
-        android:layout_below="@id/scheduleBtn"
-        android:layout_centerHorizontal="true"
-        android:onClick="onClick"
-        android:text="Guest Form" />
-
-    <Button
-        android:id="@+id/volunteerFormBtn"
-        android:layout_width="138dp"
-        android:layout_height="71dp"
-        android:layout_below="@id/guestFormBtn"
-        android:layout_centerHorizontal="true"
-        android:onClick="onClick"
-        android:text="Volunteer Form" />
-
-    <Button
-        android:id="@+id/donateBtn"
-        android:onClick="onClick"
-        android:layout_width="138dp"
-        android:layout_height="71dp"
-        android:layout_below="@id/volunteerFormBtn"
-        android:layout_centerHorizontal="true"
-        android:text="Donate" />
-
-    <Button
-        android:id="@+id/finalDBtn"
-        android:layout_width="138dp"
-        android:layout_height="71dp"
-        android:layout_above="@+id/interfaceTestBtn"
-        android:layout_below="@id/donateBtn"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="27dp"
-        android:onClick="onClick"
-        android:text="@string/FinalDate" />
+    <TextView
+        android:id="@+id/centerPoint"
+        android:text=""
+        android:layout_width="10dip"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:id="@+id/signUpBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="159dp"
-        android:layout_marginEnd="9dp"
-        android:layout_marginBottom="14dp"
         android:onClick="onClick"
-        android:text="Create NEST account" />
+        android:text="Create NEST account"
+        android:layout_toLeftOf="@id/centerPoint"
+        android:layout_alignParentBottom="true"/>
 
     <Button
         android:id="@+id/interfaceTestBtn"
+        android:onClick="onClick"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@id/signUpBtn"
-        android:layout_alignParentBottom="true"
-        android:layout_marginRight="54dp"
-        android:layout_marginBottom="16dp"
-        android:layout_toLeftOf="@id/signUpBtn"
-        android:onClick="onClick"
-        android:text="Interface Tests" />
+        android:text="Interface Tests"
+        android:layout_toRightOf="@id/centerPoint"
+        android:layout_alignParentBottom="true" />
 
-    <Button
-        android:id="@+id/getUPCBtn"
-        android:layout_width="138dp"
-        android:layout_height="71dp"
-        android:layout_below="@id/nestTxt"
-        android:layout_centerHorizontal="true"
-        android:onClick="onClick"
-        android:text="Get UPC" />
+    <ScrollView
+        android:id="@+id/ScrollView01"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        android:scrollbars="none"
+        android:layout_above="@id/signUpBtn"
+        android:layout_below="@id/nestTxt">
 
+        <RelativeLayout android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/getUPCBtn"
+                android:onClick="onClick"
+                android:layout_width="138dp"
+                android:layout_height="70dp"
+                android:layout_centerHorizontal="true"
+                android:text="Get UPC" />
+
+            <Button
+                android:id="@+id/addToInventoryBtn"
+                android:layout_width="138dp"
+                android:layout_height="70dp"
+                android:layout_below="@id/getUPCBtn"
+                android:layout_centerHorizontal="true"
+                android:onClick="onClick"
+                android:text="Add To Inventory" />
+
+            <Button
+                android:id="@+id/inventoryBtn"
+                android:layout_width="138dp"
+                android:layout_height="70dp"
+                android:layout_below="@id/addToInventoryBtn"
+                android:layout_centerHorizontal="true"
+                android:onClick="onClick"
+                android:text="Inventory" />
+            <Button
+                android:id="@+id/scheduleBtn"
+                android:layout_width="138dp"
+                android:layout_height="70dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/inventoryBtn"
+                android:onClick="onClick"
+                android:text="Schedule" />
+
+            <Button
+                android:id="@+id/guestFormBtn"
+                android:layout_width="138dp"
+                android:layout_height="70dp"
+                android:layout_below="@id/scheduleBtn"
+                android:layout_centerHorizontal="true"
+                android:onClick="onClick"
+                android:text="Guest Form" />
+
+            <Button
+                android:id="@+id/volunteerFormBtn"
+                android:layout_width="138dp"
+                android:layout_height="70dp"
+                android:layout_below="@id/guestFormBtn"
+                android:layout_centerHorizontal="true"
+                android:onClick="onClick"
+                android:text="Volunteer Form" />
+
+            <Button
+                android:id="@+id/donateBtn"
+                android:onClick="onClick"
+                android:layout_width="138dp"
+                android:layout_height="70dp"
+                android:layout_below="@id/volunteerFormBtn"
+                android:layout_centerHorizontal="true"
+                android:text="Donate" />
+
+            <Button
+                android:id="@+id/finalDBtn"
+                android:onClick="onClick"
+                android:layout_width="138dp"
+                android:layout_height="70dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/donateBtn"
+                android:text="@string/FinalDate" />
+
+        </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>
