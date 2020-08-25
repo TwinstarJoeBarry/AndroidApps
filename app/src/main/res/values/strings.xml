@@ -951,6 +951,7 @@
     <string name="upc_lookup_no_foodkeeper_category_match_found">No Food Keeper category match found</string>
     <string name="upc_lookup_bad_upc">Bad UPC</string>
     <string name="upc_lookup_usda_null_response">NULL response from USDA API</string>
+    <string name="upc_lookup_usda_no_response">No response from USDA API</string>
 
 
     <string name="empty_string" />
