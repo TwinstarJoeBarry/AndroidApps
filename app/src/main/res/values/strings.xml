@@ -954,6 +954,10 @@
     <string name="upc_lookup_usda_no_response">No response from USDA API</string>
 
 
+    <string name="upcTitleText">UPC Lookup Tool</string>
+    <string name="upcSearchBtn">Search</string>
+    <string name="upcScanBtn">Scan</string>
+
     <string name="empty_string" />
     <string name="tips">TIP</string>
 </resources>
