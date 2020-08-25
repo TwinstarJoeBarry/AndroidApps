@@ -28,6 +28,8 @@
         <activity android:name=".Donate" />
         <activity android:name=".Scanner" />
         <activity android:name=".InterfaceTests" />
+        <activity android:name=".UPCLookup" />
+        <activity android:name=".UPCScanner" />
         <activity
             android:name=".addToInventory"
             android:label="@string/title_activity_add_to_inventory"
