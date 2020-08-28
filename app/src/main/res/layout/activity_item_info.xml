@@ -33,29 +33,47 @@
             android:id="@+id/label1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="40dp"
             android:text="@string/UPC_label" />
-
-        <EditText
-            android:id="@+id/UPCentry"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/label1"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="2dp"
-            android:ems="11" />
 
         <Button
             android:id="@+id/open_camera"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/label1"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginRight="10dp"
+            android:textAllCaps="false"
+            android:text="Scan in" />
+
+        <EditText
+            android:id="@+id/UPCentry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/label1"
+            android:layout_marginTop="2dp"
+            android:layout_toRightOf="@id/open_camera"
+            android:layout_marginLeft="4dp"
+            android:hint="Enter UPC code here"
+            android:ems="9" />
+
+        <Button
+            android:id="@+id/lookupUPC"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/label1"
+            android:layout_marginLeft="8dp"
             android:layout_marginTop="2dp"
             android:layout_marginRight="10dp"
             android:layout_toRightOf="@id/UPCentry"
-            android:text="@string/open_camera" />
+            android:textAllCaps="false"
+            android:onClick="lookupUPC"
+            android:text="Lookup" />
+
+
+
 
         <TextView
             android:id="@+id/selection_label"

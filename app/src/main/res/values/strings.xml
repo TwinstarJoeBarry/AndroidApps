@@ -141,7 +141,7 @@
     </string-array>
 
     <!-- String for activity_item_info -->
-    <string name="UPC_label">Enter the UPC manually or click the button to open the camera:</string>
+    <string name="UPC_label">Scan in or manually enter the UPC code then tap Lookup</string>
     <string name="open_camera">Open Camera</string>
     <string name="UPC_message">UPC number from scan:</string>
     <string name="item_name_message">Item name from scan:</string>
@@ -960,4 +960,17 @@
 
     <string name="empty_string" />
     <string name="tips">TIP</string>
+
+    <!-- strings for NestNewUPC activity -->
+    <string name="nest_new_upc_adding_label">Adding new UPC: %1$s</string>
+    <string name="nest_new_upc_brand_prompt">Brand name:</string>
+    <string name="nest_new_upc_brand_hint">Enter brand name</string>
+    <string name="nest_new_upc_description_prompt">Description:</string>
+    <string name="nest_new_upc_description_hint">Enter description</string>
+    <string name="nest_new_upc_choose_corresponding_label">Choose corresponding food expiration category/product</string>
+    <string name="nest_new_upc_product_prompt">Product:</string>
+    <string name="nest_new_upc_category_prompt">Category:</string>
+    <string name="accept">Accept</string>
+    <string name="cancel">Cancel</string>
+
 </resources>

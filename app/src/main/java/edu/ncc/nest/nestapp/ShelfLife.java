@@ -26,18 +26,20 @@ import java.util.Objects;
 public class ShelfLife {
     // constants for the different types of shelf life
     // todo make enum?
-    public static final int PL     = 1;  // pantryLife
-    public static final int PAOL   = 2;  // pantryAfterOpeningLife
-    public static final int RL     = 3;  // refrigeratorLife
-    public static final int RAOL   = 4;  // refrigerateAfterOpeningLife
-    public static final int RATL   = 5;  // refrigerateAfterThawingLife
-    public static final int FL     = 6;  // freezerLife
-    public static final int DOP_PL = 7;  // dop_pantryLife
-    public static final int DOP_RL = 8;  // dop_refrigeratorLife
-    public static final int DOP_FL = 9;  // dop_freezerLife
+    public static final int PL     = 0;  // pantryLife
+    public static final int PAOL   = 1;  // pantryAfterOpeningLife
+    public static final int RL     = 2;  // refrigeratorLife
+    public static final int RAOL   = 3;  // refrigerateAfterOpeningLife
+    public static final int RATL   = 4;  // refrigerateAfterThawingLife
+    public static final int FL     = 5;  // freezerLife
+    public static final int DOP_PL = 6;  // dop_pantryLife
+    public static final int DOP_RL = 7;  // dop_refrigeratorLife
+    public static final int DOP_FL = 8;  // dop_freezerLife
     // todo dop versions needed? or is it either or? investigate
 
     private int type;       // Storage Type (see constants defined above)
+    private String desc;    // descriptive text [comes from shelfLifeTypes table in NestDB]
+    private String code;    // code corresponding to type [comes from shelfLifeTypes table in NestDB]
     private int min;        // Minimum time for shelf life
     private int max;        // Maximum time for shelf life
     private String metric;  // Metric for shelf life
@@ -96,6 +98,22 @@ public class ShelfLife {
 
     public void setTips(String tips) {
         this.tips = tips;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     /**

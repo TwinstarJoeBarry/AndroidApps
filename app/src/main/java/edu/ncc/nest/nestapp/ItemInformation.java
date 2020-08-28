@@ -23,6 +23,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.widget.PopupMenu;
@@ -34,6 +35,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.app.DatePickerDialog;
@@ -50,6 +52,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -68,11 +71,14 @@ public class ItemInformation extends AppCompatActivity implements DatePickerDial
 
     ProgressBar progressBar;
     TextView catDisplay, itemDisplay, expDisplay, resultDisplay, tipDisplay;
+    EditText upcEntry;
     Button tipBut;
 
     // used for expiration date calculation
     int expirationMonth, expirationDay, expirationYear;
     String tip = "This tip text should to be populated from the selected Item (Product)";
+
+    private NestDBDataSource dataSource;
 
     /**
      * onCreate method --
@@ -95,8 +101,11 @@ public class ItemInformation extends AppCompatActivity implements DatePickerDial
         resultDisplay = (TextView)findViewById(R.id.result);
         tipDisplay = (TextView)findViewById(R.id.tipDisplay);
         tipBut = (Button)findViewById(R.id.tips_button);
+        upcEntry = findViewById(R.id.UPCentry);
 
         expirationYear = -1; //for testing in calculateResult method
+
+        dataSource = new NestDBDataSource(this);
 
         // initialize category list and current selection
         categories = new ArrayList<>();
@@ -491,5 +500,66 @@ public class ItemInformation extends AppCompatActivity implements DatePickerDial
             waitingForItems = false;
         }
     }
+
+
+    /**
+     * processUPC method --
+     * onClick for the Lookup button, processes the UPC code that was
+     * entered or scanned-in as follows:
+     * - lookup the UPC code in the NestUPCs table (might be in separate database at some point)
+     * - if found, fill out all the remaining fields based on the associated foodkeeper product,
+     *   including doing the calculating of the "real" expiration date(s) (would be good to
+     *   do entry/select of "package" expiration date prior to UPC scan/enter)
+     *  - if not found, start the NestNewUPC activity so the Nest volunteer can add it
+     *   as a new upc in the database.  If that activity is successful it should return with
+     *   the newly associated FoodKeeper product id.  Proceed then as if the UPC had been found
+     *   to begin with.
+     * @param view - the processUPC button
+     */
+    public void lookupUPC(View view){
+        String upc = upcEntry.getText().toString();
+        int productId = dataSource.getProductIdFromUPC(upc); // returns -1 if not found
+        if (productId < 0) {
+            // upc not found in Nest UPCs table, let's add it...
+            Intent intent = new Intent(this, NestNewUPC.class);
+            intent.putExtra("upc", upc);
+            startActivityForResult(intent, 0);
+        } else {
+            processDataFromUPC();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // handle result from NestNewUPC activity launched in processUPC method
+        if (resultCode == RESULT_OK) {
+            processDataFromUPC();
+        }
+    }
+
+    /**
+     * processDataFromUPC method --
+     * this method looks up the upc, product, category and shelfLives info for the given
+     * upc code and does all the screen fields filling and calculating of expiration(s) and
+     * displaying of the info
+     */
+    private void processDataFromUPC() {
+        String upc = upcEntry.getText().toString();
+        // we get the relevant fields from the Nest UPCs, product and category tables all in one object
+        NestUPC upcData = dataSource.getNestUPC(upc);
+        if (upcData == null)
+            // todo give message ?
+            return;
+
+        // use the datasource to get all applicable shelf life information for the product
+        List<ShelfLife> shelfLives = dataSource.getShelfLivesForProduct(upcData.getProductId());
+
+        // todo still need to populate appropriate fields and parse the shelfLives to calculatre
+        //  expiraation date(s) and display results/info appropriately
+
+    }
+
 
 }
