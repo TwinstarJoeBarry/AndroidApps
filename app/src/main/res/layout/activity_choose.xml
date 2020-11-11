@@ -47,31 +47,12 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true" />
 
-    <Button
-        android:id="@+id/signUpBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="onClick"
-        android:text="Create NEST account"
-        android:layout_toLeftOf="@id/centerPoint"
-        android:layout_alignParentBottom="true"/>
-
-    <Button
-        android:id="@+id/interfaceTestBtn"
-        android:onClick="onClick"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Interface Tests"
-        android:layout_toRightOf="@id/centerPoint"
-        android:layout_alignParentBottom="true" />
-
     <ScrollView
         android:id="@+id/ScrollView01"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fillViewport="true"
         android:scrollbars="none"
-        android:layout_above="@id/signUpBtn"
         android:layout_below="@id/nestTxt">
 
         <RelativeLayout android:layout_width="match_parent"
@@ -85,67 +66,24 @@
                 android:layout_centerHorizontal="true"
                 android:text="Get UPC" />
 
-            <Button
-                android:id="@+id/addToInventoryBtn"
-                android:layout_width="138dp"
-                android:layout_height="70dp"
-                android:layout_below="@id/getUPCBtn"
-                android:layout_centerHorizontal="true"
-                android:onClick="onClick"
-                android:text="Add To Inventory" />
 
-            <Button
-                android:id="@+id/inventoryBtn"
-                android:layout_width="138dp"
-                android:layout_height="70dp"
-                android:layout_below="@id/addToInventoryBtn"
-                android:layout_centerHorizontal="true"
-                android:onClick="onClick"
-                android:text="Inventory" />
             <Button
                 android:id="@+id/scheduleBtn"
                 android:layout_width="138dp"
                 android:layout_height="70dp"
                 android:layout_centerHorizontal="true"
-                android:layout_below="@id/inventoryBtn"
+                android:layout_below="@id/getUPCBtn"
                 android:onClick="onClick"
                 android:text="Schedule" />
 
             <Button
-                android:id="@+id/guestFormBtn"
+                android:id="@+id/futureEffortsBtn"
                 android:layout_width="138dp"
                 android:layout_height="70dp"
                 android:layout_below="@id/scheduleBtn"
                 android:layout_centerHorizontal="true"
                 android:onClick="onClick"
-                android:text="Guest Form" />
-
-            <Button
-                android:id="@+id/volunteerFormBtn"
-                android:layout_width="138dp"
-                android:layout_height="70dp"
-                android:layout_below="@id/guestFormBtn"
-                android:layout_centerHorizontal="true"
-                android:onClick="onClick"
-                android:text="Volunteer Form" />
-
-            <Button
-                android:id="@+id/donateBtn"
-                android:onClick="onClick"
-                android:layout_width="138dp"
-                android:layout_height="70dp"
-                android:layout_below="@id/volunteerFormBtn"
-                android:layout_centerHorizontal="true"
-                android:text="Donate" />
-
-            <Button
-                android:id="@+id/finalDBtn"
-                android:onClick="onClick"
-                android:layout_width="138dp"
-                android:layout_height="70dp"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@id/donateBtn"
-                android:text="@string/FinalDate" />
+                android:text="Future Efforts" />
 
         </RelativeLayout>
     </ScrollView>
