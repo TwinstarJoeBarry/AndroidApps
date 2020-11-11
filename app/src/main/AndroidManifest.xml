@@ -16,6 +16,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".FutureEfforts"
+            android:label="@string/title_activity_future_efforts"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".NestNewUPC" />
         <activity android:name=".GetUPC" />
         <activity android:name=".EnterUPC" />

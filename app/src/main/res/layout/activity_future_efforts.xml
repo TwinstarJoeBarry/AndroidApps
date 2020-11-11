@@ -85,19 +85,10 @@
                 android:text="Schedule" />
 
             <Button
-                android:id="@+id/guestFormBtn"
-                android:layout_width="138dp"
-                android:layout_height="70dp"
-                android:layout_below="@id/scheduleBtn"
-                android:layout_centerHorizontal="true"
-                android:onClick="onClick"
-                android:text="Guest Form" />
-
-            <Button
                 android:id="@+id/volunteerFormBtn"
                 android:layout_width="138dp"
                 android:layout_height="70dp"
-                android:layout_below="@id/guestFormBtn"
+                android:layout_below="@id/scheduleBtn"
                 android:layout_centerHorizontal="true"
                 android:onClick="onClick"
                 android:text="Volunteer Form" />

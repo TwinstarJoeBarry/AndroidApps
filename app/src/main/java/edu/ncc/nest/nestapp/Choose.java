@@ -76,92 +76,16 @@ public class Choose extends AppCompatActivity implements OnClickListener {
      */
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.addToInventoryBtn:
-                launchAddToInventory();
-                break;
-            case R.id.inventoryBtn:
-                launchInventory();
-                break;
-            case R.id.scheduleBtn:
-                launchSchedule();
+            case R.id.getUPCBtn:
+                launchGetUPC();
                 break;
             case R.id.guestFormBtn:
                 launchGuestForm();
                 break;
-            case R.id.volunteerFormBtn:
-                launchVolForm();
-                break;
-            case R.id.signUpBtn:
-                createAccountDialog();
-                break;
-            case R.id.finalDBtn:
-                launchFinalDate();
-                break;
-            case R.id.donateBtn:
-                launchDonate();
-                break;
-            case R.id.interfaceTestBtn:
-                launchInterfaceTest();
-                break;
-            case R.id.getUPCBtn:
-                launchGetUPC();
+            case R.id.futureEffortsBtn:
+                launchFutureEfforts();
                 break;
         }
-    }
-
-    /**
-     * createAccountDialog method - this method creates an alert dialog when the 'Create Nest Account' button is clicked. An alert dialog
-     * will be displayed telling the user what creating an account entails, and will ask them if they want to create an account or not.
-     * If they select 'Yes' they will be directed to the SignUp activity. If they select 'No' the dialog will close.
-     */
-    public void createAccountDialog() {
-        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(Choose.this);
-        alertBuilder.setCancelable(false);
-        alertBuilder.setMessage("Creating a NEST account will allow you to receive notifications relating to guest, donator, or volunteer " +
-                "opportunities. You will be allowed to manage your notification preferences once your account is created. Your name, email " +
-                "address, and phone number will be required." + "\n" + "Create an account?");
-        alertBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                //launch signUp activity
-                launchSignUp();
-            }
-        });
-
-        alertBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
-
-        AlertDialog alert = alertBuilder.create();
-
-        alert.show();
-    }
-
-    /**
-     * launchDonate - starts the Donate activity
-     */
-    public void launchDonate() {
-        Intent intent = new Intent(this, Donate.class);
-        startActivity(intent);
-    }
-
-    /**
-     * launchInventory - starts the Inventory activity
-     */
-    public void launchInventory() {
-        Intent intent = new Intent(this, Inventory.class);
-        startActivity(intent);
-    }
-
-    /**
-     * launchSchedule - starts the Schedule activity
-     */
-    public void launchSchedule() {
-        Intent intent = new Intent(this, Schedule.class);
-        startActivity(intent);
     }
 
     /**
@@ -173,65 +97,18 @@ public class Choose extends AppCompatActivity implements OnClickListener {
     }
 
     /**
-     * launchSignUp - starts the SignUp activity
-     */
-    public void launchSignUp() {
-        Intent intent = new Intent(this, SignUp.class);
-        startActivity(intent);
-    }
-
-    /**
-     * launchVolForm - starts the Volunteer activity
-     */
-    public void launchVolForm() {
-        Intent intent = new Intent(this, VolunteerForm.class);
-        startActivity(intent);
-    }
-
-    /**
-     * launchScanner - starts the Scanner activity
-     */
-    public void launchScanner() {
-        Intent intent = new Intent(this, Scanner.class);
-        startActivity(intent);
-    }
-
-    public void launchFinalDate()
-    {
-        Intent intent = new Intent(this, FinalDate.class);
-        startActivity(intent);
-    }
-
-    /**
-     * launchInterfaceTest - starts the UI test activity
-     */
-    public void launchInterfaceTest() {
-        Intent intent = new Intent(this, InterfaceTests.class);
-        startActivity(intent);
-    }
-
-    /**
-     * launchVolForm - starts the Volunteer activity
-     */
-    public void launchAddToInventory()
-    {
-        Intent intent = new Intent(this, addToInventory.class);
-        startActivity(intent);
-    }
-
-    /**
-     * launchEnterUPC - starts the Enter UPC activity
-     */
-    public void launchEnterUPC() {
-        Intent intent = new Intent(this, EnterUPC.class);
-        startActivity(intent);
-    }
-
-    /**
      * launchGetUPC - starts the Get UPC activity
      */
     public void launchGetUPC() {
         Intent intent = new Intent(this, GetUPC.class);
+        startActivity(intent);
+    }
+
+    /**
+     * launchFutureEfforts - starts the Future Efforcts activity
+     */
+    public void launchFutureEfforts() {
+        Intent intent = new Intent(this, FutureEfforts.class);
         startActivity(intent);
     }
 }
