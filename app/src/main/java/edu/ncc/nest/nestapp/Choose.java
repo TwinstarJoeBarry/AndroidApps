@@ -54,11 +54,6 @@ public class Choose extends AppCompatActivity implements OnClickListener {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //this.getWindow().setBackgroundDrawable(null);
-        //locationList = new ArrayList<HashMap<String, String>>();
-        Log.d(TAG, "calling get locations");
-        System.out.println("------------------ about to call getloc ----------------");
-        new GetLocations().execute();
     }
 
     //implements the menu options for the toolbar
@@ -191,87 +186,6 @@ public class Choose extends AppCompatActivity implements OnClickListener {
     public void launchVolForm() {
         Intent intent = new Intent(this, VolunteerForm.class);
         startActivity(intent);
-    }
-
-    private class GetLocations extends AsyncTask<Void, Void, Void> {
-        String result = "";
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            Log.d(TAG, "on pre execute");
-        }
-
-        @Override
-        protected Void doInBackground(Void... arg0) {
-            Log.d(TAG, "-------------------- in do background");
-
-            HttpURLConnection urlConnection;
-            BufferedReader reader;
-
-            try {
-                // set the URL for the API call - substitute your APPID in the statement below
-                URL url = new URL("https://sheet.best/api/sheets/da0a38a2-67b6-40bb-8244-ca0559f7f65d");
-                // connect to the site to read information
-                urlConnection = (HttpURLConnection) url.openConnection();
-                urlConnection.setRequestMethod("GET");
-                urlConnection.connect();
-
-                // store the data retrieved by the request
-                InputStream inputStream = urlConnection.getInputStream();
-                // no data returned by the request, so terminate the method
-                if (inputStream == null) {
-                    // Nothing to do.
-                    return null;
-                }
-
-                // store the data into a BufferedReader so it can be stored into a string
-                reader = new BufferedReader(new InputStreamReader(inputStream));
-
-                String s;
-                while ((s = reader.readLine()) != null) {
-                    result += s;
-                }
-            } catch (Exception e) {
-                Log.i("HttpAsyncTask", "EXCEPTION: " + e.getMessage());
-            }
-
-            Log.d(TAG, "Returned string: " + result);
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void r) {
-            super.onPostExecute(r);
-
-            if (result != null) {
-                Log.d(TAG, "about to start the JSON parsing" + result);
-                try {
-
-                    JSONArray jArray = new JSONArray(result);
-
-                    // code to parse the JSON objects here
-                    for(int i = 0; i<jArray.length(); i++)
-                    {
-                    JSONObject obj1 = jArray.getJSONObject(i);
-                    String id = obj1.getString("Id");
-                    String name = obj1.getString("Name");
-                    String pantryMin = obj1.getString("Pantry LifeMin");
-                    String pantryMax = obj1.getString("Pantry LifeMax");
-                    String metric = obj1.getString("Metric");
-                    Log.d(TAG, "ID:  " + id + "  Name:  " + name + "  Pantry Min: " + pantryMin
-                            + "  Pantry Max: " + pantryMax + "  Metric: " + metric+  "\n");
-
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            } else {
-                Log.e("ServiceHandler", "Couldn't get any data from the url");
-            }
-
-        }
     }
 
     /**
