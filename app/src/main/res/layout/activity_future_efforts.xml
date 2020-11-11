@@ -59,31 +59,39 @@
             android:layout_height="wrap_content">
 
             <Button
-                android:id="@+id/getUPCBtn"
-                android:onClick="onClick"
+                android:id="@+id/addToInventoryBtn"
                 android:layout_width="138dp"
                 android:layout_height="70dp"
                 android:layout_centerHorizontal="true"
-                android:text="Get UPC" />
-
-
-            <Button
-                android:id="@+id/guestFormBtn"
-                android:layout_width="138dp"
-                android:layout_height="70dp"
-                android:layout_below="@id/getUPCBtn"
-                android:layout_centerHorizontal="true"
                 android:onClick="onClick"
-                android:text="Guest Form" />
+                android:text="Add To Inventory" />
 
             <Button
-                android:id="@+id/futureEffortsBtn"
+                android:id="@+id/signUpBtn"
                 android:layout_width="138dp"
                 android:layout_height="70dp"
-                android:layout_below="@id/guestFormBtn"
+                android:onClick="onClick"
+                android:text="Create NEST account"
+                android:layout_below="@id/addToInventoryBtn"
+                android:layout_centerHorizontal="true" />
+
+            <Button
+                android:id="@+id/scheduleBtn"
+                android:layout_width="138dp"
+                android:layout_height="70dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/signUpBtn"
+                android:onClick="onClick"
+                android:text="Schedule" />
+
+            <Button
+                android:id="@+id/volunteerFormBtn"
+                android:layout_width="138dp"
+                android:layout_height="70dp"
+                android:layout_below="@id/scheduleBtn"
                 android:layout_centerHorizontal="true"
                 android:onClick="onClick"
-                android:text="Future Efforts" />
+                android:text="Volunteer Form" />
 
         </RelativeLayout>
     </ScrollView>

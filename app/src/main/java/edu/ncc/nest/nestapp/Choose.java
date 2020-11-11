@@ -54,11 +54,6 @@ public class Choose extends AppCompatActivity implements OnClickListener {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //this.getWindow().setBackgroundDrawable(null);
-        //locationList = new ArrayList<HashMap<String, String>>();
-        Log.d(TAG, "calling get locations");
-        System.out.println("------------------ about to call getloc ----------------");
-        new GetLocations().execute();
     }
 
     //implements the menu options for the toolbar
@@ -81,92 +76,16 @@ public class Choose extends AppCompatActivity implements OnClickListener {
      */
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.addToInventoryBtn:
-                launchAddToInventory();
-                break;
-            case R.id.inventoryBtn:
-                launchInventory();
-                break;
-            case R.id.scheduleBtn:
-                launchSchedule();
+            case R.id.getUPCBtn:
+                launchGetUPC();
                 break;
             case R.id.guestFormBtn:
                 launchGuestForm();
                 break;
-            case R.id.volunteerFormBtn:
-                launchVolForm();
-                break;
-            case R.id.signUpBtn:
-                createAccountDialog();
-                break;
-            case R.id.finalDBtn:
-                launchFinalDate();
-                break;
-            case R.id.donateBtn:
-                launchDonate();
-                break;
-            case R.id.interfaceTestBtn:
-                launchInterfaceTest();
-                break;
-            case R.id.getUPCBtn:
-                launchGetUPC();
+            case R.id.futureEffortsBtn:
+                launchFutureEfforts();
                 break;
         }
-    }
-
-    /**
-     * createAccountDialog method - this method creates an alert dialog when the 'Create Nest Account' button is clicked. An alert dialog
-     * will be displayed telling the user what creating an account entails, and will ask them if they want to create an account or not.
-     * If they select 'Yes' they will be directed to the SignUp activity. If they select 'No' the dialog will close.
-     */
-    public void createAccountDialog() {
-        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(Choose.this);
-        alertBuilder.setCancelable(false);
-        alertBuilder.setMessage("Creating a NEST account will allow you to receive notifications relating to guest, donator, or volunteer " +
-                "opportunities. You will be allowed to manage your notification preferences once your account is created. Your name, email " +
-                "address, and phone number will be required." + "\n" + "Create an account?");
-        alertBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                //launch signUp activity
-                launchSignUp();
-            }
-        });
-
-        alertBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
-
-        AlertDialog alert = alertBuilder.create();
-
-        alert.show();
-    }
-
-    /**
-     * launchDonate - starts the Donate activity
-     */
-    public void launchDonate() {
-        Intent intent = new Intent(this, Donate.class);
-        startActivity(intent);
-    }
-
-    /**
-     * launchInventory - starts the Inventory activity
-     */
-    public void launchInventory() {
-        Intent intent = new Intent(this, Inventory.class);
-        startActivity(intent);
-    }
-
-    /**
-     * launchSchedule - starts the Schedule activity
-     */
-    public void launchSchedule() {
-        Intent intent = new Intent(this, Schedule.class);
-        startActivity(intent);
     }
 
     /**
@@ -178,146 +97,18 @@ public class Choose extends AppCompatActivity implements OnClickListener {
     }
 
     /**
-     * launchSignUp - starts the SignUp activity
-     */
-    public void launchSignUp() {
-        Intent intent = new Intent(this, SignUp.class);
-        startActivity(intent);
-    }
-
-    /**
-     * launchVolForm - starts the Volunteer activity
-     */
-    public void launchVolForm() {
-        Intent intent = new Intent(this, VolunteerForm.class);
-        startActivity(intent);
-    }
-
-    private class GetLocations extends AsyncTask<Void, Void, Void> {
-        String result = "";
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            Log.d(TAG, "on pre execute");
-        }
-
-        @Override
-        protected Void doInBackground(Void... arg0) {
-            Log.d(TAG, "-------------------- in do background");
-
-            HttpURLConnection urlConnection;
-            BufferedReader reader;
-
-            try {
-                // set the URL for the API call - substitute your APPID in the statement below
-                URL url = new URL("https://sheet.best/api/sheets/da0a38a2-67b6-40bb-8244-ca0559f7f65d");
-                // connect to the site to read information
-                urlConnection = (HttpURLConnection) url.openConnection();
-                urlConnection.setRequestMethod("GET");
-                urlConnection.connect();
-
-                // store the data retrieved by the request
-                InputStream inputStream = urlConnection.getInputStream();
-                // no data returned by the request, so terminate the method
-                if (inputStream == null) {
-                    // Nothing to do.
-                    return null;
-                }
-
-                // store the data into a BufferedReader so it can be stored into a string
-                reader = new BufferedReader(new InputStreamReader(inputStream));
-
-                String s;
-                while ((s = reader.readLine()) != null) {
-                    result += s;
-                }
-            } catch (Exception e) {
-                Log.i("HttpAsyncTask", "EXCEPTION: " + e.getMessage());
-            }
-
-            Log.d(TAG, "Returned string: " + result);
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void r) {
-            super.onPostExecute(r);
-
-            if (result != null) {
-                Log.d(TAG, "about to start the JSON parsing" + result);
-                try {
-
-                    JSONArray jArray = new JSONArray(result);
-
-                    // code to parse the JSON objects here
-                    for(int i = 0; i<jArray.length(); i++)
-                    {
-                    JSONObject obj1 = jArray.getJSONObject(i);
-                    String id = obj1.getString("Id");
-                    String name = obj1.getString("Name");
-                    String pantryMin = obj1.getString("Pantry LifeMin");
-                    String pantryMax = obj1.getString("Pantry LifeMax");
-                    String metric = obj1.getString("Metric");
-                    Log.d(TAG, "ID:  " + id + "  Name:  " + name + "  Pantry Min: " + pantryMin
-                            + "  Pantry Max: " + pantryMax + "  Metric: " + metric+  "\n");
-
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            } else {
-                Log.e("ServiceHandler", "Couldn't get any data from the url");
-            }
-
-        }
-    }
-
-    /**
-     * launchScanner - starts the Scanner activity
-     */
-    public void launchScanner() {
-        Intent intent = new Intent(this, Scanner.class);
-        startActivity(intent);
-    }
-
-    public void launchFinalDate()
-    {
-        Intent intent = new Intent(this, FinalDate.class);
-        startActivity(intent);
-    }
-
-    /**
-     * launchInterfaceTest - starts the UI test activity
-     */
-    public void launchInterfaceTest() {
-        Intent intent = new Intent(this, InterfaceTests.class);
-        startActivity(intent);
-    }
-
-    /**
-     * launchVolForm - starts the Volunteer activity
-     */
-    public void launchAddToInventory()
-    {
-        Intent intent = new Intent(this, addToInventory.class);
-        startActivity(intent);
-    }
-
-    /**
-     * launchEnterUPC - starts the Enter UPC activity
-     */
-    public void launchEnterUPC() {
-        Intent intent = new Intent(this, EnterUPC.class);
-        startActivity(intent);
-    }
-
-    /**
      * launchGetUPC - starts the Get UPC activity
      */
     public void launchGetUPC() {
         Intent intent = new Intent(this, GetUPC.class);
+        startActivity(intent);
+    }
+
+    /**
+     * launchFutureEfforts - starts the Future Efforcts activity
+     */
+    public void launchFutureEfforts() {
+        Intent intent = new Intent(this, FutureEfforts.class);
         startActivity(intent);
     }
 }
