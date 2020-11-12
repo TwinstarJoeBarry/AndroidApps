@@ -18,6 +18,8 @@ package edu.ncc.nest.nestapp;
  */
 
 import android.content.Intent;
+
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
@@ -49,6 +51,7 @@ public class EnterUPC extends AppCompatActivity {
      * and starts the FoodItem activity with the entered UPC
      * @param view
      */
+
     public void retrieveUPC(View view) {
         EditText editText = findViewById(R.id.enter_UPC_editText);
         String upc = editText.getText().toString();
@@ -102,4 +105,53 @@ public class EnterUPC extends AppCompatActivity {
         Intent intent = new Intent(this, Choose.class);
         startActivity(intent);
     }
+
+
+    /**
+     * processUPC method --
+     * onClick for the Lookup button, processes the UPC code that was
+     * entered or scanned-in as follows:
+     * - lookup the UPC code in the NestUPCs table (might be in separate database at some point)
+     * - if found, fill out all the remaining fields based on the associated foodkeeper product,
+     *   including doing the calculating of the "real" expiration date(s) (would be good to
+     *   do entry/select of "package" expiration date prior to UPC scan/enter)
+     *  - if not found, start the NestNewUPC activity so the Nest volunteer can add it
+     *   as a new upc in the database.  If that activity is successful it should return with
+     *   the newly associated FoodKeeper product id.  Proceed then as if the UPC had been found
+     *   to begin with.
+     * @param view - the processUPC button
+     */
+    /*
+    public void lookupUPC(View view){
+        EditText editText = findViewById(R.id.enter_UPC_editText);
+        String upc = editText.getText().toString();
+
+        if(upc.equals("") || upc.length() < 12 || upc.length() >12){
+            Toast.makeText(getApplicationContext(),"UPC length is 12 numbers, please enter larger number", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            int productId = dataSource.getProductIdFromUPC(upc); // returns -1 if not found
+            if (productId < 0) {
+                // upc not found in Nest UPCs table, let's add it...
+                Intent intent = new Intent(this, NestNewUPC.class);
+                intent.putExtra("upc", upc);
+                startActivityForResult(intent, 0);
+            } else {
+                processDataFromUPC();
+            }
+        }
+    }
+
+     */
+    /*
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // handle result from NestNewUPC activity launched in processUPC method
+        if (resultCode == RESULT_OK) {
+            processDataFromUPC();
+        }
+    }
+*/
 }

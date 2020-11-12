@@ -205,6 +205,14 @@ public class ItemInformation extends AppCompatActivity implements DatePickerDial
     }
 
     /**
+     * launchScanner - starts the Scanner activity
+     */
+    public void launchScanner(View view) {
+        Intent intent = new Intent(this, Scanner.class);
+        startActivity(intent);
+    }
+
+    /**
      * showItemMenu method --
      * onClick for the Item button; loads and shows the item menu using the items ArrayList instance
      * variable. Item menu is empty before a user selects a category.
@@ -557,7 +565,7 @@ public class ItemInformation extends AppCompatActivity implements DatePickerDial
         List<ShelfLife> shelfLives = dataSource.getShelfLivesForProduct(upcData.getProductId());
 
         // todo still need to populate appropriate fields and parse the shelfLives to calculatre
-        //  expiraation date(s) and display results/info appropriately
+        //  expiration date(s) and display results/info appropriately
 
     }
 

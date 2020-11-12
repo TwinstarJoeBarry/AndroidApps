@@ -82,7 +82,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_below="@id/signUpBtn"
                 android:onClick="onClick"
-                android:text="Schedule" />
+                android:text="Schedule (Placeholder)" />
 
             <Button
                 android:id="@+id/volunteerFormBtn"
