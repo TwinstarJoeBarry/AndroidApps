@@ -14,6 +14,9 @@
         <action
             android:id="@+id/action_StartFragment_to_ScanFragment"
             app:destination="@id/ScanFragment" />
+        <action
+            android:id="@+id/action_StartFragment_to_EnterUpcFragment"
+            app:destination="@id/EnterUpcFragment" />
     </fragment>
     <fragment
         android:id="@+id/ScanFragment"
@@ -25,5 +28,10 @@
             android:id="@+id/action_ScanFragment_to_StartFragment"
             app:destination="@id/StartFragment" />
     </fragment>
-
+    <fragment
+        android:id="@+id/EnterUpcFragment"
+        android:name="edu.ncc.nest.nestapp.FragmentsUpc.EnterUpcFragment"
+        android:label="@string/enter_upc_fragment_label"
+        tools:layout="@layout/fragment_enter_upc">
+    </fragment>
 </navigation>

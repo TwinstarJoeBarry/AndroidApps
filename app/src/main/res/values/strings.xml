@@ -991,5 +991,7 @@
     <string name="enter_upc">Enter UPC</string>
     <string name="scan_complete">Scan Complete</string>
     <string name="hello_scan_fragment">In Scan Fragment</string>
+    <string name="in_enter_upc_fragment">In Enter Upc Fragment</string>
+    <string name="enter_upc_fragment_label">Enter UPC Fragment</string>
 
 </resources>
