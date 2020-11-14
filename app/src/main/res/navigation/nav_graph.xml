@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/StartFragment">
+
+    <fragment
+        android:id="@+id/StartFragment"
+        android:name="edu.ncc.nest.nestapp.FragmentsUpc.StartFragment"
+        android:label="@string/start_fragment_label"
+        tools:layout="@layout/fragment_start">
+
+        <action
+            android:id="@+id/action_StartFragment_to_ScanFragment"
+            app:destination="@id/ScanFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ScanFragment"
+        android:name="edu.ncc.nest.nestapp.FragmentsUpc.ScanFragment"
+        android:label="@string/scan_fragment_label"
+        tools:layout="@layout/fragment_scan">
+
+        <action
+            android:id="@+id/action_ScanFragment_to_StartFragment"
+            app:destination="@id/StartFragment" />
+    </fragment>
+
+</navigation>

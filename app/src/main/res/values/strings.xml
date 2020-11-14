@@ -981,5 +981,13 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="title_activity_check_expiration_date">CheckExpirationDate</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="start_fragment_label">Start Fragment</string>
+    <string name="scan_fragment_label">Scan Fragment</string>
+    <string name="hello_start_fragment">In Start Fragment</string>
+    <string name="scan">Scan UPC</string>
+    <string name="enter_upc">Enter UPC</string>
 
 </resources>
