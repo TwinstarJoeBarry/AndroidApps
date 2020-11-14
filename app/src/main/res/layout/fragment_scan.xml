@@ -6,6 +6,31 @@
     android:layout_height="match_parent"
     tools:context=".FragmentsUpc.ScanFragment">
 
+    <me.dm7.barcodescanner.zxing.ZXingScannerView
+        android:id="@+id/zxscan"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <LinearLayout
+        android:id="@+id/layout_result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimaryDark"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="24sp"
+            android:text="..."
+            android:id="@+id/txt_result"
+            android:textColor="@android:color/white"/>
+
+    </LinearLayout>
+
     <Button
         android:id="@+id/button_scan_complete"
         android:layout_width="wrap_content"
