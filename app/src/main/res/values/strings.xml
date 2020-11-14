@@ -990,5 +990,6 @@
     <string name="scan">Scan UPC</string>
     <string name="enter_upc">Enter UPC</string>
     <string name="scan_complete">Scan Complete</string>
+    <string name="hello_scan_fragment">In Scan Fragment</string>
 
 </resources>
