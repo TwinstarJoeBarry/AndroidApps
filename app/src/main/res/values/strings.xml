@@ -989,5 +989,6 @@
     <string name="hello_start_fragment">In Start Fragment</string>
     <string name="scan">Scan UPC</string>
     <string name="enter_upc">Enter UPC</string>
+    <string name="scan_complete">Scan Complete</string>
 
 </resources>
