@@ -34,7 +34,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="@string/make_choice"
+        android:text="Guest Forms Testing"
         android:textSize="30dp"
         android:textStyle="bold"
         android:fontFamily="casual"
@@ -59,31 +59,40 @@
             android:layout_height="wrap_content">
 
             <Button
-                android:id="@+id/getUPCBtn"
+                android:id="@+id/guestRegLocalDbase"
                 android:onClick="onClick"
-                android:layout_width="138dp"
+                android:layout_width="250dp"
                 android:layout_height="70dp"
                 android:layout_centerHorizontal="true"
-                android:text="Check Expiration Date" />
+                android:text="Guest Registration (local database)" />
 
 
             <Button
-                android:id="@+id/guestFormBtn"
-                android:layout_width="138dp"
+                android:id="@+id/guestRegGoogle"
+                android:layout_width="250dp"
                 android:layout_height="70dp"
-                android:layout_below="@id/getUPCBtn"
+                android:layout_below="@id/guestRegLocalDbase"
                 android:layout_centerHorizontal="true"
                 android:onClick="onClick"
-                android:text="Guest Forms" />
+                android:text="Guest Registration (google sheet)" />
 
             <Button
-                android:id="@+id/futureEffortsBtn"
-                android:layout_width="138dp"
+                android:id="@+id/guestVisitLocalDbase"
+                android:layout_width="250dp"
                 android:layout_height="70dp"
-                android:layout_below="@id/guestFormBtn"
+                android:layout_below="@id/guestRegGoogle"
                 android:layout_centerHorizontal="true"
                 android:onClick="onClick"
-                android:text="Future Efforts" />
+                android:text="Guest Visit Checkin (local database)" />
+
+            <Button
+                android:id="@+id/guesVisitGoogle"
+                android:layout_width="250dp"
+                android:layout_height="70dp"
+                android:layout_below="@id/guestVisitLocalDbase"
+                android:layout_centerHorizontal="true"
+                android:onClick="onClick"
+                android:text="Guest Visit Checkin (local database)" />
 
         </RelativeLayout>
     </ScrollView>
