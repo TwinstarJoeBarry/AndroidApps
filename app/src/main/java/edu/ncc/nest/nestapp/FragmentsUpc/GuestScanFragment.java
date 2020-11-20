@@ -272,6 +272,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -295,6 +296,8 @@ import me.dm7.barcodescanner.zxing.ZXingScannerView;
  * was given to them at registration time.
  */
 public class GuestScanFragment extends Fragment implements ZXingScannerView.ResultHandler, View.OnClickListener {
+
+    private static String TAG = "GuestScanFragment";
 
     private ZXingScannerView scannerView;
     private TextView txtResult;
@@ -389,6 +392,11 @@ public class GuestScanFragment extends Fragment implements ZXingScannerView.Resu
 
         // Set the text of the txtResult TextView to display scanned bar code back to the user
         txtResult.setText(result.getText());
+
+        // Print the bar code result to the log
+        Log.d(TAG, result.getText());
+
+        Log.d(TAG, result.getBarcodeFormat().toString());
 
         // TODO Store the resulting bar code in a variable to compare from the database
 
