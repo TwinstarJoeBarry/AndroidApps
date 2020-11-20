@@ -302,9 +302,15 @@ public class GuestScanFragment extends Fragment implements ZXingScannerView.Resu
     private ZXingScannerView scannerView;
     private TextView txtResult;
 
+    // Stores the bar code info scanned by the guest
+    private String barcodeText = null;
+    private String barcodeFormat = null;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Log.d(TAG, "In GuestScanFragment");
 
     }
 
@@ -390,15 +396,18 @@ public class GuestScanFragment extends Fragment implements ZXingScannerView.Resu
     @Override
     public void handleResult(Result result) {
 
+        // Retrieve the barcode info from the result
+        barcodeText = result.getText();
+
+        barcodeFormat = result.getBarcodeFormat().toString();
+
         // Set the text of the txtResult TextView to display scanned bar code back to the user
-        txtResult.setText(result.getText());
+        txtResult.setText(barcodeText);
 
-        // Print the bar code result to the log
-        Log.d(TAG, result.getText());
+        // Print the bar code result to the log for debugging
+        Log.d(TAG, barcodeText);
 
-        Log.d(TAG, result.getBarcodeFormat().toString());
-
-        // TODO Store the resulting bar code in a variable to compare from the database
+        Log.d(TAG, barcodeFormat);
 
     }
 
