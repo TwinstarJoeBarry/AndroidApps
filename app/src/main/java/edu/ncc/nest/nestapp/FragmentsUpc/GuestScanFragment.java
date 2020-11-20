@@ -275,6 +275,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -289,7 +290,11 @@ import com.karumi.dexter.listener.single.PermissionListener;
 import edu.ncc.nest.nestapp.R;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
-public class GuestScanFragment extends Fragment implements ZXingScannerView.ResultHandler {
+/**
+ * GuestScanFragment - Fragment to be used to check in a user by scanning a guest's bar code that
+ * was given to them at registration time.
+ */
+public class GuestScanFragment extends Fragment implements ZXingScannerView.ResultHandler, View.OnClickListener {
 
     private ZXingScannerView scannerView;
     private TextView txtResult;
@@ -312,47 +317,87 @@ public class GuestScanFragment extends Fragment implements ZXingScannerView.Resu
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // Get and store respective Views from layout
         scannerView = (ZXingScannerView) getView().findViewById(R.id.zxscan);
+
         txtResult = (TextView) getView().findViewById(R.id.txt_result);
 
+        Button confirmButton = view.findViewById(R.id.button_scan_complete);
+
+        TextView scanInfo = view.findViewById(R.id.textview_scan_info);
+
+        // Make this class the OnClickListener for button_scan_complete
+        confirmButton.setOnClickListener(GuestScanFragment.this);
+
+        confirmButton.setText("Confirm");
+
+        scanInfo.setText("In GuestScanFragment.");
+
+        // Create a permission listener for this fragment that will ask for permissions when this fragments view is created
         Dexter.withActivity(getActivity())
                 .withPermission(Manifest.permission.CAMERA)
                 .withListener(new PermissionListener() {
+
                     @Override
                     public void onPermissionGranted(PermissionGrantedResponse response) {
+
+                        // Set this class to handle the result created created by scannerView
                         scannerView.setResultHandler(GuestScanFragment.this);
+
+                        // Start the camera so we can read a barcode
                         scannerView.startCamera();
+
                     }
 
                     @Override
                     public void onPermissionDenied(PermissionDeniedResponse response) {
 
-                        Toast.makeText(getActivity(),
-                                "you must accept this permission",
+                        // Display a Toast to the user stating that the permissions must be granted in order to scan
+                        Toast.makeText(getActivity(), "You must accept this permission to scan",
                                 Toast.LENGTH_LONG).show();
-
 
                     }
 
                     @Override
                     public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
 
+                        // TODO Display a rational that tells the user why permissions are needed
+
                     }
+
                 })
                 .check();
-    }
-    @Override
-    public void onDestroy(){
-        scannerView.stopCamera();
-        super.onDestroy();
+
     }
 
     @Override
-    public void handleResult(Result rawResult) {
-        //here we can recieve rawResult
-        txtResult.setText(rawResult.getText());
-        scannerView.startCamera();
-        String str = rawResult.getText();
+    public void onDestroy() {
+
+        // Disable the camera when this fragment is destroyed
+        scannerView.stopCamera();
+
+        super.onDestroy();
+
+    }
+
+    /** handleResult - Takes 1 parameter
+     * @param result - The result containing the barcode info
+     * Description: Handles what happens when a barcode is successfully scanned
+     */
+    @Override
+    public void handleResult(Result result) {
+
+        // Set the text of the txtResult TextView to display scanned bar code back to the user
+        txtResult.setText(result.getText());
+
+        // TODO Store the resulting bar code in a variable to compare from the database
+
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        // TODO Handle what happens when the user clicks the confirm button
 
     }
 
