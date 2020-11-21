@@ -274,12 +274,16 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
@@ -288,6 +292,11 @@ import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import edu.ncc.nest.nestapp.GuestVisit;
 import edu.ncc.nest.nestapp.R;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
@@ -297,22 +306,17 @@ import me.dm7.barcodescanner.zxing.ZXingScannerView;
  */
 public class GuestScanFragment extends Fragment implements ZXingScannerView.ResultHandler, View.OnClickListener {
 
+    public static final BarcodeFormat BARCODE_FORMAT = BarcodeFormat.CODE_39;
+
     private static String TAG = "GuestScanFragment";
 
     private ZXingScannerView scannerView;
+    private Button confirmButton;
     private TextView txtResult;
 
     // Stores the bar code info scanned by the guest
-    private String barcodeText = null;
-    private String barcodeFormat = null;
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        Log.d(TAG, "In GuestScanFragment");
-
-    }
+    private String barcodeResult;
+    private String barcodeFormat;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -331,16 +335,16 @@ public class GuestScanFragment extends Fragment implements ZXingScannerView.Resu
 
         txtResult = (TextView) getView().findViewById(R.id.txt_result);
 
-        Button confirmButton = view.findViewById(R.id.button_scan_complete);
+        confirmButton = (Button) view.findViewById(R.id.button_scan_complete);
 
-        TextView scanInfo = view.findViewById(R.id.textview_scan_info);
+        TextView scanInfo = (TextView) view.findViewById(R.id.textview_scan_info);
 
         // Make this class the OnClickListener for button_scan_complete
         confirmButton.setOnClickListener(GuestScanFragment.this);
 
-        confirmButton.setText("Confirm");
+        confirmButton.setText("Confirm Scan");
 
-        scanInfo.setText("In GuestScanFragment.");
+        scanInfo.setText("In GuestScanFragment. Please scan your bar code.");
 
         // Create a permission listener for this fragment that will ask for permissions when this fragments view is created
         Dexter.withActivity(getActivity())
@@ -349,6 +353,10 @@ public class GuestScanFragment extends Fragment implements ZXingScannerView.Resu
 
                     @Override
                     public void onPermissionGranted(PermissionGrantedResponse response) {
+
+                        // Set the format of the scanner to be the format this class uses
+                        // We do this so it does'nt read the bar code with the wrong format
+                        scannerView.setFormats(Arrays.asList(BARCODE_FORMAT));
 
                         // Set this class to handle the result created created by scannerView
                         scannerView.setResultHandler(GuestScanFragment.this);
@@ -397,24 +405,26 @@ public class GuestScanFragment extends Fragment implements ZXingScannerView.Resu
     public void handleResult(Result result) {
 
         // Retrieve the barcode info from the result
-        barcodeText = result.getText();
-
-        barcodeFormat = result.getBarcodeFormat().toString();
+        barcodeResult = result.getText();
 
         // Set the text of the txtResult TextView to display scanned bar code back to the user
-        txtResult.setText(barcodeText);
+        txtResult.setText(barcodeResult);
 
         // Print the bar code result to the log for debugging
-        Log.d(TAG, barcodeText);
+        Log.d(TAG, "Bar-Code Result: " + barcodeResult);
 
-        Log.d(TAG, barcodeFormat);
+        Log.d(TAG, "Bar-Code Format: " + result.getBarcodeFormat().toString());
 
     }
 
     @Override
     public void onClick(View v) {
 
-        // TODO Handle what happens when the user clicks the confirm button
+        if (barcodeResult != null) {
+
+            // TODO Handle what happens when the user clicks the confirmButton
+
+        }
 
     }
 
