@@ -270,16 +270,12 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -292,11 +288,8 @@ import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
-import edu.ncc.nest.nestapp.GuestVisit;
 import edu.ncc.nest.nestapp.R;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
@@ -316,7 +309,6 @@ public class GuestScanFragment extends Fragment implements ZXingScannerView.Resu
 
     // Stores the bar code info scanned by the guest
     private String barcodeResult;
-    private String barcodeFormat;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

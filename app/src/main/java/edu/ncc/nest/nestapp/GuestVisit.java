@@ -17,15 +17,13 @@ package edu.ncc.nest.nestapp;
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentActivity;
 
-import android.app.Activity;
 import android.os.Bundle;
 
 /**
  * GuestVisit - Activity to use for navigation between fragments when a guest checks-in
  */
-public class GuestVisit extends FragmentActivity {
+public class GuestVisit extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
