@@ -111,4 +111,32 @@ public class GuestFormHelper extends SQLiteOpenHelper {
 
     }
 
+    /**
+     * isRegistered - Takes 1 parameter
+     * @param barcode - The barcode to search the database for
+     * @return Returns whether or not the barcode is assigned to a user registered in the database
+     */
+    public boolean isRegistered(String barcode) {
+
+        // Getting a readable SQLLite database
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // Get all the guest records from the table (TABLE_NAME) who's field name (BARCODE) matches the field value (?).
+        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE " + BARCODE + " = ?";
+
+        // Run the SQL query from above and replace the '?' character with the respective argument stored in the String[] array
+        Cursor cursor = db.rawQuery(sqlQuery, new String[] {barcode});
+
+        // Get the number of records who's barcode matches
+        int count = cursor.getCount();
+
+        // Close the cursor and readableDatabase to release all of their resources
+        cursor.close();
+
+        db.close();
+
+        return (count > 0);
+
+    }
+
 }
