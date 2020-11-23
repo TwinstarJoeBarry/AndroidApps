@@ -23,7 +23,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 
-public class  GuestFormHelper extends SQLiteOpenHelper {
+public class GuestFormHelper extends SQLiteOpenHelper {
 
 
     // The URI scheme used for content URIs
