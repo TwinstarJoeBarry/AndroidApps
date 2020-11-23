@@ -24,7 +24,7 @@
 
     <fragment
         android:id="@+id/GuestScanFragment"
-        android:name="edu.ncc.nest.nestapp.FragmentsUpc.GuestScanFragment"
+        android:name="edu.ncc.nest.nestapp.FragmentsGuestVisit.GuestScanFragment"
         android:label="@string/guest_scan_fragment_label"
         tools:layout="@layout/fragment_scan" >
 
