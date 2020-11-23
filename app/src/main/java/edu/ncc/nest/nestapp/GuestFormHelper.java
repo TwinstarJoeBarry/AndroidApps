@@ -19,6 +19,7 @@ package edu.ncc.nest.nestapp;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
@@ -49,12 +50,36 @@ public class GuestFormHelper extends SQLiteOpenHelper {
     public static final String STATE = "state";
     public static final String ADDITIONALINFO = "addInfo";
     public static final String NAMEOFVOLUNTEER = "nameOfVolunteer";
+    public static final String BARCODE = "barcode";
 
     public static final String NCCID = "nccID";
 
     public static final String LOCATION = "location";
 
-    public boolean insertData(String name, String email, String phone, String date, String address, String city, String zip) {
+    // database version and name
+    private static final int DATABASE_VERSION = 1;
+    private static final String DATABASE_NAME = "GuestFormInformation.db";
+
+    public GuestFormHelper(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
+
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        db.execSQL("CREATE TABLE " + TABLE_NAME + " (" + _ID +
+                " INTEGER PRIMARY KEY AUTOINCREMENT, " + NAME + " TEXT, " + EMAIL + " TEXT, " +
+                DATE + " TEXT, " + ADDRESS + " TEXT, " + CITY + " TEXT, " + ZIP + " TEXT, " +
+                STATE + " TEXT, " + ADDITIONALINFO + " TEXT, " + NAMEOFVOLUNTEER + " TEXT, " +
+                NCCID + " TEXT, " + PHONE + " TEXT, " + BARCODE + " TEXT);");
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        onCreate(db);
+    }
+
+    public boolean insertData(String name, String email, String phone, String date, String address, String city, String zip, String barcode) {
 
         //creating an SQLLite database
         SQLiteDatabase db1 = this.getWritableDatabase();
@@ -70,6 +95,7 @@ public class GuestFormHelper extends SQLiteOpenHelper {
         cValues.put(ADDRESS, address);
         cValues.put(CITY, city);
         cValues.put(ZIP, zip);
+        cValues.put(BARCODE, barcode);
         // leaving out for now: cValues.put(STATE, state);
 
         //placing the information into the database
@@ -85,29 +111,37 @@ public class GuestFormHelper extends SQLiteOpenHelper {
 
     }
 
+    /**
+     * isRegistered - Takes 1 parameter
+     * @param barcode - The barcode to search the database for
+     * @return Returns the name of the first guest who is registered in the database with the barcode
+     * or null if there is no guest registered with that barcode
+     */
+    public String isRegistered(String barcode) {
 
-    // database version and name
-    private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "GuestFormInformation.db";
+        // Getting a readable SQLLite database
+        SQLiteDatabase db = this.getReadableDatabase();
 
-    public GuestFormHelper(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        // Get all the guest records from the table (TABLE_NAME) who's field name (BARCODE) matches the field value (?).
+        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE " + BARCODE + " = ?";
+
+        // Run the SQL query from above and replace the '?' character with the respective argument stored in the String[] array
+        Cursor cursor = db.rawQuery(sqlQuery, new String[] {barcode});
+
+        String name = null;
+
+        // Determine if there is at least 1 guest registered with the barcode and get the name of the first person registered with it
+        if (cursor.moveToFirst())
+
+            name = cursor.getString(cursor.getColumnIndex(NAME));
+
+        // Close the cursor and readableDatabase to release all of their resources
+        cursor.close();
+
+        db.close();
+
+        return name;
+
     }
-
-    @Override
-    public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE " + TABLE_NAME + " (" + _ID +
-                " INTEGER PRIMARY KEY AUTOINCREMENT, " + NAME +
-                " TEXT, " + EMAIL + " TEXT, " + DATE + "TEXT, " + ADDRESS + "TEXT, " +
-                CITY + "TEXT, " + ZIP + "TEXT, " + STATE + "TEXT, " + ADDITIONALINFO + "TEXT, " + NAMEOFVOLUNTEER + "TEXT, " +
-                NCCID + "TEXT, " + PHONE + " TEXT);");
-    }
-
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
-        onCreate(db);
-    }
-
 
 }
