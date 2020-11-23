@@ -67,10 +67,10 @@ public class GuestFormHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + TABLE_NAME + " (" + _ID +
-                " INTEGER PRIMARY KEY AUTOINCREMENT, " + NAME +
-                " TEXT, " + EMAIL + " TEXT, " + DATE + "TEXT, " + ADDRESS + "TEXT, " +
-                CITY + "TEXT, " + ZIP + "TEXT, " + STATE + "TEXT, " + ADDITIONALINFO + "TEXT, " + NAMEOFVOLUNTEER + "TEXT, " +
-                NCCID + "TEXT, " + PHONE + " TEXT, " + BARCODE + " TEXT);");
+                " INTEGER PRIMARY KEY AUTOINCREMENT, " + NAME + " TEXT, " + EMAIL + " TEXT, " +
+                DATE + " TEXT, " + ADDRESS + " TEXT, " + CITY + " TEXT, " + ZIP + " TEXT, " +
+                STATE + " TEXT, " + ADDITIONALINFO + " TEXT, " + NAMEOFVOLUNTEER + " TEXT, " +
+                NCCID + " TEXT, " + PHONE + " TEXT, " + BARCODE + " TEXT);");
     }
 
     @Override
