@@ -49,12 +49,13 @@ public class GuestFormHelper extends SQLiteOpenHelper {
     public static final String STATE = "state";
     public static final String ADDITIONALINFO = "addInfo";
     public static final String NAMEOFVOLUNTEER = "nameOfVolunteer";
+    public static final String BARCODE = "barcode";
 
     public static final String NCCID = "nccID";
 
     public static final String LOCATION = "location";
 
-    public boolean insertData(String name, String email, String phone, String date, String address, String city, String zip) {
+    public boolean insertData(String name, String email, String phone, String date, String address, String city, String zip, String barcode) {
 
         //creating an SQLLite database
         SQLiteDatabase db1 = this.getWritableDatabase();
@@ -70,6 +71,7 @@ public class GuestFormHelper extends SQLiteOpenHelper {
         cValues.put(ADDRESS, address);
         cValues.put(CITY, city);
         cValues.put(ZIP, zip);
+        cValues.put(BARCODE, barcode);
         // leaving out for now: cValues.put(STATE, state);
 
         //placing the information into the database
@@ -100,7 +102,7 @@ public class GuestFormHelper extends SQLiteOpenHelper {
                 " INTEGER PRIMARY KEY AUTOINCREMENT, " + NAME +
                 " TEXT, " + EMAIL + " TEXT, " + DATE + "TEXT, " + ADDRESS + "TEXT, " +
                 CITY + "TEXT, " + ZIP + "TEXT, " + STATE + "TEXT, " + ADDITIONALINFO + "TEXT, " + NAMEOFVOLUNTEER + "TEXT, " +
-                NCCID + "TEXT, " + PHONE + " TEXT);");
+                NCCID + "TEXT, " + PHONE + " TEXT, " + BARCODE + " TEXT);");
     }
 
     @Override
