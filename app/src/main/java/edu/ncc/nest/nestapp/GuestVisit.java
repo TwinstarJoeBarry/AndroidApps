@@ -18,9 +18,12 @@ package edu.ncc.nest.nestapp;
  */
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 
 /**
  * GuestVisit - Activity to use for navigation between fragments when a guest checks-in
@@ -45,6 +48,21 @@ public class GuestVisit extends AppCompatActivity {
         inflater.inflate(R.menu.menu_main, menu);
 
         return true;
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId() == R.id.homeBtn) {
+
+            Intent intent = new Intent(this, Choose.class);
+
+            startActivity(intent);
+
+        }
+
+        return super.onOptionsItemSelected(item);
 
     }
 
