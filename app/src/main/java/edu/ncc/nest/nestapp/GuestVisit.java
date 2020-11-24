@@ -17,7 +17,7 @@ package edu.ncc.nest.nestapp;
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 import androidx.appcompat.app.AppCompatActivity;
-
+import androidx.appcompat.widget.Toolbar;
 import android.os.Bundle;
 
 /**
@@ -30,7 +30,7 @@ public class GuestVisit extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guest_visit);
 
-
+        setSupportActionBar((Toolbar) findViewById(R.id.guest_visit_toolbar));
 
     }
 
