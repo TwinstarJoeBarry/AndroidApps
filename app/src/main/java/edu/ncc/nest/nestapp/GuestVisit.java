@@ -1,7 +1,7 @@
 package edu.ncc.nest.nestapp;
 /**
  *
- * Copyright (C) 2019 The LibreFoodPantry Developers.
+ * Copyright (C) 2020 The LibreFoodPantry Developers.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,8 +17,13 @@ package edu.ncc.nest.nestapp;
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 /**
  * GuestVisit - Activity to use for navigation between fragments when a guest checks-in
@@ -30,7 +35,36 @@ public class GuestVisit extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guest_visit);
 
+        // Set the support action bar to the respective toolbar from the layout file
+        setSupportActionBar((Toolbar) findViewById(R.id.guest_visit_toolbar));
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        // Inflate the toolbar with the menu menu_main
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        return true;
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        // If the view clicked was the home action
+        if (item.getItemId() == R.id.homeBtn) {
+
+            // Create an Intent that will bring the user back to the home page
+            Intent intent = new Intent(this, Choose.class);
+
+            // Go to the home page
+            startActivity(intent);
+
+        }
+
+        return super.onOptionsItemSelected(item);
 
     }
 
