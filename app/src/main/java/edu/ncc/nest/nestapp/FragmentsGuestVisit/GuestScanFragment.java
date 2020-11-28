@@ -273,6 +273,16 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.client.android.BeepManager;
+import com.journeyapps.barcodescanner.DecoratedBarcodeView;
+import com.journeyapps.barcodescanner.ViewfinderView;
+
+import java.util.Arrays;
+import java.util.List;
 
 import edu.ncc.nest.nestapp.R;
 
@@ -282,11 +292,26 @@ import edu.ncc.nest.nestapp.R;
  */
 public class GuestScanFragment extends Fragment implements View.OnClickListener {
 
-    private static String TAG = "GuestScanFragment";
+    private static final List<BarcodeFormat> BARCODE_FORMATS = Arrays.asList(BarcodeFormat.CODE_39);
+    private static final String TAG = "GuestScanFragment";
+    private static final int CAMERA_REQ_CODE = 250; // Camera Permission Request Code
+    private static final long SCAN_DELAY = 2000L; // 2 Seconds delay in milliseconds
 
+    private DecoratedBarcodeView barcodeView;
+    private ViewfinderView viewfinderView;
+    private BeepManager beepManager;
+    private TextView resultTextView;
+    private Button confirmButton;
+    private Button rescanButton;
 
-    // Stores the bar code info scanned by the guest
-    private String barcodeResult;
+    private boolean askedForPermission = false;
+    private boolean cameraPaused = true;
+
+    // Tracks the system time the scanner was resumed
+    private long prevTime = 0L;
+
+    // Stores the bar code that has been scanned
+    private String barcodeResult = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
