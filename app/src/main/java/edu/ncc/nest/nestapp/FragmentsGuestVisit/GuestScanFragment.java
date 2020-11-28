@@ -341,6 +341,7 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
             scannerPaused = false;
 
             // Create a handler that resumes the decoder after a delay
+            // Gives the user time to move their camera before scanning
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
 
@@ -351,7 +352,6 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
 
                         // Resume decoding after a delay of SCAN_DELAY millis as long as the scanner has not been paused
                         // Says that the view can continue to scan bar-codes after the initial scan
-                        // Gives the user time to move their camera before scanning
                         barcodeView.getBarcodeView().decodeContinuous(GuestScanFragment.this);
 
                 }
