@@ -998,5 +998,8 @@
     <string name="in_select_item_fragment">In Select Item Fragment</string>
     <string name="in_select_expiration_fragment">In Select Printed Expiration Fragment</string>
     <string name="in_display_expiration_fragment">In Display True Expiration Fragment</string>
+    <string name="rescan_button">Re-Scan Barcode</string>
+    <string name="confirm_scan_button">Confirm Scan</string>
+    <string name="scan_result_textview">...</string>
 
 </resources>
