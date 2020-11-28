@@ -271,6 +271,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -424,6 +425,20 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
             // TODO Handle what happens when the user clicks the confirmButton
 
         }
+
+    }
+
+    ////////////// Custom Methods Start  //////////////
+
+    /**
+     * cameraPermissionGranted - Takes no parameters
+     * @return Returns true if camera permission has been granted or false otherwise.
+     * Description: Determines if camera permission has been granted.
+     */
+    private boolean cameraPermissionGranted() {
+
+        return (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA)
+                == PackageManager.PERMISSION_GRANTED);
 
     }
 }
