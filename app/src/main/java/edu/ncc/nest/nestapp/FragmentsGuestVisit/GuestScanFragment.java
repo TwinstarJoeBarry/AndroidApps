@@ -87,6 +87,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -113,10 +114,11 @@ import edu.ncc.nest.nestapp.R;
  */
 public class GuestScanFragment extends Fragment implements BarcodeCallback, View.OnClickListener {
 
-    private static final List<BarcodeFormat> BARCODE_FORMATS = Arrays.asList(BarcodeFormat.CODE_39);
     private static final String TAG = "GuestScanFragment";
-    private static final int CAMERA_REQ_CODE = 250; // Camera Permission Request Code
-    private static final long SCAN_DELAY = 2000L; // 2 Seconds delay in milliseconds
+
+    private static final List<BarcodeFormat> BARCODE_FORMATS = Arrays.asList(BarcodeFormat.CODE_39);
+    private static final int CAMERA_REQ_CODE = 250; // Camera permission request code
+    private static final long SCAN_DELAY = 2000L;   // 2 Seconds decoder delay in milliseconds
 
     private DecoratedBarcodeView barcodeView;
     private ViewfinderView viewfinderView;
@@ -225,6 +227,7 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
 
     }
 
+
     ////////////// Other Event Methods Start  //////////////
 
     @Override
@@ -271,6 +274,8 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
 
             scannerPaused = true;
 
+            Log.d(TAG, "Barcode Result: " + resultText + ", Barcode Format: " + result.getBarcodeFormat());
+
         }
 
     }
@@ -280,19 +285,26 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
 
         if (cameraPermissionGranted()) {
 
-            if (view.getId() == R.id.confirm_scan_button) {
+            int id = view.getId();
+
+            if (id == R.id.rescan_button)
+
+                resumeScanning();
+
+            else if (id == R.id.confirm_scan_button && barcodeResult != null) {
+
+                Log.d(TAG, "Scan Confirmed: " + barcodeResult);
 
                 // TODO Create bundle and send barcode with guest name to next fragment
 
-            } else if (view.getId() == R.id.rescan_button)
-
-                resumeScanning();
+            }
 
         } else
 
             requestPermissions(new String[]{Manifest.permission.CAMERA}, CAMERA_REQ_CODE);
 
     }
+
 
     ////////////// Custom Methods Start  //////////////
 
