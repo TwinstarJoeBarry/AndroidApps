@@ -429,17 +429,22 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
     @Override
     public void barcodeResult(BarcodeResult result) {
 
+        // Gets the barcode from the result
         String resultText = result.getText();
 
         // This statement prevents duplicate scans and adds delay to the next scan
         if (resultText != null && System.currentTimeMillis() - prevTime >= SCAN_DELAY) {
 
+            // Play a sound and vibrate when a scan has been processed
             beepManager.playBeepSoundAndVibrate();
 
+            // Display the barcode back to the user
             resultTextView.setText(resultText);
 
+            // Store the barcode
             barcodeResult = resultText;
 
+            // Pause the camera
             barcodeView.pause();
 
             cameraPaused = true;
