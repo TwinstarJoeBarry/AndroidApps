@@ -379,6 +379,20 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
     public void onResume() {
         super.onResume();
 
+        if (cameraPermissionGranted()) {
+
+            // TODO Resume the scanner
+
+        } else if (!askedForPermission) {
+
+            // Request the camera permission to be granted
+            requestPermissions(new String[]{Manifest.permission.CAMERA}, CAMERA_REQ_CODE);
+
+            // We have officially asked for permission, so update our class variable
+            askedForPermission = true;
+
+        }
+
     }
 
     @Override
