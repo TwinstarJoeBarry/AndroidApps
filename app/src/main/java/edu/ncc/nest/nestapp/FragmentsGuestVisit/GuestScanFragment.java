@@ -352,7 +352,7 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
 
                         // Resume decoding after a delay of SCAN_DELAY millis as long as the scanner has not been paused
                         // Says that the view can continue to scan bar-codes after the initial scan
-                        barcodeView.getBarcodeView().decodeContinuous(GuestScanFragment.this);
+                        barcodeView.decodeContinuous(GuestScanFragment.this);
 
                 }
 
