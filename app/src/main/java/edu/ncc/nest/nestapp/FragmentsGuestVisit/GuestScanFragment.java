@@ -265,47 +265,25 @@ package edu.ncc.nest.nestapp.FragmentsGuestVisit;
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import android.Manifest;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.Result;
-import com.karumi.dexter.Dexter;
-import com.karumi.dexter.PermissionToken;
-import com.karumi.dexter.listener.PermissionDeniedResponse;
-import com.karumi.dexter.listener.PermissionGrantedResponse;
-import com.karumi.dexter.listener.PermissionRequest;
-import com.karumi.dexter.listener.single.PermissionListener;
-
-import java.util.Arrays;
 
 import edu.ncc.nest.nestapp.R;
-import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 /**
  * GuestScanFragment - Fragment to be used to check in a user by scanning a guest's bar code that
  * was given to them at registration time.
  */
-public class GuestScanFragment extends Fragment implements ZXingScannerView.ResultHandler, View.OnClickListener {
-
-    public static final BarcodeFormat BARCODE_FORMAT = BarcodeFormat.CODE_39;
+public class GuestScanFragment extends Fragment implements View.OnClickListener {
 
     private static String TAG = "GuestScanFragment";
 
-    private ZXingScannerView scannerView;
-    private Button confirmButton;
-    private TextView txtResult;
 
     // Stores the bar code info scanned by the guest
     private String barcodeResult;
@@ -322,90 +300,6 @@ public class GuestScanFragment extends Fragment implements ZXingScannerView.Resu
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Get and store respective Views from layout
-        scannerView = (ZXingScannerView) getView().findViewById(R.id.zxscan);
-
-        txtResult = (TextView) getView().findViewById(R.id.txt_result);
-
-        confirmButton = (Button) view.findViewById(R.id.button_scan_complete);
-
-        TextView scanInfo = (TextView) view.findViewById(R.id.textview_scan_info);
-
-        // Make this class the OnClickListener for button_scan_complete
-        confirmButton.setOnClickListener(GuestScanFragment.this);
-
-        confirmButton.setText("Confirm Scan");
-
-        scanInfo.setText("In GuestScanFragment. Please scan your bar code.");
-
-        // Create a permission listener for this fragment that will ask for permissions when this fragments view is created
-        Dexter.withActivity(getActivity())
-                .withPermission(Manifest.permission.CAMERA)
-                .withListener(new PermissionListener() {
-
-                    @Override
-                    public void onPermissionGranted(PermissionGrantedResponse response) {
-
-                        // Set the format of the scanner to be the format this class uses
-                        // We do this so it does'nt read the bar code with the wrong format
-                        scannerView.setFormats(Arrays.asList(BARCODE_FORMAT));
-
-                        // Set this class to handle the result created created by scannerView
-                        scannerView.setResultHandler(GuestScanFragment.this);
-
-                        // Start the camera so we can read a barcode
-                        scannerView.startCamera();
-
-                    }
-
-                    @Override
-                    public void onPermissionDenied(PermissionDeniedResponse response) {
-
-                        // Display a Toast to the user stating that the permissions must be granted in order to scan
-                        Toast.makeText(getActivity(), "You must accept this permission to scan",
-                                Toast.LENGTH_LONG).show();
-
-                    }
-
-                    @Override
-                    public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
-
-                        // TODO Display a rational that tells the user why permissions are needed
-
-                    }
-
-                })
-                .check();
-
-    }
-
-    @Override
-    public void onDestroy() {
-
-        // Disable the camera when this fragment is destroyed
-        scannerView.stopCamera();
-
-        super.onDestroy();
-
-    }
-
-    /** handleResult - Takes 1 parameter
-     * @param result - The result containing the barcode info
-     * Description: Handles what happens when a barcode is successfully scanned
-     */
-    @Override
-    public void handleResult(Result result) {
-
-        // Retrieve the barcode info from the result
-        barcodeResult = result.getText();
-
-        // Set the text of the txtResult TextView to display scanned bar code back to the user
-        txtResult.setText(barcodeResult);
-
-        // Print the bar code result to the log for debugging
-        Log.d(TAG, "Bar-Code Result: " + barcodeResult);
-
-        Log.d(TAG, "Bar-Code Format: " + result.getBarcodeFormat().toString());
 
     }
 
