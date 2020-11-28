@@ -265,6 +265,8 @@ package edu.ncc.nest.nestapp.FragmentsGuestVisit;
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -275,9 +277,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.client.android.BeepManager;
+import com.journeyapps.barcodescanner.BarcodeCallback;
+import com.journeyapps.barcodescanner.BarcodeResult;
 import com.journeyapps.barcodescanner.DecoratedBarcodeView;
 import com.journeyapps.barcodescanner.ViewfinderView;
 
@@ -290,7 +295,7 @@ import edu.ncc.nest.nestapp.R;
  * GuestScanFragment - Fragment to be used to check in a user by scanning a guest's bar code that
  * was given to them at registration time.
  */
-public class GuestScanFragment extends Fragment implements View.OnClickListener {
+public class GuestScanFragment extends Fragment implements BarcodeCallback, View.OnClickListener {
 
     private static final List<BarcodeFormat> BARCODE_FORMATS = Arrays.asList(BarcodeFormat.CODE_39);
     private static final String TAG = "GuestScanFragment";
@@ -313,6 +318,9 @@ public class GuestScanFragment extends Fragment implements View.OnClickListener 
     // Stores the bar code that has been scanned
     private String barcodeResult = null;
 
+
+    ////////////// Lifecycle Methods Start //////////////
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
@@ -326,6 +334,40 @@ public class GuestScanFragment extends Fragment implements View.OnClickListener 
         super.onViewCreated(view, savedInstanceState);
 
 
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+    }
+
+    @Override
+    public void onDestroy() {
+
+        super.onDestroy();
+
+    }
+
+    ////////////// Other Event Methods Start  //////////////
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+
+
+
+    }
+
+    @Override
+    public void barcodeResult(BarcodeResult result) {
+
     }
 
     @Override
@@ -338,5 +380,4 @@ public class GuestScanFragment extends Fragment implements View.OnClickListener 
         }
 
     }
-
 }
