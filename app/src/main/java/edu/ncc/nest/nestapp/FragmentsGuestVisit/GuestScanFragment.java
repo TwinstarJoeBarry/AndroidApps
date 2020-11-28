@@ -267,6 +267,7 @@ package edu.ncc.nest.nestapp.FragmentsGuestVisit;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -284,6 +285,7 @@ import com.google.zxing.client.android.BeepManager;
 import com.journeyapps.barcodescanner.BarcodeCallback;
 import com.journeyapps.barcodescanner.BarcodeResult;
 import com.journeyapps.barcodescanner.DecoratedBarcodeView;
+import com.journeyapps.barcodescanner.DefaultDecoderFactory;
 import com.journeyapps.barcodescanner.ViewfinderView;
 
 import java.util.Arrays;
@@ -333,7 +335,42 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // Get respective views from layout
+        barcodeView = (DecoratedBarcodeView) view.findViewById(R.id.zxing_barcode_scanner);
 
+        viewfinderView = (ViewfinderView) view.findViewById(R.id.zxing_viewfinder_view);
+
+        confirmButton = (Button) view.findViewById(R.id.confirm_scan_button);
+
+        rescanButton = (Button) view.findViewById(R.id.rescan_button);
+
+        resultTextView = (TextView) view.findViewById(R.id.scan_result_textview);
+
+
+        // Create new BeepManager object
+        beepManager = new BeepManager(getActivity());
+
+
+        // Specifies which barcode formats to decode
+        barcodeView.getBarcodeView().setDecoderFactory(new DefaultDecoderFactory(BARCODE_FORMATS));
+
+        // Initializes camera id, and prompt message from an intent
+        barcodeView.initializeFromIntent(getActivity().getIntent());
+
+        // Says that the view can continue to scan bar-codes after the initial scan
+        barcodeView.decodeContinuous(this);
+
+
+        // Assign OnClickListener as this class
+        confirmButton.setOnClickListener(this);
+
+        rescanButton.setOnClickListener(this);
+
+
+        // Scanner customization
+        viewfinderView.setMaskColor(Color.argb(100, 0, 0, 0));
+
+        viewfinderView.setLaserVisibility(true);
 
     }
 
