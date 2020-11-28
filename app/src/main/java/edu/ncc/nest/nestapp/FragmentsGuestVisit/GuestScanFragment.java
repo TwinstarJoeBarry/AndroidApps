@@ -381,7 +381,7 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
 
         if (cameraPermissionGranted()) {
 
-            // TODO Resume the scanner
+            resumeScanning();
 
         } else if (!askedForPermission) {
 
@@ -415,11 +415,11 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
 
         if (requestCode == CAMERA_REQ_CODE && grantResults.length > 0)
 
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
 
-                // TODO Resume the scanner
+                resumeScanning();
 
-            } else
+            else
 
                 Toast.makeText(getActivity(), "Camera permission is needed in order to scan.",
                         Toast.LENGTH_SHORT).show();
@@ -477,4 +477,32 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
                 == PackageManager.PERMISSION_GRANTED);
 
     }
+
+    /**
+     * resumeScanning - Takes no parameters
+     * Description: Resumes the camera if it is not paused, gets the current system time, and resets
+     * the barcodeResult to be null so we can scan a new bar-code.
+     */
+    private void resumeScanning() {
+
+        if (cameraPaused) {
+
+            // Update the display text so the user knows we are waiting for them to scan a barcode
+            resultTextView.setText("WAITING FOR SCAN ...");
+
+            // Store the current system time
+            prevTime = System.currentTimeMillis();
+
+            // Reset our barcodeResult
+            barcodeResult = null;
+
+            // Resume the camera
+            barcodeView.resume();
+
+            cameraPaused = false;
+
+        }
+
+    }
+
 }
