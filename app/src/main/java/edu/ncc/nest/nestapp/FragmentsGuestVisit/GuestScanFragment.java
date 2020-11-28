@@ -86,6 +86,7 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -127,9 +128,6 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
     private boolean askedForPermission = false;
     private boolean scannerPaused = true;
 
-    // Tracks the system time the scanner was resumed, used with SCAN_DELAY
-    private long prevTime = 0L;
-
     // Stores the bar code that has been scanned
     private String barcodeResult = null;
 
@@ -170,9 +168,6 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
         // Initializes camera id, and prompt message from an intent
         barcodeView.initializeFromIntent(getActivity().getIntent());
 
-        // Says that the view can continue to scan bar-codes after the initial scan
-        barcodeView.decodeContinuous(this);
-
 
         // Assign OnClickListener as this class
         confirmButton.setOnClickListener(this);
@@ -198,7 +193,7 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
         else if (!askedForPermission) {
 
             // Request the camera permission to be granted
-            requestPermissions(new String[]{Manifest.permission.CAMERA}, CAMERA_REQ_CODE);
+            requestPermissions(new String[] {Manifest.permission.CAMERA}, CAMERA_REQ_CODE);
 
             // We have officially asked for permission, so update our class variable
             askedForPermission = true;
@@ -256,8 +251,11 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
         // Gets the barcode from the result
         String resultText = result.getText();
 
-        // This statement prevents duplicate scans and adds delay to the next scan
-        if (resultText != null && System.currentTimeMillis() - prevTime >= SCAN_DELAY) {
+        // Make sure we actually have a barcode scanned
+        if (resultText != null) {
+
+            // Make sure we stop decoding bar-codes so we don't scan multiple bar-codes
+            barcodeView.getBarcodeView().stopDecoding();
 
             // Play a sound and vibrate when a scan has been processed
             beepManager.playBeepSoundAndVibrate();
@@ -268,7 +266,7 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
             // Store the barcode
             barcodeResult = resultText;
 
-            // Pause the camera
+            // Pause the scanner
             barcodeView.pause();
 
             scannerPaused = true;
@@ -322,16 +320,31 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
             // Update the display text so the user knows we are waiting for them to scan a barcode
             resultTextView.setText("WAITING FOR SCAN ...");
 
-            // Store the current system time
-            prevTime = System.currentTimeMillis();
-
             // Reset our barcodeResult
             barcodeResult = null;
 
-            // Resume the camera
+            // Resume the scanner but not the decoder
             barcodeView.resume();
 
             scannerPaused = false;
+
+            // Create a handler that resumes the decoder after a delay
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+
+                    if (!scannerPaused)
+
+                        // Resume decoding after a delay of SCAN_DELAY millis as long as the scanner has not been paused
+                        // Says that the view can continue to scan bar-codes after the initial scan
+                        // Gives the user time to move their camera before scanning
+                        barcodeView.getBarcodeView().decodeContinuous(GuestScanFragment.this);
+
+                }
+
+            }, SCAN_DELAY);
 
         }
 

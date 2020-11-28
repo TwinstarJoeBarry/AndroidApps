@@ -26,7 +26,6 @@
 
     <include
         android:id="@+id/guest_visit_toolbar"
-        app:layout_constraintBottom_toTopOf="@id/guest_visit_nav_host_fragment"
         layout="@layout/toolbar" />
 
     <fragment
