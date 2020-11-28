@@ -361,7 +361,16 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
 
+        if (requestCode == CAMERA_REQ_CODE && grantResults.length > 0)
 
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                // TODO Resume the scanner
+
+            } else
+
+                Toast.makeText(getActivity(), "Camera permission is needed in order to scan.",
+                        Toast.LENGTH_SHORT).show();
 
     }
 
