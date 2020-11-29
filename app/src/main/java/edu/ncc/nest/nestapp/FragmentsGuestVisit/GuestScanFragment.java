@@ -253,12 +253,11 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
 
         // Gets the barcode from the result
         String resultText = result.getText();
+        
+        scannerPaused = true;
 
         // Make sure we actually have a barcode scanned
         if (resultText != null) {
-
-            // Make sure we stop decoding bar-codes so we don't scan multiple bar-codes
-            barcodeView.getBarcodeView().stopDecoding();
 
             // Play a sound and vibrate when a scan has been processed
             beepManager.playBeepSoundAndVibrate();
@@ -272,11 +271,11 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
             // Pause the scanner
             barcodeView.pause();
 
-            scannerPaused = true;
-
             Log.d(TAG, "Barcode Result: " + resultText + ", Barcode Format: " + result.getBarcodeFormat());
 
-        }
+        } else
+
+            resumeScanning();
 
     }
 
@@ -351,8 +350,8 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
                     if (!scannerPaused)
 
                         // Resume decoding after a delay of SCAN_DELAY millis as long as the scanner has not been paused
-                        // Says that the view can continue to scan bar-codes after the initial scan
-                        barcodeView.decodeContinuous(GuestScanFragment.this);
+                        // Tells the decoder to stop after a single scan
+                        barcodeView.decodeSingle(GuestScanFragment.this);
 
                 }
 
