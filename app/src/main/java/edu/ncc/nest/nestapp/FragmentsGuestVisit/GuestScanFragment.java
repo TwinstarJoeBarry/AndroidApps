@@ -78,8 +78,6 @@ package edu.ncc.nest.nestapp.FragmentsGuestVisit;
  */
 
 import android.Manifest;
-import android.app.Activity;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -99,18 +97,14 @@ import android.widget.Toast;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.client.android.BeepManager;
-import com.google.zxing.client.android.Intents;
-import com.google.zxing.integration.android.IntentIntegrator;
 import com.journeyapps.barcodescanner.BarcodeCallback;
 import com.journeyapps.barcodescanner.BarcodeResult;
 import com.journeyapps.barcodescanner.DecoratedBarcodeView;
 import com.journeyapps.barcodescanner.DefaultDecoderFactory;
 import com.journeyapps.barcodescanner.ViewfinderView;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 import edu.ncc.nest.nestapp.R;
 import me.dm7.barcodescanner.core.CameraUtils;
@@ -332,8 +326,8 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
 
     /**
      * resumeScanning - Takes no parameters
-     * Description: Resumes the scanner if it is not paused, gets the current system time, and resets
-     * the barcodeResult to be null so we can scan a new bar-code.
+     * Description: Resumes the scanner if it is not paused, resets text view text, resets the
+     * barcodeResult to be null so we can scan a new bar-code, and starts the decoder after a delay.
      */
     private void resumeScanning() {
 
