@@ -78,6 +78,7 @@ package edu.ncc.nest.nestapp.FragmentsGuestVisit;
  */
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -107,7 +108,9 @@ import com.journeyapps.barcodescanner.DefaultDecoderFactory;
 import com.journeyapps.barcodescanner.ViewfinderView;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 import edu.ncc.nest.nestapp.R;
 import me.dm7.barcodescanner.core.CameraUtils;
@@ -120,16 +123,13 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
 
     private static final String TAG = GuestScanFragment.class.getSimpleName();
 
-    private static final List<BarcodeFormat> BARCODE_FORMATS = Arrays.asList(BarcodeFormat.CODE_39);
+    private static final List<BarcodeFormat> BARCODE_FORMATS = Collections.singletonList(BarcodeFormat.CODE_39);
     private static final int CAMERA_REQ_CODE = 250; // Camera permission request code
     private static final long SCAN_DELAY = 2000L;   // 2 Seconds decoder delay in milliseconds
 
     private DecoratedBarcodeView barcodeView;
-    private ViewfinderView viewfinderView;
     private BeepManager beepManager;
     private TextView resultTextView;
-    private Button confirmButton;
-    private Button rescanButton;
 
     private boolean askedForPermission = false;
     private boolean scannerPaused = true;
@@ -149,17 +149,18 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
 
     }
 
+    @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         // Get respective views from layout
         barcodeView = (DecoratedBarcodeView) view.findViewById(R.id.zxing_barcode_scanner);
 
-        viewfinderView = (ViewfinderView) view.findViewById(R.id.zxing_viewfinder_view);
+        ViewfinderView viewfinderView = (ViewfinderView) view.findViewById(R.id.zxing_viewfinder_view);
 
-        confirmButton = (Button) view.findViewById(R.id.confirm_scan_button);
+        Button confirmButton = (Button) view.findViewById(R.id.confirm_scan_button);
 
-        rescanButton = (Button) view.findViewById(R.id.rescan_button);
+        Button rescanButton = (Button) view.findViewById(R.id.rescan_button);
 
         resultTextView = (TextView) view.findViewById(R.id.scan_result_textview);
 
@@ -184,7 +185,7 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
 
 
         // Create new BeepManager object
-        beepManager = new BeepManager(getActivity());
+        beepManager = new BeepManager(requireActivity());
 
         // Enable vibration and beep to play when a bar-code is scanned
         beepManager.setVibrateEnabled(true);
@@ -240,7 +241,7 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
     ////////////// Other Event Methods Start  //////////////
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 
         if (requestCode == CAMERA_REQ_CODE && grantResults.length > 0)
 
@@ -252,7 +253,7 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
             else
 
                 // Display a reason of why we need the permission
-                Toast.makeText(getActivity(), "Camera permission is needed in order to scan.",
+                Toast.makeText(requireActivity(), "Camera permission is needed in order to scan.",
                         Toast.LENGTH_SHORT).show();
 
     }
@@ -324,7 +325,7 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
      */
     private boolean cameraPermissionGranted() {
 
-        return (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA)
+        return (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
                 == PackageManager.PERMISSION_GRANTED);
 
     }
@@ -339,7 +340,7 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
         if (scannerPaused) {
 
             // Update the display text so the user knows we are waiting for them to scan a barcode
-            resultTextView.setText("WAITING FOR SCAN ...");
+            resultTextView.setText(getString(R.string.scan_result_textview));
 
             // Reset our barcodeResult
             barcodeResult = null;
@@ -352,18 +353,13 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
             // Create a handler that resumes the decoder after a delay
             // Gives the user time to move their camera before scanning
             Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
+            handler.postDelayed(() -> {
 
-                @Override
-                public void run() {
+                if (!scannerPaused)
 
-                    if (!scannerPaused)
-
-                        // Resume decoding after a delay of SCAN_DELAY millis as long as the scanner has not been paused
-                        // Tells the decoder to stop after a single scan
-                        barcodeView.decodeSingle(GuestScanFragment.this);
-
-                }
+                    // Resume decoding after a delay of SCAN_DELAY millis as long as the scanner has not been paused
+                    // Tells the decoder to stop after a single scan
+                    barcodeView.decodeSingle(GuestScanFragment.this);
 
             }, SCAN_DELAY);
 
