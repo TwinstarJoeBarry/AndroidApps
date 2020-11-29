@@ -253,8 +253,6 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
 
         // Gets the barcode from the result
         String resultText = result.getText();
-        
-        scannerPaused = true;
 
         // Make sure we actually have a barcode scanned
         if (resultText != null) {
@@ -271,11 +269,13 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
             // Pause the scanner
             barcodeView.pause();
 
+            scannerPaused = true;
+
             Log.d(TAG, "Barcode Result: " + resultText + ", Barcode Format: " + result.getBarcodeFormat());
 
         } else
 
-            resumeScanning();
+            barcodeView.decodeSingle(GuestScanFragment.this);
 
     }
 
