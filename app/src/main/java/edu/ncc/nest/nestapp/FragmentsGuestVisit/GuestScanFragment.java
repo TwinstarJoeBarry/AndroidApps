@@ -78,6 +78,7 @@ package edu.ncc.nest.nestapp.FragmentsGuestVisit;
  */
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -97,6 +98,8 @@ import android.widget.Toast;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.client.android.BeepManager;
+import com.google.zxing.client.android.Intents;
+import com.google.zxing.integration.android.IntentIntegrator;
 import com.journeyapps.barcodescanner.BarcodeCallback;
 import com.journeyapps.barcodescanner.BarcodeResult;
 import com.journeyapps.barcodescanner.DecoratedBarcodeView;
@@ -107,6 +110,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import edu.ncc.nest.nestapp.R;
+import me.dm7.barcodescanner.core.CameraUtils;
 
 /**
  * GuestScanFragment - Fragment to be used to check in a user by scanning a guest's bar code that
@@ -114,7 +118,7 @@ import edu.ncc.nest.nestapp.R;
  */
 public class GuestScanFragment extends Fragment implements BarcodeCallback, View.OnClickListener {
 
-    private static final String TAG = "GuestScanFragment";
+    private static final String TAG = GuestScanFragment.class.getSimpleName();
 
     private static final List<BarcodeFormat> BARCODE_FORMATS = Arrays.asList(BarcodeFormat.CODE_39);
     private static final int CAMERA_REQ_CODE = 250; // Camera permission request code
@@ -160,15 +164,17 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
         resultTextView = (TextView) view.findViewById(R.id.scan_result_textview);
 
 
-        // Create new BeepManager object
-        beepManager = new BeepManager(getActivity());
-
-
         // Specifies which barcode formats to decode
         barcodeView.getBarcodeView().setDecoderFactory(new DefaultDecoderFactory(BARCODE_FORMATS));
 
-        // Initializes camera id, and prompt message from an intent
-        barcodeView.initializeFromIntent(getActivity().getIntent());
+        // Favor back-facing camera. If none exists, fallback to whatever camera is available
+        barcodeView.getCameraSettings().setRequestedCameraId(CameraUtils.getDefaultCameraId());
+
+
+        // Scanner customization
+        viewfinderView.setMaskColor(Color.argb(100, 0, 0, 0));
+
+        viewfinderView.setLaserVisibility(true);
 
 
         // Assign OnClickListener as this class
@@ -177,10 +183,13 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
         rescanButton.setOnClickListener(this);
 
 
-        // Scanner customization
-        viewfinderView.setMaskColor(Color.argb(100, 0, 0, 0));
+        // Create new BeepManager object
+        beepManager = new BeepManager(getActivity());
 
-        viewfinderView.setLaserVisibility(true);
+        // Enable vibration and beep to play when a bar-code is scanned
+        beepManager.setVibrateEnabled(true);
+
+        beepManager.setBeepEnabled(true);
 
     }
 
