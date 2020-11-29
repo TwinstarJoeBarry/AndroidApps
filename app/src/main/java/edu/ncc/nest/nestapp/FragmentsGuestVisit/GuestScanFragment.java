@@ -275,6 +275,7 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
 
         } else
 
+            // Scan for another bar-code
             barcodeView.decodeSingle(GuestScanFragment.this);
 
     }
