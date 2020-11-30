@@ -45,15 +45,18 @@
             android:layout_width="0dp"
             android:layout_weight="0.5"
             android:layout_height="wrap_content"
-            android:textAllCaps="true"
-            android:text="@string/rescan_button" />
+            android:text="@string/rescan_button"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:backgroundTint="@color/colorPrimaryDark" />
 
         <Button
             android:id="@+id/confirm_scan_button"
             android:layout_width="0dp"
             android:layout_weight="0.5"
             android:layout_height="wrap_content"
-            android:text="@string/confirm_scan_button" />
+            android:text="@string/confirm_scan_button"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:backgroundTint="@color/colorPrimaryDark" />
 
     </LinearLayout>
 
@@ -64,7 +67,8 @@
         android:layout_above="@id/layout_scan_buttons"
         android:gravity="center"
         android:padding="8dp"
-        android:textSize="20sp"
+        android:textSize="18sp"
+        android:textStyle="bold"
         android:textColor="@android:color/white"
         android:text="@string/scan_result_textview"
         android:background="@color/colorPrimaryDark" />

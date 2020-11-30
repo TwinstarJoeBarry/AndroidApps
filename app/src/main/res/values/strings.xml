@@ -1000,6 +1000,6 @@
     <string name="in_display_expiration_fragment">In Display True Expiration Fragment</string>
     <string name="rescan_button">Re-Scan Barcode</string>
     <string name="confirm_scan_button">Confirm Scan</string>
-    <string name="scan_result_textview">WAITING FOR SCAN ...</string>
+    <string name="scan_result_textview">Waiting for scan ...</string>
 
 </resources>
