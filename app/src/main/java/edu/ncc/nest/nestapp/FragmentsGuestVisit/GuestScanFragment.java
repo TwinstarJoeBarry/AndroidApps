@@ -124,6 +124,8 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
     private DecoratedBarcodeView barcodeView;
     private BeepManager beepManager;
     private TextView resultTextView;
+    private Button confirmButton;
+    private Button rescanButton;
 
     private boolean askedForPermission = false;
     private boolean scannerPaused = true;
@@ -152,9 +154,9 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
 
         ViewfinderView viewfinderView = (ViewfinderView) view.findViewById(R.id.zxing_viewfinder_view);
 
-        Button confirmButton = (Button) view.findViewById(R.id.confirm_scan_button);
+        confirmButton = (Button) view.findViewById(R.id.confirm_scan_button);
 
-        Button rescanButton = (Button) view.findViewById(R.id.rescan_button);
+        rescanButton = (Button) view.findViewById(R.id.rescan_button);
 
         resultTextView = (TextView) view.findViewById(R.id.scan_result_textview);
 
@@ -358,6 +360,20 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
             }, SCAN_DELAY);
 
         }
+
+    }
+
+    /**
+     * setFeedbackButtonsEnabled - Takes 1 parameter
+     * @param enabled - Whether to enable or disable the buttons
+     * Description: Toggles whether both rescanButton and confirmScan button are enabled or
+     * disabled.
+     */
+    private void setFeedbackButtonsEnabled(boolean enabled) {
+
+        confirmButton.setEnabled(enabled);
+
+        rescanButton.setEnabled(enabled);
 
     }
 
