@@ -115,7 +115,7 @@ import me.dm7.barcodescanner.core.CameraUtils;
  */
 public class GuestScanFragment extends Fragment implements BarcodeCallback, View.OnClickListener {
 
-    private static final String TAG = GuestScanFragment.class.getSimpleName();
+    public static final String TAG = GuestScanFragment.class.getSimpleName();
 
     private static final List<BarcodeFormat> BARCODE_FORMATS = Collections.singletonList(BarcodeFormat.CODE_39);
     // To support multiple formats change this to Arrays.asList() and fill it with the required
