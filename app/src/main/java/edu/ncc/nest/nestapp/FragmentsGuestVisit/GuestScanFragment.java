@@ -153,8 +153,6 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
         super.onViewCreated(view, savedInstanceState);
 
         // Get respective views from layout
-        ViewfinderView viewfinderView = (ViewfinderView) view.findViewById(R.id.zxing_viewfinder_view);
-
         barcodeView = (DecoratedBarcodeView) view.findViewById(R.id.zxing_barcode_scanner);
 
         confirmButton = (Button) view.findViewById(R.id.confirm_scan_button);
@@ -166,12 +164,6 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
 
         // Specifies which barcode formats to decode. (Removing this line, defaults scanner to use all formats)
         barcodeView.getBarcodeView().setDecoderFactory(new DefaultDecoderFactory(BARCODE_FORMATS));
-
-
-        // Scanner customization
-        viewfinderView.setMaskColor(Color.argb(100, 0, 0, 0));
-
-        viewfinderView.setLaserVisibility(true);
 
 
         // Make this class the OnClickListener for both feedback buttons
