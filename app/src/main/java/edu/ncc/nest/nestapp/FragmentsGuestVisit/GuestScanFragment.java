@@ -118,6 +118,9 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
     private static final String TAG = GuestScanFragment.class.getSimpleName();
 
     private static final List<BarcodeFormat> BARCODE_FORMATS = Collections.singletonList(BarcodeFormat.CODE_39);
+    // To support multiple formats change this to Arrays.asList() and fill it with the required
+    // formats. For example, Arrays.asList(BarcodeFormat.CODE_39, BarcodeFormat.UPC_A, ...);
+
     private static final int CAMERA_REQ_CODE = 250; // Camera permission request code
     private static final long SCAN_DELAY = 2000L;   // 2 Seconds decoder delay in milliseconds
 
@@ -150,9 +153,9 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
         super.onViewCreated(view, savedInstanceState);
 
         // Get respective views from layout
-        barcodeView = (DecoratedBarcodeView) view.findViewById(R.id.zxing_barcode_scanner);
-
         ViewfinderView viewfinderView = (ViewfinderView) view.findViewById(R.id.zxing_viewfinder_view);
+
+        barcodeView = (DecoratedBarcodeView) view.findViewById(R.id.zxing_barcode_scanner);
 
         confirmButton = (Button) view.findViewById(R.id.confirm_scan_button);
 
@@ -161,11 +164,8 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
         resultTextView = (TextView) view.findViewById(R.id.scan_result_textview);
 
 
-        // Specifies which barcode formats to decode
+        // Specifies which barcode formats to decode. (Removing this line, defaults scanner to use all formats)
         barcodeView.getBarcodeView().setDecoderFactory(new DefaultDecoderFactory(BARCODE_FORMATS));
-
-        // Favor back-facing camera. If none exists, fallback to whatever camera is available
-        barcodeView.getCameraSettings().setRequestedCameraId(CameraUtils.getDefaultCameraId());
 
 
         // Scanner customization
@@ -174,7 +174,7 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
         viewfinderView.setLaserVisibility(true);
 
 
-        // Assign OnClickListener as this class
+        // Make this class the OnClickListener for both feedback buttons
         confirmButton.setOnClickListener(this);
 
         rescanButton.setOnClickListener(this);
@@ -183,10 +183,9 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
         setFeedbackButtonsEnabled(false);
 
 
-        // Create new BeepManager object
+        // Create new BeepManager object to handle beeps and vibration
         beepManager = new BeepManager(requireActivity());
 
-        // Enable vibration and beep to play when a bar-code is scanned
         beepManager.setVibrateEnabled(true);
 
         beepManager.setBeepEnabled(true);
