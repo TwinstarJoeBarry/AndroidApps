@@ -41,14 +41,23 @@ public class ConfirmItemFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+
+
+        // if confirm button clicked, nav to fragment_select_printed_expiration_date.xml
         view.findViewById(R.id.button_confirm_next).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // navigation has yet to be set up in the nav_graph.xml
+
                 NavHostFragment.findNavController(ConfirmItemFragment.this)
-                        .navigate(R.id.action_StartFragment_to_ScanFragment);
+                        .navigate(R.id.action_confirmItemFragment_to_selectPrintedExpirationDateFragment);
+                
             }
         });
 
     }
+
+
+
+
+
 }
