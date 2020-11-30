@@ -124,7 +124,7 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
     private static final int CAMERA_REQ_CODE = 250; // Camera permission request code
     private static final long SCAN_DELAY = 2000L;   // 2 Seconds decoder delay in milliseconds
 
-    private DecoratedBarcodeView barcodeView;
+    private DecoratedBarcodeView decBarcodeView;
     private BeepManager beepManager;
     private TextView resultTextView;
     private Button confirmButton;
@@ -153,7 +153,7 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
         super.onViewCreated(view, savedInstanceState);
 
         // Get respective views from layout
-        barcodeView = (DecoratedBarcodeView) view.findViewById(R.id.zxing_barcode_scanner);
+        decBarcodeView = (DecoratedBarcodeView) view.findViewById(R.id.zxing_barcode_scanner);
 
         confirmButton = (Button) view.findViewById(R.id.confirm_scan_button);
 
@@ -163,7 +163,7 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
 
 
         // Specifies which barcode formats to decode. (Removing this line, defaults scanner to use all formats)
-        barcodeView.getBarcodeView().setDecoderFactory(new DefaultDecoderFactory(BARCODE_FORMATS));
+        decBarcodeView.getBarcodeView().setDecoderFactory(new DefaultDecoderFactory(BARCODE_FORMATS));
 
 
         // Make this class the OnClickListener for both feedback buttons
@@ -209,7 +209,7 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
         super.onPause();
 
         // Since we have paused the fragment pause and wait for the camera to close
-        barcodeView.pauseAndWait();
+        decBarcodeView.pauseAndWait();
 
         scannerPaused = true;
 
@@ -219,7 +219,7 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
     public void onDestroy() {
 
         // Since we are destroying the fragment pause and wait for the camera to close
-        barcodeView.pauseAndWait();
+        decBarcodeView.pauseAndWait();
 
         scannerPaused = true;
 
@@ -269,7 +269,7 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
             barcodeResult = resultText;
 
             // Pause the scanner
-            barcodeView.pause();
+            decBarcodeView.pause();
 
             scannerPaused = true;
 
@@ -281,7 +281,7 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
         } else
 
             // Scan for another bar-code
-            barcodeView.decodeSingle(GuestScanFragment.this);
+            decBarcodeView.decodeSingle(GuestScanFragment.this);
 
     }
 
@@ -338,7 +338,7 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
             barcodeResult = null;
 
             // Resume the scanner but not the decoder
-            barcodeView.resume();
+            decBarcodeView.resume();
 
             scannerPaused = false;
 
@@ -351,7 +351,7 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
 
                     // Resume decoding after a delay of SCAN_DELAY millis as long as the scanner has not been paused
                     // Tells the decoder to stop after a single scan
-                    barcodeView.decodeSingle(GuestScanFragment.this);
+                    decBarcodeView.decodeSingle(GuestScanFragment.this);
 
             }, SCAN_DELAY);
 
