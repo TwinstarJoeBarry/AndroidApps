@@ -308,9 +308,9 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
     ////////////// Custom Methods Start  //////////////
 
     /**
-     * cameraPermissionGranted - Takes no parameters
+     * Takes 0 parameters. Determines if the CAMERA permission has been granted.
+     *
      * @return Returns true if camera permission has been granted or false otherwise.
-     * Description: Determines if camera permission has been granted.
      */
     private boolean cameraPermissionGranted() {
 
@@ -320,9 +320,9 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
     }
 
     /**
-     * resumeScanning - Takes no parameters
-     * Description: Resumes the scanner if it is not paused, resets text view text, resets the
-     * barcodeResult to be null so we can scan a new bar-code, and starts the decoder after a delay.
+     * Takes 0 parameters. Resumes the scanner if it is not paused, resets text view text, resets
+     * the barcodeResult to be null so we can scan a new bar-code, and starts the decoder after a
+     * delay.
      */
     private void resumeScanning() {
 
@@ -360,10 +360,10 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
     }
 
     /**
-     * setFeedbackButtonsEnabled - Takes 1 parameter
-     * @param enabled - Whether to enable or disable the buttons
-     * Description: Toggles whether both rescanButton and confirmScan button are enabled or
-     * disabled.
+     * Takes 1 parameter. Toggles whether both rescanButton and confirmScan button are enabled or
+     * disabled based on the value of the parameter.
+     *
+     * @param enabled true to enable or false disable
      */
     private void setFeedbackButtonsEnabled(boolean enabled) {
 
