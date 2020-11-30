@@ -179,6 +179,9 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
 
         rescanButton.setOnClickListener(this);
 
+        // Disable the feedback buttons until we scan a barcode
+        setFeedbackButtonsEnabled(false);
+
 
         // Create new BeepManager object
         beepManager = new BeepManager(requireActivity());
@@ -277,6 +280,9 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
 
             scannerPaused = true;
 
+            // Enable the feedback buttons after we have stored the bar-code, and stopped scanner
+            setFeedbackButtonsEnabled(true);
+
             Log.d(TAG, "Barcode Result: " + resultText + ", Barcode Format: " + result.getBarcodeFormat());
 
         } else
@@ -337,6 +343,9 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
 
             // Update the display text so the user knows we are waiting for them to scan a barcode
             resultTextView.setText(getString(R.string.scan_result_textview));
+
+            // Disable the feedback buttons until we scan another barcode
+            setFeedbackButtonsEnabled(false);
 
             // Reset our barcodeResult
             barcodeResult = null;
