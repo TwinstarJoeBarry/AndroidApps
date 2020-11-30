@@ -243,7 +243,7 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
             else
 
                 // Display a reason of why we need the permission
-                Toast.makeText(requireActivity(), "Camera permission is needed in order to scan.",
+                Toast.makeText(requireContext(), "Camera permission is needed in order to scan.",
                         Toast.LENGTH_LONG).show();
 
         }
