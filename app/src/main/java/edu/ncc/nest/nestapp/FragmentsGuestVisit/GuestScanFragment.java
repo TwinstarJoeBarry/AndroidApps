@@ -242,7 +242,7 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 
-        if (requestCode == CAMERA_REQ_CODE && grantResults.length > 0)
+        if (requestCode == CAMERA_REQ_CODE && grantResults.length > 0) {
 
             // If we have permission to use the camera
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
@@ -254,6 +254,8 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
                 // Display a reason of why we need the permission
                 Toast.makeText(requireActivity(), "Camera permission is needed in order to scan.",
                         Toast.LENGTH_SHORT).show();
+
+        }
 
     }
 
@@ -295,25 +297,19 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
     @Override
     public void onClick(View view) {
 
-        if (cameraPermissionGranted()) {
+        int id = view.getId();
 
-            int id = view.getId();
+        if (id == R.id.rescan_button)
 
-            if (id == R.id.rescan_button)
+            resumeScanning();
 
-                resumeScanning();
+        else if (id == R.id.confirm_scan_button && barcodeResult != null) {
 
-            else if (id == R.id.confirm_scan_button && barcodeResult != null) {
+            Log.d(TAG, "Scan Confirmed: " + barcodeResult);
 
-                Log.d(TAG, "Scan Confirmed: " + barcodeResult);
+            // TODO Create bundle and send barcode with guest name to next fragment
 
-                // TODO Create bundle and send barcode with guest name to next fragment
-
-            }
-
-        } else
-
-            requestPermissions(new String[]{Manifest.permission.CAMERA}, CAMERA_REQ_CODE);
+        }
 
     }
 
