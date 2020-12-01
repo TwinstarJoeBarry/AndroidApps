@@ -82,5 +82,14 @@
         android:id="@+id/selectPrintedExpirationDateFragment"
         android:name="edu.ncc.nest.nestapp.FragmentsUpc.SelectPrintedExpirationDateFragment"
         android:label="fragment_select_printed_expiration_date"
-        tools:layout="@layout/fragment_select_printed_expiration_date" />
+        tools:layout="@layout/fragment_select_printed_expiration_date" >
+        <action
+            android:id="@+id/action_selectPrintedExpirationDateFragment_to_displayTrueExpirationFragment"
+            app:destination="@id/displayTrueExpirationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/displayTrueExpirationFragment"
+        android:name="edu.ncc.nest.nestapp.FragmentsUpc.DisplayTrueExpirationFragment"
+        android:label="fragment_display_true_expiration"
+        tools:layout="@layout/fragment_display_true_expiration" />
 </navigation>

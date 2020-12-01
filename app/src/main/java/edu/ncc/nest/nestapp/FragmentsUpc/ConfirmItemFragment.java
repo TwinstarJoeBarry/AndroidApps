@@ -50,7 +50,18 @@ public class ConfirmItemFragment extends Fragment {
 
                 NavHostFragment.findNavController(ConfirmItemFragment.this)
                         .navigate(R.id.action_confirmItemFragment_to_selectPrintedExpirationDateFragment);
-                
+
+            }
+        });
+
+        // if the item was incorrect, nav to fragment_select_item.xml
+        view.findViewById(R.id.button_not_correct).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                NavHostFragment.findNavController(ConfirmItemFragment.this)
+                        .navigate(R.id.action_confirmItemFragment_to_selectItemFragment);
+
             }
         });
 

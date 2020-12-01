@@ -100,8 +100,8 @@ public class Choose extends AppCompatActivity implements OnClickListener {
      * launchGetUPC - starts the Get UPC activity
      */
     public void launchGetUPC() {
-        Intent intent = new Intent(this, ItemInformation.class);
-        //Intent intent = new Intent(this, CheckExpirationDate.class);
+        //Intent intent = new Intent(this, ItemInformation.class);
+        Intent intent = new Intent(this, CheckExpirationDate.class);
         startActivity(intent);
     }
 
