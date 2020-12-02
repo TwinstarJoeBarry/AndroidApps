@@ -987,6 +987,7 @@
     <string name="start_fragment_label">Start Fragment</string>
     <string name="scan_fragment_label">Scan Fragment</string>
     <string name="guest_scan_fragment_label">Guest Scan Fragment</string>
+    <string name="guest_questionnaire_fragment_label">Guest Questionnaire Fragment</string>
     <string name="hello_start_fragment">In Start Fragment</string>
     <string name="scan">Scan UPC</string>
     <string name="enter_upc">Enter UPC</string>

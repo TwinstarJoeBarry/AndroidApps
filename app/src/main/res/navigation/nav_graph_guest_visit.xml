@@ -28,6 +28,18 @@
         android:label="@string/guest_scan_fragment_label"
         tools:layout="@layout/fragment_guest_scan" >
 
+        <action
+            android:id="@+id/action_GuestScanFragment_to_GuestQuestionnaireFragment"
+            app:destination="@id/GuestQuestionnaireFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/GuestQuestionnaireFragment"
+        android:name="edu.ncc.nest.nestapp.FragmentsGuestVisit.GuestQuestionnaireFragment"
+        android:label="@string/guest_questionnaire_fragment_label"
+        tools:layout="@layout/fragment_guest_questionnaire" >
+
     </fragment>
 
 </navigation>

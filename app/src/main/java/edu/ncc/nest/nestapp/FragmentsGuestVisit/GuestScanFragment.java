@@ -79,12 +79,12 @@ package edu.ncc.nest.nestapp.FragmentsGuestVisit;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.os.Handler;
 import android.util.Log;
@@ -101,13 +101,11 @@ import com.journeyapps.barcodescanner.BarcodeCallback;
 import com.journeyapps.barcodescanner.BarcodeResult;
 import com.journeyapps.barcodescanner.DecoratedBarcodeView;
 import com.journeyapps.barcodescanner.DefaultDecoderFactory;
-import com.journeyapps.barcodescanner.ViewfinderView;
 
 import java.util.Collections;
 import java.util.List;
 
 import edu.ncc.nest.nestapp.R;
-import me.dm7.barcodescanner.core.CameraUtils;
 
 /**
  * GuestScanFragment - Fragment to be used to check in a user by scanning a guest's bar code that
@@ -299,6 +297,17 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
             Log.d(TAG, "Scan Confirmed: " + barcodeResult);
 
             // TODO Create bundle and send barcode with guest name to next fragment
+
+            // Note: The following code is only temporary and is for testing the GuestQuestionnaireFragment
+
+            Bundle result = new Bundle();
+
+            result.putString("BARCODE", barcodeResult);
+
+            getParentFragmentManager().setFragmentResult("CONFIRM_SCAN", result);
+
+            NavHostFragment.findNavController(GuestScanFragment.this)
+                    .navigate(R.id.action_GuestScanFragment_to_GuestQuestionnaireFragment);
 
         }
 
