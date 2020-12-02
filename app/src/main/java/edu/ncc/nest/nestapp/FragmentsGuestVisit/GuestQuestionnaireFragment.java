@@ -28,7 +28,6 @@ public class GuestQuestionnaireFragment extends Fragment implements View.OnClick
 
     // Stores a list of all the views that contain the user's responses
     private List<View> inputFields;
-    private Button submitButton;
 
     ////////////// Lifecycle Methods Start //////////////
 
@@ -49,9 +48,7 @@ public class GuestQuestionnaireFragment extends Fragment implements View.OnClick
         inputFields = getInputFields((ViewGroup) view);
 
         // Get a reference to the submit button and set this class as the onClickListener
-        submitButton = ((Button) view.findViewById(R.id.questionnaire_submit_btn));
-
-        submitButton.setOnClickListener(this);
+        ((Button) view.findViewById(R.id.questionnaire_submit_btn)).setOnClickListener(this);
 
         if (savedInstanceState == null) {
 
@@ -94,7 +91,7 @@ public class GuestQuestionnaireFragment extends Fragment implements View.OnClick
 
                 else if (inputField instanceof Spinner)
 
-                    ((Spinner) inputField).setSelection(fieldText.equals("Yes") ? 0 : 1);
+                    ((Spinner) inputField).setSelection(fieldText[i].equals("Yes") ? 0 : 1);
 
             }
 
