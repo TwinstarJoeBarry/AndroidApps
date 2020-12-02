@@ -78,13 +78,10 @@ package edu.ncc.nest.nestapp.FragmentsGuestVisit;
  */
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.activity.result.contract.ActivityResultContracts.*;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -126,7 +123,7 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
 
     // Used to ask for camera permission calls cameraPermissionResult method with the result
     private final ActivityResultLauncher<String> REQUEST_PERMISSION_LAUNCHER = registerForActivityResult(
-            new RequestPermission(), isGranted -> { cameraPermissionResult(isGranted); });
+            new RequestPermission(), isGranted -> { onCameraPermissionResult(isGranted); });
 
     private static final long SCAN_DELAY = 2000L;   // 2 Seconds decoder delay in milliseconds
 
@@ -312,7 +309,7 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
      * permission. Determines what happens when the permission gets granted or denied.
      * @param isGranted - true is permission was granted false otherwise
      */
-    private void cameraPermissionResult(boolean isGranted) {
+    private void onCameraPermissionResult(boolean isGranted) {
 
         if (isGranted)
 
