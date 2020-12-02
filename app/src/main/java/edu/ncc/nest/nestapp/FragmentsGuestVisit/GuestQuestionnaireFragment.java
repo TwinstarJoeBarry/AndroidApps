@@ -1,6 +1,7 @@
 package edu.ncc.nest.nestapp.FragmentsGuestVisit;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ public class GuestQuestionnaireFragment extends Fragment implements View.OnClick
 
     public static final String TAG = GuestQuestionnaireFragment.class.getSimpleName();
 
+    // Stores a list of all the views that contain the user's responses
     private List<View> inputFields;
     private Button submitButton;
 
@@ -49,7 +51,23 @@ public class GuestQuestionnaireFragment extends Fragment implements View.OnClick
     ////////////// Other Event Methods Start  //////////////
 
     @Override
-    public void onClick(View v) {
+    public void onClick(View view) {
+
+        if (view.getId() == R.id.questionnaire_submit_btn) {
+
+            List<String> fieldTexts = new ArrayList<>();
+
+            for (View inputField : inputFields) {
+
+                String fieldText = getFieldText(inputField);
+
+                fieldTexts.add(!fieldText.isEmpty() ? fieldText : null);
+
+            }
+
+            Log.d(TAG, "Guest's Answers: " + fieldTexts.toString());
+
+        }
 
     }
 
