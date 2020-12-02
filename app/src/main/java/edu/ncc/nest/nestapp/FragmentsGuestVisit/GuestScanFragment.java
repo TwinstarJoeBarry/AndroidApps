@@ -78,9 +78,14 @@ package edu.ncc.nest.nestapp.FragmentsGuestVisit;
  */
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.activity.result.contract.ActivityResultContracts.*;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -119,7 +124,10 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
     // To support multiple formats change this to Arrays.asList() and fill it with the required
     // formats. For example, Arrays.asList(BarcodeFormat.CODE_39, BarcodeFormat.UPC_A, ...);
 
-    private static final int CAMERA_REQ_CODE = 250; // Camera permission request code
+    // Used to ask for camera permission calls cameraPermissionResult method with the result
+    private final ActivityResultLauncher<String> REQUEST_PERMISSION_LAUNCHER = registerForActivityResult(
+            new RequestPermission(), isGranted -> { cameraPermissionResult(isGranted); });
+
     private static final long SCAN_DELAY = 2000L;   // 2 Seconds decoder delay in milliseconds
 
     private DecoratedBarcodeView decBarcodeView;
@@ -128,12 +136,10 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
     private Button confirmButton;
     private Button rescanButton;
 
-    private boolean askedForPermission = false;
     private boolean scannerPaused = true;
 
     // Stores the bar code that has been scanned
     private String barcodeResult = null;
-
 
     ////////////// Lifecycle Methods Start //////////////
 
@@ -186,19 +192,24 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
     public void onResume() {
         super.onResume();
 
-        if (cameraPermissionGranted())
+        // If the camera permission is granted
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
+                == PackageManager.PERMISSION_GRANTED) {
 
             resumeScanning();
 
-        else if (!askedForPermission) {
+        } else if (shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)) {
 
-            // Request the camera permission to be granted
-            requestPermissions(new String[] {Manifest.permission.CAMERA}, CAMERA_REQ_CODE);
+            // TODO Create a dialog window describing why we need the permission for this feature
 
-            // We have officially asked for permission, so update our class variable
-            askedForPermission = true;
+            // Display a reason of why we need the permission
+            Toast.makeText(requireContext(), "Camera permission is needed in order to scan.",
+                    Toast.LENGTH_LONG).show();
 
-        }
+        } else
+
+            // Request the camera permission
+            REQUEST_PERMISSION_LAUNCHER.launch(Manifest.permission.CAMERA);
 
     }
 
@@ -227,26 +238,6 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
 
 
     ////////////// Other Event Methods Start  //////////////
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-
-        if (requestCode == CAMERA_REQ_CODE && grantResults.length > 0) {
-
-            // If we have permission to use the camera
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
-
-                resumeScanning();
-
-            else
-
-                // Display a reason of why we need the permission
-                Toast.makeText(requireContext(), "Camera permission is needed in order to scan.",
-                        Toast.LENGTH_LONG).show();
-
-        }
-
-    }
 
     @Override
     public void barcodeResult(BarcodeResult result) {
@@ -317,14 +308,22 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
     ////////////// Custom Methods Start  //////////////
 
     /**
-     * Takes 0 parameters. Determines if the CAMERA permission has been granted.
-     *
-     * @return Returns true if camera permission has been granted or false otherwise.
+     * Takes 1 parameter. This method gets called by the requestPermissionLauncher, after asking for
+     * permission. Determines what happens when the permission gets granted or denied.
+     * @param isGranted - true is permission was granted false otherwise
      */
-    private boolean cameraPermissionGranted() {
+    private void cameraPermissionResult(boolean isGranted) {
 
-        return (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
-                == PackageManager.PERMISSION_GRANTED);
+        if (isGranted)
+
+            // Permission is granted so resume scanning
+            resumeScanning();
+
+        else
+
+            // Display a reason of why we need the permission
+            Toast.makeText(requireContext(), "Camera permission is needed in order to scan.",
+                    Toast.LENGTH_LONG).show();
 
     }
 
