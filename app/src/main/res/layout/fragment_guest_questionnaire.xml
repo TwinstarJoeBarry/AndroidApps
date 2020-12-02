@@ -68,7 +68,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="number"
                 android:textSize="16sp"
-                android:maxLength="10"
+                android:maxLength="16"
                 android:textColor="@android:color/primary_text_light"
                 android:hint="@string/questionnaire_hint_id" />
 

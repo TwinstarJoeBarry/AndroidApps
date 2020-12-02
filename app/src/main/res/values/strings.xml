@@ -1006,7 +1006,7 @@
     <!-- Strings used for GuestQuestionnaireFragment.java / fragment_guest_questionnaire.xml -->
     <string name="questionnaire_welcome_message">Welcome NEST Guest!</string>
     <string name="questionnaire_description">Please answer and submit the following questions before proceeding.</string>
-    <string name="questionnaire_question_1">Who visited the NEST today?</string>
+    <string name="questionnaire_question_1">Who visited the NEST today? (Guest ID)</string>
     <string name="questionnaire_question_2">How many adults (ages 19-64) are in your household?</string>
     <string name="questionnaire_question_3">How many adults (over the age of 64) are in your household?</string>
     <string name="questionnaire_question_4">How many children (ages 18 and under) are in your household?</string>
