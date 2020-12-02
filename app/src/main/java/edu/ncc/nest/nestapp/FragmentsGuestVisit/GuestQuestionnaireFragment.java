@@ -11,6 +11,7 @@ import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentResultListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +51,24 @@ public class GuestQuestionnaireFragment extends Fragment implements View.OnClick
         submitButton = ((Button) view.findViewById(R.id.questionnaire_submit_btn));
 
         submitButton.setOnClickListener(this);
+
+        // NOTE: The following code may be only temporary depending on what defines the Guest's Id
+
+        // Get info passed from the fragment result
+        getParentFragmentManager().setFragmentResultListener("CONFIRM_SCAN",
+                this, (requestKey, result) -> {
+
+                    final String BARCODE = result.getString("BARCODE");
+
+                    EditText guestId = ((EditText) view.findViewById(R.id.questionnaire_q1_edit_text));
+
+                    // Set the input field related to the Guest's Id as the barcode we scanned in previous fragment
+                    guestId.setText(BARCODE);
+
+                    // Disable it so the user can't modify his check-in id.
+                    guestId.setEnabled(false);
+
+                });
 
     }
 
