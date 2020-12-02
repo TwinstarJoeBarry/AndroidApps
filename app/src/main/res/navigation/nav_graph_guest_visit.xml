@@ -28,6 +28,7 @@
         android:label="@string/guest_scan_fragment_label"
         tools:layout="@layout/fragment_guest_scan" >
 
+        <!-- This action is only temporary used to test GuestQuestionnaireFragment.java -->
         <action
             android:id="@+id/action_GuestScanFragment_to_GuestQuestionnaireFragment"
             app:destination="@id/GuestQuestionnaireFragment" />

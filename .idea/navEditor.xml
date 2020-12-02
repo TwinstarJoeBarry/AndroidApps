@@ -99,7 +99,7 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
-                  <entry key="GuestScanFragment">
+                  <entry key="GuestQuestionnaireFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
@@ -111,7 +111,7 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="SecondFragment">
+                  <entry key="GuestScanFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
@@ -119,6 +119,15 @@
                             <option name="x" value="12" />
                             <option name="y" value="12" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_GuestScanFragment_to_GuestQuestionnaireFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>

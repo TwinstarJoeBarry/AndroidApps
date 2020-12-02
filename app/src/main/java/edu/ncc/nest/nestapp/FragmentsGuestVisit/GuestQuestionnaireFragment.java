@@ -17,6 +17,9 @@ import java.util.List;
 
 import edu.ncc.nest.nestapp.R;
 
+/**
+ * This fragment is used to ask a guest a set of questions about their visit.
+ */
 public class GuestQuestionnaireFragment extends Fragment implements View.OnClickListener {
 
     public static final String TAG = GuestQuestionnaireFragment.class.getSimpleName();
@@ -40,15 +43,17 @@ public class GuestQuestionnaireFragment extends Fragment implements View.OnClick
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // Get all of the input fields from the view
         inputFields = getInputFields((ViewGroup) view);
 
+        // Get a reference to the submit button and set this class as the onClickListener
         submitButton = ((Button) view.findViewById(R.id.questionnaire_submit_btn));
 
         submitButton.setOnClickListener(this);
 
     }
 
-    ////////////// Other Event Methods Start  //////////////
+    ////////////// Implementation Methods Start  //////////////
 
     @Override
     public void onClick(View view) {
@@ -59,8 +64,10 @@ public class GuestQuestionnaireFragment extends Fragment implements View.OnClick
 
             for (View inputField : inputFields) {
 
+                // Get the text from the current input field
                 String fieldText = getFieldText(inputField);
 
+                // If the field is empty set its value in the list to null
                 fieldTexts.add(!fieldText.isEmpty() ? fieldText : null);
 
             }
@@ -82,19 +89,26 @@ public class GuestQuestionnaireFragment extends Fragment implements View.OnClick
      */
     private static List<View> getInputFields(@NonNull View view) {
 
-        ViewGroup viewGroup = (ViewGroup) view;
-
         List<View> idList = new ArrayList<>();
 
-        for (int i = 0, c = viewGroup.getChildCount(); i < c; i++) {
+        if (view instanceof ViewGroup) {
 
-            if ((view = viewGroup.getChildAt(i)) instanceof ViewGroup)
+            // Cast the root view to a ViewGroup
+            ViewGroup viewGroup = (ViewGroup) view;
 
-                idList.addAll(getInputFields((ViewGroup) view));
+            // Loop through each child of the view
+            for (int i = 0, c = viewGroup.getChildCount(); i < c; i++) {
 
-            if (view instanceof EditText || view instanceof Spinner)
+                if ((view = viewGroup.getChildAt(i)) instanceof ViewGroup)
 
-                idList.add(view);
+                    // Add all the children of the child ViewGroup to the list
+                    idList.addAll(getInputFields((ViewGroup) view));
+
+                if (view instanceof EditText || view instanceof Spinner)
+
+                    idList.add(view);
+
+            }
 
         }
 
