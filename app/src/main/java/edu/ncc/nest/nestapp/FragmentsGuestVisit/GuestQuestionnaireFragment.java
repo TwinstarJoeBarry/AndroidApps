@@ -63,13 +63,17 @@ public class GuestQuestionnaireFragment extends Fragment implements View.OnClick
 
                         final String BARCODE = result.getString("BARCODE");
 
-                        EditText guestId = (EditText) inputFields.get(0);
+                        if (BARCODE != null) {
 
-                        // Set the input field related to the Guest's Id as the barcode we scanned in previous fragment
-                        guestId.setText(BARCODE);
+                            EditText guestId = (EditText) inputFields.get(0);
 
-                        // Disable it so the user can't modify his check-in id.
-                        guestId.setEnabled(false);
+                            // Set the input field related to the Guest's Id as the barcode we scanned in previous fragment
+                            guestId.setText(BARCODE);
+
+                            // Disable it so the user can't modify his check-in id.
+                            guestId.setEnabled(false);
+
+                        }
 
                     });
 
