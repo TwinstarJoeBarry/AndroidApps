@@ -1,5 +1,6 @@
 package edu.ncc.nest.nestapp.FragmentsGuestVisit;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,11 +12,11 @@ import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentResultListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.ncc.nest.nestapp.Choose;
 import edu.ncc.nest.nestapp.R;
 
 /**
@@ -92,6 +93,12 @@ public class GuestQuestionnaireFragment extends Fragment implements View.OnClick
             }
 
             Log.d(TAG, "Guest's Answers: " + fieldTexts.toString());
+
+            // Create an Intent that will bring the user back to the home page
+            Intent intent = new Intent(requireContext(), Choose.class);
+
+            // Go to the home page
+            startActivity(intent);
 
         }
 
