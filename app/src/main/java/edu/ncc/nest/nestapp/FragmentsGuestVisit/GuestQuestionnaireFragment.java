@@ -23,6 +23,8 @@ public class GuestQuestionnaireFragment extends Fragment implements View.OnClick
     private List<View> inputFields;
     private Button submitButton;
 
+    ////////////// Lifecycle Methods Start //////////////
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -39,15 +41,19 @@ public class GuestQuestionnaireFragment extends Fragment implements View.OnClick
         inputFields = getInputFields((ViewGroup) view);
 
         submitButton = ((Button) view.findViewById(R.id.questionnaire_submit_btn));
-        
+
         submitButton.setOnClickListener(this);
 
     }
+
+    ////////////// Other Event Methods Start  //////////////
 
     @Override
     public void onClick(View v) {
 
     }
+
+    ////////////// Custom Methods Start  //////////////
 
     /**
      * Takes 1 NonNull parameter. Gets and returns all of the input field views from the view
@@ -75,6 +81,27 @@ public class GuestQuestionnaireFragment extends Fragment implements View.OnClick
         }
 
         return idList;
+
+    }
+
+    /**
+     * Takes 1 NonNull parameter. Checks whether or not the supplied view is an instance of
+     * EditText or Spinner then casts to it. It then returns the string entered by the user that
+     * is stored within that view.
+     * @param view The view to get the text from
+     * @return The string entered into that view by the user
+     */
+    private static String getFieldText(@NonNull View view) {
+
+        if (view instanceof EditText)
+
+            return ((EditText) view).getText().toString();
+
+        else if (view instanceof Spinner)
+
+            return ((Spinner) view).getSelectedItem().toString();
+
+        throw new ClassCastException("Parameter view is not a valid input field");
 
     }
 
