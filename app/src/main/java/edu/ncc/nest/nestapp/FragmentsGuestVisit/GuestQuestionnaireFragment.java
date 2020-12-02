@@ -53,23 +53,70 @@ public class GuestQuestionnaireFragment extends Fragment implements View.OnClick
 
         submitButton.setOnClickListener(this);
 
-        // NOTE: The following code may be only temporary depending on what defines the Guest's Id
+        if (savedInstanceState == null) {
 
-        // Get info passed from the fragment result
-        getParentFragmentManager().setFragmentResultListener("CONFIRM_SCAN",
-                this, (requestKey, result) -> {
+            // NOTE: The following code may be only temporary depending on what defines the Guest's Id
 
-                    final String BARCODE = result.getString("BARCODE");
+            // Get info passed from the fragment result
+            getParentFragmentManager().setFragmentResultListener("CONFIRM_SCAN",
+                    this, (requestKey, result) -> {
 
-                    EditText guestId = ((EditText) view.findViewById(R.id.questionnaire_q1_edit_text));
+                        final String BARCODE = result.getString("BARCODE");
 
-                    // Set the input field related to the Guest's Id as the barcode we scanned in previous fragment
-                    guestId.setText(BARCODE);
+                        EditText guestId = (EditText) inputFields.get(0);
 
-                    // Disable it so the user can't modify his check-in id.
-                    guestId.setEnabled(false);
+                        // Set the input field related to the Guest's Id as the barcode we scanned in previous fragment
+                        guestId.setText(BARCODE);
 
-                });
+                        // Disable it so the user can't modify his check-in id.
+                        guestId.setEnabled(false);
+
+                    });
+
+        } else {
+
+            // This line may only be temporary depending on what defines the Guest's Id
+            inputFields.get(0).setEnabled(savedInstanceState.getBoolean("GUEST_ID_ENABLED"));
+
+            String[] fieldText = savedInstanceState.getStringArray("INPUT_FIELD_TEXT");
+
+            for (int i = fieldText.length; i-- > 0;) {
+
+                View inputField = inputFields.get(i);
+
+                if (inputField instanceof EditText)
+
+                    ((EditText) inputField).setText(fieldText[i]);
+
+                else if (inputField instanceof Spinner)
+
+                    ((Spinner) inputField).setSelection(fieldText.equals("Yes") ? 0 : 1);
+
+            }
+
+        }
+
+    }
+
+    ////////////// Other Event Methods Start  //////////////
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+
+        // These next two lines may only be temporary depending on what defines the Guest's Id
+        boolean guestIdEnabled = inputFields.get(0).isEnabled();
+
+        outState.putBoolean("GUEST_ID_ENABLED", guestIdEnabled);
+
+        String[] fieldText = new String[inputFields.size()];
+
+        for (int i = fieldText.length; i-- > 0;)
+
+            fieldText[i] = getFieldText(inputFields.get(i));
+
+        outState.putStringArray("INPUT_FIELD_TEXT", fieldText);
+
+        super.onSaveInstanceState(outState);
 
     }
 
@@ -97,8 +144,14 @@ public class GuestQuestionnaireFragment extends Fragment implements View.OnClick
             // Create an Intent that will bring the user back to the home page
             Intent intent = new Intent(requireContext(), Choose.class);
 
+            // Clears the activity stack when using the intent
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
             // Go to the home page
             startActivity(intent);
+
+            // Make sure we finish() our underlying activity
+            requireActivity().finish();
 
         }
 

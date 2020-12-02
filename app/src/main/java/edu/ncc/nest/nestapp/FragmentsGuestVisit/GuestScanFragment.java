@@ -180,10 +180,14 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
     @Override
     public void onDestroy() {
 
-        // Since we are destroying the fragment pause and wait for the camera to close
-        decBarcodeView.pauseAndWait();
+        if (decBarcodeView != null) {
 
-        scannerPaused = true;
+            // Since we are destroying the fragment pause and wait for the camera to close
+            decBarcodeView.pauseAndWait();
+
+            scannerPaused = true;
+
+        }
 
         super.onDestroy();
 
