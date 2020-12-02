@@ -142,7 +142,9 @@ public class GuestQuestionnaireFragment extends Fragment implements View.OnClick
 
             Log.d(TAG, "Guest's Answers: " + fieldTexts.toString());
 
-            // Create an Intent that will bring the user back to the home page
+            // Disabled this for now for test so you can compare the log statement to the answered entered.
+            
+            /*// Create an Intent that will bring the user back to the home page
             Intent intent = new Intent(requireContext(), Choose.class);
 
             // Clears the activity stack when using the intent
@@ -152,7 +154,7 @@ public class GuestQuestionnaireFragment extends Fragment implements View.OnClick
             startActivity(intent);
 
             // Make sure we finish() our underlying activity
-            requireActivity().finish();
+            requireActivity().finish();*/
 
         }
 
