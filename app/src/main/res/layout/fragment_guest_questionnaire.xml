@@ -1,170 +1,184 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/colorPrimaryDark"
     tools:context=".FragmentsGuestVisit.GuestQuestionnaireFragment" >
 
-    <TextView
-        android:id="@+id/questionnaire_welcome_message"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginVertical="8dp"
-        android:gravity="center"
-        android:shadowColor="@android:color/black"
-        android:shadowRadius="2"
-        android:shadowDx="-4"
-        android:shadowDy="4"
-        android:textSize="26sp"
-        android:textStyle="bold"
-        android:textColor="@android:color/primary_text_dark"
-        android:text="@string/questionnaire_welcome_message" />
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="6dp"
+        android:padding="16dp"
+        android:orientation="vertical"
+        android:backgroundTint="@color/colorPrimary"
+        android:background="@android:drawable/dialog_frame" >
 
-    <TextView
-        android:id="@+id/questionnaire_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginBottom="8dp"
-        android:gravity="center"
-        android:shadowColor="@android:color/black"
-        android:shadowRadius="1"
-        android:shadowDx="-2"
-        android:shadowDy="2"
-        android:textSize="16sp"
-        android:textStyle="bold|italic"
-        android:textColor="@android:color/secondary_text_dark"
-        android:text="@string/questionnaire_description" />
+        <TextView
+            android:id="@+id/questionnaire_welcome_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="16dp"
+            android:shadowColor="@android:color/black"
+            android:shadowRadius="2"
+            android:shadowDx="-4"
+            android:shadowDy="4"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/primary_text_dark"
+            android:text="@string/questionnaire_welcome_message" />
 
-    <ScrollView
-        android:id="@+id/questionnaire_scrollview"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@android:drawable/dialog_holo_light_frame" >
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/questionnaire_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="20dp"
-            android:orientation="vertical" >
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginBottom="16dp"
+            android:gravity="center"
+            android:shadowColor="@android:color/black"
+            android:shadowRadius="1"
+            android:shadowDx="-2"
+            android:shadowDy="2"
+            android:textSize="16sp"
+            android:textStyle="bold|italic"
+            android:textColor="@android:color/primary_text_dark"
+            android:text="@string/questionnaire_description" />
 
-            <TextView
-                android:id="@+id/questionnaire_q1_label"
+        <ScrollView
+            android:id="@+id/questionnaire_scrollview"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@android:drawable/dialog_holo_light_frame" >
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="start"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="@android:color/primary_text_light"
-                android:text="@string/questionnaire_question_1" />
+                android:padding="20dp"
+                android:orientation="vertical" >
 
-            <EditText
-                android:id="@+id/questionnaire_q1_edit_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:textSize="16sp"
-                android:maxLength="16"
-                android:textColor="@android:color/primary_text_light"
-                android:hint="@string/questionnaire_hint_id" />
+                <TextView
+                    android:id="@+id/questionnaire_q1_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/primary_text_light"
+                    android:text="@string/questionnaire_question_1" />
 
-            <TextView
-                android:id="@+id/questionnaire_q2_label"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:gravity="start"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="@android:color/primary_text_light"
-                android:text="@string/questionnaire_question_2" />
+                <EditText
+                    android:id="@+id/questionnaire_q1_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:textSize="16sp"
+                    android:maxLength="16"
+                    android:textColor="@android:color/primary_text_light"
+                    android:hint="@string/questionnaire_hint_id"
+                    android:autofillHints="" />
 
-            <EditText
-                android:id="@+id/questionnaire_q2_edit_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:textSize="16sp"
-                android:maxLength="2"
-                android:textColor="@android:color/primary_text_light"
-                android:hint="@string/questionnaire_hint_number" />
+                <TextView
+                    android:id="@+id/questionnaire_q2_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:gravity="start"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/primary_text_light"
+                    android:text="@string/questionnaire_question_2" />
 
-            <TextView
-                android:id="@+id/questionnaire_q3_label"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:gravity="start"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="@android:color/primary_text_light"
-                android:text="@string/questionnaire_question_3" />
+                <EditText
+                    android:id="@+id/questionnaire_q2_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:textSize="16sp"
+                    android:maxLength="2"
+                    android:textColor="@android:color/primary_text_light"
+                    android:hint="@string/questionnaire_hint_number"
+                    android:autofillHints="" />
 
-            <EditText
-                android:id="@+id/questionnaire_q3_edit_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:textSize="16sp"
-                android:maxLength="2"
-                android:textColor="@android:color/primary_text_light"
-                android:hint="@string/questionnaire_hint_number" />
+                <TextView
+                    android:id="@+id/questionnaire_q3_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:gravity="start"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/primary_text_light"
+                    android:text="@string/questionnaire_question_3" />
 
-            <TextView
-                android:id="@+id/questionnaire_q4_label"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:gravity="start"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="@android:color/primary_text_light"
-                android:text="@string/questionnaire_question_4" />
+                <EditText
+                    android:id="@+id/questionnaire_q3_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:textSize="16sp"
+                    android:maxLength="2"
+                    android:textColor="@android:color/primary_text_light"
+                    android:hint="@string/questionnaire_hint_number"
+                    android:autofillHints="" />
 
-            <EditText
-                android:id="@+id/questionnaire_q4_edit_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:textSize="16sp"
-                android:maxLength="2"
-                android:textColor="@android:color/primary_text_light"
-                android:hint="@string/questionnaire_hint_number" />
+                <TextView
+                    android:id="@+id/questionnaire_q4_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:gravity="start"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/primary_text_light"
+                    android:text="@string/questionnaire_question_4" />
 
-            <TextView
-                android:id="@+id/questionnaire_q5_label"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:gravity="start"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="@android:color/primary_text_light"
-                android:text="@string/questionnaire_question_5" />
+                <EditText
+                    android:id="@+id/questionnaire_q4_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:textSize="16sp"
+                    android:maxLength="2"
+                    android:textColor="@android:color/primary_text_light"
+                    android:hint="@string/questionnaire_hint_number"
+                    android:autofillHints="" />
 
-            <Spinner
-                android:id="@+id/questionnaire_q5_spinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:entries="@array/array_yes_no"
-                android:spinnerMode="dialog" />
+                <TextView
+                    android:id="@+id/questionnaire_q5_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:gravity="start"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/primary_text_light"
+                    android:text="@string/questionnaire_question_5" />
 
-        </LinearLayout>
+                <Spinner
+                    android:id="@+id/questionnaire_q5_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/array_yes_no"
+                    android:spinnerMode="dialog" />
 
-    </ScrollView>
+            </LinearLayout>
 
-    <Button
-        android:id="@+id/questionnaire_submit_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="4dp"
-        android:layout_marginBottom="6dp"
-        android:text="@string/submit"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:backgroundTint="@color/colorPrimary" />
+        </ScrollView>
 
-</LinearLayout>
+        <Button
+            android:id="@+id/questionnaire_submit_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="4dp"
+            android:layout_marginBottom="6dp"
+            android:text="@string/submit"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:backgroundTint="@color/colorPrimaryDark" />
+
+    </LinearLayout>
+
+</FrameLayout>
