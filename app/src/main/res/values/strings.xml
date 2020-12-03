@@ -1001,13 +1001,13 @@
     <string name="in_display_expiration_fragment">In Display True Expiration Fragment</string>
     <string name="rescan_button">Re-Scan Barcode</string>
     <string name="confirm_scan_button">Confirm Scan</string>
-    <string name="scan_result_textview">Waiting for scan ...</string>
+    <string name="scan_result_textview">Waiting for scan …</string>
 
     <!-- Strings used for GuestQuestionnaireFragment.java / fragment_guest_questionnaire.xml -->
     <string name="questionnaire_welcome_message">Welcome NEST Guest!</string>
     <string name="questionnaire_description">Please answer and submit the following questions before proceeding.</string>
     <string name="questionnaire_question_1">Who visited the NEST today? (Guest ID)</string>
-    <string name="questionnaire_question_2">How many adults (ages 19-64) are in your household?</string>
+    <string name="questionnaire_question_2">How many adults (ages 19–64) are in your household?</string>
     <string name="questionnaire_question_3">How many adults (over the age of 64) are in your household?</string>
     <string name="questionnaire_question_4">How many children (ages 18 and under) are in your household?</string>
     <string name="questionnaire_question_5">Is this your first visit to the NEST?</string>

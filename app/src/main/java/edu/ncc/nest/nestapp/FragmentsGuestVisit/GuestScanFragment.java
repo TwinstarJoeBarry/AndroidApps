@@ -82,7 +82,7 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
     private final ActivityResultLauncher<String> REQUEST_PERMISSION_LAUNCHER = registerForActivityResult(
             new RequestPermission(), this::onCameraPermissionResult);
 
-    private static final long SCAN_DELAY = 2000L;   // 2 Seconds decoder delay in milliseconds
+    private static final long SCAN_DELAY = 1500L;   // 2 Seconds decoder delay in milliseconds
 
     private DecoratedBarcodeView decBarcodeView;
     private BeepManager beepManager;
