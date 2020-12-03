@@ -81,19 +81,25 @@ public class GuestQuestionnaireFragment extends Fragment implements View.OnClick
 
             String[] fieldText = savedInstanceState.getStringArray("INPUT_FIELD_TEXT");
 
-            for (int i = fieldText.length; i-- > 0;) {
+            if (fieldText != null) {
 
-                View inputField = inputFields.get(i);
+                for (int i = fieldText.length; i-- > 0; ) {
 
-                if (inputField instanceof EditText)
+                    View inputField = inputFields.get(i);
 
-                    ((EditText) inputField).setText(fieldText[i]);
+                    if (inputField instanceof EditText)
 
-                else if (inputField instanceof Spinner)
+                        ((EditText) inputField).setText(fieldText[i]);
 
-                    ((Spinner) inputField).setSelection(fieldText[i].equals("Yes") ? 0 : 1);
+                    else if (inputField instanceof Spinner)
 
-            }
+                        ((Spinner) inputField).setSelection(fieldText[i].equals("Yes") ? 0 : 1);
+
+                }
+
+            } else
+
+                throw new NullPointerException("Failed to restore saved state: fieldText is null");
 
         }
 
