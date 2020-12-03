@@ -25,10 +25,11 @@ import androidx.navigation.fragment.NavHostFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import edu.ncc.nest.nestapp.R;
 
-public class ConfirmItemFragment extends Fragment {
+public class ConfirmItemFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
@@ -50,5 +51,10 @@ public class ConfirmItemFragment extends Fragment {
             }
         });
 
+    }
+
+    @Override
+    public void onClick(View view) {
+        Toast.makeText(getActivity(), "BANANA", Toast.LENGTH_LONG).show();
     }
 }
