@@ -63,6 +63,7 @@ import com.journeyapps.barcodescanner.DefaultDecoderFactory;
 import java.util.Collections;
 import java.util.List;
 
+import edu.ncc.nest.nestapp.GuestFormHelper;
 import edu.ncc.nest.nestapp.R;
 
 /**
@@ -247,14 +248,21 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
 
             // TODO Create bundle and send barcode with guest name to next fragment
 
-            // NOTE: The following code is only temporary and is for testing the GuestQuestionnaireFragment
-
             Bundle result = new Bundle();
 
             result.putString("BARCODE", barcodeResult);
 
+            GuestFormHelper db = new GuestFormHelper(requireContext());
+
+            final String GUEST_NAME = db.isRegistered(barcodeResult);
+
+            if (GUEST_NAME != null)
+
+                result.putString("GUEST_NAME", GUEST_NAME);
+
             getParentFragmentManager().setFragmentResult("CONFIRM_SCAN", result);
 
+            // NOTE: The following code is only temporary and is for testing the GuestQuestionnaireFragment
             NavHostFragment.findNavController(GuestScanFragment.this)
                     .navigate(R.id.action_GuestScanFragment_to_GuestQuestionnaireFragment);
 
