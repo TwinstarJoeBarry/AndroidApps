@@ -246,23 +246,28 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
 
             Log.d(TAG, "Scan Confirmed: " + barcodeResult);
 
-            // TODO Create bundle and send barcode with guest name to next fragment
+            // Create the result
+            Bundle resultBundle = new Bundle();
 
-            Bundle result = new Bundle();
+            // Put the barcodeResult into the bundle
+            resultBundle.putString("BARCODE", barcodeResult);
 
-            result.putString("BARCODE", barcodeResult);
-
+            // Create an instance of the database helper
             GuestFormHelper db = new GuestFormHelper(requireContext());
 
+            // Check if the guest is registered in the database
             final String GUEST_NAME = db.isRegistered(barcodeResult);
-
+            
             if (GUEST_NAME != null)
 
-                result.putString("GUEST_NAME", GUEST_NAME);
+                // If the guest is registered, include the guest's name in the result
+                resultBundle.putString("GUEST_NAME", GUEST_NAME);
 
-            getParentFragmentManager().setFragmentResult("CONFIRM_SCAN", result);
+            // Set the fragment result to the bundle
+            getParentFragmentManager().setFragmentResult("CONFIRM_SCAN", resultBundle);
 
             // NOTE: The following code is only temporary and is for testing the GuestQuestionnaireFragment
+            // TODO Replace this with code that will navigate to the confirmation fragment
             NavHostFragment.findNavController(GuestScanFragment.this)
                     .navigate(R.id.action_GuestScanFragment_to_GuestQuestionnaireFragment);
 
