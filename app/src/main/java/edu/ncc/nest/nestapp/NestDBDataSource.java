@@ -95,7 +95,7 @@ public class NestDBDataSource {
      * @return if found, a filled NestUPC pojo with all
      *          the key related information; null otherwise.
      */
-    NestUPC getNestUPC(String upc) {
+    public NestUPC getNestUPC(String upc) {
         NestUPC result = null;
         String qry = "SELECT * FROM view_upc_product_category_joined WHERE upper(UPC) = upper(?)";
         Cursor c = db.rawQuery(qry, new String[]{upc});

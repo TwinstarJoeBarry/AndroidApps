@@ -30,23 +30,14 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
-                  <entry key="SFragment">
+                  <entry key="EnterUpcFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="12" />
-                            <option name="y" value="12" />
+                            <option name="x" value="-240" />
+                            <option name="y" value="16" />
                           </Point>
-                        </option>
-                        <option name="myPositions">
-                          <map>
-                            <entry key="action_ScanFragment_to_StartFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                          </map>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -83,12 +74,41 @@
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_StartFragment_to_EnterUpcFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_StartFragment_to_ScanFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
                             </entry>
                           </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="confirmItemFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-363" />
+                            <option name="y" value="381" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="selectItemFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-109" />
+                            <option name="y" value="381" />
+                          </Point>
                         </option>
                       </LayoutPositions>
                     </value>

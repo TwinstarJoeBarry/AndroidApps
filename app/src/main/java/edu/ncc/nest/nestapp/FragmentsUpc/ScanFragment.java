@@ -276,6 +276,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.google.zxing.Result;
+import com.journeyapps.barcodescanner.DecoratedBarcodeView;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionDeniedResponse;
@@ -283,13 +284,19 @@ import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 
+import edu.ncc.nest.nestapp.NestDBDataSource;
+import edu.ncc.nest.nestapp.NestUPC;
 import edu.ncc.nest.nestapp.R;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 public class ScanFragment extends Fragment implements ZXingScannerView.ResultHandler {
 
+    private DecoratedBarcodeView barcodeView;
+
     private ZXingScannerView scannerView;
     private TextView txtResult;
+    private boolean foundInDB = false;
+
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
@@ -308,8 +315,17 @@ public class ScanFragment extends Fragment implements ZXingScannerView.ResultHan
         view.findViewById(R.id.button_scan_complete).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NavHostFragment.findNavController(ScanFragment.this)
-                        .navigate(R.id.action_ScanFragment_to_StartFragment);
+                // If found, go to fragment_confirm_item.xml
+                if(foundInDB == true) {
+                    NavHostFragment.findNavController(ScanFragment.this).navigate((R.id.confirmItemFragment));
+                    // send in bundle
+                } else {
+                    // If not, go to fragment_select_item.xml
+                    NavHostFragment.findNavController(ScanFragment.this).navigate((R.id.selectItemFragment));
+                    // TESTED: 12/2 - Does go here if nothing is returned back from the scan
+                }
+//                NavHostFragment.findNavController(ScanFragment.this)
+//                        .navigate(R.id.action_ScanFragment_to_StartFragment);
             }
         });
 
@@ -352,5 +368,21 @@ public class ScanFragment extends Fragment implements ZXingScannerView.ResultHan
         scannerView.startCamera();
         String str = rawResult.getText();
 
+        // Placing resulting UPC code into text view so user can see it
+        TextView scanResultTextView = (TextView) getView().findViewById(R.id.textview_scan_info);
+        scanResultTextView.setText(str);
+        // Check database
+        NestDBDataSource dataSource = new NestDBDataSource(getContext());
+        NestUPC result = dataSource.getNestUPC(str);
+        NestUPC testing = new NestUPC("14052423", "Quakers", "Dry oatmeal cereal", 543, "Oatmeal", "Healthy oatmeal", 344, "Oats");
+        // if yes
+        if(testing != null){
+            //confirm
+            foundInDB = true;
+            // if no
+        } else {
+            // select
+            foundInDB = false;
+        }
     }
 }
