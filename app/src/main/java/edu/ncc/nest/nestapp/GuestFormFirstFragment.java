@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -36,7 +37,7 @@ import androidx.navigation.fragment.NavHostFragment;
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-public class GuestFormFirstFragment extends AppCompatActivity {
+public class GuestFormFirstFragment extends Fragment {
     //database where we will store user information
     GuestFormHelper db;
 
@@ -52,26 +53,26 @@ public class GuestFormFirstFragment extends AppCompatActivity {
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        onViewCreated(view, savedInstanceState);
+        super.onViewCreated(view, savedInstanceState);
 
         onCreate(savedInstanceState);
-        setContentView(R.layout.activity_guest_form_first_fragment);
+        //setContentView(R.layout.activity_guest_form_first_fragment);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        //Toolbar toolbar = getView().findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
 
         //creating the database and passing the correct context as the argument
-        db = new GuestFormHelper(this);
+        //db = new GuestFormHelper(this);
 
         //getting a handle on info from the UI
-        name = (EditText) findViewById(R.id.editText);
-        phone = (EditText) findViewById(R.id.editText2);
-        email = (EditText) findViewById(R.id.editText3);
-        address = (EditText) findViewById(R.id.editText5);
-        city = (EditText) findViewById(R.id.editText6);
-        zip = (EditText) findViewById(R.id.editText7);
-        date = (EditText) findViewById(R.id.editText8);
-        /*
+        name = (EditText)(getView().findViewById(R.id.editText));
+        phone = (EditText)(getView().findViewById(R.id.editText2));
+        email = (EditText)(getView().findViewById(R.id.editText3));
+        address = (EditText)(getView().findViewById(R.id.editText5));
+        city = (EditText)(getView().findViewById(R.id.editText6));
+        zip = (EditText)(getView().findViewById(R.id.editText7));
+        date = (EditText)(getView().findViewById(R.id.editText8));
+
         view.findViewById(R.id.button_first).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,26 +85,13 @@ public class GuestFormFirstFragment extends AppCompatActivity {
                 //set fragmentmanager and put bundle in it
                 getParentFragmentManager().setFragmentResult("SEND_MESSAGE", result);
 
-                NavHostFragment.findNavController(FirstFragment.this)
+                NavHostFragment.findNavController(GuestFormFirstFragment.this)
                         .navigate(R.id.action_FirstFragment_to_SecondFragment);
             }
         });
-         */
-/*
-        view.findViewById(R.id.button_start).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //retrieve message from edit text box
-                String message = ((EditText)(getView().findViewById(R.id.textview_first))).getText().toString();
-                Intent intent = new Intent(getContext(), SecondActivity.class);
-                intent.putExtra("MSG", message);
-                startActivity(intent);
-            }
-        });
-
- */
     }
 
+    /*
     //implements the menu options for the toolbar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -113,7 +101,9 @@ public class GuestFormFirstFragment extends AppCompatActivity {
         return true;
 
     }
+    */
 
+    /*
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.homeBtn) {
@@ -122,6 +112,7 @@ public class GuestFormFirstFragment extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+    */
 
 
     /**
@@ -147,9 +138,11 @@ public class GuestFormFirstFragment extends AppCompatActivity {
         }
 
         //notifying the user if the add was successful
+        /*
         if (ins) {
             Toast.makeText(getApplicationContext(), "User Added", Toast.LENGTH_LONG).show();
         }
+        */
 
     }
 /** -- Crashes because of the spinner code************
@@ -184,14 +177,15 @@ spinner.setAdapter(adapter);
     /**
      * home method - goes to the home screen
      */
+    /*
     public void home() {
         Intent intent = new Intent(this, Choose.class);
         startActivity(intent);
     }
+    */
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        Log.d(TAG, "In FirstFragment onSaveInstanceState()");
         // save state
         super.onSaveInstanceState(outState);
     }
