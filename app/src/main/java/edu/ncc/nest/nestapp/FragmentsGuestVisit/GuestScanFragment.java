@@ -37,8 +37,8 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts.*;
+//import androidx.activity.result.ActivityResultLauncher;
+//import androidx.activity.result.contract.ActivityResultContracts.RequestPermission;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -79,8 +79,7 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
     // formats. For example, Arrays.asList(BarcodeFormat.CODE_39, BarcodeFormat.UPC_A, ...);
 
     // Used to ask for camera permission calls cameraPermissionResult method with the result
-    private final ActivityResultLauncher<String> REQUEST_PERMISSION_LAUNCHER = registerForActivityResult(
-            new RequestPermission(), this::onCameraPermissionResult);
+    private final ActivityResultLauncher<String> REQUEST_PERMISSION_LAUNCHER = registerForActivityResult(new RequestPermission(), this::onCameraPermissionResult);
 
     private static final long SCAN_DELAY = 1500L;   // 2 Seconds decoder delay in milliseconds
 
