@@ -264,19 +264,32 @@ package edu.ncc.nest.nestapp.FragmentsUpc;
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Parcelable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
+import com.google.zxing.client.android.BeepManager;
+import com.journeyapps.barcodescanner.BarcodeCallback;
+import com.journeyapps.barcodescanner.BarcodeResult;
 import com.journeyapps.barcodescanner.DecoratedBarcodeView;
+import com.journeyapps.barcodescanner.DefaultDecoderFactory;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionDeniedResponse;
@@ -284,105 +297,304 @@ import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 
+import java.util.Collections;
+import java.util.List;
+
+import edu.ncc.nest.nestapp.FoodItem;
+import edu.ncc.nest.nestapp.FragmentsGuestVisit.GuestScanFragment;
+import edu.ncc.nest.nestapp.InventoryEntry;
+import edu.ncc.nest.nestapp.InventoryInfoSource;
 import edu.ncc.nest.nestapp.NestDBDataSource;
 import edu.ncc.nest.nestapp.NestUPC;
 import edu.ncc.nest.nestapp.R;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
-public class ScanFragment extends Fragment implements ZXingScannerView.ResultHandler {
+public class ScanFragment extends Fragment implements BarcodeCallback, View.OnClickListener {
+    public static final String TAG = GuestScanFragment.class.getSimpleName();
 
-    private DecoratedBarcodeView barcodeView;
+    // Changed this to scan only for UPC_A codes (most common with food items in the US)
+    private static final List<BarcodeFormat> BARCODE_FORMATS = Collections.singletonList(BarcodeFormat.UPC_A);
+    // To support multiple formats change this to Arrays.asList() and fill it with the required
+    // formats. For example, Arrays.asList(BarcodeFormat.CODE_39, BarcodeFormat.UPC_A, ...);
 
-    private ZXingScannerView scannerView;
-    private TextView txtResult;
-    private boolean foundInDB = false;
+    private static final int CAMERA_REQ_CODE = 250; // Camera permission request code
+    private static final long SCAN_DELAY = 2000L;   // 2 Seconds decoder delay in milliseconds
+
+    private DecoratedBarcodeView decBarcodeView;
+    private BeepManager beepManager;
+    private TextView resultTextView;
+    private Button confirmButton;
+    private Button rescanButton;
+
+    private boolean askedForPermission = false;
+    private boolean scannerPaused = true;
+
+    // Stores the bar code that has been scanned
+    private String barcodeResult = null;
+
+
+
+
+    ////////////// Lifecycle Methods Start //////////////
 
     @Override
-    public View onCreateView(
-            LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState
-    ) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_scan, container, false);
+        return inflater.inflate(R.layout.fragment_guest_scan, container, false);
+
     }
 
+    @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        scannerView = (ZXingScannerView) getView().findViewById(R.id.zxscan);
-        txtResult = (TextView) getView().findViewById(R.id.txt_result);
+        // Get respective views from layout
+        decBarcodeView = (DecoratedBarcodeView) view.findViewById(R.id.zxing_barcode_scanner);
 
-        view.findViewById(R.id.button_scan_complete).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // If found, go to fragment_confirm_item.xml
-                if(foundInDB == true) {
-                    NavHostFragment.findNavController(ScanFragment.this).navigate((R.id.confirmItemFragment));
-                    // send in bundle
-                } else {
-                    // If not, go to fragment_select_item.xml
-                    NavHostFragment.findNavController(ScanFragment.this).navigate((R.id.selectItemFragment));
-                    // TESTED: 12/2 - Does go here if nothing is returned back from the scan
-                }
-//                NavHostFragment.findNavController(ScanFragment.this)
-//                        .navigate(R.id.action_ScanFragment_to_StartFragment);
-            }
-        });
+        confirmButton = (Button) view.findViewById(R.id.confirm_scan_button);
 
-        Dexter.withActivity(getActivity())
-                .withPermission(Manifest.permission.CAMERA)
-                .withListener(new PermissionListener() {
-                    @Override
-                    public void onPermissionGranted(PermissionGrantedResponse response) {
-                        scannerView.setResultHandler(ScanFragment.this);
-                        scannerView.startCamera();
-                    }
+        rescanButton = (Button) view.findViewById(R.id.rescan_button);
 
-                    @Override
-                    public void onPermissionDenied(PermissionDeniedResponse response) {
-
-                        Toast.makeText(getActivity(),
-                                "you must accept this permission",
-                                Toast.LENGTH_LONG).show();
+        resultTextView = (TextView) view.findViewById(R.id.scan_result_textview);
 
 
-                    }
+        // Specifies which barcode formats to decode. (Removing this line, defaults scanner to use all formats)
+        decBarcodeView.getBarcodeView().setDecoderFactory(new DefaultDecoderFactory(BARCODE_FORMATS));
 
-                    @Override
-                    public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
 
-                    }
-                })
-                .check();
-    }
-    @Override
-    public void onDestroy(){
-        scannerView.stopCamera();
-        super.onDestroy();
+        // Make this class the OnClickListener for both feedback buttons
+        confirmButton.setOnClickListener(this);
+
+        rescanButton.setOnClickListener(this);
+
+        // Disable the feedback buttons until we scan a barcode
+        setFeedbackButtonsEnabled(false);
+
+
+        // Create new BeepManager object to handle beeps and vibration
+        beepManager = new BeepManager(requireActivity());
+
+        beepManager.setVibrateEnabled(true);
+
+        beepManager.setBeepEnabled(true);
+
     }
 
     @Override
-    public void handleResult(Result rawResult) {
-        //here we can recieve rawResult
-        txtResult.setText(rawResult.getText());
-        scannerView.startCamera();
-        String str = rawResult.getText();
+    public void onResume() {
+        super.onResume();
 
-        // Placing resulting UPC code into text view so user can see it
-        TextView scanResultTextView = (TextView) getView().findViewById(R.id.textview_scan_info);
-        scanResultTextView.setText(str);
-        // Check database
-        NestDBDataSource dataSource = new NestDBDataSource(getContext());
-        NestUPC result = dataSource.getNestUPC(str);
-        NestUPC testing = new NestUPC("14052423", "Quakers", "Dry oatmeal cereal", 543, "Oatmeal", "Healthy oatmeal", 344, "Oats");
-        // if yes
-        if(testing != null){
-            //confirm
-            foundInDB = true;
-            // if no
-        } else {
-            // select
-            foundInDB = false;
+        if (cameraPermissionGranted())
+
+            resumeScanning();
+
+        else if (!askedForPermission) {
+
+            // Request the camera permission to be granted
+            requestPermissions(new String[] {Manifest.permission.CAMERA}, CAMERA_REQ_CODE);
+
+            // We have officially asked for permission, so update our class variable
+            askedForPermission = true;
+
         }
+
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        // Since we have paused the fragment pause and wait for the camera to close
+        decBarcodeView.pauseAndWait();
+
+        scannerPaused = true;
+
+    }
+
+    @Override
+    public void onDestroy() {
+
+        // Since we are destroying the fragment pause and wait for the camera to close
+        decBarcodeView.pauseAndWait();
+
+        scannerPaused = true;
+
+        super.onDestroy();
+
+    }
+
+
+    ////////////// Other Event Methods Start  //////////////
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+
+        if (requestCode == CAMERA_REQ_CODE && grantResults.length > 0) {
+
+            // If we have permission to use the camera
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
+
+                resumeScanning();
+
+            else
+
+                // Display a reason of why we need the permission
+                Toast.makeText(requireContext(), "Camera permission is needed in order to scan.",
+                        Toast.LENGTH_LONG).show();
+
+        }
+
+    }
+
+    @Override
+    public void barcodeResult(BarcodeResult result) {
+
+        // Gets the barcode from the result
+        String resultText = result.getText();
+
+        // Make sure we actually have a barcode scanned
+        if (resultText != null) {
+
+            // Play a sound and vibrate when a scan has been processed
+            beepManager.playBeepSoundAndVibrate();
+
+            // Display the barcode back to the user
+            resultTextView.setText(resultText);
+
+            // Store the barcode
+            barcodeResult = resultText;
+
+            // Pause the scanner
+            decBarcodeView.pause();
+
+            scannerPaused = true;
+
+            // Enable the feedback buttons after we have stored the bar-code, and stopped scanner
+            setFeedbackButtonsEnabled(true);
+
+            Log.d(TAG, "Barcode Result: " + resultText + ", Barcode Format: " + result.getBarcodeFormat());
+
+        } else
+
+            // Scan for another bar-code
+            decBarcodeView.decodeSingle(ScanFragment.this);
+
+    }
+
+    @Override
+    public void onClick(View view) {
+
+        int id = view.getId();
+
+        if (id == R.id.rescan_button)
+
+            resumeScanning();
+
+        else if (id == R.id.confirm_scan_button && barcodeResult != null) {
+
+            Log.d(TAG, "Scan Confirmed: " + barcodeResult);
+
+//        // Check database
+        NestDBDataSource dataSource = new NestDBDataSource(getContext());
+        NestUPC result = dataSource.getNestUPC(barcodeResult);
+
+
+        if(result != null) {
+            Log.d(TAG, "Result returned: " + result.getUpc() + " " + result.getProductName());
+
+
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("foodItem", result);
+            getParentFragmentManager().setFragmentResult("SEND FOOD ITEM", bundle);
+            NavHostFragment.findNavController(ScanFragment.this).navigate((R.id.confirmItemFragment));
+
+        }else {
+
+            Bundle bundle = new Bundle();
+            bundle.putString("barcode", barcodeResult);
+            getParentFragmentManager().setFragmentResult("SEND BARCODE", bundle);
+            NavHostFragment.findNavController(ScanFragment.this).navigate((R.id.selectItemFragment));
+        }
+
+
+            // TODO Create bundle and send barcode with guest name to next fragment
+
+        }
+
+    }
+
+
+    ////////////// Custom Methods Start  //////////////
+
+    /**
+     * Takes 0 parameters. Determines if the CAMERA permission has been granted.
+     *
+     * @return Returns true if camera permission has been granted or false otherwise.
+     */
+    private boolean cameraPermissionGranted() {
+
+        return (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
+                == PackageManager.PERMISSION_GRANTED);
+
+    }
+
+    /**
+     * Takes 0 parameters. Resumes the scanner if it is not paused, resets text view text, resets
+     * the barcodeResult to be null so we can scan a new bar-code, and starts the decoder after a
+     * delay.
+     */
+    private void resumeScanning() {
+
+        if (scannerPaused) {
+
+            // Update the display text so the user knows we are waiting for them to scan a barcode
+            resultTextView.setText(getString(R.string.scan_result_textview));
+
+            // Disable the feedback buttons until we scan another barcode
+            setFeedbackButtonsEnabled(false);
+
+            // Reset our barcodeResult
+            barcodeResult = null;
+
+            // Resume the scanner but not the decoder
+            decBarcodeView.resume();
+
+            scannerPaused = false;
+
+            // Create a handler that resumes the decoder after a delay
+            // Gives the user time to move their camera before scanning
+            Handler handler = new Handler();
+            handler.postDelayed(() -> {
+
+                if (!scannerPaused)
+
+                    // Resume decoding after a delay of SCAN_DELAY millis as long as the scanner has not been paused
+                    // Tells the decoder to stop after a single scan
+                    decBarcodeView.decodeSingle(ScanFragment.this);
+
+            }, SCAN_DELAY);
+
+        }
+
+    }
+
+    /**
+     * Takes 1 parameter. Toggles whether both rescanButton and confirmScan button are enabled or
+     * disabled based on the value of the parameter.
+     *
+     * @param enabled true to enable or false disable
+     */
+    private void setFeedbackButtonsEnabled(boolean enabled) {
+
+        confirmButton.setEnabled(enabled);
+
+        rescanButton.setEnabled(enabled);
+
+    }
+
+
+
+
 }

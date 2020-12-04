@@ -21,13 +21,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/StartFragment">
-
     <fragment
         android:id="@+id/StartFragment"
         android:name="edu.ncc.nest.nestapp.FragmentsUpc.StartFragment"
         android:label="@string/start_fragment_label"
         tools:layout="@layout/fragment_start">
-
         <action
             android:id="@+id/action_StartFragment_to_ScanFragment"
             app:destination="@id/ScanFragment" />
@@ -63,10 +61,35 @@
         android:id="@+id/confirmItemFragment"
         android:name="edu.ncc.nest.nestapp.FragmentsUpc.ConfirmItemFragment"
         android:label="fragment_confirm_item"
-        tools:layout="@layout/fragment_confirm_item" />
+        tools:layout="@layout/fragment_confirm_item" >
+        <action
+            android:id="@+id/action_confirmItemFragment_to_selectPrintedExpirationDateFragment"
+            app:destination="@id/selectPrintedExpirationDateFragment" />
+        <action
+            android:id="@+id/action_confirmItemFragment_to_selectItemFragment"
+            app:destination="@id/selectItemFragment" />
+    </fragment>
     <fragment
         android:id="@+id/selectItemFragment"
         android:name="edu.ncc.nest.nestapp.FragmentsUpc.SelectItemFragment"
         android:label="fragment_select_item"
-        tools:layout="@layout/fragment_select_item" />
+        tools:layout="@layout/fragment_select_item" >
+        <action
+            android:id="@+id/action_selectItemFragment_to_selectPrintedExpirationDateFragment"
+            app:destination="@id/selectPrintedExpirationDateFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/selectPrintedExpirationDateFragment"
+        android:name="edu.ncc.nest.nestapp.FragmentsUpc.SelectPrintedExpirationDateFragment"
+        android:label="fragment_select_printed_expiration_date"
+        tools:layout="@layout/fragment_select_printed_expiration_date" >
+        <action
+            android:id="@+id/action_selectPrintedExpirationDateFragment_to_displayTrueExpirationFragment"
+            app:destination="@id/displayTrueExpirationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/displayTrueExpirationFragment"
+        android:name="edu.ncc.nest.nestapp.FragmentsUpc.DisplayTrueExpirationFragment"
+        android:label="fragment_display_true_expiration"
+        tools:layout="@layout/fragment_display_true_expiration" />
 </navigation>
