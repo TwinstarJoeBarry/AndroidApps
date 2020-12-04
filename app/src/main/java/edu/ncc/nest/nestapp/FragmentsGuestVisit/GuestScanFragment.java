@@ -13,50 +13,6 @@ package edu.ncc.nest.nestapp.FragmentsGuestVisit;
  *      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *      See the License for the specific language governing permissions and
  *      limitations under the License.
- *
- * ========================================================================
- * jai-imageio
- * ========================================================================
- *
- * Copyright (c) 2005 Sun Microsystems, Inc.
- * Copyright © 2010-2014 University of Manchester
- * Copyright © 2010-2015 Stian Soiland-Reyes
- * Copyright © 2015 Peter Hull
- * All Rights Reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *
- * - Redistribution of source code must retain the above copyright
- *   notice, this list of conditions and the following disclaimer.
- *
- * - Redistribution in binary form must reproduce the above copyright
- *   notice, this list of conditions and the following disclaimer in
- *   the documentation and/or other materials provided with the
- *   distribution.
- *
- * Neither the name of Sun Microsystems, Inc. or the names of
- * contributors may be used to endorse or promote products derived
- * from this software without specific prior written permission.
- *
- * This software is provided "AS IS," without a warranty of any
- * kind. ALL EXPRESS OR IMPLIED CONDITIONS, REPRESENTATIONS AND
- * WARRANTIES, INCLUDING ANY IMPLIED WARRANTY OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE OR NON-INFRINGEMENT, ARE HEREBY
- * EXCLUDED. SUN MIDROSYSTEMS, INC. ("SUN") AND ITS LICENSORS SHALL
- * NOT BE LIABLE FOR ANY DAMAGES SUFFERED BY LICENSEE AS A RESULT OF
- * USING, MODIFYING OR DISTRIBUTING THIS SOFTWARE OR ITS
- * DERIVATIVES. IN NO EVENT WILL SUN OR ITS LICENSORS BE LIABLE FOR
- * ANY LOST REVENUE, PROFIT OR DATA, OR FOR DIRECT, INDIRECT, SPECIAL,
- * CONSEQUENTIAL, INCIDENTAL OR PUNITIVE DAMAGES, HOWEVER CAUSED AND
- * REGARDLESS OF THE THEORY OF LIABILITY, ARISING OUT OF THE USE OF OR
- * INABILITY TO USE THIS SOFTWARE, EVEN IF SUN HAS BEEN ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGES.
- *
- * You acknowledge that this software is not designed or intended for
- * use in the design, construction, operation or maintenance of any
- * nuclear facility.
  */
 
 /**
@@ -79,12 +35,14 @@ package edu.ncc.nest.nestapp.FragmentsGuestVisit;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts.*;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.os.Handler;
 import android.util.Log;
@@ -101,13 +59,12 @@ import com.journeyapps.barcodescanner.BarcodeCallback;
 import com.journeyapps.barcodescanner.BarcodeResult;
 import com.journeyapps.barcodescanner.DecoratedBarcodeView;
 import com.journeyapps.barcodescanner.DefaultDecoderFactory;
-import com.journeyapps.barcodescanner.ViewfinderView;
 
 import java.util.Collections;
 import java.util.List;
 
+import edu.ncc.nest.nestapp.GuestFormHelper;
 import edu.ncc.nest.nestapp.R;
-import me.dm7.barcodescanner.core.CameraUtils;
 
 /**
  * GuestScanFragment - Fragment to be used to check in a user by scanning a guest's bar code that
@@ -121,8 +78,11 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
     // To support multiple formats change this to Arrays.asList() and fill it with the required
     // formats. For example, Arrays.asList(BarcodeFormat.CODE_39, BarcodeFormat.UPC_A, ...);
 
-    private static final int CAMERA_REQ_CODE = 250; // Camera permission request code
-    private static final long SCAN_DELAY = 2000L;   // 2 Seconds decoder delay in milliseconds
+    // Used to ask for camera permission calls cameraPermissionResult method with the result
+    private final ActivityResultLauncher<String> REQUEST_PERMISSION_LAUNCHER = registerForActivityResult(
+            new RequestPermission(), this::onCameraPermissionResult);
+
+    private static final long SCAN_DELAY = 1500L;   // 2 Seconds decoder delay in milliseconds
 
     private DecoratedBarcodeView decBarcodeView;
     private BeepManager beepManager;
@@ -130,12 +90,10 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
     private Button confirmButton;
     private Button rescanButton;
 
-    private boolean askedForPermission = false;
     private boolean scannerPaused = true;
 
     // Stores the bar code that has been scanned
     private String barcodeResult = null;
-
 
     ////////////// Lifecycle Methods Start //////////////
 
@@ -188,19 +146,24 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
     public void onResume() {
         super.onResume();
 
-        if (cameraPermissionGranted())
+        // If the camera permission is granted
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
+                == PackageManager.PERMISSION_GRANTED) {
 
             resumeScanning();
 
-        else if (!askedForPermission) {
+        } else if (shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)) {
 
-            // Request the camera permission to be granted
-            requestPermissions(new String[] {Manifest.permission.CAMERA}, CAMERA_REQ_CODE);
+            // TODO Create a dialog window describing why we need the permission for this feature
 
-            // We have officially asked for permission, so update our class variable
-            askedForPermission = true;
+            // Display a reason of why we need the permission
+            Toast.makeText(requireContext(), "Camera permission is needed in order to scan.",
+                    Toast.LENGTH_LONG).show();
 
-        }
+        } else
+
+            // Request the camera permission
+            REQUEST_PERMISSION_LAUNCHER.launch(Manifest.permission.CAMERA);
 
     }
 
@@ -218,37 +181,22 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
     @Override
     public void onDestroy() {
 
-        // Since we are destroying the fragment pause and wait for the camera to close
-        decBarcodeView.pauseAndWait();
+        // Make sure we have the view in-case the view isn't initialized before destruction
+        if (decBarcodeView != null) {
 
-        scannerPaused = true;
+            // Since we are destroying the fragment pause and wait for the camera to close
+            decBarcodeView.pauseAndWait();
+
+            scannerPaused = true;
+
+        }
 
         super.onDestroy();
 
     }
 
 
-    ////////////// Other Event Methods Start  //////////////
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-
-        if (requestCode == CAMERA_REQ_CODE && grantResults.length > 0) {
-
-            // If we have permission to use the camera
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
-
-                resumeScanning();
-
-            else
-
-                // Display a reason of why we need the permission
-                Toast.makeText(requireContext(), "Camera permission is needed in order to scan.",
-                        Toast.LENGTH_LONG).show();
-
-        }
-
-    }
+    ////////////// Implementation Methods Start  //////////////
 
     @Override
     public void barcodeResult(BarcodeResult result) {
@@ -298,7 +246,30 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
 
             Log.d(TAG, "Scan Confirmed: " + barcodeResult);
 
-            // TODO Create bundle and send barcode with guest name to next fragment
+            // Create the result
+            Bundle resultBundle = new Bundle();
+
+            // Put the barcodeResult into the bundle
+            resultBundle.putString("BARCODE", barcodeResult);
+
+            // Create an instance of the database helper
+            GuestFormHelper db = new GuestFormHelper(requireContext());
+
+            // Check if the guest is registered in the database
+            final String GUEST_NAME = db.isRegistered(barcodeResult);
+            
+            if (GUEST_NAME != null)
+
+                // If the guest is registered, include the guest's name in the result
+                resultBundle.putString("GUEST_NAME", GUEST_NAME);
+
+            // Set the fragment result to the bundle
+            getParentFragmentManager().setFragmentResult("CONFIRM_SCAN", resultBundle);
+
+            // NOTE: The following code is only temporary and is for testing the GuestQuestionnaireFragment
+            // TODO Replace this with code that will navigate to the confirmation fragment
+            NavHostFragment.findNavController(GuestScanFragment.this)
+                    .navigate(R.id.action_GuestScanFragment_to_GuestQuestionnaireFragment);
 
         }
 
@@ -308,14 +279,22 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
     ////////////// Custom Methods Start  //////////////
 
     /**
-     * Takes 0 parameters. Determines if the CAMERA permission has been granted.
-     *
-     * @return Returns true if camera permission has been granted or false otherwise.
+     * Takes 1 parameter. This method gets called by the requestPermissionLauncher, after asking for
+     * permissions. Determines what happens when the permission gets granted or denied.
+     * @param isGranted - true if permission was granted false otherwise
      */
-    private boolean cameraPermissionGranted() {
+    private void onCameraPermissionResult(boolean isGranted) {
 
-        return (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
-                == PackageManager.PERMISSION_GRANTED);
+        if (isGranted)
+
+            // Permission is granted so resume scanning
+            resumeScanning();
+
+        else
+
+            // Display a reason of why we need the permission
+            Toast.makeText(requireContext(), "Camera permission is needed in order to scan.",
+                    Toast.LENGTH_LONG).show();
 
     }
 
