@@ -502,7 +502,7 @@ public class ScanFragment extends Fragment implements BarcodeCallback, View.OnCl
 
 
         if(result != null) {
-            
+
             Log.d(TAG, "Result returned: " + result.getUpc() + " " + result.getProductName());
 
 
