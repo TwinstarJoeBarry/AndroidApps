@@ -285,15 +285,16 @@ public class GuestScanConfirmationFragment extends Fragment implements View.OnCl
             Bundle savedInstanceState ) {
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_guest_scan_confirmation, container, false);
+        return inflater.inflate( R.layout.fragment_guest_scan_confirmation, container, false );
     }
 
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public void onViewCreated( @NonNull View view, Bundle savedInstanceState ) {
+        super.onViewCreated( view, savedInstanceState );
 
         // Set the onclick listener for the buttons
 
-        view.findViewById(R.id.rescan_code_button).setOnClickListener(this);
+        view.findViewById( R.id.rescan_code_button ).setOnClickListener(this);
+        view.findViewById( R.id.name_confirmed ).setOnClickListener(this);
     }
 
     /************ Implementation Methods Start ************/
@@ -303,10 +304,14 @@ public class GuestScanConfirmationFragment extends Fragment implements View.OnCl
 
         int id = view.getId();
 
-        if ( id == R.id.rescan_code_button)
+        if ( id == R.id.rescan_code_button )
             // Navigate back to the scanner to rescan the barcode
-            NavHostFragment.findNavController(GuestScanConfirmationFragment.this)
-                    .navigate(R.id.action_GuestScanConfirmationFragment_to_GuestScanFragment);
+            NavHostFragment.findNavController(GuestScanConfirmationFragment.this )
+                    .navigate( R.id.action_GuestScanConfirmationFragment_to_GuestScanFragment );
 
+        else if ( id == R.id.name_confirmed )
+            // Navigate to the questionnaire
+            NavHostFragment.findNavController(GuestScanConfirmationFragment.this )
+                    .navigate( R.id.action_GuestScanConfirmationFragment_to_GuestQuestionnaireFragment );
     }
 }
