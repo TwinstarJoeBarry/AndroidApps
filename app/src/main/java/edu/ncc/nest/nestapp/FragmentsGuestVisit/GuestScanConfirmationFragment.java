@@ -269,11 +269,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import edu.ncc.nest.nestapp.R;
 
-public class GuestScanConfirmationFragment extends Fragment {
+public class GuestScanConfirmationFragment extends Fragment implements View.OnClickListener {
+
+    /************ LifeCycle Methods Start ************/
 
     @Override
     public View onCreateView(
@@ -284,4 +288,25 @@ public class GuestScanConfirmationFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_guest_scan_confirmation, container, false);
     }
 
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        // Set the onclick listener for the buttons
+
+        view.findViewById(R.id.rescan_code_button).setOnClickListener(this);
+    }
+
+    /************ Implementation Methods Start ************/
+
+    @Override
+    public void onClick(View view) {
+
+        int id = view.getId();
+
+        if ( id == R.id.rescan_code_button)
+            // Navigate back to the scanner to rescan the barcode
+            NavHostFragment.findNavController(GuestScanConfirmationFragment.this)
+                    .navigate(R.id.action_GuestScanConfirmationFragment_to_GuestScanFragment);
+
+    }
 }

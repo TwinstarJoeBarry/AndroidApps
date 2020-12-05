@@ -95,7 +95,7 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
     // Stores the bar code that has been scanned
     private String barcodeResult = null;
 
-    ////////////// Lifecycle Methods Start //////////////
+    /************ LifeCycle Methods Start ************/
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -196,7 +196,7 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
     }
 
 
-    ////////////// Implementation Methods Start  //////////////
+    /************ Implementation Methods Start ************/
 
     @Override
     public void barcodeResult(BarcodeResult result) {
@@ -266,17 +266,16 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
             // Set the fragment result to the bundle
             getParentFragmentManager().setFragmentResult("CONFIRM_SCAN", resultBundle);
 
-            // NOTE: The following code is only temporary and is for testing the GuestQuestionnaireFragment
-            // TODO Replace this with code that will navigate to the confirmation fragment
-            //NavHostFragment.findNavController(GuestScanFragment.this)
-            //        .navigate(R.id.action_GuestScanFragment_to_GuestQuestionnaireFragment);
+            // Navigate to the confirmation fragment
+            NavHostFragment.findNavController(GuestScanFragment.this)
+                    .navigate(R.id.action_GuestScanFragment_to_GuestScanConfirmationFragment);
 
         }
 
     }
 
 
-    ////////////// Custom Methods Start  //////////////
+    /************ Custom Methods Start ************/
 
     /**
      * Takes 1 parameter. This method gets called by the requestPermissionLauncher, after asking for

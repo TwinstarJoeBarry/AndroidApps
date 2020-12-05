@@ -45,7 +45,7 @@
             app:destination="@id/GuestQuestionnaireFragment" />
 
         <action
-            android:id="@+id/action_GuestScanFragmentConfirmationFragment_to_GuestScanFragment"
+            android:id="@+id/action_GuestScanConfirmationFragment_to_GuestScanFragment"
             app:destination="@id/GuestScanFragment" />
 
     </fragment>
