@@ -268,8 +268,8 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
 
             // NOTE: The following code is only temporary and is for testing the GuestQuestionnaireFragment
             // TODO Replace this with code that will navigate to the confirmation fragment
-            NavHostFragment.findNavController(GuestScanFragment.this)
-                    .navigate(R.id.action_GuestScanFragment_to_GuestQuestionnaireFragment);
+            //NavHostFragment.findNavController(GuestScanFragment.this)
+            //        .navigate(R.id.action_GuestScanFragment_to_GuestQuestionnaireFragment);
 
         }
 
