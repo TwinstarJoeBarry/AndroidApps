@@ -308,8 +308,8 @@ public class ScanFragment extends Fragment implements ZXingScannerView.ResultHan
         view.findViewById(R.id.button_scan_complete).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NavHostFragment.findNavController(ScanFragment.this)
-                        .navigate(R.id.action_ScanFragment_to_StartFragment);
+//                NavHostFragment.findNavController(ScanFragment.this)
+//                        .navigate(R.id.action_ScanFragment_to_StartFragment);
             }
         });
 
