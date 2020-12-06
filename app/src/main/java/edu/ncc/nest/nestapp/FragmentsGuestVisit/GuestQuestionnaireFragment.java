@@ -1,6 +1,5 @@
 package edu.ncc.nest.nestapp.FragmentsGuestVisit;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,7 +15,6 @@ import androidx.fragment.app.Fragment;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.ncc.nest.nestapp.Choose;
 import edu.ncc.nest.nestapp.R;
 
 /**
@@ -28,6 +26,7 @@ public class GuestQuestionnaireFragment extends Fragment implements View.OnClick
 
     // Stores a list of all the views that contain the user's responses
     private List<View> inputFields;
+
 
     ////////////// Lifecycle Methods Start //////////////
 
@@ -76,7 +75,7 @@ public class GuestQuestionnaireFragment extends Fragment implements View.OnClick
 
         } else {
 
-            // This line may only be temporary depending on what defines the Guest's Id
+            // NOTE: This line may only be temporary depending on what defines the Guest's Id
             inputFields.get(0).setEnabled(savedInstanceState.getBoolean("GUEST_ID_ENABLED"));
 
             String[] fieldText = savedInstanceState.getStringArray("INPUT_FIELD_TEXT");
@@ -105,29 +104,31 @@ public class GuestQuestionnaireFragment extends Fragment implements View.OnClick
 
     }
 
+
     ////////////// Other Event Methods Start  //////////////
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
 
-        // These next two lines may only be temporary depending on what defines the Guest's Id
+        // NOTE: These next two lines may only be temporary depending on what defines the Guest's Id
         boolean guestIdEnabled = inputFields.get(0).isEnabled();
 
         outState.putBoolean("GUEST_ID_ENABLED", guestIdEnabled);
 
+        // Create an array big enough to store the text of each input field
         String[] fieldText = new String[inputFields.size()];
 
+        // Loop through each input field and get the text of each field
         for (int i = fieldText.length; i-- > 0;)
 
-            fieldText[i] = getFieldText(inputFields.get(i));
+            fieldText[i] = getInputFieldText(inputFields.get(i));
 
+        // Put the array of text into the Bundle
         outState.putStringArray("INPUT_FIELD_TEXT", fieldText);
 
         super.onSaveInstanceState(outState);
 
     }
-
-    ////////////// Implementation Methods Start  //////////////
 
     @Override
     public void onClick(View view) {
@@ -139,7 +140,7 @@ public class GuestQuestionnaireFragment extends Fragment implements View.OnClick
             for (View inputField : inputFields) {
 
                 // Get the text from the current input field
-                String fieldText = getFieldText(inputField);
+                String fieldText = getInputFieldText(inputField);
 
                 // If the field is empty set its value in the list to null
                 fieldTexts.add(!fieldText.isEmpty() ? fieldText : null);
@@ -148,7 +149,7 @@ public class GuestQuestionnaireFragment extends Fragment implements View.OnClick
 
             Log.d(TAG, "Guest's Answers: " + fieldTexts.toString());
 
-            // Disabled this for now for test so you can compare the log statement to the answered entered.
+            // Disabled this for now for test so we can compare the log statement to the answers entered.
 
             /*// Create an Intent that will bring the user back to the home page
             Intent intent = new Intent(requireContext(), Choose.class);
@@ -165,6 +166,7 @@ public class GuestQuestionnaireFragment extends Fragment implements View.OnClick
         }
 
     }
+
 
     ////////////// Custom Methods Start  //////////////
 
@@ -206,12 +208,12 @@ public class GuestQuestionnaireFragment extends Fragment implements View.OnClick
 
     /**
      * Takes 1 NonNull parameter. Checks whether or not the supplied view is an instance of
-     * EditText or Spinner then casts to it. It then returns the string entered by the user that
+     * EditText or Spinner then casts to it. It then returns the string entered by the user, that
      * is stored within that view.
      * @param view The view to get the text from
      * @return The string entered into that view by the user
      */
-    private static String getFieldText(@NonNull View view) {
+    private static String getInputFieldText(@NonNull View view) {
 
         if (view instanceof EditText)
 
