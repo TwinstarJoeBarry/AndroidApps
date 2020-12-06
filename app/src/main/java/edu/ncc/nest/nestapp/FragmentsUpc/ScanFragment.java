@@ -310,7 +310,7 @@ import edu.ncc.nest.nestapp.R;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 public class ScanFragment extends Fragment implements BarcodeCallback, View.OnClickListener {
-    public static final String TAG = GuestScanFragment.class.getSimpleName();
+    public static final String TAG = ScanFragment.class.getSimpleName();
 
     // Changed this to scan only for UPC_A codes (most common with food items in the US)
     private static final List<BarcodeFormat> BARCODE_FORMATS = Collections.singletonList(BarcodeFormat.UPC_A);
@@ -329,7 +329,7 @@ public class ScanFragment extends Fragment implements BarcodeCallback, View.OnCl
     private boolean askedForPermission = false;
     private boolean scannerPaused = true;
 
-    // Stores the bar code that has been scanned
+    // Stores the UPC of the item
     private String barcodeResult = null;
 
 
@@ -496,23 +496,26 @@ public class ScanFragment extends Fragment implements BarcodeCallback, View.OnCl
 
             Log.d(TAG, "Scan Confirmed: " + barcodeResult);
 
-//        // Check database
+        // Check database
         NestDBDataSource dataSource = new NestDBDataSource(getContext());
         NestUPC result = dataSource.getNestUPC(barcodeResult);
 
 
+        // If there is a result from the database
         if(result != null) {
 
             Log.d(TAG, "Result returned: " + result.getUpc() + " " + result.getProductName());
 
-
+            // Put the item in a bundle and pass it to ConfirmItemFragment
             Bundle bundle = new Bundle();
             bundle.putSerializable("foodItem", result);
             getParentFragmentManager().setFragmentResult("SEND FOOD ITEM", bundle);
             NavHostFragment.findNavController(ScanFragment.this).navigate((R.id.confirmItemFragment));
 
+            // If there was no result from the database
         }else {
 
+            // Put UPC into a bundle and pass it to SelectItemFragment (may not be necessary)
             Bundle bundle = new Bundle();
             bundle.putString("barcode", barcodeResult);
             getParentFragmentManager().setFragmentResult("SEND BARCODE", bundle);
@@ -520,7 +523,7 @@ public class ScanFragment extends Fragment implements BarcodeCallback, View.OnCl
         }
 
 
-            // TODO Create bundle and send barcode with guest name to next fragment
+
 
         }
 
