@@ -76,14 +76,9 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
     // To support multiple formats change this to Arrays.asList() and fill it with the required
     // formats. For example, Arrays.asList(BarcodeFormat.CODE_39, BarcodeFormat.UPC_A, ...);
 
-<<<<<<< HEAD
-    // Used to ask for camera permission calls cameraPermissionResult method with the result
-    private final ActivityResultLauncher<String> REQUEST_PERMISSION_LAUNCHER = registerForActivityResult(new RequestPermission(), this::onCameraPermissionResult);
-=======
     // Used to ask for camera permission. Calls onCameraPermissionResult method with the result
     private final ActivityResultLauncher<String> REQUEST_CAMERA_PERMISSION_LAUNCHER = registerForActivityResult(
             new RequestPermission(), this::onCameraPermissionResult);
->>>>>>> master
 
     private static final long SCAN_DELAY = 1500L;   // 1.5 Seconds in milliseconds
 
@@ -100,12 +95,7 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
     // Stores the bar code that has been scanned
     private String barcodeResult = null;
 
-<<<<<<< HEAD
-    /************ LifeCycle Methods Start ************/
-=======
-
     ////////////// Lifecycle Methods Start //////////////
->>>>>>> master
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -205,12 +195,7 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
 
     }
 
-
-<<<<<<< HEAD
-    /************ Implementation Methods Start ************/
-=======
     ////////////// Other Event Methods Start  //////////////
->>>>>>> master
 
     @Override
     public void barcodeResult(BarcodeResult result) {

@@ -23,15 +23,25 @@
         android:text=""
         android:textSize="20sp"
         android:textColor="#FFFFFF"
-        android:layout_above="@id/guest_scan_confirmation_tableRow"
+        android:layout_above="@id/guest_id_lable"
         android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/guest_id_lable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="20sp"
+        android:textColor="#FFFFFF"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"/>
 
     <TableRow
         android:id="@+id/guest_scan_confirmation_tableRow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true" >
+        android:layout_below="@id/guest_id_lable" >
 
         <Button
             android:id="@+id/rescan_code_button"
