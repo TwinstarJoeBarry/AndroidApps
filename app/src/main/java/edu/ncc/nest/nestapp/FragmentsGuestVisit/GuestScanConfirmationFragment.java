@@ -123,10 +123,22 @@ public class GuestScanConfirmationFragment extends Fragment implements View.OnCl
             NavHostFragment.findNavController(GuestScanConfirmationFragment.this )
                     .navigate( R.id.action_GuestScanConfirmationFragment_to_GuestScanFragment );
 
-        else if ( id == R.id.name_confirmed )
+        else if ( id == R.id.name_confirmed ) {
+
+            // Create a bundle
+            Bundle guestInfo = new Bundle();
+
+            // Put the Guest's info into the bundle
+            guestInfo.putString("GUEST_NAME", guestName);
+            guestInfo.putString("BARCODE", guestId);
+
+            // Set the FragmentManager
+            getParentFragmentManager().setFragmentResult("CONFIRM_SCAN", guestInfo);
+
             // Navigate to the questionnaire
-            NavHostFragment.findNavController(GuestScanConfirmationFragment.this )
-                    .navigate( R.id.action_GuestScanConfirmationFragment_to_GuestQuestionnaireFragment );
+            NavHostFragment.findNavController(GuestScanConfirmationFragment.this)
+                    .navigate(R.id.action_GuestScanConfirmationFragment_to_GuestQuestionnaireFragment);
+        }
     }
 
     /************ Custom Methods Start ************/
@@ -138,11 +150,17 @@ public class GuestScanConfirmationFragment extends Fragment implements View.OnCl
         view.findViewById( R.id.name_confirmed ).setOnClickListener(this);
 
         // Display the guest's name and id
-        ((TextView) view.findViewById(R.id.guest_name_lable)).setText("Name " + name);
-        ((TextView) view.findViewById(R.id.guest_id_lable)).setText("id: " + id);
+        ((TextView) view.findViewById(R.id.guest_name_lable)).setText(name);
+        ((TextView) view.findViewById(R.id.guest_id_lable)).setText(id);
     }
 
     public void onCreateRegistrationView(View view, String id) {
 
+        // Set the onclick listener for the buttons
+        view.findViewById( R.id.confirmation_0_rescan_btn ).setOnClickListener(this);
+        view.findViewById( R.id.confirmation_0_register_btn ).setOnClickListener(this);
+
+        // Display the barcode
+        ((TextView) view.findViewById(R.id.confirmation_0_guest_id)).setText(id);
     }
 }

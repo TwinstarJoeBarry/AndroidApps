@@ -1,6 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:paddingTop="5dp"
+    android:orientation="vertical"
+    android:background="@color/colorPrimary"
+    tools:context=".FragmentsGuestVisit.GuestScanConfirmationFragment" >
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/confirmation_0_welcome_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="4dp"
+        android:shadowColor="@android:color/black"
+        android:shadowRadius="2"
+        android:shadowDx="-4"
+        android:shadowDy="4"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
+        android:textAllCaps="true"
+        android:text="NEST GUEST NOT FOUND!" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:background="@android:drawable/dialog_frame" >
+
+        <TextView
+            android:id="@+id/confirmation_0_description_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:shadowColor="@android:color/black"
+            android:shadowRadius="1"
+            android:shadowDx="-2"
+            android:shadowDy="2"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:textStyle="bold|italic"
+            android:textColor="@android:color/white"
+            android:text="Sorry! We couldn't find a guest associated with the following barcode:" />
+
+        <TextView
+            android:id="@+id/confirmation_0_guest_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:textAllCaps="true"
+            android:textStyle="italic"
+            android:textColor="@android:color/white"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/confirmation_0_description_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:shadowColor="@android:color/black"
+            android:shadowRadius="1"
+            android:shadowDx="-2"
+            android:shadowDy="2"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:textStyle="bold|italic"
+            android:textColor="@android:color/white"
+            android:text="Please register to continue" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="8dp"
+        android:orientation="horizontal"
+        android:gravity="bottom" >
+
+        <Button
+            android:id="@+id/confirmation_0_rescan_btn"
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
+            android:layout_height="wrap_content"
+            android:text="Re-Scan Barcode"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:backgroundTint="@color/colorPrimaryDark"/>
+
+        <Button
+            android:id="@+id/confirmation_0_register_btn"
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
+            android:layout_height="wrap_content"
+            android:text="Register"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:backgroundTint="@color/colorPrimaryDark"/>
+
+    </LinearLayout>
+
+</LinearLayout>
