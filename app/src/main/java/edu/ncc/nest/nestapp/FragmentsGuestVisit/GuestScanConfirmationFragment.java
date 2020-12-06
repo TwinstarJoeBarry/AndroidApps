@@ -265,17 +265,29 @@ package edu.ncc.nest.nestapp.FragmentsGuestVisit;
  */
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentResultListener;
 import androidx.navigation.fragment.NavHostFragment;
 
+import edu.ncc.nest.nestapp.GuestFormHelper;
 import edu.ncc.nest.nestapp.R;
 
 public class GuestScanConfirmationFragment extends Fragment implements View.OnClickListener {
+
+    public static final String TAG = GuestScanFragment.class.getSimpleName();
+
+    // Stores the barcode
+    private String barcode = null;
+    int layout;
+
 
     /************ LifeCycle Methods Start ************/
 
@@ -283,18 +295,62 @@ public class GuestScanConfirmationFragment extends Fragment implements View.OnCl
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState ) {
+        //layout = R.layout.fragment_guest_scan_confirmation_reg;
+        /**
+        // Get info passed from the fragment result
+        getParentFragmentManager().setFragmentResultListener("CONFIRM_SCAN", this,
+                new FragmentResultListener() {
+                    @Override
+                    public void onFragmentResult(@NonNull String key, @NonNull Bundle bundle) {
+                        // retrieves data from the bundle based upon the key MESSAGE
+                        barcode = bundle.getString("BARCODE");
+                        Log.d(TAG, "Barcode: " + barcode);
 
+                        if (barcode != null) {
+                            Log.d(TAG, "Barcode: " + barcode);
+
+                            // Create an instance of the database helper
+                            GuestFormHelper db = new GuestFormHelper(requireContext());
+
+                            // Check if the guest is registered in the database
+                            //final String GUEST_NAME = db.isRegistered(barcode);
+                            final String GUEST_NAME = "Test";
+
+                            // set onclick listener for the buttons
+                            if (GUEST_NAME != null) {
+                                Log.d(TAG, "Guest Name : " + GUEST_NAME );
+                                // If the guest is registered, include the guest's name in the result
+                                //result.putString("GUEST_NAME", GUEST_NAME);
+                                layout = R.layout.fragment_guest_scan_confirmation;
+                            } else {
+                                Log.d(TAG, "Guest name is null");
+                            }
+
+                        }
+                    }
+                });
+        */
         // Inflate the layout for this fragment
-        return inflater.inflate( R.layout.fragment_guest_scan_confirmation, container, false );
+        return inflater.inflate( R.layout.fragment_guest_scan_confirmation_flipper, container, false );
     }
 
     public void onViewCreated( @NonNull View view, Bundle savedInstanceState ) {
         super.onViewCreated( view, savedInstanceState );
+        ViewFlipper viewFlipper = (ViewFlipper) view.findViewById(R.id.confirmation_view_flipper);
+
+        getParentFragmentManager().setFragmentResultListener("CONFIRM_SCAN",
+                this, (requestKey, result) -> {
+
+                    final String GUEST_NAME = result.getString("GUEST_NAME");
+
+                    viewFlipper.setDisplayedChild(GUEST_NAME == null ? 0 : 1);
+
+                });
 
         // Set the onclick listener for the buttons
 
-        view.findViewById( R.id.rescan_code_button ).setOnClickListener(this);
-        view.findViewById( R.id.name_confirmed ).setOnClickListener(this);
+        //view.findViewById( R.id.rescan_code_button ).setOnClickListener(this);
+        //view.findViewById( R.id.name_confirmed ).setOnClickListener(this);
     }
 
     /************ Implementation Methods Start ************/
