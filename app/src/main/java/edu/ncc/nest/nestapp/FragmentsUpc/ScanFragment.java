@@ -264,52 +264,42 @@ package edu.ncc.nest.nestapp.FragmentsUpc;
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.google.zxing.BarcodeFormat;
-import com.google.zxing.Result;
 import com.google.zxing.client.android.BeepManager;
 import com.journeyapps.barcodescanner.BarcodeCallback;
 import com.journeyapps.barcodescanner.BarcodeResult;
 import com.journeyapps.barcodescanner.DecoratedBarcodeView;
 import com.journeyapps.barcodescanner.DefaultDecoderFactory;
-import com.karumi.dexter.Dexter;
-import com.karumi.dexter.PermissionToken;
-import com.karumi.dexter.listener.PermissionDeniedResponse;
-import com.karumi.dexter.listener.PermissionGrantedResponse;
-import com.karumi.dexter.listener.PermissionRequest;
-import com.karumi.dexter.listener.single.PermissionListener;
+
 
 import java.util.Collections;
 import java.util.List;
 
-import edu.ncc.nest.nestapp.FoodItem;
-import edu.ncc.nest.nestapp.FragmentsGuestVisit.GuestScanFragment;
-import edu.ncc.nest.nestapp.InventoryEntry;
-import edu.ncc.nest.nestapp.InventoryInfoSource;
+
 import edu.ncc.nest.nestapp.NestDBDataSource;
 import edu.ncc.nest.nestapp.NestUPC;
 import edu.ncc.nest.nestapp.R;
-import me.dm7.barcodescanner.zxing.ZXingScannerView;
+import androidx.activity.result.contract.ActivityResultContracts.RequestPermission;
 
 public class ScanFragment extends Fragment implements BarcodeCallback, View.OnClickListener {
+
     public static final String TAG = ScanFragment.class.getSimpleName();
 
     // Changed this to scan only for UPC_A codes (most common with food items in the US)
@@ -317,8 +307,11 @@ public class ScanFragment extends Fragment implements BarcodeCallback, View.OnCl
     // To support multiple formats change this to Arrays.asList() and fill it with the required
     // formats. For example, Arrays.asList(BarcodeFormat.CODE_39, BarcodeFormat.UPC_A, ...);
 
-    private static final int CAMERA_REQ_CODE = 250; // Camera permission request code
-    private static final long SCAN_DELAY = 2000L;   // 2 Seconds decoder delay in milliseconds
+    // Used to ask for camera permission. Calls onCameraPermissionResult method with the result
+    private final ActivityResultLauncher<String> REQUEST_CAMERA_PERMISSION_LAUNCHER = registerForActivityResult(
+            new RequestPermission(), this::onCameraPermissionResult);
+
+    private static final long SCAN_DELAY = 1500L;   // 1.5 Seconds in milliseconds
 
     private DecoratedBarcodeView decBarcodeView;
     private BeepManager beepManager;
@@ -326,13 +319,10 @@ public class ScanFragment extends Fragment implements BarcodeCallback, View.OnCl
     private Button confirmButton;
     private Button rescanButton;
 
-    private boolean askedForPermission = false;
     private boolean scannerPaused = true;
 
-    // Stores the UPC of the item
+    // Stores the bar code that has been scanned
     private String barcodeResult = null;
-
-
 
 
     ////////////// Lifecycle Methods Start //////////////
@@ -386,19 +376,24 @@ public class ScanFragment extends Fragment implements BarcodeCallback, View.OnCl
     public void onResume() {
         super.onResume();
 
-        if (cameraPermissionGranted())
+        // If the camera permission is granted
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
+                == PackageManager.PERMISSION_GRANTED) {
 
             resumeScanning();
 
-        else if (!askedForPermission) {
+        } else if (shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)) {
 
-            // Request the camera permission to be granted
-            requestPermissions(new String[] {Manifest.permission.CAMERA}, CAMERA_REQ_CODE);
+            // TODO Create a dialog window describing why we need the permission for this feature
 
-            // We have officially asked for permission, so update our class variable
-            askedForPermission = true;
+            // Display a reason of why we need the permission
+            Toast.makeText(requireContext(), "Camera permission is needed in order to scan.",
+                    Toast.LENGTH_LONG).show();
 
-        }
+        } else
+
+            // Request the camera permission
+            REQUEST_CAMERA_PERMISSION_LAUNCHER.launch(Manifest.permission.CAMERA);
 
     }
 
@@ -406,7 +401,7 @@ public class ScanFragment extends Fragment implements BarcodeCallback, View.OnCl
     public void onPause() {
         super.onPause();
 
-        // Since we have paused the fragment pause and wait for the camera to close
+        // Since we have paused the fragment, pause and wait for the camera to close
         decBarcodeView.pauseAndWait();
 
         scannerPaused = true;
@@ -416,10 +411,15 @@ public class ScanFragment extends Fragment implements BarcodeCallback, View.OnCl
     @Override
     public void onDestroy() {
 
-        // Since we are destroying the fragment pause and wait for the camera to close
-        decBarcodeView.pauseAndWait();
+        // Make sure we have the view in-case the view isn't initialized before destruction
+        if (decBarcodeView != null) {
 
-        scannerPaused = true;
+            // Since we are destroying the fragment, pause and wait for the camera to close
+            decBarcodeView.pauseAndWait();
+
+            scannerPaused = true;
+
+        }
 
         super.onDestroy();
 
@@ -427,26 +427,6 @@ public class ScanFragment extends Fragment implements BarcodeCallback, View.OnCl
 
 
     ////////////// Other Event Methods Start  //////////////
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-
-        if (requestCode == CAMERA_REQ_CODE && grantResults.length > 0) {
-
-            // If we have permission to use the camera
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
-
-                resumeScanning();
-
-            else
-
-                // Display a reason of why we need the permission
-                Toast.makeText(requireContext(), "Camera permission is needed in order to scan.",
-                        Toast.LENGTH_LONG).show();
-
-        }
-
-    }
 
     @Override
     public void barcodeResult(BarcodeResult result) {
@@ -471,7 +451,7 @@ public class ScanFragment extends Fragment implements BarcodeCallback, View.OnCl
 
             scannerPaused = true;
 
-            // Enable the feedback buttons after we have stored the bar-code, and stopped scanner
+            // Enable the feedback buttons after we have stored the bar-code and stopped scanner
             setFeedbackButtonsEnabled(true);
 
             Log.d(TAG, "Barcode Result: " + resultText + ", Barcode Format: " + result.getBarcodeFormat());
@@ -486,6 +466,8 @@ public class ScanFragment extends Fragment implements BarcodeCallback, View.OnCl
     @Override
     public void onClick(View view) {
 
+        // NOTE: Removed permission check here since buttons will be disabled until a scan is performed
+
         int id = view.getId();
 
         if (id == R.id.rescan_button)
@@ -496,34 +478,33 @@ public class ScanFragment extends Fragment implements BarcodeCallback, View.OnCl
 
             Log.d(TAG, "Scan Confirmed: " + barcodeResult);
 
-        // Check database
-        NestDBDataSource dataSource = new NestDBDataSource(getContext());
-        NestUPC result = dataSource.getNestUPC(barcodeResult);
+            // Check database
+            NestDBDataSource dataSource = new NestDBDataSource(getContext());
+            NestUPC result = dataSource.getNestUPC(barcodeResult);
 
+            // Used this to test if there was a non-null result given (successful)
+//            result = new NestUPC("123456789123", "Hershey's", "Chocolate Bar", 123, "Hershey's Chocolate Bar", null, 1234,"Some category description");
 
-        // If there is a result from the database
-        if(result != null) {
+            // If there is a result from the database
+            if(result != null) {
 
-            Log.d(TAG, "Result returned: " + result.getUpc() + " " + result.getProductName());
+                Log.d(TAG, "Result returned: " + result.getUpc() + " " + result.getProductName());
 
-            // Put the item in a bundle and pass it to ConfirmItemFragment
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("foodItem", result);
-            getParentFragmentManager().setFragmentResult("SEND FOOD ITEM", bundle);
-            NavHostFragment.findNavController(ScanFragment.this).navigate((R.id.confirmItemFragment));
+                // Put the item in a bundle and pass it to ConfirmItemFragment
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("foodItem", result);
+                getParentFragmentManager().setFragmentResult("SEND FOOD ITEM", bundle);
+                NavHostFragment.findNavController(ScanFragment.this).navigate((R.id.confirmItemFragment));
 
-            // If there was no result from the database
-        }else {
+                // If there was no result from the database
+            }else {
 
-            // Put UPC into a bundle and pass it to SelectItemFragment (may not be necessary)
-            Bundle bundle = new Bundle();
-            bundle.putString("barcode", barcodeResult);
-            getParentFragmentManager().setFragmentResult("SEND BARCODE", bundle);
-            NavHostFragment.findNavController(ScanFragment.this).navigate((R.id.selectItemFragment));
-        }
-
-
-
+                // Put UPC into a bundle and pass it to SelectItemFragment (may not be necessary)
+                Bundle bundle = new Bundle();
+                bundle.putString("barcode", barcodeResult);
+                getParentFragmentManager().setFragmentResult("SEND BARCODE", bundle);
+                NavHostFragment.findNavController(ScanFragment.this).navigate((R.id.selectItemFragment));
+            }
 
         }
 
@@ -533,21 +514,30 @@ public class ScanFragment extends Fragment implements BarcodeCallback, View.OnCl
     ////////////// Custom Methods Start  //////////////
 
     /**
-     * Takes 0 parameters. Determines if the CAMERA permission has been granted.
-     *
-     * @return Returns true if camera permission has been granted or false otherwise.
+     * Takes 1 parameter. This method gets called by the REQUEST_CAMERA_PERMISSION_LAUNCHER, after
+     * asking for camera permission. Determines what happens when the permission gets granted or
+     * denied.
+     * @param isGranted - true if permission was granted false otherwise
      */
-    private boolean cameraPermissionGranted() {
+    private void onCameraPermissionResult(boolean isGranted) {
 
-        return (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
-                == PackageManager.PERMISSION_GRANTED);
+        if (isGranted)
+
+            // Camera permission is granted, so resume scanning
+            resumeScanning();
+
+        else
+
+            // Display a reason of why we need the permission
+            Toast.makeText(requireContext(), "Camera permission is needed in order to scan.",
+                    Toast.LENGTH_LONG).show();
 
     }
 
     /**
-     * Takes 0 parameters. Resumes the scanner if it is not paused, resets text view text, resets
-     * the barcodeResult to be null so we can scan a new bar-code, and starts the decoder after a
-     * delay.
+     * Takes 0 parameters. Resumes the scanner if it is not paused, resets resultTextView text,
+     * resets the barcodeResult to be null so we can scan a new bar-code, and starts the decoder
+     * after a delay of SCAN_DELAY.
      */
     private void resumeScanning() {
 
@@ -572,9 +562,9 @@ public class ScanFragment extends Fragment implements BarcodeCallback, View.OnCl
             Handler handler = new Handler();
             handler.postDelayed(() -> {
 
+                // As long as the scanner hasn't been paused, start the decoder
                 if (!scannerPaused)
 
-                    // Resume decoding after a delay of SCAN_DELAY millis as long as the scanner has not been paused
                     // Tells the decoder to stop after a single scan
                     decBarcodeView.decodeSingle(ScanFragment.this);
 
@@ -586,9 +576,9 @@ public class ScanFragment extends Fragment implements BarcodeCallback, View.OnCl
 
     /**
      * Takes 1 parameter. Toggles whether both rescanButton and confirmScan button are enabled or
-     * disabled based on the value of the parameter.
+     * disabled, based on the value of the parameter.
      *
-     * @param enabled true to enable or false disable
+     * @param enabled true to enable or false to disable
      */
     private void setFeedbackButtonsEnabled(boolean enabled) {
 
