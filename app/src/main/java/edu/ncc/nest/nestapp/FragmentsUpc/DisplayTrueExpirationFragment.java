@@ -22,18 +22,39 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.List;
+
+import edu.ncc.nest.nestapp.InventoryEntry;
+import edu.ncc.nest.nestapp.InventoryInfoSource;
+import edu.ncc.nest.nestapp.NestDBDataSource;
 import edu.ncc.nest.nestapp.R;
+import edu.ncc.nest.nestapp.ShelfLife;
 
 public class DisplayTrueExpirationFragment extends Fragment {
+    private NestDBDataSource dataSource;
+    private int itemId;
+
+
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
+
+        itemId =  605 ;
+
+
+        dataSource = new NestDBDataSource(this.getContext());
+
+        List<ShelfLife> item = dataSource.getShelfLivesForProduct(itemId);
+        if(!item.isEmpty())
+            Log.d("TESTING", "onCreateView: " +  item.get(0).toString() );
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_display_true_expiration, container, false);
     }
@@ -49,5 +70,7 @@ public class DisplayTrueExpirationFragment extends Fragment {
                         .navigate(R.id.action_StartFragment_to_ScanFragment);
             }
         });
+
+
     }
 }

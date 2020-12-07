@@ -95,7 +95,7 @@ public class NestDBDataSource {
      * @return if found, a filled NestUPC pojo with all
      *          the key related information; null otherwise.
      */
-    NestUPC getNestUPC(String upc) {
+    public NestUPC getNestUPC(String upc) {
         NestUPC result = null;
         String qry = "SELECT * FROM view_upc_product_category_joined WHERE upper(UPC) = upper(?)";
         Cursor c = db.rawQuery(qry, new String[]{upc});
@@ -122,7 +122,7 @@ public class NestDBDataSource {
      * @return an ArrayList<ShelfLife> object, which will have no
      * contents if nothing is found
      */
-    List<ShelfLife> getShelfLivesForProduct(int productId) {
+    public List<ShelfLife> getShelfLivesForProduct(int productId) {
         List<ShelfLife> result = new ArrayList<>();
         String qry = "SELECT * FROM view_shelf_lives_and_type_info_joined WHERE productId = ?";
         Cursor c = db.rawQuery(qry, new String[]{String.valueOf(productId)});
