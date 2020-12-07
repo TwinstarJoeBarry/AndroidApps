@@ -46,12 +46,17 @@ public class DisplayTrueExpirationFragment extends Fragment {
             Bundle savedInstanceState
     ) {
 
+        // value of this variable must be updated from the previous fragment
+        // hardcoded for testing purposes
         itemId =  605 ;
 
-
+        // Instantiating
         dataSource = new NestDBDataSource(this.getContext());
 
+        // Getting the shelflife of the product
         List<ShelfLife> item = dataSource.getShelfLivesForProduct(itemId);
+
+        // item is not empty
         if(!item.isEmpty())
             Log.d("TESTING", "onCreateView: " +  item.get(0).toString() );
 
