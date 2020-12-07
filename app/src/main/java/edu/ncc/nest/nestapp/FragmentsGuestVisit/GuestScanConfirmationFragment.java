@@ -25,6 +25,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
@@ -118,27 +119,34 @@ public class GuestScanConfirmationFragment extends Fragment implements View.OnCl
 
         int id = view.getId();
 
-        if ( id == R.id.rescan_code_button )
-            // Navigate back to the scanner to rescan the barcode
-            NavHostFragment.findNavController(GuestScanConfirmationFragment.this )
-                    .navigate( R.id.action_GuestScanConfirmationFragment_to_GuestScanFragment );
+        switch (id){
+            case R.id.rescan_code_button:
+            case R.id.confirmation_0_rescan_btn:
+                // Navigate back to the scanner to rescan the barcode
+                NavHostFragment.findNavController(GuestScanConfirmationFragment.this )
+                        .navigate( R.id.action_GuestScanConfirmationFragment_to_GuestScanFragment );
+                break;
+            case R.id.name_confirmed:
+                // Create a bundle
+                Bundle guestInfo = new Bundle();
 
-        else if ( id == R.id.name_confirmed ) {
+                // Put the Guest's info into the bundle
+                guestInfo.putString("GUEST_NAME", guestName);
+                guestInfo.putString("BARCODE", guestId);
 
-            // Create a bundle
-            Bundle guestInfo = new Bundle();
+                // Set the FragmentManager
+                getParentFragmentManager().setFragmentResult("CONFIRM_SCAN", guestInfo);
 
-            // Put the Guest's info into the bundle
-            guestInfo.putString("GUEST_NAME", guestName);
-            guestInfo.putString("BARCODE", guestId);
-
-            // Set the FragmentManager
-            getParentFragmentManager().setFragmentResult("CONFIRM_SCAN", guestInfo);
-
-            // Navigate to the questionnaire
-            NavHostFragment.findNavController(GuestScanConfirmationFragment.this)
-                    .navigate(R.id.action_GuestScanConfirmationFragment_to_GuestQuestionnaireFragment);
+                // Navigate to the questionnaire
+                NavHostFragment.findNavController(GuestScanConfirmationFragment.this)
+                        .navigate(R.id.action_GuestScanConfirmationFragment_to_GuestQuestionnaireFragment);
+                break;
+            case R.id.confirmation_0_register_btn:
+                //TODO: Navigate to the registration fragment
+                Toast.makeText(getContext(), "The registration fragment doesn't exist yet.", Toast.LENGTH_SHORT).show();
+                break;
         }
+
     }
 
     /************ Custom Methods Start ************/
