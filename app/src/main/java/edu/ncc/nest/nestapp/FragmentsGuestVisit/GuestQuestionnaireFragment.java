@@ -1,5 +1,6 @@
 package edu.ncc.nest.nestapp.FragmentsGuestVisit;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.ncc.nest.nestapp.Choose;
 import edu.ncc.nest.nestapp.R;
 
 /**
@@ -54,8 +56,14 @@ public class GuestQuestionnaireFragment extends Fragment implements View.OnClick
             // NOTE: The following code may be only temporary depending on what defines the Guest's Id
 
             // Get info passed from the fragment result
-            getParentFragmentManager().setFragmentResultListener("CONFIRM_SCAN",
+            getParentFragmentManager().setFragmentResultListener("GUEST_CONFIRMED",
                     this, (requestKey, result) -> {
+
+                        /**
+                         * NOTE: Set the fragment result to the same result sent to this one, so if the guest
+                         * presses the back button, it sends the guest info back to the confirmation fragment.
+                         */
+                        getParentFragmentManager().setFragmentResult("CONFIRM_SCAN", result);
 
                         final String BARCODE = result.getString("BARCODE");
 

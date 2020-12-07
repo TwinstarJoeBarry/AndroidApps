@@ -38,11 +38,11 @@ import edu.ncc.nest.nestapp.R;
 
 public class GuestScanConfirmationFragment extends Fragment implements View.OnClickListener {
 
-    public static final String TAG = GuestScanFragment.class.getSimpleName();
+    public static final String TAG = GuestScanConfirmationFragment.class.getSimpleName();
 
-    private String guestName;
+    private String guestName = null;
 
-    private String guestId;
+    private String guestId = null;
 
     /************ LifeCycle Methods Start ************/
 
@@ -65,17 +65,7 @@ public class GuestScanConfirmationFragment extends Fragment implements View.OnCl
             // Get guest id
             guestId = savedInstanceState.getString("ID");
 
-            if ( guestName != null) {
-
-                onCreateConfirmationView(view, guestName, guestId);
-
-                viewFlipper.setDisplayedChild(1);
-            } else {
-
-                onCreateRegistrationView(view, guestId);
-
-                viewFlipper.setDisplayedChild(0);
-            }
+            selectDisplayedView(view.findViewById(R.id.confirmation_view_flipper));
         } else
 
             getParentFragmentManager().setFragmentResultListener("CONFIRM_SCAN",
@@ -85,17 +75,7 @@ public class GuestScanConfirmationFragment extends Fragment implements View.OnCl
 
                     guestId = result.getString("BARCODE");
 
-                    if ( guestName != null) {
-
-                        onCreateConfirmationView(view, guestName, guestId);
-
-                        viewFlipper.setDisplayedChild(1);
-                    } else {
-
-                        onCreateRegistrationView(view, guestId);
-
-                        viewFlipper.setDisplayedChild(0);
-                    }
+                    selectDisplayedView(view.findViewById(R.id.confirmation_view_flipper));
 
                 });
 
@@ -119,56 +99,92 @@ public class GuestScanConfirmationFragment extends Fragment implements View.OnCl
 
         int id = view.getId();
 
-        switch (id){
-            case R.id.rescan_code_button:
-            case R.id.confirmation_0_rescan_btn:
-                // Navigate back to the scanner to rescan the barcode
-                NavHostFragment.findNavController(GuestScanConfirmationFragment.this )
-                        .navigate( R.id.action_GuestScanConfirmationFragment_to_GuestScanFragment );
-                break;
-            case R.id.name_confirmed:
-                // Create a bundle
-                Bundle guestInfo = new Bundle();
+        if (id == R.id.rescan_code_button || id == R.id.confirmation_0_rescan_btn) {
 
-                // Put the Guest's info into the bundle
-                guestInfo.putString("GUEST_NAME", guestName);
-                guestInfo.putString("BARCODE", guestId);
+            // Navigate back to the scanner to rescan the barcode
+            NavHostFragment.findNavController(GuestScanConfirmationFragment.this )
+                    .navigate( R.id.action_GuestScanConfirmationFragment_to_GuestScanFragment );
 
-                // Set the FragmentManager
-                getParentFragmentManager().setFragmentResult("CONFIRM_SCAN", guestInfo);
+        } else if (id == R.id.name_confirmed) {
 
-                // Navigate to the questionnaire
-                NavHostFragment.findNavController(GuestScanConfirmationFragment.this)
-                        .navigate(R.id.action_GuestScanConfirmationFragment_to_GuestQuestionnaireFragment);
-                break;
-            case R.id.confirmation_0_register_btn:
-                //TODO: Navigate to the registration fragment
-                Toast.makeText(getContext(), "The registration fragment doesn't exist yet.", Toast.LENGTH_SHORT).show();
-                break;
+            // Create a bundle
+            Bundle guestInfo = new Bundle();
+
+            // Put the Guest's info into the bundle
+            guestInfo.putString("GUEST_NAME", guestName);
+            guestInfo.putString("BARCODE", guestId);
+
+            // Set the FragmentManager
+            getParentFragmentManager().setFragmentResult("GUEST_CONFIRMED", guestInfo);
+
+            // Navigate to the questionnaire
+            NavHostFragment.findNavController(GuestScanConfirmationFragment.this)
+                    .navigate(R.id.action_GuestScanConfirmationFragment_to_GuestQuestionnaireFragment);
+
+        } else if (id == R.id.confirmation_0_register_btn) {
+
+            // TODO Navigate to the registration fragment (Does not exist yet)
+
+            Toast.makeText(getContext(), "The registration fragment doesn't exist yet.", Toast.LENGTH_SHORT).show();
+
         }
 
     }
 
     /************ Custom Methods Start ************/
 
-    public void onCreateConfirmationView(View view, String name, String id) {
+    /**
+     * selectDisplayedView --
+     * selects the view depending on if the guest is registered or not
+     */
+    private void selectDisplayedView(@NonNull ViewFlipper viewFlipper) {
+
+        if (guestName == null) {
+
+            // Get the registration layout from the ViewFlipper and initialize it
+            onCreateRegistrationView(viewFlipper.getChildAt(0));
+
+            viewFlipper.setDisplayedChild(0);
+
+        } else {
+
+            // Get the confirmation layout from the ViewFlipper and initialize it
+            onCreateConfirmationView(viewFlipper.getChildAt(1));
+
+            viewFlipper.setDisplayedChild(1);
+
+        }
+
+    }
+
+    /**
+     * onCreateConfirmationView --
+     * sets the onClickListener for the buttons in the fragment_guest_scan_confirmation layout
+     * Fills in the text views that display the guest's name and id
+     */
+    public void onCreateConfirmationView(@NonNull View view) {
 
         // Set the onclick listener for the buttons
         view.findViewById( R.id.rescan_code_button ).setOnClickListener(this);
         view.findViewById( R.id.name_confirmed ).setOnClickListener(this);
 
         // Display the guest's name and id
-        ((TextView) view.findViewById(R.id.guest_name_lable)).setText(name);
-        ((TextView) view.findViewById(R.id.guest_id_lable)).setText(id);
+        ((TextView) view.findViewById(R.id.guest_name_lable)).setText(guestName);
+        ((TextView) view.findViewById(R.id.guest_id_lable)).setText(guestId);
     }
 
-    public void onCreateRegistrationView(View view, String id) {
+    /**
+     * onCreateRegistrationView --
+     * sets the onClickListener for the buttons in the fragment_guest_scan_confirmation_reg layout
+     * Fills in the text view that displays the barcode
+     */
+    public void onCreateRegistrationView(@NonNull View view) {
 
         // Set the onclick listener for the buttons
         view.findViewById( R.id.confirmation_0_rescan_btn ).setOnClickListener(this);
         view.findViewById( R.id.confirmation_0_register_btn ).setOnClickListener(this);
 
         // Display the barcode
-        ((TextView) view.findViewById(R.id.confirmation_0_guest_id)).setText(id);
+        ((TextView) view.findViewById(R.id.confirmation_0_guest_id)).setText(guestId);
     }
 }

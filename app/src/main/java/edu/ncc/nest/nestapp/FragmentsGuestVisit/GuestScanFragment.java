@@ -88,8 +88,6 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
     private Button confirmButton;
     private Button rescanButton;
 
-    private int action;
-
     private boolean scannerPaused = true;
 
     // Stores the bar code that has been scanned
@@ -257,6 +255,7 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
             GuestFormHelper db = new GuestFormHelper(requireContext());
 
             // Check if the guest is registered in the database
+            // No guests yet so this will always be null. GUEST_NAME was set to "Test" for testing purposes.
             //final String GUEST_NAME = db.isRegistered(barcodeResult);
             //TODO: Replace the line below with the one above.
             final String GUEST_NAME = "Test";
