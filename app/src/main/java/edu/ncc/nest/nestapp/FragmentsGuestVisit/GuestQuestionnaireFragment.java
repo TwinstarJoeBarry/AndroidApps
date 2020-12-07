@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
@@ -46,10 +45,10 @@ public class GuestQuestionnaireFragment extends Fragment implements View.OnClick
         super.onViewCreated(view, savedInstanceState);
 
         // Get all of the input fields from the view
-        inputFields = getInputFields((ViewGroup) view);
+        inputFields = getInputFields(view);
 
         // Get a reference to the submit button and set this class as the onClickListener
-        ((Button) view.findViewById(R.id.questionnaire_submit_btn)).setOnClickListener(this);
+        view.findViewById(R.id.questionnaire_submit_btn).setOnClickListener(this);
 
         if (savedInstanceState == null) {
 
@@ -200,7 +199,7 @@ public class GuestQuestionnaireFragment extends Fragment implements View.OnClick
                 if ((view = viewGroup.getChildAt(i)) instanceof ViewGroup)
 
                     // Add all the children of the child ViewGroup to the list
-                    idList.addAll(getInputFields((ViewGroup) view));
+                    idList.addAll(getInputFields(view));
 
                 if (view instanceof EditText || view instanceof Spinner)
 
