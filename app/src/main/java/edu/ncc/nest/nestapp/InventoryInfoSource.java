@@ -100,6 +100,33 @@ public class InventoryInfoSource {
         return products;
     }
 
+
+    //method used to query the database to look for a matching item id
+    //method returns an ArrayList, with object matching the item id
+    //returns an empty List if no matching item id is found in the database
+    public List<InventoryEntry> findProductsByItemId(String itemId) {
+        List<InventoryEntry> products = new ArrayList<>();
+        InventoryEntry entry;
+
+        //query by upc barcode num
+        Cursor cursor = database.query(InventoryInfoHelper.TABLE_NAME,
+                allColumns, InventoryInfoHelper.ITEM_ID + " == ? ", new String[]{ itemId },
+                null, null,null);
+
+        // uncomment the code below once the query call has been made
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            entry = cursorToEntry(cursor);
+            products.add(entry);
+            cursor.moveToNext();
+        }
+        cursor.close();
+
+        return products;
+    }
+
+
+
     private InventoryEntry cursorToEntry(Cursor cursor) {
         InventoryEntry entry = new InventoryEntry(cursor.getLong(0), cursor.getString(1),
                 cursor.getString(2), cursor.getString(3), cursor.getString(4));
