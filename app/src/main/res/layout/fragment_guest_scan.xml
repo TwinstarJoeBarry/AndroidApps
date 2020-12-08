@@ -45,7 +45,7 @@
             android:layout_width="0dp"
             android:layout_weight="0.5"
             android:layout_height="wrap_content"
-            android:text="@string/rescan_button"
+            android:text="@string/guestScan_rescan_button"
             style="@style/Widget.AppCompat.Button.Colored"
             android:backgroundTint="@color/colorPrimaryDark" />
 
@@ -54,7 +54,7 @@
             android:layout_width="0dp"
             android:layout_weight="0.5"
             android:layout_height="wrap_content"
-            android:text="@string/confirm_scan_button"
+            android:text="@string/guestScan_confirm_scan_button"
             style="@style/Widget.AppCompat.Button.Colored"
             android:backgroundTint="@color/colorPrimaryDark" />
 
@@ -70,7 +70,7 @@
         android:textSize="18sp"
         android:textStyle="bold"
         android:textColor="@android:color/white"
-        android:text="@string/scan_result_textview"
+        android:text="@string/guestScan_scan_result_textview"
         android:background="@color/colorPrimaryDark" />
 
 </RelativeLayout>

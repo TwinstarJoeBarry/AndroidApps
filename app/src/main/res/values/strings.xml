@@ -1008,9 +1008,9 @@
 
     <!-- Strings used for GuestScanFragment -->
     <string name="guest_scan_fragment_label">Guest Scan Fragment</string>
-    <string name="rescan_button">Re-Scan Barcode</string>
-    <string name="confirm_scan_button">Confirm Scan</string>
-    <string name="scan_result_textview">Waiting for scan …</string>
+    <string name="guestScan_rescan_button">Re-Scan Barcode</string>
+    <string name="guestScan_confirm_scan_button">Confirm Scan</string>
+    <string name="guestScan_scan_result_textview">Waiting for scan …</string>
 
     <!-- Strings used for GuestQuestionnaireFragment.java / fragment_guest_questionnaire.xml -->
     <string name="guest_questionnaire_fragment_label">Guest Questionnaire Fragment</string>
@@ -1028,16 +1028,16 @@
         <item>No</item>
     </string-array>
 
-    <!-- Strings used in the confirmation layouts -->
-    <string name="confirmation_welcome_nest_guest_lbl">Welcome NEST Guest!</string>
-    <string name="confirmation_guest_info_confirmation">Please confirm that the following information is correct.</string>
-    <string name="confirmation_guest_name_lbl">GUEST NAME</string>
-    <string name="confirmation_guest_id">GUEST ID</string>
-    <string name="confirmation_confirm">Confirm</string>
-    <string name="confirmation_nest_guest_not_found_lbl">NEST GUEST NOT FOUND!</string>
-    <string name="confirmation_register_button">Register</string>
-    <string name="confirmation_please_register_lbl">Please register to continue</string>
-    <string name="confirmation_sorry_guest_not_found_lbl">Sorry! We couldn\'t find a guest associated with the following barcode:</string>
+    <!-- Strings used in the guest visit confirmation layouts -->
+    <string name="guestVisitConfirmation_welcome_nest_guest_lbl">Welcome NEST Guest!</string>
+    <string name="guestVisitConfirmation_guest_info_confirmation">Please confirm that the following information is correct.</string>
+    <string name="guestVisitConfirmation_guest_name_lbl">GUEST NAME</string>
+    <string name="guestVisitConfirmation_guest_id">GUEST ID</string>
+    <string name="guestVisitConfirmation_confirm">Confirm</string>
+    <string name="guestVisitConfirmation_nest_guest_not_found_lbl">NEST GUEST NOT FOUND!</string>
+    <string name="guestVisitConfirmation_register_button">Register</string>
+    <string name="guestVisitConfirmation_please_register_lbl">Please register to continue</string>
+    <string name="guestVisitConfirmation_sorry_guest_not_found_lbl">Sorry! We couldn\'t find a guest associated with the following barcode:</string>
 
     <!-- END OF GUEST VISIT STRINGS -->
 
