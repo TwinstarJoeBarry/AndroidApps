@@ -1,22 +1,36 @@
 package edu.ncc.nest.nestapp.FragmentsGuestVisit;
 
-import android.content.DialogInterface;
+/**
+ * Copyright (C) 2020 The LibreFoodPantry Developers.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.fragment.app.Fragment;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,19 +85,19 @@ public class GuestQuestionnaireFragment extends Fragment implements View.OnClick
 
         } else
 
-            // NOTE: The following code may be only temporary depending on what defines the Guest's Id
             // Get info passed from the fragment result
             getParentFragmentManager().setFragmentResultListener("GUEST_CONFIRMED",
                     this, (requestKey, result) -> {
 
-                        final String BARCODE = result.getString("GUEST_ID");
+                        final String GUEST_ID = result.getString("GUEST_ID");
 
-                        if (BARCODE != null) {
+                        if (GUEST_ID != null) {
 
+                            // Get the EditText of the first question
                             EditText guestId = (EditText) inputFields.get(0);
 
-                            // Set the input field related to the Guest's Id as the barcode we scanned in previous fragment
-                            guestId.setText(BARCODE);
+                            // Set the input field's text related to the Guest's Id as the barcode we scanned in previous fragment
+                            guestId.setText(GUEST_ID);
 
                             // Disable it so the user can't modify his check-in id.
                             guestId.setEnabled(false);
@@ -129,7 +143,7 @@ public class GuestQuestionnaireFragment extends Fragment implements View.OnClick
                 if (fieldText.isEmpty()) {
 
                     // Create a Builder for an AlertDialog
-                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(requireContext());
+                    Builder alertDialogBuilder = new Builder(requireContext());
 
                     // Build the AlertDialog
                     alertDialogBuilder.setTitle(R.string.questionnaire_alert_title);
