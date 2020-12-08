@@ -22,18 +22,32 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.List;
+import edu.ncc.nest.nestapp.InventoryEntry;
+import edu.ncc.nest.nestapp.InventoryInfoSource;
 import edu.ncc.nest.nestapp.R;
 
 public class SelectItemFragment extends Fragment {
+    private InventoryInfoSource datasource;
+    private List<InventoryEntry> items;
+
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
+        datasource = new InventoryInfoSource(this.getContext());
+        datasource.open();
+
+        items = datasource.getProducts();
+
+
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_select_item, container, false);
     }
@@ -49,5 +63,27 @@ public class SelectItemFragment extends Fragment {
                         .navigate(R.id.action_StartFragment_to_ScanFragment);
             }
         });
+
+        view.findViewById(R.id.showInventory).setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+
+
+                Log.d("TEST", "It got here");
+//                items = datasource.getProducts();
+                if(items.isEmpty()) {
+                    Log.d("TEST", "It's empty");
+                }
+                Log.d("TEST", "It got here");
+                for(int i = 0; i < items.size(); i++){
+                    Log.d("TEST", items.get(i).getBarcodeNum());
+                }
+
+            }
+        });
     }
+
+
+
+
 }
