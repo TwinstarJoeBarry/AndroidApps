@@ -23,7 +23,7 @@
         android:textStyle="bold"
         android:textAllCaps="true"
         android:textColor="@android:color/white"
-        android:text="@string/welcome_nest_guest" />
+        android:text="@string/welcome_nest_guest_lbl" />
 
     <TextView
         android:id="@+id/confirmation_1_description"
@@ -61,7 +61,7 @@
             android:textStyle="bold"
             android:textAllCaps="true"
             android:textColor="@android:color/white"
-            android:text="@string/guest_name" />
+            android:text="@string/guest_name_lbl" />
 
         <TextView
             android:id="@+id/guest_name_lable"
@@ -83,7 +83,7 @@
             android:textStyle="bold"
             android:textAllCaps="true"
             android:textColor="@android:color/white"
-            android:text="GUEST ID" />
+            android:text="@string/guest_id" />
 
         <TextView
             android:id="@+id/guest_id_lable"
@@ -110,7 +110,7 @@
             android:layout_weight="0.5"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:text="Not you?"
+            android:text="@string/rescan_button"
             style="@style/Widget.AppCompat.Button.Colored"
             android:backgroundTint="@color/colorPrimaryDark"/>
 
@@ -120,7 +120,7 @@
             android:layout_weight="0.5"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:text="Confirm"
+            android:text="@string/confirm"
             style="@style/Widget.AppCompat.Button.Colored"
             android:backgroundTint="@color/colorPrimaryDark"/>
 
