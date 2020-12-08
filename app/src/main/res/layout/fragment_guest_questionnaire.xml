@@ -81,7 +81,7 @@
                 android:gravity="start"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:textColor="@android:color/primary_text_light"
+                android:textColor="@android:color/black"
                 android:text="@string/questionnaire_question_1" />
 
             <EditText
@@ -91,7 +91,7 @@
                 android:inputType="number"
                 android:textSize="16sp"
                 android:maxLength="16"
-                android:textColor="@android:color/primary_text_light"
+                android:textColor="@android:color/black"
                 android:hint="@string/questionnaire_hint_id"
                 android:autofillHints="" />
 
@@ -103,7 +103,7 @@
                 android:gravity="start"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:textColor="@android:color/primary_text_light"
+                android:textColor="@android:color/black"
                 android:text="@string/questionnaire_question_2" />
 
             <EditText
@@ -113,7 +113,7 @@
                 android:inputType="number"
                 android:textSize="16sp"
                 android:maxLength="2"
-                android:textColor="@android:color/primary_text_light"
+                android:textColor="@android:color/black"
                 android:hint="@string/questionnaire_hint_number"
                 android:autofillHints="" />
 
@@ -125,7 +125,7 @@
                 android:gravity="start"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:textColor="@android:color/primary_text_light"
+                android:textColor="@android:color/black"
                 android:text="@string/questionnaire_question_3" />
 
             <EditText
@@ -135,7 +135,7 @@
                 android:inputType="number"
                 android:textSize="16sp"
                 android:maxLength="2"
-                android:textColor="@android:color/primary_text_light"
+                android:textColor="@android:color/black"
                 android:hint="@string/questionnaire_hint_number"
                 android:autofillHints="" />
 
@@ -147,7 +147,7 @@
                 android:gravity="start"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:textColor="@android:color/primary_text_light"
+                android:textColor="@android:color/black"
                 android:text="@string/questionnaire_question_4" />
 
             <EditText
@@ -157,7 +157,7 @@
                 android:inputType="number"
                 android:textSize="16sp"
                 android:maxLength="2"
-                android:textColor="@android:color/primary_text_light"
+                android:textColor="@android:color/black"
                 android:hint="@string/questionnaire_hint_number"
                 android:autofillHints="" />
 
@@ -169,7 +169,7 @@
                 android:gravity="start"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:textColor="@android:color/primary_text_light"
+                android:textColor="@android:color/black"
                 android:text="@string/questionnaire_question_5" />
 
             <Spinner
