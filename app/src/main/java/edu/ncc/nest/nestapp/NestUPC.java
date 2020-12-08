@@ -22,11 +22,12 @@
 
 package edu.ncc.nest.nestapp;
 
+import java.io.Serializable;
 /**
  * this POJO holds the related upc, product and category fields
  * needed for lookup and processing of a Nest UPC code
  */
-public class NestUPC {
+public class NestUPC implements Serializable {
     private String upc, brand, description;
     private int productId;
     private String productName, productSubtitle;
