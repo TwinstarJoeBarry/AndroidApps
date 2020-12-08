@@ -1004,6 +1004,8 @@
     <string name="category">Category:</string>
     <string name="expiration_dat">Expiration date:</string>
 
+    <!-- START OF GUEST VISIT STRINGS -->
+
     <!-- Strings used for GuestScanFragment -->
     <string name="guest_scan_fragment_label">Guest Scan Fragment</string>
     <string name="rescan_button">Re-Scan Barcode</string>
@@ -1036,5 +1038,7 @@
     <string name="confirmation_register_button">Register</string>
     <string name="confirmation_please_register_lbl">Please register to continue</string>
     <string name="confirmation_sorry_guest_not_found_lbl">Sorry! We couldn\'t find a guest associated with the following barcode:</string>
+
+    <!-- END OF GUEST VISIT STRINGS -->
 
 </resources>
