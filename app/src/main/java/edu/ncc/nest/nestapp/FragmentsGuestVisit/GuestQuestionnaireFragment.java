@@ -23,6 +23,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -47,6 +48,8 @@ public class GuestQuestionnaireFragment extends Fragment implements View.OnClick
     // Stores a list of all the views that contain the user's responses
     private List<View> inputFields;
 
+    private Button submitButton;
+
 
     ////////////// Lifecycle Methods Start //////////////
 
@@ -67,11 +70,15 @@ public class GuestQuestionnaireFragment extends Fragment implements View.OnClick
         inputFields = getInputFields(view);
 
         // Get a reference to the submit button and set this class as the onClickListener
-        view.findViewById(R.id.questionnaire_submit_btn).setOnClickListener(this);
+        submitButton = view.findViewById(R.id.questionnaire_submit_btn);
+
+        submitButton.setOnClickListener(this);
 
         if (savedInstanceState != null) {
 
-            boolean[] isEnabled = savedInstanceState.getBooleanArray("INPUT_FIELD_IS_ENABLED");
+            submitButton.setEnabled(savedInstanceState.getBoolean("SUBMIT_ENABLED"));
+
+            boolean[] isEnabled = savedInstanceState.getBooleanArray("INPUT_FIELD_ENABLED");
 
             if (isEnabled != null) {
 
@@ -108,9 +115,6 @@ public class GuestQuestionnaireFragment extends Fragment implements View.OnClick
 
     }
 
-
-    ////////////// Other Event Methods Start  //////////////
-
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
 
@@ -122,17 +126,23 @@ public class GuestQuestionnaireFragment extends Fragment implements View.OnClick
             isEnabled[i] = inputFields.get(i).isEnabled();
 
         // Put the all field enabled states into the Bundle
-        outState.putBooleanArray("INPUT_FIELD_IS_ENABLED", isEnabled);
+        outState.putBooleanArray("INPUT_FIELD_ENABLED", isEnabled);
+
+        // Put the enabled state of the submit button into the bundle
+        outState.putBoolean("SUBMIT_ENABLED", submitButton.isEnabled());
 
         super.onSaveInstanceState(outState);
 
     }
+
+    ////////////// Other Event Methods Start  //////////////
 
     @Override
     public void onClick(View view) {
 
         if (view.getId() == R.id.questionnaire_submit_btn) {
 
+            // Used to store the guest's answers
             List<String> fieldTexts = new ArrayList<>();
 
             for (View inputField : inputFields) {
@@ -170,9 +180,16 @@ public class GuestQuestionnaireFragment extends Fragment implements View.OnClick
 
                 inputField.setEnabled(false);
 
+            // Disable the submit button
+            submitButton.setEnabled(false);
+
+            // Print the answers to the log
             Log.d(TAG, "Guest's Answers: " + fieldTexts.toString());
 
+            // Display toast saying the questionnaire has been submitted
             Toast.makeText(getContext(), "Questionnaire Submitted. See Log.", Toast.LENGTH_SHORT).show();
+
+            // TODO Store the answers in a local database
 
             // Disabled this for now for test so we can compare the log statement to the answers entered.
 
