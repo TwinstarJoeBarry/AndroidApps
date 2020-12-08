@@ -161,7 +161,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:entries="@array/array_yes_no"
-                android:spinnerMode="dialog" />
+                android:spinnerMode="dialog"
+                android:prompt="@string/questionnaire_spinner_prompt" />
 
         </LinearLayout>
 

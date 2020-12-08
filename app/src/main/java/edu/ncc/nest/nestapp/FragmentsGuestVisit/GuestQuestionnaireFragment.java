@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
@@ -85,21 +86,21 @@ public class GuestQuestionnaireFragment extends Fragment implements View.OnClick
             // NOTE: This line may only be temporary depending on what defines the Guest's Id
             inputFields.get(0).setEnabled(savedInstanceState.getBoolean("GUEST_ID_ENABLED"));
 
-            String[] fieldText = savedInstanceState.getStringArray("INPUT_FIELD_TEXT");
+            String[] fieldState = savedInstanceState.getStringArray("INPUT_FIELD_STATE");
 
-            if (fieldText != null) {
+            if (fieldState != null) {
 
-                for (int i = fieldText.length; i-- > 0; ) {
+                for (int i = fieldState.length; i-- > 0; ) {
 
                     View inputField = inputFields.get(i);
 
                     if (inputField instanceof EditText)
 
-                        ((EditText) inputField).setText(fieldText[i]);
+                        ((EditText) inputField).setText(fieldState[i]);
 
                     else if (inputField instanceof Spinner)
 
-                        ((Spinner) inputField).setSelection(calcSpinnerSelection(fieldText[i]));
+                        ((Spinner) inputField).setSelection(Integer.parseInt(fieldState[i]));
 
                 }
 
@@ -123,15 +124,15 @@ public class GuestQuestionnaireFragment extends Fragment implements View.OnClick
         outState.putBoolean("GUEST_ID_ENABLED", guestIdEnabled);
 
         // Create an array big enough to store the text of each input field
-        String[] fieldText = new String[inputFields.size()];
+        String[] fieldState = new String[inputFields.size()];
 
         // Loop through each input field and get the text of each field
-        for (int i = fieldText.length; i-- > 0;)
+        for (int i = fieldState.length; i-- > 0;)
 
-            fieldText[i] = getInputFieldText(inputFields.get(i));
+            fieldState[i] = getInputFieldStateAsString(inputFields.get(i));
 
         // Put the array of text into the Bundle
-        outState.putStringArray("INPUT_FIELD_TEXT", fieldText);
+        outState.putStringArray("INPUT_FIELD_STATE", fieldState);
 
         super.onSaveInstanceState(outState);
 
@@ -224,11 +225,12 @@ public class GuestQuestionnaireFragment extends Fragment implements View.OnClick
     }
 
     /**
-     * Takes 1 NonNull parameter. Checks whether or not the supplied view is an instance of
+     * Takes 1 NonNull parameter. Checks whether or not the supplied View is an instance of
      * EditText or Spinner then casts to it. It then returns the string entered by the user, that
      * is stored within that view.
-     * @param view The view to get the text from
-     * @return The string entered into that view by the user
+     * @param view The View/field to get the text from
+     * @return The string entered into that View/field by the user
+     * @throws ClassCastException If the View/field is not an instance of EditText or Spinner
      */
     private static String getInputFieldText(@NonNull View view) {
 
@@ -244,11 +246,25 @@ public class GuestQuestionnaireFragment extends Fragment implements View.OnClick
 
     }
 
-    private int calcSpinnerSelection(@NonNull String text) {
+    /**
+     * Takes 1 NonNull parameter. Checks whether or not the supplied View is an instance of
+     * EditText or Spinner then casts to it. It then returns the state of the View as a String.
+     * @param inputField The View/field to get the state of
+     * @return The text entered into the View if the View is an instance of EditText or the selected
+     * item position if the View is an instance of Spinner, as a String.
+     * @throws ClassCastException If the View/field is not an instance of EditText or Spinner
+     */
+    private static String getInputFieldStateAsString(@NonNull View inputField) {
 
-        final String[] arrayYesNo = getResources().getStringArray(R.array.array_yes_no);
+        if (inputField instanceof EditText)
 
-        return (text.equals(arrayYesNo[0]) ? 0 : text.equals(arrayYesNo[1]) ? 1 : 2);
+            return ((EditText) inputField).getText().toString();
+
+        else if (inputField instanceof Spinner)
+
+            return String.valueOf(((Spinner) inputField).getSelectedItemPosition());
+
+        throw new ClassCastException("Parameter view is not a valid input field");
 
     }
 
