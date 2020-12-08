@@ -1013,6 +1013,11 @@
     <string name="questionnaire_question_5">Is this your first visit to the NEST?</string>
     <string name="questionnaire_hint_number">Enter a number</string>
     <string name="questionnaire_hint_id">NEST Guest Id#</string>
+    <string name="click_to_display_true_expiration_date">click to display true expiration date</string>
+    <string name="item">Item:</string>
+    <string name="upc_text">UPC:</string>
+    <string name="category">Category:</string>
+    <string name="expiration_dat">Expiration date:</string>
     <string-array name="array_yes_no">
         <item>Yes</item>
         <item>No</item>
