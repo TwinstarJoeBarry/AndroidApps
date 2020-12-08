@@ -1018,6 +1018,9 @@
     <string name="upc_text">UPC:</string>
     <string name="category">Category:</string>
     <string name="expiration_dat">Expiration date:</string>
+    <string name="welcome_nest_guest">Welcome NEST Guest!</string>
+    <string name="guest_info_confirmation">Please confirm that the following information is correct.</string>
+    <string name="guest_name">GUEST NAME</string>
     <string-array name="array_yes_no">
         <item>Yes</item>
         <item>No</item>

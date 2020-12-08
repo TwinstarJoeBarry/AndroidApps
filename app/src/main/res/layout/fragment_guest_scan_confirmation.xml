@@ -23,7 +23,7 @@
         android:textStyle="bold"
         android:textAllCaps="true"
         android:textColor="@android:color/white"
-        android:text="Welcome NEST Guest!" />
+        android:text="@string/welcome_nest_guest" />
 
     <TextView
         android:id="@+id/confirmation_1_description"
@@ -40,7 +40,7 @@
         android:textSize="16sp"
         android:textStyle="bold|italic"
         android:textColor="@android:color/white"
-        android:text="Please confirm that the following information is correct."
+        android:text="@string/guest_info_confirmation"
         android:backgroundTint="@color/colorPrimaryDark"
         android:background="@android:drawable/dialog_frame" />
 
@@ -61,7 +61,7 @@
             android:textStyle="bold"
             android:textAllCaps="true"
             android:textColor="@android:color/white"
-            android:text="GUEST NAME" />
+            android:text="@string/guest_name" />
 
         <TextView
             android:id="@+id/guest_name_lable"
