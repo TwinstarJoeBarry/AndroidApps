@@ -2,7 +2,7 @@ package edu.ncc.nest.nestapp.FragmentsGuestVisit;
 
 /**
  *
- * Copyright (C) 2019 The LibreFoodPantry Developers.
+ * Copyright (C) 2020 The LibreFoodPantry Developers.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -57,15 +57,16 @@ public class GuestScanConfirmationFragment extends Fragment implements View.OnCl
 
     public void onViewCreated( @NonNull View view, Bundle savedInstanceState ) {
         super.onViewCreated( view, savedInstanceState );
-        ViewFlipper viewFlipper = (ViewFlipper) view.findViewById(R.id.confirmation_view_flipper);
 
         if (savedInstanceState != null) {
+
             // Get guest name
             guestName = savedInstanceState.getString("NAME");
             // Get guest id
             guestId = savedInstanceState.getString("ID");
 
             selectDisplayedView(view.findViewById(R.id.confirmation_view_flipper));
+
         } else
 
             getParentFragmentManager().setFragmentResultListener("CONFIRM_SCAN",
@@ -90,6 +91,7 @@ public class GuestScanConfirmationFragment extends Fragment implements View.OnCl
         outState.putString("ID", guestId);
 
         super.onSaveInstanceState(outState);
+
     }
 
     /************ Implementation Methods Start ************/
@@ -171,6 +173,7 @@ public class GuestScanConfirmationFragment extends Fragment implements View.OnCl
         // Display the guest's name and id
         ((TextView) view.findViewById(R.id.guest_name_lable)).setText(guestName);
         ((TextView) view.findViewById(R.id.guest_id_lable)).setText(guestId);
+
     }
 
     /**
@@ -186,5 +189,6 @@ public class GuestScanConfirmationFragment extends Fragment implements View.OnCl
 
         // Display the barcode
         ((TextView) view.findViewById(R.id.confirmation_0_guest_id)).setText(guestId);
+
     }
 }

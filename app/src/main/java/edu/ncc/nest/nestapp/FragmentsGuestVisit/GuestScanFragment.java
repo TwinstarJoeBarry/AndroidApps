@@ -93,6 +93,7 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
     // Stores the bar code that has been scanned
     private String barcodeResult = null;
 
+
     ////////////// Lifecycle Methods Start //////////////
 
     @Override
@@ -193,6 +194,7 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
 
     }
 
+
     ////////////// Other Event Methods Start  //////////////
 
     @Override
@@ -264,6 +266,7 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
 
                 // If the guest is registered, include the guest's name in the result
                 resultBundle.putString("GUEST_NAME", GUEST_NAME);
+
             }
 
             // Set the fragment result to the bundle
@@ -278,7 +281,7 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
     }
 
 
-    /************ Custom Methods Start ************/
+    ////////////// Custom Methods Start  //////////////
 
     /**
      * Takes 1 parameter. This method gets called by the REQUEST_CAMERA_PERMISSION_LAUNCHER, after
