@@ -114,7 +114,7 @@ public class GuestScanConfirmationFragment extends Fragment implements View.OnCl
 
             // Put the Guest's info into the bundle
             guestInfo.putString("GUEST_NAME", guestName);
-            guestInfo.putString("BARCODE", guestId);
+            guestInfo.putString("GUEST_ID", guestId);
 
             // Set the FragmentManager
             getParentFragmentManager().setFragmentResult("GUEST_CONFIRMED", guestInfo);
