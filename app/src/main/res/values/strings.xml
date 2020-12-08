@@ -1014,6 +1014,7 @@
     <string name="questionnaire_hint_number">Enter a number</string>
     <string name="questionnaire_hint_id">NEST Guest Id#</string>
     <string-array name="array_yes_no">
+        <item>Choose an answer</item>
         <item>Yes</item>
         <item>No</item>
     </string-array>

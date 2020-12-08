@@ -99,7 +99,7 @@ public class GuestQuestionnaireFragment extends Fragment implements View.OnClick
 
                     else if (inputField instanceof Spinner)
 
-                        ((Spinner) inputField).setSelection(fieldText[i].equals("Yes") ? 0 : 1);
+                        ((Spinner) inputField).setSelection(calcSpinnerSelection(fieldText[i]));
 
                 }
 
@@ -149,8 +149,18 @@ public class GuestQuestionnaireFragment extends Fragment implements View.OnClick
                 // Get the text from the current input field
                 String fieldText = getInputFieldText(inputField);
 
-                // If the field is empty set its value in the list to null
-                fieldTexts.add(!fieldText.isEmpty() ? fieldText : null);
+                if (!fieldText.isEmpty()) {
+
+                    // If the field is empty set its value in the list to null
+                    fieldTexts.add(fieldText);
+
+                } else {
+
+                    // TODO Display a dialog that tells the user to finish answering all the questions
+                    
+                    return;
+
+                }
 
             }
 
@@ -231,6 +241,14 @@ public class GuestQuestionnaireFragment extends Fragment implements View.OnClick
             return ((Spinner) view).getSelectedItem().toString();
 
         throw new ClassCastException("Parameter view is not a valid input field");
+
+    }
+
+    private int calcSpinnerSelection(@NonNull String text) {
+
+        final String[] arrayYesNo = getResources().getStringArray(R.array.array_yes_no);
+
+        return (text.equals(arrayYesNo[0]) ? 0 : text.equals(arrayYesNo[1]) ? 1 : 2);
 
     }
 
