@@ -109,13 +109,13 @@ public class ScanFragment extends Fragment implements BarcodeCallback, View.OnCl
         super.onViewCreated(view, savedInstanceState);
 
         // Get respective views from layout
-        decBarcodeView = (DecoratedBarcodeView) view.findViewById(R.id.zxing_barcode_scanner);
+        decBarcodeView = view.findViewById(R.id.zxing_barcode_scanner);
 
-        confirmButton = (Button) view.findViewById(R.id.guest_scan_confirm_button);
+        confirmButton = view.findViewById(R.id.guest_scan_confirm_button);
 
-        rescanButton = (Button) view.findViewById(R.id.guest_scan_rescan_button);
+        rescanButton = view.findViewById(R.id.guest_scan_rescan_button);
 
-        resultTextView = (TextView) view.findViewById(R.id.guest_scan_result_view);
+        resultTextView = view.findViewById(R.id.guest_scan_result_view);
 
 
         // Specifies which barcode formats to decode. (Removing this line, defaults scanner to use all formats)
