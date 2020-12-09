@@ -177,10 +177,14 @@ public class ScanFragment extends Fragment implements BarcodeCallback, View.OnCl
     public void onPause() {
         super.onPause();
 
-        // Since we have paused the fragment, pause and wait for the camera to close
-        decBarcodeView.pauseAndWait();
+        if (!scannerPaused) {
 
-        scannerPaused = true;
+            // Since we have paused the fragment, pause and wait for the camera to close
+            decBarcodeView.pauseAndWait();
+
+            scannerPaused = true;
+
+        }
 
     }
 
@@ -188,7 +192,7 @@ public class ScanFragment extends Fragment implements BarcodeCallback, View.OnCl
     public void onDestroy() {
 
         // Make sure we have the view in-case the view isn't initialized before destruction
-        if (decBarcodeView != null) {
+        if (decBarcodeView != null && !scannerPaused) {
 
             // Since we are destroying the fragment, pause and wait for the camera to close
             decBarcodeView.pauseAndWait();
