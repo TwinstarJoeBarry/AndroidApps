@@ -1,15 +1,35 @@
 package edu.ncc.nest.nestapp.FragmentsGuestVisit;
 
+/**
+ * Copyright (C) 2020 The LibreFoodPantry Developers.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
@@ -27,6 +47,8 @@ public class GuestQuestionnaireFragment extends Fragment implements View.OnClick
 
     // Stores a list of all the views that contain the user's responses
     private List<View> inputFields;
+
+    private Button submitButton;
 
 
     ////////////// Lifecycle Methods Start //////////////
@@ -48,30 +70,41 @@ public class GuestQuestionnaireFragment extends Fragment implements View.OnClick
         inputFields = getInputFields(view);
 
         // Get a reference to the submit button and set this class as the onClickListener
-        view.findViewById(R.id.questionnaire_submit_btn).setOnClickListener(this);
+        submitButton = view.findViewById(R.id.questionnaire_submit_btn);
 
-        if (savedInstanceState == null) {
+        submitButton.setOnClickListener(this);
 
-            // NOTE: The following code may be only temporary depending on what defines the Guest's Id
+        if (savedInstanceState != null) {
+
+            submitButton.setEnabled(savedInstanceState.getBoolean("SUBMIT_ENABLED"));
+
+            boolean[] isEnabled = savedInstanceState.getBooleanArray("INPUT_FIELD_ENABLED");
+
+            if (isEnabled != null) {
+
+                for (int i = isEnabled.length; i-- > 0; )
+
+                    inputFields.get(i).setEnabled(isEnabled[i]);
+
+            } else
+
+                throw new NullPointerException("Failed to restore saved state");
+
+        } else
 
             // Get info passed from the fragment result
             getParentFragmentManager().setFragmentResultListener("GUEST_CONFIRMED",
                     this, (requestKey, result) -> {
 
-                        /**
-                         * NOTE: Set the fragment result to the same result sent to this one, so if the guest
-                         * presses the back button, it sends the guest info back to the confirmation fragment.
-                         */
-                        getParentFragmentManager().setFragmentResult("CONFIRM_SCAN", result);
+                        final String GUEST_ID = result.getString("GUEST_ID");
 
-                        final String BARCODE = result.getString("BARCODE");
+                        if (GUEST_ID != null) {
 
-                        if (BARCODE != null) {
-
+                            // Get the EditText of the first question
                             EditText guestId = (EditText) inputFields.get(0);
 
-                            // Set the input field related to the Guest's Id as the barcode we scanned in previous fragment
-                            guestId.setText(BARCODE);
+                            // Set the input field's text related to the Guest's Id as the barcode we scanned in previous fragment
+                            guestId.setText(GUEST_ID);
 
                             // Disable it so the user can't modify his check-in id.
                             guestId.setEnabled(false);
@@ -80,68 +113,36 @@ public class GuestQuestionnaireFragment extends Fragment implements View.OnClick
 
                     });
 
-        } else {
-
-            // NOTE: This line may only be temporary depending on what defines the Guest's Id
-            inputFields.get(0).setEnabled(savedInstanceState.getBoolean("GUEST_ID_ENABLED"));
-
-            String[] fieldText = savedInstanceState.getStringArray("INPUT_FIELD_TEXT");
-
-            if (fieldText != null) {
-
-                for (int i = fieldText.length; i-- > 0; ) {
-
-                    View inputField = inputFields.get(i);
-
-                    if (inputField instanceof EditText)
-
-                        ((EditText) inputField).setText(fieldText[i]);
-
-                    else if (inputField instanceof Spinner)
-
-                        ((Spinner) inputField).setSelection(fieldText[i].equals("Yes") ? 0 : 1);
-
-                }
-
-            } else
-
-                throw new NullPointerException("Failed to restore saved state: fieldText is null");
-
-        }
-
     }
 
-
-    ////////////// Other Event Methods Start  //////////////
-
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
 
-        // NOTE: These next two lines may only be temporary depending on what defines the Guest's Id
-        boolean guestIdEnabled = inputFields.get(0).isEnabled();
+        boolean[] isEnabled = new boolean[inputFields.size()];
 
-        outState.putBoolean("GUEST_ID_ENABLED", guestIdEnabled);
+        // Loop through each input field and get the enabled state of each field
+        for (int i = isEnabled.length; i-- > 0;)
 
-        // Create an array big enough to store the text of each input field
-        String[] fieldText = new String[inputFields.size()];
+            isEnabled[i] = inputFields.get(i).isEnabled();
 
-        // Loop through each input field and get the text of each field
-        for (int i = fieldText.length; i-- > 0;)
+        // Put the all field enabled states into the Bundle
+        outState.putBooleanArray("INPUT_FIELD_ENABLED", isEnabled);
 
-            fieldText[i] = getInputFieldText(inputFields.get(i));
-
-        // Put the array of text into the Bundle
-        outState.putStringArray("INPUT_FIELD_TEXT", fieldText);
+        // Put the enabled state of the submit button into the bundle
+        outState.putBoolean("SUBMIT_ENABLED", submitButton.isEnabled());
 
         super.onSaveInstanceState(outState);
 
     }
+
+    ////////////// Other Event Methods Start  //////////////
 
     @Override
     public void onClick(View view) {
 
         if (view.getId() == R.id.questionnaire_submit_btn) {
 
+            // Used to store the guest's answers
             List<String> fieldTexts = new ArrayList<>();
 
             for (View inputField : inputFields) {
@@ -149,12 +150,46 @@ public class GuestQuestionnaireFragment extends Fragment implements View.OnClick
                 // Get the text from the current input field
                 String fieldText = getInputFieldText(inputField);
 
-                // If the field is empty set its value in the list to null
-                fieldTexts.add(!fieldText.isEmpty() ? fieldText : null);
+                if (fieldText.isEmpty()) {
+
+                    // Create a Builder for an AlertDialog
+                    Builder alertDialogBuilder = new Builder(requireContext());
+
+                    // Build the AlertDialog
+                    alertDialogBuilder.setTitle(R.string.questionnaire_alert_title);
+
+                    alertDialogBuilder.setMessage(R.string.questionnaire_alert_msg);
+
+                    alertDialogBuilder.setPositiveButton("OK", null);
+
+                    alertDialogBuilder.setCancelable(false);
+
+                    // Create the AlertDialog and show it
+                    alertDialogBuilder.create().show();
+
+                    return;
+
+                } else
+
+                    // If the field is empty set its value in the list to null
+                    fieldTexts.add(fieldText);
 
             }
 
+            for (View inputField : inputFields)
+
+                inputField.setEnabled(false);
+
+            // Disable the submit button
+            submitButton.setEnabled(false);
+
+            // Print the answers to the log
             Log.d(TAG, "Guest's Answers: " + fieldTexts.toString());
+
+            // Display toast saying the questionnaire has been submitted
+            Toast.makeText(getContext(), "Questionnaire Submitted. See Log.", Toast.LENGTH_SHORT).show();
+
+            // TODO Store the answers in a local database
 
             // Disabled this for now for test so we can compare the log statement to the answers entered.
 
@@ -214,11 +249,12 @@ public class GuestQuestionnaireFragment extends Fragment implements View.OnClick
     }
 
     /**
-     * Takes 1 NonNull parameter. Checks whether or not the supplied view is an instance of
+     * Takes 1 NonNull parameter. Checks whether or not the supplied View is an instance of
      * EditText or Spinner then casts to it. It then returns the string entered by the user, that
      * is stored within that view.
-     * @param view The view to get the text from
-     * @return The string entered into that view by the user
+     * @param view The View/field to get the text from
+     * @return The string entered into that View/field by the user
+     * @throws ClassCastException If the View/field is not an instance of EditText or Spinner
      */
     private static String getInputFieldText(@NonNull View view) {
 

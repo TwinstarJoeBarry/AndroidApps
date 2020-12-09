@@ -24,6 +24,7 @@ import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -35,18 +36,36 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import edu.ncc.nest.nestapp.NestDBDataSource;
+
+
+
+
+
+import java.util.List;
+import edu.ncc.nest.nestapp.InventoryEntry;
+import edu.ncc.nest.nestapp.InventoryInfoSource;
 import edu.ncc.nest.nestapp.R;
 
-public class SelectItemFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemSelectedListener
-{
-    NestDBDataSource database;
-    String name, description;
-    int category, product;
+public class SelectItemFragment extends Fragment {
+    private InventoryInfoSource datasource;
+    private List<InventoryEntry> items;
+
+    @Override
+    public View onCreateView(
+            LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState
+    ) {
+        datasource = new InventoryInfoSource(this.getContext());
+        datasource.open();
+
+        items = datasource.getProducts();
 
 
-    @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-    {
+
+        // Inflate the layout for this fragment
+
+
+
         return inflater.inflate(R.layout.fragment_select_item, container, false);
     }
 
@@ -125,64 +144,26 @@ public class SelectItemFragment extends Fragment implements View.OnClickListener
             }
         });
 
-    } // onViewCreated()
 
-
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
-    {
-
-    }
-
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent)
-    {
-
-    }
-
-    @Override
-    public void onClick(View v)
-    {
-
-    }
-
-
-    /**
-     * showItemMenu method --
-     * onClick for the Item button; loads and shows the item menu using the items ArrayList instance
-     * variable. Item menu is empty before a user selects a category.
-     *
-     * @param v - the Item button
-     */
-    public void showItemMenu(View v){
-        // nothing to show? skip it
-        // todo show a message if waiting?
-        // create popup menu for item selection
-        PopupMenu itemPop = new PopupMenu(getContext(), v);
-        // attach method to take action when item is selected by the user
-        itemPop.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+        view.findViewById(R.id.showInventory).setOnClickListener(new View.OnClickListener(){
             @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                // update selected item position and display
-                selectedItemPosition = item.getItemId();
-                itemDisplay.setText(item.getTitle().toString());
-                // todo do something regarding calculate button here (? - depends on implementation)
-                // todo make use of ShelfLife (may need to have user choose) of selected `Product` to calc date
-                return true;
+            public void onClick(View view) {
+
+
+                Log.d("TEST", "It got here");
+//                items = datasource.getProducts();
+                if(items.isEmpty()) {
+                    Log.d("TEST", "It's empty");
+                }
+                Log.d("TEST", "It got here");
+                for(int i = 0; i < items.size(); i++){
+                    Log.d("TEST", items.get(i).getBarcodeNum());
+                }
+
             }
         });
-        // build the popup menu content by creating menuitems from the items list
-        for(int i = 0; i < items.size(); i++)
-            // Menu.NONE means this menuitem should not be part of any group
-            // i is our desired "Id" (position in the list, actually) for this menuitem
-            // i is also for the menuitem's display ordering position
-            // items.get(i). is the "item (subitem)" description
-            itemPop.getMenu().add(Menu.NONE, i, i, items.get(i).getName());
-        // todo should add subtitle if applicable, but this will necessitate using something other than PopupMenu
-        // show the popup menu
-        itemPop.show();
     }
+
 
 
 

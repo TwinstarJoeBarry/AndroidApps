@@ -1,4 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+* Copyright (C) 2020 The LibreFoodPantry Developers.
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program.  If not, see <https://www.gnu.org/licenses/>.
+-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -6,7 +22,7 @@
     android:gravity="center_horizontal"
     android:paddingTop="5dp"
     android:orientation="vertical"
-    android:background="@color/colorPrimary"
+    android:background="@color/colorPrimaryShaded"
     tools:context=".FragmentsGuestVisit.GuestScanConfirmationFragment" >
 
     <TextView
@@ -14,44 +30,45 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginVertical="4dp"
-        android:shadowColor="@android:color/black"
-        android:shadowRadius="2"
+        android:layout_marginTop="8dp"
+        android:shadowColor="@android:color/darker_gray"
+        android:shadowRadius="1"
         android:shadowDx="-4"
         android:shadowDy="4"
         android:textSize="26sp"
         android:textStyle="bold"
         android:textAllCaps="true"
+        android:fontFamily="casual"
         android:textColor="@android:color/white"
-        android:text="Welcome NEST Guest!" />
+        android:text="@string/guestVisitConfirmation_welcome_nest_guest_lbl" />
 
     <TextView
         android:id="@+id/confirmation_1_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="6dp"
+        android:layout_marginVertical="4dp"
         android:paddingHorizontal="24dp"
-        android:paddingBottom="30dp"
-        android:paddingTop="24dp"
+        android:paddingVertical="18dp"
         android:gravity="center"
-        android:shadowColor="@android:color/black"
-        android:shadowRadius="1"
-        android:shadowDx="-2"
-        android:shadowDy="2"
         android:textSize="16sp"
         android:textStyle="bold|italic"
         android:textColor="@android:color/white"
-        android:text="Please confirm that the following information is correct."
-        android:backgroundTint="@color/colorPrimaryDark"
-        android:background="@android:drawable/dialog_frame" />
+        android:text="@string/guestVisitConfirmation_guest_info_confirmation"
+        android:backgroundTint="@color/colorPrimary"
+        android:background="@drawable/background_dialog" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="6dp"
+        android:layout_marginVertical="4dp"
+        android:paddingHorizontal="24dp"
+        android:paddingVertical="18dp"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:padding="24dp"
-        android:backgroundTint="@color/colorPrimaryDark"
-        android:background="@android:drawable/dialog_frame" >
+        android:backgroundTint="@color/colorPrimary"
+        android:background="@drawable/background_dialog" >
 
         <TextView
             android:id="@+id/confirmation_1_guest_name_label"
@@ -61,7 +78,7 @@
             android:textStyle="bold"
             android:textAllCaps="true"
             android:textColor="@android:color/white"
-            android:text="GUEST NAME" />
+            android:text="@string/guestVisitConfirmation_guest_name_lbl" />
 
         <TextView
             android:id="@+id/guest_name_lable"
@@ -71,8 +88,7 @@
             android:textSize="16sp"
             android:textStyle="italic"
             android:textAllCaps="true"
-            android:textColor="@android:color/white"
-            android:text="" />
+            android:textColor="@android:color/white" />
 
         <TextView
             android:id="@+id/confirmation_1_guest_id_label"
@@ -83,7 +99,7 @@
             android:textStyle="bold"
             android:textAllCaps="true"
             android:textColor="@android:color/white"
-            android:text="GUEST ID" />
+            android:text="@string/guestVisitConfirmation_guest_id" />
 
         <TextView
             android:id="@+id/guest_id_lable"
@@ -93,15 +109,16 @@
             android:textSize="16sp"
             android:textStyle="italic"
             android:textAllCaps="true"
-            android:textColor="@android:color/white"
-            android:text="" />
+            android:textColor="@android:color/white" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="8dp"
+        android:layout_marginHorizontal="6dp"
+        android:layout_marginBottom="6dp"
+        android:layout_marginTop="4dp"
         android:orientation="horizontal" >
 
         <Button
@@ -110,9 +127,10 @@
             android:layout_weight="0.5"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:text="Not you?"
+            android:layout_marginEnd="1dp"
+            android:text="@string/guestScan_rescan_button"
             style="@style/Widget.AppCompat.Button.Colored"
-            android:backgroundTint="@color/colorPrimaryDark"/>
+            android:backgroundTint="@color/colorPrimary"/>
 
         <Button
             android:id="@+id/name_confirmed"
@@ -120,9 +138,10 @@
             android:layout_weight="0.5"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:text="Confirm"
+            android:layout_marginStart="1dp"
+            android:text="@string/guestVisitConfirmation_confirm"
             style="@style/Widget.AppCompat.Button.Colored"
-            android:backgroundTint="@color/colorPrimaryDark"/>
+            android:backgroundTint="@color/colorPrimary"/>
 
     </LinearLayout>
 

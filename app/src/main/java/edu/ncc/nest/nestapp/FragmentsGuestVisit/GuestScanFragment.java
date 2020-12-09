@@ -110,13 +110,13 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
         super.onViewCreated(view, savedInstanceState);
 
         // Get respective views from layout
-        decBarcodeView = (DecoratedBarcodeView) view.findViewById(R.id.zxing_barcode_scanner);
+        decBarcodeView = view.findViewById(R.id.zxing_barcode_scanner);
 
-        confirmButton = (Button) view.findViewById(R.id.confirm_scan_button);
+        resultTextView = view.findViewById(R.id.scan_result_textview);
 
-        rescanButton = (Button) view.findViewById(R.id.rescan_button);
+        confirmButton = view.findViewById(R.id.confirm_scan_button);
 
-        resultTextView = (TextView) view.findViewById(R.id.scan_result_textview);
+        rescanButton = view.findViewById(R.id.rescan_button);
 
 
         // Specifies which barcode formats to decode. (Removing this line, defaults scanner to use all formats)
@@ -314,7 +314,7 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
         if (scannerPaused) {
 
             // Update the display text so the user knows we are waiting for them to scan a barcode
-            resultTextView.setText(getString(R.string.scan_result_textview));
+            resultTextView.setText(getString(R.string.guestScan_scan_result_textview));
 
             // Disable the feedback buttons until we scan another barcode
             setFeedbackButtonsEnabled(false);
