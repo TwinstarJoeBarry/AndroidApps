@@ -88,6 +88,7 @@
                 android:id="@+id/questionnaire_q1_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:saveEnabled="true"
                 android:inputType="number"
                 android:textSize="16sp"
                 android:maxLength="16"
@@ -110,6 +111,7 @@
                 android:id="@+id/questionnaire_q2_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:saveEnabled="true"
                 android:inputType="number"
                 android:textSize="16sp"
                 android:maxLength="2"
@@ -132,6 +134,7 @@
                 android:id="@+id/questionnaire_q3_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:saveEnabled="true"
                 android:inputType="number"
                 android:textSize="16sp"
                 android:maxLength="2"
@@ -154,6 +157,7 @@
                 android:id="@+id/questionnaire_q4_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:saveEnabled="true"
                 android:inputType="number"
                 android:textSize="16sp"
                 android:maxLength="2"
@@ -176,8 +180,10 @@
                 android:id="@+id/questionnaire_q5_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:saveEnabled="true"
                 android:entries="@array/array_yes_no"
-                android:spinnerMode="dialog" />
+                android:spinnerMode="dialog"
+                android:prompt="@string/questionnaire_spinner_prompt" />
 
         </LinearLayout>
 
