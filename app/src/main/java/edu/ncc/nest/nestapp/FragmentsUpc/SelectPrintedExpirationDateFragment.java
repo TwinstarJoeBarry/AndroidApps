@@ -16,19 +16,30 @@ package edu.ncc.nest.nestapp.FragmentsUpc;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import edu.ncc.nest.nestapp.DatePickerFragment;
 import edu.ncc.nest.nestapp.R;
 
-public class SelectPrintedExpirationDateFragment extends Fragment {
+import android.widget.DatePicker;
+
+
+public class SelectPrintedExpirationDateFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
+
+    private String selectedDate;
+
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
@@ -41,7 +52,27 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        view.findViewById(R.id.button_select_date_next).setOnClickListener(new View.OnClickListener() {
+
+        // select date button pressed
+        view.findViewById(R.id.button_select_date).setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                // Create a DatePicker object
+                DialogFragment datePicker = new DatePickerFragment();
+                // Show datePicker
+                datePicker.show(getParentFragmentManager(), "date picker");
+
+                
+
+            }
+        });
+
+
+        view.findViewById(R.id.button_confirm_date).setOnClickListener(new View.OnClickListener() {
+
+            // TODO: if statement to see if a date was actually selected, if no date then send toast to use date picker
+
             @Override
             public void onClick(View view) {
                 // navigation has yet to be set up in the nav_graph.xml
@@ -49,5 +80,10 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
                         .navigate(R.id.action_StartFragment_to_ScanFragment);
             }
         });
+    }
+
+    @Override
+    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+
     }
 }

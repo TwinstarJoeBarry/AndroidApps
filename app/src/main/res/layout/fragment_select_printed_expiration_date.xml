@@ -28,19 +28,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/in_select_expiration_fragment"
-        app:layout_constraintBottom_toTopOf="@id/button_select_date_next"
+        app:layout_constraintBottom_toTopOf="@id/button_confirm_date"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button_select_date_next"
+        android:id="@+id/button_confirm_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/next"
+        android:text="Confirm Date"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textview_select_expiration" />
+
+    <Button
+        android:id="@+id/button_select_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Choose Date"
+        tools:layout_editor_absoluteX="147dp"
+        tools:layout_editor_absoluteY="341dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
