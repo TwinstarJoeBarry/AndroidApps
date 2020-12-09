@@ -1011,7 +1011,7 @@
     <string name="guest_scan_rescan_button">Re-Scan Barcode</string>
     <string name="guest_scan_confirm_button">Confirm Scan</string>
     <string name="guest_scan_waiting_for_scan">Waiting for scan …</string>
-    <string name="guest_scan_camera_permission_required">Camera Permission Required</string>
+    <string name="guest_scan_camera_permission_required">Camera permission required.</string>
     <string name="guest_scan_confirm_msg">Please confirm that the barcode is correct.</string>
 
     <!-- Strings used for GuestQuestionnaireFragment.java / fragment_guest_questionnaire.xml -->
