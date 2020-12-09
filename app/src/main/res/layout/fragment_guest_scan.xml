@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-*
 * Copyright (C) 2020 The LibreFoodPantry Developers.
 *
 * This program is free software: you can redistribute it and/or modify
@@ -37,7 +36,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/colorPrimary"
+        android:padding="6dp"
+        android:background="@color/colorPrimaryShaded"
         android:orientation="horizontal" >
 
         <Button
@@ -45,18 +45,20 @@
             android:layout_width="0dp"
             android:layout_weight="0.5"
             android:layout_height="wrap_content"
-            android:text="@string/rescan_button"
+            android:layout_marginEnd="1dp"
+            android:text="@string/guestScan_rescan_button"
             style="@style/Widget.AppCompat.Button.Colored"
-            android:backgroundTint="@color/colorPrimaryDark" />
+            android:backgroundTint="@color/colorPrimary" />
 
         <Button
             android:id="@+id/confirm_scan_button"
             android:layout_width="0dp"
             android:layout_weight="0.5"
             android:layout_height="wrap_content"
-            android:text="@string/confirm_scan_button"
+            android:layout_marginStart="1dp"
+            android:text="@string/guestScan_confirm_scan_button"
             style="@style/Widget.AppCompat.Button.Colored"
-            android:backgroundTint="@color/colorPrimaryDark" />
+            android:backgroundTint="@color/colorPrimary" />
 
     </LinearLayout>
 
@@ -70,7 +72,7 @@
         android:textSize="18sp"
         android:textStyle="bold"
         android:textColor="@android:color/white"
-        android:text="@string/scan_result_textview"
+        android:text="@string/guestScan_scan_result_textview"
         android:background="@color/colorPrimaryDark" />
 
 </RelativeLayout>

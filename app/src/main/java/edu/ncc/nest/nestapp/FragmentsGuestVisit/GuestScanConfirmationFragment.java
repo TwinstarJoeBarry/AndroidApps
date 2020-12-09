@@ -1,7 +1,6 @@
 package edu.ncc.nest.nestapp.FragmentsGuestVisit;
 
 /**
- *
  * Copyright (C) 2020 The LibreFoodPantry Developers.
  *
  * This program is free software: you can redistribute it and/or modify
@@ -19,21 +18,17 @@ package edu.ncc.nest.nestapp.FragmentsGuestVisit;
  */
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentResultListener;
 import androidx.navigation.fragment.NavHostFragment;
 
-import edu.ncc.nest.nestapp.GuestFormHelper;
 import edu.ncc.nest.nestapp.R;
 
 public class GuestScanConfirmationFragment extends Fragment implements View.OnClickListener {
@@ -47,9 +42,8 @@ public class GuestScanConfirmationFragment extends Fragment implements View.OnCl
     /************ LifeCycle Methods Start ************/
 
     @Override
-    public View onCreateView(
-            LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState ) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState ) {
 
         // Inflate the layout for this fragment
         return inflater.inflate( R.layout.fragment_guest_scan_confirmation_flipper, container, false );
@@ -61,9 +55,9 @@ public class GuestScanConfirmationFragment extends Fragment implements View.OnCl
         if (savedInstanceState != null) {
 
             // Get guest name
-            guestName = savedInstanceState.getString("NAME");
+            guestName = savedInstanceState.getString("GUEST_NAME");
             // Get guest id
-            guestId = savedInstanceState.getString("ID");
+            guestId = savedInstanceState.getString("GUEST_ID");
 
             selectDisplayedView(view.findViewById(R.id.confirmation_view_flipper));
 
@@ -86,9 +80,9 @@ public class GuestScanConfirmationFragment extends Fragment implements View.OnCl
     public void onSaveInstanceState(Bundle outState) {
 
         // Save guest name
-        outState.putString("NAME", guestName);
+        outState.putString("GUEST_NAME", guestName);
         // Save guest id
-        outState.putString("ID", guestId);
+        outState.putString("GUEST_ID", guestId);
 
         super.onSaveInstanceState(outState);
 
@@ -114,7 +108,7 @@ public class GuestScanConfirmationFragment extends Fragment implements View.OnCl
 
             // Put the Guest's info into the bundle
             guestInfo.putString("GUEST_NAME", guestName);
-            guestInfo.putString("BARCODE", guestId);
+            guestInfo.putString("GUEST_ID", guestId);
 
             // Set the FragmentManager
             getParentFragmentManager().setFragmentResult("GUEST_CONFIRMED", guestInfo);

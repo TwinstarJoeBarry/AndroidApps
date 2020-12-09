@@ -41,13 +41,15 @@
 
         <action
             android:id="@+id/action_GuestScanConfirmationFragment_to_GuestQuestionnaireFragment"
-            app:destination="@id/GuestQuestionnaireFragment" />
+            app:destination="@id/GuestQuestionnaireFragment"
+            app:popUpTo="@id/GuestScanConfirmationFragment"
+            app:popUpToInclusive="true" />
 
         <action
             android:id="@+id/action_GuestScanConfirmationFragment_to_GuestScanFragment"
             app:destination="@id/GuestScanFragment"
             app:popUpTo="@id/GuestScanFragment"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
 
     </fragment>
 
