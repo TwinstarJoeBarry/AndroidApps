@@ -378,22 +378,24 @@ public class ScanFragment extends Fragment implements BarcodeCallback, View.OnCl
 
         // If the camera permission is granted
         if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
-                == PackageManager.PERMISSION_GRANTED) {
+                != PackageManager.PERMISSION_GRANTED) {
 
-            resumeScanning();
+            if (shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)) {
 
-        } else if (shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)) {
+                // TODO Create a dialog window describing why we need the permission for this feature
 
-            // TODO Create a dialog window describing why we need the permission for this feature
+                // Display a reason of why we need the permission
+                Toast.makeText(requireContext(), "Camera permission is needed in order to scan.",
+                        Toast.LENGTH_LONG).show();
 
-            // Display a reason of why we need the permission
-            Toast.makeText(requireContext(), "Camera permission is needed in order to scan.",
-                    Toast.LENGTH_LONG).show();
+            } else
+
+                // Request the camera permission
+                REQUEST_CAMERA_PERMISSION_LAUNCHER.launch(Manifest.permission.CAMERA);
 
         } else
 
-            // Request the camera permission
-            REQUEST_CAMERA_PERMISSION_LAUNCHER.launch(Manifest.permission.CAMERA);
+            resumeScanning();
 
     }
 
@@ -521,16 +523,16 @@ public class ScanFragment extends Fragment implements BarcodeCallback, View.OnCl
      */
     private void onCameraPermissionResult(boolean isGranted) {
 
-        if (isGranted)
-
-            // Camera permission is granted, so resume scanning
-            resumeScanning();
-
-        else
+        if (!isGranted) {
 
             // Display a reason of why we need the permission
             Toast.makeText(requireContext(), "Camera permission is needed in order to scan.",
                     Toast.LENGTH_LONG).show();
+
+        } else
+
+            // Camera permission is granted, so resume scanning
+            resumeScanning();
 
     }
 
