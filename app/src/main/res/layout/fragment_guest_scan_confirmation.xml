@@ -40,7 +40,7 @@
         android:textAllCaps="true"
         android:fontFamily="casual"
         android:textColor="@android:color/white"
-        android:text="Welcome NEST Guest!" />
+        android:text="@string/guestVisitConfirmation_welcome_nest_guest_lbl" />
 
     <TextView
         android:id="@+id/confirmation_1_description"
@@ -54,7 +54,7 @@
         android:textSize="16sp"
         android:textStyle="bold|italic"
         android:textColor="@android:color/white"
-        android:text="Please confirm that the following information is correct."
+        android:text="@string/guestVisitConfirmation_guest_info_confirmation"
         android:backgroundTint="@color/colorPrimary"
         android:background="@drawable/background_dialog" />
 
@@ -78,7 +78,7 @@
             android:textStyle="bold"
             android:textAllCaps="true"
             android:textColor="@android:color/white"
-            android:text="GUEST NAME" />
+            android:text="@string/guestVisitConfirmation_guest_name_lbl" />
 
         <TextView
             android:id="@+id/guest_name_lable"
@@ -99,7 +99,7 @@
             android:textStyle="bold"
             android:textAllCaps="true"
             android:textColor="@android:color/white"
-            android:text="GUEST ID" />
+            android:text="@string/guestVisitConfirmation_guest_id" />
 
         <TextView
             android:id="@+id/guest_id_lable"
@@ -128,7 +128,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_marginEnd="1dp"
-            android:text="Not you?"
+            android:text="@string/guestScan_rescan_button"
             style="@style/Widget.AppCompat.Button.Colored"
             android:backgroundTint="@color/colorPrimary"/>
 
@@ -139,7 +139,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_marginStart="1dp"
-            android:text="Confirm"
+            android:text="@string/guestVisitConfirmation_confirm"
             style="@style/Widget.AppCompat.Button.Colored"
             android:backgroundTint="@color/colorPrimary"/>
 

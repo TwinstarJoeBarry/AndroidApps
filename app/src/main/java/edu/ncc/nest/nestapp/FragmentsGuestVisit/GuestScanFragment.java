@@ -314,7 +314,7 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
         if (scannerPaused) {
 
             // Update the display text so the user knows we are waiting for them to scan a barcode
-            resultTextView.setText(getString(R.string.scan_result_textview));
+            resultTextView.setText(getString(R.string.guestScan_scan_result_textview));
 
             // Disable the feedback buttons until we scan another barcode
             setFeedbackButtonsEnabled(false);
