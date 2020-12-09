@@ -354,6 +354,8 @@ public class ScanFragment extends Fragment implements BarcodeCallback, View.OnCl
         decBarcodeView.getBarcodeView().setDecoderFactory(new DefaultDecoderFactory(BARCODE_FORMATS));
 
 
+
+
         // Make this class the OnClickListener for both feedback buttons
         confirmButton.setOnClickListener(this);
 
@@ -493,7 +495,7 @@ public class ScanFragment extends Fragment implements BarcodeCallback, View.OnCl
                 // Put the item in a bundle and pass it to ConfirmItemFragment
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("foodItem", result);
-                getParentFragmentManager().setFragmentResult("SEND FOOD ITEM", bundle);
+                getParentFragmentManager().setFragmentResult("FOOD ITEM", bundle);
                 NavHostFragment.findNavController(ScanFragment.this).navigate((R.id.confirmItemFragment));
 
                 // If there was no result from the database
@@ -502,7 +504,7 @@ public class ScanFragment extends Fragment implements BarcodeCallback, View.OnCl
                 // Put UPC into a bundle and pass it to SelectItemFragment (may not be necessary)
                 Bundle bundle = new Bundle();
                 bundle.putString("barcode", barcodeResult);
-                getParentFragmentManager().setFragmentResult("SEND BARCODE", bundle);
+                getParentFragmentManager().setFragmentResult("BARCODE", bundle);
                 NavHostFragment.findNavController(ScanFragment.this).navigate((R.id.selectItemFragment));
             }
 

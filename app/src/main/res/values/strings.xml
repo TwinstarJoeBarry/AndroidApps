@@ -998,12 +998,6 @@
     <string name="in_select_expiration_fragment">In Select Printed Expiration Fragment</string>
     <string name="in_display_expiration_fragment">In Display True Expiration Fragment</string>
 
-    <string name="click_to_display_true_expiration_date">click to display true expiration date</string>
-    <string name="item">Item:</string>
-    <string name="upc_text">UPC:</string>
-    <string name="category">Category:</string>
-    <string name="expiration_dat">Expiration date:</string>
-
     <!-- START OF GUEST VISIT STRINGS -->
 
     <!-- Strings used for GuestScanFragment -->
@@ -1021,8 +1015,18 @@
     <string name="questionnaire_question_3">How many adults (over the age of 64) are in your household?</string>
     <string name="questionnaire_question_4">How many children (ages 18 and under) are in your household?</string>
     <string name="questionnaire_question_5">Is this your first visit to the NEST?</string>
+    <string name="questionnaire_spinner_prompt">Choose an answer</string>
     <string name="questionnaire_hint_number">Enter a number</string>
     <string name="questionnaire_hint_id">NEST Guest Id#</string>
+    <string name="questionnaire_alert_title">"SUBMISSION HAS MISSING FIELDS!"</string>
+    <string name="questionnaire_alert_msg">Please make sure to answer all of the questions before submitting the questionnaire.</string>
+
+    <string name="click_to_display_true_expiration_date">click to display true expiration date</string>
+    <string name="item">Item:</string>
+    <string name="upc_text">UPC:</string>
+    <string name="category">Category:</string>
+    <string name="expiration_dat">Expiration date:</string>
+
     <string-array name="array_yes_no">
         <item>Yes</item>
         <item>No</item>
