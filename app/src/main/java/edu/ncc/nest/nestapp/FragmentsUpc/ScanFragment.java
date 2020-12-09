@@ -380,11 +380,11 @@ public class ScanFragment extends Fragment implements BarcodeCallback, View.OnCl
         if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
 
-            // Empty the result text view
-            resultTextView.setText(null);
-
             // Update the status text to inform the guest that camera permission is required
             decBarcodeView.setStatusText(getString(R.string.guest_scan_camera_permission_required));
+
+            // Empty the result text view
+            resultTextView.setText(null);
 
             if (shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)) {
 
@@ -447,6 +447,9 @@ public class ScanFragment extends Fragment implements BarcodeCallback, View.OnCl
 
             // Play a sound and vibrate when a scan has been processed
             beepManager.playBeepSoundAndVibrate();
+
+            // Tell the user to confirm that the barcode is correct
+            decBarcodeView.setStatusText(getString(R.string.guest_scan_confirm_msg));
 
             // Display the barcode back to the user
             resultTextView.setText(resultText);
