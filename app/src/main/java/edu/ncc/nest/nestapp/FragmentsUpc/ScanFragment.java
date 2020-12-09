@@ -354,6 +354,8 @@ public class ScanFragment extends Fragment implements BarcodeCallback, View.OnCl
         decBarcodeView.getBarcodeView().setDecoderFactory(new DefaultDecoderFactory(BARCODE_FORMATS));
 
 
+
+
         // Make this class the OnClickListener for both feedback buttons
         confirmButton.setOnClickListener(this);
 
