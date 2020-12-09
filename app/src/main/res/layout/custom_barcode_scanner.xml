@@ -20,7 +20,7 @@
         app:zxing_possible_result_points="@color/colorPrimary" />
 
     <TextView
-        android:id="@+id/zxing_status_textview"
+        android:id="@+id/zxing_status_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center_horizontal"

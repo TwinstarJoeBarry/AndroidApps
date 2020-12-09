@@ -343,17 +343,15 @@ public class ScanFragment extends Fragment implements BarcodeCallback, View.OnCl
         // Get respective views from layout
         decBarcodeView = (DecoratedBarcodeView) view.findViewById(R.id.zxing_barcode_scanner);
 
-        confirmButton = (Button) view.findViewById(R.id.confirm_scan_button);
+        confirmButton = (Button) view.findViewById(R.id.guest_scan_confirm_button);
 
-        rescanButton = (Button) view.findViewById(R.id.rescan_button);
+        rescanButton = (Button) view.findViewById(R.id.guest_scan_rescan_button);
 
-        resultTextView = (TextView) view.findViewById(R.id.scan_result_textview);
+        resultTextView = (TextView) view.findViewById(R.id.guest_scan_result_view);
 
 
         // Specifies which barcode formats to decode. (Removing this line, defaults scanner to use all formats)
         decBarcodeView.getBarcodeView().setDecoderFactory(new DefaultDecoderFactory(BARCODE_FORMATS));
-
-
 
 
         // Make this class the OnClickListener for both feedback buttons
@@ -472,11 +470,11 @@ public class ScanFragment extends Fragment implements BarcodeCallback, View.OnCl
 
         int id = view.getId();
 
-        if (id == R.id.rescan_button)
+        if (id == R.id.guest_scan_rescan_button)
 
             resumeScanning();
 
-        else if (id == R.id.confirm_scan_button && barcodeResult != null) {
+        else if (id == R.id.guest_scan_confirm_button && barcodeResult != null) {
 
             Log.d(TAG, "Scan Confirmed: " + barcodeResult);
 
@@ -546,7 +544,7 @@ public class ScanFragment extends Fragment implements BarcodeCallback, View.OnCl
         if (scannerPaused) {
 
             // Update the display text so the user knows we are waiting for them to scan a barcode
-            resultTextView.setText(getString(R.string.guestScan_scan_result_textview));
+            resultTextView.setText(getString(R.string.guest_scan_waiting_for_scan));
 
             // Disable the feedback buttons until we scan another barcode
             setFeedbackButtonsEnabled(false);
