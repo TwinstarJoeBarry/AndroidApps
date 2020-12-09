@@ -149,6 +149,12 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
         if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
 
+            // Empty the result text view
+            resultTextView.setText(null);
+
+            // Update the status text to inform the guest that camera permission is required
+            decBarcodeView.setStatusText(getString(R.string.guest_scan_camera_permission_required));
+
             if (shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)) {
 
                 // TODO Create a dialog window describing why we need the permission for this feature
@@ -314,6 +320,9 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
     private void resumeScanning() {
 
         if (scannerPaused) {
+
+            // Update the status text to explain how to use the scanner
+            decBarcodeView.setStatusText(getString(R.string.zxing_msg_default_status));
 
             // Update the display text so the user knows we are waiting for them to scan a barcode
             resultTextView.setText(getString(R.string.guest_scan_waiting_for_scan));
