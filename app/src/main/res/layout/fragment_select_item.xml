@@ -44,4 +44,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textview_select_item" />
 
+    <Button
+        android:id="@+id/showInventory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Display Inventory"
+        app:layout_constraintBottom_toTopOf="@id/textview_select_item"
+        app:layout_constraintRight_toRightOf="@id/textview_select_item"/>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

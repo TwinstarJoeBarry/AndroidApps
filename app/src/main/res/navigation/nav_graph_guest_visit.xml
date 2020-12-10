@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+* Copyright (C) 2020 The LibreFoodPantry Developers.
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program.  If not, see <https://www.gnu.org/licenses/>.
+-->
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/guest_visit_nav_graph"
+    app:startDestination="@id/GuestScanFragment" >
+
+    <fragment
+        android:id="@+id/GuestScanFragment"
+        android:name="edu.ncc.nest.nestapp.FragmentsGuestVisit.GuestScanFragment"
+        android:label="@string/guest_scan_fragment_label"
+        tools:layout="@layout/fragment_guest_scan" >
+
+        <action
+            android:id="@+id/action_GuestScanFragment_to_GuestScanConfirmationFragment"
+            app:destination="@id/GuestScanConfirmationFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/GuestScanConfirmationFragment"
+        android:name="edu.ncc.nest.nestapp.FragmentsGuestVisit.GuestScanConfirmationFragment"
+        android:label="Guest Scan Confirmation Fragment"
+        tools:layout="@layout/fragment_guest_scan_confirmation_flipper">
+
+        <action
+            android:id="@+id/action_GuestScanConfirmationFragment_to_GuestQuestionnaireFragment"
+            app:destination="@id/GuestQuestionnaireFragment"
+            app:popUpTo="@id/GuestScanConfirmationFragment"
+            app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/action_GuestScanConfirmationFragment_to_GuestScanFragment"
+            app:destination="@id/GuestScanFragment"
+            app:popUpTo="@id/GuestScanFragment"
+            app:popUpToInclusive="true" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/GuestQuestionnaireFragment"
+        android:name="edu.ncc.nest.nestapp.FragmentsGuestVisit.GuestQuestionnaireFragment"
+        android:label="@string/guest_questionnaire_fragment_label"
+        tools:layout="@layout/fragment_guest_questionnaire" >
+
+    </fragment>
+
+</navigation>
