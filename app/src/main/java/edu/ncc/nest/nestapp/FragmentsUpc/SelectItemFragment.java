@@ -65,6 +65,9 @@ public class SelectItemFragment extends Fragment implements View.OnClickListener
         R.array.vegetarian_protein_items,
     };
 
+    // UI BUTTONS FOR THE CATEGORY AND SUB CATEGORY
+    Button categoryButton, productButton;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -90,11 +93,11 @@ public class SelectItemFragment extends Fragment implements View.OnClickListener
 
 
         // ON CLICKS FOR MAIN CATEGORY AND SUB CATEGORY BUTTONS - POPULATES A MENU VIEW FOR EACH
-        Button category_button = view.findViewById(R.id.category_select);
-        category_button.setOnClickListener( v -> showCategories() );
+        categoryButton = view.findViewById(R.id.category_select);
+        categoryButton.setOnClickListener( v -> showCategories() );
 
-        Button product_button = view.findViewById(R.id.item_select);
-        product_button.setOnClickListener( v -> showProducts() );
+        productButton = view.findViewById(R.id.item_select);
+        productButton.setOnClickListener( v -> showProducts() );
 
 
         // ACCEPT BUTTON CODE - PARSE AND ADD VALES TO NEW UPC, PASS INFO TO PRINTED EXPIRATION DATE
@@ -127,14 +130,14 @@ public class SelectItemFragment extends Fragment implements View.OnClickListener
                 saved.putString("savedDescription", description);
                 getParentFragmentManager().setFragmentResult("PRODUCT INFO", saved);
 
-                // next stop -> printed expiraion date
+                // next stop -> printed expiration date
                 NavHostFragment.findNavController(SelectItemFragment.this)
                         .navigate(R.id.action_selectItemFragment_to_selectPrintedExpirationDateFragment);
             }
         });
 
 
-        /** CANCEL BUTTON CODE - NAVIGATE BACK TO ENTER UPC FRAG */
+        // CANCEL BUTTON CODE - NAVIGATE BACK TO ENTER UPC FRAG
         view.findViewById(R.id.cancelButton).setOnClickListener(new View.OnClickListener()
         {
             @Override public void onClick(View view)
@@ -147,46 +150,56 @@ public class SelectItemFragment extends Fragment implements View.OnClickListener
 
     }
 
+
+    /**
+     * showCategories()
+     * MAIN CATEGORY POPUP MENU FOR SELECT CATEGORY BUTTON
+     **/
     private void showCategories()
     {
-        PopupMenu p = new PopupMenu(getContext(), category_button);
+        // SHOW THE POP UP MENU FOR THE MAIN CATEGORIES
+        PopupMenu menuPop = new PopupMenu(getContext(), categoryButton);
+        Menu menu = menuPop.getMenu();
 
-        Menu x = p.getMenu();
+        String[] mainCategories = getResources().getStringArray(R.array.categories_array);
 
-        String[] test = getResources().getStringArray(R.array.categories_array);
+        for (int i = 0; i < mainCategories.length; ++i )
+            menu.add(i, i, i, mainCategories[i]);
 
-        for (int i = 0; i < products.length; ++i )
-            x.add(i, i, i, test[i]);
-
-        p.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            public boolean onMenuItemClick(MenuItem item)
-            {
-                product = item.getItemId();
-                return true;
-            }
+//        // THE ACTUAL ON CLICK CODE TO SET THE SUB CATEGORY INDEX
+        menuPop.setOnMenuItemClickListener(item ->
+        {
+            categoryIndex = item.getItemId();
+            return true;
         });
-        p.show();
+
+        menuPop.show();
     }
 
+
+    /**
+     * showProduct()
+     * SUB CATEGORY POP UP MENU
+     **/
     private void showProducts()
     {
-        PopupMenu p = new PopupMenu(getContext(), product_button);
+        // SHOW THE POP UP MENU FOR THE SUB CATEGORIES
+        PopupMenu menuPop = new PopupMenu(getContext(), productButton);
+        Menu menu = menuPop.getMenu();
 
-        Menu x = p.getMenu();
+        String[] subCategories = getResources().getStringArray( categories[categoryIndex] );
 
-        String[] test = getResources().getStringArray(products[product]);
+        for (int i = 0; i < subCategories.length; ++i )
+            menu.add(i, i, i, subCategories[i]);
 
-        for (int i = 0; i < products.length; ++i )
-            x.add(i, i, i, test[i]);
+        // THE ACTUAL ON CLICK CODE TO SET THE ITEM ID NUMBER
+        menuPop.setOnMenuItemClickListener((PopupMenu.OnMenuItemClickListener) item ->
+        {
+            Toast.makeText(getContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
+            return true;
+        });
 
-//        p.getMenuInflater().inflate(R.menu.categories, p .getMenu());
-//        p.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-//            public boolean onMenuItemClick(MenuItem item) {
-//                Toast.makeText(getContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
-//                return true;
-//            }
-//        });
-        p.show();
+        menuPop.show();
     }
 
     /** UNUSED METHODS - NEEDED FOR INTERFACES THAT ARE IMPLEMENTED **/
