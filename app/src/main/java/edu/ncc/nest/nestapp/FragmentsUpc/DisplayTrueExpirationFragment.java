@@ -35,18 +35,18 @@ import edu.ncc.nest.nestapp.FinalDate;
 import edu.ncc.nest.nestapp.InventoryEntry;
 import edu.ncc.nest.nestapp.InventoryInfoSource;
 import edu.ncc.nest.nestapp.NestDBDataSource;
+import edu.ncc.nest.nestapp.Product;
 import edu.ncc.nest.nestapp.R;
 import edu.ncc.nest.nestapp.ShelfLife;
 
 public class DisplayTrueExpirationFragment extends Fragment {
-    private String TAG = "TESTING";
     private NestDBDataSource dataSource;
     private int itemId;
     private int day;
     private int month;
     private int year;
 
-    
+
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
@@ -60,24 +60,23 @@ public class DisplayTrueExpirationFragment extends Fragment {
         day = 20;
         month = 7;
         year = 2020;
-
-        // product id
-        itemId =  512;
+        itemId = 622;
 
 
+        try {
 
+            // Instantiating
+            dataSource = new NestDBDataSource(this.getContext());
 
-        // Instantiating
-        dataSource = new NestDBDataSource(this.getContext());
+            List<ShelfLife> list = dataSource.getShelfLivesForProduct(itemId);
+            Product product = dataSource.getProductById(itemId);
+            Log.d("TESTING", "DisplayTrueExpirationFragment/onCreateView: pSize:" + product.toString());
+            Log.d("TESTING", "DisplayTrueExpirationFragment/onCreateView: lSize:" + list.toString());
 
-        // Getting the shelflife of the product
-        ShelfLife item = dataSource.getShelfLivesForProduct(itemId).get(0);
-
-
-        Log.d(TAG, "onCreateView: " + item.toString());
-
-        trueExpDate(item, month, day, year);
-
+        }
+        catch(RuntimeException ex){
+            Log.d("TESTING", ex.getMessage());
+        }
 
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_display_true_expiration, container, false);
@@ -210,6 +209,6 @@ public class DisplayTrueExpirationFragment extends Fragment {
         }
 
 //        logging the final date
-        Log.d(TAG, "finalExpDate1: " + finalExMonth + "/" + finalExDate + "/" + finalExYear);
+        Log.d("TESTING", "finalExpDate1: " + finalExMonth + "/" + finalExDate + "/" + finalExYear);
     }
 }

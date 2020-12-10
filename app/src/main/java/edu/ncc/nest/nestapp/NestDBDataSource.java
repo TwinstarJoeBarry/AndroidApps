@@ -26,6 +26,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -128,11 +129,11 @@ public class NestDBDataSource {
         Cursor c = db.rawQuery(qry, new String[]{String.valueOf(productId)});
         while (c.moveToNext()){
             ShelfLife life = new ShelfLife(
-                c.getInt(c.getColumnIndex("typeIndex")),
-                c.getInt(c.getColumnIndex("min")),
-                c.getInt(c.getColumnIndex("max")),
-                c.getString(c.getColumnIndex("metric")),
-                c.getString(c.getColumnIndex("tips"))
+                    c.getInt(c.getColumnIndex("typeIndex")),
+                    c.getInt(c.getColumnIndex("min")),
+                    c.getInt(c.getColumnIndex("max")),
+                    c.getString(c.getColumnIndex("metric")),
+                    c.getString(c.getColumnIndex("tips"))
             );
             life.setCode(c.getString(c.getColumnIndex("typeCode")));
             life.setDesc(c.getString(c.getColumnIndex("description")));
@@ -140,6 +141,32 @@ public class NestDBDataSource {
         }
         c.close();
         return result;
+    }
+
+
+
+    /**
+     * getProducts method --
+     * copy all the products from db into list and return it
+     * @return an ArrayList<Product> object, which will have no
+     * contents if nothing is found
+     */
+    public Product getProductById( int productId ) {
+
+        Product product = null;
+        String qry = "SELECT * FROM products WHERE id = ?";
+        Cursor c = db.rawQuery(qry, new String[]{String.valueOf(productId)});
+        while (c.moveToNext()){
+            product = new Product(
+                    c.getInt(c.getColumnIndex("id")),
+                    c.getInt(c.getColumnIndex("categoryId")),
+                    c.getString(c.getColumnIndex("name")),
+                    c.getString(c.getColumnIndex("subtitle")),
+                    c.getString(c.getColumnIndex("keywords"))
+            );
+        }
+        c.close();
+        return product;
     }
 
     // have method that takes "box"/"printed" expiration date and UPC and returns
