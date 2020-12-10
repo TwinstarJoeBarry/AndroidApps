@@ -24,6 +24,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.navigation.fragment.NavHostFragment;
 
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,8 +36,9 @@ import edu.ncc.nest.nestapp.R;
 
 public class ConfirmItemFragment extends Fragment {
 
-    private Button confirmButton;
-    private Button incorrectButton;
+    private static final String TAG_ITEM = "item";
+    private static final String TAG = "TESTING";
+
     private TextView itemName;
     private TextView catName;
     private TextView upc;
@@ -52,56 +54,74 @@ public class ConfirmItemFragment extends Fragment {
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
+
+        Log.d(TAG, "In ConfirmItemFragment onCreateView()");
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_confirm_item, container, false);
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-            super.onViewCreated(view, savedInstanceState);
+        super.onViewCreated(view, savedInstanceState);
+
+        Log.d(TAG, "In ConfirmItemFragment onViewCreated()");
+
+        // Get respective views from layout
+        itemName = (TextView) view.findViewById(R.id.add_item_name);
+        catName = (TextView) view.findViewById(R.id.add_cat_name);
+        upc = (TextView) view.findViewById(R.id.add_UPC);
 
 
-            // Get respective views from layout
-            confirmButton = (Button) view.findViewById(R.id.button_confirm_item);
-            incorrectButton = (Button) view.findViewById(R.id.button_incorrect_item);
-            itemName = (TextView) view.findViewById(R.id.add_item_name);
-            catName = (TextView) view.findViewById(R.id.add_cat_name);
-            upc = (TextView) view.findViewById(R.id.add_UPC);
+        // Retrieve Strings from data
+        Bundle bundle = new Bundle();
+        item = (NestUPC) bundle.get("FOOD ITEM");
+        item_name = item.getProductName();
+        cat_name = item.getCatDesc();
+        upc_string = item.getUpc();
 
-            // Retrieve Strings from data
-            Bundle bundle = new Bundle();
-            item = (NestUPC) bundle.get("GET FOOD ITEM");
-            item_name = item.getProductName();
-            cat_name = item.getCatDesc();
-            upc_string = item.getUpc();
+        Log.d(TAG_ITEM, "Item Name: " + item_name +
+                "\nCat Desc: " + cat_name +
+                "\nUPC: " + upc_string);
 
-            // Sed retrieved data to TextView
-            itemName.setText(item_name);
-            catName.setText(cat_name);
-            upc.setText(upc_string);
+        // Sed retrieved data to TextView
+        itemName.setText(item_name);
+        catName.setText(cat_name);
+        upc.setText(upc_string);
 
-            ////////////// Navigation //////////////
+        ////////////// Navigation //////////////
 
-            // if confirm button clicked, nav to fragment_select_printed_expiration_date.xml
-            view.findViewById(R.id.button_confirm_item).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+        // if confirm button clicked, nav to fragment_select_printed_expiration_date.xml
+        view.findViewById(R.id.button_confirm_item).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-                    NavHostFragment.findNavController(ConfirmItemFragment.this)
-                            .navigate(R.id.action_confirmItemFragment_to_selectPrintedExpirationDateFragment);
+                Log.d(TAG, "In ConfirmItemFragment onClick() for button_confirm_item");
 
-                }
-            });
+                // Send bundle received to SelectPrintedExpirationDateFragment
+                getParentFragmentManager().setFragmentResult("FOOD ITEM", bundle);
+                NavHostFragment.findNavController(ConfirmItemFragment.this)
+                        .navigate(R.id.action_confirmItemFragment_to_selectPrintedExpirationDateFragment);
 
-            // if the item was incorrect, nav to fragment_select_item.xml
-            view.findViewById(R.id.button_incorrect_item).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+            }
+        });
 
-                    NavHostFragment.findNavController(ConfirmItemFragment.this)
-                            .navigate(R.id.action_confirmItemFragment_to_selectItemFragment);
+        // if the item was incorrect, nav to fragment_select_item.xml
+        view.findViewById(R.id.button_incorrect_item).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-                }
-            });
+                Log.d(TAG, "In ConfirmItemFragment onClick() for button_incorrect_item");
+
+                // Send UPC/barcode to selectItemFragment
+                Bundle upcBundle = new Bundle();
+                upcBundle.putString("barcode", upc_string);     // using "barcode" KEY to stay consistent with ScanFragment
+                getParentFragmentManager().setFragmentResult("BARCODE", upcBundle);
+
+                NavHostFragment.findNavController(ConfirmItemFragment.this)
+                        .navigate(R.id.action_confirmItemFragment_to_selectItemFragment);
+
+            }
+        });
 
     }
 }
