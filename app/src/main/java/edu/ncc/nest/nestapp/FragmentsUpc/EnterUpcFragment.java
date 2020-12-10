@@ -20,6 +20,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,10 +45,8 @@ public class EnterUpcFragment extends Fragment {
         view.findViewById(R.id.button_enter_next).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*
                 NavHostFragment.findNavController(EnterUpcFragment.this)
-                        .navigate(R.id.action_StartFragment_to_ScanFragment);
-                 */
+                        .navigate(R.id.action_EnterUpcFragment_to_selectItemFragment);
             }
         });
     }

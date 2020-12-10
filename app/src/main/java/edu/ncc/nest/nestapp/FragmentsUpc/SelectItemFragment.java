@@ -1,5 +1,5 @@
 package edu.ncc.nest.nestapp.FragmentsUpc;
-/**
+/*
  *
  * Copyright (C) 2020 The LibreFoodPantry Developers.
  *
@@ -16,55 +16,62 @@ package edu.ncc.nest.nestapp.FragmentsUpc;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-import android.content.DialogInterface;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.widget.PopupMenu;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
-
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.Spinner;
+import android.view.LayoutInflater;
+
 import android.widget.Toast;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.PopupMenu;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentResultListener;
+import androidx.navigation.fragment.NavHostFragment;
 
-
-
-
-
-import java.util.List;
-import edu.ncc.nest.nestapp.InventoryEntry;
-import edu.ncc.nest.nestapp.InventoryInfoSource;
 import edu.ncc.nest.nestapp.R;
+import edu.ncc.nest.nestapp.NestDBDataSource;
 
-public class SelectItemFragment extends Fragment {
-    private InventoryInfoSource datasource;
-    private List<InventoryEntry> items;
+
+public class SelectItemFragment extends Fragment implements View.OnClickListener
+{
+    private String upcSaved; // UPC as passed from previous fragment; populated from a saved bundle
+
+    // THE INDEX SELECTED FROM A CATEGORY POPUP, POPULATES A SUB CATEGORY (ITEM) POPUP, SETS itemID
+    private int itemID; // the product identification number, as selected from popup menus
+    int categoryIndex; // index selected for the main category, used to slice the following array
+
+    // TODO list would be better populated programmatically, instead of hardcoded like this
+    private final int categories[] =
+    {
+        R.array.baby_food_items,
+        R.array.baked_goods_bakery_items,
+        R.array.beverages_items,
+        R.array.condiments_sauces_and_canned_goods_items,
+        R.array.dairy_products_and_eggs_items,
+        R.array.deli_and_prepared_foods_items,
+        R.array.food_purchased_frozen_items,
+        R.array.grains_beans_and_pasta_items,
+        R.array.meat_fresh_items,
+        R.array.poultry_fresh_items,
+        R.array.produce_fresh_fruits_items,
+        R.array.seafood_fresh_items,
+        R.array.shelf_stable_foods_items,
+        R.array.vegetarian_protein_items,
+    };
+
 
     @Override
-    public View onCreateView(
-            LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState
-    ) {
-        datasource = new InventoryInfoSource(this.getContext());
-        datasource.open();
-
-        items = datasource.getProducts();
-
-
-
-        // Inflate the layout for this fragment
-
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
+        // initialized values;
+        upcSaved = "";
+        itemID = categoryIndex = 0;
 
         return inflater.inflate(R.layout.fragment_select_item, container, false);
     }
@@ -72,64 +79,57 @@ public class SelectItemFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState)
     {
-
         super.onViewCreated(view, savedInstanceState);
 
-        /** CATEGORY SPINNER - SET UP ARRAY ADAPTER LIST */
-        Spinner categorySpinner = (Spinner)view.findViewById(R.id.categorySpinner);
 
-        ArrayAdapter<CharSequence> categoryAdapter = ArrayAdapter.createFromResource( getContext(),
-                R.array.categories_array, android.R.layout.simple_spinner_item );
+        // GRAB THE UPC VALUES FROM THE BUNDLE SENT FROM SCAN FRAG OR CONFIRM UPC FRAG
+        getParentFragmentManager().setFragmentResultListener("BARCODE", this,
+                (requestKey, result) -> upcSaved = result.getString("barcode"));
 
-        categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        categorySpinner.setAdapter(categoryAdapter);
-
-        categorySpinner.setOnItemSelectedListener(this);
+        Toast.makeText(getContext(), String.format("GOT UPC: %s", upcSaved), Toast.LENGTH_LONG).show(); // TODO
 
 
-        /** ACCEPT BUTTON CODE - PARSE AND ADD VALES TO NEW UPC, PASS INFO TO PRINTED EXPIRATION DATE */
-        view.findViewById(R.id.acceptButton).setOnClickListener(new View.OnClickListener()
+        // ON CLICKS FOR MAIN CATEGORY AND SUB CATEGORY BUTTONS - POPULATES A MENU VIEW FOR EACH
+        Button category_button = view.findViewById(R.id.category_select);
+        category_button.setOnClickListener( v -> showCategories() );
+
+        Button product_button = view.findViewById(R.id.item_select);
+        product_button.setOnClickListener( v -> showProducts() );
+
+
+        // ACCEPT BUTTON CODE - PARSE AND ADD VALES TO NEW UPC, PASS INFO TO PRINTED EXPIRATION DATE
+        view.findViewById(R.id.acceptButton).setOnClickListener( view1 ->
         {
-            @Override public void onClick(View view)
+            // open a link to the database to add the information;
+            NestDBDataSource database = new NestDBDataSource(getContext());
+
+            // retrieve the String information from each view, casting as appropriate;
+            String name = ((EditText) (getView().findViewById(R.id.brandEdit))).getText().toString();
+            String description = ((EditText) (getView().findViewById(R.id.descriptionEdit))).getText().toString();
+
+
+            // make sure all fields were was available and entered properly, including an item id
+            if (name.isEmpty() || description.isEmpty() || itemID == 0 )
+//                Toast.makeText(getContext(), "Please fill and select all fields!, including all sub categories", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), String.format("REJECTED! name: %s des: %s id: %d", name, description, itemID), Toast.LENGTH_LONG).show();
+            else
             {
-                // open the database to parse the information
-                database = new NestDBDataSource(getContext());
-                String upcBeingAdded = "0123456789AB"; // TODO need to get this from scan/enter upc frag through bundle savedInstance
-
-                // retrieve the item information from each view, casting as appropriate
-                name = ((EditText) (getView().findViewById(R.id.brandEdit))).getText().toString();
-                description = ((EditText) (getView().findViewById(R.id.descriptionEdit))).getText().toString();
-
-//                Spinner categorySpinner = ((Spinner) (getView().findViewById(R.id.categorySpinner)));
-//                Spinner productSpinner = ((Spinner) (getView().findViewById(R.id.productSpinner)));
-//                int selectedCategoryId = 0, selectedProductId = 0; // need top ull these from array adapter
+                // use dataSource to add the new upc to the Nest UPCs table
+                Toast.makeText(getContext(), String.format("ACCEPTED! name: %s des: %s id: %d", name, description, itemID), Toast.LENGTH_LONG).show();
+//                database.insertNewUPC(upcSaved, name, description, itemID);
 
 
-                // make sure all fields were was available and entered properly
-                if (name.isEmpty() || description.isEmpty() )
-                    Toast.makeText(getContext(), "Please fill or select all fields!", Toast.LENGTH_LONG).show();
+                // stuff everything in a bundle in case it's needed for PrintedExpirationDate
+                Bundle saved = new Bundle();
+                saved.putInt("savedID", itemID);
+                saved.putString("savedUPC", upcSaved);
+                saved.putString("savedProductName", name);
+                saved.putString("savedDescription", description);
+                getParentFragmentManager().setFragmentResult("PRODUCT INFO", saved);
 
-                else
-                {
-                    // use dataSource to add the new upc to the Nest UPCs table
-                    Toast.makeText(getContext(), String.format("name: %s des: %s", name, description), Toast.LENGTH_LONG).show();
-//                    database.insertNewUPC(upcBeingAdded, name, description, product);
-
-
-                    // stuff everything in a bundle in case it's needed for PrintedExpirationDate
-                    Bundle saved = new Bundle();
-
-//                    String StringInfo[] = {name, description};
-//                    saved.putStringArray("savedStringInfo", StringInfo);
-//                    getParentFragmentManager().setFragmentResult("savedStringInfo", saved);
-                        // fragment result listener
-//                    int intInfo[] = {category, product};
-//                    saved.putIntArray("savedIntInfo", intInfo);
-//                    getParentFragmentManager().setFragmentResult("savedIntInfo", saved);
-
-                    NavHostFragment.findNavController(SelectItemFragment.this)
-                            .navigate(R.id.action_selectItemFragment_to_selectPrintedExpirationDateFragment);
-                }
+                // next stop -> printed expiraion date
+                NavHostFragment.findNavController(SelectItemFragment.this)
+                        .navigate(R.id.action_selectItemFragment_to_selectPrintedExpirationDateFragment);
             }
         });
 
@@ -145,26 +145,52 @@ public class SelectItemFragment extends Fragment {
         });
 
 
-        view.findViewById(R.id.showInventory).setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-
-
-                Log.d("TEST", "It got here");
-//                items = datasource.getProducts();
-                if(items.isEmpty()) {
-                    Log.d("TEST", "It's empty");
-                }
-                Log.d("TEST", "It got here");
-                for(int i = 0; i < items.size(); i++){
-                    Log.d("TEST", items.get(i).getBarcodeNum());
-                }
-
-            }
-        });
     }
 
+    private void showCategories()
+    {
+        PopupMenu p = new PopupMenu(getContext(), category_button);
 
+        Menu x = p.getMenu();
+
+        String[] test = getResources().getStringArray(R.array.categories_array);
+
+        for (int i = 0; i < products.length; ++i )
+            x.add(i, i, i, test[i]);
+
+        p.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            public boolean onMenuItemClick(MenuItem item)
+            {
+                product = item.getItemId();
+                return true;
+            }
+        });
+        p.show();
+    }
+
+    private void showProducts()
+    {
+        PopupMenu p = new PopupMenu(getContext(), product_button);
+
+        Menu x = p.getMenu();
+
+        String[] test = getResources().getStringArray(products[product]);
+
+        for (int i = 0; i < products.length; ++i )
+            x.add(i, i, i, test[i]);
+
+//        p.getMenuInflater().inflate(R.menu.categories, p .getMenu());
+//        p.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+//            public boolean onMenuItemClick(MenuItem item) {
+//                Toast.makeText(getContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
+//                return true;
+//            }
+//        });
+        p.show();
+    }
+
+    /** UNUSED METHODS - NEEDED FOR INTERFACES THAT ARE IMPLEMENTED **/
+    @Override public void onClick(View v) {}
 
 
 }

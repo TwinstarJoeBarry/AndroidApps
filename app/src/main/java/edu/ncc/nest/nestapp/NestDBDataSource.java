@@ -59,7 +59,7 @@ public class NestDBDataSource {
      * @param description description
      * @param productId associated FoodKeeper product id
      */
-    void insertNewUPC(String upc, String brand, String description, int productId) {
+    public void insertNewUPC(String upc, String brand, String description, int productId) {
         ContentValues values = new ContentValues();
         values.clear();
         values.put("upc", upc);

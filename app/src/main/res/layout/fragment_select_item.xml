@@ -117,7 +117,7 @@
 
 
     <Button
-        android:id="@+id/cat_select_btn"
+        android:id="@+id/category_select"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
@@ -138,11 +138,11 @@
         android:layout_marginTop="24dp"
         android:text="@string/nest_new_upc_product_prompt"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cat_select_btn"
+        app:layout_constraintTop_toBottomOf="@id/category_select"
         tools:ignore="RtlHardcoded" />
 
     <Button
-        android:id="@+id/item_select_btn"
+        android:id="@+id/item_select"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
@@ -151,7 +151,7 @@
         android:layout_marginTop="4dp"
         android:layout_marginRight="16dp"
         tools:ignore="RtlHardcoded"
-        android:text="@string/select_category" />
+        android:text="@string/select_item" />
 
     <Button
         android:id="@+id/acceptButton"
@@ -178,14 +178,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/acceptButton" />
-
-    <Button
-        android:id="@+id/showInventory"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Display Inventory"
-        app:layout_constraintBottom_toTopOf="@id/textview_select_item"
-        app:layout_constraintRight_toRightOf="@id/textview_select_item"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
