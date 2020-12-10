@@ -29,6 +29,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.List;
 
 import edu.ncc.nest.nestapp.FinalDate;
@@ -54,29 +58,7 @@ public class DisplayTrueExpirationFragment extends Fragment {
     ) {
 
 
-        //  this variable must be assigned to the value from bundle send by previous fragment
-        // hardcoded for testing purposes
-        // expiration date
-        day = 20;
-        month = 7;
-        year = 2020;
-        itemId = 622;
 
-
-        try {
-
-            // Instantiating
-            dataSource = new NestDBDataSource(this.getContext());
-
-            List<ShelfLife> list = dataSource.getShelfLivesForProduct(itemId);
-            Product product = dataSource.getProductById(itemId);
-            Log.d("TESTING", "DisplayTrueExpirationFragment/onCreateView: pSize:" + product.toString());
-            Log.d("TESTING", "DisplayTrueExpirationFragment/onCreateView: lSize:" + list.toString());
-
-        }
-        catch(RuntimeException ex){
-            Log.d("TESTING", ex.getMessage());
-        }
 
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_display_true_expiration, container, false);
@@ -84,6 +66,56 @@ public class DisplayTrueExpirationFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
+        //  this variable must be assigned to the value from bundle send by previous fragment
+        // hardcoded for testing purposes
+        // expiration date
+        day = 20;
+        month = 7;
+        year = 2020;
+        itemId = 120;
+
+
+        try {
+
+            // Instantiating
+            dataSource = new NestDBDataSource(this.getContext());
+
+//            // getting the shelf life from database
+//            List<ShelfLife> list = dataSource.getShelfLivesForProduct(itemId);
+
+            // getting product name from database
+            Bundle product = dataSource.getProductInfoById(itemId);
+
+            // product exist
+            if (product != null) {
+
+                Log.d("TESTING", "DisplayTrueExpirationFragment/onCreateView: bundle:" + product.toString());
+               
+                ((TextView)view.findViewById(R.id.item_display)).setText(product.getString("NAME"));
+
+                ((TextView)view.findViewById(R.id.category_display)).setText(product.getString("CATEGORY_NAME"));
+//                try {
+//
+//                    JSONArray shelfLives = new JSONArray(product.getString("SHELFLIVES"));
+//                    JSONObject shelfLifeRecord = shelfLives.getJSONObject(0);
+////                    trueExpDate(shelfLifeRecord.getInt("MAX"),shelfLifeRecord.getString("METRIC"),month , day,year);
+//
+//                }catch(JSONException ex){
+//                    Log.d("TESTING", "onViewCreated: " + ex.getMessage());
+//                }
+
+
+            }
+
+
+        }
+        catch(RuntimeException ex){
+            Log.d("TESTING", ex.getMessage());
+        }
+
+
 
         view.findViewById(R.id.button_display_date_next).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,17 +133,14 @@ public class DisplayTrueExpirationFragment extends Fragment {
     /**
      * trueExpDate --
      * calculates the true expiration date of the item.
-     * @param expDate - shelfLife
      * @param month - int
      * @param day - int
      * @param year -iny
      */
-    public void trueExpDate(ShelfLife expDate, int month, int day, int year)
+    public void trueExpDate(int max, String metric, int month, int day, int year)
     {
-        String metric = expDate.getMetric().toLowerCase();
+        metric = metric.toLowerCase();
 
-        // max dop_pantryLife
-        int max = expDate.getMax();
 
         int finalExMonth = 0;
         int finalExDate = 0;

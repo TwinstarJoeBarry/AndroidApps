@@ -26,7 +26,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Bundle;
 import android.util.Log;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -151,22 +156,55 @@ public class NestDBDataSource {
      * @return an ArrayList<Product> object, which will have no
      * contents if nothing is found
      */
-    public Product getProductById( int productId ) {
+    public Bundle getProductInfoById(int productId ) {
 
-        Product product = null;
+        Bundle product = new Bundle();
         String qry = "SELECT * FROM products WHERE id = ?";
         Cursor c = db.rawQuery(qry, new String[]{String.valueOf(productId)});
         while (c.moveToNext()){
-            product = new Product(
-                    c.getInt(c.getColumnIndex("id")),
-                    c.getInt(c.getColumnIndex("categoryId")),
-                    c.getString(c.getColumnIndex("name")),
-                    c.getString(c.getColumnIndex("subtitle")),
-                    c.getString(c.getColumnIndex("keywords"))
-            );
+            product.putInt("ID", c.getInt(c.getColumnIndex("id")));
+            product.putInt("CATEGORY_ID", c.getInt(c.getColumnIndex("categoryId")));
+            product.putString("NAME", c.getString(c.getColumnIndex("name")));
         }
         c.close();
-        return product;
+
+        if(product.size() != 0) {
+
+            qry = "SELECT * FROM categories WHERE id = ?";
+            c = db.rawQuery(qry, new String[]{String.valueOf(product.getInt("CATEGORY_ID"))});
+            while (c.moveToNext()){
+                product.putString("CATEGORY_NAME", c.getString(c.getColumnIndex("name")));
+            }
+            c.close();
+
+
+            JSONArray shelfLives = new JSONArray();
+            JSONObject shelfLifeRecord;
+
+            qry = "SELECT * FROM view_shelf_lives_and_type_info_joined WHERE productId = ?";
+            c = db.rawQuery(qry, new String[]{String.valueOf(productId)});
+            int record = 0;
+            while (c.moveToNext()) {
+
+                try {
+                    shelfLifeRecord = new JSONObject();
+                    shelfLifeRecord.put("TYPE", c.getInt(c.getColumnIndex("typeIndex")));
+                    shelfLifeRecord.put("MAX", c.getInt(c.getColumnIndex("max")));
+                    shelfLifeRecord.put("METRIC", c.getString(c.getColumnIndex("metric")));
+                    shelfLives.put(shelfLifeRecord);
+                }
+                catch (JSONException ex){
+                    Log.d( "TESTING" , "getProductInfoById: " + ex.getMessage());
+                }
+
+            }
+            product.putString("SHELFLIVES", shelfLives.toString());
+
+            return product;
+
+        }
+        else
+            return null;
     }
 
     // have method that takes "box"/"printed" expiration date and UPC and returns
