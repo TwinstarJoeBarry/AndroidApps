@@ -21,6 +21,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentResultListener;
 import androidx.navigation.fragment.NavHostFragment;
 
 
@@ -36,7 +37,7 @@ import edu.ncc.nest.nestapp.R;
 
 public class ConfirmItemFragment extends Fragment {
 
-    private static final String TAG_ITEM = "item";
+    private static final String TAG_ITEM = "TEST ITEM";
     private static final String TAG = "TESTING";
 
     private TextView itemName;
@@ -71,22 +72,56 @@ public class ConfirmItemFragment extends Fragment {
         catName = (TextView) view.findViewById(R.id.add_cat_name);
         upc = (TextView) view.findViewById(R.id.add_UPC);
 
+        if (savedInstanceState != null) {
 
-        // Retrieve Strings from data
-        Bundle bundle = new Bundle();
-        item = (NestUPC) bundle.get("FOOD ITEM");
-        item_name = item.getProductName();
-        cat_name = item.getCatDesc();
-        upc_string = item.getUpc();
+            Log.d(TAG, "In ConfirmItemFragment onViewCreated() If savedInstanceSate != null");
 
-        Log.d(TAG_ITEM, "Item Name: " + item_name +
-                "\nCat Desc: " + cat_name +
-                "\nUPC: " + upc_string);
+            // get Strings, assign to TextViews
+            // retrieve foodItem from Bundle
+            item = (NestUPC) savedInstanceState.get("foodItem");
 
-        // Sed retrieved data to TextView
-        itemName.setText(item_name);
-        catName.setText(cat_name);
-        upc.setText(upc_string);
+            // retrieve strings from food item
+            item_name = item.getProductName();
+            Log.d(TAG_ITEM, "Item Name: " + item_name);
+            cat_name = item.getCatDesc();
+            Log.d(TAG_ITEM, "Cat Desc: " + cat_name);
+            upc_string = item.getUpc();
+            Log.d(TAG_ITEM, "UPC: " + upc_string);
+
+            // Send retrieved data to TextView
+            itemName.setText(item_name);
+            catName.setText(cat_name);
+            upc.setText(upc_string);
+        }
+
+        else {
+
+            // Retrieve Bundle
+            getParentFragmentManager().setFragmentResultListener("FOOD ITEM", this, new FragmentResultListener() {
+                @Override
+                public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
+                    Log.d(TAG, "In ConfirmItemFragment onFragmentResult()");
+
+                    // retrieve foodItem from Bundle
+                    item = (NestUPC) result.get("foodItem");
+
+                    // retrieve strings from food item
+                    item_name = item.getProductName();
+                    Log.d(TAG_ITEM, "Item Name: " + item_name);
+                    cat_name = item.getCatDesc();
+                    Log.d(TAG_ITEM, "Cat Desc: " + cat_name);
+                    upc_string = item.getUpc();
+                    Log.d(TAG_ITEM, "UPC: " + upc_string);
+
+                    // Send retrieved data to TextView
+                    itemName.setText(item_name);
+                    catName.setText(cat_name);
+                    upc.setText(upc_string);
+                }
+            });
+        }
+
+
 
         ////////////// Navigation //////////////
 
@@ -98,6 +133,9 @@ public class ConfirmItemFragment extends Fragment {
                 Log.d(TAG, "In ConfirmItemFragment onClick() for button_confirm_item");
 
                 // Send bundle received to SelectPrintedExpirationDateFragment
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("foodItem", item);
+
                 getParentFragmentManager().setFragmentResult("FOOD ITEM", bundle);
                 NavHostFragment.findNavController(ConfirmItemFragment.this)
                         .navigate(R.id.action_confirmItemFragment_to_selectPrintedExpirationDateFragment);
@@ -122,6 +160,18 @@ public class ConfirmItemFragment extends Fragment {
 
             }
         });
+    }
+
+    /////////// LIFE CYCLE ////////////
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+
+        // save item + strings
+        outState.putSerializable("foodItem", item);
+
+        super.onSaveInstanceState(outState);
 
     }
+
+
 }
