@@ -85,6 +85,7 @@ public class Choose extends AppCompatActivity implements OnClickListener {
             case R.id.futureEffortsBtn:
                 launchFutureEfforts();
                 break;
+
         }
     }
 
