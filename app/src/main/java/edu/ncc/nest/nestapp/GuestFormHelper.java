@@ -79,38 +79,6 @@ public class GuestFormHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean insertData(String name, String email, String phone, String date, String address, String city, String zip, String barcode) {
-
-        //creating an SQLLite database
-        SQLiteDatabase db1 = this.getWritableDatabase();
-
-        //All info for a single user will be placed into the same ContentValue variable
-        ContentValues cValues = new ContentValues();
-
-        //loading user information into the content value
-        cValues.put(NAME, name);
-        cValues.put(EMAIL, email);
-        cValues.put(PHONE, phone);
-        cValues.put(DATE, date);
-        cValues.put(ADDRESS, address);
-        cValues.put(CITY, city);
-        cValues.put(ZIP, zip);
-        cValues.put(BARCODE, barcode);
-        // leaving out for now: cValues.put(STATE, state);
-
-        //placing the information into the database
-        long res = db1.insert(TABLE_NAME, null, cValues);
-
-        //insert method will return a negative 1 if there was an error with the insert
-        if (res == -1) {
-            return false;
-        }
-
-        //returning true if insertion was successful
-        return true;
-
-    }
-
     /**
      * isRegistered - Takes 1 parameter
      * @param barcode - The barcode to search the database for
