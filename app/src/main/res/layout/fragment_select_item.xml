@@ -26,7 +26,7 @@
 
 
     <TextView
-        android:id="@+id/nest_new_upc_adding_label"
+        android:id="@+id/fragment_select_item_headline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -39,19 +39,19 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/nest_new_upc_brand_prompt"
+        android:id="@+id/fragment_select_item_brand_prompt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/nest_new_upc_adding_label"
+        android:layout_below="@id/fragment_select_item_headline"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="32dp"
         android:text="@string/nest_new_upc_brand_prompt"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/nest_new_upc_adding_label"
+        app:layout_constraintTop_toBottomOf="@id/fragment_select_item_headline"
         tools:ignore="RtlHardcoded" />
 
     <EditText
-        android:id="@+id/brandEdit"
+        android:id="@+id/fragment_select_item_brand_entry"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
@@ -61,23 +61,23 @@
         android:hint="@string/nest_new_upc_brand_hint"
         android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nest_new_upc_brand_prompt"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_select_item_brand_prompt"
         tools:ignore="RtlHardcoded" />
 
     <TextView
-        android:id="@+id/nest_new_upc_description_prompt"
+        android:id="@+id/fragment_select_item_description_prompt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/nest_new_upc_adding_label"
+        android:layout_below="@id/fragment_select_item_headline"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="24dp"
         android:text="@string/nest_new_upc_description_prompt"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/brandEdit"
+        app:layout_constraintTop_toBottomOf="@id/fragment_select_item_brand_entry"
         tools:ignore="RtlHardcoded" />
 
     <EditText
-        android:id="@+id/descriptionEdit"
+        android:id="@+id/fragment_select_item_description_entry"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
@@ -87,41 +87,41 @@
         android:hint="@string/nest_new_upc_description_hint"
         android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/nest_new_upc_description_prompt"
+        app:layout_constraintTop_toBottomOf="@id/fragment_select_item_description_prompt"
         tools:ignore="RtlHardcoded" />
 
     <TextView
-        android:id="@+id/nest_new_upc_choose_corresponding_label"
+        android:id="@+id/fragment_select_item_headline2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/nest_new_upc_adding_label"
+        android:layout_below="@id/fragment_select_item_headline"
         android:layout_marginTop="24dp"
         android:text="@string/nest_new_upc_choose_corresponding_label"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/descriptionEdit"
+        app:layout_constraintTop_toBottomOf="@id/fragment_select_item_description_entry"
         tools:ignore="RtlHardcoded" />
 
     <TextView
-        android:id="@+id/nest_new_upc_category_prompt"
+        android:id="@+id/fragment_select_item_category_prompt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/nest_new_upc_adding_label"
+        android:layout_below="@id/fragment_select_item_headline"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="24dp"
         android:text="@string/nest_new_upc_category_prompt"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/nest_new_upc_choose_corresponding_label"
+        app:layout_constraintTop_toBottomOf="@id/fragment_select_item_headline2"
         tools:ignore="RtlHardcoded" />
 
 
     <Button
-        android:id="@+id/category_select"
+        android:id="@+id/fragment_select_item_category_select"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/nest_new_upc_category_prompt"
+        app:layout_constraintTop_toBottomOf="@id/fragment_select_item_category_prompt"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="4dp"
         android:layout_marginRight="16dp"
@@ -130,28 +130,49 @@
 
 
     <TextView
-        android:id="@+id/nest_new_upc_product_prompt"
+        android:id="@+id/fragment_select_item_category_hint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/nest_new_upc_adding_label"
+        app:layout_constraintTop_toBottomOf="@id/fragment_select_item_category_prompt"
+        app:layout_constraintLeft_toRightOf="@id/fragment_select_item_category_select"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="24dp"
+        tools:ignore="RtlHardcoded" />
+
+
+    <TextView
+        android:id="@+id/fragment_select_item_product_prompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/fragment_select_item_headline"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="24dp"
         android:text="@string/nest_new_upc_product_prompt"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/category_select"
+        app:layout_constraintTop_toBottomOf="@id/fragment_select_item_category_select"
         tools:ignore="RtlHardcoded" />
 
     <Button
-        android:id="@+id/item_select"
+        android:id="@+id/fragment_select_item_product_select"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/nest_new_upc_product_prompt"
+        app:layout_constraintTop_toBottomOf="@id/fragment_select_item_product_prompt"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="4dp"
         android:layout_marginRight="16dp"
         tools:ignore="RtlHardcoded"
         android:text="@string/select_item" />
+
+    <TextView
+        android:id="@+id/fragment_select_item_product_hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/fragment_select_item_product_prompt"
+        app:layout_constraintLeft_toRightOf="@id/fragment_select_item_product_select"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="24dp"
+        tools:ignore="RtlHardcoded" />
 
     <Button
         android:id="@+id/acceptButton"
