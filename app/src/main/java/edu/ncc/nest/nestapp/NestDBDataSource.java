@@ -117,6 +117,29 @@ public class NestDBDataSource {
     }
 
     /**
+     * getProdIdfromProdInfo method --
+     * looks up the related product id based upon the category id and item name
+     * @param cId  the category id
+     * @param iName  the item name    *
+     * @return if found, the product id; -1 otherwise
+     */
+    public int getProdIdfromProdInfo(int cId, String iName) {
+        int pId = -1;
+
+        String qry = "SELECT * FROM products WHERE categoryId = " + cId + " AND upper(name) = upper(?)";
+
+        Cursor c = db.rawQuery(qry, new String[]{iName});
+        if (c.moveToFirst()) {
+            // line below for testing purposes
+            Log.d("DBASE", "data: " + c.getString(0) + " " + c.getString(1) + " " + c.getString(2) + " " + c.getString(3));
+            pId = c.getInt(c.getColumnIndex("id"));
+        }
+        c.close();
+        return pId;
+    }
+
+
+    /**
      * getShelfLivesForProduct method --
      * looks up the shelf life records for the given productId
      * @param productId the FoodKeeper product id to lookup
