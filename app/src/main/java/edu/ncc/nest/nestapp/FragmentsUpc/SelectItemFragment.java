@@ -19,11 +19,11 @@ package edu.ncc.nest.nestapp.FragmentsUpc;
 import android.os.Bundle;
 
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.LayoutInflater;
 
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,7 +31,6 @@ import android.widget.PopupMenu;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentResultListener;
 import androidx.navigation.fragment.NavHostFragment;
 
 import edu.ncc.nest.nestapp.R;
@@ -40,11 +39,13 @@ import edu.ncc.nest.nestapp.NestDBDataSource;
 
 public class SelectItemFragment extends Fragment implements View.OnClickListener
 {
+    private final String DEFAULT_STRING = "VALUE LEFT BLANK";
+
     private String upcSaved; // UPC as passed from previous fragment; populated from a saved bundle
 
     // THE INDEX SELECTED FROM A CATEGORY POPUP, POPULATES A SUB CATEGORY (ITEM) POPUP, SETS itemID
-    private int itemID; // the product identification number, as selected from popup menus
     int categoryIndex; // index selected for the main category, used to slice the following array
+    private int itemID; // the index of the sub category in the R.array at index {categoryIndex}
 
     // TODO list would be better populated programmatically, instead of hardcoded like this
     private final int categories[] =
@@ -65,16 +66,17 @@ public class SelectItemFragment extends Fragment implements View.OnClickListener
         R.array.vegetarian_protein_items,
     };
 
-    // UI BUTTONS FOR THE CATEGORY AND SUB CATEGORY
+    // UI BUTTONS AND TEXT VIEWS FOR THE CATEGORY AND SUB CATEGORY
     Button categoryButton, productButton;
+    TextView categoryHint, productHint;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        // initialized values;
-        upcSaved = "";
-        itemID = categoryIndex = 0;
+        // initialize;
+        upcSaved = DEFAULT_STRING;
+        itemID = categoryIndex = -1;
 
         return inflater.inflate(R.layout.fragment_select_item, container, false);
     }
@@ -86,43 +88,55 @@ public class SelectItemFragment extends Fragment implements View.OnClickListener
 
 
         // GRAB THE UPC VALUES FROM THE BUNDLE SENT FROM SCAN FRAG OR CONFIRM UPC FRAG
-        getParentFragmentManager().setFragmentResultListener("BARCODE", this,
-                (requestKey, result) -> upcSaved = result.getString("barcode"));
+        if (savedInstanceState != null)
+            upcSaved = savedInstanceState.getString("barcode");
+        else
+            getParentFragmentManager().setFragmentResultListener("BARCODE",
+                    this, (requestKey, result) -> upcSaved = result.getString("barcode"));
 
-        Toast.makeText(getContext(), String.format("GOT UPC: %s", upcSaved), Toast.LENGTH_LONG).show(); // TODO
+
+        if ( upcSaved.contentEquals(DEFAULT_STRING) )
+            Toast.makeText(getContext(), "UPC NOT TRANSFERRED FROM BARCODE RESULTS", Toast.LENGTH_LONG).show();
+        else
+            ((TextView)categoryHint.findViewById(R.id.fragment_select_item_headline)).setText(String.format("#%s", upcSaved));
 
 
-        // ON CLICKS FOR MAIN CATEGORY AND SUB CATEGORY BUTTONS - POPULATES A MENU VIEW FOR EACH
-        categoryButton = view.findViewById(R.id.category_select);
+
+        // INITIALIZE UI ELEMENTS THAT ARE INSTANCE VARIABLES
+        categoryHint = view.findViewById(R.id.fragment_select_item_category_hint);
+        categoryButton = view.findViewById(R.id.fragment_select_item_category_select);
         categoryButton.setOnClickListener( v -> showCategories() );
 
-        productButton = view.findViewById(R.id.item_select);
+        productHint = view.findViewById(R.id.fragment_select_item_product_hint);
+        productButton = view.findViewById(R.id.fragment_select_item_product_select);
         productButton.setOnClickListener( v -> showProducts() );
 
 
-        // ACCEPT BUTTON CODE - PARSE AND ADD VALES TO NEW UPC, PASS INFO TO PRINTED EXPIRATION DATE
+        // ACCEPT BUTTON CODE - PARSE VALUES FOR NEW UPC, PASS INFO TO PRINTED EXPIRATION DATE
         view.findViewById(R.id.acceptButton).setOnClickListener( view1 ->
         {
-            // open a link to the database to add the information;
+            // open a source to the database to add the information;
             NestDBDataSource database = new NestDBDataSource(getContext());
 
             // retrieve the String information from each view, casting as appropriate;
-            String name = ((EditText) (getView().findViewById(R.id.brandEdit))).getText().toString();
-            String description = ((EditText) (getView().findViewById(R.id.descriptionEdit))).getText().toString();
+            String name = ((EditText) (getView().findViewById(R.id.fragment_select_item_brand_entry))).getText().toString();
+            String description = ((EditText) (getView().findViewById(R.id.fragment_select_item_description_entry))).getText().toString();
 
 
-            // make sure all fields were was available and entered properly, including an item id
-            if (name.isEmpty() || description.isEmpty() || itemID == 0 )
-//                Toast.makeText(getContext(), "Please fill and select all fields!, including all sub categories", Toast.LENGTH_LONG).show();
-                Toast.makeText(getContext(), String.format("REJECTED! name: %s des: %s id: %d", name, description, itemID), Toast.LENGTH_LONG).show();
+            // make sure fields are available and entered properly, including an item id;
+            if ( name.isEmpty() || description.isEmpty() )
+                name = description = DEFAULT_STRING;
+
+
+            if (itemID == -1)
+                Toast.makeText(getContext(), "Don't forget to fill the category AND subcategory!", Toast.LENGTH_LONG).show();
             else
             {
-                // use dataSource to add the new upc to the Nest UPCs table
-                Toast.makeText(getContext(), String.format("ACCEPTED! name: %s des: %s id: %d", name, description, itemID), Toast.LENGTH_LONG).show();
-//                database.insertNewUPC(upcSaved, name, description, itemID);
 
+                // use dataSource to add the new upc to the Nest's table
+                database.insertNewUPC(upcSaved, name, description, itemID);
 
-                // stuff everything in a bundle in case it's needed for PrintedExpirationDate
+                // stuff everything in a bundle in case it's needed for PrintedExpirationDate;
                 Bundle saved = new Bundle();
                 saved.putInt("savedID", itemID);
                 saved.putString("savedUPC", upcSaved);
@@ -130,23 +144,16 @@ public class SelectItemFragment extends Fragment implements View.OnClickListener
                 saved.putString("savedDescription", description);
                 getParentFragmentManager().setFragmentResult("PRODUCT INFO", saved);
 
-                // next stop -> printed expiration date
-                NavHostFragment.findNavController(SelectItemFragment.this)
-                        .navigate(R.id.action_selectItemFragment_to_selectPrintedExpirationDateFragment);
+                // navigate over to printed expiration date;
+//                NavHostFragment.findNavController(SelectItemFragment.this)
+//                        .navigate(R.id.action_selectItemFragment_to_selectPrintedExpirationDateFragment);
             }
         });
 
 
         // CANCEL BUTTON CODE - NAVIGATE BACK TO ENTER UPC FRAG
-        view.findViewById(R.id.cancelButton).setOnClickListener(new View.OnClickListener()
-        {
-            @Override public void onClick(View view)
-            {
-                NavHostFragment.findNavController(SelectItemFragment.this)
-                        .navigate(R.id.confirmItemFragment);
-            }
-        });
-
+        view.findViewById(R.id.cancelButton).setOnClickListener( view12 ->
+            NavHostFragment.findNavController(SelectItemFragment.this).navigate(R.id.confirmItemFragment));
 
     }
 
@@ -164,12 +171,16 @@ public class SelectItemFragment extends Fragment implements View.OnClickListener
         String[] mainCategories = getResources().getStringArray(R.array.categories_array);
 
         for (int i = 0; i < mainCategories.length; ++i )
-            menu.add(i, i, i, mainCategories[i]);
+            menu.add(1, i, 1, mainCategories[i]);
 
-//        // THE ACTUAL ON CLICK CODE TO SET THE SUB CATEGORY INDEX
+        // THE ACTUAL ON CLICK CODE TO SET THE SUB CATEGORY INDEX AND TOOLTIP
         menuPop.setOnMenuItemClickListener(item ->
         {
+            Toast.makeText(getContext(), String.format("(CATEGORY ID IS %d)", item.getItemId()), Toast.LENGTH_LONG).show();
+            categoryHint.setText( item.toString() );
             categoryIndex = item.getItemId();
+            productHint.setText(" ");
+            itemID =  -1;
             return true;
         });
 
@@ -190,11 +201,14 @@ public class SelectItemFragment extends Fragment implements View.OnClickListener
         String[] subCategories = getResources().getStringArray( categories[categoryIndex] );
 
         for (int i = 0; i < subCategories.length; ++i )
-            menu.add(i, i, i, subCategories[i]);
+            menu.add(categoryIndex, i, i, subCategories[i]);
 
-        // THE ACTUAL ON CLICK CODE TO SET THE ITEM ID NUMBER
+        // THE ACTUAL ON CLICK CODE TO SET THE ITEM ID NUMBER AND TOOLTIP
         menuPop.setOnMenuItemClickListener((PopupMenu.OnMenuItemClickListener) item ->
         {
+            Toast.makeText(getContext(), String.format("(PRODUCT ID IS %d)", item.getItemId()), Toast.LENGTH_LONG).show();
+            productHint.setText( item.toString() );
+            itemID = item.getItemId();
             Toast.makeText(getContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
             return true;
         });
