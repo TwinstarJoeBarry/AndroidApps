@@ -1,21 +1,21 @@
 package edu.ncc.nest.nestapp.FragmentsUpc;
 /**
- *
  * Copyright (C) 2020 The LibreFoodPantry Developers.
- *
+ * <p>
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *
+ * <p>
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * <p>
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+
 import android.icu.text.DateFormat;
 import android.nfc.Tag;
 import android.os.Bundle;
@@ -52,15 +52,17 @@ public class DisplayTrueExpirationFragment extends Fragment {
     private NestDBDataSource dataSource;
     private int itemId;
     private String upc;
+    private int shelfLifeMax;
+    private String shelfLifeMatric;
+    private Date exp;
 
+    private  String TAG ="TESTING";
 
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
-
-
 
 
         // Inflate the layout for this fragment
@@ -74,276 +76,172 @@ public class DisplayTrueExpirationFragment extends Fragment {
         //  this variable must be assigned to the value from bundle send by previous fragment
         // hardcoded for testing purposes
         // expiration date
-        Date expDate = new Date(2020,9,30);
+        Date exp = new Date(2020, 9, 30);
 
+        // assign item from the bundle received from other fragment
         itemId = 605;
 
+        // assign upc from the bundle received from other fragment
         upc = "123456789";
 
 
         try {
 
-            // Instantiating
+            // Instantiating Database
             dataSource = new NestDBDataSource(this.getContext());
 
-//            // getting the shelf life from database
-//            List<ShelfLife> list = dataSource.getShelfLivesForProduct(itemId);
 
-            // getting product name from database
+            // getting JSON object containing product info from database using item id
             JSONObject product = dataSource.getProductInfoById(itemId);
 
             // product exist
             if (product.length() != 0) {
 
-                Log.d("TESTING", "DisplayTrueExpirationFragment/onCreateView: bundle:" + product.toString());
+//                Log statement to view all the data inside product json object
+//                Log.d(TAG, "DisplayTrueExpirationFragment/onCreateView: bundle:" + product.toString());
 
-
-
-                ((TextView) view.findViewById(R.id.item_display)).setText((String)product.get("NAME"));
+                // Display item name , upc , category name on fragment_display_true_expiration.xml
+                ((TextView) view.findViewById(R.id.item_display)).setText((String) product.get("NAME"));
                 ((TextView) view.findViewById(R.id.upc_display)).setText(upc);
-                ((TextView) view.findViewById(R.id.category_display)).setText((String)product.get("CATEGORY_NAME"));
+                ((TextView) view.findViewById(R.id.category_display)).setText((String) product.get("CATEGORY_NAME"));
 
-                    JSONArray shelfLives = (JSONArray) product.get("SHELFLIVES");
+                // Getting multiple shelflife records from the product object
+                JSONArray shelfLives = (JSONArray) product.get("SHELFLIVES");
 
-                    int shelfLifeIndex = getShortestShelfLife( shelfLives );
-                    JSONObject shelfLife = (JSONObject)shelfLives.get(shelfLifeIndex);
+                // A product can have multiple shelflife
+                // Getting the shortest shelf life array
+                JSONObject shelfLife = getShortestShelfLife(shelfLives);
 
 
-
-                    ((TextView) view.findViewById(R.id.exp_date_display)).setText(trueExpDate(  (int)shelfLife.get("MAX") , (String)shelfLife.get("METRIC") , expDate ));
-//                ((TextView)view.findViewById(R.id.category_display)).setText(product.getString("CATEGORY_NAME"));
-//                product.get("exp_date_display").toString()
+                //Parsing maxdop and metric value from the shortest shelf object
+                shelfLifeMax = (int) shelfLife.get("MAX");
+                shelfLifeMatric = (String) shelfLife.get("METRIC");
 
             }
 
-
-        }
-        catch(JSONException ex){
-            Log.d("TESTING", "onViewCreated: " + ex.getMessage());
-        }
-        catch(RuntimeException ex){
-            Log.d("TESTING", ex.getMessage());
+        } catch (JSONException ex) {
+            Log.d(TAG, "onViewCreated: " + ex.getMessage());
+        } catch (RuntimeException ex) {
+            Log.d(TAG, ex.getMessage());
         }
 
 
-
-        view.findViewById(R.id.button_display_date_next).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.button_display_date).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // navigation has yet to be set up in the nav_graph.xml
-                NavHostFragment.findNavController(DisplayTrueExpirationFragment.this)
-                        .navigate(R.id.action_StartFragment_to_ScanFragment);
+
+                // Display True Expiration Date
+                ((TextView) getView().findViewById(R.id.exp_date_display)).setText(trueExpDate(shelfLifeMax, shelfLifeMatric, exp));
             }
         });
 
 
     }
 
-    public int getShortestShelfLife(JSONArray shelfLives){
+
+    /**
+     * getShortestShelfLife method -
+     * This method takes a JSONArray containing shelflives as a parameter and find the shortest shelflife and return its reference as a json object
+     * @param shelfLives JSONArray
+     * @return shelflife JSONobject
+     */
+    public JSONObject getShortestShelfLife(JSONArray shelfLives) {
+
 
         int index = -1;
         String metric = "";
-        for(int i = 0; i < shelfLives.length(); i++){
 
-            try {
+        try {
+
+            // loop through the Array of JSON objects
+            for (int i = 0; i < shelfLives.length(); i++) {
+
+                // get the Json object at index i
                 JSONObject shelflife = (JSONObject) shelfLives.get(i);
-                Log.d("TESTING", "getShortestShelfLife: " + shelflife.get("METRIC"));
-                switch ((String) shelflife.get("METRIC")){
+
+                //For testing
+                //Log.d( TAG, "getShortestShelfLife: " + shelflife.get("METRIC"));
+
+                switch ((String) shelflife.get("METRIC")) {
                     case "Years":
-                           if( metric == ""){
-                              metric = "Years";
-                              index = i;
-                           }
+                        if (metric == "") {
+                            metric = "Years";
+                            index = i;
+                        }
                         break;
                     case "Months":
-                        if( metric == "" || metric == "Years"){
+                        if (metric == "" || metric == "Years") {
                             metric = "Months";
                             index = i;
                         }
                         break;
                     case "Weeks":
-                        if( metric == "" || metric == "Years"|| metric == "Months"){
+                        if (metric == "" || metric == "Years" || metric == "Months") {
                             metric = "Weeks";
                             index = i;
                         }
                         break;
                     case "Days":
-                        if( metric == "" || metric == "Years" || metric == "Months"|| metric == "Weeks"){
+                        if (metric == "" || metric == "Years" || metric == "Months" || metric == "Weeks") {
                             metric = "Days";
                             index = i;
                         }
                         break;
                     default:
-                        Log.d("TESTING", "getShortedShelfLife: Error invalid option");
+                        Log.d(TAG, "getShortedShelfLife: Error invalid option");
                 }
 
+            }
 
-            }
-            catch (JSONException ex){
-                Log.d("TESTING", "getShortedShelfLife: " + ex.getMessage());
-            }
+            // json object with shortest shelflife
+            return (JSONObject) shelfLives.get(index);
+
+        } catch (JSONException ex) {
+            Log.d(TAG, "getShortedShelfLife: " + ex.getMessage());
         }
 
-        Log.d("TESTING", "getShortedShelfLife: index" + index);
-        return index;
+        return null;
     }
 
 
     /**
      * trueExpDate --
-     * calculates the true expiration date of the item.
+     * calculates the True expiration date of the item that has been scanned.
+     * @param max - int
+     * @param metric - String
+     * @param expDate - Date
+     * @return string containing TrueExpirationDate
      */
-    public String trueExpDate1(int max, String metric, Date expDate)
-    {
-        metric = metric.toLowerCase();
+    public String trueExpDate(int max, String metric, Date expDate) {
 
 
-
-        int finalExMonth = 0;
-        int finalExDate = 0;
-        int finalExYear = 0;
-
-        // if metric is weeks
-        if(metric.equals("weeks"))
-        {
-            metric = "days";
-            max = 7*max;
-        }
-
-        // if metric is months
-        if(metric.equals("months"))
-        {
-
-            finalExDate = expDate.getDay();
-            finalExYear = expDate.getYear();
-            finalExMonth = expDate.getMonth() + max;
-
-            while(finalExMonth > 12)
-            {
-                finalExMonth = finalExMonth - 12;
-                finalExYear = expDate.getYear() + 1;
-                expDate.setYear( finalExYear );
-            }
-
-        }
-
-        // if metric is days
-        if(metric.equals("days"))
-        {
-            finalExYear = expDate.getYear();
-            finalExMonth = expDate.getMonth();
-
-            finalExDate = expDate.getDay() + max;
-
-            // months that have 31 days
-            if(expDate.getMonth() == 1 || expDate.getMonth() == 3 || expDate.getMonth() == 5 || expDate.getMonth() == 7 || expDate.getMonth() == 8 || expDate.getMonth() == 10 || expDate.getMonth() == 12) {
-                if(finalExDate > 31)
-                {
-                    finalExDate = finalExDate - 31;
-                    finalExMonth = finalExMonth + 1;
-                    if(finalExMonth > 12)
-                    {
-                        finalExMonth = finalExMonth - 12;
-                        finalExYear = expDate.getYear() + 1;
-
-                    }
-                }
-
-            }
-
-            // months that have 30 days
-            if(expDate.getMonth() == 2 || expDate.getMonth() == 4 || expDate.getMonth() == 6 || expDate.getMonth() == 9 || expDate.getMonth() == 11)
-            {
-                if(finalExDate > 30)
-                {
-                    finalExDate = finalExDate - 30;
-                    finalExMonth = finalExMonth + 1;
-                    if(finalExMonth > 12)
-                    {
-                        finalExMonth = finalExMonth - 12;
-                        finalExYear = expDate.getYear() + 1;
-
-                    }
-
-                }
-
-            }
-
-            // if the final date is greater than 31
-            while(finalExDate > 31)
-            {
-                finalExDate = finalExDate - 31;
-                finalExMonth = finalExMonth + 1;
-
-                // if the final month is greater than 12
-                if(finalExMonth > 12)
-                {
-                    finalExMonth = finalExMonth - 12;
-                    finalExYear = finalExYear + 1;
-
-                }
-            }
-
-        }
-
-        // if metric is years
-        if(metric.equals("years"))
-        {
-            finalExMonth = expDate.getMonth();
-            finalExDate = expDate.getDay();
-            finalExYear = expDate.getYear() + max;
-        }
-
-//        logging the final date
-//        Log.d("TESTING", "finalExpDate1: " + finalExMonth + "/" + finalExDate + "/" + finalExYear);
-
-        return finalExMonth + "/" + finalExDate + "/" + finalExYear;
-    }
-
-
-
-    /**
-     * finalExpDate --
-     * calculates the final expiration date of the item that has been scanned.
-     * @param expDate - String
-     */
-    public String trueExpDate(int max, String metric, Date expDate)
-    {
-
-
+        // convert into lower case
         metric = metric.toLowerCase();
 
         // separating month, day, and year
         int month = expDate.getMonth();
-
-        int day =  expDate.getDate();
-
+        int day = expDate.getDate();
         int year = expDate.getYear();
 
-        Log.d("TESTING", "trueExpDate: max: " + max + " Metric: " + metric );
-        Log.d("TESTING", "trueExpDate: month: " + month + " day: " + day + " year:" + year );
-
+        // variable to store ture expiration date
         int finalExMonth = 0;
         int finalExDate = 0;
         int finalExYear = 0;
 
         // if metric is weeks
-        if(metric.equals("weeks"))
-        {
+        if (metric.equals("weeks")) {
             metric = "days";
-            max = 7*max;
+            max = 7 * max;
         }
 
         // if metric is months
-        if(metric.equals("months"))
-        {
+        if (metric.equals("months")) {
 
             finalExDate = day;
             finalExYear = year;
             finalExMonth = month + max;
 
-            while(finalExMonth > 12)
-            {
+            while (finalExMonth > 12) {
                 finalExMonth = finalExMonth - 12;
                 finalExYear = year + 1;
                 year = finalExYear;
@@ -352,21 +250,18 @@ public class DisplayTrueExpirationFragment extends Fragment {
         }
 
         // if metric is days
-        if(metric.equals("days"))
-        {
+        if (metric.equals("days")) {
             finalExYear = year;
             finalExMonth = month;
 
             finalExDate = day + max;
 
             // months that have 31 days
-            if(month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) {
-                if(finalExDate > 31)
-                {
+            if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) {
+                if (finalExDate > 31) {
                     finalExDate = finalExDate - 31;
                     finalExMonth = finalExMonth + 1;
-                    if(finalExMonth > 12)
-                    {
+                    if (finalExMonth > 12) {
                         finalExMonth = finalExMonth - 12;
                         finalExYear = year + 1;
 
@@ -376,14 +271,11 @@ public class DisplayTrueExpirationFragment extends Fragment {
             }
 
             // months that have 30 days
-            if(month == 2 || month == 4 || month == 6 || month == 9 || month == 11)
-            {
-                if(finalExDate > 30)
-                {
+            if (month == 2 || month == 4 || month == 6 || month == 9 || month == 11) {
+                if (finalExDate > 30) {
                     finalExDate = finalExDate - 30;
                     finalExMonth = finalExMonth + 1;
-                    if(finalExMonth > 12)
-                    {
+                    if (finalExMonth > 12) {
                         finalExMonth = finalExMonth - 12;
                         finalExYear = year + 1;
 
@@ -394,14 +286,12 @@ public class DisplayTrueExpirationFragment extends Fragment {
             }
 
             // if the final date is greater than 31
-            while(finalExDate > 31)
-            {
+            while (finalExDate > 31) {
                 finalExDate = finalExDate - 31;
                 finalExMonth = finalExMonth + 1;
 
                 // if the final month is greater than 12
-                if(finalExMonth > 12)
-                {
+                if (finalExMonth > 12) {
                     finalExMonth = finalExMonth - 12;
                     finalExYear = finalExYear + 1;
 
@@ -411,16 +301,12 @@ public class DisplayTrueExpirationFragment extends Fragment {
         }
 
         // if metric is years
-        if(metric.equals("years"))
-        {
+        if (metric.equals("years")) {
             finalExMonth = month;
             finalExDate = day;
             finalExYear = year + max;
         }
 
-//        // displaying final expiration date
-//        TextView finDate = (TextView)findViewById(R.id.finalDate);
-//        finDate.setText( finalExMonth + "/" + finalExDate + "/" + finalExYear);
 
         return finalExMonth + "/" + finalExDate + "/" + finalExYear;
     }

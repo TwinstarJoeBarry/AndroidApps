@@ -1,23 +1,21 @@
 /**
- *
-
- Copyright (C) 2020 The LibreFoodPantry Developers.
-
-
- This program is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
-
-
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
-
- You should have received a copy of the GNU General Public License
- along with this program.  If not, see https://www.gnu.org/licenses/.
+ * Copyright (C) 2020 The LibreFoodPantry Developers.
+ * <p>
+ * <p>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * <p>
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p>
+ * <p>
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see https://www.gnu.org/licenses/.
  */
 package edu.ncc.nest.nestapp;
 
@@ -40,9 +38,9 @@ public class NestDBDataSource {
     private SQLiteDatabase db;
     private NestDBOpenHelper helper;
     public static String TABLE_NAME_NEST_UPCS = "nestUPCs";
+    public String TAG = "TESTING";
 
-
-    public NestDBDataSource(Context context) throws SQLException  {
+    public NestDBDataSource(Context context) throws SQLException {
         helper = NestDBOpenHelper.getInstance(context);
         this.db = helper.getWritableDatabase();
     }
@@ -60,10 +58,11 @@ public class NestDBDataSource {
     /**
      * insertNewUPC method --
      * adds a new record the Nest UPCs table
-     * @param upc upc code
-     * @param brand brand name
+     *
+     * @param upc         upc code
+     * @param brand       brand name
      * @param description description
-     * @param productId associated FoodKeeper product id
+     * @param productId   associated FoodKeeper product id
      */
     void insertNewUPC(String upc, String brand, String description, int productId) {
         ContentValues values = new ContentValues();
@@ -79,14 +78,15 @@ public class NestDBDataSource {
      * getProductIdFromUPC method -
      * looks up the given UPC code in the Nest UPCs table and returns the associated
      * product ID
-     * @param upc  UPC code
+     *
+     * @param upc UPC code
      * @return integer productId field value if found, -1 otherwise
      */
     int getProductIdFromUPC(String upc) {
         int result = -1; // indicate not found
         String qry = "SELECT productId FROM nestUPCs WHERE upper(UPC) = upper(?)";
         Cursor c = db.rawQuery(qry, new String[]{upc});
-        if(c.moveToFirst()){
+        if (c.moveToFirst()) {
             result = c.getInt(0);
         }
         c.close();
@@ -97,15 +97,16 @@ public class NestDBDataSource {
      * getNestUPC method --
      * looks up the related UPC, product and category information based
      * on the given upc
+     *
      * @param upc upc code
      * @return if found, a filled NestUPC pojo with all
-     *          the key related information; null otherwise.
+     * the key related information; null otherwise.
      */
     public NestUPC getNestUPC(String upc) {
         NestUPC result = null;
         String qry = "SELECT * FROM view_upc_product_category_joined WHERE upper(UPC) = upper(?)";
         Cursor c = db.rawQuery(qry, new String[]{upc});
-        if(c.moveToFirst()){
+        if (c.moveToFirst()) {
             result = new NestUPC(
                     c.getString(c.getColumnIndex("UPC")),
                     c.getString(c.getColumnIndex("brand")),
@@ -124,6 +125,7 @@ public class NestDBDataSource {
     /**
      * getShelfLivesForProduct method --
      * looks up the shelf life records for the given productId
+     *
      * @param productId the FoodKeeper product id to lookup
      * @return an ArrayList<ShelfLife> object, which will have no
      * contents if nothing is found
@@ -132,7 +134,7 @@ public class NestDBDataSource {
         List<ShelfLife> result = new ArrayList<>();
         String qry = "SELECT * FROM view_shelf_lives_and_type_info_joined WHERE productId = ?";
         Cursor c = db.rawQuery(qry, new String[]{String.valueOf(productId)});
-        while (c.moveToNext()){
+        while (c.moveToNext()) {
             ShelfLife life = new ShelfLife(
                     c.getInt(c.getColumnIndex("typeIndex")),
                     c.getInt(c.getColumnIndex("min")),
@@ -149,14 +151,15 @@ public class NestDBDataSource {
     }
 
 
-
     /**
-     * getProducts method --
-     * copy all the products from db into list and return it
-     * @return an ArrayList<Product> object, which will have no
+     * getProductInfoById method --
+     * copy the product info of a specific productId from db into JSON Object and return it
+     *
+     * @param productId int
+     * @return a JSONObject, which will have no
      * contents if nothing is found
      */
-    public JSONObject getProductInfoById(int productId ) {
+    public JSONObject getProductInfoById(int productId) {
 
         // JSONObject to store all the product info
         JSONObject product = new JSONObject();
@@ -194,8 +197,6 @@ public class NestDBDataSource {
                 c.close();
 
 
-
-
                 // Json array to store multiple shelf lives
                 JSONArray shelfLives = new JSONArray();
                 JSONObject shelfLifeRecord;
@@ -220,7 +221,7 @@ public class NestDBDataSource {
                         shelfLives.put(shelfLifeRecord);
 
                     } catch (JSONException ex) {
-                        Log.d("TESTING", "getProductInfoById: " + ex.getMessage());
+                        Log.d(TAG, "getProductInfoById: " + ex.getMessage());
                     }
 
                 }
@@ -229,12 +230,11 @@ public class NestDBDataSource {
                 product.put("SHELFLIVES", shelfLives);
 
             }
+        } catch (JSONException ex) {
+            Log.d(TAG, "getProductInfoById: " + ex.getMessage());
         }
-        catch (JSONException ex){
-                Log.d("TESTING", "getProductInfoById: " + ex.getMessage() );
-            }
 
-            return product;
+        return product;
     }
 
     // have method that takes "box"/"printed" expiration date and UPC and returns
