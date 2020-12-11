@@ -33,25 +33,38 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="69dp"
         android:text="@string/in_confirm_item_fragment"
-        tools:layout_editor_absoluteX="125dp"
-        tools:layout_editor_absoluteY="69dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button_confirm_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="300dp"
         android:text="Confirm Item"
-        tools:layout_editor_absoluteX="99dp"
-        tools:layout_editor_absoluteY="381dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/button_incorrect_item"
+        app:layout_constraintEnd_toEndOf="parent"
+
+
+        />
 
     <Button
         android:id="@+id/button_incorrect_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="300dp"
+        android:layout_marginStart="50dp"
         android:text="Incorrect"
-        tools:layout_editor_absoluteX="213dp"
-        tools:layout_editor_absoluteY="381dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/button_confirm_item"
+        app:layout_constraintStart_toStartOf="parent"
+
+        />
 
     <TextView
         android:id="@+id/itemName"
@@ -59,47 +72,62 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:text="Item: "
-        tools:layout_editor_absoluteX="152dp"
-        tools:layout_editor_absoluteY="246dp" />
+        app:layout_constraintBottom_toBottomOf="@+id/add_item_name"
+        app:layout_constraintEnd_toEndOf="@+id/catName"
+        app:layout_constraintStart_toStartOf="@+id/catName"
+        app:layout_constraintTop_toTopOf="@+id/add_item_name" />
 
     <TextView
         android:id="@+id/catName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Category: "
-        tools:layout_editor_absoluteX="125dp"
-        tools:layout_editor_absoluteY="275dp" />
+        app:layout_constraintBottom_toBottomOf="@+id/add_UPC"
+        app:layout_constraintEnd_toEndOf="@+id/itemUPC"
+        app:layout_constraintStart_toStartOf="@+id/itemUPC"
+        app:layout_constraintTop_toTopOf="@+id/add_UPC" />
 
     <TextView
         android:id="@+id/itemUPC"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="60dp"
         android:text="UPC: "
-        tools:layout_editor_absoluteX="155dp"
-        tools:layout_editor_absoluteY="304dp" />
+        app:layout_constraintBottom_toTopOf="@+id/button_incorrect_item"
+        app:layout_constraintEnd_toStartOf="@+id/add_cat_name"
+        app:layout_constraintHorizontal_bias="0.537"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/add_cat_name" />
 
     <TextView
         android:id="@+id/add_item_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="138dp"
         android:text=""
-        tools:layout_editor_absoluteX="213dp"
-        tools:layout_editor_absoluteY="246dp" />
+        app:layout_constraintBottom_toTopOf="@+id/catName"
+        app:layout_constraintEnd_toEndOf="@+id/add_UPC"
+        app:layout_constraintStart_toStartOf="@+id/add_UPC"
+        app:layout_constraintTop_toBottomOf="@+id/textview_confirm_item"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/add_cat_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="2dp"
+        android:layout_height="14dp"
+        android:layout_marginBottom="60dp"
         android:text=""
-        tools:layout_editor_absoluteX="213dp"
-        tools:layout_editor_absoluteY="304dp" />
+        app:layout_constraintBottom_toTopOf="@+id/button_confirm_item"
+        app:layout_constraintEnd_toStartOf="@+id/button_confirm_item" />
 
     <TextView
         android:id="@+id/add_UPC"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
         android:text=""
-        tools:layout_editor_absoluteX="213dp"
-        tools:layout_editor_absoluteY="275dp" />
+        app:layout_constraintBottom_toTopOf="@+id/add_cat_name"
+        app:layout_constraintEnd_toEndOf="@+id/add_cat_name"
+        app:layout_constraintStart_toStartOf="@+id/add_cat_name" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
