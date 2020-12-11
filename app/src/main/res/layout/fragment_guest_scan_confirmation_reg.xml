@@ -104,7 +104,7 @@
             android:layout_weight="0.5"
             android:layout_height="wrap_content"
             android:layout_marginEnd="1dp"
-            android:text="@string/guestScan_rescan_button"
+            android:text="@string/guest_scan_rescan_button"
             style="@style/Widget.AppCompat.Button.Colored"
             android:backgroundTint="@color/colorPrimary"/>
 
