@@ -156,55 +156,85 @@ public class NestDBDataSource {
      * @return an ArrayList<Product> object, which will have no
      * contents if nothing is found
      */
-    public Bundle getProductInfoById(int productId ) {
+    public JSONObject getProductInfoById(int productId ) {
 
-        Bundle product = new Bundle();
-        String qry = "SELECT * FROM products WHERE id = ?";
-        Cursor c = db.rawQuery(qry, new String[]{String.valueOf(productId)});
-        while (c.moveToNext()){
-            product.putInt("ID", c.getInt(c.getColumnIndex("id")));
-            product.putInt("CATEGORY_ID", c.getInt(c.getColumnIndex("categoryId")));
-            product.putString("NAME", c.getString(c.getColumnIndex("name")));
-        }
-        c.close();
+        // JSONObject to store all the product info
+        JSONObject product = new JSONObject();
 
-        if(product.size() != 0) {
+        try {
 
-            qry = "SELECT * FROM categories WHERE id = ?";
-            c = db.rawQuery(qry, new String[]{String.valueOf(product.getInt("CATEGORY_ID"))});
-            while (c.moveToNext()){
-                product.putString("CATEGORY_NAME", c.getString(c.getColumnIndex("name")));
+            //*********   Query for product id, product name, category id    ***********************//
+
+            String qry = "SELECT * FROM products WHERE id = ?";
+            Cursor c = db.rawQuery(qry, new String[]{String.valueOf(productId)});
+            while (c.moveToNext()) {
+
+
+                //adding the product id, product name, category id in product object
+                product.put("ID", c.getInt(c.getColumnIndex("id")));
+                product.put("CATEGORY_ID", c.getInt(c.getColumnIndex("categoryId")));
+                product.put("NAME", c.getString(c.getColumnIndex("name")));
+
+
             }
             c.close();
 
+            //Product exists
+            if (product.length() != 0) {
 
-            JSONArray shelfLives = new JSONArray();
-            JSONObject shelfLifeRecord;
+                //*********   Query for category id, category name    ***********************//
 
-            qry = "SELECT * FROM view_shelf_lives_and_type_info_joined WHERE productId = ?";
-            c = db.rawQuery(qry, new String[]{String.valueOf(productId)});
-            int record = 0;
-            while (c.moveToNext()) {
+                qry = "SELECT * FROM categories WHERE id = ?";
+                c = db.rawQuery(qry, new String[]{String.valueOf(product.get("CATEGORY_ID"))});
+                while (c.moveToNext()) {
 
-                try {
-                    shelfLifeRecord = new JSONObject();
-                    shelfLifeRecord.put("TYPE", c.getInt(c.getColumnIndex("typeIndex")));
-                    shelfLifeRecord.put("MAX", c.getInt(c.getColumnIndex("max")));
-                    shelfLifeRecord.put("METRIC", c.getString(c.getColumnIndex("metric")));
-                    shelfLives.put(shelfLifeRecord);
+                    //adding the category name in product object
+                    product.put("CATEGORY_NAME", c.getString(c.getColumnIndex("name")));
                 }
-                catch (JSONException ex){
-                    Log.d( "TESTING" , "getProductInfoById: " + ex.getMessage());
+                c.close();
+
+
+
+
+                // Json array to store multiple shelf lives
+                JSONArray shelfLives = new JSONArray();
+                JSONObject shelfLifeRecord;
+
+
+                //*********   Query for shelflife type, max, metric    ***********************//
+
+                qry = "SELECT * FROM view_shelf_lives_and_type_info_joined WHERE productId = ?";
+                c = db.rawQuery(qry, new String[]{String.valueOf(productId)});
+                int record = 0;
+                while (c.moveToNext()) {
+
+                    try {
+
+                        // Json object to store each column of the record
+                        shelfLifeRecord = new JSONObject();
+                        shelfLifeRecord.put("TYPE", c.getInt(c.getColumnIndex("typeIndex")));
+                        shelfLifeRecord.put("MAX", c.getInt(c.getColumnIndex("max")));
+                        shelfLifeRecord.put("METRIC", c.getString(c.getColumnIndex("metric")));
+
+                        // Adding the shelf life record in the json array
+                        shelfLives.put(shelfLifeRecord);
+
+                    } catch (JSONException ex) {
+                        Log.d("TESTING", "getProductInfoById: " + ex.getMessage());
+                    }
+
                 }
+
+                // adding the shelflives array in the product JSONObject
+                product.put("SHELFLIVES", shelfLives);
 
             }
-            product.putString("SHELFLIVES", shelfLives.toString());
+        }
+        catch (JSONException ex){
+                Log.d("TESTING", "getProductInfoById: " + ex.getMessage() );
+            }
 
             return product;
-
-        }
-        else
-            return null;
     }
 
     // have method that takes "box"/"printed" expiration date and UPC and returns
