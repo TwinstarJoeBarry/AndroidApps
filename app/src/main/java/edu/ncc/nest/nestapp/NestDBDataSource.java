@@ -26,6 +26,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -116,29 +117,81 @@ public class NestDBDataSource {
     }
 
     /**
+     * getProdIdfromProdInfo method --
+     * looks up the related product id based upon the category id and item name
+     * @param cId  the category id
+     * @param iName  the item name    *
+     * @return if found, the product id; -1 otherwise
+     */
+    public int getProdIdfromProdInfo(int cId, String iName) {
+        int pId = -1;
+
+        String qry = "SELECT * FROM products WHERE categoryId = " + cId + " AND upper(name) = upper(?)";
+
+        Cursor c = db.rawQuery(qry, new String[]{iName});
+        if (c.moveToFirst()) {
+            // line below for testing purposes
+            Log.d("DBASE", "data: " + c.getString(0) + " " + c.getString(1) + " " + c.getString(2) + " " + c.getString(3));
+            pId = c.getInt(c.getColumnIndex("id"));
+        }
+        c.close();
+        return pId;
+    }
+
+
+    /**
      * getShelfLivesForProduct method --
      * looks up the shelf life records for the given productId
      * @param productId the FoodKeeper product id to lookup
      * @return an ArrayList<ShelfLife> object, which will have no
      * contents if nothing is found
      */
-    List<ShelfLife> getShelfLivesForProduct(int productId) {
+    public List<ShelfLife> getShelfLivesForProduct(int productId) {
         List<ShelfLife> result = new ArrayList<>();
         String qry = "SELECT * FROM view_shelf_lives_and_type_info_joined WHERE productId = ?";
         Cursor c = db.rawQuery(qry, new String[]{String.valueOf(productId)});
         while (c.moveToNext()){
             ShelfLife life = new ShelfLife(
-                c.getInt(c.getColumnIndex("typeIndex")),
-                c.getInt(c.getColumnIndex("min")),
-                c.getInt(c.getColumnIndex("max")),
-                c.getString(c.getColumnIndex("metric")),
-                c.getString(c.getColumnIndex("tips"))
+                    c.getInt(c.getColumnIndex("typeIndex")),
+                    c.getInt(c.getColumnIndex("min")),
+                    c.getInt(c.getColumnIndex("max")),
+                    c.getString(c.getColumnIndex("metric")),
+                    c.getString(c.getColumnIndex("tips"))
             );
             life.setCode(c.getString(c.getColumnIndex("typeCode")));
             life.setDesc(c.getString(c.getColumnIndex("description")));
             result.add(life);
         }
         c.close();
+        return result;
+    }
+
+
+
+    /**
+     * getProducts method --
+     * copy all the products from db into list and return it
+     * @return an ArrayList<Product> object, which will have no
+     * contents if nothing is found
+     */
+    public List<Product> getProducts() {
+
+        List<Product> result = new ArrayList<>();
+        String qry = "SELECT * FROM products";
+        Cursor c = db.rawQuery(qry, null);
+        while (c.moveToNext()){
+            Product product = new Product(
+                    c.getInt(c.getColumnIndex("id")),
+                    c.getInt(c.getColumnIndex("categoryId")),
+                    c.getString(c.getColumnIndex("name")),
+                    c.getString(c.getColumnIndex("subtitle")),
+                    c.getString(c.getColumnIndex("keywords"))
+            );
+            result.add(product);
+            Log.d("TESTING", "NestDBDataSource/getProducts: loop cycle");
+        }
+        c.close();
+        Log.d("TESTING", result.toString());
         return result;
     }
 
