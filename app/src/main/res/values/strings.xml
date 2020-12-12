@@ -1013,6 +1013,24 @@
     <string name="questionnaire_question_5">Is this your first visit to the NEST?</string>
     <string name="questionnaire_hint_number">Enter a number</string>
     <string name="questionnaire_hint_id">NEST Guest Id#</string>
+    <string name="first_name_lbl">First Name</string>
+    <string name="last_name_lbl">Last Name</string>
+    <string name="affil_label">NCC Affiliation</string>
+    <string name="age_range_lbl">Age Range</string>
+    <string name="gender_lbl">Gender</string>
+    <string name="people_lbl">Number of People in Your Household</string>
+    <string name="snap_lbl">Do you have SNAP/food stamps?</string>
+    <string name="other_programs_lbl">Aside from the NEST, do you know of other emergency food programs in the area?</string>
+    <string name="employment_status_lbl">What is your employment status?</string>
+    <string name="health_status_lbl">What is your health status?</string>
+    <string name="housing_status_lbl">What is your housing status?</string>
+    <string name="childcare_status_lbl">What is your childcare status?</string>
+    <string name="children_under_1_lbl">How many children are in your household under the age of 1 year old?</string>
+    <string name="children_between_1_5_lbl">How many children are in your household between the ages of 13 months and five years old?</string>
+    <string name="children_between_6_12_lbl">How many children are in your household between the ages of 6-12?</string>
+    <string name="children_between_13_18_lbl">How many children are in your household between the ages of 13-18?</string>
+    <string name="dietary_lbl">What are your dietary needs and preferences?</string>
+    <string name="how_did_you_find_lbl">How did you find us?</string>
     <string-array name="array_yes_no">
         <item>Yes</item>
         <item>No</item>

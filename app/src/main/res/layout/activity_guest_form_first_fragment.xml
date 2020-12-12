@@ -45,81 +45,95 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/title_txt"
-        android:hint="@string/name_lbl"
+        android:hint="@string/last_name_lbl"
         android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/editText2"
         android:layout_width="wrap_content"
-        android:layout_height="45dp"
+        android:layout_height="wrap_content"
         android:layout_below="@id/editText"
-        android:hint="@string/phone_lbl"
-        android:inputType="phone" />
+        android:hint="@string/first_name_lbl"
+        android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/editText3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/editText2"
-        android:hint="@string/email_lbl"
-        android:inputType="textEmailAddress" />
+        android:hint="@string/affil_label"
+        android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/editText4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/editText3"
-        android:hint="@string/ID_lbl"
-        android:inputType="number" />
-
+        android:hint="@string/age_range_lbl"
+        android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/editText5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/editText4"
-        android:hint="@string/address_lbl"
-        android:inputType="textPostalAddress" />
-
+        android:hint="@string/gender_lbl"
+        android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/editText6"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:layout_below="@id/editText5"
-        android:hint="@string/town_lbl"
-        android:inputType="textPersonName" />
+        android:hint="@string/phone_lbl"
+        android:inputType="phone" />
 
     <EditText
         android:id="@+id/editText7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/editText6"
-        android:hint="@string/zip_lbl"
+        android:hint="@string/ID_lbl"
         android:inputType="number" />
-
-    <Spinner
-        android:id="@+id/states_spinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/editText6"
-        android:layout_toRightOf="@id/editText6"
-        android:entries="@array/states_array"
-        android:paddingTop="10dp" />
 
     <EditText
         android:id="@+id/editText8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/editText7"
-        android:hint="@string/date_lbl"
-        android:inputType="date" />
+        android:hint="@string/address_lbl"
+        android:inputType="textPostalAddress" />
+
+    <EditText
+        android:id="@+id/editText9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editText8"
+        android:hint="@string/town_lbl"
+        android:inputType="textPersonName" />
+
+    <Spinner
+        android:id="@+id/states_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editText8"
+        android:layout_toRightOf="@id/editText8"
+        android:entries="@array/states_array"
+        android:paddingTop="10dp" />
+
+    <EditText
+        android:id="@+id/editText10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editText9"
+        android:hint="@string/zip_lbl"
+        android:inputType="number" />
 
     <Button
         android:id="@+id/next_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/editText8"
+        android:layout_below="@id/editText10"
         android:text="@string/submitBtn_lbl" />
     <!--android:onClick="onClick"-->
 
