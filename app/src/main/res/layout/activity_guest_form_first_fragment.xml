@@ -115,43 +115,11 @@
         android:hint="@string/date_lbl"
         android:inputType="date" />
 
-    <EditText
-        android:id="@+id/editText9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/editText8"
-        android:hint="@string/income_lbl"
-        android:inputType="number" />
-
-    <EditText
-        android:id="@+id/editText10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/editText9"
-        android:hint="@string/moreInfoQuestion_lbl"
-        android:inputType="textPersonName" />
-
-    <EditText
-        android:id="@+id/editText11"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/editText10"
-        android:hint="@string/volFirstName_lbl"
-        android:inputType="textPersonName" />
-
-    <EditText
-        android:id="@+id/editText12"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/editText11"
-        android:hint="@string/volLastName_lbl"
-        android:inputType="textPersonName" />
-
     <Button
         android:id="@+id/next_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/editText12"
+        android:layout_below="@id/editText8"
         android:text="@string/submitBtn_lbl" />
     <!--android:onClick="onClick"-->
 
