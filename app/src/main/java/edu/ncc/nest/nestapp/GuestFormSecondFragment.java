@@ -1,5 +1,17 @@
 package edu.ncc.nest.nestapp;
 
+import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentResultListener;
+import androidx.navigation.fragment.NavHostFragment;
+
 /**
  *
  * Copyright (C) 2020 The LibreFoodPantry Developers.
@@ -18,5 +30,34 @@ package edu.ncc.nest.nestapp;
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-public class GuestFormSecondFragment {
+public class GuestFormSecondFragment extends Fragment {
+    @Override
+    public View onCreateView(
+            LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState
+    ) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.activity_guest_form_second_fragment, container, false);
+    }
+
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+
+        getParentFragmentManager().setFragmentResultListener("SEND_MESSAGE", this, new FragmentResultListener() {
+            @Override
+            public void onFragmentResult(@NonNull String key, @NonNull Bundle bundle) {
+                String message = bundle.getString("MESSAGE");
+                ((TextView)getView().findViewById(R.id.editText2)).setText(message);
+            }
+        });
+
+        view.findViewById(R.id.prev_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavHostFragment.findNavController(GuestFormSecondFragment.this)
+                        .navigate(R.id.action_SecondFragment_to_FirstFragment);
+            }
+        });
+    }
 }

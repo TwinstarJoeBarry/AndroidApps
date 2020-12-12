@@ -1,21 +1,13 @@
 package edu.ncc.nest.nestapp;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
@@ -73,17 +65,28 @@ public class GuestFormFirstFragment extends Fragment {
         zip = (EditText)(getView().findViewById(R.id.editText7));
         date = (EditText)(getView().findViewById(R.id.editText8));
 
-        view.findViewById(R.id.button_first).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.next_button);
+        view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //retrieve message from edit text box
-                String message = ((EditText)(getView().findViewById(R.id.textview_first))).getText().toString();
-                //create a bundle
-                Bundle result = new Bundle();
-                //put message into bundle
-                result.putString("MESSAGE", message);
-                //set fragmentmanager and put bundle in it
-                getParentFragmentManager().setFragmentResult("SEND_MESSAGE", result);
+                //variable used for checks
+                boolean ins = false;
+
+                //adding the values into the database if submit button is pressed
+                if (view.getId() == R.id.done_button) {
+
+                    // NOTE: The parameter 'barcode' was recently added to this method
+                    // TODO: Update parameter 'barcode' to the barcode representing this user
+                    ins = db.insertData(name.getText().toString(), email.getText().toString(), phone.getText().toString(), date.getText().toString(), address.getText().toString(), city.getText().toString(), zip.getText().toString(), null);
+
+                }
+
+                //notifying the user if the add was successful
+                /*
+                if (ins) {
+                    Toast.makeText(getApplicationContext(), "User Added", Toast.LENGTH_LONG).show();
+                }
+                */
 
                 NavHostFragment.findNavController(GuestFormFirstFragment.this)
                         .navigate(R.id.action_FirstFragment_to_SecondFragment);
@@ -122,29 +125,6 @@ public class GuestFormFirstFragment extends Fragment {
      * @param view
      */
 
-
-    public void onClick(View view) {
-
-        //variable used for checks
-        boolean ins = false;
-
-        //adding the values into the database if submit button is pressed
-        if (view.getId() == R.id.done_button) {
-
-            // NOTE: The parameter 'barcode' was recently added to this method
-            // TODO: Update parameter 'barcode' to the barcode representing this user
-            ins = db.insertData(name.getText().toString(), email.getText().toString(), phone.getText().toString(), date.getText().toString(), address.getText().toString(), city.getText().toString(), zip.getText().toString(), null);
-
-        }
-
-        //notifying the user if the add was successful
-        /*
-        if (ins) {
-            Toast.makeText(getApplicationContext(), "User Added", Toast.LENGTH_LONG).show();
-        }
-        */
-
-    }
 /** -- Crashes because of the spinner code************
  Spinner spinner = (Spinner) findViewById(R.id.states_spinner);
  // Create an ArrayAdapter using the string array and a default spinner layout
