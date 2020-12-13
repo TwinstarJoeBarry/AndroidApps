@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+*
+* Copyright (C) 2020 The LibreFoodPantry Developers.
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program.  If not, see <https://www.gnu.org/licenses/>.
+-->
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/StartFragmentGuest"
+    android:id="@+id/nav_graph_guest_registration">
+
+    <!-- The fragment is pulled from @layout/fragment_guest_form_registration_start_page -->
+    <fragment
+        android:id="@+id/StartFragmentGuest"
+        android:name="edu.ncc.nest.nestapp.FragmentsGuestRegistration.GuestFormRegistrationStartPageFragment"
+        android:label="@string/start_fragment_label"
+        tools:layout="@layout/fragment_guest_form_registration_start_page">
+
+        <!-- This action & destination should be named and assigned accordingly to the proper fragment once it is available -->
+        <!-- This action & destination currently below are merely for example and do not reflect any accuracy  -->
+        <action
+                   android:id="@+id/action_StartFragmentGuest_to_ScanFragment"
+                   app:destination="@id/GuestScannerFragment" />
+
+        <!-- This action & destination should be named and assigned accordingly to the proper fragment once it is available -->
+        <!-- This action & destination currently below are merely for example and do not reflect any accuracy  -->
+        <action
+                   android:id="@+id/action_StartFragmentGuest_to_EntryFragmentPersonal"
+                   app:destination="@id/EntryFragmentPersonal" />
+
+           </fragment>
+
+       </navigation>
