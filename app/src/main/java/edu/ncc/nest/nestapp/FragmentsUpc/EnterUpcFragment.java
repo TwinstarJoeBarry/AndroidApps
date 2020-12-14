@@ -89,7 +89,7 @@ public class EnterUpcFragment extends Fragment {
                 // Put the item in a bundle and pass it to ConfirmItemFragment
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("foodItem", result);
-                getParentFragmentManager().setFragmentResult("SEND FOOD ITEM", bundle);
+                getParentFragmentManager().setFragmentResult("FOOD ITEM", bundle);
                 NavHostFragment.findNavController(EnterUpcFragment.this).navigate((R.id.confirmItemFragment));
 
                 // If there was no result from the database
@@ -98,7 +98,7 @@ public class EnterUpcFragment extends Fragment {
                 // Put UPC into a bundle and pass it to SelectItemFragment (may not be necessary)
                 Bundle bundle = new Bundle();
                 bundle.putString("barcode", upc);
-                getParentFragmentManager().setFragmentResult("SEND BARCODE", bundle);
+                getParentFragmentManager().setFragmentResult("BARCODE", bundle);
                 NavHostFragment.findNavController(EnterUpcFragment.this).navigate((R.id.selectItemFragment));
             }
         }
