@@ -27,12 +27,12 @@ public class NestNewUPC extends AppCompatActivity {
         // get the new UPC code and display it in addingLabel
         Intent intent = getIntent();
         upcBeingAdded = intent.getStringExtra("upc");
-        TextView addingLabel = findViewById(R.id.nest_new_upc_adding_label);
+        TextView addingLabel = findViewById(R.id.fragment_select_item_headline);
         addingLabel.setText(String.format(Locale.getDefault(),addingLabel.getText().toString(), upcBeingAdded));
 
         // get view references
-        brandEdit = findViewById(R.id.brandEdit);
-        descriptionEdit = findViewById(R.id.descriptionEdit);
+        brandEdit = findViewById(R.id.fragment_select_item_brand_entry);
+        descriptionEdit = findViewById(R.id.fragment_select_item_description_entry);
         categorySpinner = findViewById(R.id.categorySpinner);
         productSpinner = findViewById(R.id.productSpinner);
 
