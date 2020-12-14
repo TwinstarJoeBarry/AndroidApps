@@ -20,6 +20,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentResultListener;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -35,22 +36,17 @@ import java.util.Date;
 import java.util.List;
 
 import edu.ncc.nest.nestapp.NestDBDataSource;
+import edu.ncc.nest.nestapp.NestUPC;
 import edu.ncc.nest.nestapp.Product;
 import edu.ncc.nest.nestapp.R;
 import edu.ncc.nest.nestapp.ShelfLife;
 
 public class DisplayTrueExpirationFragment extends Fragment {
     private NestDBDataSource dataSource;
-    private int itemId;
-    private String upc;
-    private int shelfLifeMax;
-    private String shelfLifeMatric;
-    private Date exp;
     private String TAG = "TESTING";
-    private int day;
-    private int month;
-    private int year;
-
+    private NestUPC product;
+    private String exp;
+    private ShelfLife shelfLife;
 
     @Override
     public View onCreateView(
@@ -66,56 +62,40 @@ public class DisplayTrueExpirationFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
 
-        //  this variable must be assigned to the value from bundle send by previous fragment
-        // hardcoded for testing purposes
-        // expiration date
-        Date exp = new Date(2020, 9, 30);
+        // Receiving the bundle
+        getParentFragmentManager().setFragmentResultListener("FOOD ITEM", this, new FragmentResultListener() {
+            @Override
+            public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle data) {
 
-        // assign item from the bundle received from other fragment
-        itemId = 605;
+                // Parsing the product from the bundle
+                product = (NestUPC) data.getParcelable("foodItem");
+                // Parsing expiration date from the bundle
+                exp = data.getString("DATE");
+            }
 
-        // assign upc from the bundle received from other fragment
-        upc = "123456789";
+        });
 
 
-        try {
+        // product exists
+        if (product != null) {
+
+            // Display item name , upc , category name on fragment_display_true_expiration.xml
+            ((TextView) view.findViewById(R.id.item_display)).setText(product.getProductName());
+            ((TextView) view.findViewById(R.id.upc_display)).setText(product.getUpc());
+            ((TextView) view.findViewById(R.id.category_display)).setText(product.getCatDesc());
 
             // Instantiating Database
             dataSource = new NestDBDataSource(this.getContext());
 
+            // getting the product shelf life from the database
+            List<ShelfLife> shelfLives = dataSource.getShelfLivesForProduct(product.getProductId());
 
-            // getting JSON object containing product info from database using item id
-            JSONObject product = dataSource.getProductInfoById(itemId);
-
-            // product exist
-            if (product.length() != 0) {
-
-//                Log statement to view all the data inside product json object
-//                Log.d(TAG, "DisplayTrueExpirationFragment/onCreateView: bundle:" + product.toString());
-
-                // Display item name , upc , category name on fragment_display_true_expiration.xml
-                ((TextView) view.findViewById(R.id.item_display)).setText((String) product.get("NAME"));
-                ((TextView) view.findViewById(R.id.upc_display)).setText(upc);
-                ((TextView) view.findViewById(R.id.category_display)).setText((String) product.get("CATEGORY_NAME"));
-
-                // Getting multiple shelflife records from the product object
-                JSONArray shelfLives = (JSONArray) product.get("SHELFLIVES");
-
-                // A product can have multiple shelflife
-                // Getting the shortest shelf life array
-                JSONObject shelfLife = getShortestShelfLife(shelfLives);
-
-
-                //Parsing maxdop and metric value from the shortest shelf object
-                shelfLifeMax = (int) shelfLife.get("MAX");
-                shelfLifeMatric = (String) shelfLife.get("METRIC");
-
-            }
-
-        } catch (JSONException ex) {
-            Log.d(TAG, "onViewCreated: " + ex.getMessage());
-        } catch (RuntimeException ex) {
-            Log.d(TAG, ex.getMessage());
+            // get the shortest shelf life from the list of shelf lives
+            shelfLife = getShortestShelfLife(shelfLives);
+        }
+        // product doesn't exist
+        else {
+            Log.d(TAG, "DisplayTrueExpirationFragment: onViewCreated: product doesn't exist");
         }
 
 
@@ -123,8 +103,10 @@ public class DisplayTrueExpirationFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                // Display True Expiration Date
-                ((TextView) getView().findViewById(R.id.exp_date_display)).setText(trueExpDate(shelfLifeMax, shelfLifeMatric, exp));
+                // product exist
+                if (product != null)
+                    // Display True Expiration Date
+                    ((TextView) getView().findViewById(R.id.exp_date_display)).setText(trueExpDate(shelfLife, exp));
             }
         });
 
@@ -134,91 +116,88 @@ public class DisplayTrueExpirationFragment extends Fragment {
 
     /**
      * getShortestShelfLife method -
-     * This method takes a JSONArray containing shelflives as a parameter and find the shortest shelflife and return its reference as a json object
+     * This method takes a List of shelf lives as a parameter and find the shortest shelflife which then gets returned
      *
-     * @param shelfLives JSONArray
-     * @return shelflife JSONobject
+     * @param shelfLives List<ShelfLife></ShelfLife>
+     * @return shelflife ShelfLife
      */
-    public JSONObject getShortestShelfLife(JSONArray shelfLives) {
+    public ShelfLife getShortestShelfLife(List<ShelfLife> shelfLives) {
 
 
         int index = -1;
         String metric = "";
 
-        try {
+        ShelfLife shelfLife;
 
-            // loop through the Array of JSON objects
-            for (int i = 0; i < shelfLives.length(); i++) {
 
-                // get the Json object at index i
-                JSONObject shelflife = (JSONObject) shelfLives.get(i);
+        // loop through the list of shelf lives
+        for (int i = 0; i < shelfLives.size(); i++) {
 
-                //For testing
-                //Log.d( TAG, "getShortestShelfLife: " + shelflife.get("METRIC"));
+            shelfLife = shelfLives.get(i);
 
-                switch ((String) shelflife.get("METRIC")) {
-                    case "Years":
-                        if (metric == "") {
-                            metric = "Years";
-                            index = i;
-                        }
-                        break;
-                    case "Months":
-                        if (metric == "" || metric == "Years") {
-                            metric = "Months";
-                            index = i;
-                        }
-                        break;
-                    case "Weeks":
-                        if (metric == "" || metric == "Years" || metric == "Months") {
-                            metric = "Weeks";
-                            index = i;
-                        }
-                        break;
-                    case "Days":
-                        if (metric == "" || metric == "Years" || metric == "Months" || metric == "Weeks") {
-                            metric = "Days";
-                            index = i;
-                        }
-                        break;
-                    default:
-                        Log.d(TAG, "getShortedShelfLife: Error invalid option");
-                        break;
-                }
-
+            switch (shelfLife.getMetric()) {
+                case "Years":
+                    if (metric == "") {
+                        metric = "Years";
+                        index = i;
+                    }
+                    break;
+                case "Months":
+                    if (metric == "" || metric == "Years") {
+                        metric = "Months";
+                        index = i;
+                    }
+                    break;
+                case "Weeks":
+                    if (metric == "" || metric == "Years" || metric == "Months") {
+                        metric = "Weeks";
+                        index = i;
+                    }
+                    break;
+                case "Days":
+                    if (metric == "" || metric == "Years" || metric == "Months" || metric == "Weeks") {
+                        metric = "Days";
+                        index = i;
+                    }
+                    break;
+                default:
+                    Log.d(TAG, "getShortedShelfLife: Error invalid option");
+                    break;
             }
-            // json object with shortest shelflife
-            return (JSONObject) shelfLives.get(index);
 
-        } catch (JSONException ex) {
-            Log.d(TAG, "getShortedShelfLife: " + ex.getMessage());
         }
 
-        return null;
+        return shelfLives.get(index);
     }
 
 
     /**
      * trueExpDate --
-     * calculates the True expiration date of the item that has been scanned.
-     *
-     * @param max     - int
-     * @param metric  - String
-     * @param expDate - Date
-     * @return string containing TrueExpirationDate
+     * calculates the true expiration date of the item that has been scanned.
+     * @param shelfLife - ShelfLife
+     * @param expDate - String
      */
-    public String trueExpDate(int max, String metric, Date expDate) {
+    public String trueExpDate(ShelfLife shelfLife, String expDate) {
 
+        // metric dop_pantryLife
+        String metric = shelfLife.getMetric();
 
-        // convert into lower case
         metric = metric.toLowerCase();
 
-        // separating month, day, and year
-        int month = expDate.getMonth();
-        int day = expDate.getDate();
-        int year = expDate.getYear();
+        // max dop_pantryLife
+        int max = shelfLife.getMax();
 
-        // variable to store ture expiration date
+        // separating month, day, and year
+        int slash = expDate.indexOf("/");
+
+        int secondSlash = expDate.indexOf("/", slash + 1);
+
+        int month = Integer.parseInt(expDate.substring(0, slash));
+
+        int day = Integer.parseInt(expDate.substring(slash + 1, secondSlash));
+
+        int year = Integer.parseInt(expDate.substring(secondSlash + 1));
+
         int finalExMonth = 0;
         int finalExDate = 0;
         int finalExYear = 0;
@@ -305,5 +284,6 @@ public class DisplayTrueExpirationFragment extends Fragment {
 
         return finalExMonth + "/" + finalExDate + "/" + finalExYear;
     }
+
 
 }

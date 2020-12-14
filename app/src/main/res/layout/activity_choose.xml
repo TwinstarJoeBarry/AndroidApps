@@ -67,17 +67,6 @@
                 android:text="Future Efforts" />
 
 
-<!--           Button for Testing-->
-
-            <Button
-                android:id="@+id/trueDate"
-                android:layout_width="138dp"
-                android:layout_height="70dp"
-                android:layout_below="@id/futureEffortsBtn"
-                android:layout_centerHorizontal="true"
-                android:onClick="onClick"
-                android:text="Display True Date" />
-
         </RelativeLayout>
     </ScrollView>
 </RelativeLayout>
