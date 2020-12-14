@@ -79,37 +79,4 @@ public class GuestFormHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    /**
-     * isRegistered - Takes 1 parameter
-     * @param barcode - The barcode to search the database for
-     * @return Returns the name of the first guest who is registered in the database with the barcode
-     * or null if there is no guest registered with that barcode
-     */
-    public String isRegistered(String barcode) {
-
-        // Getting a readable SQLLite database
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        // Get all the guest records from the table (TABLE_NAME) who's field name (BARCODE) matches the field value (?).
-        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE " + BARCODE + " = ?";
-
-        // Run the SQL query from above and replace the '?' character with the respective argument stored in the String[] array
-        Cursor cursor = db.rawQuery(sqlQuery, new String[] {barcode});
-
-        String name = null;
-
-        // Determine if there is at least 1 guest registered with the barcode and get the name of the first person registered with it
-        if (cursor.moveToFirst())
-
-            name = cursor.getString(cursor.getColumnIndex(NAME));
-
-        // Close the cursor and readableDatabase to release all of their resources
-        cursor.close();
-
-        db.close();
-
-        return name;
-
-    }
-
 }
