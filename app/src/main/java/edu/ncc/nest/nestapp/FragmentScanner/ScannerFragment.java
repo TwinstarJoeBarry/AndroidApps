@@ -1,6 +1,7 @@
 package edu.ncc.nest.nestapp.FragmentScanner;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -56,6 +57,13 @@ public abstract class ScannerFragment extends Fragment implements BarcodeCallbac
 
     // Stores the bar code that has been scanned
     private String barcodeResult = null;
+
+    protected boolean debug = true;
+
+
+    ////////////// Abstract Methods Start //////////////
+
+    protected abstract void onBarcodeConfirmed(@NonNull String barcode, @NonNull BarcodeFormat format);
 
 
     ////////////// Lifecycle Methods Start //////////////
@@ -202,7 +210,9 @@ public abstract class ScannerFragment extends Fragment implements BarcodeCallbac
             // Enable the feedback buttons after we have stored the bar-code and stopped scanner
             setFeedbackButtonsEnabled(true);
 
-            Log.d(TAG, "Barcode Result: " + resultText + ", Barcode Format: " + result.getBarcodeFormat());
+            if (debug)
+
+                Log.d(TAG, "Barcode Result: " + resultText + ", Barcode Format: " + result.getBarcodeFormat());
 
         } else
 
@@ -224,7 +234,9 @@ public abstract class ScannerFragment extends Fragment implements BarcodeCallbac
 
         else if (id == R.id.guest_scan_confirm_button && barcodeResult != null) {
 
-            Log.d(TAG, "Scan Confirmed: " + barcodeResult);
+            if (debug)
+
+                Log.d(TAG, "Scan Confirmed: " + barcodeResult);
 
             // Create the Bundle that will be used to send the barcode to the next fragment
             Bundle resultBundle = new Bundle();
