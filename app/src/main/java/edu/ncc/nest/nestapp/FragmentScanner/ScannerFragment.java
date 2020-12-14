@@ -305,8 +305,7 @@ public abstract class ScannerFragment extends Fragment implements BarcodeCallbac
 
             // Create a handler that resumes the decoder after a delay
             // Gives the user time to move their camera before scanning
-            Handler handler = new Handler(Looper.myLooper());
-            handler.postDelayed(() -> {
+            new Handler(Looper.myLooper()).postDelayed(() -> {
 
                 // As long as the scanner hasn't been paused, start the decoder
                 if (!scannerPaused)
