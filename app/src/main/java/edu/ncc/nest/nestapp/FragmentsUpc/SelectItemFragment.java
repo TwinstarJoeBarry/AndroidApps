@@ -30,6 +30,7 @@ import android.view.ViewGroup;
 import java.util.List;
 import edu.ncc.nest.nestapp.InventoryEntry;
 import edu.ncc.nest.nestapp.InventoryInfoSource;
+import edu.ncc.nest.nestapp.NestDBDataSource;
 import edu.ncc.nest.nestapp.R;
 
 public class SelectItemFragment extends Fragment {
@@ -81,6 +82,14 @@ public class SelectItemFragment extends Fragment {
 
             }
         });
+
+        /*
+        * Sample code to call the method to retrieve the product id based upon the category id and
+        * item name the user selects from the drop down menus
+         */
+        NestDBDataSource dataSource = new NestDBDataSource(getContext());
+        int index = dataSource.getProdIdfromProdInfo(9, "Fresh pasta");
+        Log.d("DBASE", "the id is " + index);
     }
 
 
