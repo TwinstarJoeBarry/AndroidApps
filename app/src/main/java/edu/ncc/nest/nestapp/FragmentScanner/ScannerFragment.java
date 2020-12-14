@@ -1,7 +1,6 @@
 package edu.ncc.nest.nestapp.FragmentScanner;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,7 +18,6 @@ import androidx.activity.result.contract.ActivityResultContracts.RequestPermissi
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.client.android.BeepManager;
@@ -31,7 +29,6 @@ import com.journeyapps.barcodescanner.DefaultDecoderFactory;
 import java.util.Collections;
 import java.util.List;
 
-import edu.ncc.nest.nestapp.GuestFormHelper;
 import edu.ncc.nest.nestapp.R;
 
 public abstract class ScannerFragment extends Fragment implements BarcodeCallback, View.OnClickListener {
