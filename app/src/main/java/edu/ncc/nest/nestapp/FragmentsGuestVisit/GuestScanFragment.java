@@ -112,11 +112,11 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
         // Get respective views from layout
         decBarcodeView = view.findViewById(R.id.zxing_barcode_scanner);
 
-        resultTextView = view.findViewById(R.id.scan_result_textview);
+        resultTextView = view.findViewById(R.id.guest_scan_result_view);
 
-        confirmButton = view.findViewById(R.id.confirm_scan_button);
+        confirmButton = view.findViewById(R.id.guest_scan_confirm_button);
 
-        rescanButton = view.findViewById(R.id.rescan_button);
+        rescanButton = view.findViewById(R.id.guest_scan_rescan_button);
 
 
         // Specifies which barcode formats to decode. (Removing this line, defaults scanner to use all formats)
@@ -147,22 +147,30 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
 
         // If the camera permission is granted
         if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
-                == PackageManager.PERMISSION_GRANTED) {
+                != PackageManager.PERMISSION_GRANTED) {
 
-            resumeScanning();
+            // Update the status text to inform the guest that camera permission is required
+            decBarcodeView.setStatusText(getString(R.string.guest_scan_camera_permission_required));
 
-        } else if (shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)) {
+            // Clear the result text view
+            resultTextView.setText(null);
 
-            // TODO Create a dialog window describing why we need the permission for this feature
+            if (shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)) {
 
-            // Display a reason of why we need the permission
-            Toast.makeText(requireContext(), "Camera permission is needed in order to scan.",
-                    Toast.LENGTH_LONG).show();
+                // TODO Create a dialog window describing why we need the permission for this feature
+
+                // Display a reason of why we need the permission
+                Toast.makeText(requireContext(), "Camera permission is needed in order to scan.",
+                        Toast.LENGTH_LONG).show();
+
+            } else
+
+                // Request the camera permission
+                REQUEST_CAMERA_PERMISSION_LAUNCHER.launch(Manifest.permission.CAMERA);
 
         } else
 
-            // Request the camera permission
-            REQUEST_CAMERA_PERMISSION_LAUNCHER.launch(Manifest.permission.CAMERA);
+            resumeScanning();
 
     }
 
@@ -170,10 +178,14 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
     public void onPause() {
         super.onPause();
 
-        // Since we have paused the fragment, pause and wait for the camera to close
-        decBarcodeView.pauseAndWait();
+        if (!scannerPaused) {
 
-        scannerPaused = true;
+            // Since we have paused the fragment, pause and wait for the camera to close
+            decBarcodeView.pauseAndWait();
+
+            scannerPaused = true;
+
+        }
 
     }
 
@@ -181,7 +193,7 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
     public void onDestroy() {
 
         // Make sure we have the view in-case the view isn't initialized before destruction
-        if (decBarcodeView != null) {
+        if (decBarcodeView != null && !scannerPaused) {
 
             // Since we are destroying the fragment, pause and wait for the camera to close
             decBarcodeView.pauseAndWait();
@@ -208,6 +220,9 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
 
             // Play a sound and vibrate when a scan has been processed
             beepManager.playBeepSoundAndVibrate();
+
+            // Tell the user to confirm that the barcode is correct
+            decBarcodeView.setStatusText(getString(R.string.guest_scan_confirm_msg));
 
             // Display the barcode back to the user
             resultTextView.setText(resultText);
@@ -239,11 +254,11 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
 
         int id = view.getId();
 
-        if (id == R.id.rescan_button)
+        if (id == R.id.guest_scan_rescan_button)
 
             resumeScanning();
 
-        else if (id == R.id.confirm_scan_button && barcodeResult != null) {
+        else if (id == R.id.guest_scan_confirm_button && barcodeResult != null) {
 
             Log.d(TAG, "Scan Confirmed: " + barcodeResult);
 
@@ -291,16 +306,16 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
      */
     private void onCameraPermissionResult(boolean isGranted) {
 
-        if (isGranted)
-
-            // Camera permission is granted, so resume scanning
-            resumeScanning();
-
-        else
+        if (!isGranted) {
 
             // Display a reason of why we need the permission
             Toast.makeText(requireContext(), "Camera permission is needed in order to scan.",
                     Toast.LENGTH_LONG).show();
+
+        } else
+
+            // Camera permission is granted, so resume scanning
+            resumeScanning();
 
     }
 
@@ -313,8 +328,11 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
 
         if (scannerPaused) {
 
+            // Update the status text to explain how to use the scanner
+            decBarcodeView.setStatusText(getString(R.string.zxing_msg_default_status));
+
             // Update the display text so the user knows we are waiting for them to scan a barcode
-            resultTextView.setText(getString(R.string.guestScan_scan_result_textview));
+            resultTextView.setText(getString(R.string.guest_scan_waiting_for_scan));
 
             // Disable the feedback buttons until we scan another barcode
             setFeedbackButtonsEnabled(false);

@@ -23,6 +23,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimaryShaded"
     tools:context=".GuestForm">
 
     <include
@@ -37,6 +38,8 @@
         android:layout_below="@id/toolbar"
         android:fontFamily="casual"
         android:text="@string/app_name"
+        android:textColor="@color/White"
+
         android:textAlignment="center"
         android:textSize="20sp" />
 
@@ -46,6 +49,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/title_txt"
         android:hint="@string/name_lbl"
+        android:textColorHint="@color/White"
+        android:backgroundTint="@color/White"
         android:inputType="textPersonName" />
 
     <EditText
@@ -54,6 +59,8 @@
         android:layout_height="45dp"
         android:layout_below="@id/editText"
         android:hint="@string/phone_lbl"
+        android:textColorHint="@color/White"
+        android:backgroundTint="@color/White"
         android:inputType="phone" />
 
     <EditText
@@ -62,6 +69,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/editText2"
         android:hint="@string/email_lbl"
+        android:textColorHint="@color/White"
+        android:backgroundTint="@color/White"
         android:inputType="textEmailAddress" />
 
     <EditText
@@ -70,6 +79,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/editText3"
         android:hint="@string/ID_lbl"
+        android:textColorHint="@color/White"
+        android:backgroundTint="@color/White"
         android:inputType="number" />
 
 
@@ -79,6 +90,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/editText4"
         android:hint="@string/address_lbl"
+        android:textColorHint="@color/White"
+        android:backgroundTint="@color/White"
         android:inputType="textPostalAddress" />
 
 
@@ -88,6 +101,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/editText5"
         android:hint="@string/town_lbl"
+        android:textColorHint="@color/White"
+        android:backgroundTint="@color/White"
         android:inputType="textPersonName" />
 
     <EditText
@@ -96,6 +111,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/editText6"
         android:hint="@string/zip_lbl"
+        android:textColorHint="@color/White"
+        android:backgroundTint="@color/White"
         android:inputType="number" />
 
     <Spinner
@@ -105,6 +122,8 @@
         android:layout_below="@id/editText6"
         android:layout_toRightOf="@id/editText6"
         android:entries="@array/states_array"
+        android:textColorHint="@color/White"
+        android:backgroundTint="@color/White"
         android:paddingTop="10dp" />
 
     <EditText
@@ -113,12 +132,19 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/editText7"
         android:hint="@string/date_lbl"
+        android:textColorHint="@color/White"
+        android:backgroundTint="@color/White"
         android:inputType="date" />
     <Button
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
+        android:layout_centerHorizontal="true"
         android:layout_height="wrap_content"
         android:layout_below="@id/editText8"
         android:text="@string/next"
+
+        android:layout_marginTop="75dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:textColor="@color/White"
         />
 
 
