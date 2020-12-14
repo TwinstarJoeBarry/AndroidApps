@@ -36,7 +36,6 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.AttributeSet;
-import android.util.Log;
 
 import com.journeyapps.barcodescanner.ViewfinderView;
 
@@ -51,9 +50,9 @@ public class FramedViewFinderView extends ViewfinderView {
 
     private final Paint PAINT = new Paint(Paint.ANTI_ALIAS_FLAG);
 
-    private int frameCornerSize;
-    private int frameOffset;
-    private int frameStyle;
+    private final int FRAME_CORNER_SIZE;
+    private final int FRAME_OFFSET;
+    private final int FRAME_STYLE;
 
 
     ////////////// Constructor //////////////
@@ -72,51 +71,57 @@ public class FramedViewFinderView extends ViewfinderView {
 
             PAINT.setAlpha((int) (0xFF * a.getFloat(R.styleable.FramedViewFinderView_scanFrameAlpha, 1f)));
 
-            frameCornerSize = a.getDimensionPixelSize(R.styleable.FramedViewFinderView_scanFrameCornerSize, 48);
+            FRAME_CORNER_SIZE = a.getDimensionPixelSize(R.styleable.FramedViewFinderView_scanFrameCornerSize, 48);
 
-            frameOffset = a.getDimensionPixelSize(R.styleable.FramedViewFinderView_scanFrameOffset, 10);
+            FRAME_OFFSET = a.getDimensionPixelSize(R.styleable.FramedViewFinderView_scanFrameOffset, 10);
 
-            frameStyle = a.getInteger(R.styleable.FramedViewFinderView_scanFrameStyle, 2);
+            FRAME_STYLE = a.getInteger(R.styleable.FramedViewFinderView_scanFrameStyle, 2);
 
         } finally { a.recycle(); }
 
     }
 
+
+    ////////////// Other Event Methods Start  //////////////
+
     @Override
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        if (frameStyle != 0 && framingRect != null) {
+        if (FRAME_STYLE != 0 && framingRect != null) {
 
-            if (frameStyle == 2) {
+            if (FRAME_STYLE == 2) {
 
-                int offset = (int) PAINT.getStrokeWidth() / 2;
+                // Offset of stroke thickness
+                int OFFSET = (int) PAINT.getStrokeWidth() / 2;
 
-                int x1 = framingRect.left - frameOffset;
-                int y1 = framingRect.top - frameOffset;
-                int x2 = framingRect.right + frameOffset;
-                int y2 = framingRect.bottom + frameOffset;
+                // Add the actual frame offset
+                final int X1 = framingRect.left - FRAME_OFFSET;
+                final int Y1 = framingRect.top - FRAME_OFFSET;
+                final int X2 = framingRect.right + FRAME_OFFSET;
+                final int Y2 = framingRect.bottom + FRAME_OFFSET;
 
-                int x1_offset = x1 - offset;
-                int y1_offset = y1 - offset;
-                int x2_offset = x2 + offset;
-                int y2_offset = y2 + offset;
+                // Add offset for the stroke thickness
+                final int X1_OFFSET = X1 - OFFSET;
+                final int Y1_OFFSET = Y1 - OFFSET;
+                final int X2_OFFSET = X2 + OFFSET;
+                final int Y2_OFFSET = Y2 + OFFSET;
 
                 // Top-Left Corner
-                canvas.drawLine(x1_offset, y1, x1_offset + frameCornerSize, y1, PAINT);
-                canvas.drawLine(x1, y1_offset, x1, y1_offset + frameCornerSize, PAINT);
+                canvas.drawLine(X1_OFFSET, Y1, X1_OFFSET + FRAME_CORNER_SIZE, Y1, PAINT);
+                canvas.drawLine(X1, Y1_OFFSET, X1, Y1_OFFSET + FRAME_CORNER_SIZE, PAINT);
 
                 // Top-Right Corner
-                canvas.drawLine(x2_offset - frameCornerSize, y1, x2_offset, y1, PAINT);
-                canvas.drawLine(x2, y1_offset, x2, y1_offset + frameCornerSize, PAINT);
+                canvas.drawLine(X2_OFFSET - FRAME_CORNER_SIZE, Y1, X2_OFFSET, Y1, PAINT);
+                canvas.drawLine(X2, Y1_OFFSET, X2, Y1_OFFSET + FRAME_CORNER_SIZE, PAINT);
 
                 // Bottom-Right Corner
-                canvas.drawLine(x2_offset, y2, x2_offset - frameCornerSize, y2, PAINT);
-                canvas.drawLine(x2, y2_offset - frameCornerSize, x2, y2_offset, PAINT);
+                canvas.drawLine(X2_OFFSET, Y2, X2_OFFSET - FRAME_CORNER_SIZE, Y2, PAINT);
+                canvas.drawLine(X2, Y2_OFFSET - FRAME_CORNER_SIZE, X2, Y2_OFFSET, PAINT);
 
                 // Bottom-Left Corner
-                canvas.drawLine(x1_offset, y2, x1_offset + frameCornerSize, y2, PAINT);
-                canvas.drawLine(x1, y2_offset - frameCornerSize, x1, y2_offset, PAINT);
+                canvas.drawLine(X1_OFFSET, Y2, X1_OFFSET + FRAME_CORNER_SIZE, Y2, PAINT);
+                canvas.drawLine(X1, Y2_OFFSET - FRAME_CORNER_SIZE, X1, Y2_OFFSET, PAINT);
 
             } else
 
