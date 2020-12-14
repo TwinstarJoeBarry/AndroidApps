@@ -51,6 +51,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.zxing.BarcodeFormat;
+import com.google.zxing.ResultPoint;
 import com.google.zxing.client.android.BeepManager;
 import com.journeyapps.barcodescanner.BarcodeCallback;
 import com.journeyapps.barcodescanner.BarcodeResult;
@@ -255,6 +256,9 @@ public abstract class ScannerFragment extends Fragment implements BarcodeCallbac
             decBarcodeView.decodeSingle(ScannerFragment.this);
 
     }
+
+    @Override // Made this method final so it can't be overridden
+    public final void possibleResultPoints(List<ResultPoint> resultPoints) { }
 
     @Override
     public final void onClick(View view) {
