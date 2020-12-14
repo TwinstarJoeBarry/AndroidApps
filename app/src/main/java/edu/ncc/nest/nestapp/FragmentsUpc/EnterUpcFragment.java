@@ -78,7 +78,7 @@ public class EnterUpcFragment extends Fragment {
 
         // Check validity of the UPC
         if(upc.equals("") || upc.length() < 12 || upc.length() >12){
-            Toast.makeText(this.getContext(),"UPC length is 12 numbers, please enter larger number", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this.getContext(),"UPC length is 12 numbers, please enter a 12-digit number", Toast.LENGTH_SHORT).show();
         } else {
             NestDBDataSource dataSource = new NestDBDataSource(getContext());
             NestUPC result = dataSource.getNestUPC(upc);
