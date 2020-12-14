@@ -52,7 +52,8 @@ public class ScanFragment extends ScannerFragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        super.setDecoderFormats(BarcodeFormat.CODE_39);
+        // Make sure we don't set formats until our super has a handle on the DecoratedBarcodeView
+        super.setDecoderFormats(BarcodeFormat.UPC_A);
 
     }
 
@@ -89,7 +90,7 @@ public class ScanFragment extends ScannerFragment {
             bundle.putString("barcode", barcode);
             getParentFragmentManager().setFragmentResult("BARCODE", bundle);
             NavHostFragment.findNavController(ScanFragment.this).navigate((R.id.selectItemFragment));
-            
+
         }
 
     }

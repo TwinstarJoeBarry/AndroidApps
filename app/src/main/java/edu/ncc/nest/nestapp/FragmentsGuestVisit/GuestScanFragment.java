@@ -56,6 +56,7 @@ public class GuestScanFragment extends ScannerFragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // Make sure we don't set formats until our super has a handle on the DecoratedBarcodeView
         super.setDecoderFormats(BarcodeFormat.CODE_39);
 
     }
