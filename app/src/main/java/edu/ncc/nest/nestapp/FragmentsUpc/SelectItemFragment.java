@@ -42,9 +42,9 @@ public class SelectItemFragment extends Fragment implements View.OnClickListener
 {
     /** CONSTANT DEFAULTS **/
     // FOR NON ESSENTIAL TEXT ENTRY VIEWS THAT WERE OPTIONAL AND INTENTIONALLY LEFT BLANK;
-    private final String DEFAULT_STRING = "VALUE LEFT BLANK";
+    private final String DEFAULT_STRING = "[LEFT BLANK]";
     // FOR ESSENTIAL TEXT ENTRY VIEWS THAT SHOULD NEVER BE BLANK AND REPLACED IN CODE
-    private final String PLACEHOLDER_STRING = "ERROR - VALUE NOT RECEIVED";
+    private final String PLACEHOLDER_STRING = "[NOT RECEIVED]";
 
     // (DETAILED IN THE INSTANCE VARS SECTION)
     private final int categories[] =
@@ -136,8 +136,8 @@ public class SelectItemFragment extends Fragment implements View.OnClickListener
             else
             {
                 // use our source to the database to add the new upc to the NEST's table
-                Toast.makeText(getContext(), String.format("UPC %s name %s description %s prodID %d", upcSaved, name, description, itemID), Toast.LENGTH_LONG).show();
-//                database.insertNewUPC(upcSaved, name, description, itemID);
+                Toast.makeText(getContext(), String.format("upc: %s | name: %s | description %s | prodID %d", upcSaved, name, description, itemID), Toast.LENGTH_LONG).show();
+//                database.insertNewUPC(upcSaved, name, description, itemID); TODO delete previous line and uncomment this for production code
 
 
                 // stuff everything in a bundle in case it's needed for PrintedExpirationDate;
