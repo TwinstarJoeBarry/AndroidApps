@@ -16,13 +16,10 @@ package edu.ncc.nest.nestapp.FragmentsUpc;
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import android.icu.text.DateFormat;
-import android.nfc.Tag;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -34,15 +31,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import edu.ncc.nest.nestapp.FinalDate;
-import edu.ncc.nest.nestapp.InventoryEntry;
-import edu.ncc.nest.nestapp.InventoryInfoSource;
 import edu.ncc.nest.nestapp.NestDBDataSource;
 import edu.ncc.nest.nestapp.Product;
 import edu.ncc.nest.nestapp.R;
@@ -55,15 +46,17 @@ public class DisplayTrueExpirationFragment extends Fragment {
     private int shelfLifeMax;
     private String shelfLifeMatric;
     private Date exp;
+    private String TAG = "TESTING";
+    private int day;
+    private int month;
+    private int year;
 
-    private  String TAG ="TESTING";
 
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
-
 
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_display_true_expiration, container, false);
@@ -142,6 +135,7 @@ public class DisplayTrueExpirationFragment extends Fragment {
     /**
      * getShortestShelfLife method -
      * This method takes a JSONArray containing shelflives as a parameter and find the shortest shelflife and return its reference as a json object
+     *
      * @param shelfLives JSONArray
      * @return shelflife JSONobject
      */
@@ -189,10 +183,10 @@ public class DisplayTrueExpirationFragment extends Fragment {
                         break;
                     default:
                         Log.d(TAG, "getShortedShelfLife: Error invalid option");
+                        break;
                 }
 
             }
-
             // json object with shortest shelflife
             return (JSONObject) shelfLives.get(index);
 
@@ -207,8 +201,9 @@ public class DisplayTrueExpirationFragment extends Fragment {
     /**
      * trueExpDate --
      * calculates the True expiration date of the item that has been scanned.
-     * @param max - int
-     * @param metric - String
+     *
+     * @param max     - int
+     * @param metric  - String
      * @param expDate - Date
      * @return string containing TrueExpirationDate
      */

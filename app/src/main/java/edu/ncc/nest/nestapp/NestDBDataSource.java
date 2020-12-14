@@ -24,13 +24,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.Bundle;
 import android.util.Log;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -121,6 +118,29 @@ public class NestDBDataSource {
         c.close();
         return result;
     }
+
+    /**
+     * getProdIdfromProdInfo method --
+     * looks up the related product id based upon the category id and item name
+     * @param cId  the category id
+     * @param iName  the item name    *
+     * @return if found, the product id; -1 otherwise
+     */
+    public int getProdIdfromProdInfo(int cId, String iName) {
+        int pId = -1;
+
+        String qry = "SELECT * FROM products WHERE categoryId = " + cId + " AND upper(name) = upper(?)";
+
+        Cursor c = db.rawQuery(qry, new String[]{iName});
+        if (c.moveToFirst()) {
+            // line below for testing purposes
+            Log.d("DBASE", "data: " + c.getString(0) + " " + c.getString(1) + " " + c.getString(2) + " " + c.getString(3));
+            pId = c.getInt(c.getColumnIndex("id"));
+        }
+        c.close();
+        return pId;
+    }
+
 
     /**
      * getShelfLivesForProduct method --
@@ -235,10 +255,8 @@ public class NestDBDataSource {
         }
 
         return product;
-    }
 
-    // have method that takes "box"/"printed" expiration date and UPC and returns
-    // ArrayList of pojos that have all the appropriate shelfLives info and the corresponding
-    // calculated expiration dates (and even tips?)
 
+
+}
 }
