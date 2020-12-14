@@ -69,7 +69,7 @@
         app:scanFrameThickness="8"
         app:scanFrameOffset="0dp"
         app:scanFrameColor="@android:color/white"
-        app:scanFrameAlpha="1.0f"
+        app:scanFrameAlpha="1.0"
         app:scanFrameStyle="corners"/>
 
     <!-- Do NOT change this id or it will cause problems with scanner implementation -->
