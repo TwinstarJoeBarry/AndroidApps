@@ -354,7 +354,7 @@ public abstract class ScannerFragment extends Fragment implements BarcodeCallbac
     }
 
     /**
-     * setDecoderFormats -- Takes 1 array parameter.
+     * setDecoderFormats --
      * Sets what formats the decoder should decode.
      *
      * @param barcodeFormats The barcode formats to decode. If no formats are provided then the

@@ -47,8 +47,9 @@ import edu.ncc.nest.nestapp.GuestFormHelper;
 import edu.ncc.nest.nestapp.R;
 
 /**
- * GuestScanFragment - Fragment to be used to check in a user by scanning a guest's bar code that
- * was given to them at registration time.
+ * GuestScanFragment --
+ * Fragment to be used to check in a user by scanning a guest's bar code that was given to them
+ * at registration time.
  */
 public class GuestScanFragment extends ScannerFragment {
 
