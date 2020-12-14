@@ -83,7 +83,7 @@ public abstract class ScannerFragment extends Fragment implements BarcodeCallbac
     private static final long DECODER_DELAY = 1500L;
 
     // The class that is extending this class. Use as a tag when printing to the log.
-    protected Class<ScannerFragment> debugClass;
+    protected Class<?> debugClass;
     protected boolean debug;
 
     private DecoratedBarcodeView decBarcodeView;
