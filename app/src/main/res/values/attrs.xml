@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="FramedViewFinderView">
+        <attr name="scanFrameCornerSize" format="dimension" />
+        <attr name="scanFrameThickness" format="integer" />
+        <attr name="scanFrameOffset" format="dimension" />
+        <attr name="scanFrameColor" format="color" />
+        <attr name="scanFrameAlpha" format="float" />
+        <attr name="scanFrameStyle" format="integer" >
+            <enum name="none" value="0" />
+            <enum name="rect" value="1" />
+            <enum name="corners" value="2" />
+        </attr>
+    </declare-styleable>
+</resources>
