@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,10 +56,10 @@ public abstract class ScannerFragment extends Fragment implements BarcodeCallbac
 
     private boolean scannerPaused = true;
 
-    // Stores the bar code that has been scanned
-    private String barcodeResult = null;
+    private BarcodeFormat barcodeFormat = null;
+    private String barcodeText = null;
 
-    protected boolean debug = true;
+    protected Class<ScannerFragment> debugClass;
 
 
     ////////////// Abstract Methods Start //////////////
@@ -190,6 +191,11 @@ public abstract class ScannerFragment extends Fragment implements BarcodeCallbac
         // Make sure we actually have a barcode scanned
         if (resultText != null) {
 
+            // Pause the scanner
+            decBarcodeView.pause();
+
+            scannerPaused = true;
+
             // Play a sound and vibrate when a scan has been processed
             beepManager.playBeepSoundAndVibrate();
 
@@ -199,20 +205,18 @@ public abstract class ScannerFragment extends Fragment implements BarcodeCallbac
             // Display the barcode back to the user
             resultTextView.setText(resultText);
 
+            // Store the barcode format
+            barcodeFormat = result.getBarcodeFormat();
+
             // Store the barcode
-            barcodeResult = resultText;
-
-            // Pause the scanner
-            decBarcodeView.pause();
-
-            scannerPaused = true;
+            barcodeText = resultText;
 
             // Enable the feedback buttons after we have stored the bar-code and stopped scanner
             setFeedbackButtonsEnabled(true);
 
-            if (debug)
+            if (debugClass != null)
 
-                Log.d(TAG, "Barcode Result: " + resultText + ", Barcode Format: " + result.getBarcodeFormat());
+                Log.d(debugClass.getSimpleName() + "." + TAG, "Barcode Result: [" + resultText + ", " + barcodeFormat + "]");
 
         } else
 
@@ -222,7 +226,7 @@ public abstract class ScannerFragment extends Fragment implements BarcodeCallbac
     }
 
     @Override
-    public void onClick(View view) {
+    public final void onClick(View view) {
 
         // NOTE: Removed permission check here since buttons will be disabled until a scan is performed
 
@@ -232,40 +236,13 @@ public abstract class ScannerFragment extends Fragment implements BarcodeCallbac
 
             resumeScanning();
 
-        else if (id == R.id.guest_scan_confirm_button && barcodeResult != null) {
+        else if (id == R.id.guest_scan_confirm_button && barcodeText != null) {
 
-            if (debug)
+            if (debugClass != null)
 
-                Log.d(TAG, "Scan Confirmed: " + barcodeResult);
+                Log.d(debugClass.getSimpleName() + "." + TAG, "Scan Confirmed: [" + barcodeText + ", " + barcodeFormat + "]");
 
-            // Create the Bundle that will be used to send the barcode to the next fragment
-            Bundle resultBundle = new Bundle();
-
-            // Put the barcodeResult into the bundle
-            resultBundle.putString("BARCODE", barcodeResult);
-
-            // Create an instance of the database helper
-            GuestFormHelper db = new GuestFormHelper(requireContext());
-
-            // Check if the guest is registered in the database
-            // No guests yet so this will always be null. GUEST_NAME was set to "Test" for testing purposes.
-            //final String GUEST_NAME = db.isRegistered(barcodeResult);
-            //TODO: Replace the line below with the one above.
-            final String GUEST_NAME = "Test";
-
-            if (GUEST_NAME != null) {
-
-                // If the guest is registered, include the guest's name in the result
-                resultBundle.putString("GUEST_NAME", GUEST_NAME);
-
-            }
-
-            // Set the fragment result to the bundle
-            getParentFragmentManager().setFragmentResult("CONFIRM_SCAN", resultBundle);
-
-            // Navigate to the confirmation fragment
-            /*NavHostFragment.findNavController(ScannerFragment.this)
-                    .navigate(R.id.action_GuestScanFragment_to_GuestScanConfirmationFragment);*/
+            onBarcodeConfirmed(barcodeText, barcodeFormat);
 
         }
 
@@ -313,8 +290,10 @@ public abstract class ScannerFragment extends Fragment implements BarcodeCallbac
             // Disable the feedback buttons until we scan another barcode
             setFeedbackButtonsEnabled(false);
 
-            // Reset our barcodeResult
-            barcodeResult = null;
+            // Reset our barcodeText and format
+            barcodeText = null;
+
+            barcodeFormat = null;
 
             // Resume the scanner but not the decoder
             decBarcodeView.resume();
@@ -323,7 +302,7 @@ public abstract class ScannerFragment extends Fragment implements BarcodeCallbac
 
             // Create a handler that resumes the decoder after a delay
             // Gives the user time to move their camera before scanning
-            Handler handler = new Handler();
+            Handler handler = new Handler(Looper.myLooper());
             handler.postDelayed(() -> {
 
                 // As long as the scanner hasn't been paused, start the decoder
