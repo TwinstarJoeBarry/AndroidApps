@@ -32,7 +32,7 @@
         app:zxing_scanner_layout="@layout/custom_barcode_scanner" />
 
     <TextView
-        android:id="@+id/guest_scan_result_view"
+        android:id="@+id/scanner_result_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -50,7 +50,7 @@
         android:orientation="horizontal" >
 
         <Button
-            android:id="@+id/guest_scan_rescan_button"
+            android:id="@+id/scanner_rescan_button"
             android:layout_width="0dp"
             android:layout_weight="0.5"
             android:layout_height="wrap_content"
@@ -60,7 +60,7 @@
             android:backgroundTint="@color/colorPrimary" />
 
         <Button
-            android:id="@+id/guest_scan_confirm_button"
+            android:id="@+id/scanner_confirm_button"
             android:layout_width="0dp"
             android:layout_weight="0.5"
             android:layout_height="wrap_content"

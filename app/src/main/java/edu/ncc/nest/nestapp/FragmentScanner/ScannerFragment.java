@@ -114,11 +114,11 @@ public abstract class ScannerFragment extends Fragment implements BarcodeCallbac
         // Get respective views from layout
         decBarcodeView = view.findViewById(R.id.zxing_barcode_scanner);
 
-        resultTextView = view.findViewById(R.id.guest_scan_result_view);
+        resultTextView = view.findViewById(R.id.scanner_result_view);
 
-        confirmButton = view.findViewById(R.id.guest_scan_confirm_button);
+        confirmButton = view.findViewById(R.id.scanner_confirm_button);
 
-        rescanButton = view.findViewById(R.id.guest_scan_rescan_button);
+        rescanButton = view.findViewById(R.id.scanner_rescan_button);
 
 
         // Make this class the OnClickListener for both feedback buttons
@@ -256,12 +256,12 @@ public abstract class ScannerFragment extends Fragment implements BarcodeCallbac
 
         int id = view.getId();
 
-        if (id == R.id.guest_scan_rescan_button)
+        if (id == R.id.scanner_rescan_button)
 
             resumeScanning();
 
         // Removed null check here since button won't be enabled until a barcode is scanned
-        else if (id == R.id.guest_scan_confirm_button)
+        else if (id == R.id.scanner_confirm_button)
 
             onBarcodeConfirmed(barcodeText, barcodeFormat);
 
