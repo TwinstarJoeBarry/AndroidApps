@@ -68,13 +68,13 @@ import edu.ncc.nest.nestapp.R;
  * Abstract Fragment class that handles the scanning of bar-codes.
  * @author Tyler Sizse
  */
-public abstract class ScannerFragment extends Fragment implements BarcodeCallback, View.OnClickListener {
+public abstract class ScannerFragment extends Fragment implements BarcodeCallback {
 
     public static final String TAG = ScannerFragment.class.getSimpleName();
 
     // Used to ask for camera permission. Calls onCameraPermissionResult method with the result
-    private final ActivityResultLauncher<String> REQUEST_CAMERA_PERMISSION_LAUNCHER = registerForActivityResult(
-            new RequestPermission(), this::onCameraPermissionResult);
+    private final ActivityResultLauncher<String> REQUEST_CAMERA_PERMISSION_LAUNCHER =
+            registerForActivityResult(new RequestPermission(), this::onCameraPermissionResult);
 
     // Delay the decoder on resume for 1.5 Seconds in milliseconds
     private static final long DECODER_DELAY = 1500L;
@@ -121,10 +121,10 @@ public abstract class ScannerFragment extends Fragment implements BarcodeCallbac
         rescanButton = view.findViewById(R.id.scanner_rescan_button);
 
 
-        // Make this class the OnClickListener for both feedback buttons
-        confirmButton.setOnClickListener(this);
+        // Set the onClick listeners to call the respective method onClick
+        confirmButton.setOnClickListener(v -> onBarcodeConfirmed(barcodeText, barcodeFormat));
 
-        rescanButton.setOnClickListener(this);
+        rescanButton.setOnClickListener(v -> resumeScanning());
 
         // Disable the feedback buttons until we scan a barcode
         setFeedbackButtonsEnabled(false);
@@ -248,24 +248,6 @@ public abstract class ScannerFragment extends Fragment implements BarcodeCallbac
 
     @Override // Made this method final so it can't be overridden
     public final void possibleResultPoints(List<ResultPoint> resultPoints) { }
-
-    @Override
-    public final void onClick(View view) {
-
-        // NOTE: Removed permission check here since buttons will be disabled until a scan is performed
-
-        int id = view.getId();
-
-        if (id == R.id.scanner_rescan_button)
-
-            resumeScanning();
-
-        // Removed null check here since button won't be enabled until a barcode is scanned
-        else if (id == R.id.scanner_confirm_button)
-
-            onBarcodeConfirmed(barcodeText, barcodeFormat);
-
-    }
 
 
     ////////////// Custom Methods Start  //////////////
