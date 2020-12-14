@@ -67,7 +67,7 @@
 
         app:scanFrameCornerSize="48dp"
         app:scanFrameThickness="8"
-        app:scanFrameOffset="10dp"
+        app:scanFrameOffset="0dp"
         app:scanFrameColor="@android:color/white"
         app:scanFrameAlpha="1"
         app:scanFrameStyle="corners"/>
