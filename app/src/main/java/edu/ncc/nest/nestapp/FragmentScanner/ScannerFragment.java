@@ -47,6 +47,7 @@ public abstract class ScannerFragment extends Fragment implements BarcodeCallbac
 
     // The class that is extending this class. Use as a tag when printing to the log.
     protected Class<ScannerFragment> debugClass;
+    protected boolean debug;
 
     private DecoratedBarcodeView decBarcodeView;
     private BeepManager beepManager;
@@ -233,7 +234,7 @@ public abstract class ScannerFragment extends Fragment implements BarcodeCallbac
         // Removed null check here since button won't be enabled until a barcode is scanned
         else if (id == R.id.guest_scan_confirm_button) {
 
-            if (debugClass != null)
+            if (debugClass != null && debug)
 
                 Log.d(debugClass.getSimpleName() + "." + TAG, "Scan Confirmed: [" + barcodeText + ", " + barcodeFormat + "]");
 
@@ -247,7 +248,8 @@ public abstract class ScannerFragment extends Fragment implements BarcodeCallbac
     ////////////// Custom Methods Start  //////////////
 
     /**
-     * Takes 1 parameter. This method gets called by the REQUEST_CAMERA_PERMISSION_LAUNCHER, after
+     * onCameraPermissionResult -- Takes 1 parameter.
+     * This method gets called by the REQUEST_CAMERA_PERMISSION_LAUNCHER, after
      * asking for camera permission. Determines what happens when the permission gets granted or
      * denied.
      * @param isGranted - true if permission was granted false otherwise
@@ -268,7 +270,8 @@ public abstract class ScannerFragment extends Fragment implements BarcodeCallbac
     }
 
     /**
-     * Takes 0 parameters. Resumes the scanner if it is not paused, resets resultTextView text,
+     * resumeScanning -- Takes 0 parameters.
+     * Resumes the scanner if it is not paused, resets resultTextView text,
      * resets the barcodeResult to be null so we can scan a new bar-code, and starts the decoder
      * after a delay of SCAN_DELAY.
      */
@@ -313,7 +316,8 @@ public abstract class ScannerFragment extends Fragment implements BarcodeCallbac
     }
 
     /**
-     * Takes 1 parameter. Toggles whether both rescanButton and confirmScan button are enabled or
+     * setFeedbackButtonsEnabled -- Takes 1 parameter.
+     * Toggles whether both rescanButton and confirmScan button are enabled or
      * disabled, based on the value of the parameter.
      *
      * @param enabled true to enable or false to disable
@@ -326,11 +330,21 @@ public abstract class ScannerFragment extends Fragment implements BarcodeCallbac
 
     }
 
-    protected final void setDecoderFormats(@NonNull BarcodeFormat...barcodeFormats) throws NullPointerException {
+    /**
+     * setDecoderFormats -- Takes 1 array parameter.
+     * Sets what formats the decoder should decode.
+     *
+     * @param barcodeFormat The barcode format to decode
+     * @param barcodeFormats Additional barcode formats to decode
+     * @throws NullPointerException If the array of formats contains a null value
+     */
+    protected final void setDecoderFormats(@NonNull BarcodeFormat barcodeFormat, @NonNull BarcodeFormat...barcodeFormats) {
 
         if (barcodeFormats.length > 0) {
 
-            List<BarcodeFormat> formatList = new ArrayList<>(barcodeFormats.length);
+            List<BarcodeFormat> formatList = new ArrayList<>(barcodeFormats.length + 1);
+
+            formatList.add(barcodeFormat);
 
             Collections.addAll(formatList, barcodeFormats);
 
