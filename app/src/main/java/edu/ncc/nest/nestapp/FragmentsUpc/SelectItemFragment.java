@@ -17,7 +17,6 @@ package edu.ncc.nest.nestapp.FragmentsUpc;
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 import edu.ncc.nest.nestapp.NestDBDataSource;
-import edu.ncc.nest.nestapp.NestNewUPC;
 import edu.ncc.nest.nestapp.R;
 
 import android.os.Bundle;
@@ -137,7 +136,9 @@ public class SelectItemFragment extends Fragment implements View.OnClickListener
             else
             {
                 // use our source to the database to add the new upc to the NEST's table
-                database.insertNewUPC(upcSaved, name, description, itemID);
+                Toast.makeText(getContext(), String.format("UPC %s name %s description %s prodID %d", upcSaved, name, description, itemID), Toast.LENGTH_LONG).show();
+//                database.insertNewUPC(upcSaved, name, description, itemID);
+
 
                 // stuff everything in a bundle in case it's needed for PrintedExpirationDate;
                 Bundle saved = new Bundle();
@@ -209,7 +210,7 @@ public class SelectItemFragment extends Fragment implements View.OnClickListener
         menuPop.setOnMenuItemClickListener((PopupMenu.OnMenuItemClickListener) item ->
         {
             productHint.setText( item.toString() );
-            itemID = item.getItemId();
+            itemID = (categoryIndex * 100) + item.getItemId();
             return true;
         });
 
