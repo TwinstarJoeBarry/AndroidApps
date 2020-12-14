@@ -25,7 +25,7 @@
         android:id="@+id/GuestScanFragment"
         android:name="edu.ncc.nest.nestapp.FragmentsGuestVisit.GuestScanFragment"
         android:label="@string/guest_scan_fragment_label"
-        tools:layout="@layout/fragment_guest_scan" >
+        tools:layout="@layout/fragment_scanner" >
 
         <action
             android:id="@+id/action_GuestScanFragment_to_GuestScanConfirmationFragment"
