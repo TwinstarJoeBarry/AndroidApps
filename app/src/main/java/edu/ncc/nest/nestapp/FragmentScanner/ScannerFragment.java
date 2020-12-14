@@ -26,6 +26,9 @@ import com.journeyapps.barcodescanner.BarcodeResult;
 import com.journeyapps.barcodescanner.DecoratedBarcodeView;
 import com.journeyapps.barcodescanner.DefaultDecoderFactory;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -35,15 +38,15 @@ public abstract class ScannerFragment extends Fragment implements BarcodeCallbac
 
     public static final String TAG = ScannerFragment.class.getSimpleName();
 
-    private static final List<BarcodeFormat> BARCODE_FORMATS = Collections.singletonList(BarcodeFormat.CODE_39);
-    // To support multiple formats change this to Arrays.asList() and fill it with the required
-    // formats. For example, Arrays.asList(BarcodeFormat.CODE_39, BarcodeFormat.UPC_A, ...);
-
     // Used to ask for camera permission. Calls onCameraPermissionResult method with the result
     private final ActivityResultLauncher<String> REQUEST_CAMERA_PERMISSION_LAUNCHER = registerForActivityResult(
             new RequestPermission(), this::onCameraPermissionResult);
 
-    private static final long SCAN_DELAY = 1500L;   // 1.5 Seconds in milliseconds
+    // 1.5 Seconds in milliseconds
+    private static final long DECODER_DELAY = 1500L;
+
+    // The class that is extending this class. Use as a tag when printing to the log.
+    protected Class<ScannerFragment> debugClass;
 
     private DecoratedBarcodeView decBarcodeView;
     private BeepManager beepManager;
@@ -53,10 +56,8 @@ public abstract class ScannerFragment extends Fragment implements BarcodeCallbac
 
     private boolean scannerPaused = true;
 
-    private BarcodeFormat barcodeFormat = null;
-    private String barcodeText = null;
-
-    protected Class<ScannerFragment> debugClass;
+    private BarcodeFormat barcodeFormat;
+    private String barcodeText;
 
 
     ////////////// Abstract Methods Start //////////////
@@ -87,10 +88,6 @@ public abstract class ScannerFragment extends Fragment implements BarcodeCallbac
         confirmButton = view.findViewById(R.id.guest_scan_confirm_button);
 
         rescanButton = view.findViewById(R.id.guest_scan_rescan_button);
-
-
-        // Specifies which barcode formats to decode. (Removing this line, defaults scanner to use all formats)
-        decBarcodeView.getBarcodeView().setDecoderFactory(new DefaultDecoderFactory(BARCODE_FORMATS));
 
 
         // Make this class the OnClickListener for both feedback buttons
@@ -233,7 +230,8 @@ public abstract class ScannerFragment extends Fragment implements BarcodeCallbac
 
             resumeScanning();
 
-        else if (id == R.id.guest_scan_confirm_button && barcodeText != null) {
+        // Removed null check here since button won't be enabled until a barcode is scanned
+        else if (id == R.id.guest_scan_confirm_button) {
 
             if (debugClass != null)
 
@@ -308,7 +306,7 @@ public abstract class ScannerFragment extends Fragment implements BarcodeCallbac
                     // Tells the decoder to stop after a single scan
                     decBarcodeView.decodeSingle(ScannerFragment.this);
 
-            }, SCAN_DELAY);
+            }, DECODER_DELAY);
 
         }
 
@@ -325,6 +323,27 @@ public abstract class ScannerFragment extends Fragment implements BarcodeCallbac
         confirmButton.setEnabled(enabled);
 
         rescanButton.setEnabled(enabled);
+
+    }
+
+    protected final void setDecoderFormats(@NonNull BarcodeFormat...barcodeFormats) throws NullPointerException {
+
+        if (barcodeFormats.length > 0) {
+
+            List<BarcodeFormat> formatList = new ArrayList<>(barcodeFormats.length);
+
+            Collections.addAll(formatList, barcodeFormats);
+
+            if (formatList.contains(null))
+
+                throw new NullPointerException("Cannot set decode format to a null BarcodeFormat");
+
+            // Apply all the decoder formats
+            decBarcodeView.setDecoderFactory(new DefaultDecoderFactory(formatList));
+
+        } else
+
+            decBarcodeView.setDecoderFactory(new DefaultDecoderFactory());
 
     }
 
