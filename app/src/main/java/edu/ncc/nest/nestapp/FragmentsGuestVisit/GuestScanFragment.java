@@ -34,7 +34,6 @@ package edu.ncc.nest.nestapp.FragmentsGuestVisit;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.util.Log;

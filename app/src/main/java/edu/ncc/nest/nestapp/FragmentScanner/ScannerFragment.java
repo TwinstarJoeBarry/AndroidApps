@@ -112,7 +112,7 @@ public abstract class ScannerFragment extends Fragment implements BarcodeCallbac
         super.onViewCreated(view, savedInstanceState);
 
         // Get respective views from layout
-        decBarcodeView = view.findViewById(R.id.zxing_barcode_scanner);
+        decBarcodeView = view.findViewById(R.id.scanner_decorated_barcode_view);
 
         resultTextView = view.findViewById(R.id.scanner_result_view);
 

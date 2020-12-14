@@ -25,7 +25,7 @@
     tools:context=".FragmentsGuestVisit.GuestScanFragment" >
 
     <com.journeyapps.barcodescanner.DecoratedBarcodeView
-        android:id="@+id/zxing_barcode_scanner"
+        android:id="@+id/scanner_decorated_barcode_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
