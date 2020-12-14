@@ -182,7 +182,7 @@ public abstract class ScannerFragment extends Fragment implements BarcodeCallbac
     ////////////// Other Event Methods Start  //////////////
 
     @Override
-    public void barcodeResult(BarcodeResult result) {
+    public final void barcodeResult(BarcodeResult result) {
 
         // Gets the barcode from the result
         String resultText = result.getText();
