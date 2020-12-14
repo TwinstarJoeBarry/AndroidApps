@@ -263,6 +263,8 @@ public abstract class ScannerFragment extends Fragment implements BarcodeCallbac
 
         if (!isGranted) {
 
+            // TODO Create dialog that informs the user why permission is needed
+
             // Display a reason of why we need the permission
             Toast.makeText(requireContext(), "Camera permission is needed in order to scan.",
                     Toast.LENGTH_LONG).show();
