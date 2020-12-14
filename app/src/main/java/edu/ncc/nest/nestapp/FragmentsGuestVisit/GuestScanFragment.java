@@ -37,6 +37,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.navigation.fragment.NavHostFragment;
 
+import android.util.Log;
 import android.view.View;
 
 import com.google.zxing.BarcodeFormat;
@@ -52,25 +53,17 @@ import edu.ncc.nest.nestapp.R;
 public class GuestScanFragment extends ScannerFragment {
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        super.debugClass = GuestScanFragment.class;
-
-        super.debug = true;
-
-    }
-
-    @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        super.setDecoderFormats(BarcodeFormat.CODE_39);
+        super.setDecoderFormats();
 
     }
 
     @Override
     protected void onBarcodeConfirmed(@NonNull String barcode, @NonNull BarcodeFormat format) {
+
+        Log.d(TAG, "Scan Confirmed: [" + barcode + ", " + format.toString() + "]");
 
         // Create the Bundle that will be used to send the barcode to the next fragment
         Bundle resultBundle = new Bundle();

@@ -79,12 +79,8 @@ public abstract class ScannerFragment extends Fragment implements BarcodeCallbac
     private final ActivityResultLauncher<String> REQUEST_CAMERA_PERMISSION_LAUNCHER = registerForActivityResult(
             new RequestPermission(), this::onCameraPermissionResult);
 
-    // 1.5 Seconds in milliseconds
+    // Delay the decoder on resume for 1.5 Seconds in milliseconds
     private static final long DECODER_DELAY = 1500L;
-
-    // The class that is extending this class. Use as a tag when printing to the log.
-    protected Class<?> debugClass;
-    protected boolean debug;
 
     private DecoratedBarcodeView decBarcodeView;
     private BeepManager beepManager;
@@ -246,10 +242,6 @@ public abstract class ScannerFragment extends Fragment implements BarcodeCallbac
             // Enable the feedback buttons after we have stored the bar-code and stopped scanner
             setFeedbackButtonsEnabled(true);
 
-            if (debugClass != null)
-
-                Log.d(debugClass.getSimpleName() + "." + TAG, "Barcode Result: [" + resultText + ", " + barcodeFormat + "]");
-
         } else
 
             // Scan for another bar-code
@@ -272,15 +264,9 @@ public abstract class ScannerFragment extends Fragment implements BarcodeCallbac
             resumeScanning();
 
         // Removed null check here since button won't be enabled until a barcode is scanned
-        else if (id == R.id.guest_scan_confirm_button) {
-
-            if (debugClass != null && debug)
-
-                Log.d(debugClass.getSimpleName() + "." + TAG, "Scan Confirmed: [" + barcodeText + ", " + barcodeFormat + "]");
+        else if (id == R.id.guest_scan_confirm_button)
 
             onBarcodeConfirmed(barcodeText, barcodeFormat);
-
-        }
 
     }
 
@@ -374,17 +360,15 @@ public abstract class ScannerFragment extends Fragment implements BarcodeCallbac
      * setDecoderFormats -- Takes 1 array parameter.
      * Sets what formats the decoder should decode.
      *
-     * @param barcodeFormat The barcode format to decode
-     * @param barcodeFormats Additional barcode formats to decode
+     * @param barcodeFormats The barcode formats to decode. If no formats are provided then the
+     *                       scanner will default to scanning all bar-code formats.
      * @throws NullPointerException If the array of formats contains a null value
      */
-    protected final void setDecoderFormats(@NonNull BarcodeFormat barcodeFormat, @NonNull BarcodeFormat...barcodeFormats) {
+    protected final void setDecoderFormats(@NonNull BarcodeFormat...barcodeFormats) {
 
         if (barcodeFormats.length > 0) {
 
             List<BarcodeFormat> formatList = new ArrayList<>(barcodeFormats.length + 1);
-
-            formatList.add(barcodeFormat);
 
             Collections.addAll(formatList, barcodeFormats);
 
