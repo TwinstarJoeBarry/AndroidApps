@@ -346,7 +346,7 @@ public abstract class ScannerFragment extends Fragment implements BarcodeCallbac
 
         if (barcodeFormats.length > 0) {
 
-            List<BarcodeFormat> formatList = new ArrayList<>(barcodeFormats.length + 1);
+            List<BarcodeFormat> formatList = new ArrayList<>(barcodeFormats.length);
 
             Collections.addAll(formatList, barcodeFormats);
 
