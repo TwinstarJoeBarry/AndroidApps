@@ -77,7 +77,13 @@ public class FramedViewFinderView extends ViewfinderView {
 
             FRAME_STYLE = a.getInteger(R.styleable.FramedViewFinderView_scanFrameStyle, 2);
 
-        } finally { a.recycle(); }
+        } finally {
+
+            PAINT.setStyle(Paint.Style.STROKE);
+
+            a.recycle();
+
+        }
 
     }
 
