@@ -16,18 +16,19 @@ package edu.ncc.nest.nestapp.FragmentsUpc;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+import edu.ncc.nest.nestapp.R;
+
 import android.os.Bundle;
 
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.LayoutInflater;
 
-import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.PopupMenu;
 
 import androidx.annotation.NonNull;
@@ -35,14 +36,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentResultListener;
 import androidx.navigation.fragment.NavHostFragment;
 
-import edu.ncc.nest.nestapp.R;
-import edu.ncc.nest.nestapp.NestDBDataSource;
-
-
 public class SelectItemFragment extends Fragment implements View.OnClickListener
 {
     private final String DEFAULT_STRING = "VALUE LEFT BLANK";
-
     private String upcSaved; // UPC as passed from previous fragment; populated from a saved bundle
 
     // THE INDEX SELECTED FROM A CATEGORY POPUP, POPULATES A SUB CATEGORY (ITEM) POPUP, SETS itemID
@@ -86,7 +82,7 @@ public class SelectItemFragment extends Fragment implements View.OnClickListener
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState)
     {
-        super.onViewCreated(view, savedInstanceState);
+
 
         // INITIALIZE UI ELEMENTS THAT ARE INSTANCE VARIABLES
         categoryHint = view.findViewById(R.id.fragment_select_item_category_hint);
@@ -113,12 +109,13 @@ public class SelectItemFragment extends Fragment implements View.OnClickListener
             }
         });
 
+        super.onViewCreated(view, savedInstanceState);
+
 
         // ACCEPT BUTTON CODE - PARSE VALUES FOR NEW UPC, PASS INFO TO PRINTED EXPIRATION DATE
         view.findViewById(R.id.acceptButton).setOnClickListener( view1 ->
         {
             // open a source to the database to add the information;
-            NestDBDataSource database = new NestDBDataSource(getContext());
 
             // retrieve the String information from each view, casting as appropriate;
             String name = ((EditText) (getView().findViewById(R.id.fragment_select_item_brand_entry))).getText().toString();
@@ -136,7 +133,7 @@ public class SelectItemFragment extends Fragment implements View.OnClickListener
             {
 
                 // use dataSource to add the new upc to the Nest's table
-                database.insertNewUPC(upcSaved, name, description, itemID);
+//                database.insertNewUPC(upcSaved, name, description, itemID);
                 Toast.makeText(getContext(), String.format("%s", upcSaved), Toast.LENGTH_LONG).show();
 
                 // stuff everything in a bundle in case it's needed for PrintedExpirationDate;
@@ -147,7 +144,7 @@ public class SelectItemFragment extends Fragment implements View.OnClickListener
                 saved.putString("savedDescription", description);
                 getParentFragmentManager().setFragmentResult("PRODUCT INFO", saved);
 
-                // navigate over to printed expiration date;
+//                 navigate over to printed expiration date;
 //                NavHostFragment.findNavController(SelectItemFragment.this)
 //                        .navigate(R.id.action_selectItemFragment_to_selectPrintedExpirationDateFragment);
             }
