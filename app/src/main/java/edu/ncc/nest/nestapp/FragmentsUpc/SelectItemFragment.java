@@ -155,9 +155,9 @@ public class SelectItemFragment extends Fragment implements View.OnClickListener
         });
 
 
-        // CANCEL BUTTON CODE - NAVIGATE BACK TO ENTER UPC FRAG
+        // CANCEL BUTTON CODE - NAVIGATE BACK TO START FRAGMENT
         view.findViewById(R.id.cancelButton).setOnClickListener( view12 ->
-            NavHostFragment.findNavController(SelectItemFragment.this).navigate(R.id.confirmItemFragment));
+            NavHostFragment.findNavController(SelectItemFragment.this).navigate(R.id.StartFragment));
 
     }
 

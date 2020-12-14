@@ -503,8 +503,6 @@ public class ScanFragment extends Fragment implements BarcodeCallback, View.OnCl
 
                 // Put UPC into a bundle and pass it to SelectItemFragment (may not be necessary)
                 Bundle bundle = new Bundle();
-                // TODO sorry dan, used this and next line  to simulate a result without having to scan or change your code
-                barcodeResult = "001234567890";
                 bundle.putString("barcode", barcodeResult);
                 getParentFragmentManager().setFragmentResult("BARCODE", bundle);
                 NavHostFragment.findNavController(ScanFragment.this).navigate((R.id.selectItemFragment));
