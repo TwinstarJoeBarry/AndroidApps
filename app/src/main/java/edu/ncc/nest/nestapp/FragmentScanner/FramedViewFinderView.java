@@ -96,16 +96,16 @@ public class FramedViewFinderView extends ViewfinderView {
 
         if (FRAME_STYLE != 0 && framingRect != null) {
 
+            // Add the actual frame offset
+            final int X1 = framingRect.left - FRAME_OFFSET;
+            final int Y1 = framingRect.top - FRAME_OFFSET;
+            final int X2 = framingRect.right + FRAME_OFFSET;
+            final int Y2 = framingRect.bottom + FRAME_OFFSET;
+
             if (FRAME_STYLE == 2) {
 
                 // Offset of stroke thickness
                 int OFFSET = (int) PAINT.getStrokeWidth() / 2;
-
-                // Add the actual frame offset
-                final int X1 = framingRect.left - FRAME_OFFSET;
-                final int Y1 = framingRect.top - FRAME_OFFSET;
-                final int X2 = framingRect.right + FRAME_OFFSET;
-                final int Y2 = framingRect.bottom + FRAME_OFFSET;
 
                 // Add offset for the stroke thickness
                 final int X1_OFFSET = X1 - OFFSET;
@@ -132,7 +132,7 @@ public class FramedViewFinderView extends ViewfinderView {
             } else
 
                 // Draw the frame as a rectangle
-                canvas.drawRect(framingRect, PAINT);
+                canvas.drawRect(X1, Y1, X2, Y2, PAINT);
 
         }
 
