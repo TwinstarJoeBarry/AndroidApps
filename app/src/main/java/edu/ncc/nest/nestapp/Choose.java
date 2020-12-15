@@ -93,6 +93,7 @@ public class Choose extends AppCompatActivity implements OnClickListener {
             case R.id.futureEffortsBtn:
                 launchFutureEfforts();
                 break;
+                // testing **********************
             case R.id.trueDate:
                 launchTrueDate();
                 break;
@@ -126,6 +127,7 @@ public class Choose extends AppCompatActivity implements OnClickListener {
         Intent intent = new Intent(this, FutureEfforts.class);
         startActivity(intent);
     }
+
 
     //    ******************************************TESTING
     /**

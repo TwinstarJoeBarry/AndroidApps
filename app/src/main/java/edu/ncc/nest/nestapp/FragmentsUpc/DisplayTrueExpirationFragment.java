@@ -76,7 +76,7 @@ public class DisplayTrueExpirationFragment extends Fragment {
         });
 
 
-        //TESTING *********************
+        //TESTING ********************* comment both lines after testing,
         product = new NestUPC("123456789","Tuscan","", 644, "Milk","",2,"Dairy");
         exp = "06/10/20";
 
