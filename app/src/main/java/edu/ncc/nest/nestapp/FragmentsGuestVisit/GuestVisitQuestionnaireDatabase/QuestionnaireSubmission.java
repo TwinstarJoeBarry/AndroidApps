@@ -1,4 +1,4 @@
-package edu.ncc.nest.nestapp.FragmentsGuestVisit.QuestionnaireDatabase;
+package edu.ncc.nest.nestapp.FragmentsGuestVisit.GuestVisitQuestionnaireDatabase;
 
 import java.util.ArrayList;
 
@@ -38,7 +38,7 @@ public class QuestionnaireSubmission {
     @Override
     public String toString() {
 
-        return ("{ Row: " + ROW_ID + ", Guest ID: " + GUEST_ID + ", Answers: " + GUEST_ANSWERS.toString() + " }");
+        return ("{Row ID: [" + ROW_ID + "], Guest ID: [" + GUEST_ID + "], Submission: " + GUEST_ANSWERS.toString() + "}");
 
     }
 

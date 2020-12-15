@@ -1,4 +1,4 @@
-package edu.ncc.nest.nestapp.FragmentsGuestVisit.QuestionnaireDatabase;
+package edu.ncc.nest.nestapp.FragmentsGuestVisit.GuestVisitQuestionnaireDatabase;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -20,8 +20,8 @@ public class QuestionnaireHelper extends SQLiteOpenHelper {
     public static final String TAG = QuestionnaireHelper.class.getSimpleName();
 
     // Database name and version
-    private static final String DATABASE_NAME = "QuestionnaireSubmissions.db";
-    private static final int DATABASE_VERSION = 1;
+    public static final String DATABASE_NAME = "QuestionnaireSubmissions.db";
+    public static final int DATABASE_VERSION = 1;
 
     // Table name
     public static final String TABLE_NAME = "questionnaire_submissions";
@@ -136,7 +136,9 @@ public class QuestionnaireHelper extends SQLiteOpenHelper {
         //Create a new database
         SQLiteDatabase db = this.getReadableDatabase();
 
-        if (getColumnCount(db) != (2 + numQuestions)) {
+        int columnCount = getColumnCount(db);
+
+        if (columnCount != (2 + numQuestions)) {
 
             // Print a warning, stating why we're dropping the table
             Log.w(TAG, "Dropping table due to question count change.");
@@ -166,7 +168,7 @@ public class QuestionnaireHelper extends SQLiteOpenHelper {
         Cursor c = db.rawQuery("PRAGMA table_info(" + TABLE_NAME + ")", null);
 
         //Create a primitive and set it equal to the getColumnCount of c
-        int columnCount = c.getColumnCount();
+        int columnCount = c.getCount();
 
         // Done reading from cursor so make sure we close it
         c.close();

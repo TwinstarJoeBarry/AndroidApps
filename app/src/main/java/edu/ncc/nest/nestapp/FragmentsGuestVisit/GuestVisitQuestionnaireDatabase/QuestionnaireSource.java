@@ -1,4 +1,4 @@
-package edu.ncc.nest.nestapp.FragmentsGuestVisit.QuestionnaireDatabase;
+package edu.ncc.nest.nestapp.FragmentsGuestVisit.GuestVisitQuestionnaireDatabase;
 
 /**
  * Copyright (C) 2020 The LibreFoodPantry Developers.
@@ -134,12 +134,12 @@ public class QuestionnaireSource {
      */
     public void printSubmissions(@NonNull String guestID) {
 
-        Log.d(TAG, "Printing a list of all submissions related to guest ID: " + guestID);
+        Log.i(TAG, "Printing all submissions by guest " + guestID + " from " + QuestionnaireHelper.DATABASE_NAME + ":");
 
         // Find each questionnaire submitted by the guest and print it to the log
         for (QuestionnaireSubmission submission : findSubmissions(guestID))
 
-            Log.d(TAG, submission.toString());
+            Log.i(TAG, submission.toString());
 
     }
 

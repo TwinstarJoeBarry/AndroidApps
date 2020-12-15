@@ -34,6 +34,8 @@ import androidx.fragment.app.Fragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.ncc.nest.nestapp.FragmentsGuestVisit.GuestVisitQuestionnaireDatabase.QuestionnaireHelper;
+import edu.ncc.nest.nestapp.FragmentsGuestVisit.GuestVisitQuestionnaireDatabase.QuestionnaireSource;
 import edu.ncc.nest.nestapp.R;
 
 /**
@@ -47,6 +49,8 @@ public class GuestQuestionnaireFragment extends Fragment implements View.OnClick
     private List<View> inputFields;
 
     private Button submitButton;
+
+    private String guestID;
 
 
     ////////////// Lifecycle Methods Start //////////////
@@ -94,20 +98,20 @@ public class GuestQuestionnaireFragment extends Fragment implements View.OnClick
             getParentFragmentManager().setFragmentResultListener("GUEST_CONFIRMED",
                     this, (requestKey, result) -> {
 
-                        final String GUEST_ID = result.getString("GUEST_ID");
-
-                        if (GUEST_ID != null) {
+                        if ((guestID = result.getString("GUEST_ID")) != null) {
 
                             // Get the EditText of the first question
-                            EditText guestId = (EditText) inputFields.get(0);
+                            EditText guestIDInputField = (EditText) inputFields.get(0);
 
                             // Set the input field's text related to the Guest's Id as the barcode we scanned in previous fragment
-                            guestId.setText(GUEST_ID);
+                            guestIDInputField.setText(guestID);
 
                             // Disable it so the user can't modify his check-in id.
-                            guestId.setEnabled(false);
+                            guestIDInputField.setEnabled(false);
 
-                        }
+                        } else
+
+                            Log.e(TAG, "ERROR: Failed to retrieve GUEST_ID.");
 
                     });
 
@@ -174,22 +178,45 @@ public class GuestQuestionnaireFragment extends Fragment implements View.OnClick
 
             }
 
+            // If we make it here than the questionnaire is OK to submit
+
+            // Disable all the input fields and submit button so the guest can review their answers
+
             for (View inputField : inputFields)
 
                 inputField.setEnabled(false);
 
-            // Disable the submit button
             submitButton.setEnabled(false);
 
-            // Print the answers to the log
-            Log.d(TAG, "Guest's Answers: " + fieldTexts.toString());
+            // Store answers into the Questionnaire database
 
-            // Display toast saying the questionnaire has been submitted
-            Toast.makeText(getContext(), "Questionnaire Submitted. See Log.", Toast.LENGTH_SHORT).show();
+            // Open a database
+            QuestionnaireSource db = new QuestionnaireSource(requireContext(), inputFields.size()).open();
 
-            // TODO Store the answers in a local database
+            // Submit the questionnaire into the database
+            long rowID = db.submitQuestionnaire(guestID, fieldTexts);
 
+            // If there wasn't any errors submitting the database
+            if (rowID != -1) {
 
+                // Print the answers to the log and display a toast
+
+                Log.d(TAG, "Questionnaire Submitted: {Row ID: [" + rowID +
+                        "], Guest ID: [" + guestID + "], Submission: " + fieldTexts.toString() + "}");
+
+                Toast.makeText(getContext(), "Questionnaire Submitted. See Log.", Toast.LENGTH_SHORT).show();
+
+                // TODO Delete this or comment it out as this is only temporary and for debugging purposes
+                // NOTE: The list may grow extremely long in some cases and may clutter the log.
+                // Print a list of all submissions by this guest from the database
+                db.printSubmissions(guestID);
+
+            } else
+
+                Log.e(TAG, "ERROR: Failed to submit questionnaire.");
+
+            // Finally make sure we close the database since it is no longer needed
+            db.close();
 
         }
 
