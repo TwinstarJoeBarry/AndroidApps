@@ -36,7 +36,7 @@
     <fragment
         android:id="@+id/GuestScanConfirmationFragment"
         android:name="edu.ncc.nest.nestapp.FragmentsGuestVisit.GuestScanConfirmationFragment"
-        android:label="Guest Scan Confirmation Fragment"
+        android:label="@string/guest_scan_confirmation_fragment_lable"
         tools:layout="@layout/fragment_guest_scan_confirmation_flipper">
 
         <action
@@ -51,6 +51,10 @@
             app:popUpTo="@id/GuestScanFragment"
             app:popUpToInclusive="true" />
 
+        <action
+            android:id="@+id/action_GuestScanConfirmationFragment_to_RegistrationFragment"
+            app:destination="@id/StartFragmentGuest"/>
+
     </fragment>
 
     <fragment
@@ -58,6 +62,14 @@
         android:name="edu.ncc.nest.nestapp.FragmentsGuestVisit.GuestQuestionnaireFragment"
         android:label="@string/guest_questionnaire_fragment_label"
         tools:layout="@layout/fragment_guest_questionnaire" >
+
+    </fragment>
+
+    <fragment
+        android:id="@id/StartFragmentGuest"
+        android:name="edu.ncc.nest.nestapp.FragmentsGuestRegistration.GuestFormRegistrationStartPageFragment"
+        android:label="@string/start_fragment_label"
+        tools:layout="@layout/fragment_guest_form_registration_start_page">
 
     </fragment>
 

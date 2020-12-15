@@ -1034,6 +1034,7 @@
     </string-array>
 
     <!-- Strings used in the guest visit confirmation layouts -->
+    <string name="guest_scan_confirmation_fragment_lable">Guest Scan Confirmation Fragment</string>
     <string name="guestVisitConfirmation_welcome_nest_guest_lbl">Welcome NEST Guest!</string>
     <string name="guestVisitConfirmation_guest_info_confirmation">Please confirm that the following information is correct.</string>
     <string name="guestVisitConfirmation_guest_name_lbl">GUEST NAME</string>
