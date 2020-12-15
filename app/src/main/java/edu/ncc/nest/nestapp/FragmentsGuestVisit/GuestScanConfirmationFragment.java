@@ -17,6 +17,7 @@ package edu.ncc.nest.nestapp.FragmentsGuestVisit;
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +30,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
+import edu.ncc.nest.nestapp.FragmentsGuestRegistration.GuestFormRegistrationActivity;
 import edu.ncc.nest.nestapp.R;
 
 public class GuestScanConfirmationFragment extends Fragment implements View.OnClickListener {
@@ -119,9 +121,14 @@ public class GuestScanConfirmationFragment extends Fragment implements View.OnCl
 
         } else if (id == R.id.confirmation_0_register_btn) {
 
-            // Navigate to the registration fragment
-            NavHostFragment.findNavController(GuestScanConfirmationFragment.this)
-                    .navigate(R.id.action_GuestScanConfirmationFragment_to_RegistrationFragment);
+            // Create an Intent that will bring the user to the registration activity
+            Intent intent = new Intent(requireContext(), GuestFormRegistrationActivity.class);
+
+            // Put the barcode into the intent
+            intent.putExtra("BARCODE", guestId);
+
+            // Go to the registration activity
+            startActivity(intent);
 
         }
 
