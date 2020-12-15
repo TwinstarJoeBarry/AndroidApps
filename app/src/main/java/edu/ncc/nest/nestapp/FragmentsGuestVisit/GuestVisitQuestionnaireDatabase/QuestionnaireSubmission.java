@@ -17,6 +17,8 @@ package edu.ncc.nest.nestapp.FragmentsGuestVisit.GuestVisitQuestionnaireDatabase
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
 
 /**
@@ -75,6 +77,7 @@ public class QuestionnaireSubmission {
      * toString --
      * Returns a string that represents this classes contents.
      */
+    @NonNull
     @Override
     public String toString() {
 
