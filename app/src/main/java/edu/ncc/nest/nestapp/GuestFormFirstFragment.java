@@ -34,7 +34,7 @@ public class GuestFormFirstFragment extends Fragment {
     GuestFormHelper db;
 
     //variables to store user information
-    EditText name, email, phone, date, address, city, zip;
+    EditText lastName, firstName, ncc_affil, age, gender, phone, ncc_id, address, city, state, zip;
 
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
@@ -57,13 +57,17 @@ public class GuestFormFirstFragment extends Fragment {
         //db = new GuestFormHelper(this);
 
         //getting a handle on info from the UI
-        name = (EditText)(getView().findViewById(R.id.editText));
-        phone = (EditText)(getView().findViewById(R.id.editText2));
-        email = (EditText)(getView().findViewById(R.id.editText3));
-        address = (EditText)(getView().findViewById(R.id.editText5));
-        city = (EditText)(getView().findViewById(R.id.editText6));
-        zip = (EditText)(getView().findViewById(R.id.editText7));
-        date = (EditText)(getView().findViewById(R.id.editText8));
+        lastName = (EditText)(getView().findViewById(R.id.editText));
+        firstName = (EditText)(getView().findViewById(R.id.editText2));
+        ncc_affil = (EditText)(getView().findViewById(R.id.editText3));
+        age = (EditText)(getView().findViewById(R.id.editText4));
+        gender = (EditText)(getView().findViewById(R.id.editText5));
+        phone = (EditText)(getView().findViewById(R.id.editText6));
+        ncc_id = (EditText)(getView().findViewById(R.id.editText7));
+        address = (EditText)(getView().findViewById(R.id.editText8));
+        city = (EditText)(getView().findViewById(R.id.editText9));
+        state = (EditText)(getView().findViewById(R.id.states_spinner));
+        zip = (EditText)(getView().findViewById(R.id.editText10));
 
         view.findViewById(R.id.next_button);
         view.setOnClickListener(new View.OnClickListener() {
@@ -77,7 +81,7 @@ public class GuestFormFirstFragment extends Fragment {
 
                     // NOTE: The parameter 'barcode' was recently added to this method
                     // TODO: Update parameter 'barcode' to the barcode representing this user
-                    ins = db.insertData(name.getText().toString(), email.getText().toString(), phone.getText().toString(), date.getText().toString(), address.getText().toString(), city.getText().toString(), zip.getText().toString(), null);
+                    //ins = db.insertData(name.getText().toString(), email.getText().toString(), phone.getText().toString(), date.getText().toString(), address.getText().toString(), city.getText().toString(), zip.getText().toString(), null);
 
                 }
 

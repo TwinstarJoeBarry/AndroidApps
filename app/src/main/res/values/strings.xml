@@ -1026,7 +1026,6 @@
     <string name="questionnaire_spinner_prompt">Choose an answer</string>
     <string name="questionnaire_hint_number">Enter a number</string>
     <string name="questionnaire_hint_id">NEST Guest Id#</string>
-<<<<<<< app/src/main/res/values/strings.xml
     <string name="first_name_lbl">First Name</string>
     <string name="last_name_lbl">Last Name</string>
     <string name="affil_label">NCC Affiliation</string>
@@ -1045,10 +1044,8 @@
     <string name="children_between_13_18_lbl">How many children are in your household between the ages of 13-18?</string>
     <string name="dietary_lbl">What are your dietary needs and preferences?</string>
     <string name="how_did_you_find_lbl">How did you find us?</string>
-=======
     <string name="questionnaire_alert_title">"SUBMISSION HAS MISSING FIELDS!"</string>
     <string name="questionnaire_alert_msg">Please make sure to answer all of the questions before submitting the questionnaire.</string>
->>>>>>> app/src/main/res/values/strings.xml
     <string-array name="array_yes_no">
         <item>Yes</item>
         <item>No</item>

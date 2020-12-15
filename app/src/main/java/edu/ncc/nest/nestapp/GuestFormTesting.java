@@ -42,7 +42,7 @@ public class GuestFormTesting extends AppCompatActivity {
                 startActivity(intent);
                 break;
             case R.id.guestRegGoogle:
-                intent = new Intent(this, GuestForm.class);
+                intent = new Intent(this, GuestFormFirstFragment.class);
                 startActivity(intent);
                 break;
             case R.id.guestVisitLocalDbase:

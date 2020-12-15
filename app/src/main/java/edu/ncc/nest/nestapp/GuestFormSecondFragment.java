@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -31,6 +32,12 @@ import androidx.navigation.fragment.NavHostFragment;
  */
 
 public class GuestFormSecondFragment extends Fragment {
+    //variables to store user information
+    EditText people, income, snap, otherPrograms, employmentStatus, healthStatus,
+            housingStatus, childcareStatus, childrenUnderOne, childrenBetweenOneAndFive,
+            childrenBetweenSixAndTwelve, childrenBetweenThirteenAndEighteen, dietary,
+            howDidYouFind, moreInfoQuestion, volFirstName, volLastName;
+
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
@@ -43,12 +50,29 @@ public class GuestFormSecondFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        people = (EditText)(getView().findViewById(R.id.editText));
+        income = (EditText)(getView().findViewById(R.id.editText2));
+        snap = (EditText)(getView().findViewById(R.id.editText3));
+        otherPrograms = (EditText)(getView().findViewById(R.id.editText4));
+        employmentStatus = (EditText)(getView().findViewById(R.id.editText5));
+        healthStatus = (EditText)(getView().findViewById(R.id.editText6));
+        housingStatus = (EditText)(getView().findViewById(R.id.editText7));
+        childcareStatus = (EditText)(getView().findViewById(R.id.editText8));
+        childrenUnderOne = (EditText)(getView().findViewById(R.id.editText9));
+        childrenBetweenOneAndFive = (EditText)(getView().findViewById(R.id.editText10));
+        childrenBetweenSixAndTwelve = (EditText)(getView().findViewById(R.id.editText11));
+        childrenBetweenThirteenAndEighteen = (EditText)(getView().findViewById(R.id.editText12));
+        dietary = (EditText)(getView().findViewById(R.id.editText13));
+        howDidYouFind = (EditText)(getView().findViewById(R.id.editText14));
+        moreInfoQuestion = (EditText)(getView().findViewById(R.id.editText15));
+        volFirstName = (EditText)(getView().findViewById(R.id.editText16));
+        volLastName = (EditText)(getView().findViewById(R.id.editText17));;
 
         getParentFragmentManager().setFragmentResultListener("SEND_MESSAGE", this, new FragmentResultListener() {
             @Override
             public void onFragmentResult(@NonNull String key, @NonNull Bundle bundle) {
-                String message = bundle.getString("MESSAGE");
-                ((TextView)getView().findViewById(R.id.editText2)).setText(message);
+                //String message = bundle.getString("MESSAGE");
+                //((TextView)getView().findViewById(R.id.editText2)).setText(message);
             }
         });
 
