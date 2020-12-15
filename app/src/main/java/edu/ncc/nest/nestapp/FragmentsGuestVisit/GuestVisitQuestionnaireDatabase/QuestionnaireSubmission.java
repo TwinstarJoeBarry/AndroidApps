@@ -19,6 +19,12 @@ package edu.ncc.nest.nestapp.FragmentsGuestVisit.GuestVisitQuestionnaireDatabase
 
 import java.util.ArrayList;
 
+/**
+ * QuestionnaireSubmission Class
+ *
+ * Represents a submission in the questionnaire database.
+ * @author Tyler Sizse
+ */
 public class QuestionnaireSubmission {
 
     private final ArrayList<String> GUEST_ANSWERS;
@@ -28,6 +34,13 @@ public class QuestionnaireSubmission {
 
     ////////////// Constructor //////////////
 
+    /**
+     * QuestionnaireSubmission --
+     * Constructor for QuestionnaireSubmission class
+     * @param rowID The ID of the row this submission is located at in the database
+     * @param guestID The ID of the guest related to this submission
+     * @param guestAnswers The answers stored related to this submission
+     */
     public QuestionnaireSubmission(long rowID, String guestID, ArrayList<String> guestAnswers) {
 
         GUEST_ANSWERS = guestAnswers;
@@ -41,6 +54,12 @@ public class QuestionnaireSubmission {
 
     ////////////// Other Class Methods //////////////
 
+    /**
+     * equals --
+     * Compares this object with another and returns whether or not it is the same object.
+     * @param other The other object to compare to
+     * @return Returns whether or not 'other' is the same Object as this one
+     */
     @Override
     public boolean equals(Object other) {
 
@@ -52,6 +71,10 @@ public class QuestionnaireSubmission {
 
     }
 
+    /**
+     * toString --
+     * Returns a string that represents this classes contents.
+     */
     @Override
     public String toString() {
 
