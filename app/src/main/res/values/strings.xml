@@ -986,8 +986,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="start_fragment_label">Start Fragment</string>
     <string name="scan_fragment_label">Scan Fragment</string>
-    <string name="guest_scan_fragment_label">Guest Scan Fragment</string>
-    <string name="guest_questionnaire_fragment_label">Guest Questionnaire Fragment</string>
     <string name="hello_start_fragment">In Start Fragment</string>
     <string name="scan">Scan UPC</string>
     <string name="enter_upc">Enter UPC</string>
@@ -999,11 +997,25 @@
     <string name="in_select_item_fragment">In Select Item Fragment</string>
     <string name="in_select_expiration_fragment">In Select Printed Expiration Fragment</string>
     <string name="in_display_expiration_fragment">In Display True Expiration Fragment</string>
-    <string name="rescan_button">Re-Scan Barcode</string>
-    <string name="confirm_scan_button">Confirm Scan</string>
-    <string name="scan_result_textview">Waiting for scan …</string>
+
+    <string name="click_to_display_true_expiration_date">click to display true expiration date</string>
+    <string name="item">Item:</string>
+    <string name="upc_text">UPC:</string>
+    <string name="category">Category:</string>
+    <string name="expiration_dat">Expiration date:</string>
+
+    <!-- START OF GUEST VISIT STRINGS -->
+
+    <!-- Strings used for GuestScanFragment -->
+    <string name="guest_scan_fragment_label">Guest Scan Fragment</string>
+    <string name="guest_scan_rescan_button">Re-Scan Barcode</string>
+    <string name="guest_scan_confirm_button">Confirm Scan</string>
+    <string name="guest_scan_waiting_for_scan">Waiting for scan …</string>
+    <string name="guest_scan_camera_permission_required">Camera permission required.</string>
+    <string name="guest_scan_confirm_msg">Please confirm that the barcode is correct.</string>
 
     <!-- Strings used for GuestQuestionnaireFragment.java / fragment_guest_questionnaire.xml -->
+    <string name="guest_questionnaire_fragment_label">Guest Questionnaire Fragment</string>
     <string name="questionnaire_welcome_message">Welcome NEST Guest!</string>
     <string name="questionnaire_description">Please answer and submit the following questions before proceeding.</string>
     <string name="questionnaire_question_1">Who visited the NEST today? (Guest ID)</string>
@@ -1011,8 +1023,10 @@
     <string name="questionnaire_question_3">How many adults (over the age of 64) are in your household?</string>
     <string name="questionnaire_question_4">How many children (ages 18 and under) are in your household?</string>
     <string name="questionnaire_question_5">Is this your first visit to the NEST?</string>
+    <string name="questionnaire_spinner_prompt">Choose an answer</string>
     <string name="questionnaire_hint_number">Enter a number</string>
     <string name="questionnaire_hint_id">NEST Guest Id#</string>
+<<<<<<< app/src/main/res/values/strings.xml
     <string name="first_name_lbl">First Name</string>
     <string name="last_name_lbl">Last Name</string>
     <string name="affil_label">NCC Affiliation</string>
@@ -1031,9 +1045,26 @@
     <string name="children_between_13_18_lbl">How many children are in your household between the ages of 13-18?</string>
     <string name="dietary_lbl">What are your dietary needs and preferences?</string>
     <string name="how_did_you_find_lbl">How did you find us?</string>
+=======
+    <string name="questionnaire_alert_title">"SUBMISSION HAS MISSING FIELDS!"</string>
+    <string name="questionnaire_alert_msg">Please make sure to answer all of the questions before submitting the questionnaire.</string>
+>>>>>>> app/src/main/res/values/strings.xml
     <string-array name="array_yes_no">
         <item>Yes</item>
         <item>No</item>
     </string-array>
+
+    <!-- Strings used in the guest visit confirmation layouts -->
+    <string name="guestVisitConfirmation_welcome_nest_guest_lbl">Welcome NEST Guest!</string>
+    <string name="guestVisitConfirmation_guest_info_confirmation">Please confirm that the following information is correct.</string>
+    <string name="guestVisitConfirmation_guest_name_lbl">GUEST NAME</string>
+    <string name="guestVisitConfirmation_guest_id">GUEST ID</string>
+    <string name="guestVisitConfirmation_confirm">Confirm</string>
+    <string name="guestVisitConfirmation_nest_guest_not_found_lbl">NEST GUEST NOT FOUND!</string>
+    <string name="guestVisitConfirmation_register_button">Register</string>
+    <string name="guestVisitConfirmation_please_register_lbl">Please register to continue</string>
+    <string name="guestVisitConfirmation_sorry_guest_not_found_lbl">Sorry! We couldn\'t find a guest associated with the following barcode:</string>
+
+    <!-- END OF GUEST VISIT STRINGS -->
 
 </resources>

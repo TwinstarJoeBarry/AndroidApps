@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-*
 * Copyright (C) 2020 The LibreFoodPantry Developers.
 *
 * This program is free software: you can redistribute it and/or modify
@@ -28,10 +27,29 @@
         android:label="@string/guest_scan_fragment_label"
         tools:layout="@layout/fragment_guest_scan" >
 
-        <!-- This action is only temporary used to test GuestQuestionnaireFragment.java -->
         <action
-            android:id="@+id/action_GuestScanFragment_to_GuestQuestionnaireFragment"
-            app:destination="@id/GuestQuestionnaireFragment" />
+            android:id="@+id/action_GuestScanFragment_to_GuestScanConfirmationFragment"
+            app:destination="@id/GuestScanConfirmationFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/GuestScanConfirmationFragment"
+        android:name="edu.ncc.nest.nestapp.FragmentsGuestVisit.GuestScanConfirmationFragment"
+        android:label="Guest Scan Confirmation Fragment"
+        tools:layout="@layout/fragment_guest_scan_confirmation_flipper">
+
+        <action
+            android:id="@+id/action_GuestScanConfirmationFragment_to_GuestQuestionnaireFragment"
+            app:destination="@id/GuestQuestionnaireFragment"
+            app:popUpTo="@id/GuestScanConfirmationFragment"
+            app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/action_GuestScanConfirmationFragment_to_GuestScanFragment"
+            app:destination="@id/GuestScanFragment"
+            app:popUpTo="@id/GuestScanFragment"
+            app:popUpToInclusive="true" />
 
     </fragment>
 

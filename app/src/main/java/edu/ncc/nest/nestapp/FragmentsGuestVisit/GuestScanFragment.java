@@ -1,22 +1,6 @@
 package edu.ncc.nest.nestapp.FragmentsGuestVisit;
 
-/**     Copyright (C) 2012-2018 ZXing authors, Journey Mobile
- *
- *      Licensed under the Apache License, Version 2.0 (the "License");
- *      you may not use this file except in compliance with the License.
- *      You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- *      Unless required by applicable law or agreed to in writing, software
- *      distributed under the License is distributed on an "AS IS" BASIS,
- *      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *      See the License for the specific language governing permissions and
- *      limitations under the License.
- */
-
 /**
- *
  * Copyright (C) 2020 The LibreFoodPantry Developers.
  *
  * This program is free software: you can redistribute it and/or modify
@@ -31,6 +15,20 @@ package edu.ncc.nest.nestapp.FragmentsGuestVisit;
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ *
+ * Copyright (C) 2012-2018 ZXing authors, Journey Mobile
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 import android.Manifest;
@@ -38,7 +36,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts.*;
+import androidx.activity.result.contract.ActivityResultContracts.RequestPermission;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -78,11 +76,11 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
     // To support multiple formats change this to Arrays.asList() and fill it with the required
     // formats. For example, Arrays.asList(BarcodeFormat.CODE_39, BarcodeFormat.UPC_A, ...);
 
-    // Used to ask for camera permission calls cameraPermissionResult method with the result
-    private final ActivityResultLauncher<String> REQUEST_PERMISSION_LAUNCHER = registerForActivityResult(
+    // Used to ask for camera permission. Calls onCameraPermissionResult method with the result
+    private final ActivityResultLauncher<String> REQUEST_CAMERA_PERMISSION_LAUNCHER = registerForActivityResult(
             new RequestPermission(), this::onCameraPermissionResult);
 
-    private static final long SCAN_DELAY = 1500L;   // 2 Seconds decoder delay in milliseconds
+    private static final long SCAN_DELAY = 1500L;   // 1.5 Seconds in milliseconds
 
     private DecoratedBarcodeView decBarcodeView;
     private BeepManager beepManager;
@@ -94,6 +92,7 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
 
     // Stores the bar code that has been scanned
     private String barcodeResult = null;
+
 
     ////////////// Lifecycle Methods Start //////////////
 
@@ -111,13 +110,13 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
         super.onViewCreated(view, savedInstanceState);
 
         // Get respective views from layout
-        decBarcodeView = (DecoratedBarcodeView) view.findViewById(R.id.zxing_barcode_scanner);
+        decBarcodeView = view.findViewById(R.id.zxing_barcode_scanner);
 
-        confirmButton = (Button) view.findViewById(R.id.confirm_scan_button);
+        resultTextView = view.findViewById(R.id.guest_scan_result_view);
 
-        rescanButton = (Button) view.findViewById(R.id.rescan_button);
+        confirmButton = view.findViewById(R.id.guest_scan_confirm_button);
 
-        resultTextView = (TextView) view.findViewById(R.id.scan_result_textview);
+        rescanButton = view.findViewById(R.id.guest_scan_rescan_button);
 
 
         // Specifies which barcode formats to decode. (Removing this line, defaults scanner to use all formats)
@@ -148,22 +147,30 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
 
         // If the camera permission is granted
         if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
-                == PackageManager.PERMISSION_GRANTED) {
+                != PackageManager.PERMISSION_GRANTED) {
 
-            resumeScanning();
+            // Update the status text to inform the guest that camera permission is required
+            decBarcodeView.setStatusText(getString(R.string.guest_scan_camera_permission_required));
 
-        } else if (shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)) {
+            // Clear the result text view
+            resultTextView.setText(null);
 
-            // TODO Create a dialog window describing why we need the permission for this feature
+            if (shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)) {
 
-            // Display a reason of why we need the permission
-            Toast.makeText(requireContext(), "Camera permission is needed in order to scan.",
-                    Toast.LENGTH_LONG).show();
+                // TODO Create a dialog window describing why we need the permission for this feature
+
+                // Display a reason of why we need the permission
+                Toast.makeText(requireContext(), "Camera permission is needed in order to scan.",
+                        Toast.LENGTH_LONG).show();
+
+            } else
+
+                // Request the camera permission
+                REQUEST_CAMERA_PERMISSION_LAUNCHER.launch(Manifest.permission.CAMERA);
 
         } else
 
-            // Request the camera permission
-            REQUEST_PERMISSION_LAUNCHER.launch(Manifest.permission.CAMERA);
+            resumeScanning();
 
     }
 
@@ -171,10 +178,14 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
     public void onPause() {
         super.onPause();
 
-        // Since we have paused the fragment pause and wait for the camera to close
-        decBarcodeView.pauseAndWait();
+        if (!scannerPaused) {
 
-        scannerPaused = true;
+            // Since we have paused the fragment, pause and wait for the camera to close
+            decBarcodeView.pauseAndWait();
+
+            scannerPaused = true;
+
+        }
 
     }
 
@@ -182,9 +193,9 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
     public void onDestroy() {
 
         // Make sure we have the view in-case the view isn't initialized before destruction
-        if (decBarcodeView != null) {
+        if (decBarcodeView != null && !scannerPaused) {
 
-            // Since we are destroying the fragment pause and wait for the camera to close
+            // Since we are destroying the fragment, pause and wait for the camera to close
             decBarcodeView.pauseAndWait();
 
             scannerPaused = true;
@@ -196,7 +207,7 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
     }
 
 
-    ////////////// Implementation Methods Start  //////////////
+    ////////////// Other Event Methods Start  //////////////
 
     @Override
     public void barcodeResult(BarcodeResult result) {
@@ -210,6 +221,9 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
             // Play a sound and vibrate when a scan has been processed
             beepManager.playBeepSoundAndVibrate();
 
+            // Tell the user to confirm that the barcode is correct
+            decBarcodeView.setStatusText(getString(R.string.guest_scan_confirm_msg));
+
             // Display the barcode back to the user
             resultTextView.setText(resultText);
 
@@ -221,7 +235,7 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
 
             scannerPaused = true;
 
-            // Enable the feedback buttons after we have stored the bar-code, and stopped scanner
+            // Enable the feedback buttons after we have stored the bar-code and stopped scanner
             setFeedbackButtonsEnabled(true);
 
             Log.d(TAG, "Barcode Result: " + resultText + ", Barcode Format: " + result.getBarcodeFormat());
@@ -236,17 +250,19 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
     @Override
     public void onClick(View view) {
 
+        // NOTE: Removed permission check here since buttons will be disabled until a scan is performed
+
         int id = view.getId();
 
-        if (id == R.id.rescan_button)
+        if (id == R.id.guest_scan_rescan_button)
 
             resumeScanning();
 
-        else if (id == R.id.confirm_scan_button && barcodeResult != null) {
+        else if (id == R.id.guest_scan_confirm_button && barcodeResult != null) {
 
             Log.d(TAG, "Scan Confirmed: " + barcodeResult);
 
-            // Create the result
+            // Create the Bundle that will be used to send the barcode to the next fragment
             Bundle resultBundle = new Bundle();
 
             // Put the barcodeResult into the bundle
@@ -256,20 +272,24 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
             GuestFormHelper db = new GuestFormHelper(requireContext());
 
             // Check if the guest is registered in the database
-            final String GUEST_NAME = db.isRegistered(barcodeResult);
+            // No guests yet so this will always be null. GUEST_NAME was set to "Test" for testing purposes.
+            //final String GUEST_NAME = db.isRegistered(barcodeResult);
+            //TODO: Replace the line below with the one above.
+            final String GUEST_NAME = "Test";
             
-            if (GUEST_NAME != null)
+            if (GUEST_NAME != null) {
 
                 // If the guest is registered, include the guest's name in the result
                 resultBundle.putString("GUEST_NAME", GUEST_NAME);
 
+            }
+
             // Set the fragment result to the bundle
             getParentFragmentManager().setFragmentResult("CONFIRM_SCAN", resultBundle);
 
-            // NOTE: The following code is only temporary and is for testing the GuestQuestionnaireFragment
-            // TODO Replace this with code that will navigate to the confirmation fragment
+            // Navigate to the confirmation fragment
             NavHostFragment.findNavController(GuestScanFragment.this)
-                    .navigate(R.id.action_GuestScanFragment_to_GuestQuestionnaireFragment);
+                    .navigate(R.id.action_GuestScanFragment_to_GuestScanConfirmationFragment);
 
         }
 
@@ -279,36 +299,40 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
     ////////////// Custom Methods Start  //////////////
 
     /**
-     * Takes 1 parameter. This method gets called by the requestPermissionLauncher, after asking for
-     * permissions. Determines what happens when the permission gets granted or denied.
+     * Takes 1 parameter. This method gets called by the REQUEST_CAMERA_PERMISSION_LAUNCHER, after
+     * asking for camera permission. Determines what happens when the permission gets granted or
+     * denied.
      * @param isGranted - true if permission was granted false otherwise
      */
     private void onCameraPermissionResult(boolean isGranted) {
 
-        if (isGranted)
-
-            // Permission is granted so resume scanning
-            resumeScanning();
-
-        else
+        if (!isGranted) {
 
             // Display a reason of why we need the permission
             Toast.makeText(requireContext(), "Camera permission is needed in order to scan.",
                     Toast.LENGTH_LONG).show();
 
+        } else
+
+            // Camera permission is granted, so resume scanning
+            resumeScanning();
+
     }
 
     /**
-     * Takes 0 parameters. Resumes the scanner if it is not paused, resets text view text, resets
-     * the barcodeResult to be null so we can scan a new bar-code, and starts the decoder after a
-     * delay.
+     * Takes 0 parameters. Resumes the scanner if it is not paused, resets resultTextView text,
+     * resets the barcodeResult to be null so we can scan a new bar-code, and starts the decoder
+     * after a delay of SCAN_DELAY.
      */
     private void resumeScanning() {
 
         if (scannerPaused) {
 
+            // Update the status text to explain how to use the scanner
+            decBarcodeView.setStatusText(getString(R.string.zxing_msg_default_status));
+
             // Update the display text so the user knows we are waiting for them to scan a barcode
-            resultTextView.setText(getString(R.string.scan_result_textview));
+            resultTextView.setText(getString(R.string.guest_scan_waiting_for_scan));
 
             // Disable the feedback buttons until we scan another barcode
             setFeedbackButtonsEnabled(false);
@@ -326,9 +350,9 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
             Handler handler = new Handler();
             handler.postDelayed(() -> {
 
+                // As long as the scanner hasn't been paused, start the decoder
                 if (!scannerPaused)
 
-                    // Resume decoding after a delay of SCAN_DELAY millis as long as the scanner has not been paused
                     // Tells the decoder to stop after a single scan
                     decBarcodeView.decodeSingle(GuestScanFragment.this);
 
@@ -340,9 +364,9 @@ public class GuestScanFragment extends Fragment implements BarcodeCallback, View
 
     /**
      * Takes 1 parameter. Toggles whether both rescanButton and confirmScan button are enabled or
-     * disabled based on the value of the parameter.
+     * disabled, based on the value of the parameter.
      *
-     * @param enabled true to enable or false disable
+     * @param enabled true to enable or false to disable
      */
     private void setFeedbackButtonsEnabled(boolean enabled) {
 
