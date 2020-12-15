@@ -126,14 +126,6 @@ public class FinalDate extends AppCompatActivity {
         // max dop_pantryLife
         String maxDop = "6";
 
-        // displaying metric dop_pantryLife
-        TextView metric1 = (TextView)findViewById(R.id.metric);
-        metric1.setText(metric);
-
-        // displaying max dop_pantryLife
-        TextView maxDop1 = (TextView)findViewById(R.id.maxDopPantryL);
-        maxDop1.setText(maxDop);
-
         metric = metric.toLowerCase();
 
         // parsing max dop_pantryLife into integer
