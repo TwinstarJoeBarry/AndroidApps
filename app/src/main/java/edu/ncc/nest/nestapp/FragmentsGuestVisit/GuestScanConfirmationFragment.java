@@ -65,7 +65,7 @@ public class GuestScanConfirmationFragment extends Fragment implements View.OnCl
 
         } else
 
-            getParentFragmentManager().setFragmentResultListener("CONFIRM_SCAN",
+            getParentFragmentManager().setFragmentResultListener("SCAN_CONFIRMED",
                 this, (requestKey, result) -> {
 
                     guestName = result.getString("GUEST_NAME");
