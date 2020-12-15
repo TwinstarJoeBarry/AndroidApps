@@ -53,12 +53,8 @@ public class EnterUpcFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                Bundle bundle = new Bundle();
-                // TODO to simulate a result
-                String barcodeResult = "001234567890";
-                bundle.putString("barcode", barcodeResult);
-                getParentFragmentManager().setFragmentResult("BARCODE", bundle);
-                NavHostFragment.findNavController(EnterUpcFragment.this)
+                // Run retrieve UPC to validate input and navigate to correct Fragment
+                retrieveUPC(view);
 
             }
         });
