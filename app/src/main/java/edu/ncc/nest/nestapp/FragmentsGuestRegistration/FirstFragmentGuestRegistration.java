@@ -75,6 +75,8 @@ public class FirstFragmentGuestRegistration  extends Fragment implements View.On
         date = (EditText)getView(). findViewById(R.id.editText8);
         id= (EditText)getView().findViewById(R.id.editText4);
 
+
+        
     }
 
         //implements the menu options for the toolbar
