@@ -93,6 +93,10 @@ public class Choose extends AppCompatActivity implements OnClickListener {
             case R.id.futureEffortsBtn:
                 launchFutureEfforts();
                 break;
+            case R.id.trueDate:
+                launchTrueDate();
+                break;
+
         }
     }
 
@@ -123,7 +127,27 @@ public class Choose extends AppCompatActivity implements OnClickListener {
         startActivity(intent);
     }
 
+    //    ******************************************TESTING
+    /**
+     * launchTrueDate - starts the DisplayTrueExpirationFragment fragment
+     */
+    public void launchTrueDate() {
+        ((Button)findViewById(R.id.getUPCBtn)).setVisibility(View.GONE);
+        ((Button)findViewById(R.id.guestFormBtn)).setVisibility(View.GONE);
+        ((Button)findViewById(R.id.futureEffortsBtn)).setVisibility(View.GONE);
+        ((Button)findViewById(R.id.trueDate)).setVisibility(View.GONE);
+        ((TextView)findViewById(R.id.nestTxt)).setVisibility(View.GONE);
+
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.RelativeLayoutMain, new DisplayTrueExpirationFragment() ).commit();
+
+    }
+
 
 }
+
+
+
+
 
 

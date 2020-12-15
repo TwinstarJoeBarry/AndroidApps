@@ -44,7 +44,7 @@ import edu.ncc.nest.nestapp.ShelfLife;
 public class DisplayTrueExpirationFragment extends Fragment {
     private NestDBDataSource dataSource;
     private String TAG = "TESTING";
-    private NestUPC product;
+    private NestUPC product = null;
     private String exp;
     private ShelfLife shelfLife;
 
@@ -76,6 +76,12 @@ public class DisplayTrueExpirationFragment extends Fragment {
         });
 
 
+        //TESTING *********************
+        product = new NestUPC("123456789","Tuscan","", 644, "Milk","",2,"Dairy");
+        exp = "06/10/20";
+
+
+
         // product exists
         if (product != null) {
 
@@ -89,6 +95,8 @@ public class DisplayTrueExpirationFragment extends Fragment {
 
             // getting the product shelf life from the database
             List<ShelfLife> shelfLives = dataSource.getShelfLivesForProduct(product.getProductId());
+
+            Log.d(TAG, "DisplayTrueExpirationFragment: onViewCreated: " + shelfLives.toString());    //********************   Testing
 
             // get the shortest shelf life from the list of shelf lives
             shelfLife = getShortestShelfLife(shelfLives);
