@@ -155,9 +155,7 @@ public class QuestionnaireHelper extends SQLiteOpenHelper {
         //Create a new database
         SQLiteDatabase db = this.getReadableDatabase();
 
-        int columnCount = getColumnCount(db);
-
-        if (columnCount != (2 + numQuestions)) {
+        if (getColumnCount(db) != (2 + numQuestions)) {
 
             // Print a warning, stating why we're dropping the table
             Log.w(TAG, "Dropping table due to question count change.");
