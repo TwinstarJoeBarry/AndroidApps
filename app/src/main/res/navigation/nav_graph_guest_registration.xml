@@ -19,12 +19,12 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/StartFragmentGuest"
+    app:startDestination="@id/FragmentGuestRegistrationStartPage"
     android:id="@+id/nav_graph_guest_registration">
 
     <!-- The fragment is pulled from @layout/fragment_guest_form_registration_start_page -->
     <fragment
-        android:id="@+id/StartFragmentGuest"
+        android:id="@+id/FragmentGuestRegistrationStartPage"
         android:name="edu.ncc.nest.nestapp.FragmentsGuestRegistration.GuestFormRegistrationStartPageFragment"
         android:label="@string/start_fragment_label"
         tools:layout="@layout/fragment_guest_form_registration_start_page">
@@ -32,16 +32,20 @@
         <!-- This action & destination should be named and assigned accordingly to the proper fragment once it is available -->
         <!-- This action & destination currently below are merely for example and do not reflect any accuracy
         <action
-                   android:id="@+id/action_StartFragmentGuest_to_ScanFragment"
-                   app:destination="@id/GuestScannerFragment" /> -->
-
-        <!-- This action & destination should be named and assigned accordingly to the proper fragment once it is available -->
-        <!-- This action & destination currently below are merely for example and do not reflect any accuracy
-        <action
                    android:id="@+id/action_StartFragmentGuest_to_EntryFragmentPersonal"
                    app:destination="@id/EntryFragmentPersonal" />-->
 
+        <action
+            android:id="@+id/action_FragmentGuestRegistrationStartPage_to_FragmentGuestRegistrationScanner"
+            app:destination="@id/FragmentGuestRegistrationScanner" />
+    </fragment>
 
-           </fragment>
+    <fragment
+        android:id="@+id/FragmentGuestRegistrationScanner"
+        android:name="edu.ncc.nest.nestapp.FragmentsGuestRegistration.GuestFormRegistrationScannerFragment"
+        android:label="@string/guest_scan_fragment_label"
+        tools:layout="@layout/fragment_guest_registration_barcode_scanner" >
+
+    </fragment>
 
        </navigation>
