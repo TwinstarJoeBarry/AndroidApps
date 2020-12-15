@@ -25,7 +25,10 @@ import java.util.ArrayList;
  * QuestionnaireSubmission Class
  *
  * Represents a submission in the questionnaire database.
+ *
  * @author Tyler Sizse
+ * @author (Co-Author) Owen Wurster
+ * @author (Co-Author) Charles Cohen
  */
 public class QuestionnaireSubmission {
 

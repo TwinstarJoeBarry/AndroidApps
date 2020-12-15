@@ -30,7 +30,9 @@ import android.util.Log;
  * The helper file of the three database files. This file creates the table itself for the database
  * to have items stored in.
  *
- * Author: Charles Cohen (CCONX)
+ * @author Charles Cohen (CCONX)
+ * @author (Co-Author) Tyler Sizse
+ * @author (Co-Author) Owen Wurster
  */
 public class QuestionnaireHelper extends SQLiteOpenHelper {
 
