@@ -93,10 +93,11 @@ public class Choose extends AppCompatActivity implements OnClickListener {
             case R.id.futureEffortsBtn:
                 launchFutureEfforts();
                 break;
-//*****************************************Testing
+                // testing **********************
             case R.id.trueDate:
                 launchTrueDate();
                 break;
+
         }
     }
 
@@ -125,7 +126,7 @@ public class Choose extends AppCompatActivity implements OnClickListener {
     }
 
 
-//    ******************************************TESTING
+    //    ******************************************TESTING
     /**
      * launchTrueDate - starts the DisplayTrueExpirationFragment fragment
      */
@@ -143,5 +144,9 @@ public class Choose extends AppCompatActivity implements OnClickListener {
 
 
 }
+
+
+
+
 
 

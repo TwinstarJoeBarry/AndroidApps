@@ -52,12 +52,14 @@ public class EnterUpcFragment extends Fragment {
         view.findViewById(R.id.button_enter_next).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*
+
+                Bundle bundle = new Bundle();
+                // TODO to simulate a result
+                String barcodeResult = "001234567890";
+                bundle.putString("barcode", barcodeResult);
+                getParentFragmentManager().setFragmentResult("BARCODE", bundle);
                 NavHostFragment.findNavController(EnterUpcFragment.this)
-                        .navigate(R.id.action_StartFragment_to_ScanFragment);
-                 */
-                // Run retrieve UPC to validate input and navigate to correct Fragment
-                retrieveUPC(view);
+
             }
         });
     }

@@ -16,41 +16,189 @@
 * You should have received a copy of the GNU General Public License
 * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -->
-
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".FragmentsUpc.SelectItemFragment">
 
+
     <TextView
-        android:id="@+id/textview_select_item"
+        android:id="@+id/fragment_select_item_headline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/in_select_item_fragment"
-        app:layout_constraintBottom_toTopOf="@id/button_select_next"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        android:text="@string/nest_new_upc_adding_label"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/button_select_next"
+    <TextView
+        android:id="@+id/fragment_select_item_brand_prompt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/next"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_below="@id/fragment_select_item_headline"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/nest_new_upc_brand_prompt"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fragment_select_item_headline"
+        tools:ignore="RtlHardcoded" />
+
+    <EditText
+        android:id="@+id/fragment_select_item_brand_entry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:autofillHints="@string/nest_new_upc_brand_hint"
+        android:ems="10"
+        android:hint="@string/nest_new_upc_brand_hint"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_select_item_brand_prompt"
+        tools:ignore="RtlHardcoded" />
+
+    <TextView
+        android:id="@+id/fragment_select_item_description_prompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/fragment_select_item_headline"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/nest_new_upc_description_prompt"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fragment_select_item_brand_entry"
+        tools:ignore="RtlHardcoded" />
+
+    <EditText
+        android:id="@+id/fragment_select_item_description_entry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:autofillHints="@string/nest_new_upc_description_hint"
+        android:ems="10"
+        android:hint="@string/nest_new_upc_description_hint"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fragment_select_item_description_prompt"
+        tools:ignore="RtlHardcoded" />
+
+    <TextView
+        android:id="@+id/fragment_select_item_headline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/fragment_select_item_headline"
+        android:layout_marginTop="24dp"
+        android:text="@string/nest_new_upc_choose_corresponding_label"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textview_select_item" />
+        app:layout_constraintTop_toBottomOf="@id/fragment_select_item_description_entry"
+        tools:ignore="RtlHardcoded" />
 
-    <Button
-        android:id="@+id/showInventory"
+    <TextView
+        android:id="@+id/fragment_select_item_category_prompt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Display Inventory"
-        app:layout_constraintBottom_toTopOf="@id/textview_select_item"
-        app:layout_constraintRight_toRightOf="@id/textview_select_item"/>
+        android:layout_below="@id/fragment_select_item_headline"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/nest_new_upc_category_prompt"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fragment_select_item_headline2"
+        tools:ignore="RtlHardcoded" />
+
+
+    <Button
+        android:id="@+id/fragment_select_item_category_select"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fragment_select_item_category_prompt"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginRight="16dp"
+        tools:ignore="RtlHardcoded"
+        android:text="@string/select_category" />
+
+
+    <TextView
+        android:id="@+id/fragment_select_item_category_hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/fragment_select_item_category_prompt"
+        app:layout_constraintLeft_toRightOf="@id/fragment_select_item_category_select"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="24dp"
+        tools:ignore="RtlHardcoded" />
+
+
+    <TextView
+        android:id="@+id/fragment_select_item_product_prompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/fragment_select_item_headline"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/nest_new_upc_product_prompt"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fragment_select_item_category_select"
+        tools:ignore="RtlHardcoded" />
+
+    <Button
+        android:id="@+id/fragment_select_item_product_select"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fragment_select_item_product_prompt"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginRight="16dp"
+        tools:ignore="RtlHardcoded"
+        android:text="@string/select_item" />
+
+    <TextView
+        android:id="@+id/fragment_select_item_product_hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/fragment_select_item_product_prompt"
+        app:layout_constraintLeft_toRightOf="@id/fragment_select_item_product_select"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="24dp"
+        tools:ignore="RtlHardcoded" />
+
+    <Button
+        android:id="@+id/acceptButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:text="@string/accept"
+        android:textStyle="bold"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/cancelButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/cancelButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:text="@string/cancel"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/acceptButton" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
