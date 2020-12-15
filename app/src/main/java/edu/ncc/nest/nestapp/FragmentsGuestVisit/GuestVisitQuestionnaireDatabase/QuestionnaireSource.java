@@ -63,6 +63,7 @@ public class QuestionnaireSource {
     /**
      * open --
      * Opens the database
+     * @return Returns a reference to this QuestionnaireSource object
      */
     public QuestionnaireSource open() throws SQLException {
 
@@ -86,6 +87,13 @@ public class QuestionnaireSource {
 
     }
 
+    /**
+     * submitQuestionnaire --
+     * Submits answers by guest (guestID) into the database
+     * @param guestID The ID of the guest the submission belongs to
+     * @param guestAnswers The list of answers to submit
+     * @return Whether or not there was an error submitting the questionnaire
+     */
     public long submitQuestionnaire(@NonNull String guestID, @NonNull List<String> guestAnswers) {
 
         ContentValues submissionValues = new ContentValues();
@@ -107,6 +115,7 @@ public class QuestionnaireSource {
      * findSubmissions --
      * Finds submissions by a guest ( guestID ) and adds
      * them to a list of submissions.
+     * @param guestID The ID to search for
      * @return The list of submissions
      */
     public List<QuestionnaireSubmission> findSubmissions(@NonNull String guestID) {
@@ -137,6 +146,7 @@ public class QuestionnaireSource {
      * Searches through the database for questionnaires
      * submitted by a guest ( guestID ). Prints each
      * questionnaire submitted by the guest.
+     * @param guestID The ID of the guest we're getting the submissions of
      */
     public void printSubmissions(@NonNull String guestID) {
 
@@ -151,7 +161,9 @@ public class QuestionnaireSource {
 
     /**
      * convertCursorToSubmission --
-     *
+     * Converts a Cursor object to a QuestionnaireSubmission object.
+     * @param c The Cursor to convert
+     * @return Returns the result of the conversion
      */
     private QuestionnaireSubmission convertCursorToSubmission(Cursor c) {
 
