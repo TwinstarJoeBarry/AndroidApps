@@ -17,7 +17,6 @@ package edu.ncc.nest.nestapp.FragmentsGuestVisit;
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -35,7 +34,6 @@ import androidx.fragment.app.Fragment;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.ncc.nest.nestapp.Choose;
 import edu.ncc.nest.nestapp.R;
 
 /**
@@ -191,19 +189,7 @@ public class GuestQuestionnaireFragment extends Fragment implements View.OnClick
 
             // TODO Store the answers in a local database
 
-            // Disabled this for now for test so we can compare the log statement to the answers entered.
 
-            /*// Create an Intent that will bring the user back to the home page
-            Intent intent = new Intent(requireContext(), Choose.class);
-
-            // Clears the activity stack when using the intent
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-            // Go to the home page
-            startActivity(intent);
-
-            // Make sure we finish() our underlying activity
-            requireActivity().finish();*/
 
         }
 
