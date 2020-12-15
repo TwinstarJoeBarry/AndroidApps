@@ -1043,6 +1043,7 @@
     <string name="guestVisitConfirmation_register_button">Register</string>
     <string name="guestVisitConfirmation_please_register_lbl">Please register to continue</string>
     <string name="guestVisitConfirmation_sorry_guest_not_found_lbl">Sorry! We couldn\'t find a guest associated with the following barcode:</string>
+    <string name="first_Page_entry_Registration_Form_label">FirstPageEntryRegistrationFormEntry</string>
 
     <!-- END OF GUEST VISIT STRINGS -->
 

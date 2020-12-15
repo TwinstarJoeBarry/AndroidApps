@@ -1,11 +1,13 @@
-package edu.ncc.nest.nestapp.FragmentsGuestVisit;
+package edu.ncc.nest.nestapp.FragmentsGuestRegistration;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -20,7 +22,7 @@ import  androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
-public class FirstFragmentGuestRegistration  extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
+public class FirstFragmentGuestRegistration  extends Fragment implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
 /**
  *
@@ -46,40 +48,41 @@ public class FirstFragmentGuestRegistration  extends AppCompatActivity implement
         GuestFormHelper db;
 
         //variables to store user information
-        EditText name, email, phone, date, address, city, zip;
+        EditText name, email, phone, date, address, city, zip,id;
 
         @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_guest_form);
+        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+            //super.onCreate(savedInstanceState);
+            //setContentView(R.layout.activity_guest_form);
 
-            Toolbar toolbar = findViewById(R.id.toolbar);
-            setSupportActionBar(toolbar);
-
-            //creating the database and passing the correct context as the argument
-            db = new GuestFormHelper(this);
-
-            //getting a handle on info from the UI
-            name = (EditText) findViewById(R.id.editText);
-            phone = (EditText) findViewById(R.id.editText2);
-            email = (EditText) findViewById(R.id.editText3);
-            address = (EditText) findViewById(R.id.editText5);
-            city = (EditText) findViewById(R.id.editText6);
-            zip = (EditText) findViewById(R.id.editText7);
-            date = (EditText) findViewById(R.id.editText8);
+            //Toolbar toolbar = findViewById(R.id.toolbar);
+            // setSupportActionBar(toolbar);
+            return inflater.inflate(R.layout.fragment_guest_form_registration_start_page, container, false);
         }
+            //creating the database and passing the correct context as the argument
+           // db = new GuestFormHelper(this);
+
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+          //  view.findViewById(R.id.fragment_gue)
+//getting a handle on info from the UI
+        name = (EditText) getView().findViewById(R.id.editText);
+        phone = (EditText)getView(). findViewById(R.id.editText2);
+        email = (EditText) getView().findViewById(R.id.editText3);
+        address = (EditText)getView().findViewById(R.id.editText5);
+        city = (EditText)getView().findViewById(R.id.editText6);
+        zip = (EditText)getView().findViewById(R.id.editText7);
+        date = (EditText)getView(). findViewById(R.id.editText8);
+        id= (EditText)getView().findViewById(R.id.editText4);
 
     }
 
         //implements the menu options for the toolbar
-        @Override
+      //  @Override
         public boolean onCreateOptionsMenu(Menu menu) {
 
-            MenuInflater inflater = getMenuInflater();
-            inflater.inflate(R.menu.menu_main, menu);
+          //  MenuInflater inflater = getMenuInflater();
+            //inflater.inflate(R.menu.menu_main, menu);
             return true;
 
         }
@@ -118,7 +121,7 @@ public class FirstFragmentGuestRegistration  extends AppCompatActivity implement
 
             //notifying the user if the add was successful
             if (ins) {
-                Toast.makeText(getApplicationContext(), "User Added", Toast.LENGTH_LONG).show();
+              //  Toast.makeText(getApplicationContext(), "User Added", Toast.LENGTH_LONG).show();
             }
 
         }
@@ -155,8 +158,8 @@ spinner.setAdapter(adapter);
          * home method - goes to the home screen
          */
         public void home() {
-            Intent intent = new Intent(this, Choose.class);
-            startActivity(intent);
+           // Intent intent = new Intent(this, Choose.class);
+            //startActivity(intent);
         }
 
     @Override
