@@ -103,6 +103,12 @@ public class QuestionnaireSource {
 
     }
 
+    /**
+     * findSubmissions --
+     * Finds submissions by a guest ( guestID ) and adds
+     * them to a list of submissions.
+     * @return The list of submissions
+     */
     public List<QuestionnaireSubmission> findSubmissions(@NonNull String guestID) {
 
         List<QuestionnaireSubmission> submissions = new ArrayList<>();
@@ -143,6 +149,10 @@ public class QuestionnaireSource {
 
     }
 
+    /**
+     * convertCursorToSubmission --
+     *
+     */
     private QuestionnaireSubmission convertCursorToSubmission(Cursor c) {
 
         ArrayList<String> guestAnswers = new ArrayList<>(NUM_QUESTIONS);
