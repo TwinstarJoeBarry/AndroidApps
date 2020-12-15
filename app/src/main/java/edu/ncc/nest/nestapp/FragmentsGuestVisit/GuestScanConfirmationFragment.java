@@ -119,13 +119,9 @@ public class GuestScanConfirmationFragment extends Fragment implements View.OnCl
 
         } else if (id == R.id.confirmation_0_register_btn) {
 
-            // Navigate to the questionnaire
+            // Navigate to the registration fragment
             NavHostFragment.findNavController(GuestScanConfirmationFragment.this)
                     .navigate(R.id.action_GuestScanConfirmationFragment_to_RegistrationFragment);
-
-            // TODO Navigate to the registration fragment (Does not exist yet)
-
-            //Toast.makeText(getContext(), "The registration fragment doesn't exist yet.", Toast.LENGTH_SHORT).show();
 
         }
 
