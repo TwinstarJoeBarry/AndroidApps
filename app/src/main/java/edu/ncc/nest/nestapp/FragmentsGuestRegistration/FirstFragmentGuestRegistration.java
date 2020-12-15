@@ -57,7 +57,7 @@ public class FirstFragmentGuestRegistration  extends Fragment implements View.On
 
             //Toolbar toolbar = findViewById(R.id.toolbar);
             // setSupportActionBar(toolbar);
-            return inflater.inflate(R.layout.fragment_guest_form_registration_start_page, container, false);
+            return inflater.inflate(R.layout.fragment_first_page_registration_entry_form, container, false);
         }
             //creating the database and passing the correct context as the argument
            // db = new GuestFormHelper(this);
@@ -76,7 +76,7 @@ public class FirstFragmentGuestRegistration  extends Fragment implements View.On
         id= (EditText)getView().findViewById(R.id.editText4);
 
 
-        
+
     }
 
         //implements the menu options for the toolbar

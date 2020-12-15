@@ -93,14 +93,14 @@ public class Choose extends AppCompatActivity implements OnClickListener {
             case R.id.futureEffortsBtn:
                 launchFutureEfforts();
                 break;
-<<<<<<< HEAD
+//<<<<<<< HEAD
 
-=======
+//=======
 //*****************************************Testing
             case R.id.trueDate:
                 launchTrueDate();
                 break;
->>>>>>> master
+//>>>>>>> master
         }
     }
 
