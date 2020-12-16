@@ -79,6 +79,8 @@ public class GuestQuestionnaireFragment extends Fragment implements View.OnClick
 
         if (savedInstanceState != null) {
 
+            guestID = savedInstanceState.getString("GUEST_ID");
+
             submitButton.setEnabled(savedInstanceState.getBoolean("SUBMIT_ENABLED"));
 
             boolean[] isEnabled = savedInstanceState.getBooleanArray("INPUT_FIELD_ENABLED");
@@ -133,6 +135,8 @@ public class GuestQuestionnaireFragment extends Fragment implements View.OnClick
 
         // Put the enabled state of the submit button into the bundle
         outState.putBoolean("SUBMIT_ENABLED", submitButton.isEnabled());
+
+        outState.putString("GUEST_ID", guestID);
 
         super.onSaveInstanceState(outState);
 
