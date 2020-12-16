@@ -3,14 +3,11 @@
   <component name="navEditor-manualLayoutAlgorithm2">
     <option name="myPositions">
       <map>
-
-
         <entry key="nav_graph">
           <value>
             <LayoutPositions>
               <option name="myPositions">
                 <map>
-
                   <entry key="StartFragment">
                     <value>
                       <LayoutPositions>
@@ -37,7 +34,6 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-
                   <entry key="ScanFragment">
                     <value>
                       <LayoutPositions>
@@ -64,7 +60,6 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-
                   <entry key="EnterUpcFragment">
                     <value>
                       <LayoutPositions>
@@ -91,7 +86,6 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-
                   <entry key="confirmItemFragment">
                     <value>
                       <LayoutPositions>
@@ -118,7 +112,6 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-
                   <entry key="selectItemFragment">
                     <value>
                       <LayoutPositions>
@@ -140,7 +133,6 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-
                   <entry key="selectPrintedExpirationDateFragment">
                     <value>
                       <LayoutPositions>
@@ -162,7 +154,6 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-
                   <entry key="displayTrueExpirationFragment">
                     <value>
                       <LayoutPositions>
@@ -175,20 +166,16 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-
                 </map>
               </option>
             </LayoutPositions>
           </value>
         </entry>
-
-
         <entry key="nav_graph_guest_registration.xml">
           <value>
             <LayoutPositions>
               <option name="myPositions">
                 <map>
-
                   <entry key="FragmentGuestRegistrationStartPage">
                     <value>
                       <LayoutPositions>
@@ -215,7 +202,6 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-
                   <entry key="FragmentGuestRegistrationScanner">
                     <value>
                       <LayoutPositions>
@@ -228,7 +214,6 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-
                   <entry key="FirstFragmentGuestRegistration">
                     <value>
                       <LayoutPositions>
@@ -241,20 +226,16 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-
                 </map>
               </option>
             </LayoutPositions>
           </value>
         </entry>
-
-
         <entry key="nav_graph_guest_visit.xml">
           <value>
             <LayoutPositions>
               <option name="myPositions">
                 <map>
-
                   <entry key="GuestScanFragment">
                     <value>
                       <LayoutPositions>
@@ -276,7 +257,6 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-
                   <entry key="GuestScanConfirmationFragment">
                     <value>
                       <LayoutPositions>
@@ -303,7 +283,6 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-
                   <entry key="GuestQuestionnaireFragment">
                     <value>
                       <LayoutPositions>
@@ -316,14 +295,11 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-
                 </map>
               </option>
             </LayoutPositions>
           </value>
         </entry>
-
-
       </map>
     </option>
   </component>
