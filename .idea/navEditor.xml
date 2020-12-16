@@ -162,66 +162,19 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
-
-                  <entry key="GuestScanFragment">
-                  </entry>
-                  <entry key="FirstPageRegistrationEntryForm">
+                  <entry key="FragmentGuestRegistrationScanner">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="100" />
-                            <option name="y" value="13" />
-                          </Point>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
-                  <entry key="StartFragmentGuest">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="-112" />
-                            <option name="y" value="11" />
-                          </Point>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
-                </map>
-              </option>
-            </LayoutPositions>
-          </value>
-        </entry>
-        <entry key="nav_graph_guest_visit.xml">
-          <value>
-            <LayoutPositions>
-              <option name="myPositions">
-                <map>
-                  <entry key="StartFragmentGuest">
->>>>>>> .idea/navEditor.xml
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="235" />
+                            <option name="x" value="256" />
                             <option name="y" value="12" />
                           </Point>
                         </option>
-                        <option name="myPositions">
-                          <map>
-                            <entry key="action_GuestScanFragment_to_GuestScanConfirmationFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                          </map>
-                        </option>
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="StartFragmentGuest">
+                  <entry key="FragmentGuestRegistrationStartPage">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
@@ -232,7 +185,12 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_StartFragmentGuest_to_GuestScanFragment">
+                            <entry key="action_FragmentGuestRegistrationStartPage_to_FirstFragmentGuestRegistration">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_FragmentGuestRegistrationStartPage_to_FragmentGuestRegistrationScanner">
                               <value>
                                 <LayoutPositions />
                               </value>

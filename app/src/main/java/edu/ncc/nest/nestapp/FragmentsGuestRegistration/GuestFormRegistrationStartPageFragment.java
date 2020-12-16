@@ -52,7 +52,7 @@ public class GuestFormRegistrationStartPageFragment extends Fragment {
                 // Uncomment this code when the layouts for the registration form page is available &
                 // complete this line with the appropriate nav action -> navigate( R.id.action_StartFragment_to_FormFragment)
                 NavHostFragment.findNavController(GuestFormRegistrationStartPageFragment.this)
-                       .navigate(R.id.action_StartFragmentGuest_to_FirstPageRegistrationEntryForm);
+                       .navigate(R.id.action_FragmentGuestRegistrationStartPage_to_FirstFragmentGuestRegistration);
             }
         });
 

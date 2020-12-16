@@ -38,6 +38,12 @@
         <action
             android:id="@+id/action_FragmentGuestRegistrationStartPage_to_FragmentGuestRegistrationScanner"
             app:destination="@id/FragmentGuestRegistrationScanner" />
+
+        <action
+            android:id="@+id/action_FragmentGuestRegistrationStartPage_to_FirstFragmentGuestRegistration"
+            app:destination="@id/FirstFragmentGuestRegistration" />
+
+
     </fragment>
 
     <fragment
@@ -48,5 +54,13 @@
 
     </fragment>
 
-     </fragment>
-       </navigation>
+    <fragment
+        android:id="@+id/FirstFragmentGuestRegistration"
+        android:name="edu.ncc.nest.nestapp.FragmentsGuestRegistration.FirstFragmentGuestRegistration"
+        android:label="First Fragment Guest Registration"
+        tools:layout="@layout/fragment_first_page_registration_entry_form" >
+
+
+    </fragment>
+
+</navigation>
