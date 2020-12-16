@@ -93,14 +93,11 @@ public class Choose extends AppCompatActivity implements OnClickListener {
             case R.id.futureEffortsBtn:
                 launchFutureEfforts();
                 break;
-//<<<<<<< HEAD
-
-//=======
-//*****************************************Testing
+                // testing **********************
             case R.id.trueDate:
                 launchTrueDate();
                 break;
-//>>>>>>> master
+
         }
     }
 
@@ -116,9 +113,6 @@ public class Choose extends AppCompatActivity implements OnClickListener {
      * launchGetUPC - starts the Get UPC activity
      */
     public void launchGetUPC() {
-
-//        Intent intent = new Intent(this, ItemInformation.class);
-
         Intent intent = new Intent(this, CheckExpirationDate.class);
         startActivity(intent);
     }
@@ -132,7 +126,7 @@ public class Choose extends AppCompatActivity implements OnClickListener {
     }
 
 
-//    ******************************************TESTING
+    //    ******************************************TESTING
     /**
      * launchTrueDate - starts the DisplayTrueExpirationFragment fragment
      */
@@ -150,5 +144,9 @@ public class Choose extends AppCompatActivity implements OnClickListener {
 
 
 }
+
+
+
+
 
 
