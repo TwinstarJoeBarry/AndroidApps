@@ -26,18 +26,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.LayoutInflater;
 
-import android.widget.Button;
 import android.widget.Toast;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.EditText;
 import android.widget.PopupMenu;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentResultListener;
 import androidx.navigation.fragment.NavHostFragment;
 
-
+// FIXME/TODO: highlights any important notes within the code, highlighted in yellow within android studio
 public class SelectItemFragment extends Fragment implements View.OnClickListener
 {
     /** CONSTANT DEFAULTS **/
@@ -49,6 +48,8 @@ public class SelectItemFragment extends Fragment implements View.OnClickListener
     // (DETAILED IN THE INSTANCE VARS SECTION)
     private final int categories[] =
     {
+            // TODO some present subcategories were not included in R.array.categories in the strings.xml file;
+            //  (as of 12.15.2020 all that were currently listed and was able to has been ported)
             R.array.baby_food_items,
             R.array.baked_goods_bakery_items,
             R.array.beverages_items,
@@ -67,12 +68,12 @@ public class SelectItemFragment extends Fragment implements View.OnClickListener
 
 
     /** INSTANCE VARS **/
-    private String upcSaved; // UPC as passed from previous fragment; populated from a saved bundle
+    private String upcSaved; // UPC as passed from previous fragments (populated with saved bundle)
 
     int categoryIndex; // index selected for the main category, used to slice the categories array
-    private int itemID; // index of sub category, used to parse the product name and id
+    private int subCategory; // index within the sub category, used to parse a product type and specific id
 
-    // To access UI elements; both directly and indirectly;
+    // To access UI elements; both directly and indirectly
     Button categoryButton, productButton;
     TextView categoryHint, productHint;
 
@@ -82,8 +83,8 @@ public class SelectItemFragment extends Fragment implements View.OnClickListener
     {
         // initialize vars; placeholder values replaced later
         upcSaved = PLACEHOLDER_STRING;
-        categoryIndex = 0;
-        itemID = -1;
+        categoryIndex = -1;
+        subCategory = -1;
 
         return inflater.inflate(R.layout.fragment_select_item, container, false);
     }
@@ -103,14 +104,13 @@ public class SelectItemFragment extends Fragment implements View.OnClickListener
         productButton.setOnClickListener( v -> showProducts() );
 
         // GRAB THE UPC VALUES FROM THE BUNDLE SENT FROM SCAN FRAG OR CONFIRM UPC FRAG WHEN READY
-        getParentFragmentManager().setFragmentResultListener("BARCODE", this, new FragmentResultListener()
-            {
-                @Override public void onFragmentResult(@NonNull String key, @NonNull Bundle bundle)
-                {
-                    upcSaved = bundle.getString("barcode");
-                    ((TextView)getView().findViewById(R.id.fragment_select_item_headline)).setText("Adding UPC:" + upcSaved);
-                }
-            });
+        getParentFragmentManager().setFragmentResultListener("BARCODE", this, (key, bundle) ->
+        {
+            upcSaved = bundle.getString("barcode");
+            if (upcSaved != PLACEHOLDER_STRING)
+                ((TextView)getView().findViewById(R.id.fragment_select_item_headline)).setText("Adding UPC: " + upcSaved);
+            // FIXME nothing to get when navigating backward from next fragment (select printed expiration date); not likely desirable behavior!
+        });
 
         // ACCEPT BUTTON CODE - PARSE VALUES FOR NEW UPC, PASS INFO TO PRINTED EXPIRATION DATE
         view.findViewById(R.id.acceptButton).setOnClickListener( view1 ->
@@ -129,20 +129,20 @@ public class SelectItemFragment extends Fragment implements View.OnClickListener
             if ( description.isEmpty() )
                 description = DEFAULT_STRING;
 
-            // and assert that the values that CANNOT be blank are not.
-            if (itemID == -1)
+            // and first assert that the values that CANNOT be blank, are not;
+            if (subCategory == -1)
                 Toast.makeText(getContext(), "Don't forget to fill the category AND subcategory!", Toast.LENGTH_LONG).show();
 
             else
             {
-                // use our source to the database to add the new upc to the NEST's table
-                Toast.makeText(getContext(), String.format("upc: %s | name: %s | description %s | prodID %d", upcSaved, name, description, itemID), Toast.LENGTH_LONG).show();
-//                database.insertNewUPC(upcSaved, name, description, itemID); TODO delete previous line and uncomment this for production code
+                // use our source to the database to add the new upc to the NEST's table after parsing the ID
+                int itemId = database.getProductIdFromUPC(upcSaved);
+                database.insertNewUPC(upcSaved, name, description, itemId);
 
 
-                // stuff everything in a bundle in case it's needed for PrintedExpirationDate;
+                // stuff everything in a bundle in case it's needed for PrintedExpirationDate; TODO rip this out if it's not needed
                 Bundle saved = new Bundle();
-                saved.putInt("savedID", itemID);
+                saved.putInt("savedID", subCategory);
                 saved.putString("savedUPC", upcSaved);
                 saved.putString("savedProductName", name);
                 saved.putString("savedDescription", description);
@@ -175,15 +175,18 @@ public class SelectItemFragment extends Fragment implements View.OnClickListener
         String[] mainCategories = getResources().getStringArray(R.array.categories_array);
 
         for (int i = 0; i < mainCategories.length; ++i )
-            menu.add(1, i, 1, mainCategories[i]);
+            menu.add(i, i, i, mainCategories[i]);
 
         // THE ACTUAL ON CLICK CODE TO SET THE SUB CATEGORY INDEX AND POPULATE A TEXT VIEW WITH THE INFORMATION
         menuPop.setOnMenuItemClickListener(item ->
         {
+            // set a text view with the category for the user to see;
             categoryHint.setText( item.toString() );
             categoryIndex = item.getItemId();
+
+            // clear out subcategory between menu changes;
             productHint.setText(" ");
-            itemID =  -1;
+            subCategory =  -1;
             return true;
         });
 
@@ -197,6 +200,9 @@ public class SelectItemFragment extends Fragment implements View.OnClickListener
      **/
     private void showProducts()
     {
+        if (categoryIndex == -1)
+            Toast.makeText(getContext(), "Please narrow the choices with a main category first!", Toast.LENGTH_LONG).show();
+
         // SHOW THE POP UP MENU FOR THE SUB CATEGORIES, BY USING A POPUP MENU
         PopupMenu menuPop = new PopupMenu(getContext(), productButton);
         Menu menu = menuPop.getMenu();
@@ -207,10 +213,10 @@ public class SelectItemFragment extends Fragment implements View.OnClickListener
             menu.add(categoryIndex, i, i, subCategories[i]);
 
         // THE ACTUAL ON CLICK CODE TO SET THE PRODUCT ID AND POPULATE A TEXT VIEW WITH THE INFORMATION
-        menuPop.setOnMenuItemClickListener((PopupMenu.OnMenuItemClickListener) item ->
+        menuPop.setOnMenuItemClickListener( item ->
         {
             productHint.setText( item.toString() );
-            itemID = (categoryIndex * 100) + item.getItemId();
+            subCategory = item.getItemId();
             return true;
         });
 
@@ -218,7 +224,7 @@ public class SelectItemFragment extends Fragment implements View.OnClickListener
     }
 
     /** UNUSED METHODS - NEEDED FOR INTERFACES THAT ARE IMPLEMENTED **/
-    @Override public void onClick(View v) {}
+    @Override public void onClick(View v) { }
 
 
 }
