@@ -1,6 +1,7 @@
 package edu.ncc.nest.nestapp;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,8 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
+
+import static java.lang.Thread.sleep;
 
 /**
  *
@@ -30,24 +33,40 @@ import androidx.navigation.fragment.NavHostFragment;
  */
 
 public class GuestFormFirstFragment extends Fragment {
+    protected static final String TAG = "TESTING";
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.d(TAG,"In FirstFragment onStart()");
+    }
     //database where we will store user information
     GuestFormHelper db;
 
     //variables to store user information
     EditText lastName, firstName, ncc_affil, age, gender, phone, ncc_id, address, city, state, zip;
 
+    @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
+        Log.d(TAG,"In FirstFragment onCreateView()");
+        /*
+        try {
+            sleep(10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+         */
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.activity_guest_form_first_fragment, container, false);
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        Log.d(TAG,"In FirstFragment onViewCreated()");
         onCreate(savedInstanceState);
+
         //setContentView(R.layout.activity_guest_form_first_fragment);
 
         //Toolbar toolbar = getView().findViewById(R.id.toolbar);
@@ -66,7 +85,7 @@ public class GuestFormFirstFragment extends Fragment {
         ncc_id = (EditText)(getView().findViewById(R.id.editText7));
         address = (EditText)(getView().findViewById(R.id.editText8));
         city = (EditText)(getView().findViewById(R.id.editText9));
-        state = (EditText)(getView().findViewById(R.id.states_spinner));
+        //state = (EditText)(getView().findViewById(R.id.states_spinner));
         zip = (EditText)(getView().findViewById(R.id.editText10));
 
         view.findViewById(R.id.next_button);

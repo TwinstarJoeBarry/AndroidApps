@@ -21,6 +21,9 @@ import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentActivity;
+
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -29,8 +32,17 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 
-public class GuestForm extends AppCompatActivity {
-
+public class GuestForm extends FragmentActivity {
+    protected static final String TAG = "TESTING";
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.d(TAG, "In MainActivity onCreate()");
+        if (savedInstanceState == null){
+            getSupportFragmentManager().beginTransaction()
+                    .add(android.R.id.content, new GuestFormFirstFragment()).commit();}
+    }
+/*
 
     //database where we will store user information
     GuestFormHelper db;
@@ -85,7 +97,7 @@ public class GuestForm extends AppCompatActivity {
      *
      * @param view
      */
-
+/*
 
     public void onClick(View view) {
 
@@ -139,9 +151,10 @@ spinner.setAdapter(adapter);
     /**
      * home method - goes to the home screen
      */
+    /*
     public void home() {
         Intent intent = new Intent(this, Choose.class);
         startActivity(intent);
     }
-
+*/
 }
