@@ -51,13 +51,6 @@ public class GuestFormFirstFragment extends Fragment {
             Bundle savedInstanceState
     ) {
         Log.d(TAG,"In FirstFragment onCreateView()");
-        /*
-        try {
-            sleep(10000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-         */
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.activity_guest_form_first_fragment, container, false);
     }
@@ -88,8 +81,7 @@ public class GuestFormFirstFragment extends Fragment {
         //state = (EditText)(getView().findViewById(R.id.states_spinner));
         zip = (EditText)(getView().findViewById(R.id.editText10));
 
-        view.findViewById(R.id.next_button);
-        view.setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.next_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //variable used for checks
@@ -115,6 +107,11 @@ public class GuestFormFirstFragment extends Fragment {
                 NavHostFragment.findNavController(GuestFormFirstFragment.this)
                         .navigate(R.id.action_FirstFragment_to_SecondFragment);
                 Log.d(TAG,"below");
+                try {
+                    sleep(10000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }

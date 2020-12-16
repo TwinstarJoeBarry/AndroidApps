@@ -13,6 +13,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentResultListener;
 import androidx.navigation.fragment.NavHostFragment;
 
+import static java.lang.Thread.sleep;
+
 /**
  *
  * Copyright (C) 2020 The LibreFoodPantry Developers.
@@ -33,6 +35,12 @@ import androidx.navigation.fragment.NavHostFragment;
 
 public class GuestFormSecondFragment extends Fragment {
     protected static final String TAG = "TESTING";
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.d(TAG,"In SecondFragment onStart()");
+    }
+
     //variables to store user information
     EditText people, income, snap, otherPrograms, employmentStatus, healthStatus,
             housingStatus, childcareStatus, childrenUnderOne, childrenBetweenOneAndFive,
@@ -45,6 +53,13 @@ public class GuestFormSecondFragment extends Fragment {
             Bundle savedInstanceState
     ) {
         Log.d(TAG,"In SecondFragment onCreateView()");
+        /*
+        try {
+            sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+         */
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.activity_guest_form_second_fragment, container, false);
     }
@@ -68,7 +83,7 @@ public class GuestFormSecondFragment extends Fragment {
         howDidYouFind = (EditText)(getView().findViewById(R.id.editText14));
         moreInfoQuestion = (EditText)(getView().findViewById(R.id.editText15));
         volFirstName = (EditText)(getView().findViewById(R.id.editText16));
-        volLastName = (EditText)(getView().findViewById(R.id.editText17));;
+        volLastName = (EditText)(getView().findViewById(R.id.editText17));
 
         getParentFragmentManager().setFragmentResultListener("SEND_MESSAGE", this, new FragmentResultListener() {
             @Override

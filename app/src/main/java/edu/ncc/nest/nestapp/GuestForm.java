@@ -38,9 +38,10 @@ public class GuestForm extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "In MainActivity onCreate()");
-        if (savedInstanceState == null){
+        //if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(android.R.id.content, new GuestFormFirstFragment()).commit();}
+                    .add(android.R.id.content, new GuestFormFirstFragment()).commit();
+        //}
     }
 /*
 
