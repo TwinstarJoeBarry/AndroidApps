@@ -35,13 +35,16 @@
                    android:id="@+id/action_StartFragmentGuest_to_ScanFragment"
                    app:destination="@id/GuestScannerFragment" /> -->
 
-        <!-- This action & destination should be named and assigned accordingly to the proper fragment once it is available -->
-        <!-- This action & destination currently below are merely for example and do not reflect any accuracy
         <action
-                   android:id="@+id/action_StartFragmentGuest_to_EntryFragmentPersonal"
-                   app:destination="@id/EntryFragmentPersonal" />-->
+            android:id="@+id/action_StartFragmentGuest_to_FirstPageRegistrationEntryForm"
+            app:destination="@id/FirstPageRegistrationEntryForm" />
+    </fragment>
+    <fragment
 
+        android:id="@+id/FirstPageRegistrationEntryForm"
+        android:name="edu.ncc.nest.nestapp.FragmentsGuestRegistration.FirstFragmentGuestRegistration"
+        android:label="@string/first_Page_entry_Registration_Form_label"
+        tools:layout="@layout/fragment_first_page_registration_entry_form">
 
-           </fragment>
-
+     </fragment>
        </navigation>
