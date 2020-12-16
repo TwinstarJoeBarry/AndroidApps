@@ -111,8 +111,10 @@ public class GuestFormFirstFragment extends Fragment {
                 }
                 */
 
+                Log.d(TAG,"above");
                 NavHostFragment.findNavController(GuestFormFirstFragment.this)
                         .navigate(R.id.action_FirstFragment_to_SecondFragment);
+                Log.d(TAG,"below");
             }
         });
     }

@@ -32,6 +32,7 @@ import androidx.navigation.fragment.NavHostFragment;
  */
 
 public class GuestFormSecondFragment extends Fragment {
+    protected static final String TAG = "TESTING";
     //variables to store user information
     EditText people, income, snap, otherPrograms, employmentStatus, healthStatus,
             housingStatus, childcareStatus, childrenUnderOne, childrenBetweenOneAndFive,
@@ -43,6 +44,7 @@ public class GuestFormSecondFragment extends Fragment {
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
+        Log.d(TAG,"In SecondFragment onCreateView()");
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.activity_guest_form_second_fragment, container, false);
     }
