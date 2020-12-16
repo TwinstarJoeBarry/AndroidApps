@@ -1004,15 +1004,18 @@
     <string name="category">Category:</string>
     <string name="expiration_dat">Expiration date:</string>
 
+    <!-- START OF SCANNER STRINGS -->
+
+    <!-- END OF SCANNER STRINGS -->
+    <string name="scanner_rescan_button">Re-Scan Barcode</string>
+    <string name="scanner_confirm_button">Confirm Scan</string>
+    <string name="scanner_waiting_for_scan">Waiting for scan …</string>
+    <string name="scanner_camera_permission_required">Camera permission required.</string>
+    <string name="scanner_confirm_msg">Please confirm that the barcode is correct.</string>
     <!-- START OF GUEST VISIT STRINGS -->
 
     <!-- Strings used for GuestScanFragment -->
     <string name="guest_scan_fragment_label">Guest Scan Fragment</string>
-    <string name="guest_scan_rescan_button">Re-Scan Barcode</string>
-    <string name="guest_scan_confirm_button">Confirm Scan</string>
-    <string name="guest_scan_waiting_for_scan">Waiting for scan …</string>
-    <string name="guest_scan_camera_permission_required">Camera permission required.</string>
-    <string name="guest_scan_confirm_msg">Please confirm that the barcode is correct.</string>
 
     <!-- Strings used for GuestQuestionnaireFragment.java / fragment_guest_questionnaire.xml -->
     <string name="guest_questionnaire_fragment_label">Guest Questionnaire Fragment</string>
@@ -1052,6 +1055,7 @@
     </string-array>
 
     <!-- Strings used in the guest visit confirmation layouts -->
+    <string name="guest_scan_confirmation_fragment_lable">Guest Scan Confirmation Fragment</string>
     <string name="guestVisitConfirmation_welcome_nest_guest_lbl">Welcome NEST Guest!</string>
     <string name="guestVisitConfirmation_guest_info_confirmation">Please confirm that the following information is correct.</string>
     <string name="guestVisitConfirmation_guest_name_lbl">GUEST NAME</string>
@@ -1061,6 +1065,7 @@
     <string name="guestVisitConfirmation_register_button">Register</string>
     <string name="guestVisitConfirmation_please_register_lbl">Please register to continue</string>
     <string name="guestVisitConfirmation_sorry_guest_not_found_lbl">Sorry! We couldn\'t find a guest associated with the following barcode:</string>
+    <string name="first_Page_entry_Registration_Form_label">FirstPageEntryRegistrationFormEntry</string>
 
     <!-- END OF GUEST VISIT STRINGS -->
 

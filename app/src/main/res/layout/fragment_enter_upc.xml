@@ -33,6 +33,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <EditText
+        android:id="@+id/edittext_enter_upc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Enter UPC"
+        app:layout_constraintTop_toBottomOf="@id/textview_enter_upc"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
     <Button
         android:id="@+id/button_enter_next"
         android:layout_width="wrap_content"
