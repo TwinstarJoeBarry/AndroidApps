@@ -7,14 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentResultListener;
-import androidx.navigation.fragment.NavHostFragment;
-
-import static java.lang.Thread.sleep;
 
 /**
  *
@@ -62,6 +56,7 @@ public class GuestFormSecondFragment extends Fragment implements View.OnClickLis
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        //getting a handle on info from the UI
         people = (EditText)(getView().findViewById(R.id.editText));
         income = (EditText)(getView().findViewById(R.id.editText2));
         snap = (EditText)(getView().findViewById(R.id.editText3));
