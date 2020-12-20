@@ -32,16 +32,17 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 
-public class GuestForm extends FragmentActivity {
+public class GuestForm extends AppCompatActivity {
+
     protected static final String TAG = "TESTING";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG, "In MainActivity onCreate()");
-        //if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .add(android.R.id.content, new GuestFormFirstFragment()).commit();
-        //}
+        Log.d(TAG, "In GuestForm onCreate()");
+
+        setContentView(R.layout.activity_guest_form);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
     }
 /*
 

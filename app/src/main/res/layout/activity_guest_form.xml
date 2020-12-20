@@ -29,7 +29,9 @@
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
 
+    <include layout="@layout/content_google_sheet_registration"></include>
 
+<!--
     <TextView
         android:id="@+id/title_txt"
         android:layout_width="match_parent"
@@ -153,6 +155,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/editText12"
         android:text="@string/submitBtn_lbl" />
+        -->
     <!--android:onClick="onClick"-->
 
 </RelativeLayout>

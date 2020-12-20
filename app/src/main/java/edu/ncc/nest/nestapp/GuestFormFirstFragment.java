@@ -10,6 +10,7 @@ import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.fragment.NavHostFragment;
 
 import static java.lang.Thread.sleep;
@@ -32,7 +33,7 @@ import static java.lang.Thread.sleep;
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-public class GuestFormFirstFragment extends Fragment {
+public class GuestFormFirstFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemSelectedListener {
     protected static final String TAG = "TESTING";
     @Override
     public void onStart() {
@@ -58,7 +59,7 @@ public class GuestFormFirstFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Log.d(TAG,"In FirstFragment onViewCreated()");
-        onCreate(savedInstanceState);
+        //onCreate(savedInstanceState);
 
         //setContentView(R.layout.activity_guest_form_first_fragment);
 
@@ -85,9 +86,10 @@ public class GuestFormFirstFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 //variable used for checks
-                boolean ins = false;
+                //boolean ins = false;
 
                 //adding the values into the database if submit button is pressed
+                /*
                 if (view.getId() == R.id.done_button) {
 
                     // NOTE: The parameter 'barcode' was recently added to this method
@@ -95,6 +97,7 @@ public class GuestFormFirstFragment extends Fragment {
                     //ins = db.insertData(name.getText().toString(), email.getText().toString(), phone.getText().toString(), date.getText().toString(), address.getText().toString(), city.getText().toString(), zip.getText().toString(), null);
 
                 }
+                 */
 
                 //notifying the user if the add was successful
                 /*
@@ -104,11 +107,16 @@ public class GuestFormFirstFragment extends Fragment {
                 */
 
                 Log.d(TAG,"above");
+                try {
+                    sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 NavHostFragment.findNavController(GuestFormFirstFragment.this)
                         .navigate(R.id.action_FirstFragment_to_SecondFragment);
                 Log.d(TAG,"below");
                 try {
-                    sleep(10000);
+                    sleep(2000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -190,5 +198,20 @@ spinner.setAdapter(adapter);
     public void onSaveInstanceState(Bundle outState) {
         // save state
         super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onClick(View view) {
+
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }

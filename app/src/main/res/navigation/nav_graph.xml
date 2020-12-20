@@ -92,24 +92,4 @@
         android:name="edu.ncc.nest.nestapp.FragmentsUpc.DisplayTrueExpirationFragment"
         android:label="fragment_display_true_expiration"
         tools:layout="@layout/fragment_display_true_expiration" />
-    <fragment
-        android:id="@+id/FirstFragment"
-        android:name="edu.ncc.nest.nestapp.GuestFormFirstFragment"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/activity_guest_form_first_fragment">
-
-        <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/SecondFragment"
-        android:name="edu.ncc.nest.nestapp.GuestFormSecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/activity_guest_form_second_fragment">
-
-        <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
-    </fragment>
 </navigation>
