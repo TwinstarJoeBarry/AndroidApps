@@ -39,7 +39,7 @@ public class GuestFormSecondFragment extends Fragment implements View.OnClickLis
     @Override
     public void onStart() {
         super.onStart();
-        Log.d(TAG,"In SecondFragment onStart()");
+        Log.d(TAG,"In GuestFormSecondFragment onStart()");
     }
 
     //variables to store user information
@@ -53,13 +53,7 @@ public class GuestFormSecondFragment extends Fragment implements View.OnClickLis
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
-        Log.d(TAG,"In SecondFragment onCreateView()");
-
-        try {
-            sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        Log.d(TAG,"In GuestFormSecondFragment onCreateView()");
 
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.activity_guest_form_second_fragment, container, false);
@@ -95,11 +89,13 @@ public class GuestFormSecondFragment extends Fragment implements View.OnClickLis
             }
         });*/
 
-        view.findViewById(R.id.prev_button).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.submit_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                /*
                 NavHostFragment.findNavController(GuestFormSecondFragment.this)
                         .navigate(R.id.action_SecondFragment_to_FirstFragment);
+                 */
             }
         });
     }

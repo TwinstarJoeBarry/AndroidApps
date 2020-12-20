@@ -1,8 +1,10 @@
 package edu.ncc.nest.nestapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -10,7 +12,6 @@ import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.navigation.fragment.NavHostFragment;
 
 import static java.lang.Thread.sleep;
@@ -38,7 +39,7 @@ public class GuestFormFirstFragment extends Fragment implements View.OnClickList
     @Override
     public void onStart() {
         super.onStart();
-        Log.d(TAG,"In FirstFragment onStart()");
+        Log.d(TAG,"In GuestFormFirstFragment onStart()");
     }
     //database where we will store user information
     GuestFormHelper db;
@@ -51,20 +52,14 @@ public class GuestFormFirstFragment extends Fragment implements View.OnClickList
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
-        Log.d(TAG,"In FirstFragment onCreateView()");
+        Log.d(TAG,"In GuestFormFirstFragment onCreateView()");
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.activity_guest_form_first_fragment, container, false);
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Log.d(TAG,"In FirstFragment onViewCreated()");
-        //onCreate(savedInstanceState);
-
-        //setContentView(R.layout.activity_guest_form_first_fragment);
-
-        //Toolbar toolbar = getView().findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
+        Log.d(TAG,"In GuestFormFirstFragment onViewCreated()");
 
         //creating the database and passing the correct context as the argument
         //db = new GuestFormHelper(this);
@@ -79,8 +74,8 @@ public class GuestFormFirstFragment extends Fragment implements View.OnClickList
         ncc_id = (EditText)(getView().findViewById(R.id.editText7));
         address = (EditText)(getView().findViewById(R.id.editText8));
         city = (EditText)(getView().findViewById(R.id.editText9));
-        //state = (EditText)(getView().findViewById(R.id.states_spinner));
-        zip = (EditText)(getView().findViewById(R.id.editText10));
+        state = (EditText)(getView().findViewById(R.id.editText10));
+        zip = (EditText)(getView().findViewById(R.id.editText11));
 
         view.findViewById(R.id.next_button).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,83 +101,11 @@ public class GuestFormFirstFragment extends Fragment implements View.OnClickList
                 }
                 */
 
-                Log.d(TAG,"above");
-                try {
-                    sleep(2000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
                 NavHostFragment.findNavController(GuestFormFirstFragment.this)
                         .navigate(R.id.action_FirstFragment_to_SecondFragment);
-                Log.d(TAG,"below");
-                try {
-                    sleep(2000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
             }
         });
     }
-
-    /*
-    //implements the menu options for the toolbar
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_main, menu);
-        return true;
-
-    }
-    */
-
-    /*
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.homeBtn) {
-            home();
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-    */
-
-
-    /**
-     * Submits user-data when click is received.
-     * Notifies user in a toast if the adding is successful
-     *
-     * @param view
-     */
-
-/** -- Crashes because of the spinner code************
- Spinner spinner = (Spinner) findViewById(R.id.states_spinner);
- // Create an ArrayAdapter using the string array and a default spinner layout
- ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
- R.array.states_array, android.R.layout.simple_spinner_item);
- */
-// Specify the layout to use when the list of choices appears
-/*adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-// Apply the adapter to the spinner
-spinner.setAdapter(adapter);
-
-    public class SpinnerActivity extends Activity implements AdapterView.OnItemSelectedListener {
-    ...
-
-        public void onItemSelected(AdapterView<?> parent, View view,
-                                   int pos, long id) {
-            // An item was selected. You can retrieve the selected item using
-            // parent.getItemAtPosition(pos)
-        }
-
-        public void onNothingSelected(AdapterView<?> parent) {
-            // Another interface callback
-        }
-    }
-
-    Spinner spinner = (Spinner) findViewById(R.id.spinner);
-    spinner.setOnItemSelectedListener(this);*/
-
 
     /**
      * home method - goes to the home screen
@@ -192,7 +115,8 @@ spinner.setAdapter(adapter);
         Intent intent = new Intent(this, Choose.class);
         startActivity(intent);
     }
-    */
+     */
+
 
     @Override
     public void onSaveInstanceState(Bundle outState) {

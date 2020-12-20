@@ -112,20 +112,29 @@
         android:hint="@string/town_lbl"
         android:inputType="textPersonName" />
 
+    <!--
     <Spinner
         android:id="@+id/states_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/editText8"
-        android:layout_toRightOf="@id/editText8"
+        android:layout_below="@id/editText9"
         android:entries="@array/states_array"
         android:paddingTop="10dp" />
+        -->
 
     <EditText
         android:id="@+id/editText10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/editText9"
+        android:hint="@string/state_lbl"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/editText11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editText10"
         android:hint="@string/zip_lbl"
         android:inputType="number" />
 
@@ -133,8 +142,7 @@
         android:id="@+id/next_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/editText10"
-        android:text="@string/submitBtn_lbl" />
-    <!--android:onClick="onClick"-->
+        android:layout_below="@id/editText11"
+        android:text="@string/next" />
 
 </RelativeLayout>

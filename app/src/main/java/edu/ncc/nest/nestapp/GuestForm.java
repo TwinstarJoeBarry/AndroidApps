@@ -20,17 +20,7 @@ package edu.ncc.nest.nestapp;
 import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.FragmentActivity;
-
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.Toast;
-
 
 public class GuestForm extends AppCompatActivity {
 
@@ -39,10 +29,11 @@ public class GuestForm extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "In GuestForm onCreate()");
-
         setContentView(R.layout.activity_guest_form);
+        /*
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+         */
     }
 /*
 
@@ -153,10 +144,9 @@ spinner.setAdapter(adapter);
     /**
      * home method - goes to the home screen
      */
-    /*
+
     public void home() {
         Intent intent = new Intent(this, Choose.class);
         startActivity(intent);
     }
-*/
 }
