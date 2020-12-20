@@ -1,7 +1,7 @@
 package edu.ncc.nest.nestapp;
 /**
  *
- * Copyright (C) 2020 The LibreFoodPantry Developers.
+ * Copyright (C) 2019 The LibreFoodPantry Developers.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,22 +20,17 @@ package edu.ncc.nest.nestapp;
 import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import androidx.appcompat.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
+
 
 public class GuestForm extends AppCompatActivity {
 
-    protected static final String TAG = "TESTING";
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Log.d(TAG, "In GuestForm onCreate()");
-        setContentView(R.layout.activity_guest_form);
-        /*
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-         */
-    }
-/*
 
     //database where we will store user information
     GuestFormHelper db;
@@ -90,7 +85,7 @@ public class GuestForm extends AppCompatActivity {
      *
      * @param view
      */
-/*
+
 
     public void onClick(View view) {
 
@@ -144,9 +139,9 @@ spinner.setAdapter(adapter);
     /**
      * home method - goes to the home screen
      */
-
     public void home() {
         Intent intent = new Intent(this, Choose.class);
         startActivity(intent);
     }
+
 }
