@@ -24,7 +24,7 @@
     tools:context=".FragmentsUpc.DisplayTrueExpirationFragment">
 
     <Button
-        android:id="@+id/button_display_date_next"
+        android:id="@+id/button_display_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"

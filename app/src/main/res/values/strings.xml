@@ -61,11 +61,11 @@
     <string name="town_lbl">Town/City</string>
     <string name="zip_lbl">Zip Code</string>
     <string name="income_lbl">Household Income</string>
-    <string name="moreInfoQuestion_lbl">Is there anything else you would like us to know at this time?</string>
-    <string name="volFirstName_lbl">What is the first name of the volunteer who helped you today?</string>
-    <string name="volLastName_lbl">What is the last name of the volunteer who helped you today?</string>
+    <string name="moreInfoQuestion_lbl"><font size="14">Is there anything else you would like us to know at this time?</font></string>
+    <string name="volFirstName_lbl"><font size="14">What is the first name of the volunteer who helped you today?</font></string>
+    <string name="volLastName_lbl"><font size="14">What is the last name of the volunteer who helped you today?</font></string>
     <string name="submitBtn_lbl">Submit</string>
-    <string name="contact_method">Prefered method of contact:</string>
+    <string name="contact_method">Preferred method of contact:</string>
     <string name="push_notif">Would you like to receive Push Notifications?</string>
     <string name="yes_to_push">Yes, I would like to receive push notifications.</string>
     <string name="re_enter">Re-enter Password</string>
@@ -1004,13 +1004,18 @@
     <string name="category">Category:</string>
     <string name="expiration_dat">Expiration date:</string>
 
+    <!-- START OF SCANNER STRINGS -->
+
+    <!-- END OF SCANNER STRINGS -->
+    <string name="scanner_rescan_button">Re-Scan Barcode</string>
+    <string name="scanner_confirm_button">Confirm Scan</string>
+    <string name="scanner_waiting_for_scan">Waiting for scan …</string>
+    <string name="scanner_camera_permission_required">Camera permission required.</string>
+    <string name="scanner_confirm_msg">Please confirm that the barcode is correct.</string>
     <!-- START OF GUEST VISIT STRINGS -->
 
     <!-- Strings used for GuestScanFragment -->
     <string name="guest_scan_fragment_label">Guest Scan Fragment</string>
-    <string name="guestScan_rescan_button">Re-Scan Barcode</string>
-    <string name="guestScan_confirm_scan_button">Confirm Scan</string>
-    <string name="guestScan_scan_result_textview">Waiting for scan …</string>
 
     <!-- Strings used for GuestQuestionnaireFragment.java / fragment_guest_questionnaire.xml -->
     <string name="guest_questionnaire_fragment_label">Guest Questionnaire Fragment</string>
@@ -1024,6 +1029,24 @@
     <string name="questionnaire_spinner_prompt">Choose an answer</string>
     <string name="questionnaire_hint_number">Enter a number</string>
     <string name="questionnaire_hint_id">NEST Guest Id#</string>
+    <string name="first_name_lbl">First Name</string>
+    <string name="last_name_lbl">Last Name</string>
+    <string name="affil_label">NCC Affiliation</string>
+    <string name="age_range_lbl">Age Range</string>
+    <string name="gender_lbl">Gender</string>
+    <string name="people_lbl">Number of People in Your Household</string>
+    <string name="snap_lbl">Do you have SNAP/food stamps?</string>
+    <string name="other_programs_lbl"><font size="13">Do you know of any other emergency food programs in the area?</font></string>
+    <string name="employment_status_lbl">What is your employment status?</string>
+    <string name="health_status_lbl">What is your health status?</string>
+    <string name="housing_status_lbl">What is your housing status?</string>
+    <string name="childcare_status_lbl">What is your childcare status?</string>
+    <string name="children_under_1_lbl"><font size="13">How many children are in your household under the age of 1 year?</font></string>
+    <string name="children_between_1_5_lbl"><font size="14">How many children are in your household between ages 1-5?</font></string>
+    <string name="children_between_6_12_lbl"><font size="14">How many children are in your household between ages 6-12?</font></string>
+    <string name="children_between_13_18_lbl"><font size="14">How many children are in your household between ages 13-18?</font></string>
+    <string name="dietary_lbl">What are your dietary needs and preferences?</string>
+    <string name="how_did_you_find_lbl">How did you find us?</string>
     <string name="questionnaire_alert_title">"SUBMISSION HAS MISSING FIELDS!"</string>
     <string name="questionnaire_alert_msg">Please make sure to answer all of the questions before submitting the questionnaire.</string>
     <string-array name="array_yes_no">
@@ -1032,6 +1055,7 @@
     </string-array>
 
     <!-- Strings used in the guest visit confirmation layouts -->
+    <string name="guest_scan_confirmation_fragment_lable">Guest Scan Confirmation Fragment</string>
     <string name="guestVisitConfirmation_welcome_nest_guest_lbl">Welcome NEST Guest!</string>
     <string name="guestVisitConfirmation_guest_info_confirmation">Please confirm that the following information is correct.</string>
     <string name="guestVisitConfirmation_guest_name_lbl">GUEST NAME</string>
@@ -1041,6 +1065,8 @@
     <string name="guestVisitConfirmation_register_button">Register</string>
     <string name="guestVisitConfirmation_please_register_lbl">Please register to continue</string>
     <string name="guestVisitConfirmation_sorry_guest_not_found_lbl">Sorry! We couldn\'t find a guest associated with the following barcode:</string>
+    <string name="first_Page_entry_Registration_Form_label">FirstPageEntryRegistrationFormEntry</string>
+    <string name="state_lbl">State</string>
 
     <!-- END OF GUEST VISIT STRINGS -->
 

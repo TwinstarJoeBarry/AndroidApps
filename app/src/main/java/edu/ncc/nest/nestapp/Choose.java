@@ -26,12 +26,17 @@ import android.os.Bundle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,6 +47,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
+//******************************testing**************************************************************************
+import edu.ncc.nest.nestapp.FragmentsUpc.DisplayTrueExpirationFragment;
 
 public class Choose extends AppCompatActivity implements OnClickListener {
     private static final String TAG = "testing";
@@ -85,6 +93,11 @@ public class Choose extends AppCompatActivity implements OnClickListener {
             case R.id.futureEffortsBtn:
                 launchFutureEfforts();
                 break;
+                // testing **********************
+            case R.id.trueDate:
+                launchTrueDate();
+                break;
+
         }
     }
 
@@ -100,9 +113,6 @@ public class Choose extends AppCompatActivity implements OnClickListener {
      * launchGetUPC - starts the Get UPC activity
      */
     public void launchGetUPC() {
-
-//        Intent intent = new Intent(this, ItemInformation.class);
-
         Intent intent = new Intent(this, CheckExpirationDate.class);
         startActivity(intent);
     }
@@ -114,6 +124,29 @@ public class Choose extends AppCompatActivity implements OnClickListener {
         Intent intent = new Intent(this, FutureEfforts.class);
         startActivity(intent);
     }
+
+
+    //    ******************************************TESTING
+    /**
+     * launchTrueDate - starts the DisplayTrueExpirationFragment fragment
+     */
+    public void launchTrueDate() {
+        ((Button)findViewById(R.id.getUPCBtn)).setVisibility(View.GONE);
+        ((Button)findViewById(R.id.guestFormBtn)).setVisibility(View.GONE);
+        ((Button)findViewById(R.id.futureEffortsBtn)).setVisibility(View.GONE);
+        ((Button)findViewById(R.id.trueDate)).setVisibility(View.GONE);
+        ((TextView)findViewById(R.id.nestTxt)).setVisibility(View.GONE);
+
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.RelativeLayoutMain, new DisplayTrueExpirationFragment() ).commit();
+
+    }
+
+
 }
+
+
+
+
 
 
