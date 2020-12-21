@@ -16,11 +16,15 @@ package edu.ncc.nest.nestapp;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+
+import edu.ncc.nest.nestapp.FragmentsGuestRegistration.GuestFormRegistrationActivity;
+import edu.ncc.nest.nestapp.FragmentsGuestRegistration.GuestFormRegistrationStartPageFragment;
 
 public class GuestFormTesting extends AppCompatActivity {
 
@@ -34,7 +38,7 @@ public class GuestFormTesting extends AppCompatActivity {
         Intent intent;
         switch (v.getId()) {
             case R.id.guestRegLocalDbase:
-                intent = new Intent(this, GuestForm.class);
+                intent = new Intent(this, GuestFormRegistrationActivity.class);
                 startActivity(intent);
                 break;
             case R.id.guestRegGoogle:
@@ -42,10 +46,8 @@ public class GuestFormTesting extends AppCompatActivity {
                 startActivity(intent);
                 break;
             case R.id.guestVisitLocalDbase:
-                /*
-                intent = new Intent(this, );
+                intent = new Intent(this, GuestVisit.class);
                 startActivity(intent);
-                 */
                 break;
             case R.id.guesVisitGoogle:
                 /*
@@ -55,4 +57,12 @@ public class GuestFormTesting extends AppCompatActivity {
                 break;
         }
     }
+
+    public void addFragment(int fragmentID)
+    {
+        FragmentManager fm = getSupportFragmentManager();
+        GuestFormRegistrationStartPageFragment fragment = new GuestFormRegistrationStartPageFragment();
+        fm.beginTransaction().add(fragmentID,fragment).commit();
+    }
+
 }
