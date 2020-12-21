@@ -47,8 +47,8 @@
         android:layout_marginBottom="300dp"
         android:text="Confirm Item"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/button_incorrect_item"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/button_incorrect_item"
 
 
         />
@@ -72,64 +72,50 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:text="Item: "
-        app:layout_constraintBottom_toBottomOf="@+id/add_item_name"
         app:layout_constraintEnd_toEndOf="@+id/catName"
-        app:layout_constraintHorizontal_bias="0.517"
-        app:layout_constraintStart_toStartOf="@+id/catName"
-        app:layout_constraintTop_toTopOf="@+id/add_item_name"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toTopOf="@+id/add_item_name" />
 
     <TextView
         android:id="@+id/catName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="68dp"
+        android:layout_height="16dp"
         android:text="Category: "
-        app:layout_constraintBottom_toBottomOf="@+id/add_UPC"
         app:layout_constraintEnd_toEndOf="@+id/itemUPC"
-        app:layout_constraintStart_toStartOf="@+id/itemUPC"
-        app:layout_constraintTop_toTopOf="@+id/add_UPC" />
+        app:layout_constraintTop_toTopOf="@+id/add_cat_name" />
 
     <TextView
         android:id="@+id/itemUPC"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="60dp"
         android:text="UPC: "
-        app:layout_constraintBottom_toTopOf="@+id/button_incorrect_item"
-        app:layout_constraintEnd_toStartOf="@+id/add_cat_name"
-        app:layout_constraintHorizontal_bias="0.537"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/add_cat_name" />
+        app:layout_constraintEnd_toEndOf="@+id/button_incorrect_item"
+        app:layout_constraintTop_toTopOf="@+id/add_UPC" />
 
     <TextView
         android:id="@+id/add_item_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="138dp"
+        android:layout_marginBottom="40dp"
         android:text=""
-        app:layout_constraintBottom_toTopOf="@+id/catName"
-        app:layout_constraintEnd_toEndOf="@+id/add_UPC"
-        app:layout_constraintStart_toStartOf="@+id/add_UPC"
-        app:layout_constraintTop_toBottomOf="@+id/textview_confirm_item"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintBottom_toTopOf="@+id/add_cat_name"
+        app:layout_constraintStart_toStartOf="@+id/add_cat_name" />
 
     <TextView
         android:id="@+id/add_cat_name"
-        android:layout_width="2dp"
-        android:layout_height="14dp"
-        android:layout_marginBottom="60dp"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginBottom="40dp"
         android:text=""
-        app:layout_constraintBottom_toTopOf="@+id/button_confirm_item"
-        app:layout_constraintEnd_toStartOf="@+id/button_confirm_item" />
+        app:layout_constraintBottom_toTopOf="@+id/add_UPC"
+        app:layout_constraintStart_toStartOf="@+id/add_UPC" />
 
     <TextView
         android:id="@+id/add_UPC"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="40dp"
         android:text=""
-        app:layout_constraintBottom_toTopOf="@+id/add_cat_name"
-        app:layout_constraintEnd_toEndOf="@+id/add_cat_name"
-        app:layout_constraintStart_toStartOf="@+id/add_cat_name" />
+        app:layout_constraintBottom_toTopOf="@+id/button_confirm_item"
+        app:layout_constraintStart_toStartOf="@+id/button_confirm_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
