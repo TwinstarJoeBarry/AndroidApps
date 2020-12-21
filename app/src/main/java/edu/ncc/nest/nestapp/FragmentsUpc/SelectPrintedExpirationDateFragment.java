@@ -46,7 +46,7 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
             public void onClick(View view) {
                 // navigation has yet to be set up in the nav_graph.xml
                 NavHostFragment.findNavController(SelectPrintedExpirationDateFragment.this)
-                        .navigate(R.id.action_StartFragment_to_ScanFragment);
+                        .navigate(R.id.displayTrueExpirationFragment);
             }
         });
     }
