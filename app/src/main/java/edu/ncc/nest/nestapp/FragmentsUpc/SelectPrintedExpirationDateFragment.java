@@ -16,6 +16,7 @@ package edu.ncc.nest.nestapp.FragmentsUpc;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -25,10 +26,13 @@ import androidx.navigation.fragment.NavHostFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
+
+import java.util.Calendar;
 
 import edu.ncc.nest.nestapp.R;
 
-public class SelectPrintedExpirationDateFragment extends Fragment {
+public class SelectPrintedExpirationDateFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
@@ -49,5 +53,34 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
                         .navigate(R.id.action_StartFragment_to_ScanFragment);
             }
         });
+
+        view.findViewById(R.id.date_select_btn).setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                showDatePickerDialog(view);
+            }
+        });
+    }
+
+    /**
+     * showDatePickerDialog method --
+     * onClick for the Date button; creates and shows a DatePickerDialog initialized to the current
+     * date.
+     *
+     * @param v - the Date button
+     */
+    public void showDatePickerDialog(View v){
+        DatePickerDialog datePicker = new DatePickerDialog(
+                v.getContext(),
+                this,
+                Calendar.getInstance().get(Calendar.YEAR),
+                Calendar.getInstance().get(Calendar.MONTH),
+                Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
+        );
+        datePicker.show();
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+
     }
 }
