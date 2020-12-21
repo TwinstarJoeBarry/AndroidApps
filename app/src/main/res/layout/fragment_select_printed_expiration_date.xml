@@ -27,11 +27,29 @@
         android:id="@+id/textview_select_expiration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/in_select_expiration_fragment"
+        android:text="@string/select_expiration"
         app:layout_constraintBottom_toTopOf="@id/button_select_date_next"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/exp_result_lbl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textview_select_expiration"
+        android:text="@string/expiration_lbl" />
+
+    <TextView
+        android:id="@+id/exp_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/exp_result_lbl"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="" />
 
     <Button
         android:id="@+id/button_select_date_next"
