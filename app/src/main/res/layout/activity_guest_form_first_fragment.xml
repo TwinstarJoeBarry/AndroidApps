@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <!--
  *
- * Copyright (C) 2019 The LibreFoodPantry Developers.
+ * Copyright (C) 2020 The LibreFoodPantry Developers.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,7 +23,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryShaded"
     tools:context=".GuestForm">
 
     <include
@@ -38,8 +37,6 @@
         android:layout_below="@id/toolbar"
         android:fontFamily="casual"
         android:text="@string/app_name"
-        android:textColor="@color/White"
-
         android:textAlignment="center"
         android:textSize="20sp" />
 
@@ -48,110 +45,104 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/title_txt"
-        android:hint="@string/name_lbl"
-        android:textColorHint="@color/White"
-        android:backgroundTint="@color/White"
+        android:hint="@string/last_name_lbl"
         android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/editText2"
         android:layout_width="wrap_content"
-        android:layout_height="45dp"
+        android:layout_height="wrap_content"
         android:layout_below="@id/editText"
-        android:hint="@string/phone_lbl"
-        android:textColorHint="@color/White"
-        android:backgroundTint="@color/White"
-        android:inputType="phone" />
+        android:hint="@string/first_name_lbl"
+        android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/editText3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/editText2"
-        android:hint="@string/email_lbl"
-        android:textColorHint="@color/White"
-        android:backgroundTint="@color/White"
-        android:inputType="textEmailAddress" />
+        android:hint="@string/affil_label"
+        android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/editText4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/editText3"
-        android:hint="@string/ID_lbl"
-        android:textColorHint="@color/White"
-        android:backgroundTint="@color/White"
-        android:inputType="number" />
-
+        android:hint="@string/age_range_lbl"
+        android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/editText5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/editText4"
-        android:hint="@string/address_lbl"
-        android:textColorHint="@color/White"
-        android:backgroundTint="@color/White"
-        android:inputType="textPostalAddress" />
-
+        android:hint="@string/gender_lbl"
+        android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/editText6"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:layout_below="@id/editText5"
-        android:hint="@string/town_lbl"
-        android:textColorHint="@color/White"
-        android:backgroundTint="@color/White"
-        android:inputType="textPersonName" />
+        android:hint="@string/phone_lbl"
+        android:inputType="phone" />
 
     <EditText
         android:id="@+id/editText7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/editText6"
-        android:hint="@string/zip_lbl"
-        android:textColorHint="@color/White"
-        android:backgroundTint="@color/White"
+        android:hint="@string/ID_lbl"
         android:inputType="number" />
-
-    <Spinner
-        android:id="@+id/states_spinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/editText6"
-        android:layout_toRightOf="@id/editText6"
-        android:entries="@array/states_array"
-        android:textColorHint="@color/White"
-        android:backgroundTint="@color/White"
-        android:paddingTop="10dp" />
 
     <EditText
         android:id="@+id/editText8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/editText7"
-        android:hint="@string/date_lbl"
-        android:textColorHint="@color/White"
-        android:backgroundTint="@color/White"
-        android:inputType="date" />
-    <Button
-        android:id="@+id/done_button"
-        android:layout_width="200dp"
-        android:layout_centerHorizontal="true"
+        android:hint="@string/address_lbl"
+        android:inputType="textPostalAddress" />
+
+    <EditText
+        android:id="@+id/editText9"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/editText8"
-        android:text="@string/next"
+        android:hint="@string/town_lbl"
+        android:inputType="textPersonName" />
 
-        android:layout_marginTop="75dp"
-        android:backgroundTint="@color/colorPrimary"
-        android:textColor="@color/White"
-        />
+    <!--
+    <Spinner
+        android:id="@+id/states_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editText9"
+        android:entries="@array/states_array"
+        android:paddingTop="10dp" />
+        -->
 
+    <EditText
+        android:id="@+id/editText10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editText9"
+        android:hint="@string/state_lbl"
+        android:inputType="textPersonName" />
 
+    <EditText
+        android:id="@+id/editText11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editText10"
+        android:hint="@string/zip_lbl"
+        android:inputType="number" />
 
-
+    <Button
+        android:id="@+id/next_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editText11"
+        android:text="@string/next" />
 
 </RelativeLayout>
-
-
