@@ -20,8 +20,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".FragmentsUpc.SelectPrintedExpirationDateFragment">
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/textview_select_expiration"
@@ -50,6 +49,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:text="" />
+
+    <Button
+        android:id="@+id/date_select_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/exp_result"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:onClick="showDatePickerDialog"
+        android:text="@string/select_expiration_btn" />
 
     <Button
         android:id="@+id/button_select_date_next"
