@@ -62,5 +62,13 @@
 
 
     </fragment>
+    <fragment
+        android:id="@+id/guestRegistrationSummaryPage"
+        android:name="edu.ncc.nest.nestapp.FragmentsGuestRegistration.GuestFormRegistrationSummaryPage"
+        android:label="Summary Fragment Guest Registration"
+        tools:layout="@layout/fragment_guest_registration_summary_page" >
+
+
+    </fragment>
 
 </navigation>
