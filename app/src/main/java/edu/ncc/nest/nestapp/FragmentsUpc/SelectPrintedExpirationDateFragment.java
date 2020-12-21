@@ -27,12 +27,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
+import android.widget.TextView;
 
 import java.util.Calendar;
 
 import edu.ncc.nest.nestapp.R;
 
 public class SelectPrintedExpirationDateFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
+
+    TextView expDisplay;
+
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
@@ -44,6 +48,8 @@ public class SelectPrintedExpirationDateFragment extends Fragment implements Dat
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        expDisplay = (TextView)view.findViewById(R.id.exp_result);
 
         view.findViewById(R.id.button_select_date_next).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,8 +85,21 @@ public class SelectPrintedExpirationDateFragment extends Fragment implements Dat
         datePicker.show();
     }
 
+    /**
+     * onDateSet method --
+     * Called whenever a user selects a date in the DatePickerDialog and hits okay. Note the
+     * parameter descriptions below to interpret results. Stores month, day, and year, and updates
+     * the label.
+     *
+     * @param datePicker - the DatePickerDialog
+     * @param i - Year
+     * @param i1 - Month (0 based; Jan. is 0, Feb. is 1, etc.)
+     * @param i2 - Day
+     */
     @Override
-    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-
+    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+        i1++; //increment month to a 1-based number
+        String expirationDate = i1 + "/" + i2 + "/" + i;
+        expDisplay.setText(expirationDate);
     }
 }
