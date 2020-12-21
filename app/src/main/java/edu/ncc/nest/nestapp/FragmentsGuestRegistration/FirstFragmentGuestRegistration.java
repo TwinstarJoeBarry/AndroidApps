@@ -75,7 +75,16 @@ public class FirstFragmentGuestRegistration  extends Fragment implements View.On
         date = (EditText)getView(). findViewById(R.id.editText8);
         id= (EditText)getView().findViewById(R.id.editText4);
 
-
+        // Navigates to the Guest Registration Entry Form for person information
+        view.findViewById(R.id.done_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Uncomment this code when the layouts for the registration form page is available &
+                // complete this line with the appropriate nav action -> navigate( R.id.action_StartFragment_to_FormFragment)
+                NavHostFragment.findNavController(FirstFragmentGuestRegistration.this)
+                        .navigate(R.id.action_FirstFragmentGuestRegistration_to_SecondFragmentGuestRegistration);
+            }
+        });
 
     }
 

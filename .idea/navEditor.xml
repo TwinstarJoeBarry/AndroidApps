@@ -601,9 +601,18 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="12" />
-                            <option name="y" value="12" />
+                            <option name="x" value="231" />
+                            <option name="y" value="149" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_FirstFragmentGuestRegistration_to_SecondFragmentGuestRegistration">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -613,8 +622,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="12" />
-                            <option name="y" value="12" />
+                            <option name="x" value="228" />
+                            <option name="y" value="-153" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -626,7 +635,7 @@
                         <option name="myPosition">
                           <Point>
                             <option name="x" value="12" />
-                            <option name="y" value="12" />
+                            <option name="y" value="-4" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -642,6 +651,18 @@
                               </value>
                             </entry>
                           </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="SecondFragmentGuestRegistration">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="494" />
+                            <option name="y" value="149" />
+                          </Point>
                         </option>
                       </LayoutPositions>
                     </value>
