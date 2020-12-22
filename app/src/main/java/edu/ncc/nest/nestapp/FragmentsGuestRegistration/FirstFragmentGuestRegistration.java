@@ -99,9 +99,12 @@ public class FirstFragmentGuestRegistration  extends Fragment implements View.On
                     bundle.putString("DATE",inputDate);
                     bundle.putString("ID",inputId);
 
+                // Uncomment this code when the layouts for the registration form page is available &
+                // complete this line with the appropriate nav action -> navigate( R.id.action_StartFragment_to_FormFragment)
+                NavHostFragment.findNavController(FirstFragmentGuestRegistration.this)
+                        .navigate(R.id.action_FirstFragmentGuestRegistration_to_SecondFragmentGuestRegistration);
                 }
             });
-
 
     }
 

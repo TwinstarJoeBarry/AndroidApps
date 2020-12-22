@@ -23,33 +23,53 @@
     android:layout_height="match_parent"
     tools:context=".FragmentsUpc.EnterUpcFragment">
 
+<include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
     <TextView
-        android:id="@+id/textview_enter_upc"
-        android:layout_width="wrap_content"
+        android:id="@+id/enter_UPC_title_txt"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/in_enter_upc_fragment"
-        app:layout_constraintBottom_toTopOf="@id/button_enter_next"
+        android:layout_below="@id/toolbar"
+        android:text="@string/app_name"
+        android:textAlignment="center"
+        android:textSize="26sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/edittext_enter_upc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Enter UPC"
-        app:layout_constraintTop_toBottomOf="@id/textview_enter_upc"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:hint="Type UPC here"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button_enter_next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/next"
+        android:text="Enter UPC"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textview_enter_upc" />
+        app:layout_constraintTop_toBottomOf="@id/edittext_enter_upc"
+        app:layout_constraintVertical_bias="0.061" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
