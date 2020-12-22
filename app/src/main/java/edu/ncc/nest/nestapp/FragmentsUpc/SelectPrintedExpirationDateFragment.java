@@ -22,24 +22,23 @@ import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
+
 import android.widget.PopupMenu;
 import android.view.LayoutInflater;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
 
-import org.w3c.dom.Text;
-
-import edu.ncc.nest.nestapp.NestDBDataSource;
 import edu.ncc.nest.nestapp.NestUPC;
 import edu.ncc.nest.nestapp.R;
 
 public class SelectPrintedExpirationDateFragment extends Fragment
 {
+    private final int STARTING_YEAR = 2020;
+    private final int ADDITIONAL_YEARS = 10;
+
     private NestUPC item;
     private int monthNum, dayNum, yearNum;
     private String selectedDate, actualDate;
@@ -47,7 +46,7 @@ public class SelectPrintedExpirationDateFragment extends Fragment
     private Button monthBtn, dayBtn, yearBtn;
 
     /* days in the index of each month, add one to index */
-    private final int daysInMonth[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+    private final int daysInMonth[] = { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
     public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
@@ -70,9 +69,9 @@ public class SelectPrintedExpirationDateFragment extends Fragment
         monthBtn = view.findViewById(R.id.selected_print_month_button);
         yearBtn = view.findViewById(R.id.selected_print_year_button);
 
-//        dayBtn.setOnClickListener( v -> pickDay();
+        dayBtn.setOnClickListener( v -> pickDay() );
         monthBtn.setOnClickListener( v -> pickMonth() );
-//        yearBtn.setOnClickListener( v -> pickYear() );
+        yearBtn.setOnClickListener( v -> pickYear() );
     }
 
 
@@ -82,7 +81,7 @@ public class SelectPrintedExpirationDateFragment extends Fragment
      **/
     private void pickMonth()
     {
-        // SHOW THE POP UP MENU FOR THE MAIN CATEGORIES, BY USING A POPUP MENU
+        // SHOW THE POP UP MENU FOR THE MONTHS, BY USING A POPUP MENU
         PopupMenu menuPop = new PopupMenu(getContext(), monthBtn);
         Menu menu = menuPop.getMenu();
 
@@ -91,19 +90,73 @@ public class SelectPrintedExpirationDateFragment extends Fragment
         for (int i = 0; i < mainCategories.length; ++i)
             menu.add(daysInMonth[i], i + 1, i + 1, mainCategories[i]);
 
-        // THE ACTUAL ON CLICK CODE TO SET THE SUB CATEGORY INDEX AND POPULATE A TEXT VIEW WITH THE INFORMATION
+        // THE ACTUAL ON CLICK CODE TO SET THE MONTH INDEX
         menuPop.setOnMenuItemClickListener(item ->
         {
-            // set a text view with the category for the user to see;
+            // set a text view with the month for the user to see;
             monthText.setText(item.toString());
             monthNum = item.getItemId();
 
-//            // clear out subcategory between menu changes;
-//            monthText.setText(" ");
-//            subCategory =  -1;
+            // clear out day category between menu changes;
+            dayText.setText(" ");
+            dayNum =  -1;
             return true;
         });
-        
+
+        menuPop.show();
+    }
+
+
+    /**
+     * pickDay()
+     * DISPLAY DAY PICKER
+     **/
+    private void pickDay()
+    {
+        // SHOW THE POP UP MENU FOR THE DAY, BY USING A POPUP MENU
+        PopupMenu menuPop = new PopupMenu(getContext(), dayBtn);
+        Menu menu = menuPop.getMenu();
+
+        int daysThisMonth = daysInMonth[monthNum];
+        for (int i = 1; i <= daysThisMonth;  ++i )
+            menu.add(i, i, i, "" + i);
+
+        // THE ACTUAL ON CLICK CODE TO SET THE DAY INDEX
+        menuPop.setOnMenuItemClickListener(item ->
+        {
+            // set a text view with the day for the user to see;
+            dayText.setText(item.toString());
+            dayNum = item.getItemId();
+            return true;
+        });
+
+        menuPop.show();
+    }
+
+
+    /**
+     * pickYear()
+     * DISPLAY YEAR PICKER
+     **/
+    private void pickYear()
+    {
+        // SHOW THE POP UP MENU FOR THE YEAR, BY USING A POPUP MENU
+        PopupMenu menuPop = new PopupMenu(getContext(), yearBtn);
+        Menu menu = menuPop.getMenu();
+
+        int endingYear = STARTING_YEAR + ADDITIONAL_YEARS;
+        for (int i = STARTING_YEAR; i <= endingYear;  ++i )
+            menu.add(i, i, i, "" + i);
+
+        // THE ACTUAL ON CLICK CODE TO SET THE DAY INDEX
+        menuPop.setOnMenuItemClickListener(item ->
+        {
+            // set a text view with the day for the user to see;
+            yearText.setText(item.toString());
+            yearNum = item.getItemId();
+            return true;
+        });
+
         menuPop.show();
     }
 
