@@ -79,7 +79,7 @@ public class NestDBDataSource {
      * @param upc UPC code
      * @return integer productId field value if found, -1 otherwise
      */
-    int getProductIdFromUPC(String upc) {
+    public int getProductIdFromUPC(String upc) {
         int result = -1; // indicate not found
         String qry = "SELECT productId FROM nestUPCs WHERE upper(UPC) = upper(?)";
         Cursor c = db.rawQuery(qry, new String[]{upc});

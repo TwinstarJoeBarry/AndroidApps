@@ -33,6 +33,7 @@ public class InventoryEntry {
     private String pantryLife;
     private String barcodeNum;
 
+
     /**
      * constructs a new InventoryEntry by connecting to the FoodKeeper API and getting data from there.
      *
