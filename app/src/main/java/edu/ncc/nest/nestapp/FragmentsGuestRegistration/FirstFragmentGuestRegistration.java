@@ -66,7 +66,7 @@ public class FirstFragmentGuestRegistration  extends Fragment implements View.On
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-            view.findViewById(R.id.done_button).setOnClickListener(new View.OnClickListener() {
+            view.findViewById(R.id.next_button_first_fragment_gRegistration).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     //getting a handle on info from the UI
