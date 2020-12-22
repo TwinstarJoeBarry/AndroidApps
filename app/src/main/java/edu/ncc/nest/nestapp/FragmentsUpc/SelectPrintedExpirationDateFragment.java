@@ -79,7 +79,7 @@ public class SelectPrintedExpirationDateFragment extends Fragment
         // GRAB THE UPC VALUES FROM THE BUNDLE SENT FROM SCAN FRAG OR CONFIRM UPC FRAG WHEN READY
         getParentFragmentManager().setFragmentResultListener("FOOD ITEM", this, (key, bundle) ->
         {
-            item = (NestUPC)bundle.getSerializable("foodItem");
+            item = (NestUPC)bundle.getSerializable("foodItem"); // TODO this probably won't work if there isn't a UPC to get
             ((TextView)getView().findViewById(R.id.selected_print_headline)).setText( item.getUpc() );
         });
 
@@ -87,7 +87,7 @@ public class SelectPrintedExpirationDateFragment extends Fragment
         view.findViewById(R.id.selected_print_accept).setOnClickListener( view1 ->
         {
             if (monthNum == -1 || dayNum == -1 || yearNum == -1)
-                Toast.makeText(getContext(), "Please selet a full date!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "Please select a full date!", Toast.LENGTH_LONG).show();
 
             else
             {
@@ -98,7 +98,7 @@ public class SelectPrintedExpirationDateFragment extends Fragment
                 Bundle saved = new Bundle();
                 saved.putString("savedUPC", fullDate);
 
-                // navigate over to the proper fragment;
+                // navigate over to the proper fragment; // TODO need the navigation for this to work
 //                NavHostFragment.findNavController(SelectPrintedExpirationDateFragment.this).navigate
 //                        ( (R.id.DisplayTrueExpirationFragment) );
             }
