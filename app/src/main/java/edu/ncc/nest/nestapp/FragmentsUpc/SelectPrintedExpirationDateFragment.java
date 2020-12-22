@@ -16,121 +16,95 @@ package edu.ncc.nest.nestapp.FragmentsUpc;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
-
-import androidx.fragment.app.FragmentResultListener;
-import androidx.navigation.fragment.NavHostFragment;
-
-import android.util.Log;
-import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.PopupMenu;
+import android.view.LayoutInflater;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import edu.ncc.nest.nestapp.DatePickerFragment;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
+
+import org.w3c.dom.Text;
+
+import edu.ncc.nest.nestapp.NestDBDataSource;
 import edu.ncc.nest.nestapp.NestUPC;
 import edu.ncc.nest.nestapp.R;
 
-import android.widget.DatePicker;
-import android.widget.TextView;
-
-import java.util.Calendar;
-
-
-public class SelectPrintedExpirationDateFragment extends Fragment {
-
-    private static final String TAG = "TESTING";
-
-    private String selectedDate;
-    private String expirationDate;
+public class SelectPrintedExpirationDateFragment extends Fragment
+{
     private NestUPC item;
+    private int monthNum, dayNum, yearNum;
+    private String selectedDate, actualDate;
+    private TextView monthText, dayText, yearText;
+    private Button monthBtn, dayBtn, yearBtn;
 
-    private TextView date;
+    /* days in the index of each month, add one to index */
+    private final int daysInMonth[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
-
-    @Override
-    public View onCreateView(
-            LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState
-    ) {
-        // Inflate the layout for this fragment
+    public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
+        monthNum = dayNum = yearNum = -1;
+        selectedDate = actualDate = "NOT YET PARSED";
         return inflater.inflate(R.layout.fragment_select_printed_expiration_date, container, false);
     }
 
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState)
+    {
         super.onViewCreated(view, savedInstanceState);
 
-        date = view.findViewById(R.id.selected_date);
+        // INITIALIZE VARIABLES;
+        dayText = view.findViewById(R.id.selected_print_day_text);
+        monthText = view.findViewById(R.id.selected_print_month_text);
+        yearText = view.findViewById(R.id.selected_print_year_text);
 
-        if (savedInstanceState == null) {
-            getParentFragmentManager().setFragmentResultListener("FOOD ITEM", this, new FragmentResultListener() {
-                @Override
-                public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
-                    item = (NestUPC) savedInstanceState.get("foodItem");
-                }
-            });
-        }
+        dayBtn = view.findViewById(R.id.selected_print_day_button);
+        monthBtn = view.findViewById(R.id.selected_print_month_button);
+        yearBtn = view.findViewById(R.id.selected_print_year_button);
 
-        // select date button pressed
-        view.findViewById(R.id.button_select_date).setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                // Create a DatePicker object
-                DateDialogFragment datePicker = new DateDialogFragment();
-                // Show datePicker
-                datePicker.show(getParentFragmentManager(), "date picker");
-            }
-        });
-
-        view.findViewById(R.id.button_confirm_date).setOnClickListener(new View.OnClickListener() {
-
-            // TODO: if statement to see if a date was actually selected, if no date then send toast to use date picker
-
-            @Override
-            public void onClick(View view) {
-
-                // Send Date to selectItemFragment
-                Bundle dateBundle = new Bundle();
-                dateBundle.putString("DATE", expirationDate);
-
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("foodItem", item);
-
-                getParentFragmentManager().setFragmentResult("FOOD ITEM", dateBundle);
-
-                // navigation has yet to be set up in the nav_graph.xml
-                NavHostFragment.findNavController(SelectPrintedExpirationDateFragment.this)
-                        .navigate(R.id.displayTrueExpirationFragment);
-            }
-        });
+//        dayBtn.setOnClickListener( v -> pickDay();
+        monthBtn.setOnClickListener( v -> pickMonth() );
+//        yearBtn.setOnClickListener( v -> pickYear() );
     }
 
-    public class DateDialogFragment extends DialogFragment  implements DatePickerDialog.OnDateSetListener{
 
-        public DateDialogFragment()
+    /**
+     * pickMonth()
+     * DISPLAY MONTH PICKER
+     **/
+    private void pickMonth()
+    {
+        // SHOW THE POP UP MENU FOR THE MAIN CATEGORIES, BY USING A POPUP MENU
+        PopupMenu menuPop = new PopupMenu(getContext(), monthBtn);
+        Menu menu = menuPop.getMenu();
+
+        String[] mainCategories = getResources().getStringArray(R.array.MONTHS);
+
+        for (int i = 0; i < mainCategories.length; ++i)
+            menu.add(daysInMonth[i], i + 1, i + 1, mainCategories[i]);
+
+        // THE ACTUAL ON CLICK CODE TO SET THE SUB CATEGORY INDEX AND POPULATE A TEXT VIEW WITH THE INFORMATION
+        menuPop.setOnMenuItemClickListener(item ->
         {
-        }
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            Calendar cal=Calendar.getInstance();
-            int year=cal.get(Calendar.YEAR);
-            int month=cal.get(Calendar.MONTH);
-            int day=cal.get(Calendar.DAY_OF_MONTH);
-            return new DatePickerDialog(getActivity(), this, year, month, day);
-        }
-        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            showSetDate(year,monthOfYear,dayOfMonth);
-        }
+            // set a text view with the category for the user to see;
+            monthText.setText(item.toString());
+            monthNum = item.getItemId();
 
+//            // clear out subcategory between menu changes;
+//            monthText.setText(" ");
+//            subCategory =  -1;
+            return true;
+        });
+        
+        menuPop.show();
     }
 
-    public void showSetDate(int year,int month,int day) {
-        date.setText(year+"/+"+month+"/"+day);
-    }
 }
