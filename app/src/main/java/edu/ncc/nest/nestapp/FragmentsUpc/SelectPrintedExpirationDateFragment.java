@@ -26,10 +26,12 @@ import android.widget.Button;
 import android.widget.PopupMenu;
 import android.view.LayoutInflater;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import edu.ncc.nest.nestapp.NestUPC;
 import edu.ncc.nest.nestapp.R;
@@ -50,6 +52,7 @@ public class SelectPrintedExpirationDateFragment extends Fragment
 
     public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
+        NestUPC item;
         monthNum = dayNum = yearNum = -1;
         selectedDate = actualDate = "NOT YET PARSED";
         return inflater.inflate(R.layout.fragment_select_printed_expiration_date, container, false);
@@ -72,6 +75,34 @@ public class SelectPrintedExpirationDateFragment extends Fragment
         dayBtn.setOnClickListener( v -> pickDay() );
         monthBtn.setOnClickListener( v -> pickMonth() );
         yearBtn.setOnClickListener( v -> pickYear() );
+
+        // GRAB THE UPC VALUES FROM THE BUNDLE SENT FROM SCAN FRAG OR CONFIRM UPC FRAG WHEN READY
+        getParentFragmentManager().setFragmentResultListener("FOOD ITEM", this, (key, bundle) ->
+        {
+            item = (NestUPC)bundle.getSerializable("foodItem");
+            ((TextView)getView().findViewById(R.id.selected_print_headline)).setText( item.getUpc() );
+        });
+
+        // ACCEPT BUTTON CODE - PARSE VALUES FOR NEW UPC, PASS INFO TO PRINTED EXPIRATION DATE
+        view.findViewById(R.id.selected_print_accept).setOnClickListener( view1 ->
+        {
+            if (monthNum == -1 || dayNum == -1 || yearNum == -1)
+                Toast.makeText(getContext(), "Please selet a full date!", Toast.LENGTH_LONG).show();
+
+            else
+            {
+                // retrieve the String information from each view, casting as appropriate;
+                String fullDate = ("" + monthNum + "/" + dayNum + "/" + yearNum);
+                Toast.makeText(getContext(), fullDate, Toast.LENGTH_LONG).show();
+
+                Bundle saved = new Bundle();
+                saved.putString("savedUPC", fullDate);
+
+                // navigate over to the proper fragment;
+//                NavHostFragment.findNavController(SelectPrintedExpirationDateFragment.this).navigate
+//                        ( (R.id.DisplayTrueExpirationFragment) );
+            }
+        });
     }
 
 
