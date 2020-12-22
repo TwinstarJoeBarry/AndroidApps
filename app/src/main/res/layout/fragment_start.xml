@@ -23,15 +23,20 @@
     android:layout_height="match_parent"
     tools:context=".FragmentsUpc.StartFragment">
 
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
     <TextView
-        android:id="@+id/textview_start_info"
+        android:id="@+id/getUPCMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_start_fragment"
+        android:text="Scan the food item's UPC\n that is printed on the barcode with a camera\nor enter the UPC code manually."
+        android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@id/button_scan"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <Button
         android:id="@+id/button_scan"
@@ -40,9 +45,9 @@
         android:text="@string/scan"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.238"
+        app:layout_constraintHorizontal_bias="0.25"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textview_start_info" />
+        app:layout_constraintTop_toBottomOf="@id/getUPCMessage"/>
 
     <Button
         android:id="@+id/button_enter"
@@ -51,8 +56,8 @@
         android:text="@string/enter_upc"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.808"
+        app:layout_constraintHorizontal_bias="0.75"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textview_start_info" />
+        app:layout_constraintTop_toBottomOf="@id/getUPCMessage" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
