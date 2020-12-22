@@ -2,6 +2,7 @@ package edu.ncc.nest.nestapp.FragmentsGuestRegistration;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -46,13 +47,14 @@ public class FirstFragmentGuestRegistration  extends Fragment implements View.On
 
         //database where we will store user information
         GuestFormHelper db;
+        String TAG = "TESTING";
 
         //variables to store user information
         EditText name, email, phone, date, address, city, zip,id;
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            //super.onCreate(savedInstanceState);
+            super.onCreate(savedInstanceState);
             //setContentView(R.layout.activity_guest_form);
 
             //Toolbar toolbar = findViewById(R.id.toolbar);
@@ -64,27 +66,45 @@ public class FirstFragmentGuestRegistration  extends Fragment implements View.On
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-          //  view.findViewById(R.id.fragment_gue)
-//getting a handle on info from the UI
-        name = (EditText) getView().findViewById(R.id.editText);
-        phone = (EditText)getView(). findViewById(R.id.editText2);
-        email = (EditText) getView().findViewById(R.id.editText3);
-        address = (EditText)getView().findViewById(R.id.editText5);
-        city = (EditText)getView().findViewById(R.id.editText6);
-        zip = (EditText)getView().findViewById(R.id.editText7);
-        date = (EditText)getView(). findViewById(R.id.editText8);
-        id= (EditText)getView().findViewById(R.id.editText4);
+            view.findViewById(R.id.next_button_first_fragment_gRegistration).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //getting a handle on info from the UI
+                    name = (EditText) getView().findViewById(R.id.editText);
+                    phone = (EditText)getView(). findViewById(R.id.editText2);
+                    email = (EditText) getView().findViewById(R.id.editText3);
+                    address = (EditText)getView().findViewById(R.id.editText5);
+                    city = (EditText)getView().findViewById(R.id.editText6);
+                    zip = (EditText)getView().findViewById(R.id.editText7);
+                    date = (EditText)getView(). findViewById(R.id.editText8);
+                    id= (EditText)getView().findViewById(R.id.editText4);
 
-        // Navigates to the Guest Registration Entry Form for person information
-        view.findViewById(R.id.done_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+                    String inputName = name.getText().toString();
+                    String inputPhone = phone.getText().toString();
+                    String inputEmail = email.getText().toString();
+                    String inputAddress = address.getText().toString();
+                    String inputCity = city.getText().toString();
+                    String inputZip = zip.getText().toString();
+                    String inputDate = date.getText().toString();
+                    String inputId = id.getText().toString();
+                    // for testing purposes
+                    Log.d(TAG, "The name is: " + inputName);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("NAME",inputName);
+                    bundle.putString("PHONE",inputPhone);
+                    bundle.putString("EMAIL",inputEmail);
+                    bundle.putString("ADDRESS",inputAddress);
+                    bundle.putString("CITY",inputCity);
+                    bundle.putString("ZIP",inputZip);
+                    bundle.putString("DATE",inputDate);
+                    bundle.putString("ID",inputId);
+
                 // Uncomment this code when the layouts for the registration form page is available &
                 // complete this line with the appropriate nav action -> navigate( R.id.action_StartFragment_to_FormFragment)
                 NavHostFragment.findNavController(FirstFragmentGuestRegistration.this)
                         .navigate(R.id.action_FirstFragmentGuestRegistration_to_SecondFragmentGuestRegistration);
-            }
-        });
+                }
+            });
 
     }
 
