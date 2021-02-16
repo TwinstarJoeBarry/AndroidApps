@@ -136,6 +136,9 @@ public class ConfirmItemFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("foodItem", item);
 
+                // Need to clear the listener with the same request key, before using same request key again.
+                getParentFragmentManager().clearFragmentResultListener("FOOD ITEM");
+
                 getParentFragmentManager().setFragmentResult("FOOD ITEM", bundle);
                 NavHostFragment.findNavController(ConfirmItemFragment.this)
                         .navigate(R.id.action_confirmItemFragment_to_selectPrintedExpirationDateFragment);

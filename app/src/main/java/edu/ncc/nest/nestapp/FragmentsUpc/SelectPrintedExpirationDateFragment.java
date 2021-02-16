@@ -96,11 +96,19 @@ public class SelectPrintedExpirationDateFragment extends Fragment
                 Toast.makeText(getContext(), fullDate, Toast.LENGTH_LONG).show();
 
                 Bundle saved = new Bundle();
-                saved.putString("savedUPC", fullDate);
 
-                // navigate over to the proper fragment; // TODO need the navigation for this to work
-//                NavHostFragment.findNavController(SelectPrintedExpirationDateFragment.this).navigate
-//                        ( (R.id.DisplayTrueExpirationFragment) );
+                saved.putString("DATE", fullDate);
+
+                saved.putSerializable("foodItem", item);
+
+                // Need to clear the listener with the same request key, before using same request key again.
+                getParentFragmentManager().clearFragmentResultListener("FOOD ITEM");
+
+                // Set the fragment result to the bundle
+                getParentFragmentManager().setFragmentResult("FOOD ITEM", saved);
+
+                // navigate over to the proper fragment
+                NavHostFragment.findNavController(SelectPrintedExpirationDateFragment.this).navigate(R.id.action_selectPrintedExpirationDateFragment_to_displayTrueExpirationFragment);
             }
         });
     }

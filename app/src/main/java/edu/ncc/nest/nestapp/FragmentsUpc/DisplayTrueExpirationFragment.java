@@ -68,7 +68,7 @@ public class DisplayTrueExpirationFragment extends Fragment {
             public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle data) {
 
                 // Parsing the product from the bundle
-                product = (NestUPC) data.getParcelable("foodItem");
+                product = (NestUPC) data.getSerializable("foodItem");
                 // Parsing expiration date from the bundle
                 exp = data.getString("DATE");
             }
