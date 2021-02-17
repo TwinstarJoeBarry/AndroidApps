@@ -311,6 +311,7 @@ public class ItemInformation extends AppCompatActivity implements DatePickerDial
 
         //placeholder code
         if(expirationYear == -1 || itemDisplay.getText().toString().equals(""))
+        if(expirationYear == -1 || itemDisplay.getText().toString().equals(""))
             Toast.makeText(getApplicationContext(), "Cannot calculate. Please select an item and " +
                     "date, then try again.", Toast.LENGTH_LONG).show();
         else

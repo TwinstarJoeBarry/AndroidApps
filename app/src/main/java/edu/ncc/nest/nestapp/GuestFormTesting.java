@@ -27,7 +27,6 @@ import edu.ncc.nest.nestapp.FragmentsGuestRegistration.GuestFormRegistrationActi
 import edu.ncc.nest.nestapp.FragmentsGuestRegistration.GuestFormRegistrationStartPageFragment;
 
 public class GuestFormTesting extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +41,7 @@ public class GuestFormTesting extends AppCompatActivity {
                 startActivity(intent);
                 break;
             case R.id.guestRegGoogle:
-                intent = new Intent(this, GuestForm.class);
+                intent = new Intent(this, GuestFormGoogleSheet.class);
                 startActivity(intent);
                 break;
             case R.id.guestVisitLocalDbase:
