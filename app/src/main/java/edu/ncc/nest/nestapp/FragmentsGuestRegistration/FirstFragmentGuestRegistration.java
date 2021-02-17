@@ -1,30 +1,5 @@
 package edu.ncc.nest.nestapp.FragmentsGuestRegistration;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.EditText;
-import android.widget.Toast;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
-import edu.ncc.nest.nestapp.Choose;
-import edu.ncc.nest.nestapp.GuestFormHelper;
-import edu.ncc.nest.nestapp.R;
-import  androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
-
-public class FirstFragmentGuestRegistration  extends Fragment implements View.OnClickListener, AdapterView.OnItemSelectedListener {
-
 /**
  *
  * Copyright (C) 2019 The LibreFoodPantry Developers.
@@ -43,41 +18,58 @@ public class FirstFragmentGuestRegistration  extends Fragment implements View.On
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.EditText;
+import edu.ncc.nest.nestapp.GuestFormSource;
+import edu.ncc.nest.nestapp.R;
+import  androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
+public class FirstFragmentGuestRegistration  extends Fragment implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
-        //database where we will store user information
-        GuestFormHelper db;
-        String TAG = "TESTING";
+    //database where we will store user information
+    GuestFormSource db;
+    String TAG = "TESTING";
 
-        //variables to store user information
-        EditText name, email, phone, date, address, city, zip,id;
+    //variables to store user information
+    EditText name, email, phone, date, address, city, zip,id;
 
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            //setContentView(R.layout.activity_guest_form);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        //setContentView(R.layout.activity_guest_form);
 
-            //Toolbar toolbar = findViewById(R.id.toolbar);
-            // setSupportActionBar(toolbar);
-            return inflater.inflate(R.layout.fragment_first_page_registration_entry_form, container, false);
-        }
-            //creating the database and passing the correct context as the argument
-           // db = new GuestFormHelper(this);
+        //Toolbar toolbar = findViewById(R.id.toolbar);
+        // setSupportActionBar(toolbar);
+        return inflater.inflate(R.layout.fragment_first_page_registration_entry_form, container, false);
+    }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        //creating the database and passing the correct context as the argument
+        db = new GuestFormSource(requireContext());
+
             view.findViewById(R.id.next_button_first_fragment_gRegistration).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     //getting a handle on info from the UI
-                    name = (EditText) getView().findViewById(R.id.editText);
-                    phone = (EditText)getView(). findViewById(R.id.editText2);
-                    email = (EditText) getView().findViewById(R.id.editText3);
-                    address = (EditText)getView().findViewById(R.id.editText5);
-                    city = (EditText)getView().findViewById(R.id.editText6);
-                    zip = (EditText)getView().findViewById(R.id.editText7);
-                    date = (EditText)getView(). findViewById(R.id.editText8);
-                    id= (EditText)getView().findViewById(R.id.editText4);
+                    name = view.findViewById(R.id.editText);
+                    phone = view.findViewById(R.id.editText2);
+                    email = view.findViewById(R.id.editText3);
+                    address = view.findViewById(R.id.editText5);
+                    city = view.findViewById(R.id.editText6);
+                    zip = view.findViewById(R.id.editText7);
+                    date = view.findViewById(R.id.editText8);
+                    id = view.findViewById(R.id.editText4);
 
                     String inputName = name.getText().toString();
                     String inputPhone = phone.getText().toString();
