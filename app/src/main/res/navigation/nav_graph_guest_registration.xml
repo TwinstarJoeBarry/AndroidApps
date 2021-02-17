@@ -58,9 +58,18 @@
         android:id="@+id/FirstFragmentGuestRegistration"
         android:name="edu.ncc.nest.nestapp.FragmentsGuestRegistration.FirstFragmentGuestRegistration"
         android:label="First Fragment Guest Registration"
-        tools:layout="@layout/fragment_first_page_registration_entry_form" >
+        tools:layout="@layout/fragment_first_page_registration_entry_form" >>
+        <action
+            android:id="@+id/action_FirstFragmentGuestRegistration_to_SecondFragmentGuestRegistration"
+            app:destination="@id/GuestFormRegistrationSecondFragment" />
+    </fragment>
 
 
+    <fragment
+        android:id="@+id/GuestFormRegistrationSecondFragment"
+        android:name="edu.ncc.nest.nestapp.FragmentsGuestRegistration.GuestFormRegistrationSecondFragment"
+        android:label="Second Fragment Guest Registration"
+        tools:layout="@layout/fragment_second_page_registration_entry_form" >
     </fragment>
 
     <fragment

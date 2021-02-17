@@ -30,127 +30,207 @@
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
 
-
-    <TextView
-        android:id="@+id/title_txt"
-        android:layout_width="match_parent"
+    <TableRow
+        android:id="@+id/Row1"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/toolbar"
-        android:fontFamily="casual"
-        android:text="@string/app_name"
-        android:textColor="@color/White"
+        android:layout_centerHorizontal="true">
 
-        android:textAlignment="center"
-        android:textSize="20sp" />
+        <TextView
+            android:id="@+id/title_txt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:textStyle="bold"
+            android:fontFamily="casual"
+            android:textAllCaps="true"
+            android:text="Guest Entry Registration"
+            android:textAlignment="center"
 
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/title_txt"
-        android:hint="@string/name_lbl"
-        android:textColorHint="@color/White"
-        android:backgroundTint="@color/White"
-        android:inputType="textPersonName" />
+            android:textColor="@color/White"
+            android:textSize="20sp" />
+    </TableRow>
 
-    <EditText
-        android:id="@+id/editText2"
-        android:layout_width="wrap_content"
-        android:layout_height="45dp"
-        android:layout_below="@id/editText"
-        android:hint="@string/phone_lbl"
-        android:textColorHint="@color/White"
-        android:backgroundTint="@color/White"
-        android:inputType="phone" />
-
-    <EditText
-        android:id="@+id/editText3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/editText2"
-        android:hint="@string/email_lbl"
-        android:textColorHint="@color/White"
-        android:backgroundTint="@color/White"
-        android:inputType="textEmailAddress" />
-
-    <EditText
-        android:id="@+id/editText4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/editText3"
-        android:hint="@string/ID_lbl"
-        android:textColorHint="@color/White"
-        android:backgroundTint="@color/White"
-        android:inputType="number" />
-
-
-    <EditText
-        android:id="@+id/editText5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/editText4"
-        android:hint="@string/address_lbl"
-        android:textColorHint="@color/White"
-        android:backgroundTint="@color/White"
-        android:inputType="textPostalAddress" />
-
-
-    <EditText
-        android:id="@+id/editText6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/editText5"
-        android:hint="@string/town_lbl"
-        android:textColorHint="@color/White"
-        android:backgroundTint="@color/White"
-        android:inputType="textPersonName" />
-
-    <EditText
-        android:id="@+id/editText7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/editText6"
-        android:hint="@string/zip_lbl"
-        android:textColorHint="@color/White"
-        android:backgroundTint="@color/White"
-        android:inputType="number" />
-
-    <Spinner
-        android:id="@+id/states_spinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/editText6"
-        android:layout_toRightOf="@id/editText6"
-        android:entries="@array/states_array"
-        android:textColorHint="@color/White"
-        android:backgroundTint="@color/White"
-        android:paddingTop="10dp" />
-
-    <EditText
-        android:id="@+id/editText8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/editText7"
-        android:hint="@string/date_lbl"
-        android:textColorHint="@color/White"
-        android:backgroundTint="@color/White"
-        android:inputType="date" />
-    <Button
-        android:id="@+id/done_button"
-        android:layout_width="200dp"
+    <TableRow
+        android:id="@+id/Row1a"
+        android:layout_width="380dp"
+        android:layout_height="380dp"
         android:layout_centerHorizontal="true"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/editText8"
-        android:text="@string/next"
-
-        android:layout_marginTop="75dp"
+        android:layout_marginTop="140dp"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="10dp"
         android:backgroundTint="@color/colorPrimary"
-        android:textColor="@color/White"
-        />
+        android:background="@drawable/background_dialog">
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/Row2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Row1"
+        android:layout_marginTop="35dp"
+        android:paddingLeft="30dp" >
+
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/White"
+            android:hint="@string/name_lbl"
+            android:inputType="textPersonName"
+            android:textColorHint="@color/White" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/Row3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Row2"
+        android:layout_marginTop="0dp"
+        android:paddingLeft="30dp" >
+        <EditText
+            android:id="@+id/editText2"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:backgroundTint="@color/White"
+            android:hint="@string/phone_lbl"
+            android:inputType="phone"
+            android:textColorHint="@color/White" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/Row4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Row3"
+        android:layout_marginTop="0dp"
+        android:paddingLeft="30dp"  >
+        <EditText
+            android:id="@+id/editText3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/White"
+            android:hint="@string/email_lbl"
+            android:inputType="textEmailAddress"
+            android:textColorHint="@color/White" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/Row5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Row4"
+        android:layout_marginTop="0dp"
+        android:paddingLeft="30dp" >
+
+        <EditText
+            android:id="@+id/editText4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/White"
+            android:hint="@string/ID_lbl"
+            android:inputType="number"
+            android:textColorHint="@color/White" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/Row6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Row5"
+        android:layout_marginTop="0dp"
+        android:paddingLeft="30dp"  >
+        <EditText
+            android:id="@+id/editText5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/White"
+            android:hint="@string/address_lbl"
+            android:inputType="textPostalAddress"
+            android:textColorHint="@color/White" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/Row7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Row6"
+        android:layout_marginTop="0dp"
+        android:paddingLeft="30dp" >
+        <EditText
+            android:id="@+id/editText6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/White"
+            android:hint="@string/town_lbl"
+            android:inputType="textPersonName"
+            android:textColorHint="@color/White" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/Row8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Row7"
+        android:layout_marginTop="0dp"
+        android:paddingLeft="30dp"  >
+        <EditText
+            android:id="@+id/editText7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/White"
+            android:hint="@string/zip_lbl"
+            android:inputType="number"
+            android:textColorHint="@color/White" />
 
 
+        <Spinner
+            android:id="@+id/states_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/White"
+            android:entries="@array/states_array"
+            android:paddingTop="10dp"
+            android:textColorHint="@color/White" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/Row9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Row8"
+        android:layout_marginTop="0dp"
+        android:paddingLeft="30dp"  >
+        <EditText
+            android:id="@+id/editText8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/White"
+            android:hint="@string/date_lbl"
+            android:inputType="date"
+            android:textColorHint="@color/White" />
+    </TableRow>
 
 
+    <TableRow
+        android:id="@+id/Row10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Row1a"
+        android:layout_marginTop="0dp"
+        android:layout_centerHorizontal="true">
+
+        <Button
+            android:id="@+id/next_button_first_fragment_gRegistration"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+
+            android:backgroundTint="@color/colorPrimary"
+            android:text="@string/next"
+            android:textColor="@color/White" />
+    </TableRow>
 
 </RelativeLayout>
 
