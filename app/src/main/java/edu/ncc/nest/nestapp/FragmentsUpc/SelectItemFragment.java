@@ -16,11 +16,14 @@ package edu.ncc.nest.nestapp.FragmentsUpc;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+import edu.ncc.nest.nestapp.BuildConfig;
 import edu.ncc.nest.nestapp.NestDBDataSource;
+import edu.ncc.nest.nestapp.NestUPC;
 import edu.ncc.nest.nestapp.R;
 
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
@@ -106,10 +109,22 @@ public class SelectItemFragment extends Fragment implements View.OnClickListener
         // GRAB THE UPC VALUES FROM THE BUNDLE SENT FROM SCAN FRAG OR CONFIRM UPC FRAG WHEN READY
         getParentFragmentManager().setFragmentResultListener("BARCODE", this, (key, bundle) ->
         {
+
             upcSaved = bundle.getString("barcode");
-            if (upcSaved != PLACEHOLDER_STRING)
-                ((TextView)getView().findViewById(R.id.fragment_select_item_headline)).setText("Adding UPC: " + upcSaved);
+
+            if (!PLACEHOLDER_STRING.equals(upcSaved)) {
+
+                String text = "Adding UPC: " + upcSaved;
+
+                ((TextView) view.findViewById(R.id.fragment_select_item_headline)).setText(text);
+
+            }
+
             // FIXME nothing to get when navigating backward from next fragment (select printed expiration date); not likely desirable behavior!
+
+            // Clear the result listener since we have successfully retrieved the result
+            getParentFragmentManager().clearFragmentResultListener("BARCODE");
+
         });
 
         // ACCEPT BUTTON CODE - PARSE VALUES FOR NEW UPC, PASS INFO TO PRINTED EXPIRATION DATE
@@ -119,8 +134,8 @@ public class SelectItemFragment extends Fragment implements View.OnClickListener
             NestDBDataSource database = new NestDBDataSource( getContext() );
 
             // retrieve the String information from each view, casting as appropriate;
-            String name = ((EditText) (getView().findViewById(R.id.fragment_select_item_brand_entry))).getText().toString();
-            String description = ((EditText) (getView().findViewById(R.id.fragment_select_item_description_entry))).getText().toString();
+            String name = ((EditText) (view.findViewById(R.id.fragment_select_item_brand_entry))).getText().toString();
+            String description = ((EditText) (view.findViewById(R.id.fragment_select_item_description_entry))).getText().toString();
 
 
             // replace any fields from above with blank values;
@@ -133,27 +148,49 @@ public class SelectItemFragment extends Fragment implements View.OnClickListener
             if (subCategory == -1)
                 Toast.makeText(getContext(), "Don't forget to fill the category AND subcategory!", Toast.LENGTH_LONG).show();
 
-            else
-            {
+            else {
+
                 // use our source to the database to add the new upc to the NEST's table after parsing the ID
+                // NOTE: This will return -1 if the UPC has never been added before and will cause errors in future fragments.
                 int itemId = database.getProductIdFromUPC(upcSaved);
-                database.insertNewUPC(upcSaved, name, description, itemId);
+
+                if (itemId == -1) {
+
+                    // Product ID does not exist for this UPC
+                    // Need a way of setting the proper productId
+
+                    Log.e("SelectItemFragment", "Product ID Error: itemId = -1");
+
+                } else
+
+                    database.insertNewUPC(upcSaved, name, description, itemId);
 
 
                 // stuff everything in a bundle in case it's needed for PrintedExpirationDate; TODO rip this out if it's not needed
-                Bundle saved = new Bundle();
+                /*Bundle saved = new Bundle();
                 saved.putInt("savedID", subCategory);
                 saved.putString("savedUPC", upcSaved);
                 saved.putString("savedProductName", name);
                 saved.putString("savedDescription", description);
-                getParentFragmentManager().setFragmentResult("PRODUCT INFO", saved);
+                getParentFragmentManager().setFragmentResult("PRODUCT INFO", saved);*/
+
+                Bundle bundle = new Bundle();
+
+                NestUPC foodItem = database.getNestUPC(upcSaved);
+
+                bundle.putSerializable("foodItem", foodItem);
+
+                // Need to clear the result with the same request key, before using possibly same request key again.
+                getParentFragmentManager().clearFragmentResult("FOOD ITEM");
+
+                getParentFragmentManager().setFragmentResult("FOOD ITEM", bundle);
 
                 // navigate over to printed expiration date;
                 NavHostFragment.findNavController(SelectItemFragment.this)
                         .navigate(R.id.action_selectItemFragment_to_selectPrintedExpirationDateFragment);
+
             }
         });
-
 
         // CANCEL BUTTON CODE - NAVIGATE BACK TO START FRAGMENT
         view.findViewById(R.id.cancelButton).setOnClickListener( view12 ->

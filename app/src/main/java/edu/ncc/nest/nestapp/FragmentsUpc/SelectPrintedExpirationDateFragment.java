@@ -79,8 +79,15 @@ public class SelectPrintedExpirationDateFragment extends Fragment
         // GRAB THE UPC VALUES FROM THE BUNDLE SENT FROM SCAN FRAG OR CONFIRM UPC FRAG WHEN READY
         getParentFragmentManager().setFragmentResultListener("FOOD ITEM", this, (key, bundle) ->
         {
+
             item = (NestUPC)bundle.getSerializable("foodItem"); // TODO this probably won't work if there isn't a UPC to get
-            ((TextView)getView().findViewById(R.id.selected_print_headline)).setText( item.getUpc() );
+
+            assert item != null : "Item equals null";
+
+            ((TextView)view.findViewById(R.id.selected_print_headline)).setText( item.getUpc() );
+
+            getParentFragmentManager().clearFragmentResultListener("FOOD ITEM");
+
         });
 
         // ACCEPT BUTTON CODE - PARSE VALUES FOR NEW UPC, PASS INFO TO PRINTED EXPIRATION DATE
@@ -102,13 +109,14 @@ public class SelectPrintedExpirationDateFragment extends Fragment
                 saved.putSerializable("foodItem", item);
 
                 // Need to clear the listener with the same request key, before using same request key again.
-                getParentFragmentManager().clearFragmentResultListener("FOOD ITEM");
+                getParentFragmentManager().clearFragmentResult("FOOD ITEM");
 
                 // Set the fragment result to the bundle
                 getParentFragmentManager().setFragmentResult("FOOD ITEM", saved);
 
                 // navigate over to the proper fragment
-                NavHostFragment.findNavController(SelectPrintedExpirationDateFragment.this).navigate(R.id.action_selectPrintedExpirationDateFragment_to_displayTrueExpirationFragment);
+                NavHostFragment.findNavController(SelectPrintedExpirationDateFragment.this)
+                        .navigate(R.id.action_selectPrintedExpirationDateFragment_to_displayTrueExpirationFragment);
             }
         });
     }

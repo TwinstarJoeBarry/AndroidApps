@@ -63,59 +63,57 @@ public class DisplayTrueExpirationFragment extends Fragment {
 
 
         // Receiving the bundle
-        getParentFragmentManager().setFragmentResultListener("FOOD ITEM", this, new FragmentResultListener() {
-            @Override
-            public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle data) {
+        getParentFragmentManager().setFragmentResultListener("FOOD ITEM", this, (requestKey, data) -> {
 
-                // Parsing the product from the bundle
-                product = (NestUPC) data.getSerializable("foodItem");
-                // Parsing expiration date from the bundle
-                exp = data.getString("DATE");
+            // Parsing the product from the bundle
+            product = (NestUPC) data.getSerializable("foodItem");
+
+            // Parsing expiration date from the bundle
+            exp = data.getString("DATE");
+
+            //TESTING ********************* comment both lines after testing,
+            product = new NestUPC("123456789","Tuscan","", 644, "Milk","",2,"Dairy");
+            exp = "06/10/20";
+
+            // product exists
+            if (product != null) {
+
+                // Display item name , upc , category name on fragment_display_true_expiration.xml
+                ((TextView) view.findViewById(R.id.item_display)).setText(product.getProductName());
+                ((TextView) view.findViewById(R.id.upc_display)).setText(product.getUpc());
+                ((TextView) view.findViewById(R.id.category_display)).setText(product.getCatDesc());
+
+                // NOTE: The following code will throw an error when using the product from result,
+                // due to the productId not being properly set in SelectItemFragment.java
+
+                // Instantiating Database
+                dataSource = new NestDBDataSource(this.getContext());
+
+                // getting the product shelf life from the database
+                List<ShelfLife> shelfLives = dataSource.getShelfLivesForProduct(product.getProductId());
+
+                Log.d(TAG, "DisplayTrueExpirationFragment: onViewCreated: " + shelfLives.toString());    //********************   Testing
+
+                // get the shortest shelf life from the list of shelf lives
+                shelfLife = getShortestShelfLife(shelfLives);
+
             }
+            // product doesn't exist
+            else {
+                Log.d(TAG, "DisplayTrueExpirationFragment: onViewCreated: product doesn't exist");
+            }
+
+            getParentFragmentManager().clearFragmentResultListener("FOOD ITEM");
 
         });
 
+        view.findViewById(R.id.button_display_date).setOnClickListener(view1 -> {
 
-        //TESTING ********************* comment both lines after testing,
-        product = new NestUPC("123456789","Tuscan","", 644, "Milk","",2,"Dairy");
-        exp = "06/10/20";
+            // product exist
+            if (product != null)
+                // Display True Expiration Date
+                ((TextView) view.findViewById(R.id.exp_date_display)).setText(trueExpDate(shelfLife, exp));
 
-
-
-        // product exists
-        if (product != null) {
-
-            // Display item name , upc , category name on fragment_display_true_expiration.xml
-            ((TextView) view.findViewById(R.id.item_display)).setText(product.getProductName());
-            ((TextView) view.findViewById(R.id.upc_display)).setText(product.getUpc());
-            ((TextView) view.findViewById(R.id.category_display)).setText(product.getCatDesc());
-
-            // Instantiating Database
-            dataSource = new NestDBDataSource(this.getContext());
-
-            // getting the product shelf life from the database
-            List<ShelfLife> shelfLives = dataSource.getShelfLivesForProduct(product.getProductId());
-
-            Log.d(TAG, "DisplayTrueExpirationFragment: onViewCreated: " + shelfLives.toString());    //********************   Testing
-
-            // get the shortest shelf life from the list of shelf lives
-            shelfLife = getShortestShelfLife(shelfLives);
-        }
-        // product doesn't exist
-        else {
-            Log.d(TAG, "DisplayTrueExpirationFragment: onViewCreated: product doesn't exist");
-        }
-
-
-        view.findViewById(R.id.button_display_date).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                // product exist
-                if (product != null)
-                    // Display True Expiration Date
-                    ((TextView) getView().findViewById(R.id.exp_date_display)).setText(trueExpDate(shelfLife, exp));
-            }
         });
 
 
