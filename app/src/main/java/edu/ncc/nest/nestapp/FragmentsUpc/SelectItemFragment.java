@@ -161,9 +161,9 @@ public class SelectItemFragment extends Fragment implements View.OnClickListener
 
                     Log.e("SelectItemFragment", "Product ID Error: itemId = -1");
 
-                } else
+                }
 
-                    database.insertNewUPC(upcSaved, name, description, itemId);
+                database.insertNewUPC(upcSaved, name, description, itemId);
 
 
                 // stuff everything in a bundle in case it's needed for PrintedExpirationDate; TODO rip this out if it's not needed
