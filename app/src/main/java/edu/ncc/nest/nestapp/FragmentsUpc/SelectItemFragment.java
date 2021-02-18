@@ -157,7 +157,7 @@ public class SelectItemFragment extends Fragment implements View.OnClickListener
                 if (itemId == -1) {
 
                     // Product ID does not exist for this UPC
-                    // Need a way of setting the proper productId
+                    // TODO: Need a way of setting the proper productId
 
                     Log.e("SelectItemFragment", "Product ID Error: itemId = -1");
 

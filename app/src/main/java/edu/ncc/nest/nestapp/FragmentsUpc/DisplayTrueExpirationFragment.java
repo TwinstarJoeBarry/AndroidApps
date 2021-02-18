@@ -72,8 +72,8 @@ public class DisplayTrueExpirationFragment extends Fragment {
             exp = data.getString("DATE");
 
             //TESTING ********************* comment both lines after testing,
-            product = new NestUPC("123456789","Tuscan","", 644, "Milk","",2,"Dairy");
-            exp = "06/10/20";
+            //product = new NestUPC("123456789","Tuscan","", 644, "Milk","",2,"Dairy");
+            //exp = "06/10/20";
 
             // product exists
             if (product != null) {
@@ -84,7 +84,8 @@ public class DisplayTrueExpirationFragment extends Fragment {
                 ((TextView) view.findViewById(R.id.category_display)).setText(product.getCatDesc());
 
                 // NOTE: The following code will throw an error when using the product from result,
-                // due to the productId not being properly set in SelectItemFragment.java
+                // due to the productId not being properly set in SelectItemFragment.java.
+                // The productId is being set to -1. See SelectItemFragment.java, line 155.
 
                 // Instantiating Database
                 dataSource = new NestDBDataSource(this.getContext());
