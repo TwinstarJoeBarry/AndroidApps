@@ -103,7 +103,7 @@ public class ConfirmItemFragment extends Fragment {
                     Log.d(TAG, "In ConfirmItemFragment onFragmentResult()");
 
                     // retrieve foodItem from Bundle
-                    item = (NestUPC) result.get("foodItem");
+                    item = (NestUPC) result.getSerializable("foodItem");
 
                     // retrieve strings from food item
                     item_name = item.getProductName();
@@ -117,6 +117,10 @@ public class ConfirmItemFragment extends Fragment {
                     itemName.setText(item_name);
                     catName.setText(cat_name);
                     upc.setText(upc_string);
+
+                    // Clear the result listener since we successfully received the result
+                    getParentFragmentManager().clearFragmentResultListener("FOOD ITEM");
+
                 }
             });
         }
@@ -126,48 +130,55 @@ public class ConfirmItemFragment extends Fragment {
         ////////////// Navigation //////////////
 
         // if confirm button clicked, nav to fragment_select_printed_expiration_date.xml
-        view.findViewById(R.id.button_confirm_item).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        view.findViewById(R.id.button_confirm_item).setOnClickListener(view1 -> {
 
-                Log.d(TAG, "In ConfirmItemFragment onClick() for button_confirm_item");
+            Log.d(TAG, "In ConfirmItemFragment onClick() for button_confirm_item");
 
-                // Send bundle received to SelectPrintedExpirationDateFragment
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("foodItem", item);
+            // Send bundle received to SelectPrintedExpirationDateFragment
+            Bundle bundle = new Bundle();
 
-                getParentFragmentManager().setFragmentResult("FOOD ITEM", bundle);
-                NavHostFragment.findNavController(ConfirmItemFragment.this)
-                        .navigate(R.id.action_confirmItemFragment_to_selectPrintedExpirationDateFragment);
+            bundle.putSerializable("foodItem", item);
 
-            }
+            // Need to clear the result with the same request key, before using possibly same request key again.
+            getParentFragmentManager().clearFragmentResult("FOOD ITEM");
+
+            getParentFragmentManager().setFragmentResult("FOOD ITEM", bundle);
+
+            NavHostFragment.findNavController(ConfirmItemFragment.this)
+                    .navigate(R.id.action_confirmItemFragment_to_selectPrintedExpirationDateFragment);
+
         });
 
         // if the item was incorrect, nav to fragment_select_item.xml
-        view.findViewById(R.id.button_incorrect_item).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        view.findViewById(R.id.button_incorrect_item).setOnClickListener(view12 -> {
 
-                Log.d(TAG, "In ConfirmItemFragment onClick() for button_incorrect_item");
+            Log.d(TAG, "In ConfirmItemFragment onClick() for button_incorrect_item");
 
-                // Send UPC/barcode to selectItemFragment
-                Bundle upcBundle = new Bundle();
-                upcBundle.putString("barcode", upc_string);     // using "barcode" KEY to stay consistent with ScanFragment
-                getParentFragmentManager().setFragmentResult("BARCODE", upcBundle);
+            // Send UPC/barcode to selectItemFragment
+            Bundle upcBundle = new Bundle();
 
-                NavHostFragment.findNavController(ConfirmItemFragment.this)
-                        .navigate(R.id.action_confirmItemFragment_to_selectItemFragment);
+            upcBundle.putString("barcode", upc_string);     // using "barcode" KEY to stay consistent with ScanFragment
 
-            }
+            // Need to clear the result with the same request key, before using possibly same request key again.
+            getParentFragmentManager().clearFragmentResult("BARCODE");
+
+            getParentFragmentManager().setFragmentResult("BARCODE", upcBundle);
+
+            NavHostFragment.findNavController(ConfirmItemFragment.this)
+                    .navigate(R.id.action_confirmItemFragment_to_selectItemFragment);
+
+
         });
     }
 
     /////////// LIFE CYCLE ////////////
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
 
-        // save item + strings
-        outState.putSerializable("foodItem", item);
+        if (item != null)
+
+            // save item + strings
+            outState.putSerializable("foodItem", item);
 
         super.onSaveInstanceState(outState);
 

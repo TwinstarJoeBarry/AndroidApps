@@ -16,90 +16,195 @@ package edu.ncc.nest.nestapp.FragmentsUpc;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-import android.app.DatePickerDialog;
 import android.os.Bundle;
+
+import android.view.Menu;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+
+import android.widget.PopupMenu;
+import android.view.LayoutInflater;
+import android.widget.TextView;
+import android.widget.Toast;
+
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.DatePicker;
-import android.widget.TextView;
-
-import java.util.Calendar;
-
+import edu.ncc.nest.nestapp.NestUPC;
 import edu.ncc.nest.nestapp.R;
 
-public class SelectPrintedExpirationDateFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
+public class SelectPrintedExpirationDateFragment extends Fragment
+{
+    private final int STARTING_YEAR = 2020;
+    private final int ADDITIONAL_YEARS = 10;
 
-    TextView expDisplay;
+    private NestUPC item;
+    private int monthNum, dayNum, yearNum;
+    private String selectedDate, actualDate;
+    private TextView monthText, dayText, yearText;
+    private Button monthBtn, dayBtn, yearBtn;
 
-    @Override
-    public View onCreateView(
-            LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState
-    ) {
-        // Inflate the layout for this fragment
+    /* days in the index of each month, add one to index */
+    private final int daysInMonth[] = { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+
+    public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
+        NestUPC item;
+        monthNum = dayNum = yearNum = -1;
+        selectedDate = actualDate = "NOT YET PARSED";
         return inflater.inflate(R.layout.fragment_select_printed_expiration_date, container, false);
     }
 
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState)
+    {
         super.onViewCreated(view, savedInstanceState);
 
-        expDisplay = (TextView)view.findViewById(R.id.exp_result);
+        // INITIALIZE VARIABLES;
+        dayText = view.findViewById(R.id.selected_print_day_text);
+        monthText = view.findViewById(R.id.selected_print_month_text);
+        yearText = view.findViewById(R.id.selected_print_year_text);
 
-        view.findViewById(R.id.button_select_date_next).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // navigation has yet to be set up in the nav_graph.xml
+        dayBtn = view.findViewById(R.id.selected_print_day_button);
+        monthBtn = view.findViewById(R.id.selected_print_month_button);
+        yearBtn = view.findViewById(R.id.selected_print_year_button);
+
+        dayBtn.setOnClickListener( v -> pickDay() );
+        monthBtn.setOnClickListener( v -> pickMonth() );
+        yearBtn.setOnClickListener( v -> pickYear() );
+
+        // GRAB THE UPC VALUES FROM THE BUNDLE SENT FROM SCAN FRAG OR CONFIRM UPC FRAG WHEN READY
+        getParentFragmentManager().setFragmentResultListener("FOOD ITEM", this, (key, bundle) ->
+        {
+
+            item = (NestUPC)bundle.getSerializable("foodItem"); // TODO this probably won't work if there isn't a UPC to get
+
+            assert item != null : "Item equals null";
+
+            ((TextView)view.findViewById(R.id.selected_print_headline)).setText( item.getUpc() );
+
+            getParentFragmentManager().clearFragmentResultListener("FOOD ITEM");
+
+        });
+
+        // ACCEPT BUTTON CODE - PARSE VALUES FOR NEW UPC, PASS INFO TO PRINTED EXPIRATION DATE
+        view.findViewById(R.id.selected_print_accept).setOnClickListener( view1 ->
+        {
+            if (monthNum == -1 || dayNum == -1 || yearNum == -1)
+                Toast.makeText(getContext(), "Please select a full date!", Toast.LENGTH_LONG).show();
+
+            else
+            {
+                // retrieve the String information from each view, casting as appropriate;
+                String fullDate = ("" + monthNum + "/" + dayNum + "/" + yearNum);
+                Toast.makeText(getContext(), fullDate, Toast.LENGTH_LONG).show();
+
+                Bundle saved = new Bundle();
+
+                saved.putString("DATE", fullDate);
+
+                saved.putSerializable("foodItem", item);
+
+                // Need to clear the listener with the same request key, before using same request key again.
+                getParentFragmentManager().clearFragmentResult("FOOD ITEM");
+
+                // Set the fragment result to the bundle
+                getParentFragmentManager().setFragmentResult("FOOD ITEM", saved);
+
+                // navigate over to the proper fragment
                 NavHostFragment.findNavController(SelectPrintedExpirationDateFragment.this)
-                        .navigate(R.id.displayTrueExpirationFragment);
-            }
-        });
-
-        view.findViewById(R.id.date_select_btn).setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                showDatePickerDialog(view);
+                        .navigate(R.id.action_selectPrintedExpirationDateFragment_to_displayTrueExpirationFragment);
             }
         });
     }
 
-    /**
-     * showDatePickerDialog method --
-     * onClick for the Date button; creates and shows a DatePickerDialog initialized to the current
-     * date.
-     *
-     * @param v - the Date button
-     */
-    public void showDatePickerDialog(View v){
-        DatePickerDialog datePicker = new DatePickerDialog(
-                v.getContext(),
-                this,
-                Calendar.getInstance().get(Calendar.YEAR),
-                Calendar.getInstance().get(Calendar.MONTH),
-                Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
-        );
-        datePicker.show();
-    }
 
     /**
-     * onDateSet method --
-     * Called whenever a user selects a date in the DatePickerDialog and hits okay. Note the
-     * parameter descriptions below to interpret results. Stores month, day, and year, and updates
-     * the label.
-     *
-     * @param datePicker - the DatePickerDialog
-     * @param i - Year
-     * @param i1 - Month (0 based; Jan. is 0, Feb. is 1, etc.)
-     * @param i2 - Day
-     */
-    @Override
-    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-        i1++; //increment month to a 1-based number
-        String expirationDate = i1 + "/" + i2 + "/" + i;
-        expDisplay.setText(expirationDate);
+     * pickMonth()
+     * DISPLAY MONTH PICKER
+     **/
+    private void pickMonth()
+    {
+        // SHOW THE POP UP MENU FOR THE MONTHS, BY USING A POPUP MENU
+        PopupMenu menuPop = new PopupMenu(getContext(), monthBtn);
+        Menu menu = menuPop.getMenu();
+
+        String[] mainCategories = getResources().getStringArray(R.array.MONTHS);
+
+        for (int i = 0; i < mainCategories.length; ++i)
+            menu.add(daysInMonth[i], i + 1, i + 1, mainCategories[i]);
+
+        // THE ACTUAL ON CLICK CODE TO SET THE MONTH INDEX
+        menuPop.setOnMenuItemClickListener(item ->
+        {
+            // set a text view with the month for the user to see;
+            monthText.setText(item.toString());
+            monthNum = item.getItemId();
+
+            // clear out day category between menu changes;
+            dayText.setText(" ");
+            dayNum =  -1;
+            return true;
+        });
+
+        menuPop.show();
     }
+
+
+    /**
+     * pickDay()
+     * DISPLAY DAY PICKER
+     **/
+    private void pickDay()
+    {
+        // SHOW THE POP UP MENU FOR THE DAY, BY USING A POPUP MENU
+        PopupMenu menuPop = new PopupMenu(getContext(), dayBtn);
+        Menu menu = menuPop.getMenu();
+
+        int daysThisMonth = daysInMonth[monthNum];
+        for (int i = 1; i <= daysThisMonth;  ++i )
+            menu.add(i, i, i, "" + i);
+
+        // THE ACTUAL ON CLICK CODE TO SET THE DAY INDEX
+        menuPop.setOnMenuItemClickListener(item ->
+        {
+            // set a text view with the day for the user to see;
+            dayText.setText(item.toString());
+            dayNum = item.getItemId();
+            return true;
+        });
+
+        menuPop.show();
+    }
+
+
+    /**
+     * pickYear()
+     * DISPLAY YEAR PICKER
+     **/
+    private void pickYear()
+    {
+        // SHOW THE POP UP MENU FOR THE YEAR, BY USING A POPUP MENU
+        PopupMenu menuPop = new PopupMenu(getContext(), yearBtn);
+        Menu menu = menuPop.getMenu();
+
+        int endingYear = STARTING_YEAR + ADDITIONAL_YEARS;
+        for (int i = STARTING_YEAR; i <= endingYear;  ++i )
+            menu.add(i, i, i, "" + i);
+
+        // THE ACTUAL ON CLICK CODE TO SET THE DAY INDEX
+        menuPop.setOnMenuItemClickListener(item ->
+        {
+            // set a text view with the day for the user to see;
+            yearText.setText(item.toString());
+            yearNum = item.getItemId();
+            return true;
+        });
+
+        menuPop.show();
+    }
+
 }
