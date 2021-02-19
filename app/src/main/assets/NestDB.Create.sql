@@ -141,7 +141,7 @@ CREATE TABLE IF NOT EXISTS "nestUPCs" (
 	"productId"	    INTEGER NOT NULL,			-- matching FoodKeeper product id (chosen by volunteer)
 	"brand"		    TEXT NOT NULL,				-- e.g. “Campbell’s” OR "Any" (or make field brandId and use nestBrands table to normalize)
 	"description"   TEXT NOT NULL,				-- e.g. “Chicken Noodle Soup”, OR just "Peanut Butter (jar)"
-	"_id"		    INTEGE`R PRIMARY KEY
+	"_id"		    INTEGER PRIMARY KEY
 );
 
 CREATE TABLE IF NOT EXISTS "nestBrands" (
