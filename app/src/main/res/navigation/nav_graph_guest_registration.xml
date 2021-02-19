@@ -72,4 +72,12 @@
         tools:layout="@layout/fragment_second_page_registration_entry_form" >
     </fragment>
 
+    <fragment
+        android:id="@+id/GuestFormRegistrationSummaryPage"
+        android:name="edu.ncc.nest.nestapp.FragmentsGuestRegistration.GuestFormRegistrationSummaryPage"
+        android:label="Guest Form Registration Summary Page"
+        tools:layout="@layout/fragment_guest_registration_summary_page" >
+
+    </fragment>
+
 </navigation>
