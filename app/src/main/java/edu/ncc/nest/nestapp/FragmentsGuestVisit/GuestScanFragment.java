@@ -43,6 +43,7 @@ import com.google.zxing.BarcodeFormat;
 
 import edu.ncc.nest.nestapp.FragmentScanner.ScannerFragment;
 import edu.ncc.nest.nestapp.GuestFormHelper;
+import edu.ncc.nest.nestapp.GuestFormSource;
 import edu.ncc.nest.nestapp.R;
 
 /**
@@ -73,13 +74,13 @@ public class GuestScanFragment extends ScannerFragment {
         resultBundle.putString("BARCODE", barcode);
 
         // Create an instance of the database helper
-        GuestFormHelper db = new GuestFormHelper(requireContext());
+        GuestFormSource db = new GuestFormSource(requireContext());
 
         // Check if the guest is registered in the database
         // No guests yet so this will always be null. GUEST_NAME was set to "Test" for testing purposes.
-        //final String GUEST_NAME = db.isRegistered(barcodeResult);
+        final String GUEST_NAME = db.isRegistered(barcode);
         //TODO: Replace the line below with the one above.
-        final String GUEST_NAME = "Test";
+        //final String GUEST_NAME = "Test";
 
         if (GUEST_NAME != null)
 

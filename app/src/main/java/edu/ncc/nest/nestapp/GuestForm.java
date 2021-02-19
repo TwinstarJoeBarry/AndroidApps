@@ -97,7 +97,7 @@ public class GuestForm extends AppCompatActivity {
 
             // NOTE: The parameter 'barcode' was recently added to this method
             // TODO: Update parameter 'barcode' to the barcode representing this user
-            ins = db.insertData(name.getText().toString(), email.getText().toString(), phone.getText().toString(), date.getText().toString(), address.getText().toString(), city.getText().toString(), zip.getText().toString(), null);
+            //ins = db.insertData(name.getText().toString(), email.getText().toString(), phone.getText().toString(), date.getText().toString(), address.getText().toString(), city.getText().toString(), zip.getText().toString(), null);
 
         }
 

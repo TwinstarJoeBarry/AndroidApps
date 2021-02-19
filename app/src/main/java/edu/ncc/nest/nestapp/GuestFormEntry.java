@@ -31,14 +31,25 @@ public class GuestFormEntry {
     private String nameOfVolunteer;
     private String nccID;
 
-
-    public GuestFormEntry() {
+    public GuestFormEntry()
+    {
+        this.name = null;
+        this.email = null;
+        this.phone = null;
+        this.date = null;
+        this.address = null;
+        this.city = null;
+        this.zipcode = null;
+        this.state = null;
+        this.additionalInfo = null;
+        this.nameOfVolunteer = null;
+        this.nccID = null;
     }
-
 
     // parameterized constructor
     public GuestFormEntry(String name, String email, String phone, String date, String address, String city, String zipcode,
-                          String state, String additionalInfo, String nameOfVolunteer, String nccID) {
+                          String state, String additionalInfo, String nameOfVolunteer, String nccID)
+    {
         this.name = name;
         this.email = email;
         this.phone = phone;
@@ -50,115 +61,44 @@ public class GuestFormEntry {
         this.additionalInfo = additionalInfo;
         this.nameOfVolunteer = nameOfVolunteer;
         this.nccID = nccID;
-
     }
 
-    public long getId() {
-        return id;
-    }
+    // Getter Methods
+    public long getId() { return id; }
+    public String getName() { return name; }
+    public String getEmail() { return email; }
+    public String getPhone() { return phone; }
+    public String getDate() { return date; }
+    public String getAddress() { return address; }
+    public String getCity() { return city; }
+    public String getZipcode() { return zipcode; }
+    public String getState() { return state; }
+    public String getAdditionalInfo() { return additionalInfo; }
+    public String getNameOfVolunteer() { return nameOfVolunteer; }
+    public String getNccID() { return nccID; }
 
-    public void setId(long id) {
-        this.id = id;
-    }
+    // Setter Methods
+    public void setId(long id) { this.id = id; }
+    public void setName(String name) { this.name = name; }
+    public void setEmail(String email) { this.email = email; }
+    public void setPhone(String phone) { this.phone = phone; }
+    public void setDate(String date) { this.date = date; }
+    public void setAddress(String address) { this.address = address; }
+    public void setCity(String city) { this.city = city; }
+    public void setZipcode(String zipcode) { this.zipcode = zipcode; }
+    public void setState(String state) { this.state = state; }
+    public void setAdditionalInfo(String additionalInfo) { this.additionalInfo = additionalInfo; }
+    public void setNameOfVolunteer(String nameOfVolunteer) { this.nameOfVolunteer = nameOfVolunteer; }
+    public void setNccID(String nccID) { this.nccID = nccID; }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getNccID() {
-        return nccID;
-    }
-
-    public void setNccID(String nccID) {
-        this.nccID = nccID;
-    }
-
-    public String getNameOfVolunteer() {
-
-        return nameOfVolunteer;
-    }
-
-    public void setNameOfVolunteer(String nameOfVolunteer) {
-        this.nameOfVolunteer = nameOfVolunteer;
-    }
-
-    public String getAdditionalInfo() {
-
-        return additionalInfo;
-    }
-
-    public void setAdditionalInfo(String additionalInfo) {
-        this.additionalInfo = additionalInfo;
-    }
-
-    public String getState() {
-
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public String getZipcode() {
-
-        return zipcode;
-    }
-
-    public void setZipcode(String zipcode) {
-        this.zipcode = zipcode;
-    }
-
-    public String getAddress() {
-
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getCity() {
-
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getDate() {
-
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public boolean equals(Object otherEntry) {
-        return this.id == ((GuestFormEntry) otherEntry).id;
-    }
+    /**
+     * equals method --
+     * this method accepts a guest entry as an argument.
+     * It compares the argument ID to the object calling the method's ID
+     * @param otherEntry - the guest entry that the object calling the method is being compared to
+     * @return true if the entry has the same ID, false otherwise
+     */
+    public boolean equals(Object otherEntry) { return this.id == ((GuestFormEntry) otherEntry).id; }
 
     // Will be used by the ArrayAdapter in the ListView
     @Override
