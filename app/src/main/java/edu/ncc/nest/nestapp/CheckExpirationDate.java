@@ -20,6 +20,9 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+/*
+ * CheckExpirationDate: This is the underlying activity for the fragments in nav_graph.xml (FragmentsUpc package)
+ */
 public class CheckExpirationDate extends AppCompatActivity {
 
     @Override
