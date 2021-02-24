@@ -1,4 +1,3 @@
 - activity_get_upc.xml
 - activity_enter_upc.xml
 - activity_scanner.xml
-
