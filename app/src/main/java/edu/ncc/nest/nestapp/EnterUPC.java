@@ -31,6 +31,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+/**
+ * @deprecated This Activity is being replaced by a Fragment. ({@link edu.ncc.nest.nestapp.FragmentsUpc.EnterUpcFragment})
+ */
+@Deprecated
 public class EnterUPC extends AppCompatActivity {
 
     @Override
