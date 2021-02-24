@@ -28,6 +28,10 @@ import android.view.View;
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+/**
+ * @deprecated This class is being replaced by fragments. (StartFragment.java)
+ */
+@Deprecated
 public class GetUPC extends AppCompatActivity {
 
     @Override
