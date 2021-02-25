@@ -37,7 +37,6 @@ import java.util.List;
 
 import edu.ncc.nest.nestapp.NestDBDataSource;
 import edu.ncc.nest.nestapp.NestUPC;
-import edu.ncc.nest.nestapp.Product;
 import edu.ncc.nest.nestapp.R;
 import edu.ncc.nest.nestapp.ShelfLife;
 

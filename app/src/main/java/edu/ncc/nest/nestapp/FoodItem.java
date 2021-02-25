@@ -63,6 +63,11 @@ import java.util.List;
 
 import java.text.DateFormat;
 
+/**
+ * @deprecated This Activity is being replaced by a Fragment. ({@link edu.ncc.nest.nestapp.FragmentsUpc.SelectItemFragment
+ * })
+ */
+@Deprecated
 public class FoodItem extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
 
 
