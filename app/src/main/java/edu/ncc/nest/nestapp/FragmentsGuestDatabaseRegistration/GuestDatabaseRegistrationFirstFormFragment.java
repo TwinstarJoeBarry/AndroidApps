@@ -1,4 +1,4 @@
-package edu.ncc.nest.nestapp.FragmentsGuestRegistration;
+package edu.ncc.nest.nestapp.FragmentsGuestDatabaseRegistration;
 
 /**
  *
@@ -33,7 +33,7 @@ import  androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
-public class FirstFragmentGuestRegistration  extends Fragment implements View.OnClickListener, AdapterView.OnItemSelectedListener {
+public class GuestDatabaseRegistrationFirstFormFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
     //database where we will store user information
     GuestFormSource db;
@@ -49,7 +49,7 @@ public class FirstFragmentGuestRegistration  extends Fragment implements View.On
 
         //Toolbar toolbar = findViewById(R.id.toolbar);
         // setSupportActionBar(toolbar);
-        return inflater.inflate(R.layout.fragment_first_page_registration_entry_form, container, false);
+        return inflater.inflate(R.layout.fragment_guest_database_registration_first_form, container, false);
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
@@ -93,7 +93,7 @@ public class FirstFragmentGuestRegistration  extends Fragment implements View.On
 
                 // Uncomment this code when the layouts for the registration form page is available &
                 // complete this line with the appropriate nav action -> navigate( R.id.action_StartFragment_to_FormFragment)
-                NavHostFragment.findNavController(FirstFragmentGuestRegistration.this)
+                NavHostFragment.findNavController(GuestDatabaseRegistrationFirstFormFragment.this)
                         .navigate(R.id.action_FirstFragmentGuestRegistration_to_SecondFragmentGuestRegistration);
                 }
             });

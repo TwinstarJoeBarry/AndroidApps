@@ -30,7 +30,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 /**
- * @deprecated This Activity is being replaced by a Fragment. ({@link edu.ncc.nest.nestapp.FragmentsCheckExpiration.EnterUpcFragment})
+ * @deprecated This Activity is being replaced by a Fragment. ({@link edu.ncc.nest.nestapp.FragmentsCheckExpirationDate.EnterUpcFragment})
  */
 @Deprecated
 public class EnterUPC extends AppCompatActivity {

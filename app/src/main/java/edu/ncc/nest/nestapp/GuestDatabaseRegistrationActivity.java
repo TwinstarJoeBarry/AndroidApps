@@ -1,4 +1,4 @@
-package edu.ncc.nest.nestapp.FragmentsGuestRegistration;
+package edu.ncc.nest.nestapp;
 /**
  *
  * Copyright (C) 2020 The LibreFoodPantry Developers.
@@ -22,12 +22,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import edu.ncc.nest.nestapp.Choose;
 import edu.ncc.nest.nestapp.R;
 
-public class GuestFormRegistrationActivity extends AppCompatActivity {
+/**
+ * GuestDatabaseRegistrationActivity - Underlying Activity for fragments related to registering a
+ * guest in the local database
+ */
+public class GuestDatabaseRegistrationActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

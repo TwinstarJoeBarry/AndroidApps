@@ -25,9 +25,9 @@
     <!-- The fragment is pulled from @layout/fragment_guest_form_registration_start_page -->
     <fragment
         android:id="@+id/FragmentGuestRegistrationStartPage"
-        android:name="edu.ncc.nest.nestapp.FragmentsGuestRegistration.GuestFormRegistrationStartPageFragment"
+        android:name="edu.ncc.nest.nestapp.FragmentsGuestDatabaseRegistration.GuestDatabaseRegistrationStartPageFragment"
         android:label="@string/start_fragment_label"
-        tools:layout="@layout/fragment_guest_form_registration_start_page">
+        tools:layout="@layout/fragment_guest_database_registration_start_page">
 
         <!-- This action & destination should be named and assigned accordingly to the proper fragment once it is available -->
         <!-- This action & destination currently below are merely for example and do not reflect any accuracy
@@ -48,17 +48,17 @@
 
     <fragment
         android:id="@+id/FragmentGuestRegistrationScanner"
-        android:name="edu.ncc.nest.nestapp.FragmentsGuestRegistration.GuestFormRegistrationScannerFragment"
+        android:name="edu.ncc.nest.nestapp.FragmentsGuestDatabaseRegistration.GuestDatabaseRegistrationScannerFragment"
         android:label="@string/guest_scan_fragment_label"
-        tools:layout="@layout/fragment_guest_registration_barcode_scanner" >
+        tools:layout="@layout/fragment_guest_database_registration_scanner" >
 
     </fragment>
 
     <fragment
         android:id="@+id/FirstFragmentGuestRegistration"
-        android:name="edu.ncc.nest.nestapp.FragmentsGuestRegistration.FirstFragmentGuestRegistration"
+        android:name="edu.ncc.nest.nestapp.FragmentsGuestDatabaseRegistration.GuestDatabaseRegistrationFirstFormFragment"
         android:label="First Fragment Guest Registration"
-        tools:layout="@layout/fragment_first_page_registration_entry_form" >>
+        tools:layout="@layout/fragment_guest_database_registration_first_form" >>
         <action
             android:id="@+id/action_FirstFragmentGuestRegistration_to_SecondFragmentGuestRegistration"
             app:destination="@id/GuestFormRegistrationSecondFragment" />
@@ -67,16 +67,16 @@
 
     <fragment
         android:id="@+id/GuestFormRegistrationSecondFragment"
-        android:name="edu.ncc.nest.nestapp.FragmentsGuestRegistration.GuestFormRegistrationSecondFragment"
+        android:name="edu.ncc.nest.nestapp.FragmentsGuestDatabaseRegistration.GuestDatabaseRegistrationSecondFormFragment"
         android:label="Second Fragment Guest Registration"
-        tools:layout="@layout/fragment_second_page_registration_entry_form" >
+        tools:layout="@layout/fragment_guest_database_registration_second_form" >
     </fragment>
 
     <fragment
         android:id="@+id/GuestFormRegistrationSummaryPage"
-        android:name="edu.ncc.nest.nestapp.FragmentsGuestRegistration.GuestFormRegistrationSummaryPage"
+        android:name="edu.ncc.nest.nestapp.FragmentsGuestDatabaseRegistration.GuestDatabaseRegistrationSummaryPage"
         android:label="Guest Form Registration Summary Page"
-        tools:layout="@layout/fragment_guest_registration_summary_page" >
+        tools:layout="@layout/fragment_guest_database_registration_summary_page" >
 
     </fragment>
 

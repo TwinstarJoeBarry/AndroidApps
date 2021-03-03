@@ -1,14 +1,12 @@
-package edu.ncc.nest.nestapp.FragmentsGuestRegistration;
+package edu.ncc.nest.nestapp.FragmentsGuestDatabaseRegistration;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
 
 import edu.ncc.nest.nestapp.R;
 
@@ -30,14 +28,14 @@ import edu.ncc.nest.nestapp.R;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-public class GuestFormRegistrationSecondFragment extends Fragment {
+public class GuestDatabaseRegistrationSecondFormFragment extends Fragment {
 
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
         // Inflate the layout for this fragment - This is where the navigation begins
-        return inflater.inflate(R.layout.fragment_second_page_registration_entry_form, container, false);
+        return inflater.inflate(R.layout.fragment_guest_database_registration_second_form, container, false);
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {

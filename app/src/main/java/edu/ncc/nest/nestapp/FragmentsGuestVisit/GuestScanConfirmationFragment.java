@@ -23,14 +23,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
-import edu.ncc.nest.nestapp.FragmentsGuestRegistration.GuestFormRegistrationActivity;
+import edu.ncc.nest.nestapp.GuestDatabaseRegistrationActivity;
 import edu.ncc.nest.nestapp.R;
 
 public class GuestScanConfirmationFragment extends Fragment implements View.OnClickListener {
@@ -122,7 +121,7 @@ public class GuestScanConfirmationFragment extends Fragment implements View.OnCl
         } else if (id == R.id.confirmation_0_register_btn) {
 
             // Create an Intent that will bring the user to the registration activity
-            Intent intent = new Intent(requireContext(), GuestFormRegistrationActivity.class);
+            Intent intent = new Intent(requireContext(), GuestDatabaseRegistrationActivity.class);
 
             // Put the barcode into the intent
             intent.putExtra("BARCODE", guestId);

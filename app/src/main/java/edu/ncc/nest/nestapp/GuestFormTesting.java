@@ -23,8 +23,7 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
-import edu.ncc.nest.nestapp.FragmentsGuestRegistration.GuestFormRegistrationActivity;
-import edu.ncc.nest.nestapp.FragmentsGuestRegistration.GuestFormRegistrationStartPageFragment;
+import edu.ncc.nest.nestapp.FragmentsGuestDatabaseRegistration.GuestDatabaseRegistrationStartPageFragment;
 
 public class GuestFormTesting extends AppCompatActivity {
     @Override
@@ -37,7 +36,7 @@ public class GuestFormTesting extends AppCompatActivity {
         Intent intent;
         switch (v.getId()) {
             case R.id.guestRegLocalDbase:
-                intent = new Intent(this, GuestFormRegistrationActivity.class);
+                intent = new Intent(this, GuestDatabaseRegistrationActivity.class);
                 startActivity(intent);
                 break;
             case R.id.guestRegGoogle:
@@ -60,7 +59,7 @@ public class GuestFormTesting extends AppCompatActivity {
     public void addFragment(int fragmentID)
     {
         FragmentManager fm = getSupportFragmentManager();
-        GuestFormRegistrationStartPageFragment fragment = new GuestFormRegistrationStartPageFragment();
+        GuestDatabaseRegistrationStartPageFragment fragment = new GuestDatabaseRegistrationStartPageFragment();
         fm.beginTransaction().add(fragmentID,fragment).commit();
     }
 

@@ -1,4 +1,4 @@
-package edu.ncc.nest.nestapp.FragmentsGuestRegistration;
+package edu.ncc.nest.nestapp.FragmentsGuestDatabaseRegistration;
 /**
  *
  * Copyright (C) 2020 The LibreFoodPantry Developers.
@@ -28,7 +28,7 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import edu.ncc.nest.nestapp.R;
 
-public class GuestFormRegistrationStartPageFragment extends Fragment {
+public class GuestDatabaseRegistrationStartPageFragment extends Fragment {
 
     protected static final String TAG = "TESTING";
 
@@ -36,10 +36,10 @@ public class GuestFormRegistrationStartPageFragment extends Fragment {
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
-        Log.d(TAG, "In GuestFormRegistrationStartPageFragment onCreateView()");
+        Log.d(TAG, "In GuestDatabaseRegistrationStartPageFragment onCreateView()");
 
         // Inflate the layout for this fragment - This is where the navigation begins
-        return inflater.inflate(R.layout.fragment_guest_form_registration_start_page, container, false);
+        return inflater.inflate(R.layout.fragment_guest_database_registration_start_page, container, false);
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
@@ -51,7 +51,7 @@ public class GuestFormRegistrationStartPageFragment extends Fragment {
             public void onClick(View view) {
                 // Uncomment this code when the layouts for the registration form page is available &
                 // complete this line with the appropriate nav action -> navigate( R.id.action_StartFragment_to_FormFragment)
-                NavHostFragment.findNavController(GuestFormRegistrationStartPageFragment.this)
+                NavHostFragment.findNavController(GuestDatabaseRegistrationStartPageFragment.this)
                        .navigate(R.id.action_FragmentGuestRegistrationStartPage_to_FirstFragmentGuestRegistration);
             }
         });
@@ -60,7 +60,7 @@ public class GuestFormRegistrationStartPageFragment extends Fragment {
         view.findViewById(R.id.barcode_scanner_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NavHostFragment.findNavController(GuestFormRegistrationStartPageFragment.this)
+                NavHostFragment.findNavController(GuestDatabaseRegistrationStartPageFragment.this)
                         .navigate(R.id.action_FragmentGuestRegistrationStartPage_to_FragmentGuestRegistrationScanner);
             }
         });

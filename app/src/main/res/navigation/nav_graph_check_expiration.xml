@@ -23,7 +23,7 @@
     app:startDestination="@id/StartFragment">
     <fragment
         android:id="@+id/StartFragment"
-        android:name="edu.ncc.nest.nestapp.FragmentsCheckExpiration.StartFragment"
+        android:name="edu.ncc.nest.nestapp.FragmentsCheckExpirationDate.StartFragment"
         android:label="@string/start_fragment_label"
         tools:layout="@layout/fragment_start">
         <action
@@ -35,7 +35,7 @@
     </fragment>
     <fragment
         android:id="@+id/ScanFragment"
-        android:name="edu.ncc.nest.nestapp.FragmentsCheckExpiration.ScanFragment"
+        android:name="edu.ncc.nest.nestapp.FragmentsCheckExpirationDate.ScanFragment"
         android:label="@string/scan_fragment_label"
         tools:layout="@layout/fragment_scanner">
         <action
@@ -47,7 +47,7 @@
     </fragment>
     <fragment
         android:id="@+id/EnterUpcFragment"
-        android:name="edu.ncc.nest.nestapp.FragmentsCheckExpiration.EnterUpcFragment"
+        android:name="edu.ncc.nest.nestapp.FragmentsCheckExpirationDate.EnterUpcFragment"
         android:label="@string/enter_upc_fragment_label"
         tools:layout="@layout/fragment_enter_upc">
         <action
@@ -59,7 +59,7 @@
     </fragment>
     <fragment
         android:id="@+id/confirmItemFragment"
-        android:name="edu.ncc.nest.nestapp.FragmentsCheckExpiration.ConfirmItemFragment"
+        android:name="edu.ncc.nest.nestapp.FragmentsCheckExpirationDate.ConfirmItemFragment"
         android:label="fragment_confirm_item"
         tools:layout="@layout/fragment_confirm_item" >
         <action
@@ -71,7 +71,7 @@
     </fragment>
     <fragment
         android:id="@+id/selectItemFragment"
-        android:name="edu.ncc.nest.nestapp.FragmentsCheckExpiration.SelectItemFragment"
+        android:name="edu.ncc.nest.nestapp.FragmentsCheckExpirationDate.SelectItemFragment"
         android:label="fragment_select_item"
         tools:layout="@layout/fragment_select_item" >
         <action
@@ -80,7 +80,7 @@
     </fragment>
     <fragment
         android:id="@+id/selectPrintedExpirationDateFragment"
-        android:name="edu.ncc.nest.nestapp.FragmentsCheckExpiration.SelectPrintedExpirationDateFragment"
+        android:name="edu.ncc.nest.nestapp.FragmentsCheckExpirationDate.SelectPrintedExpirationDateFragment"
         android:label="fragment_select_printed_expiration_date"
         tools:layout="@layout/fragment_select_printed_expiration_date" >
         <action
@@ -89,7 +89,7 @@
     </fragment>
     <fragment
         android:id="@+id/displayTrueExpirationFragment"
-        android:name="edu.ncc.nest.nestapp.FragmentsCheckExpiration.DisplayTrueExpirationFragment"
+        android:name="edu.ncc.nest.nestapp.FragmentsCheckExpirationDate.DisplayTrueExpirationFragment"
         android:label="fragment_display_true_expiration"
         tools:layout="@layout/fragment_display_true_expiration" />
 </navigation>

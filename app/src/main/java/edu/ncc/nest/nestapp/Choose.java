@@ -32,7 +32,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 //******************************testing**************************************************************************
-import edu.ncc.nest.nestapp.FragmentsCheckExpiration.DisplayTrueExpirationFragment;
+import edu.ncc.nest.nestapp.FragmentsCheckExpirationDate.DisplayTrueExpirationFragment;
 
 public class Choose extends AppCompatActivity implements OnClickListener {
     private static final String TAG = "testing";

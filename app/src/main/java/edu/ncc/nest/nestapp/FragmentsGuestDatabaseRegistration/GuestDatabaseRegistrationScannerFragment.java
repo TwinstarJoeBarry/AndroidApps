@@ -1,21 +1,15 @@
-package edu.ncc.nest.nestapp.FragmentsGuestRegistration;
+package edu.ncc.nest.nestapp.FragmentsGuestDatabaseRegistration;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
 
 import com.google.zxing.BarcodeFormat;
 
 import edu.ncc.nest.nestapp.FragmentScanner.ScannerFragment;
-import edu.ncc.nest.nestapp.R;
 
-public class GuestFormRegistrationScannerFragment extends ScannerFragment {
+public class GuestDatabaseRegistrationScannerFragment extends ScannerFragment {
 
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
