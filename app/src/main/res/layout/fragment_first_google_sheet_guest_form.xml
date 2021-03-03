@@ -23,18 +23,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".GuestForm">
-
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/toolbar" />
-
+    tools:context=".GuestFormGoogleSheet">
 
     <TextView
         android:id="@+id/title_txt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/toolbar"
         android:fontFamily="casual"
         android:text="@string/app_name"
         android:textAlignment="center"

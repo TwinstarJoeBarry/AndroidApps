@@ -28,7 +28,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-
+/**
+ * @deprecated This Activity is being replaced by other Activities. ({@link edu.ncc.nest.nestapp.FragmentsGuestRegistration.GuestFormRegistrationActivity} & {@link edu.ncc.nest.nestapp.GuestFormGoogleSheet})
+ */
+@Deprecated
 public class GuestForm extends AppCompatActivity {
 
 

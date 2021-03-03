@@ -37,7 +37,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 /**
- * @deprecated This Activity is being replaced by a Fragment. ({@link edu.ncc.nest.nestapp.FragmentsUpc.DisplayTrueExpirationFragment})
+ * @deprecated This Activity is being replaced by a Fragment. ({@link edu.ncc.nest.nestapp.FragmentsCheckExpiration.DisplayTrueExpirationFragment})
  */
 @Deprecated
 public class FinalDate extends AppCompatActivity {

@@ -21,14 +21,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".GuestForm">
+    tools:context=".FragmentsGuestRegistration.GuestFormRegistrationActivity">
 
     <include
-        android:id="@+id/toolbar"
+        android:id="@+id/database_registration_toolbar"
         layout="@layout/toolbar" />
 
     <!-- The layout is pulled from @layout/content_guest_registration -->
-    <include layout="@layout/content_guest_registration"></include>
+    <include layout="@layout/content_guest_registration"
+        android:layout_below="@id/database_registration_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
     <!--android:onClick="onClick"-->
 

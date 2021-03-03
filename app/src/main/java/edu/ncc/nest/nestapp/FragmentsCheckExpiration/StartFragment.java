@@ -1,4 +1,4 @@
-package edu.ncc.nest.nestapp.FragmentsUpc;
+package edu.ncc.nest.nestapp.FragmentsCheckExpiration;
 /**
  *
  * Copyright (C) 2020 The LibreFoodPantry Developers.

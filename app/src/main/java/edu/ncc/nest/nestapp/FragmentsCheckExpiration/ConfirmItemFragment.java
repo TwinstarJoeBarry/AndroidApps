@@ -1,4 +1,4 @@
-package edu.ncc.nest.nestapp.FragmentsUpc;
+package edu.ncc.nest.nestapp.FragmentsCheckExpiration;
 /**
  *
  * Copyright (C) 2020 The LibreFoodPantry Developers.
@@ -20,7 +20,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentResultListener;
 import androidx.navigation.fragment.NavHostFragment;
 
@@ -29,7 +28,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import edu.ncc.nest.nestapp.NestUPC;

@@ -22,7 +22,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".GuestForm" >
+    tools:context=".FragmentsGuestRegistration.GuestFormRegistrationActivity" >
 
     <com.journeyapps.barcodescanner.DecoratedBarcodeView
         android:id="@+id/scanner_decorated_barcode_view"

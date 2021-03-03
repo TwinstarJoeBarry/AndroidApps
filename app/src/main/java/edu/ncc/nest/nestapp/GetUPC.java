@@ -29,7 +29,7 @@ import android.view.View;
  */
 
 /**
- * @deprecated This Activity is being replaced by a Fragment. ({@link edu.ncc.nest.nestapp.FragmentsUpc.StartFragment})
+ * @deprecated This Activity is being replaced by a Fragment. ({@link edu.ncc.nest.nestapp.FragmentsCheckExpiration.StartFragment})
  */
 @Deprecated
 public class GetUPC extends AppCompatActivity {

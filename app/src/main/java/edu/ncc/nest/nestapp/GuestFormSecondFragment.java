@@ -50,7 +50,7 @@ public class GuestFormSecondFragment extends Fragment implements View.OnClickLis
         Log.d(TAG,"In GuestFormSecondFragment onCreateView()");
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.activity_guest_form_second_fragment, container, false);
+        return inflater.inflate(R.layout.fragment_second_google_sheet_guest_form, container, false);
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {

@@ -17,20 +17,13 @@ package edu.ncc.nest.nestapp;
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import android.content.DialogInterface;
-
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
@@ -38,18 +31,8 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
 //******************************testing**************************************************************************
-import edu.ncc.nest.nestapp.FragmentsUpc.DisplayTrueExpirationFragment;
+import edu.ncc.nest.nestapp.FragmentsCheckExpiration.DisplayTrueExpirationFragment;
 
 public class Choose extends AppCompatActivity implements OnClickListener {
     private static final String TAG = "testing";

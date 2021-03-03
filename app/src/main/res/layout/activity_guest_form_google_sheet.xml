@@ -23,14 +23,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".GuestForm">
+    tools:context=".GuestFormGoogleSheet">
 
-    <!--
     <include
-        android:id="@+id/toolbar"
+        android:id="@+id/google_sheet_registration_toolbar"
         layout="@layout/toolbar" />
-        -->
 
-    <include layout="@layout/content_google_sheet_registration"></include>
+    <include layout="@layout/content_google_sheet_registration"
+        android:layout_below="@id/google_sheet_registration_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 </RelativeLayout>
 

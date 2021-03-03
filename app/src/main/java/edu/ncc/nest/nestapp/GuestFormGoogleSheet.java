@@ -21,6 +21,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 public class GuestFormGoogleSheet extends AppCompatActivity {
 
@@ -30,6 +31,7 @@ public class GuestFormGoogleSheet extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "In GuestFormGoogleSheet onCreate()");
         setContentView(R.layout.activity_guest_form_google_sheet);
+        setSupportActionBar(findViewById(R.id.google_sheet_registration_toolbar));
     }
 
     /**

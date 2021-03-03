@@ -25,7 +25,7 @@
         android:id="@+id/GuestFormFirstFragment"
         android:name="edu.ncc.nest.nestapp.GuestFormFirstFragment"
         android:label="@string/first_fragment_label"
-        tools:layout="@layout/activity_guest_form_first_fragment">
+        tools:layout="@layout/fragment_first_google_sheet_guest_form">
 
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
@@ -35,7 +35,7 @@
         android:id="@+id/GuestFormSecondFragment"
         android:name="edu.ncc.nest.nestapp.GuestFormSecondFragment"
         android:label="@string/second_fragment_label"
-        tools:layout="@layout/activity_guest_form_second_fragment">
+        tools:layout="@layout/fragment_second_google_sheet_guest_form">
 
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"

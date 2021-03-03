@@ -283,7 +283,7 @@ import com.karumi.dexter.listener.single.PermissionListener;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 /**
- * @deprecated This Activity is being replaced by a Fragment. ({@link edu.ncc.nest.nestapp.FragmentsUpc.ScanFragment})
+ * @deprecated This Activity is being replaced by a Fragment. ({@link edu.ncc.nest.nestapp.FragmentsCheckExpiration.ScanFragment})
  */
 @Deprecated
 public class Scanner extends AppCompatActivity implements ZXingScannerView.ResultHandler {

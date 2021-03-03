@@ -22,7 +22,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- The fragment is pulled from @navigation/nav_graph_guest_registration -->
+    <!-- The fragment is pulled from @navigation/nav_graph_google_sheet_registration -->
     <fragment
         android:id="@+id/nav_host_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
