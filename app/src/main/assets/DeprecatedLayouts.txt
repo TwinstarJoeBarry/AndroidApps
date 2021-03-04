@@ -4,3 +4,4 @@
 - activity_final_date.xml
 - activity_food_item.xml
 - activity_guest_form.xml
+- fragment_scan.xml

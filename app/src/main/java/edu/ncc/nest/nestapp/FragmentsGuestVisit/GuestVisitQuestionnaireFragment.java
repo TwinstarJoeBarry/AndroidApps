@@ -34,7 +34,6 @@ import androidx.fragment.app.Fragment;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.ncc.nest.nestapp.FragmentsGuestVisit.GuestVisitQuestionnaireDatabase.QuestionnaireHelper;
 import edu.ncc.nest.nestapp.FragmentsGuestVisit.GuestVisitQuestionnaireDatabase.QuestionnaireSource;
 import edu.ncc.nest.nestapp.R;
 
@@ -42,9 +41,9 @@ import edu.ncc.nest.nestapp.R;
  * This fragment is used to ask a guest a set of questions about their visit.
  * @author Tyler Sizse
  */
-public class GuestQuestionnaireFragment extends Fragment implements View.OnClickListener {
+public class GuestVisitQuestionnaireFragment extends Fragment implements View.OnClickListener {
 
-    public static final String TAG = GuestQuestionnaireFragment.class.getSimpleName();
+    public static final String TAG = GuestVisitQuestionnaireFragment.class.getSimpleName();
 
     // Stores a list of all the views that contain the user's responses
     private List<View> inputFields;
@@ -61,7 +60,7 @@ public class GuestQuestionnaireFragment extends Fragment implements View.OnClick
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_guest_questionnaire, container, false);
+        return inflater.inflate(R.layout.fragment_guest_visit_questionnaire, container, false);
 
     }
 

@@ -32,9 +32,9 @@ import androidx.navigation.fragment.NavHostFragment;
 import edu.ncc.nest.nestapp.GuestDatabaseRegistrationActivity;
 import edu.ncc.nest.nestapp.R;
 
-public class GuestScanConfirmationFragment extends Fragment implements View.OnClickListener {
+public class GuestVisitScanConfirmationFragment extends Fragment implements View.OnClickListener {
 
-    public static final String TAG = GuestScanConfirmationFragment.class.getSimpleName();
+    public static final String TAG = GuestVisitScanConfirmationFragment.class.getSimpleName();
 
     private String guestName = null;
 
@@ -47,7 +47,7 @@ public class GuestScanConfirmationFragment extends Fragment implements View.OnCl
                              Bundle savedInstanceState ) {
 
         // Inflate the layout for this fragment
-        return inflater.inflate( R.layout.fragment_guest_scan_confirmation_flipper, container, false );
+        return inflater.inflate( R.layout.fragment_guest_visit_scan_confirmation_flipper, container, false );
     }
 
     public void onViewCreated( @NonNull View view, Bundle savedInstanceState ) {
@@ -99,7 +99,7 @@ public class GuestScanConfirmationFragment extends Fragment implements View.OnCl
         if (id == R.id.rescan_code_button || id == R.id.confirmation_0_rescan_btn) {
 
             // Navigate back to the scanner to rescan the barcode
-            NavHostFragment.findNavController(GuestScanConfirmationFragment.this )
+            NavHostFragment.findNavController(GuestVisitScanConfirmationFragment.this )
                     .navigate( R.id.action_GuestScanConfirmationFragment_to_GuestScanFragment );
 
         } else if (id == R.id.name_confirmed) {
@@ -115,7 +115,7 @@ public class GuestScanConfirmationFragment extends Fragment implements View.OnCl
             getParentFragmentManager().setFragmentResult("GUEST_CONFIRMED", guestInfo);
 
             // Navigate to the questionnaire
-            NavHostFragment.findNavController(GuestScanConfirmationFragment.this)
+            NavHostFragment.findNavController(GuestVisitScanConfirmationFragment.this)
                     .navigate(R.id.action_GuestScanConfirmationFragment_to_GuestQuestionnaireFragment);
 
         } else if (id == R.id.confirmation_0_register_btn) {

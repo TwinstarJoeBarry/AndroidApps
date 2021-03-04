@@ -42,16 +42,15 @@ import android.view.View;
 import com.google.zxing.BarcodeFormat;
 
 import edu.ncc.nest.nestapp.FragmentScanner.ScannerFragment;
-import edu.ncc.nest.nestapp.GuestFormHelper;
 import edu.ncc.nest.nestapp.GuestFormSource;
 import edu.ncc.nest.nestapp.R;
 
 /**
- * GuestScanFragment --
+ * GuestVisitScannerFragment --
  * Fragment to be used to check in a user by scanning a guest's bar code that was given to them
  * at registration time.
  */
-public class GuestScanFragment extends ScannerFragment {
+public class GuestVisitScannerFragment extends ScannerFragment {
 
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
@@ -91,7 +90,7 @@ public class GuestScanFragment extends ScannerFragment {
         getParentFragmentManager().setFragmentResult("SCAN_CONFIRMED", resultBundle);
 
         // Navigate to the confirmation fragment
-        NavHostFragment.findNavController(GuestScanFragment.this)
+        NavHostFragment.findNavController(GuestVisitScannerFragment.this)
                 .navigate(R.id.action_GuestScanFragment_to_GuestScanConfirmationFragment);
 
     }

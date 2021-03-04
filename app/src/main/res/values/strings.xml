@@ -1014,10 +1014,10 @@
     <string name="scanner_confirm_msg">Please confirm that the barcode is correct.</string>
     <!-- START OF GUEST VISIT STRINGS -->
 
-    <!-- Strings used for GuestScanFragment -->
+    <!-- Strings used for GuestVisitScannerFragment -->
     <string name="guest_scan_fragment_label">Guest Scan Fragment</string>
 
-    <!-- Strings used for GuestQuestionnaireFragment.java / fragment_guest_questionnaire.xml -->
+    <!-- Strings used for GuestVisitQuestionnaireFragment.java / fragment_guest_visit_questionnaire.xml -->
     <string name="guest_questionnaire_fragment_label">Guest Questionnaire Fragment</string>
     <string name="questionnaire_welcome_message">Welcome NEST Guest!</string>
     <string name="questionnaire_description">Please answer and submit the following questions before proceeding.</string>

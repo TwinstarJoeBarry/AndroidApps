@@ -23,7 +23,7 @@
 
     <fragment
         android:id="@+id/GuestScanFragment"
-        android:name="edu.ncc.nest.nestapp.FragmentsGuestVisit.GuestScanFragment"
+        android:name="edu.ncc.nest.nestapp.FragmentsGuestVisit.GuestVisitScannerFragment"
         android:label="@string/guest_scan_fragment_label"
         tools:layout="@layout/fragment_scanner" >
 
@@ -35,9 +35,9 @@
 
     <fragment
         android:id="@+id/GuestScanConfirmationFragment"
-        android:name="edu.ncc.nest.nestapp.FragmentsGuestVisit.GuestScanConfirmationFragment"
+        android:name="edu.ncc.nest.nestapp.FragmentsGuestVisit.GuestVisitScanConfirmationFragment"
         android:label="@string/guest_scan_confirmation_fragment_lable"
-        tools:layout="@layout/fragment_guest_scan_confirmation_flipper">
+        tools:layout="@layout/fragment_guest_visit_scan_confirmation_flipper">
 
         <action
             android:id="@+id/action_GuestScanConfirmationFragment_to_GuestQuestionnaireFragment"
@@ -55,9 +55,9 @@
 
     <fragment
         android:id="@+id/GuestQuestionnaireFragment"
-        android:name="edu.ncc.nest.nestapp.FragmentsGuestVisit.GuestQuestionnaireFragment"
+        android:name="edu.ncc.nest.nestapp.FragmentsGuestVisit.GuestVisitQuestionnaireFragment"
         android:label="@string/guest_questionnaire_fragment_label"
-        tools:layout="@layout/fragment_guest_questionnaire" >
+        tools:layout="@layout/fragment_guest_visit_questionnaire" >
 
     </fragment>
 
