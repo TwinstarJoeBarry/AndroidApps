@@ -21,10 +21,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:hardwareAccelerated="true" >
-        <activity android:name=".GuestVisit" />
+        <activity android:name=".GuestVisit.Activities.GuestVisitActivity" />
         <activity android:name=".GuestFormTesting" />
         <activity
-            android:name=".CheckExpirationDate"
+            android:name=".CheckExpirationDate.Activities.CheckExpirationDateActivity"
             android:label="@string/title_activity_check_expiration_date"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -51,8 +51,8 @@
             android:label="@string/title_activity_add_to_inventory"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".GuestForm" />
-        <activity android:name=".GuestDatabaseRegistrationActivity" />
-        <activity android:name=".GuestGoogleSheetRegistrationActivity" />
+        <activity android:name=".GuestDatabaseRegistration.Activities.GuestDatabaseRegistrationActivity" />
+        <activity android:name=".GuestGoogleSheetRegistration.Activities.GuestGoogleSheetRegistrationActivity" />
         <activity android:name=".Inventory" />
         <activity android:name=".Schedule" />
         <activity android:name=".VolunteerForm" />

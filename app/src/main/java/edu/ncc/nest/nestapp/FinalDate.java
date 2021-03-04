@@ -36,7 +36,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import edu.ncc.nest.nestapp.FragmentsCheckExpirationDate.DisplayTrueExpirationFragment;
+import edu.ncc.nest.nestapp.CheckExpirationDate.Fragments.DisplayTrueExpirationFragment;
 
 /**
  * @deprecated This Activity is being replaced by a Fragment. ({@link DisplayTrueExpirationFragment})

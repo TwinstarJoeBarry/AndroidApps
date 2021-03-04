@@ -53,7 +53,7 @@ import java.util.List;
 
 import java.text.DateFormat;
 
-import edu.ncc.nest.nestapp.FragmentsCheckExpirationDate.SelectItemFragment;
+import edu.ncc.nest.nestapp.CheckExpirationDate.Fragments.SelectItemFragment;
 
 /**
  * @deprecated This Activity is being replaced by a Fragment. ({@link SelectItemFragment})

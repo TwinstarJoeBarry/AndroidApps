@@ -32,7 +32,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 //******************************testing**************************************************************************
-import edu.ncc.nest.nestapp.FragmentsCheckExpirationDate.DisplayTrueExpirationFragment;
+import edu.ncc.nest.nestapp.CheckExpirationDate.Activities.CheckExpirationDateActivity;
+import edu.ncc.nest.nestapp.CheckExpirationDate.Fragments.DisplayTrueExpirationFragment;
 
 public class Choose extends AppCompatActivity implements OnClickListener {
     private static final String TAG = "testing";
@@ -96,7 +97,7 @@ public class Choose extends AppCompatActivity implements OnClickListener {
      * launchGetUPC - starts the Get UPC activity
      */
     public void launchGetUPC() {
-        Intent intent = new Intent(this, CheckExpirationDate.class);
+        Intent intent = new Intent(this, CheckExpirationDateActivity.class);
         startActivity(intent);
     }
 

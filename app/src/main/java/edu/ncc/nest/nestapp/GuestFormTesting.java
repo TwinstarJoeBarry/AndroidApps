@@ -23,7 +23,10 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
-import edu.ncc.nest.nestapp.FragmentsGuestDatabaseRegistration.StartPageFragment;
+import edu.ncc.nest.nestapp.GuestDatabaseRegistration.Fragments.StartPageFragment;
+import edu.ncc.nest.nestapp.GuestDatabaseRegistration.Activities.GuestDatabaseRegistrationActivity;
+import edu.ncc.nest.nestapp.GuestGoogleSheetRegistration.Activities.GuestGoogleSheetRegistrationActivity;
+import edu.ncc.nest.nestapp.GuestVisit.Activities.GuestVisitActivity;
 
 public class GuestFormTesting extends AppCompatActivity {
     @Override
@@ -44,7 +47,7 @@ public class GuestFormTesting extends AppCompatActivity {
                 startActivity(intent);
                 break;
             case R.id.guestVisitLocalDbase:
-                intent = new Intent(this, GuestVisit.class);
+                intent = new Intent(this, GuestVisitActivity.class);
                 startActivity(intent);
                 break;
             case R.id.guesVisitGoogle:

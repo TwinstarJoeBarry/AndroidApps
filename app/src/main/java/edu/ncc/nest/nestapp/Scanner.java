@@ -280,7 +280,7 @@ import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 
-import edu.ncc.nest.nestapp.FragmentsCheckExpirationDate.ScannerFragment;
+import edu.ncc.nest.nestapp.CheckExpirationDate.Fragments.ScannerFragment;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 /**

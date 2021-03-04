@@ -23,7 +23,7 @@
 
     <fragment
         android:id="@+id/GuestScanFragment"
-        android:name="edu.ncc.nest.nestapp.FragmentsGuestVisit.ScannerFragment"
+        android:name="edu.ncc.nest.nestapp.GuestVisit.Fragments.ScannerFragment"
         android:label="@string/guest_scan_fragment_label"
         tools:layout="@layout/fragment_abstract_scanner" >
 
@@ -35,7 +35,7 @@
 
     <fragment
         android:id="@+id/GuestScanConfirmationFragment"
-        android:name="edu.ncc.nest.nestapp.FragmentsGuestVisit.ConfirmationFragment"
+        android:name="edu.ncc.nest.nestapp.GuestVisit.Fragments.ConfirmationFragment"
         android:label="@string/guest_scan_confirmation_fragment_lable"
         tools:layout="@layout/fragment_guest_visit_confirmation_flipper">
 
@@ -55,7 +55,7 @@
 
     <fragment
         android:id="@+id/GuestQuestionnaireFragment"
-        android:name="edu.ncc.nest.nestapp.FragmentsGuestVisit.QuestionnaireFragment"
+        android:name="edu.ncc.nest.nestapp.GuestVisit.Fragments.QuestionnaireFragment"
         android:label="@string/guest_questionnaire_fragment_label"
         tools:layout="@layout/fragment_guest_visit_questionnaire" >
 

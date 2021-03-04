@@ -25,7 +25,7 @@
     <!-- The fragment is pulled from @layout/fragment_guest_form_registration_start_page -->
     <fragment
         android:id="@+id/FragmentGuestRegistrationStartPage"
-        android:name="edu.ncc.nest.nestapp.FragmentsGuestDatabaseRegistration.StartPageFragment"
+        android:name="edu.ncc.nest.nestapp.GuestDatabaseRegistration.Fragments.StartPageFragment"
         android:label="@string/start_fragment_label"
         tools:layout="@layout/fragment_guest_database_registration_start_page">
 
@@ -48,7 +48,7 @@
 
     <fragment
         android:id="@+id/FragmentGuestRegistrationScanner"
-        android:name="edu.ncc.nest.nestapp.FragmentsGuestDatabaseRegistration.ScannerFragment"
+        android:name="edu.ncc.nest.nestapp.GuestDatabaseRegistration.Fragments.ScannerFragment"
         android:label="@string/guest_scan_fragment_label"
         tools:layout="@layout/fragment_abstract_scanner" >
 
@@ -56,7 +56,7 @@
 
     <fragment
         android:id="@+id/FirstFragmentGuestRegistration"
-        android:name="edu.ncc.nest.nestapp.FragmentsGuestDatabaseRegistration.FirstFormFragment"
+        android:name="edu.ncc.nest.nestapp.GuestDatabaseRegistration.Fragments.FirstFormFragment"
         android:label="First Fragment Guest Registration"
         tools:layout="@layout/fragment_guest_database_registration_first_form" >>
         <action
@@ -67,14 +67,14 @@
 
     <fragment
         android:id="@+id/GuestFormRegistrationSecondFragment"
-        android:name="edu.ncc.nest.nestapp.FragmentsGuestDatabaseRegistration.SecondFormFragment"
+        android:name="edu.ncc.nest.nestapp.GuestDatabaseRegistration.Fragments.SecondFormFragment"
         android:label="Second Fragment Guest Registration"
         tools:layout="@layout/fragment_guest_database_registration_second_form" >
     </fragment>
 
     <fragment
         android:id="@+id/GuestFormRegistrationSummaryPage"
-        android:name="edu.ncc.nest.nestapp.FragmentsGuestDatabaseRegistration.SummaryPageFragment"
+        android:name="edu.ncc.nest.nestapp.GuestDatabaseRegistration.Fragments.SummaryPageFragment"
         android:label="Guest Form Registration Summary Page"
         tools:layout="@layout/fragment_guest_database_registration_summary_page" >
 

@@ -28,6 +28,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import edu.ncc.nest.nestapp.GuestDatabaseRegistration.Activities.GuestDatabaseRegistrationActivity;
+import edu.ncc.nest.nestapp.GuestGoogleSheetRegistration.Activities.GuestGoogleSheetRegistrationActivity;
+
 /**
  * @deprecated This Activity is being replaced by other Activities. ({@link GuestDatabaseRegistrationActivity} & {@link GuestGoogleSheetRegistrationActivity})
  */

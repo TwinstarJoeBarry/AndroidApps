@@ -23,7 +23,7 @@
     android:paddingTop="5dp"
     android:orientation="vertical"
     android:background="@color/colorPrimaryShaded"
-    tools:context=".FragmentsGuestVisit.ConfirmationFragment" >
+    tools:context=".GuestVisit.Fragments.ConfirmationFragment" >
 
     <TextView
         android:id="@+id/confirmation_1_welcome_message"

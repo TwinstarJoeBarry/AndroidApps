@@ -30,7 +30,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".GuestDatabaseRegistrationActivity" >
+    tools:context=".GuestDatabaseRegistration.Activities.GuestDatabaseRegistrationActivity" >
 
     <com.journeyapps.barcodescanner.DecoratedBarcodeView
         android:id="@+id/scanner_decorated_barcode_view"
