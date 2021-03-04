@@ -23,9 +23,6 @@ import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import edu.ncc.nest.nestapp.Choose;
-import edu.ncc.nest.nestapp.R;
-
 /**
  * GuestDatabaseRegistrationActivity - Underlying Activity for fragments related to registering a
  * guest in the local database
@@ -35,7 +32,7 @@ public class GuestDatabaseRegistrationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_guest_form_registration);
+        setContentView(R.layout.activity_guest_database_registration);
         setSupportActionBar(findViewById(R.id.database_registration_toolbar));
     }
 

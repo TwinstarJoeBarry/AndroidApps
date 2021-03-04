@@ -74,7 +74,7 @@
 
     <fragment
         android:id="@+id/GuestFormRegistrationSummaryPage"
-        android:name="edu.ncc.nest.nestapp.FragmentsGuestDatabaseRegistration.GuestDatabaseRegistrationSummaryPage"
+        android:name="edu.ncc.nest.nestapp.FragmentsGuestDatabaseRegistration.GuestDatabaseRegistrationSummaryPageFragment"
         android:label="Guest Form Registration Summary Page"
         tools:layout="@layout/fragment_guest_database_registration_summary_page" >
 

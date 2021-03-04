@@ -1,4 +1,4 @@
-package edu.ncc.nest.nestapp;
+package edu.ncc.nest.nestapp.FragmentsGuestGoogleSheetRegistration;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +9,8 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+
+import edu.ncc.nest.nestapp.R;
 
 /**
  *
@@ -28,12 +30,12 @@ import androidx.fragment.app.Fragment;
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-public class GuestFormSecondFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemSelectedListener {
+public class GuestGoogleSheetRegistrationSecondFormFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemSelectedListener {
     protected static final String TAG = "TESTING";
     @Override
     public void onStart() {
         super.onStart();
-        Log.d(TAG,"In GuestFormSecondFragment onStart()");
+        Log.d(TAG,"In GuestGoogleSheetRegistrationSecondFormFragment onStart()");
     }
 
     //variables to store user information
@@ -47,10 +49,10 @@ public class GuestFormSecondFragment extends Fragment implements View.OnClickLis
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
-        Log.d(TAG,"In GuestFormSecondFragment onCreateView()");
+        Log.d(TAG,"In GuestGoogleSheetRegistrationSecondFormFragment onCreateView()");
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_second_google_sheet_guest_form, container, false);
+        return inflater.inflate(R.layout.fragment_guest_google_sheet_registration_second_form, container, false);
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
@@ -88,7 +90,7 @@ public class GuestFormSecondFragment extends Fragment implements View.OnClickLis
             @Override
             public void onClick(View view) {
                 /*
-                NavHostFragment.findNavController(GuestFormSecondFragment.this)
+                NavHostFragment.findNavController(GuestGoogleSheetRegistrationSecondFormFragment.this)
                         .navigate(R.id.action_SecondFragment_to_FirstFragment);
                  */
             }

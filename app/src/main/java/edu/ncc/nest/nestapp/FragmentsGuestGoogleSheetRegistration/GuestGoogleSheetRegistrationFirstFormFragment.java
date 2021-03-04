@@ -1,4 +1,4 @@
-package edu.ncc.nest.nestapp;
+package edu.ncc.nest.nestapp.FragmentsGuestGoogleSheetRegistration;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +10,9 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
+
+import edu.ncc.nest.nestapp.GuestFormHelper;
+import edu.ncc.nest.nestapp.R;
 
 /**
  *
@@ -29,12 +32,12 @@ import androidx.navigation.fragment.NavHostFragment;
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-public class GuestFormFirstFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemSelectedListener {
+public class GuestGoogleSheetRegistrationFirstFormFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemSelectedListener {
     protected static final String TAG = "TESTING";
     @Override
     public void onStart() {
         super.onStart();
-        Log.d(TAG,"In GuestFormFirstFragment onStart()");
+        Log.d(TAG,"In GuestGoogleSheetRegistrationFirstFormFragment onStart()");
     }
     //database where we will store user information
     GuestFormHelper db;
@@ -47,14 +50,14 @@ public class GuestFormFirstFragment extends Fragment implements View.OnClickList
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
-        Log.d(TAG,"In GuestFormFirstFragment onCreateView()");
+        Log.d(TAG,"In GuestGoogleSheetRegistrationFirstFormFragment onCreateView()");
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_first_google_sheet_guest_form, container, false);
+        return inflater.inflate(R.layout.fragment_guest_google_sheet_registration_first_form, container, false);
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Log.d(TAG,"In GuestFormFirstFragment onViewCreated()");
+        Log.d(TAG,"In GuestGoogleSheetRegistrationFirstFormFragment onViewCreated()");
 
         //creating the database and passing the correct context as the argument
         //db = new GuestFormHelper(this);
@@ -96,7 +99,7 @@ public class GuestFormFirstFragment extends Fragment implements View.OnClickList
                 }
                 */
 
-                NavHostFragment.findNavController(GuestFormFirstFragment.this)
+                NavHostFragment.findNavController(GuestGoogleSheetRegistrationFirstFormFragment.this)
                         .navigate(R.id.action_FirstFragment_to_SecondFragment);
             }
         });

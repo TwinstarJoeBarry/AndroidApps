@@ -21,16 +21,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
-public class GuestFormGoogleSheet extends AppCompatActivity {
+/**
+ * GuestGoogleSheetRegistrationActivity - Underlying Activity for fragments related to registering a
+ * guest with google sheets
+ */
+public class GuestGoogleSheetRegistrationActivity extends AppCompatActivity {
 
     protected static final String TAG = "TESTING";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG, "In GuestFormGoogleSheet onCreate()");
-        setContentView(R.layout.activity_guest_form_google_sheet);
+        Log.d(TAG, "In GuestGoogleSheetRegistrationActivity onCreate()");
+        setContentView(R.layout.activity_guest_google_sheet_registration);
         setSupportActionBar(findViewById(R.id.google_sheet_registration_toolbar));
     }
 

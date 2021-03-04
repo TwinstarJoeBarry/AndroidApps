@@ -28,7 +28,7 @@
         layout="@layout/toolbar" />
 
     <!-- The layout is pulled from @layout/content_guest_registration -->
-    <include layout="@layout/content_guest_registration"
+    <include layout="@layout/content_guest_database_registration"
         android:layout_below="@id/database_registration_toolbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

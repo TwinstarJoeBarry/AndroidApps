@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment;
 
 import edu.ncc.nest.nestapp.R;
 
-public class GuestDatabaseRegistrationSummaryPage extends Fragment  {
+public class GuestDatabaseRegistrationSummaryPageFragment extends Fragment  {
 
 
         protected static final String TAG = "TESTING";
