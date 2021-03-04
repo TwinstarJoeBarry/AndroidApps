@@ -26,15 +26,10 @@
     android:background="@color/colorPrimaryShaded"
     tools:context=".GuestDatabaseRegistration.Activities.GuestDatabaseRegistrationActivity">
 
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/toolbar" />
-
     <TableRow
         android:id="@+id/Row1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/toolbar"
         android:layout_centerHorizontal="true">
 
         <TextView
