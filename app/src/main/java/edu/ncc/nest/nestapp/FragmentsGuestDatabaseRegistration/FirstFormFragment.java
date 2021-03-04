@@ -33,7 +33,7 @@ import  androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
-public class GuestDatabaseRegistrationFirstFormFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemSelectedListener {
+public class FirstFormFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
     //database where we will store user information
     GuestFormSource db;
@@ -93,7 +93,7 @@ public class GuestDatabaseRegistrationFirstFormFragment extends Fragment impleme
 
                 // Uncomment this code when the layouts for the registration form page is available &
                 // complete this line with the appropriate nav action -> navigate( R.id.action_StartFragment_to_FormFragment)
-                NavHostFragment.findNavController(GuestDatabaseRegistrationFirstFormFragment.this)
+                NavHostFragment.findNavController(FirstFormFragment.this)
                         .navigate(R.id.action_FirstFragmentGuestRegistration_to_SecondFragmentGuestRegistration);
                 }
             });

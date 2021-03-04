@@ -9,7 +9,7 @@ import com.google.zxing.BarcodeFormat;
 
 import edu.ncc.nest.nestapp.FragmentScanner.ScannerFragment;
 
-public class GuestDatabaseRegistrationScannerFragment extends ScannerFragment {
+public class ScannerFragment extends edu.ncc.nest.nestapp.FragmentScanner.ScannerFragment {
 
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {

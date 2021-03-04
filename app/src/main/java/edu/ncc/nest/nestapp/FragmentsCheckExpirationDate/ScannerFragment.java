@@ -1,4 +1,4 @@
-package edu.ncc.nest.nestapp.FragmentsGuestVisit;
+package edu.ncc.nest.nestapp.FragmentsCheckExpirationDate;
 
 /**
  * Copyright (C) 2020 The LibreFoodPantry Developers.
@@ -33,31 +33,26 @@ package edu.ncc.nest.nestapp.FragmentsGuestVisit;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.navigation.fragment.NavHostFragment;
-
 import android.util.Log;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+import androidx.navigation.fragment.NavHostFragment;
+
 import com.google.zxing.BarcodeFormat;
 
-import edu.ncc.nest.nestapp.FragmentScanner.ScannerFragment;
-import edu.ncc.nest.nestapp.GuestFormSource;
+import edu.ncc.nest.nestapp.NestDBDataSource;
+import edu.ncc.nest.nestapp.NestUPC;
 import edu.ncc.nest.nestapp.R;
 
-/**
- * GuestVisitScannerFragment --
- * Fragment to be used to check in a user by scanning a guest's bar code that was given to them
- * at registration time.
- */
-public class GuestVisitScannerFragment extends ScannerFragment {
+public class ScannerFragment extends edu.ncc.nest.nestapp.FragmentScanner.ScannerFragment {
 
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         // Make sure we don't set formats until our super has a handle on the DecoratedBarcodeView
-        super.setDecoderFormats(BarcodeFormat.CODE_39);
+        super.setDecoderFormats(BarcodeFormat.UPC_A);
 
     }
 
@@ -66,32 +61,36 @@ public class GuestVisitScannerFragment extends ScannerFragment {
 
         Log.d(TAG, "Scan Confirmed: [" + barcode + ", " + format.toString() + "]");
 
-        // Create the Bundle that will be used to send the barcode to the next fragment
-        Bundle resultBundle = new Bundle();
+        // Check database
+        NestDBDataSource dataSource = new NestDBDataSource(getContext());
+        NestUPC result = dataSource.getNestUPC(barcode);
 
-        // Put the barcodeResult into the bundle
-        resultBundle.putString("BARCODE", barcode);
+        // Used this to test if there was a non-null result given (successful)
+        /*result = new NestUPC("123456789123", "Hershey's", "Chocolate Bar",
+                123, "Hershey's Chocolate Bar", null,
+                1234,"Some category description");*/
 
-        // Create an instance of the database helper
-        GuestFormSource db = new GuestFormSource(requireContext());
+        // If there is a result from the database
+        if(result != null) {
 
-        // Check if the guest is registered in the database
-        // No guests yet so this will always be null. GUEST_NAME was set to "Test" for testing purposes.
-        final String GUEST_NAME = db.isRegistered(barcode);
-        //TODO: Replace the line below with the one above.
-        //final String GUEST_NAME = "Test";
+            Log.d(TAG, "Result returned: " + result.getUpc() + " " + result.getProductName());
 
-        if (GUEST_NAME != null)
+            // Put the item in a bundle and pass it to ConfirmItemFragment
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("foodItem", result);
+            getParentFragmentManager().setFragmentResult("FOOD ITEM", bundle);
+            NavHostFragment.findNavController(ScannerFragment.this).navigate((R.id.confirmItemFragment));
 
-            // If the guest is registered, include the guest's name in the result
-            resultBundle.putString("GUEST_NAME", GUEST_NAME);
+        // If there was no result from the database
+        } else {
 
-        // Set the fragment result to the bundle
-        getParentFragmentManager().setFragmentResult("SCAN_CONFIRMED", resultBundle);
+            // Put UPC into a bundle and pass it to SelectItemFragment (may not be necessary)
+            Bundle bundle = new Bundle();
+            bundle.putString("barcode", barcode);
+            getParentFragmentManager().setFragmentResult("BARCODE", bundle);
+            NavHostFragment.findNavController(ScannerFragment.this).navigate((R.id.selectItemFragment));
 
-        // Navigate to the confirmation fragment
-        NavHostFragment.findNavController(GuestVisitScannerFragment.this)
-                .navigate(R.id.action_GuestScanFragment_to_GuestScanConfirmationFragment);
+        }
 
     }
 

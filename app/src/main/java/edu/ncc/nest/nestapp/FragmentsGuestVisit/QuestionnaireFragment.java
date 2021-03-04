@@ -41,9 +41,9 @@ import edu.ncc.nest.nestapp.R;
  * This fragment is used to ask a guest a set of questions about their visit.
  * @author Tyler Sizse
  */
-public class GuestVisitQuestionnaireFragment extends Fragment implements View.OnClickListener {
+public class QuestionnaireFragment extends Fragment implements View.OnClickListener {
 
-    public static final String TAG = GuestVisitQuestionnaireFragment.class.getSimpleName();
+    public static final String TAG = QuestionnaireFragment.class.getSimpleName();
 
     // Stores a list of all the views that contain the user's responses
     private List<View> inputFields;

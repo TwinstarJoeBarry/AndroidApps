@@ -36,7 +36,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import edu.ncc.nest.nestapp.NestUPC;
 import edu.ncc.nest.nestapp.R;
 
-public class CheckExpirationSelectPrintedExpirationDateFragment extends Fragment
+public class SelectPrintedExpirationDateFragment extends Fragment
 {
     private final int STARTING_YEAR = 2020;
     private final int ADDITIONAL_YEARS = 10;
@@ -115,7 +115,7 @@ public class CheckExpirationSelectPrintedExpirationDateFragment extends Fragment
                 getParentFragmentManager().setFragmentResult("FOOD ITEM", saved);
 
                 // navigate over to the proper fragment
-                NavHostFragment.findNavController(CheckExpirationSelectPrintedExpirationDateFragment.this)
+                NavHostFragment.findNavController(SelectPrintedExpirationDateFragment.this)
                         .navigate(R.id.action_selectPrintedExpirationDateFragment_to_displayTrueExpirationFragment);
             }
         });

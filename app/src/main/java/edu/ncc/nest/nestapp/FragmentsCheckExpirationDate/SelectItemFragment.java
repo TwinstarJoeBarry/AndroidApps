@@ -39,7 +39,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 // FIXME/TODO: highlights any important notes within the code, highlighted in yellow within android studio
-public class CheckExpirationSelectItemFragment extends Fragment implements View.OnClickListener
+public class SelectItemFragment extends Fragment implements View.OnClickListener
 {
     /** CONSTANT DEFAULTS **/
     // FOR NON ESSENTIAL TEXT ENTRY VIEWS THAT WERE OPTIONAL AND INTENTIONALLY LEFT BLANK;
@@ -158,7 +158,7 @@ public class CheckExpirationSelectItemFragment extends Fragment implements View.
                     // Product ID does not exist for this UPC
                     // TODO: Need a way of setting the proper productId
 
-                    Log.e("CheckExpirationSelectItemFragment", "Product ID Error: itemId = -1");
+                    Log.e("SelectItemFragment", "Product ID Error: itemId = -1");
 
                 }
 
@@ -185,7 +185,7 @@ public class CheckExpirationSelectItemFragment extends Fragment implements View.
                 getParentFragmentManager().setFragmentResult("FOOD ITEM", bundle);
 
                 // navigate over to printed expiration date;
-                NavHostFragment.findNavController(CheckExpirationSelectItemFragment.this)
+                NavHostFragment.findNavController(SelectItemFragment.this)
                         .navigate(R.id.action_selectItemFragment_to_selectPrintedExpirationDateFragment);
 
             }
@@ -193,7 +193,7 @@ public class CheckExpirationSelectItemFragment extends Fragment implements View.
 
         // CANCEL BUTTON CODE - NAVIGATE BACK TO START FRAGMENT
         view.findViewById(R.id.cancelButton).setOnClickListener( view12 ->
-            NavHostFragment.findNavController(CheckExpirationSelectItemFragment.this).navigate(R.id.StartFragment));
+            NavHostFragment.findNavController(SelectItemFragment.this).navigate(R.id.StartFragment));
 
     }
 

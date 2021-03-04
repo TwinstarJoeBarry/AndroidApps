@@ -23,7 +23,7 @@
     android:paddingTop="5dp"
     android:orientation="vertical"
     android:background="@color/colorPrimaryShaded"
-    tools:context=".FragmentsGuestVisit.GuestVisitQuestionnaireFragment" >
+    tools:context=".FragmentsGuestVisit.QuestionnaireFragment" >
 
     <TextView
         android:id="@+id/questionnaire_welcome_message"

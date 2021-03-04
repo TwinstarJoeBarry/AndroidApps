@@ -10,7 +10,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
-import edu.ncc.nest.nestapp.FragmentsCheckExpirationDate.CheckExpirationStartFragment;
+import edu.ncc.nest.nestapp.FragmentsCheckExpirationDate.StartFragment;
 
 /**
  *
@@ -31,7 +31,7 @@ import edu.ncc.nest.nestapp.FragmentsCheckExpirationDate.CheckExpirationStartFra
  */
 
 /**
- * @deprecated This Activity is being replaced by a Fragment. ({@link CheckExpirationStartFragment})
+ * @deprecated This Activity is being replaced by a Fragment. ({@link StartFragment})
  */
 @Deprecated
 public class GetUPC extends AppCompatActivity {

@@ -23,7 +23,7 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
-import edu.ncc.nest.nestapp.FragmentsGuestDatabaseRegistration.GuestDatabaseRegistrationStartPageFragment;
+import edu.ncc.nest.nestapp.FragmentsGuestDatabaseRegistration.StartPageFragment;
 
 public class GuestFormTesting extends AppCompatActivity {
     @Override
@@ -59,7 +59,7 @@ public class GuestFormTesting extends AppCompatActivity {
     public void addFragment(int fragmentID)
     {
         FragmentManager fm = getSupportFragmentManager();
-        GuestDatabaseRegistrationStartPageFragment fragment = new GuestDatabaseRegistrationStartPageFragment();
+        StartPageFragment fragment = new StartPageFragment();
         fm.beginTransaction().add(fragmentID,fragment).commit();
     }
 

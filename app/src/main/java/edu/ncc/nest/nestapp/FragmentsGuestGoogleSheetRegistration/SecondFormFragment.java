@@ -30,12 +30,12 @@ import edu.ncc.nest.nestapp.R;
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-public class GuestGoogleSheetRegistrationSecondFormFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemSelectedListener {
+public class SecondFormFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemSelectedListener {
     protected static final String TAG = "TESTING";
     @Override
     public void onStart() {
         super.onStart();
-        Log.d(TAG,"In GuestGoogleSheetRegistrationSecondFormFragment onStart()");
+        Log.d(TAG,"In SecondFormFragment onStart()");
     }
 
     //variables to store user information
@@ -49,7 +49,7 @@ public class GuestGoogleSheetRegistrationSecondFormFragment extends Fragment imp
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
-        Log.d(TAG,"In GuestGoogleSheetRegistrationSecondFormFragment onCreateView()");
+        Log.d(TAG,"In SecondFormFragment onCreateView()");
 
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_guest_google_sheet_registration_second_form, container, false);
@@ -90,7 +90,7 @@ public class GuestGoogleSheetRegistrationSecondFormFragment extends Fragment imp
             @Override
             public void onClick(View view) {
                 /*
-                NavHostFragment.findNavController(GuestGoogleSheetRegistrationSecondFormFragment.this)
+                NavHostFragment.findNavController(SecondFormFragment.this)
                         .navigate(R.id.action_SecondFragment_to_FirstFragment);
                  */
             }

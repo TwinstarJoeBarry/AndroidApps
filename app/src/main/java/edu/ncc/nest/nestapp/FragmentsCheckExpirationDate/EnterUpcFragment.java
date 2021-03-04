@@ -33,7 +33,7 @@ import edu.ncc.nest.nestapp.NestDBDataSource;
 import edu.ncc.nest.nestapp.NestUPC;
 import edu.ncc.nest.nestapp.R;
 
-public class CheckExpirationEnterUpcFragment extends Fragment {
+public class EnterUpcFragment extends Fragment {
 
     @Override
     public View onCreateView(
@@ -83,20 +83,20 @@ public class CheckExpirationEnterUpcFragment extends Fragment {
             // If there is a result from the database
             if(result != null) {
 
-                // Put the item in a bundle and pass it to CheckExpirationConfirmItemFragment
+                // Put the item in a bundle and pass it to ConfirmItemFragment
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("foodItem", result);
                 getParentFragmentManager().setFragmentResult("FOOD ITEM", bundle);
-                NavHostFragment.findNavController(CheckExpirationEnterUpcFragment.this).navigate((R.id.confirmItemFragment));
+                NavHostFragment.findNavController(EnterUpcFragment.this).navigate((R.id.confirmItemFragment));
 
                 // If there was no result from the database
             }else {
 
-                // Put UPC into a bundle and pass it to CheckExpirationSelectItemFragment (may not be necessary)
+                // Put UPC into a bundle and pass it to SelectItemFragment (may not be necessary)
                 Bundle bundle = new Bundle();
                 bundle.putString("barcode", upc);
                 getParentFragmentManager().setFragmentResult("BARCODE", bundle);
-                NavHostFragment.findNavController(CheckExpirationEnterUpcFragment.this).navigate((R.id.selectItemFragment));
+                NavHostFragment.findNavController(EnterUpcFragment.this).navigate((R.id.selectItemFragment));
             }
         }
 

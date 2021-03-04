@@ -28,7 +28,7 @@ import edu.ncc.nest.nestapp.R;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-public class GuestDatabaseRegistrationSecondFormFragment extends Fragment {
+public class SecondFormFragment extends Fragment {
 
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,

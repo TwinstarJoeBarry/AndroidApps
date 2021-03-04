@@ -33,7 +33,7 @@ import android.widget.TextView;
 import edu.ncc.nest.nestapp.NestUPC;
 import edu.ncc.nest.nestapp.R;
 
-public class CheckExpirationConfirmItemFragment extends Fragment {
+public class ConfirmItemFragment extends Fragment {
 
     private static final String TAG_ITEM = "TEST ITEM";
     private static final String TAG = "TESTING";
@@ -54,7 +54,7 @@ public class CheckExpirationConfirmItemFragment extends Fragment {
             Bundle savedInstanceState
     ) {
 
-        Log.d(TAG, "In CheckExpirationConfirmItemFragment onCreateView()");
+        Log.d(TAG, "In ConfirmItemFragment onCreateView()");
 
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_check_expiration_confirm_item, container, false);
@@ -63,7 +63,7 @@ public class CheckExpirationConfirmItemFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Log.d(TAG, "In CheckExpirationConfirmItemFragment onViewCreated()");
+        Log.d(TAG, "In ConfirmItemFragment onViewCreated()");
 
         // Get respective views from layout
         itemName = (TextView) view.findViewById(R.id.add_item_name);
@@ -72,7 +72,7 @@ public class CheckExpirationConfirmItemFragment extends Fragment {
 
         if (savedInstanceState != null) {
 
-            Log.d(TAG, "In CheckExpirationConfirmItemFragment onViewCreated() If savedInstanceSate != null");
+            Log.d(TAG, "In ConfirmItemFragment onViewCreated() If savedInstanceSate != null");
 
             // get Strings, assign to TextViews
             // retrieve foodItem from Bundle
@@ -98,7 +98,7 @@ public class CheckExpirationConfirmItemFragment extends Fragment {
             getParentFragmentManager().setFragmentResultListener("FOOD ITEM", this, new FragmentResultListener() {
                 @Override
                 public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
-                    Log.d(TAG, "In CheckExpirationConfirmItemFragment onFragmentResult()");
+                    Log.d(TAG, "In ConfirmItemFragment onFragmentResult()");
 
                     // retrieve foodItem from Bundle
                     item = (NestUPC) result.getSerializable("foodItem");
@@ -130,9 +130,9 @@ public class CheckExpirationConfirmItemFragment extends Fragment {
         // if confirm button clicked, nav to fragment_check_expiration_select_printed_expiration_date.xml
         view.findViewById(R.id.button_confirm_item).setOnClickListener(view1 -> {
 
-            Log.d(TAG, "In CheckExpirationConfirmItemFragment onClick() for button_confirm_item");
+            Log.d(TAG, "In ConfirmItemFragment onClick() for button_confirm_item");
 
-            // Send bundle received to CheckExpirationSelectPrintedExpirationDateFragment
+            // Send bundle received to SelectPrintedExpirationDateFragment
             Bundle bundle = new Bundle();
 
             bundle.putSerializable("foodItem", item);
@@ -142,7 +142,7 @@ public class CheckExpirationConfirmItemFragment extends Fragment {
 
             getParentFragmentManager().setFragmentResult("FOOD ITEM", bundle);
 
-            NavHostFragment.findNavController(CheckExpirationConfirmItemFragment.this)
+            NavHostFragment.findNavController(ConfirmItemFragment.this)
                     .navigate(R.id.action_confirmItemFragment_to_selectPrintedExpirationDateFragment);
 
         });
@@ -150,19 +150,19 @@ public class CheckExpirationConfirmItemFragment extends Fragment {
         // if the item was incorrect, nav to fragment_check_expiration_select_item.xml
         view.findViewById(R.id.button_incorrect_item).setOnClickListener(view12 -> {
 
-            Log.d(TAG, "In CheckExpirationConfirmItemFragment onClick() for button_incorrect_item");
+            Log.d(TAG, "In ConfirmItemFragment onClick() for button_incorrect_item");
 
             // Send UPC/barcode to selectItemFragment
             Bundle upcBundle = new Bundle();
 
-            upcBundle.putString("barcode", upc_string);     // using "barcode" KEY to stay consistent with CheckExpirationScannerFragment
+            upcBundle.putString("barcode", upc_string);     // using "barcode" KEY to stay consistent with ScannerFragment
 
             // Need to clear the result with the same request key, before using possibly same request key again.
             getParentFragmentManager().clearFragmentResult("BARCODE");
 
             getParentFragmentManager().setFragmentResult("BARCODE", upcBundle);
 
-            NavHostFragment.findNavController(CheckExpirationConfirmItemFragment.this)
+            NavHostFragment.findNavController(ConfirmItemFragment.this)
                     .navigate(R.id.action_confirmItemFragment_to_selectItemFragment);
 
 

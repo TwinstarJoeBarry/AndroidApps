@@ -34,7 +34,7 @@ import edu.ncc.nest.nestapp.NestUPC;
 import edu.ncc.nest.nestapp.R;
 import edu.ncc.nest.nestapp.ShelfLife;
 
-public class CheckExpirationDisplayTrueExpirationFragment extends Fragment {
+public class DisplayTrueExpirationFragment extends Fragment {
     private NestDBDataSource dataSource;
     private String TAG = "TESTING";
     private NestUPC product = null;
@@ -76,8 +76,8 @@ public class CheckExpirationDisplayTrueExpirationFragment extends Fragment {
                 ((TextView) view.findViewById(R.id.category_display)).setText(product.getCatDesc());
 
                 // NOTE: The following code will throw an error when using the product from result,
-                // due to the productId not being properly set in CheckExpirationSelectItemFragment.java.
-                // The productId is being set to -1. See CheckExpirationSelectItemFragment.java, line 155.
+                // due to the productId not being properly set in SelectItemFragment.java.
+                // The productId is being set to -1. See SelectItemFragment.java, line 155.
 
                 // Instantiating Database
                 dataSource = new NestDBDataSource(this.getContext());
@@ -85,7 +85,7 @@ public class CheckExpirationDisplayTrueExpirationFragment extends Fragment {
                 // getting the product shelf life from the database
                 List<ShelfLife> shelfLives = dataSource.getShelfLivesForProduct(product.getProductId());
 
-                Log.d(TAG, "CheckExpirationDisplayTrueExpirationFragment: onViewCreated: " + shelfLives.toString());    //********************   Testing
+                Log.d(TAG, "DisplayTrueExpirationFragment: onViewCreated: " + shelfLives.toString());    //********************   Testing
 
                 // get the shortest shelf life from the list of shelf lives
                 shelfLife = getShortestShelfLife(shelfLives);
@@ -93,7 +93,7 @@ public class CheckExpirationDisplayTrueExpirationFragment extends Fragment {
             }
             // product doesn't exist
             else {
-                Log.d(TAG, "CheckExpirationDisplayTrueExpirationFragment: onViewCreated: product doesn't exist");
+                Log.d(TAG, "DisplayTrueExpirationFragment: onViewCreated: product doesn't exist");
             }
 
             getParentFragmentManager().clearFragmentResultListener("FOOD ITEM");

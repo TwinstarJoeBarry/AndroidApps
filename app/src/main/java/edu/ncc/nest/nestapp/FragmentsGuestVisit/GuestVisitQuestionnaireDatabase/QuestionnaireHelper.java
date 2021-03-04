@@ -55,7 +55,7 @@ public class QuestionnaireHelper extends SQLiteOpenHelper {
 
     /**
      * QuestionnaireHelper constructor method.
-     * This method is used in GuestVisitQuestionnaireFragment to validate numQuestions.
+     * This method is used in QuestionnaireFragment to validate numQuestions.
      * @param context SQLite required param
      * @param numQuestions Number of questions passed through
      */
@@ -70,11 +70,11 @@ public class QuestionnaireHelper extends SQLiteOpenHelper {
 
     }
 
-    // Used elsewhere if we need to access database outside of GuestVisitQuestionnaireFragment
+    // Used elsewhere if we need to access database outside of QuestionnaireFragment
 
     /**
      * QuestionnaireHelper secondary constructor method.
-     * This method is used elsewhere if we need to access database outside of GuestVisitQuestionnaireFragment.
+     * This method is used elsewhere if we need to access database outside of QuestionnaireFragment.
      * @param context SQLite required param
      */
     public QuestionnaireHelper(Context context) {

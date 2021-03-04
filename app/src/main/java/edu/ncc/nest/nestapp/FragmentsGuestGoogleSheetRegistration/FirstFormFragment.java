@@ -32,12 +32,12 @@ import edu.ncc.nest.nestapp.R;
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-public class GuestGoogleSheetRegistrationFirstFormFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemSelectedListener {
+public class FirstFormFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemSelectedListener {
     protected static final String TAG = "TESTING";
     @Override
     public void onStart() {
         super.onStart();
-        Log.d(TAG,"In GuestGoogleSheetRegistrationFirstFormFragment onStart()");
+        Log.d(TAG,"In FirstFormFragment onStart()");
     }
     //database where we will store user information
     GuestFormHelper db;
@@ -50,14 +50,14 @@ public class GuestGoogleSheetRegistrationFirstFormFragment extends Fragment impl
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
-        Log.d(TAG,"In GuestGoogleSheetRegistrationFirstFormFragment onCreateView()");
+        Log.d(TAG,"In FirstFormFragment onCreateView()");
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_guest_google_sheet_registration_first_form, container, false);
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Log.d(TAG,"In GuestGoogleSheetRegistrationFirstFormFragment onViewCreated()");
+        Log.d(TAG,"In FirstFormFragment onViewCreated()");
 
         //creating the database and passing the correct context as the argument
         //db = new GuestFormHelper(this);
@@ -99,7 +99,7 @@ public class GuestGoogleSheetRegistrationFirstFormFragment extends Fragment impl
                 }
                 */
 
-                NavHostFragment.findNavController(GuestGoogleSheetRegistrationFirstFormFragment.this)
+                NavHostFragment.findNavController(FirstFormFragment.this)
                         .navigate(R.id.action_FirstFragment_to_SecondFragment);
             }
         });

@@ -32,9 +32,9 @@ import androidx.navigation.fragment.NavHostFragment;
 import edu.ncc.nest.nestapp.GuestDatabaseRegistrationActivity;
 import edu.ncc.nest.nestapp.R;
 
-public class GuestVisitConfirmationFragment extends Fragment implements View.OnClickListener {
+public class ConfirmationFragment extends Fragment implements View.OnClickListener {
 
-    public static final String TAG = GuestVisitConfirmationFragment.class.getSimpleName();
+    public static final String TAG = ConfirmationFragment.class.getSimpleName();
 
     private String guestName = null;
 
@@ -99,7 +99,7 @@ public class GuestVisitConfirmationFragment extends Fragment implements View.OnC
         if (id == R.id.rescan_code_button || id == R.id.confirmation_0_rescan_btn) {
 
             // Navigate back to the scanner to rescan the barcode
-            NavHostFragment.findNavController(GuestVisitConfirmationFragment.this )
+            NavHostFragment.findNavController(ConfirmationFragment.this )
                     .navigate( R.id.action_GuestScanConfirmationFragment_to_GuestScanFragment );
 
         } else if (id == R.id.name_confirmed) {
@@ -115,7 +115,7 @@ public class GuestVisitConfirmationFragment extends Fragment implements View.OnC
             getParentFragmentManager().setFragmentResult("GUEST_CONFIRMED", guestInfo);
 
             // Navigate to the questionnaire
-            NavHostFragment.findNavController(GuestVisitConfirmationFragment.this)
+            NavHostFragment.findNavController(ConfirmationFragment.this)
                     .navigate(R.id.action_GuestScanConfirmationFragment_to_GuestQuestionnaireFragment);
 
         } else if (id == R.id.confirmation_0_register_btn) {
