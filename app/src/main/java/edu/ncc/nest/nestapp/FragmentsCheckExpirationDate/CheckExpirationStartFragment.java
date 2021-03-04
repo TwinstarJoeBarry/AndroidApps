@@ -27,7 +27,7 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import edu.ncc.nest.nestapp.R;
 
-public class StartFragment extends Fragment {
+public class CheckExpirationStartFragment extends Fragment {
 
     @Override
     public View onCreateView(
@@ -35,7 +35,7 @@ public class StartFragment extends Fragment {
             Bundle savedInstanceState
     ) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_start, container, false);
+        return inflater.inflate(R.layout.fragment_check_expiration_start, container, false);
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
@@ -44,7 +44,7 @@ public class StartFragment extends Fragment {
         view.findViewById(R.id.button_scan).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NavHostFragment.findNavController(StartFragment.this)
+                NavHostFragment.findNavController(CheckExpirationStartFragment.this)
                         .navigate(R.id.ScanFragment);
             }
         });
@@ -52,7 +52,7 @@ public class StartFragment extends Fragment {
         view.findViewById(R.id.button_enter).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NavHostFragment.findNavController(StartFragment.this)
+                NavHostFragment.findNavController(CheckExpirationStartFragment.this)
                         .navigate(R.id.EnterUpcFragment);
             }
         });

@@ -35,9 +35,9 @@
 
     <fragment
         android:id="@+id/GuestScanConfirmationFragment"
-        android:name="edu.ncc.nest.nestapp.FragmentsGuestVisit.GuestVisitScanConfirmationFragment"
+        android:name="edu.ncc.nest.nestapp.FragmentsGuestVisit.GuestVisitConfirmationFragment"
         android:label="@string/guest_scan_confirmation_fragment_lable"
-        tools:layout="@layout/fragment_guest_visit_scan_confirmation_flipper">
+        tools:layout="@layout/fragment_guest_visit_confirmation_flipper">
 
         <action
             android:id="@+id/action_GuestScanConfirmationFragment_to_GuestQuestionnaireFragment"

@@ -33,7 +33,7 @@ import edu.ncc.nest.nestapp.NestDBDataSource;
 import edu.ncc.nest.nestapp.NestUPC;
 import edu.ncc.nest.nestapp.R;
 
-public class EnterUpcFragment extends Fragment {
+public class CheckExpirationEnterUpcFragment extends Fragment {
 
     @Override
     public View onCreateView(
@@ -41,7 +41,7 @@ public class EnterUpcFragment extends Fragment {
             Bundle savedInstanceState
     ) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_enter_upc, container, false);
+        return inflater.inflate(R.layout.fragment_check_expiration_enter_upc, container, false);
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
@@ -83,20 +83,20 @@ public class EnterUpcFragment extends Fragment {
             // If there is a result from the database
             if(result != null) {
 
-                // Put the item in a bundle and pass it to ConfirmItemFragment
+                // Put the item in a bundle and pass it to CheckExpirationConfirmItemFragment
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("foodItem", result);
                 getParentFragmentManager().setFragmentResult("FOOD ITEM", bundle);
-                NavHostFragment.findNavController(EnterUpcFragment.this).navigate((R.id.confirmItemFragment));
+                NavHostFragment.findNavController(CheckExpirationEnterUpcFragment.this).navigate((R.id.confirmItemFragment));
 
                 // If there was no result from the database
             }else {
 
-                // Put UPC into a bundle and pass it to SelectItemFragment (may not be necessary)
+                // Put UPC into a bundle and pass it to CheckExpirationSelectItemFragment (may not be necessary)
                 Bundle bundle = new Bundle();
                 bundle.putString("barcode", upc);
                 getParentFragmentManager().setFragmentResult("BARCODE", bundle);
-                NavHostFragment.findNavController(EnterUpcFragment.this).navigate((R.id.selectItemFragment));
+                NavHostFragment.findNavController(CheckExpirationEnterUpcFragment.this).navigate((R.id.selectItemFragment));
             }
         }
 

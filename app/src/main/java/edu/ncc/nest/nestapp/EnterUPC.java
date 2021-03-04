@@ -29,8 +29,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import edu.ncc.nest.nestapp.FragmentsCheckExpirationDate.CheckExpirationEnterUpcFragment;
+
 /**
- * @deprecated This Activity is being replaced by a Fragment. ({@link edu.ncc.nest.nestapp.FragmentsCheckExpirationDate.EnterUpcFragment})
+ * @deprecated This Activity is being replaced by a Fragment. ({@link CheckExpirationEnterUpcFragment})
  */
 @Deprecated
 public class EnterUPC extends AppCompatActivity {

@@ -32,7 +32,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 //******************************testing**************************************************************************
-import edu.ncc.nest.nestapp.FragmentsCheckExpirationDate.DisplayTrueExpirationFragment;
+import edu.ncc.nest.nestapp.FragmentsCheckExpirationDate.CheckExpirationDisplayTrueExpirationFragment;
 
 public class Choose extends AppCompatActivity implements OnClickListener {
     private static final String TAG = "testing";
@@ -111,7 +111,7 @@ public class Choose extends AppCompatActivity implements OnClickListener {
 
     //    ******************************************TESTING
     /**
-     * launchTrueDate - starts the DisplayTrueExpirationFragment fragment
+     * launchTrueDate - starts the CheckExpirationDisplayTrueExpirationFragment fragment
      */
     public void launchTrueDate() {
         ((Button)findViewById(R.id.getUPCBtn)).setVisibility(View.GONE);
@@ -121,7 +121,7 @@ public class Choose extends AppCompatActivity implements OnClickListener {
         ((TextView)findViewById(R.id.nestTxt)).setVisibility(View.GONE);
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.RelativeLayoutMain, new DisplayTrueExpirationFragment() ).commit();
+        fragmentTransaction.replace(R.id.RelativeLayoutMain, new CheckExpirationDisplayTrueExpirationFragment() ).commit();
 
     }
 

@@ -36,7 +36,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import edu.ncc.nest.nestapp.NestUPC;
 import edu.ncc.nest.nestapp.R;
 
-public class SelectPrintedExpirationDateFragment extends Fragment
+public class CheckExpirationSelectPrintedExpirationDateFragment extends Fragment
 {
     private final int STARTING_YEAR = 2020;
     private final int ADDITIONAL_YEARS = 10;
@@ -55,7 +55,7 @@ public class SelectPrintedExpirationDateFragment extends Fragment
         NestUPC item;
         monthNum = dayNum = yearNum = -1;
         selectedDate = actualDate = "NOT YET PARSED";
-        return inflater.inflate(R.layout.fragment_select_printed_expiration_date, container, false);
+        return inflater.inflate(R.layout.fragment_check_expiration_select_printed_expiration_date, container, false);
     }
 
 
@@ -115,7 +115,7 @@ public class SelectPrintedExpirationDateFragment extends Fragment
                 getParentFragmentManager().setFragmentResult("FOOD ITEM", saved);
 
                 // navigate over to the proper fragment
-                NavHostFragment.findNavController(SelectPrintedExpirationDateFragment.this)
+                NavHostFragment.findNavController(CheckExpirationSelectPrintedExpirationDateFragment.this)
                         .navigate(R.id.action_selectPrintedExpirationDateFragment_to_displayTrueExpirationFragment);
             }
         });

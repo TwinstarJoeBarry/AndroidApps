@@ -21,39 +21,46 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FragmentsCheckExpirationDate.StartFragment">
+    tools:context=".FragmentsCheckExpirationDate.CheckExpirationEnterUpcFragment">
 
     <TextView
-        android:id="@+id/getUPCMessage"
+        android:id="@+id/enter_UPC_title_txt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:textAlignment="center"
+        android:textSize="26sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/edittext_enter_upc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Scan the food item's UPC\n that is printed on the barcode with a camera\nor enter the UPC code manually."
-        android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@id/button_scan"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:hint="Type UPC here"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button_scan"
+        android:id="@+id/button_enter_next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/scan"
+        android:text="Enter UPC"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/getUPCMessage"/>
-
-    <Button
-        android:id="@+id/button_enter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/enter_upc"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.75"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/getUPCMessage" />
+        app:layout_constraintTop_toBottomOf="@id/edittext_enter_upc"
+        app:layout_constraintVertical_bias="0.061" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
