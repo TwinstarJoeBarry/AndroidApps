@@ -64,13 +64,13 @@ import java.util.List;
 import edu.ncc.nest.nestapp.R;
 
 /**
- * ScannerFragment --
+ * AbstractScannerFragment --
  * Abstract Fragment class that handles the scanning of bar-codes.
  * @author Tyler Sizse
  */
-public abstract class ScannerFragment extends Fragment implements BarcodeCallback {
+public abstract class AbstractScannerFragment extends Fragment implements BarcodeCallback {
 
-    public static final String TAG = ScannerFragment.class.getSimpleName();
+    public static final String TAG = AbstractScannerFragment.class.getSimpleName();
 
     // Used to ask for camera permission. Calls onCameraPermissionResult method with the result
     private final ActivityResultLauncher<String> REQUEST_CAMERA_PERMISSION_LAUNCHER =
@@ -103,7 +103,7 @@ public abstract class ScannerFragment extends Fragment implements BarcodeCallbac
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_scanner, container, false);
+        return inflater.inflate(R.layout.fragment_abstract_scanner, container, false);
 
     }
 
@@ -242,7 +242,7 @@ public abstract class ScannerFragment extends Fragment implements BarcodeCallbac
         } else
 
             // Scan for another bar-code
-            decBarcodeView.decodeSingle(ScannerFragment.this);
+            decBarcodeView.decodeSingle(AbstractScannerFragment.this);
 
     }
 
@@ -313,7 +313,7 @@ public abstract class ScannerFragment extends Fragment implements BarcodeCallbac
                 if (!scannerPaused)
 
                     // Tells the decoder to stop after a single scan
-                    decBarcodeView.decodeSingle(ScannerFragment.this);
+                    decBarcodeView.decodeSingle(AbstractScannerFragment.this);
 
             }, DECODER_DELAY);
 

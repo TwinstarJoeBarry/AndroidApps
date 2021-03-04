@@ -5,3 +5,4 @@
 - activity_food_item.xml
 - activity_guest_form.xml
 - fragment_scan.xml
+- fragment_guest_database_registration_scanner.xml

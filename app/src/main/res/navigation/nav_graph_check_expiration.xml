@@ -37,7 +37,7 @@
         android:id="@+id/ScanFragment"
         android:name="edu.ncc.nest.nestapp.FragmentsCheckExpirationDate.ScannerFragment"
         android:label="@string/scan_fragment_label"
-        tools:layout="@layout/fragment_scanner">
+        tools:layout="@layout/fragment_abstract_scanner">
         <action
             android:id="@+id/action_ScanFragment_to_confirmItemFragment"
             app:destination="@id/confirmItemFragment" />

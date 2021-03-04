@@ -50,7 +50,7 @@
         android:id="@+id/FragmentGuestRegistrationScanner"
         android:name="edu.ncc.nest.nestapp.FragmentsGuestDatabaseRegistration.ScannerFragment"
         android:label="@string/guest_scan_fragment_label"
-        tools:layout="@layout/fragment_guest_database_registration_scanner" >
+        tools:layout="@layout/fragment_abstract_scanner" >
 
     </fragment>
 

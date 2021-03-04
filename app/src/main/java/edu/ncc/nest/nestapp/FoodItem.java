@@ -56,8 +56,7 @@ import java.text.DateFormat;
 import edu.ncc.nest.nestapp.FragmentsCheckExpirationDate.SelectItemFragment;
 
 /**
- * @deprecated This Activity is being replaced by a Fragment. ({@link SelectItemFragment
- * })
+ * @deprecated This Activity is being replaced by a Fragment. ({@link SelectItemFragment})
  */
 @Deprecated
 public class FoodItem extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{

@@ -41,15 +41,16 @@ import android.view.View;
 
 import com.google.zxing.BarcodeFormat;
 
+import edu.ncc.nest.nestapp.FragmentScanner.AbstractScannerFragment;
 import edu.ncc.nest.nestapp.GuestFormSource;
 import edu.ncc.nest.nestapp.R;
 
 /**
- * ScannerFragment --
+ * AbstractScannerFragment --
  * Fragment to be used to check in a user by scanning a guest's bar code that was given to them
  * at registration time.
  */
-public class ScannerFragment extends edu.ncc.nest.nestapp.FragmentScanner.ScannerFragment {
+public class ScannerFragment extends AbstractScannerFragment {
 
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {

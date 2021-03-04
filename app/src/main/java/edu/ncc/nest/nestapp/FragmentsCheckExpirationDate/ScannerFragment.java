@@ -41,11 +41,12 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.google.zxing.BarcodeFormat;
 
+import edu.ncc.nest.nestapp.FragmentScanner.AbstractScannerFragment;
 import edu.ncc.nest.nestapp.NestDBDataSource;
 import edu.ncc.nest.nestapp.NestUPC;
 import edu.ncc.nest.nestapp.R;
 
-public class ScannerFragment extends edu.ncc.nest.nestapp.FragmentScanner.ScannerFragment {
+public class ScannerFragment extends AbstractScannerFragment {
 
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {

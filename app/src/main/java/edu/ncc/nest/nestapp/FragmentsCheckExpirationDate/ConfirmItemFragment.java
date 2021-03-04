@@ -155,7 +155,7 @@ public class ConfirmItemFragment extends Fragment {
             // Send UPC/barcode to selectItemFragment
             Bundle upcBundle = new Bundle();
 
-            upcBundle.putString("barcode", upc_string);     // using "barcode" KEY to stay consistent with ScannerFragment
+            upcBundle.putString("barcode", upc_string);     // using "barcode" KEY to stay consistent with AbstractScannerFragment
 
             // Need to clear the result with the same request key, before using possibly same request key again.
             getParentFragmentManager().clearFragmentResult("BARCODE");
