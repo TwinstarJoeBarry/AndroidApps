@@ -29,6 +29,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import edu.ncc.nest.nestapp.GuestDatabaseRegistration.Activities.GuestDatabaseRegistrationActivity;
+import edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses.GuestFormHelper;
 import edu.ncc.nest.nestapp.GuestGoogleSheetRegistration.Activities.GuestGoogleSheetRegistrationActivity;
 
 /**

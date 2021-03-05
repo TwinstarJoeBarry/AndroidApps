@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
-import edu.ncc.nest.nestapp.GuestFormHelper;
+import edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses.GuestFormHelper;
 import edu.ncc.nest.nestapp.R;
 
 /**

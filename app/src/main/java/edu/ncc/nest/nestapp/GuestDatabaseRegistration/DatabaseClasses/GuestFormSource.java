@@ -1,4 +1,4 @@
-package edu.ncc.nest.nestapp;
+package edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,9 +6,9 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
-import static edu.ncc.nest.nestapp.GuestFormHelper.BARCODE;
-import static edu.ncc.nest.nestapp.GuestFormHelper.NAME;
-import static edu.ncc.nest.nestapp.GuestFormHelper.TABLE_NAME;
+import static edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses.GuestFormHelper.BARCODE;
+import static edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses.GuestFormHelper.NAME;
+import static edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses.GuestFormHelper.TABLE_NAME;
 
 public class GuestFormSource
 {

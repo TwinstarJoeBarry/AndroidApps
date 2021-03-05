@@ -27,7 +27,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
-import edu.ncc.nest.nestapp.GuestFormSource;
+import edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses.GuestFormSource;
 import edu.ncc.nest.nestapp.R;
 import  androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

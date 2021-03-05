@@ -92,7 +92,7 @@
                 android:layout_below="@id/guestVisitLocalDbase"
                 android:layout_centerHorizontal="true"
                 android:onClick="onClick"
-                android:text="Guest Visit Checkin (local database)" />
+                android:text="Guest Visit Checkin (Google Sheet)" />
 
         </RelativeLayout>
     </ScrollView>

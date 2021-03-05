@@ -1,4 +1,4 @@
-package edu.ncc.nest.nestapp;
+package edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses;
 /**
  *
  * Copyright (C) 2019 The LibreFoodPantry Developers.

@@ -42,7 +42,7 @@ import android.view.View;
 import com.google.zxing.BarcodeFormat;
 
 import edu.ncc.nest.nestapp.AbstractScannerFragment.AbstractScannerFragment;
-import edu.ncc.nest.nestapp.GuestFormSource;
+import edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses.GuestFormSource;
 import edu.ncc.nest.nestapp.R;
 
 /**
