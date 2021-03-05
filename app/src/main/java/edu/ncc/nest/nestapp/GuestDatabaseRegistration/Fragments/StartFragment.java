@@ -28,7 +28,7 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import edu.ncc.nest.nestapp.R;
 
-public class StartPageFragment extends Fragment {
+public class StartFragment extends Fragment {
 
     protected static final String TAG = "TESTING";
 
@@ -36,7 +36,7 @@ public class StartPageFragment extends Fragment {
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
-        Log.d(TAG, "In StartPageFragment onCreateView()");
+        Log.d(TAG, "In StartFragment onCreateView()");
 
         // Inflate the layout for this fragment - This is where the navigation begins
         return inflater.inflate(R.layout.fragment_guest_database_registration_start_page, container, false);
@@ -51,8 +51,8 @@ public class StartPageFragment extends Fragment {
             public void onClick(View view) {
                 // Uncomment this code when the layouts for the registration form page is available &
                 // complete this line with the appropriate nav action -> navigate( R.id.action_StartFragment_to_FormFragment)
-                NavHostFragment.findNavController(StartPageFragment.this)
-                       .navigate(R.id.action_FragmentGuestRegistrationStartPage_to_FirstFragmentGuestRegistration);
+                NavHostFragment.findNavController(StartFragment.this)
+                       .navigate(R.id.action_DBR_StartFragment_to_FirstFormFragment);
             }
         });
 
@@ -60,8 +60,8 @@ public class StartPageFragment extends Fragment {
         view.findViewById(R.id.barcode_scanner_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NavHostFragment.findNavController(StartPageFragment.this)
-                        .navigate(R.id.action_FragmentGuestRegistrationStartPage_to_FragmentGuestRegistrationScanner);
+                NavHostFragment.findNavController(StartFragment.this)
+                        .navigate(R.id.action_DBR_StartFragment_to_ScannerFragment);
             }
         });
     }

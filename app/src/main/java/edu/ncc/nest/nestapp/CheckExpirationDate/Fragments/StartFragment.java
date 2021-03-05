@@ -45,7 +45,7 @@ public class StartFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 NavHostFragment.findNavController(StartFragment.this)
-                        .navigate(R.id.ScanFragment);
+                        .navigate(R.id.CE_ScannerFragment);
             }
         });
 
@@ -53,7 +53,7 @@ public class StartFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 NavHostFragment.findNavController(StartFragment.this)
-                        .navigate(R.id.EnterUpcFragment);
+                        .navigate(R.id.CE_EnterUpcFragment);
             }
         });
     }

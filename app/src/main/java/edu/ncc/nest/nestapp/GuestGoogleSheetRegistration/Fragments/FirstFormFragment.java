@@ -100,7 +100,7 @@ public class FirstFormFragment extends Fragment implements View.OnClickListener,
                 */
 
                 NavHostFragment.findNavController(FirstFormFragment.this)
-                        .navigate(R.id.action_FirstFragment_to_SecondFragment);
+                        .navigate(R.id.action_GSR_FirstFormFragment_to_SecondFormFragment);
             }
         });
     }

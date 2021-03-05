@@ -19,77 +19,103 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph"
-    app:startDestination="@id/StartFragment">
+    android:id="@+id/nav_graph_check_expiration"
+    app:startDestination="@id/CE_StartFragment">
+
+    <!-- NOTE: CE stands for CheckExpiration :NOTE -->
+
     <fragment
-        android:id="@+id/StartFragment"
+        android:id="@+id/CE_StartFragment"
         android:name="edu.ncc.nest.nestapp.CheckExpirationDate.Fragments.StartFragment"
-        android:label="@string/start_fragment_label"
+        android:label="@string/check_expiration_start_fragment_label"
         tools:layout="@layout/fragment_check_expiration_start">
+
         <action
-            android:id="@+id/action_StartFragment_to_ScanFragment"
-            app:destination="@id/ScanFragment" />
+            android:id="@+id/action_CE_StartFragment_to_ScannerFragment"
+            app:destination="@id/CE_ScannerFragment" />
+
         <action
-            android:id="@+id/action_StartFragment_to_EnterUpcFragment"
-            app:destination="@id/EnterUpcFragment" />
+            android:id="@+id/action_CE_StartFragment_to_EnterUpcFragment"
+            app:destination="@id/CE_EnterUpcFragment" />
+
     </fragment>
+
     <fragment
-        android:id="@+id/ScanFragment"
+        android:id="@+id/CE_ScannerFragment"
         android:name="edu.ncc.nest.nestapp.CheckExpirationDate.Fragments.ScannerFragment"
-        android:label="@string/scan_fragment_label"
+        android:label="@string/check_expiration_scanner_fragment_label"
         tools:layout="@layout/fragment_abstract_scanner">
+
         <action
-            android:id="@+id/action_ScanFragment_to_confirmItemFragment"
-            app:destination="@id/confirmItemFragment" />
+            android:id="@+id/action_CE_ScannerFragment_to_ConfirmItemFragment"
+            app:destination="@id/CE_ConfirmItemFragment" />
+
         <action
-            android:id="@+id/action_ScanFragment_to_selectItemFragment"
-            app:destination="@id/selectItemFragment" />
+            android:id="@+id/action_CE_ScannerFragment_to_SelectItemFragment"
+            app:destination="@id/CE_SelectItemFragment" />
+
     </fragment>
+
     <fragment
-        android:id="@+id/EnterUpcFragment"
+        android:id="@+id/CE_EnterUpcFragment"
         android:name="edu.ncc.nest.nestapp.CheckExpirationDate.Fragments.EnterUpcFragment"
-        android:label="@string/enter_upc_fragment_label"
+        android:label="@string/check_expiration_enter_upc_fragment_label"
         tools:layout="@layout/fragment_check_expiration_enter_upc">
+
         <action
-            android:id="@+id/action_EnterUpcFragment_to_confirmItemFragment"
-            app:destination="@id/confirmItemFragment" />
+            android:id="@+id/action_CE_EnterUpcFragment_to_ConfirmItemFragment"
+            app:destination="@id/CE_ConfirmItemFragment" />
+
         <action
-            android:id="@+id/action_EnterUpcFragment_to_selectItemFragment"
-            app:destination="@id/selectItemFragment" />
+            android:id="@+id/action_CE_EnterUpcFragment_to_SelectItemFragment"
+            app:destination="@id/CE_SelectItemFragment" />
+
     </fragment>
+
     <fragment
-        android:id="@+id/confirmItemFragment"
+        android:id="@+id/CE_ConfirmItemFragment"
         android:name="edu.ncc.nest.nestapp.CheckExpirationDate.Fragments.ConfirmItemFragment"
-        android:label="fragment_confirm_item"
+        android:label="@string/check_expiration_confirm_item_fragment_label"
         tools:layout="@layout/fragment_check_expiration_confirm_item" >
+
         <action
-            android:id="@+id/action_confirmItemFragment_to_selectPrintedExpirationDateFragment"
-            app:destination="@id/selectPrintedExpirationDateFragment" />
+            android:id="@+id/action_CE_ConfirmItemFragment_to_SelectPrintedExpirationDateFragment"
+            app:destination="@id/CE_SelectPrintedExpirationDateFragment" />
+
         <action
-            android:id="@+id/action_confirmItemFragment_to_selectItemFragment"
-            app:destination="@id/selectItemFragment" />
+            android:id="@+id/action_CE_ConfirmItemFragment_to_SelectItemFragment"
+            app:destination="@id/CE_SelectItemFragment" />
+
     </fragment>
+
     <fragment
-        android:id="@+id/selectItemFragment"
+        android:id="@+id/CE_SelectItemFragment"
         android:name="edu.ncc.nest.nestapp.CheckExpirationDate.Fragments.SelectItemFragment"
-        android:label="fragment_select_item"
+        android:label="@string/check_expiration_select_item_fragment_label"
         tools:layout="@layout/fragment_check_expiration_select_item" >
+
         <action
-            android:id="@+id/action_selectItemFragment_to_selectPrintedExpirationDateFragment"
-            app:destination="@id/selectPrintedExpirationDateFragment" />
+            android:id="@+id/action_CE_SelectItemFragment_to_SelectPrintedExpirationDateFragment"
+            app:destination="@id/CE_SelectPrintedExpirationDateFragment" />
+
     </fragment>
+
     <fragment
-        android:id="@+id/selectPrintedExpirationDateFragment"
+        android:id="@+id/CE_SelectPrintedExpirationDateFragment"
         android:name="edu.ncc.nest.nestapp.CheckExpirationDate.Fragments.SelectPrintedExpirationDateFragment"
-        android:label="fragment_select_printed_expiration_date"
+        android:label="@string/check_expiration_select_printed_expiration_date_fragment_label"
         tools:layout="@layout/fragment_check_expiration_select_printed_expiration_date" >
+
         <action
-            android:id="@+id/action_selectPrintedExpirationDateFragment_to_displayTrueExpirationFragment"
-            app:destination="@id/displayTrueExpirationFragment" />
+            android:id="@+id/action_CE_SelectPrintedExpirationDateFragment_to_DisplayTrueExpirationFragment"
+            app:destination="@id/CE_DisplayTrueExpirationFragment" />
+
     </fragment>
+
     <fragment
-        android:id="@+id/displayTrueExpirationFragment"
+        android:id="@+id/CE_DisplayTrueExpirationFragment"
         android:name="edu.ncc.nest.nestapp.CheckExpirationDate.Fragments.DisplayTrueExpirationFragment"
-        android:label="fragment_display_true_expiration"
+        android:label="@string/check_expiration_display_true_expiration_fragment_label"
         tools:layout="@layout/fragment_check_expiration_display_true_expiration" />
+
 </navigation>

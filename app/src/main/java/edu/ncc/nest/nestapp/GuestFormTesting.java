@@ -23,7 +23,7 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
-import edu.ncc.nest.nestapp.GuestDatabaseRegistration.Fragments.StartPageFragment;
+import edu.ncc.nest.nestapp.GuestDatabaseRegistration.Fragments.StartFragment;
 import edu.ncc.nest.nestapp.GuestDatabaseRegistration.Activities.GuestDatabaseRegistrationActivity;
 import edu.ncc.nest.nestapp.GuestGoogleSheetRegistration.Activities.GuestGoogleSheetRegistrationActivity;
 import edu.ncc.nest.nestapp.GuestVisit.Activities.GuestVisitActivity;
@@ -62,7 +62,7 @@ public class GuestFormTesting extends AppCompatActivity {
     public void addFragment(int fragmentID)
     {
         FragmentManager fm = getSupportFragmentManager();
-        StartPageFragment fragment = new StartPageFragment();
+        StartFragment fragment = new StartFragment();
         fm.beginTransaction().add(fragmentID,fragment).commit();
     }
 

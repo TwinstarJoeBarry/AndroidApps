@@ -130,7 +130,7 @@ public class SelectItemFragment extends Fragment implements View.OnClickListener
         view.findViewById(R.id.acceptButton).setOnClickListener( view1 ->
         {
             // open a source to the database to add the information;
-            NestDBDataSource database = new NestDBDataSource( getContext() );
+            NestDBDataSource database = new NestDBDataSource( requireContext() );
 
             // retrieve the String information from each view, casting as appropriate;
             String name = ((EditText) (view.findViewById(R.id.fragment_select_item_brand_entry))).getText().toString();
@@ -186,14 +186,14 @@ public class SelectItemFragment extends Fragment implements View.OnClickListener
 
                 // navigate over to printed expiration date;
                 NavHostFragment.findNavController(SelectItemFragment.this)
-                        .navigate(R.id.action_selectItemFragment_to_selectPrintedExpirationDateFragment);
+                        .navigate(R.id.action_CE_SelectItemFragment_to_SelectPrintedExpirationDateFragment);
 
             }
         });
 
         // CANCEL BUTTON CODE - NAVIGATE BACK TO START FRAGMENT
         view.findViewById(R.id.cancelButton).setOnClickListener( view12 ->
-            NavHostFragment.findNavController(SelectItemFragment.this).navigate(R.id.StartFragment));
+            NavHostFragment.findNavController(SelectItemFragment.this).navigate(R.id.CE_StartFragment));
 
     }
 

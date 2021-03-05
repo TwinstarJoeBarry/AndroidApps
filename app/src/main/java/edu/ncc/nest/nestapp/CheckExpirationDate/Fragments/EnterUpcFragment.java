@@ -87,7 +87,7 @@ public class EnterUpcFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("foodItem", result);
                 getParentFragmentManager().setFragmentResult("FOOD ITEM", bundle);
-                NavHostFragment.findNavController(EnterUpcFragment.this).navigate((R.id.confirmItemFragment));
+                NavHostFragment.findNavController(EnterUpcFragment.this).navigate((R.id.CE_ConfirmItemFragment));
 
                 // If there was no result from the database
             }else {
@@ -96,7 +96,7 @@ public class EnterUpcFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putString("barcode", upc);
                 getParentFragmentManager().setFragmentResult("BARCODE", bundle);
-                NavHostFragment.findNavController(EnterUpcFragment.this).navigate((R.id.selectItemFragment));
+                NavHostFragment.findNavController(EnterUpcFragment.this).navigate((R.id.CE_SelectItemFragment));
             }
         }
 

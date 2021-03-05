@@ -100,7 +100,7 @@ public class ConfirmationFragment extends Fragment implements View.OnClickListen
 
             // Navigate back to the scanner to rescan the barcode
             NavHostFragment.findNavController(ConfirmationFragment.this )
-                    .navigate( R.id.action_GuestScanConfirmationFragment_to_GuestScanFragment );
+                    .navigate( R.id.action_GV_ConfirmationFragment_to_ScannerFragment);
 
         } else if (id == R.id.name_confirmed) {
 
@@ -116,7 +116,7 @@ public class ConfirmationFragment extends Fragment implements View.OnClickListen
 
             // Navigate to the questionnaire
             NavHostFragment.findNavController(ConfirmationFragment.this)
-                    .navigate(R.id.action_GuestScanConfirmationFragment_to_GuestQuestionnaireFragment);
+                    .navigate(R.id.action_GV_ConfirmationFragment_to_QuestionnaireFragment);
 
         } else if (id == R.id.confirmation_0_register_btn) {
 

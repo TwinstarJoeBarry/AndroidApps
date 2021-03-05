@@ -91,7 +91,7 @@ public class ScannerFragment extends AbstractScannerFragment {
 
         // Navigate to the confirmation fragment
         NavHostFragment.findNavController(ScannerFragment.this)
-                .navigate(R.id.action_GuestScanFragment_to_GuestScanConfirmationFragment);
+                .navigate(R.id.action_GV_ScannerFragment_to_ConfirmationFragment);
 
     }
 

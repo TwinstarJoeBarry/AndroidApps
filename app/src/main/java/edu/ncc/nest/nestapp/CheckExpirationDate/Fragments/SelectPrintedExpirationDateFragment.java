@@ -116,7 +116,7 @@ public class SelectPrintedExpirationDateFragment extends Fragment
 
                 // navigate over to the proper fragment
                 NavHostFragment.findNavController(SelectPrintedExpirationDateFragment.this)
-                        .navigate(R.id.action_selectPrintedExpirationDateFragment_to_displayTrueExpirationFragment);
+                        .navigate(R.id.action_CE_SelectPrintedExpirationDateFragment_to_DisplayTrueExpirationFragment);
             }
         });
     }

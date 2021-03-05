@@ -143,7 +143,7 @@ public class ConfirmItemFragment extends Fragment {
             getParentFragmentManager().setFragmentResult("FOOD ITEM", bundle);
 
             NavHostFragment.findNavController(ConfirmItemFragment.this)
-                    .navigate(R.id.action_confirmItemFragment_to_selectPrintedExpirationDateFragment);
+                    .navigate(R.id.action_CE_ConfirmItemFragment_to_SelectPrintedExpirationDateFragment);
 
         });
 
@@ -152,7 +152,7 @@ public class ConfirmItemFragment extends Fragment {
 
             Log.d(TAG, "In ConfirmItemFragment onClick() for button_incorrect_item");
 
-            // Send UPC/barcode to selectItemFragment
+            // Send UPC/barcode to SelectItemFragment
             Bundle upcBundle = new Bundle();
 
             upcBundle.putString("barcode", upc_string);     // using "barcode" KEY to stay consistent with AbstractScannerFragment
@@ -163,7 +163,7 @@ public class ConfirmItemFragment extends Fragment {
             getParentFragmentManager().setFragmentResult("BARCODE", upcBundle);
 
             NavHostFragment.findNavController(ConfirmItemFragment.this)
-                    .navigate(R.id.action_confirmItemFragment_to_selectItemFragment);
+                    .navigate(R.id.action_CE_ConfirmItemFragment_to_SelectItemFragment);
 
 
         });

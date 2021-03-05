@@ -94,7 +94,7 @@ public class FirstFormFragment extends Fragment implements View.OnClickListener,
                 // Uncomment this code when the layouts for the registration form page is available &
                 // complete this line with the appropriate nav action -> navigate( R.id.action_StartFragment_to_FormFragment)
                 NavHostFragment.findNavController(FirstFormFragment.this)
-                        .navigate(R.id.action_FirstFragmentGuestRegistration_to_SecondFragmentGuestRegistration);
+                        .navigate(R.id.action_DBR_FirstFormFragment_to_SecondFormFragment);
                 }
             });
 

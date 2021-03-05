@@ -18,45 +18,47 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/guest_visit_nav_graph"
-    app:startDestination="@id/GuestScanFragment" >
+    android:id="@+id/nav_graph_guest_visit"
+    app:startDestination="@id/GV_ScannerFragment" >
+
+    <!-- NOTE: GV stands for GuestVisit :NOTE -->
 
     <fragment
-        android:id="@+id/GuestScanFragment"
+        android:id="@+id/GV_ScannerFragment"
         android:name="edu.ncc.nest.nestapp.GuestVisit.Fragments.ScannerFragment"
-        android:label="@string/guest_scan_fragment_label"
+        android:label="@string/guest_visit_scanner_fragment_label"
         tools:layout="@layout/fragment_abstract_scanner" >
 
         <action
-            android:id="@+id/action_GuestScanFragment_to_GuestScanConfirmationFragment"
-            app:destination="@id/GuestScanConfirmationFragment" />
+            android:id="@+id/action_GV_ScannerFragment_to_ConfirmationFragment"
+            app:destination="@id/GV_ConfirmationFragment" />
 
     </fragment>
 
     <fragment
-        android:id="@+id/GuestScanConfirmationFragment"
+        android:id="@+id/GV_ConfirmationFragment"
         android:name="edu.ncc.nest.nestapp.GuestVisit.Fragments.ConfirmationFragment"
-        android:label="@string/guest_scan_confirmation_fragment_lable"
+        android:label="@string/guest_visit_confirmation_fragment_label"
         tools:layout="@layout/fragment_guest_visit_confirmation_flipper">
 
         <action
-            android:id="@+id/action_GuestScanConfirmationFragment_to_GuestQuestionnaireFragment"
-            app:destination="@id/GuestQuestionnaireFragment"
-            app:popUpTo="@id/GuestScanConfirmationFragment"
+            android:id="@+id/action_GV_ConfirmationFragment_to_QuestionnaireFragment"
+            app:destination="@id/GV_QuestionnaireFragment"
+            app:popUpTo="@id/GV_ConfirmationFragment"
             app:popUpToInclusive="true" />
 
         <action
-            android:id="@+id/action_GuestScanConfirmationFragment_to_GuestScanFragment"
-            app:destination="@id/GuestScanFragment"
-            app:popUpTo="@id/GuestScanFragment"
+            android:id="@+id/action_GV_ConfirmationFragment_to_ScannerFragment"
+            app:destination="@id/GV_ScannerFragment"
+            app:popUpTo="@id/GV_ScannerFragment"
             app:popUpToInclusive="true" />
 
     </fragment>
 
     <fragment
-        android:id="@+id/GuestQuestionnaireFragment"
+        android:id="@+id/GV_QuestionnaireFragment"
         android:name="edu.ncc.nest.nestapp.GuestVisit.Fragments.QuestionnaireFragment"
-        android:label="@string/guest_questionnaire_fragment_label"
+        android:label="@string/guest_visit_questionnaire_fragment_label"
         tools:layout="@layout/fragment_guest_visit_questionnaire" >
 
     </fragment>
