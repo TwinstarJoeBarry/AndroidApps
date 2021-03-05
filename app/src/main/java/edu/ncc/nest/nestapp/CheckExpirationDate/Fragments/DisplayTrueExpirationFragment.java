@@ -48,7 +48,7 @@ public class DisplayTrueExpirationFragment extends Fragment {
     ) {
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_check_expiration_display_true_expiration, container, false);
+        return inflater.inflate(R.layout.fragment_check_expiration_date_display_true_expiration, container, false);
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
@@ -70,7 +70,7 @@ public class DisplayTrueExpirationFragment extends Fragment {
             // product exists
             if (product != null) {
 
-                // Display item name , upc , category name on fragment_check_expiration_display_true_expiration.xml
+                // Display item name , upc , category name on fragment_check_expiration_date_display_true_expiration.xml
                 ((TextView) view.findViewById(R.id.item_display)).setText(product.getProductName());
                 ((TextView) view.findViewById(R.id.upc_display)).setText(product.getUpc());
                 ((TextView) view.findViewById(R.id.category_display)).setText(product.getCatDesc());

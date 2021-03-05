@@ -57,7 +57,7 @@ public class ConfirmItemFragment extends Fragment {
         Log.d(TAG, "In ConfirmItemFragment onCreateView()");
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_check_expiration_confirm_item, container, false);
+        return inflater.inflate(R.layout.fragment_check_expiration_date_confirm_item, container, false);
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
@@ -127,7 +127,7 @@ public class ConfirmItemFragment extends Fragment {
 
         ////////////// Navigation //////////////
 
-        // if confirm button clicked, nav to fragment_check_expiration_select_printed_expiration_date.xml
+        // if confirm button clicked, nav to fragment_check_expiration_date_select_printed_expiration_date.xml
         view.findViewById(R.id.button_confirm_item).setOnClickListener(view1 -> {
 
             Log.d(TAG, "In ConfirmItemFragment onClick() for button_confirm_item");
@@ -143,11 +143,11 @@ public class ConfirmItemFragment extends Fragment {
             getParentFragmentManager().setFragmentResult("FOOD ITEM", bundle);
 
             NavHostFragment.findNavController(ConfirmItemFragment.this)
-                    .navigate(R.id.action_CE_ConfirmItemFragment_to_SelectPrintedExpirationDateFragment);
+                    .navigate(R.id.action_CED_ConfirmItemFragment_to_SelectPrintedExpirationDateFragment);
 
         });
 
-        // if the item was incorrect, nav to fragment_check_expiration_select_item.xml
+        // if the item was incorrect, nav to fragment_check_expiration_date_select_item.xml
         view.findViewById(R.id.button_incorrect_item).setOnClickListener(view12 -> {
 
             Log.d(TAG, "In ConfirmItemFragment onClick() for button_incorrect_item");
@@ -155,7 +155,7 @@ public class ConfirmItemFragment extends Fragment {
             // Send UPC/barcode to SelectItemFragment
             Bundle upcBundle = new Bundle();
 
-            upcBundle.putString("barcode", upc_string);     // using "barcode" KEY to stay consistent with AbstractScannerFragment
+            upcBundle.putString("barcode", upc_string);     // using "barcode" KEY to stay consistent with ScannerFragment
 
             // Need to clear the result with the same request key, before using possibly same request key again.
             getParentFragmentManager().clearFragmentResult("BARCODE");
@@ -163,7 +163,7 @@ public class ConfirmItemFragment extends Fragment {
             getParentFragmentManager().setFragmentResult("BARCODE", upcBundle);
 
             NavHostFragment.findNavController(ConfirmItemFragment.this)
-                    .navigate(R.id.action_CE_ConfirmItemFragment_to_SelectItemFragment);
+                    .navigate(R.id.action_CED_ConfirmItemFragment_to_SelectItemFragment);
 
 
         });

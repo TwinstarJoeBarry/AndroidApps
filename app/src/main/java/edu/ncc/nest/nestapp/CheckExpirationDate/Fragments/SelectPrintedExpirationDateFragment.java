@@ -55,7 +55,7 @@ public class SelectPrintedExpirationDateFragment extends Fragment
         NestUPC item;
         monthNum = dayNum = yearNum = -1;
         selectedDate = actualDate = "NOT YET PARSED";
-        return inflater.inflate(R.layout.fragment_check_expiration_select_printed_expiration_date, container, false);
+        return inflater.inflate(R.layout.fragment_check_expiration_date_select_printed_expiration_date, container, false);
     }
 
 
@@ -116,7 +116,7 @@ public class SelectPrintedExpirationDateFragment extends Fragment
 
                 // navigate over to the proper fragment
                 NavHostFragment.findNavController(SelectPrintedExpirationDateFragment.this)
-                        .navigate(R.id.action_CE_SelectPrintedExpirationDateFragment_to_DisplayTrueExpirationFragment);
+                        .navigate(R.id.action_CED_SelectPrintedExpirationDateFragment_to_DisplayTrueExpirationFragment);
             }
         });
     }

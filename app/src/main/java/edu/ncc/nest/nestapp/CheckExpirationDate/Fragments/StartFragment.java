@@ -35,7 +35,7 @@ public class StartFragment extends Fragment {
             Bundle savedInstanceState
     ) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_check_expiration_start, container, false);
+        return inflater.inflate(R.layout.fragment_check_expiration_date_start, container, false);
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
@@ -45,7 +45,7 @@ public class StartFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 NavHostFragment.findNavController(StartFragment.this)
-                        .navigate(R.id.CE_ScannerFragment);
+                        .navigate(R.id.CED_ScannerFragment);
             }
         });
 
@@ -53,7 +53,7 @@ public class StartFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 NavHostFragment.findNavController(StartFragment.this)
-                        .navigate(R.id.CE_EnterUpcFragment);
+                        .navigate(R.id.CED_EnterUpcFragment);
             }
         });
     }

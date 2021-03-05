@@ -88,7 +88,7 @@ public class SelectItemFragment extends Fragment implements View.OnClickListener
         categoryIndex = -1;
         subCategory = -1;
 
-        return inflater.inflate(R.layout.fragment_check_expiration_select_item, container, false);
+        return inflater.inflate(R.layout.fragment_check_expiration_date_select_item, container, false);
     }
 
 
@@ -186,14 +186,14 @@ public class SelectItemFragment extends Fragment implements View.OnClickListener
 
                 // navigate over to printed expiration date;
                 NavHostFragment.findNavController(SelectItemFragment.this)
-                        .navigate(R.id.action_CE_SelectItemFragment_to_SelectPrintedExpirationDateFragment);
+                        .navigate(R.id.action_CED_SelectItemFragment_to_SelectPrintedExpirationDateFragment);
 
             }
         });
 
         // CANCEL BUTTON CODE - NAVIGATE BACK TO START FRAGMENT
         view.findViewById(R.id.cancelButton).setOnClickListener( view12 ->
-            NavHostFragment.findNavController(SelectItemFragment.this).navigate(R.id.CE_StartFragment));
+            NavHostFragment.findNavController(SelectItemFragment.this).navigate(R.id.CED_StartFragment));
 
     }
 

@@ -80,7 +80,7 @@ public class ScannerFragment extends AbstractScannerFragment {
             Bundle bundle = new Bundle();
             bundle.putSerializable("foodItem", result);
             getParentFragmentManager().setFragmentResult("FOOD ITEM", bundle);
-            NavHostFragment.findNavController(ScannerFragment.this).navigate((R.id.CE_ConfirmItemFragment));
+            NavHostFragment.findNavController(ScannerFragment.this).navigate((R.id.CED_ConfirmItemFragment));
 
         // If there was no result from the database
         } else {
@@ -89,7 +89,7 @@ public class ScannerFragment extends AbstractScannerFragment {
             Bundle bundle = new Bundle();
             bundle.putString("barcode", barcode);
             getParentFragmentManager().setFragmentResult("BARCODE", bundle);
-            NavHostFragment.findNavController(ScannerFragment.this).navigate((R.id.CE_SelectItemFragment));
+            NavHostFragment.findNavController(ScannerFragment.this).navigate((R.id.CED_SelectItemFragment));
 
         }
 

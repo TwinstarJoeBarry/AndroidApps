@@ -41,7 +41,7 @@ public class EnterUpcFragment extends Fragment {
             Bundle savedInstanceState
     ) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_check_expiration_enter_upc, container, false);
+        return inflater.inflate(R.layout.fragment_check_expiration_date_enter_upc, container, false);
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
@@ -87,7 +87,7 @@ public class EnterUpcFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("foodItem", result);
                 getParentFragmentManager().setFragmentResult("FOOD ITEM", bundle);
-                NavHostFragment.findNavController(EnterUpcFragment.this).navigate((R.id.CE_ConfirmItemFragment));
+                NavHostFragment.findNavController(EnterUpcFragment.this).navigate((R.id.CED_ConfirmItemFragment));
 
                 // If there was no result from the database
             }else {
@@ -96,7 +96,7 @@ public class EnterUpcFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putString("barcode", upc);
                 getParentFragmentManager().setFragmentResult("BARCODE", bundle);
-                NavHostFragment.findNavController(EnterUpcFragment.this).navigate((R.id.CE_SelectItemFragment));
+                NavHostFragment.findNavController(EnterUpcFragment.this).navigate((R.id.CED_SelectItemFragment));
             }
         }
 
