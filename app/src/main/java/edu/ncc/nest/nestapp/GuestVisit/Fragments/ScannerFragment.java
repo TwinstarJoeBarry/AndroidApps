@@ -42,7 +42,7 @@ import android.view.View;
 import com.google.zxing.BarcodeFormat;
 
 import edu.ncc.nest.nestapp.AbstractScannerFragment.AbstractScannerFragment;
-import edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses.GuestFormSource;
+import edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses.GuestRegistrySource;
 import edu.ncc.nest.nestapp.R;
 
 /**
@@ -73,7 +73,7 @@ public class ScannerFragment extends AbstractScannerFragment {
         resultBundle.putString("BARCODE", barcode);
 
         // Create an instance of the database helper
-        GuestFormSource db = new GuestFormSource(requireContext());
+        GuestRegistrySource db = new GuestRegistrySource(requireContext());
 
         // Check if the guest is registered in the database
         // No guests yet so this will always be null. GUEST_NAME was set to "Test" for testing purposes.

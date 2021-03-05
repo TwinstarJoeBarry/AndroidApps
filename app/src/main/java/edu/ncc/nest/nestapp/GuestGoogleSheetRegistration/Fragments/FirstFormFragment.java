@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
-import edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses.GuestFormHelper;
+import edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses.GuestRegistryHelper;
 import edu.ncc.nest.nestapp.R;
 
 /**
@@ -40,7 +40,7 @@ public class FirstFormFragment extends Fragment implements View.OnClickListener,
         Log.d(TAG,"In FirstFormFragment onStart()");
     }
     //database where we will store user information
-    GuestFormHelper db;
+    GuestRegistryHelper db;
 
     //variables to store user information
     EditText lastName, firstName, ncc_affil, age, gender, phone, ncc_id, address, city, state, zip;
@@ -60,7 +60,7 @@ public class FirstFormFragment extends Fragment implements View.OnClickListener,
         Log.d(TAG,"In FirstFormFragment onViewCreated()");
 
         //creating the database and passing the correct context as the argument
-        //db = new GuestFormHelper(this);
+        //db = new GuestRegistryHelper(this);
 
         //getting a handle on info from the UI
         lastName = (EditText)(getView().findViewById(R.id.editText));

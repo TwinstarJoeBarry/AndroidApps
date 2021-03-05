@@ -27,7 +27,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
-import edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses.GuestFormSource;
+import edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses.GuestRegistrySource;
 import edu.ncc.nest.nestapp.R;
 import  androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -36,7 +36,7 @@ import androidx.navigation.fragment.NavHostFragment;
 public class FirstFormFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
     //database where we will store user information
-    GuestFormSource db;
+    GuestRegistrySource db;
     String TAG = "TESTING";
 
     //variables to store user information
@@ -56,7 +56,7 @@ public class FirstFormFragment extends Fragment implements View.OnClickListener,
         super.onViewCreated(view, savedInstanceState);
 
         //creating the database and passing the correct context as the argument
-        db = new GuestFormSource(requireContext());
+        db = new GuestRegistrySource(requireContext());
 
             view.findViewById(R.id.next_button_first_fragment_gRegistration).setOnClickListener(new View.OnClickListener() {
                 @Override

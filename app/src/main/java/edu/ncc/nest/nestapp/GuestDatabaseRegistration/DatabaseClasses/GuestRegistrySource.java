@@ -6,22 +6,22 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
-import static edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses.GuestFormHelper.BARCODE;
-import static edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses.GuestFormHelper.NAME;
-import static edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses.GuestFormHelper.TABLE_NAME;
+import static edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses.GuestRegistryHelper.BARCODE;
+import static edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses.GuestRegistryHelper.NAME;
+import static edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses.GuestRegistryHelper.TABLE_NAME;
 
-public class GuestFormSource
+public class GuestRegistrySource
 {
     private SQLiteDatabase database;
-    private GuestFormHelper guestHelper;
+    private GuestRegistryHelper guestHelper;
 
     /**
      * Default Constructor --
      * @param context
      */
-    public GuestFormSource( Context context )
+    public GuestRegistrySource(Context context )
     {
-        guestHelper = new GuestFormHelper( context );
+        guestHelper = new GuestRegistryHelper( context );
     }
 
     /**
@@ -121,5 +121,5 @@ public class GuestFormSource
 
     // More methods...
 
-} //End of GuestFormSource class
+} //End of GuestRegistrySource class
 

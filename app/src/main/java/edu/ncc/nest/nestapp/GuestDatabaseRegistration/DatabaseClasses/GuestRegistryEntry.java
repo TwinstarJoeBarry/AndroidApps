@@ -17,7 +17,7 @@ package edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses;
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-public class GuestFormEntry {
+public class GuestRegistryEntry {
     private long id;
     private String name;
     private String email;
@@ -31,7 +31,7 @@ public class GuestFormEntry {
     private String nameOfVolunteer;
     private String nccID;
 
-    public GuestFormEntry()
+    public GuestRegistryEntry()
     {
         this.name = null;
         this.email = null;
@@ -47,8 +47,8 @@ public class GuestFormEntry {
     }
 
     // parameterized constructor
-    public GuestFormEntry(String name, String email, String phone, String date, String address, String city, String zipcode,
-                          String state, String additionalInfo, String nameOfVolunteer, String nccID)
+    public GuestRegistryEntry(String name, String email, String phone, String date, String address, String city, String zipcode,
+                              String state, String additionalInfo, String nameOfVolunteer, String nccID)
     {
         this.name = name;
         this.email = email;
@@ -98,7 +98,7 @@ public class GuestFormEntry {
      * @param otherEntry - the guest entry that the object calling the method is being compared to
      * @return true if the entry has the same ID, false otherwise
      */
-    public boolean equals(Object otherEntry) { return this.id == ((GuestFormEntry) otherEntry).id; }
+    public boolean equals(Object otherEntry) { return this.id == ((GuestRegistryEntry) otherEntry).id; }
 
     // Will be used by the ArrayAdapter in the ListView
     @Override

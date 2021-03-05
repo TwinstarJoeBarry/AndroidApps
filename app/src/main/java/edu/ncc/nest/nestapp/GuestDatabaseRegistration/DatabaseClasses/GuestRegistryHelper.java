@@ -24,7 +24,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 
-public class GuestFormHelper extends SQLiteOpenHelper {
+public class GuestRegistryHelper extends SQLiteOpenHelper {
 
 
     // The URI scheme used for content URIs
@@ -60,7 +60,7 @@ public class GuestFormHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "GuestFormInformation.db";
 
-    public GuestFormHelper(Context context) {
+    public GuestRegistryHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
