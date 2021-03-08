@@ -1,9 +1,0 @@
-- activity_get_upc.xml
-- activity_enter_upc.xml
-- activity_scanner.xml
-- activity_final_date.xml
-- activity_food_item.xml
-- activity_guest_form.xml
-- fragment_scan.xml
-- fragment_guest_database_registration_scanner.xml
-- activity_item_info.xml
