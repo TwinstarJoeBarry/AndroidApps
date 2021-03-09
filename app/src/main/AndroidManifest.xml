@@ -22,6 +22,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:hardwareAccelerated="true" >
+
+        <!-- Start Of Deprecated Activities -->
+        <activity android:name=".GetUPC" />
+        <activity android:name=".EnterUPC" />
+        <activity android:name=".ItemInformation" />
+        <activity android:name=".FoodItem" />
+        <activity android:name=".FinalDate" />
+        <activity android:name=".Scanner" />
+        <activity android:name=".GuestForm" />
+        <!-- End Of Deprecated Activities -->
+
         <activity android:name=".GuestVisit.Activities.GuestVisitActivity" />
         <activity android:name=".GuestFormTesting" />
         <activity
@@ -33,17 +44,11 @@
             android:label="@string/title_activity_future_efforts"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".NestNewUPC" />
-        <activity android:name=".GetUPC" />
-        <activity android:name=".EnterUPC" />
-        <activity android:name=".ItemInformation" />
-        <activity android:name=".FoodItem" />
-        <activity android:name=".FinalDate" />
         <activity
             android:name=".LocalDatabase"
             android:label="@string/title_activity_local_database"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Donate" />
-        <activity android:name=".Scanner" />
         <activity android:name=".InterfaceTests" />
         <activity android:name=".UPCLookup" />
         <activity android:name=".UPCScanner" />
@@ -51,7 +56,6 @@
             android:name=".addToInventory"
             android:label="@string/title_activity_add_to_inventory"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".GuestForm" />
         <activity android:name=".GuestDatabaseRegistration.Activities.GuestDatabaseRegistrationActivity" />
         <activity android:name=".GuestGoogleSheetRegistration.Activities.GuestGoogleSheetRegistrationActivity" />
         <activity android:name=".Inventory" />

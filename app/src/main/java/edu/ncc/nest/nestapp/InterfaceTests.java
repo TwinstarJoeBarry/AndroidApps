@@ -37,14 +37,16 @@ public class InterfaceTests extends AppCompatActivity implements View.OnClickLis
 
     // launches interface one
     public void launchInterfaceOne() {
-        Intent intent = new Intent(this, ItemInformation.class);
-        startActivity(intent);
+        // ItemInformation.java is deprecated
+        //Intent intent = new Intent(this, ItemInformation.class);
+        //startActivity(intent);
     }
 
     // launches interface two
     public void launchInterfaceTwo() {
-        Intent intent = new Intent(this, Scanner.class);
-        startActivity(intent);
+        // Scanner.java is deprecated
+        //Intent intent = new Intent(this, Scanner.class);
+        //startActivity(intent);
     }
 
     // launches interface three
