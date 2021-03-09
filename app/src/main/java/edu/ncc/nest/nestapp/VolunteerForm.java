@@ -112,8 +112,11 @@ public boolean onCreateOptionsMenu(Menu menu) {
         switch (v.getId()) {
             case R.id.submit_button:
                 if (checkFill() == true) {
-                    intent = new Intent(this, ItemInformation.class);
-                    startActivity(intent);
+                    Toast.makeText(this, "ItemInformation.java is deprecated", Toast.LENGTH_LONG).show();
+
+                    // ItemInformation.java is deprecated, consider replacing this with CheckExpirationDateActivity.java
+                    //intent = new Intent(this, ItemInformation.class);
+                    //startActivity(intent);
                 }
 
                 break;

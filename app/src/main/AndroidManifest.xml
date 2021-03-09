@@ -22,17 +22,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:hardwareAccelerated="true" >
-
-        <!-- Start Of Deprecated Activities -->
-        <activity android:name=".GetUPC" />
-        <activity android:name=".EnterUPC" />
-        <activity android:name=".ItemInformation" />
-        <activity android:name=".FoodItem" />
-        <activity android:name=".FinalDate" />
-        <activity android:name=".Scanner" />
-        <activity android:name=".GuestForm" />
-        <!-- End Of Deprecated Activities -->
-
         <activity android:name=".GuestVisit.Activities.GuestVisitActivity" />
         <activity android:name=".GuestFormTesting" />
         <activity
