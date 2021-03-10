@@ -6,7 +6,6 @@ package edu.ncc.nest.nestapp.AsyncTask;
  * also be used for other purposes.
  * @param <Progress> The data type that will represent the "progress" of a task.
  */
-@SuppressWarnings("unused")
 public interface OnProgressListener<Progress> {
 
     /**
