@@ -33,14 +33,10 @@ public abstract class BackgroundTask<Progress, Result> {
 
     protected abstract Result doInBackground() throws Exception;
 
-    protected void onProgress(Progress progress) {}
-
     protected void onPostExecute(Result result) {}
 
-    protected void onTaskFailed(Exception e) {
+    protected void onTaskFailed(Exception e) { e.printStackTrace(); }
 
-        e.printStackTrace();
-
-    }
+    protected void onProgress(Progress progress) {}
 
 }
