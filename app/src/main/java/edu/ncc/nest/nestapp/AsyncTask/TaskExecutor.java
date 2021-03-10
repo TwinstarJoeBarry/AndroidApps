@@ -3,6 +3,8 @@ package edu.ncc.nest.nestapp.AsyncTask;
 import android.os.Handler;
 import android.os.Looper;
 
+import androidx.annotation.NonNull;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -11,7 +13,8 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * TaskExecutor --
- * Used to execute a BackgroundTask, and handles the lifecycle of a BackgroundTask.
+ * Used to execute a BackgroundTask object, and handles the lifecycle of the BackgroundTask as it
+ * executes.
  */
 @SuppressWarnings("unused")
 public final class TaskExecutor {
@@ -35,57 +38,183 @@ public final class TaskExecutor {
      * Called when executing a BackgroundTask. Handles the lifecycle of the BackgroundTask that is
      * being executed.
      * @param TASK The BackgroundTask to execute.
-     * @param <Progress> The type that will be used to represent a BackgroundTask's progress.
-     * @param <Result> The type that will be used as a return value after executing the BackgroundTask
+     * @param EXECUTOR_SERVICE The ExecutorService to use to execute a BackgroundTask.
+     * @param <Progress> The data type that will represent the "progress" of the BackgroundTask.
+     * @param <Result> The data type that will represent the "result" of the BackgroundTask.
      */
-    private static <Progress, Result> void onExecute(final BackgroundTask<Progress, Result> TASK) {
+    private static <Progress, Result> void onExecute(final BackgroundTask<Progress, Result> TASK,
+                                                     final ExecutorService EXECUTOR_SERVICE) {
 
-        boolean taskFailed = false;
+        // Call this lifecycle method on the current thread
+        TASK.onPreExecute(); // (May need update this to post to the MAIN_HANDLER instead)
 
-        Result result = null;
+        // Execute the following code using the EXECUTOR_SERVICE provided
+        EXECUTOR_SERVICE.execute(() -> {
 
-        try {
+            Result result = null;
 
-            // Execute the background code
-            result = TASK.doInBackground();
+            boolean taskFailed = false;
 
-        } catch (Exception e) {
+            try {
 
-            // If we get here the BackgroundTask has failed to fully execute
-            taskFailed = true;
+                // Execute the background code, and get the "result"
+                result = TASK.doInBackground();
 
-            // Call this lifecycle method on the Main UI thread
-            MAIN_HANDLER.post(() -> TASK.onTaskFailed(e));
+            } catch (Exception e) {
 
-        } finally {
+                // If we get here the BackgroundTask has failed to fully execute
+                taskFailed = true;
 
-            if (!taskFailed) {
+                // Call this lifecycle method on the Main UI thread
+                MAIN_HANDLER.post(() -> TASK.onTaskFailed(e));
 
-                final Result RESULT = result;
+            } finally {
 
-                // If the BackgroundTask hasn't failed, call this lifecycle method on the Main UI thread
-                MAIN_HANDLER.post(() -> TASK.onPostExecute(RESULT));
+                // If the BackgroundTask hasn't failed
+                if (!taskFailed) {
+
+                    final Result RESULT = result;
+
+                    // Call this lifecycle method on the Main UI thread
+                    MAIN_HANDLER.post(() -> TASK.onPostExecute(RESULT));
+
+                }
 
             }
 
-        }
+        });
 
     }
 
     /////////////////////////////////////// ACTION METHODS /////////////////////////////////////////
 
+    /**
+     * executeAsRead --
+     * Optimized for executing BackgroundTask that will do database reads more efficiently.
+     * @param TASK The BackgroundTask to execute.
+     * @param <Progress> The data type that will represent the "progress" of the BackgroundTask.
+     * @param <Result> The data type that will represent the "result" of the BackgroundTask.
+     */
+    public static <Progress, Result> void executeAsRead(
+            @NonNull final BackgroundTask<Progress, Result> TASK) {
 
+        onExecute(TASK, READ_EXECUTOR_SERVICE);
 
-    //////////////////////////////////// GETTERS AND SETTERS ///////////////////////////////////////
+    }
 
     /**
-     * getMainHandler --
-     * Returns the Handler of this class that uses the Main UI thread
-     * @return The Handler of this class that uses the Main UI thread
+     * executeAsWrite --
+     * Optimized for executing BackgroundTask that will do database writes more safely.
+     * @param TASK The BackgroundTask to execute.
+     * @param <Progress> The data type that will represent the "progress" of the BackgroundTask.
+     * @param <Result> The data type that will represent the "result" of the BackgroundTask.
      */
-    public static Handler getMainHandler() {
+    public static <Progress, Result> void executeAsWrite(
+            @NonNull final BackgroundTask<Progress, Result> TASK) {
 
-        return MAIN_HANDLER;
+        onExecute(TASK, WRITE_EXECUTOR_SERVICE);
+
+    }
+
+    //////////////////////////////////// BACKGROUND TASK CLASS /////////////////////////////////////
+
+    /**
+     * BackgroundTask --
+     * Represent a task that can be executed on a background thread.
+     * @param <Progress> The data type that will represent the "progress" of this task.
+     * @param <Result> The data type that will represent the "result" of this task.
+     */
+    public abstract static class BackgroundTask<Progress, Result> {
+
+        // Useful for updating UI as a task progresses
+        private OnProgressListener<Progress> onProgressListener = null;
+
+        /////////////////////////////// ON PROGRESS LISTENER METHODS ///////////////////////////////
+
+        /**
+         * setOnProgressListener --
+         * Set the onProgressListener class variable.
+         * @param onProgressListener The listener to use when setting the class variable.
+         */
+        public final void setOnProgressListener(OnProgressListener<Progress> onProgressListener) {
+
+            this.onProgressListener = onProgressListener;
+
+        }
+
+        /**
+         * getOnProgressListener --
+         * Get the value of the onProgressListener class variable.
+         * @return The value of onProgressListener class variable.
+         */
+        public final OnProgressListener<Progress> getOnProgressListener() {
+
+            return onProgressListener;
+
+        }
+
+        /////////////////////////////////// TASK ACTION METHODS ////////////////////////////////////
+
+        /**
+         * postProgress --
+         * Calls onProgress method in both the class and onProgressListener class. Called on the
+         * Main UI thread.
+         * @param PROGRESS The "progress" this task has made. (Usually used as percentage)
+         */
+        public final void postProgress(final Progress PROGRESS) {
+
+            // Run the onProgress methods on the Main UI thread
+            MAIN_HANDLER.post(() -> {
+
+                this.onProgress(PROGRESS);
+
+                // If the onProgressListener has been set, then call its method as well
+                if (onProgressListener != null)
+
+                    onProgressListener.onProgress(PROGRESS);
+
+            });
+
+        }
+
+        ////////////////////////////////// TASK LIFECYCLE METHODS //////////////////////////////////
+
+        /**
+         * onPreExecute --
+         * Always called before doInBackground() method is executed.
+         */
+        protected void onPreExecute() { }
+
+        /**
+         * doInBackground --
+         * The code/"task" to run on a background thread.
+         * @return The "result" of the task that was executed.
+         * @throws Exception If an error has occurred during execution of the task. If an exception
+         * is thrown, it triggers the onTaskFailed method to be executed on the Main UI thread.
+         */
+        protected abstract Result doInBackground() throws Exception;
+
+        /**
+         * onPostExecute --
+         * Called after doInBackground() method is executed, as long as the task has NOT failed.
+         * @param result The "result" of the task that was executed.
+         */
+        protected void onPostExecute(Result result) { }
+
+        /**
+         * onTaskFailed --
+         * Called if an Exception has been thrown from the doInBackground() method.
+         * @param e The Exception thrown from the doInBackground() method.
+         */
+        protected void onTaskFailed(Exception e) { e.printStackTrace(); }
+
+        /**
+         * onProgress --
+         * Called on Main UI thread after a call to the postProgress method has been called. Used to
+         * update any UI about the progress of this task.
+         * @param progress The "progress" this task has made. (Usually used as percentage)
+         */
+        protected void onProgress(Progress progress) { }
 
     }
 
