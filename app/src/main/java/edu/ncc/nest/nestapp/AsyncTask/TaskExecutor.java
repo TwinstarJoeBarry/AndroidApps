@@ -42,8 +42,8 @@ public final class TaskExecutor {
      * @param <Progress> The data type that will represent the "progress" of the BackgroundTask.
      * @param <Result> The data type that will represent the "result" of the BackgroundTask.
      */
-    private static <Progress, Result> void onExecute(final BackgroundTask<Progress, Result> TASK,
-                                                     final ExecutorService EXECUTOR_SERVICE) {
+    private static <Progress, Result> void onExecute(@NonNull final BackgroundTask<Progress, Result> TASK,
+                                                     @NonNull final ExecutorService EXECUTOR_SERVICE) {
 
         // Call this lifecycle method on the current thread
         TASK.onPreExecute(); // (May need update this to post to the MAIN_HANDLER instead)
@@ -161,7 +161,7 @@ public final class TaskExecutor {
          * Main UI thread.
          * @param PROGRESS The "progress" this task has made. (Usually used as percentage)
          */
-        public final void postProgress(final Progress PROGRESS) {
+        public final void postProgress(@NonNull final Progress PROGRESS) {
 
             // Run the onProgress methods on the Main UI thread
             MAIN_HANDLER.post(() -> {
@@ -206,7 +206,7 @@ public final class TaskExecutor {
          * Called if an Exception has been thrown from the doInBackground() method.
          * @param e The Exception thrown from the doInBackground() method.
          */
-        protected void onTaskFailed(Exception e) { e.printStackTrace(); }
+        protected void onTaskFailed(@NonNull Exception e) { e.printStackTrace(); }
 
         /**
          * onProgress --
@@ -214,7 +214,7 @@ public final class TaskExecutor {
          * update any UI about the progress of this task.
          * @param progress The "progress" this task has made. (Usually used as percentage)
          */
-        protected void onProgress(Progress progress) { }
+        protected void onProgress(@NonNull Progress progress) { }
 
     }
 
