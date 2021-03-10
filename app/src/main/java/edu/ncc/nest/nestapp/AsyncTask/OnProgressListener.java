@@ -1,4 +1,8 @@
 package edu.ncc.nest.nestapp.AsyncTask;
 
-public class OnProgressListener {
+@SuppressWarnings("unused")
+public interface OnProgressListener<Progress> {
+
+    void onProgress(Progress progress);
+
 }
