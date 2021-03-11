@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.Task;
 
+import java.util.concurrent.AbstractExecutorService;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -32,7 +33,8 @@ public final class TaskExecutor {
 
     // Create a ExecutorService that will execute one task at a time, best used for database writes.
     private static final ExecutorService WRITE_EXECUTOR_SERVICE =
-                Executors.newSingleThreadExecutor();
+            new ThreadPoolExecutor(1, 1, 0L,
+                    TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>());
 
     // Get a Handler for the Main UI thread
     private static final Handler MAIN_HANDLER = new Handler(Looper.getMainLooper());
@@ -51,27 +53,19 @@ public final class TaskExecutor {
      */
     private TaskExecutor() {
 
-        if (READ_EXECUTOR_SERVICE instanceof ThreadPoolExecutor) {
+        ThreadPoolExecutor readExecutor = (ThreadPoolExecutor) READ_EXECUTOR_SERVICE;
 
-            ThreadPoolExecutor threadPoolExecutor = (ThreadPoolExecutor) READ_EXECUTOR_SERVICE;
+        ThreadPoolExecutor writeExecutor = (ThreadPoolExecutor) WRITE_EXECUTOR_SERVICE;
 
-            threadPoolExecutor.allowCoreThreadTimeOut(true);
+        readExecutor.allowCoreThreadTimeOut(true);
 
-            if (PRE_START_CORE_THREADS)
+        if (PRE_START_CORE_THREADS) {
 
-                threadPoolExecutor.prestartAllCoreThreads();
+            readExecutor.prestartAllCoreThreads();
 
-        } else
+            writeExecutor.prestartCoreThread();
 
-            throw new ClassCastException("READ_EXECUTOR_SERVICE is not an instance of ThreadPoolExecutor.");
-
-        if (WRITE_EXECUTOR_SERVICE instanceof ThreadPoolExecutor)
-
-            ((ThreadPoolExecutor) WRITE_EXECUTOR_SERVICE).prestartCoreThread();
-
-        else
-
-            throw new ClassCastException("WRITE_EXECUTOR_SERVICE is not an instance of ThreadPoolExecutor.");
+        }
 
     }
 
