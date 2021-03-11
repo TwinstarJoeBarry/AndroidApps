@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,6 +23,8 @@ import java.net.URL;
 import java.util.Scanner;
 
 import javax.net.ssl.HttpsURLConnection;
+
+import edu.ncc.nest.nestapp.AsyncTask.TaskExecutor;
 
 /**
  *
@@ -131,10 +135,97 @@ public class NestDBOpenHelper extends SQLiteOpenHelper {
 
     private void populateFromFoodKeeperAPI(SQLiteDatabase db) {
         // todo use threading directly instead of AsyncTasks or maybe don't go asynchronous at all?
-        new GetCategories(db).execute();
+        TaskExecutor.executeAsRead(new GetCategoriesTask(db));
+        //new GetCategories(db).execute();
         new GetCookingMethods(db).execute();
         new GetCookingTips(db).execute();
         new GetProducts(db).execute();
+    }
+
+    private static class GetCategoriesTask extends TaskExecutor.BackgroundTask<Float, String> {
+
+        private SQLiteDatabase db;
+
+        public GetCategoriesTask(@NonNull SQLiteDatabase db) { this.db = db; }
+
+
+        @Override
+        protected String doInBackground() {
+
+            HttpURLConnection urlConnection;
+            BufferedReader reader;
+
+            try {
+
+                // set the URL for the API call
+                String apiCall = "https://foodkeeper-api.herokuapp.com/categories";
+                Log.d(DATABASE_NAME, "apiCall = " + apiCall);
+                URL url = new URL(apiCall);
+                // connect to the site to read information
+                urlConnection = (HttpsURLConnection) url.openConnection();
+                urlConnection.setRequestMethod("GET");
+                urlConnection.connect();
+
+                // store the data retrieved by the request
+                InputStream inputStream = urlConnection.getInputStream();
+                // no data returned by the request, so terminate the method
+                if (inputStream == null) {
+                    // Nothing to do.
+                    return null;
+                }
+
+                // connect a BufferedReader to the input stream at URL
+                reader = new BufferedReader(new InputStreamReader(inputStream));
+                // store the data in result string
+                return reader.readLine();
+
+            } catch (Exception e) {
+                Log.d(DATABASE_NAME, "EXCEPTION in HttpAsyncTask: " + e.getMessage());
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+
+            if (result != null) {
+                Log.d(DATABASE_NAME, "categories JSON result length = " + result.length());
+                db.beginTransaction();
+                try {
+                    JSONArray jsonArray = new JSONArray(result);
+                    Log.d(DATABASE_NAME, "processing " + jsonArray.length() + " categories array entries...");
+                    ContentValues values = new ContentValues();
+                    for(int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObj = jsonArray.getJSONObject(i);
+                        values.clear();
+                        values.put("id", jsonObj.getString("id"));
+                        // todo can remove name & subcategory from table if decide to always use
+                        //  "name (subcategory)" description like in ItemInformation activity
+                        values.put("name", jsonObj.getString("name"));
+                        if (!jsonObj.isNull("subcategory")) {
+                            values.put("subcategory", jsonObj.getString("subcategory"));
+                            values.put("description", jsonObj.getString("name")
+                                    + " (" + jsonObj.getString("subcategory") + ")");
+                        } else {
+                            values.put("description", jsonObj.getString("name"));
+                        }
+                        db.insert("categories", null, values);
+                        db.yieldIfContendedSafely();
+                    }
+                    db.setTransactionSuccessful();
+                    Log.d(DATABASE_NAME, "inserted " + jsonArray.length() + " categories");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } finally {
+                    db.endTransaction();
+                }
+            } else {
+                Log.d(DATABASE_NAME, "Couldn't get any categories data from the url");
+            }
+
+        }
     }
 
     /**

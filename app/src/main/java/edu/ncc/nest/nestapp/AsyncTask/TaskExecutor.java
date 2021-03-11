@@ -4,11 +4,13 @@ import android.os.Binder;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Process;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.Task;
 
+import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -23,8 +25,6 @@ import java.util.concurrent.TimeUnit;
 @SuppressWarnings("unused")
 public final class TaskExecutor {
 
-    private static final TaskExecutor INSTANCE = new TaskExecutor();
-
     // Create a ExecutorService that can use multiple threads to execute tasks, best used for database reads.
     private static final ExecutorService READ_EXECUTOR_SERVICE =
             new ThreadPoolExecutor(4, 20, 3000L,
@@ -32,13 +32,16 @@ public final class TaskExecutor {
 
     // Create a ExecutorService that will execute one task at a time, best used for database writes.
     private static final ExecutorService WRITE_EXECUTOR_SERVICE =
-            Executors.newSingleThreadExecutor();
+                Executors.newSingleThreadExecutor();
 
     // Get a Handler for the Main UI thread
     private static final Handler MAIN_HANDLER = new Handler(Looper.getMainLooper());
 
     // Whether or not we should pre-start core thread on initialization
     public static final boolean PRE_START_CORE_THREADS = true;
+
+    // Keep this at the bottom so it gets called last, after executors have been initialized
+    private static final TaskExecutor INSTANCE = new TaskExecutor();
 
     //////////////////////////////////////// Constructors //////////////////////////////////////////
 
@@ -48,17 +51,27 @@ public final class TaskExecutor {
      */
     private TaskExecutor() {
 
-        ThreadPoolExecutor threadPoolExecutor = (ThreadPoolExecutor) READ_EXECUTOR_SERVICE;
+        if (READ_EXECUTOR_SERVICE instanceof ThreadPoolExecutor) {
 
-        threadPoolExecutor.allowCoreThreadTimeOut(true);
+            ThreadPoolExecutor threadPoolExecutor = (ThreadPoolExecutor) READ_EXECUTOR_SERVICE;
 
-        if (PRE_START_CORE_THREADS) {
+            threadPoolExecutor.allowCoreThreadTimeOut(true);
+
+            if (PRE_START_CORE_THREADS)
+
+                threadPoolExecutor.prestartAllCoreThreads();
+
+        } else
+
+            throw new ClassCastException("READ_EXECUTOR_SERVICE is not an instance of ThreadPoolExecutor.");
+
+        if (WRITE_EXECUTOR_SERVICE instanceof ThreadPoolExecutor)
 
             ((ThreadPoolExecutor) WRITE_EXECUTOR_SERVICE).prestartCoreThread();
 
-            threadPoolExecutor.prestartAllCoreThreads();
+        else
 
-        }
+            throw new ClassCastException("WRITE_EXECUTOR_SERVICE is not an instance of ThreadPoolExecutor.");
 
     }
 
@@ -102,6 +115,8 @@ public final class TaskExecutor {
 
                 // Call this lifecycle method on the Main UI thread
                 MAIN_HANDLER.post(() -> TASK.onTaskFailed(throwable));
+
+                throw throwable;
 
             } finally {
 
