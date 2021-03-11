@@ -1,9 +1,13 @@
 package edu.ncc.nest.nestapp.AsyncTask;
 
+import android.os.Binder;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.Process;
 
 import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.Task;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -19,10 +23,12 @@ import java.util.concurrent.TimeUnit;
 @SuppressWarnings("unused")
 public final class TaskExecutor {
 
+    private static final TaskExecutor INSTANCE = new TaskExecutor();
+
     // Create a ExecutorService that can use multiple threads to execute tasks, best used for database reads.
     private static final ExecutorService READ_EXECUTOR_SERVICE =
-            new ThreadPoolExecutor(4, 16,
-                    0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>());
+            new ThreadPoolExecutor(4, 20, 3000L,
+                    TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>());
 
     // Create a ExecutorService that will execute one task at a time, best used for database writes.
     private static final ExecutorService WRITE_EXECUTOR_SERVICE =
@@ -30,6 +36,31 @@ public final class TaskExecutor {
 
     // Get a Handler for the Main UI thread
     private static final Handler MAIN_HANDLER = new Handler(Looper.getMainLooper());
+
+    // Whether or not we should pre-start core thread on initialization
+    public static final boolean PRE_START_CORE_THREADS = true;
+
+    //////////////////////////////////////// Constructors //////////////////////////////////////////
+
+    /**
+     * TaskExecutor --
+     * Used to set any initial settings
+     */
+    private TaskExecutor() {
+
+        ThreadPoolExecutor threadPoolExecutor = (ThreadPoolExecutor) READ_EXECUTOR_SERVICE;
+
+        threadPoolExecutor.allowCoreThreadTimeOut(true);
+
+        if (PRE_START_CORE_THREADS) {
+
+            ((ThreadPoolExecutor) WRITE_EXECUTOR_SERVICE).prestartCoreThread();
+
+            threadPoolExecutor.prestartAllCoreThreads();
+
+        }
+
+    }
 
     ////////////////////////////////////// LIFECYCLE METHODS ///////////////////////////////////////
 
@@ -57,16 +88,20 @@ public final class TaskExecutor {
 
             try {
 
+                Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
+
                 // Execute the background code, and get the "result"
                 result = TASK.doInBackground();
 
-            } catch (Exception e) {
+                Binder.flushPendingCommands();
+
+            } catch (Throwable throwable) {
 
                 // If we get here the BackgroundTask has failed to fully execute
                 taskFailed = true;
 
                 // Call this lifecycle method on the Main UI thread
-                MAIN_HANDLER.post(() -> TASK.onTaskFailed(e));
+                MAIN_HANDLER.post(() -> TASK.onTaskFailed(throwable));
 
             } finally {
 
@@ -161,17 +196,17 @@ public final class TaskExecutor {
          * Main UI thread.
          * @param PROGRESS The "progress" this task has made. (Usually used as percentage)
          */
-        public final void postProgress(@NonNull final Progress PROGRESS) {
+        public final void publishProgress(@NonNull final Progress PROGRESS) {
 
             // Run the onProgress methods on the Main UI thread
             MAIN_HANDLER.post(() -> {
 
-                this.onProgress(PROGRESS);
+                this.onProgressUpdate(PROGRESS);
 
                 // If the onProgressListener has been set, then call its method as well
                 if (onProgressListener != null)
 
-                    onProgressListener.onProgress(PROGRESS);
+                    onProgressListener.onProgressUpdate(PROGRESS);
 
             });
 
@@ -192,7 +227,7 @@ public final class TaskExecutor {
          * @throws Exception If an error has occurred during execution of the task. If an exception
          * is thrown, it triggers the onTaskFailed method to be executed on the Main UI thread.
          */
-        protected abstract Result doInBackground() throws Exception;
+        protected abstract Result doInBackground();
 
         /**
          * onPostExecute --
@@ -203,10 +238,10 @@ public final class TaskExecutor {
 
         /**
          * onTaskFailed --
-         * Called if an Exception has been thrown from the doInBackground() method.
-         * @param e The Exception thrown from the doInBackground() method.
+         * Called if an Throwable has been thrown from the doInBackground() method.
+         * @param throwable The Throwable thrown from the doInBackground() method.
          */
-        protected void onTaskFailed(@NonNull Exception e) { e.printStackTrace(); }
+        protected void onTaskFailed(@NonNull Throwable throwable) { throwable.printStackTrace(); }
 
         /**
          * onProgress --
@@ -214,7 +249,7 @@ public final class TaskExecutor {
          * update any UI about the progress of this task.
          * @param progress The "progress" this task has made. (Usually used as percentage)
          */
-        protected void onProgress(@NonNull Progress progress) { }
+        protected void onProgressUpdate(@NonNull Progress progress) { }
 
     }
 

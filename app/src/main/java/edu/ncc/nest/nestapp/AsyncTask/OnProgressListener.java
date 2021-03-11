@@ -13,6 +13,6 @@ public interface OnProgressListener<Progress> {
      * Called by a task, to inform the listener of any progress the related task has made.
      * @param progress The "progress" of the related task.
      */
-    void onProgress(Progress progress);
+    void onProgressUpdate(Progress progress);
 
 }
