@@ -38,6 +38,8 @@ import java.util.HashMap;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import edu.ncc.nest.nestapp.AsyncTask.TaskExecutor;
+
 /**
  * Activity hopefully to be used as an intent for addToInventory
  */
@@ -96,20 +98,17 @@ public class ATIQuestionaire extends AppCompatActivity implements View.OnClickLi
         return super.onOptionsItemSelected(item);
     }
 
+
+
     /**
      * inner class that will access the rest API and process the JSON returned
      * used in order to get all the items from the API
      */
-    private class Items extends AsyncTask<Void, Void, Void> {
-        String result = "";
+    private class Items extends TaskExecutor.BackgroundTask<Float, String> {
 
         @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
+        protected String doInBackground() {
 
-        @Override
-        protected Void doInBackground(Void... arg0) {
             HttpURLConnection urlConnection;
             BufferedReader reader;
 
@@ -133,18 +132,20 @@ public class ATIQuestionaire extends AppCompatActivity implements View.OnClickLi
                 // connect a BufferedReader to the input stream at URL
                 reader = new BufferedReader(new InputStreamReader(inputStream));
                 // store the data in a string and display in the Logcat window
-                result = reader.readLine();
+                return reader.readLine();
 
             } catch (Exception e) {
                 Log.i("HttpAsyncTask", "EXCEPTION: " + e.getMessage());
             }
 
             return null;
+
         }
 
         @Override
-        protected void onPostExecute(Void r) {
-            super.onPostExecute(r);
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+
             Log.d("TAG", "about to start the JSON parsing" + result);
             if (result != null) {
                 try {
@@ -342,13 +343,14 @@ public class ATIQuestionaire extends AppCompatActivity implements View.OnClickLi
             }
 
         }
+
     }
 
     /**
      * home method - goes to the nest home screen
      */
     public void home() {
-        new Items().execute();
+        TaskExecutor.executeAsRead(new Items());
     }
 
     /**
@@ -361,7 +363,7 @@ public class ATIQuestionaire extends AppCompatActivity implements View.OnClickLi
         // either for list view, ui#1, donate
         switch (view.getId()){
             case R.id.atibutton:
-                new Items().execute();
+                TaskExecutor.executeAsRead(new Items());
                 break;
             case R.id.uiLink:
                 launchInterfaceOne();
