@@ -134,12 +134,10 @@ public class NestDBOpenHelper extends SQLiteOpenHelper {
     }
 
     private void populateFromFoodKeeperAPI(SQLiteDatabase db) {
-        // todo use threading directly instead of AsyncTasks or maybe don't go asynchronous at all?
         TaskExecutor.executeAsRead(new GetCategoriesTask(db));
-        //new GetCategories(db).execute();
-        new GetCookingMethods(db).execute();
-        new GetCookingTips(db).execute();
-        new GetProducts(db).execute();
+        TaskExecutor.executeAsRead(new GetCookingTipsTask(db));
+        TaskExecutor.executeAsRead(new GetCookingMethodsTask(db));
+        TaskExecutor.executeAsRead(new GetProductsTask(db));
     }
 
     /**
@@ -235,16 +233,16 @@ public class NestDBOpenHelper extends SQLiteOpenHelper {
     /**
      * Inner class to retrieve all cookingTips from the FoodKeeper API
      */
-    private static class GetCookingTips extends AsyncTask<Void, Void, Void> {
-        private String result = "";
+    private static class GetCookingTipsTask extends TaskExecutor.BackgroundTask<Float, String> {
+
         private SQLiteDatabase db;
 
-        GetCookingTips(SQLiteDatabase db) {
-            this.db = db;
-        }
+        public GetCookingTipsTask(@NonNull SQLiteDatabase db) { this.db = db; }
+
 
         @Override
-        protected Void doInBackground(Void... arg0) {
+        protected String doInBackground() {
+
             HttpURLConnection urlConnection;
             BufferedReader reader;
 
@@ -269,18 +267,19 @@ public class NestDBOpenHelper extends SQLiteOpenHelper {
                 // connect a BufferedReader to the input stream at URL
                 reader = new BufferedReader(new InputStreamReader(inputStream));
                 // store the data in result string
-                result = reader.readLine();
+                return reader.readLine();
 
             } catch (Exception e) {
                 Log.d(DATABASE_NAME, "EXCEPTION in HttpAsyncTask: " + e.getMessage());
             }
 
             return null;
+
         }
 
         @Override
-        protected void onPostExecute(Void r) {
-            super.onPostExecute(r);
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
 
             if (result != null) {
                 Log.d(DATABASE_NAME, "cookingTips JSON result length = " + result.length());
@@ -313,21 +312,22 @@ public class NestDBOpenHelper extends SQLiteOpenHelper {
             }
 
         }
+
     }
 
     /**
      * Inner class to retrieve all cookingmethods from the FoodKeeper API
      */
-    private static class GetCookingMethods extends AsyncTask<Void, Void, Void> {
-        private String result = "";
+    private static class GetCookingMethodsTask extends TaskExecutor.BackgroundTask<Float, String> {
+
         private SQLiteDatabase db;
 
-        GetCookingMethods(SQLiteDatabase db) {
-            this.db = db;
-        }
+        public GetCookingMethodsTask(@NonNull SQLiteDatabase db) { this.db = db; }
+
 
         @Override
-        protected Void doInBackground(Void... arg0) {
+        protected String doInBackground() {
+
             HttpURLConnection urlConnection;
             BufferedReader reader;
 
@@ -352,18 +352,19 @@ public class NestDBOpenHelper extends SQLiteOpenHelper {
                 // connect a BufferedReader to the input stream at URL
                 reader = new BufferedReader(new InputStreamReader(inputStream));
                 // store the data in result string
-                result = reader.readLine();
+                return reader.readLine();
 
             } catch (Exception e) {
                 Log.d(DATABASE_NAME, "EXCEPTION in HttpAsyncTask: " + e.getMessage());
             }
 
             return null;
+
         }
 
         @Override
-        protected void onPostExecute(Void r) {
-            super.onPostExecute(r);
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
 
             if (result != null) {
                 Log.d(DATABASE_NAME, "cookingMethods JSON result length = " + result.length());
@@ -401,21 +402,22 @@ public class NestDBOpenHelper extends SQLiteOpenHelper {
             }
 
         }
+
     }
 
     /**
      * Inner class to retrieve all products from the FoodKeeper API
      */
-    private static class GetProducts extends AsyncTask<Void, Void, Void> {
-        private String result = "";
+    private static class GetProductsTask extends TaskExecutor.BackgroundTask<Float, String> {
+
         private SQLiteDatabase db;
 
-        GetProducts(SQLiteDatabase db) {
-            this.db = db;
-        }
+        public GetProductsTask(@NonNull SQLiteDatabase db) { this.db = db; }
+
 
         @Override
-        protected Void doInBackground(Void... arg0) {
+        protected String doInBackground() {
+
             HttpURLConnection urlConnection;
             BufferedReader reader;
 
@@ -440,18 +442,19 @@ public class NestDBOpenHelper extends SQLiteOpenHelper {
                 // connect a BufferedReader to the input stream at URL
                 reader = new BufferedReader(new InputStreamReader(inputStream));
                 // store the data in result string
-                result = reader.readLine();
+                return reader.readLine();
 
             } catch (Exception e) {
                 Log.d(DATABASE_NAME, "EXCEPTION in HttpAsyncTask: " + e.getMessage());
             }
 
             return null;
+
         }
 
         @Override
-        protected void onPostExecute(Void r) {
-            super.onPostExecute(r);
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
 
             if (result != null) {
                 Log.d(DATABASE_NAME, "products JSON result length = " + result.length());
@@ -522,6 +525,7 @@ public class NestDBOpenHelper extends SQLiteOpenHelper {
             }
 
         }
+
     }
 
 }

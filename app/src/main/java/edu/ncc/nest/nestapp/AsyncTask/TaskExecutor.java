@@ -26,12 +26,12 @@ import java.util.concurrent.TimeUnit;
 @SuppressWarnings("unused")
 public final class TaskExecutor {
 
-    // Create a ExecutorService that can use multiple threads to execute tasks, best used for database reads.
+    // Create a ExecutorService that can use multiple threads to process tasks, best used for database reads.
     private static final ExecutorService READ_EXECUTOR_SERVICE =
             new ThreadPoolExecutor(4, 20, 3000L,
                     TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>());
 
-    // Create a ExecutorService that will execute one task at a time, best used for database writes.
+    // Create a ExecutorService that will process one task at a time, best used for database writes.
     private static final ExecutorService WRITE_EXECUTOR_SERVICE =
             new ThreadPoolExecutor(1, 1, 0L,
                     TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>());
@@ -84,9 +84,10 @@ public final class TaskExecutor {
                                                      @NonNull final ExecutorService EXECUTOR_SERVICE) {
 
         // Call this lifecycle method on the current thread
-        TASK.onPreExecute(); // (May need update this to post to the MAIN_HANDLER instead)
+        TASK.onPreExecute();
 
         // Execute the following code using the EXECUTOR_SERVICE provided
+        // May need to change this to submit in the future, to be able to cancel the task
         EXECUTOR_SERVICE.execute(() -> {
 
             Result result = null;
