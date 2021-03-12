@@ -34,7 +34,6 @@ import android.widget.DatePicker;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.nfc.Tag;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -62,6 +61,8 @@ import java.util.List;
 
 
 import java.text.DateFormat;
+
+import edu.ncc.nest.nestapp.AsyncTask.TaskExecutor;
 
 public class FoodItem extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
 
@@ -234,7 +235,7 @@ public class FoodItem extends AppCompatActivity implements DatePickerDialog.OnDa
                    +productList.get(0).getItemName()).show();
 
        }else { //product list is empty, upc not found in local database, make call to foodkeeper Api
-           new GetItem().execute(); //this is where the foodKeeper api call begins
+           TaskExecutor.executeAsRead(new GetItemTask()); //this is where the foodKeeper api call begins
            Toast.makeText(FoodItem.this, "Please wait a moment, for search results to load...", Toast.LENGTH_SHORT).show();
        }
 
@@ -299,9 +300,7 @@ public class FoodItem extends AppCompatActivity implements DatePickerDialog.OnDa
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
 
-                    for (int i = 0; i < checkedArray.length; i++) {
-                        checkedArray[i] = false;
-                    }
+                    Arrays.fill(checkedArray, false);
                     checkedArray[which] = true;
                 }
             });
@@ -352,17 +351,21 @@ public class FoodItem extends AppCompatActivity implements DatePickerDialog.OnDa
      * needed to retrieve the data from the requested URL and parse the JSON to use the
      * information stored in it for application use and display.</p>
      */
-    private class GetItem extends AsyncTask<Void, Void, Void> {
-        String result = "";
+    private class GetItemTask extends TaskExecutor.BackgroundTask<Float, String> {
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+
             Log.d(TAG, "on pre execute");
+
         }
 
         @Override
-        protected Void doInBackground(Void... voids) {
+        protected String doInBackground() {
+
+            StringBuilder result = new StringBuilder();
+
             HttpURLConnection urlConnection;
             BufferedReader reader;
 
@@ -389,19 +392,24 @@ public class FoodItem extends AppCompatActivity implements DatePickerDialog.OnDa
                 reader = new BufferedReader(new InputStreamReader(inputStream));
                 String s;
                 while ((s = reader.readLine()) != null) {
-                    result += s;
+                    result.append(s);
                 }
+
+                return result.toString();
+
             } catch (Exception e) {
                 Log.i("HttpAsyncTask", "EXCEPTION: " + e.getMessage());
             }
 
             Log.d(TAG, "result =" + result);
             return null;
+
         }
 
         @Override
-        protected void onPostExecute(Void r) {
-            super.onPostExecute(r);
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+
             //a string array of the words, of the foodItem that the user has entered
             String[] itemKeyWords = foodItemTest.split("\\s+");
             //arrayList the will hold the objects of the possible foodKeeper products that match
@@ -428,11 +436,11 @@ public class FoodItem extends AppCompatActivity implements DatePickerDialog.OnDa
                             if (possibleKeyWords.contains(itemKeyWords[j].toLowerCase())) {
 
                                 String strName="";
-                                if(jObj.getString("name") != "null")
+                                if(!jObj.getString("name").equals("null"))
                                     strName = jObj.getString("name");
 
                                 String strSubtitle="";
-                                if(jObj.getString("subtitle") != "null")
+                                if(!jObj.getString("subtitle").equals("null"))
                                     strSubtitle = jObj.getString("subtitle");
 
                                 String fullName= strName+" "+strSubtitle;
