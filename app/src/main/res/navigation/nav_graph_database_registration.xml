@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+*
+* Copyright (C) 2020 The LibreFoodPantry Developers.
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program.  If not, see <https://www.gnu.org/licenses/>.
+-->
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/DBR_StartFragment"
+    android:id="@+id/nav_graph_guest_registration">
+
+    <!-- NOTE: DBR stands for DatabaseRegistration :NOTE -->
+
+    <fragment
+        android:id="@+id/DBR_StartFragment"
+        android:name="edu.ncc.nest.nestapp.GuestDatabaseRegistration.Fragments.StartFragment"
+        android:label="@string/database_registration_start_fragment_label"
+        tools:layout="@layout/fragment_guest_database_registration_start_page">
+
+        <!-- This action & destination should be named and assigned accordingly to the proper fragment once it is available -->
+        <!-- This action & destination currently below are merely for example and do not reflect any accuracy
+        <action
+                   android:id="@+id/action_DBR_StartFragment_to_FirstFormFragment"
+                   app:destination="@id/DBR_FirstFormFragment" />-->
+
+        <action
+            android:id="@+id/action_DBR_StartFragment_to_ScannerFragment"
+            app:destination="@id/DBR_ScannerFragment" />
+
+        <action
+            android:id="@+id/action_DBR_StartFragment_to_FirstFormFragment"
+            app:destination="@id/DBR_FirstFormFragment" />
+
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/DBR_ScannerFragment"
+        android:name="edu.ncc.nest.nestapp.GuestDatabaseRegistration.Fragments.ScannerFragment"
+        android:label="@string/database_registration_scanner_fragment_label"
+        tools:layout="@layout/fragment_abstract_scanner" >
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/DBR_FirstFormFragment"
+        android:name="edu.ncc.nest.nestapp.GuestDatabaseRegistration.Fragments.FirstFormFragment"
+        android:label="@string/database_registration_first_form_fragment_label"
+        tools:layout="@layout/fragment_guest_database_registration_first_form" >
+
+        <action
+            android:id="@+id/action_DBR_FirstFormFragment_to_SecondFormFragment"
+            app:destination="@id/DBR_SecondFormFragment" />
+
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/DBR_SecondFormFragment"
+        android:name="edu.ncc.nest.nestapp.GuestDatabaseRegistration.Fragments.SecondFormFragment"
+        android:label="@string/database_registration_second_form_fragment_label"
+        tools:layout="@layout/fragment_guest_database_registration_second_form" >
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/DBR_SummaryFragment"
+        android:name="edu.ncc.nest.nestapp.GuestDatabaseRegistration.Fragments.SummaryFragment"
+        android:label="@string/database_registration_summary_fragment_label"
+        tools:layout="@layout/fragment_guest_database_registration_summary_page" >
+
+    </fragment>
+
+</navigation>

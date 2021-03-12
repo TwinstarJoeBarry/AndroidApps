@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+*
+* Copyright (C) 2019 The LibreFoodPantry Developers.
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program.  If not, see <https://www.gnu.org/licenses/>.
+-->
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryShaded"
+    tools:context=".GuestDatabaseRegistration.Activities.GuestDatabaseRegistrationActivity">
+
+    <TableRow
+        android:id="@+id/Row1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="130dp"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="10dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:background="@drawable/background_dialog">
+
+        <TextView
+            android:id="@+id/guest_registration_title_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:text="Guest Entry\nRegistration"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:fontFamily="casual"
+            android:textAllCaps="true"
+            android:textColor="@android:color/white"
+            android:shadowColor="@android:color/darker_gray"
+            android:layout_marginTop="8dp"
+            android:shadowDx="-4"
+            android:shadowDy="4"
+            android:shadowRadius="1" />
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Row1"
+        android:layout_marginTop="300dp"
+        android:layout_centerHorizontal="true">
+
+        <Button
+            android:id="@+id/entry_form_btn"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="6dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="6dp"
+            android:backgroundTint="@color/colorPrimary"
+            android:text="Entry Form" />
+
+        <Button
+            android:id="@+id/barcode_scanner_btn"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="6dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="6dp"
+            android:backgroundTint="@color/colorPrimary"
+            android:text="Scan Barcode" />
+
+    </TableRow>
+
+</RelativeLayout>

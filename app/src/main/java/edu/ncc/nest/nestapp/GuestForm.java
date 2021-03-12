@@ -28,12 +28,19 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import edu.ncc.nest.nestapp.GuestDatabaseRegistration.Activities.GuestDatabaseRegistrationActivity;
+import edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses.GuestRegistryHelper;
+import edu.ncc.nest.nestapp.GuestGoogleSheetRegistration.Activities.GuestGoogleSheetRegistrationActivity;
 
+/**
+ * @deprecated This Activity is being replaced by other Activities. ({@link GuestDatabaseRegistrationActivity} & {@link GuestGoogleSheetRegistrationActivity})
+ */
+@Deprecated
 public class GuestForm extends AppCompatActivity {
 
 
     //database where we will store user information
-    GuestFormHelper db;
+    GuestRegistryHelper db;
 
     //variables to store user information
     EditText name, email, phone, date, address, city, zip;
@@ -47,7 +54,7 @@ public class GuestForm extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         //creating the database and passing the correct context as the argument
-        db = new GuestFormHelper(this);
+        db = new GuestRegistryHelper(this);
 
         //getting a handle on info from the UI
         name = (EditText) findViewById(R.id.editText);

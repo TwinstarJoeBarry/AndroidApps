@@ -23,8 +23,10 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
-import edu.ncc.nest.nestapp.FragmentsGuestRegistration.GuestFormRegistrationActivity;
-import edu.ncc.nest.nestapp.FragmentsGuestRegistration.GuestFormRegistrationStartPageFragment;
+import edu.ncc.nest.nestapp.GuestDatabaseRegistration.Fragments.StartFragment;
+import edu.ncc.nest.nestapp.GuestDatabaseRegistration.Activities.GuestDatabaseRegistrationActivity;
+import edu.ncc.nest.nestapp.GuestGoogleSheetRegistration.Activities.GuestGoogleSheetRegistrationActivity;
+import edu.ncc.nest.nestapp.GuestVisit.Activities.GuestVisitActivity;
 
 public class GuestFormTesting extends AppCompatActivity {
     @Override
@@ -37,15 +39,15 @@ public class GuestFormTesting extends AppCompatActivity {
         Intent intent;
         switch (v.getId()) {
             case R.id.guestRegLocalDbase:
-                intent = new Intent(this, GuestFormRegistrationActivity.class);
+                intent = new Intent(this, GuestDatabaseRegistrationActivity.class);
                 startActivity(intent);
                 break;
             case R.id.guestRegGoogle:
-                intent = new Intent(this, GuestFormGoogleSheet.class);
+                intent = new Intent(this, GuestGoogleSheetRegistrationActivity.class);
                 startActivity(intent);
                 break;
             case R.id.guestVisitLocalDbase:
-                intent = new Intent(this, GuestVisit.class);
+                intent = new Intent(this, GuestVisitActivity.class);
                 startActivity(intent);
                 break;
             case R.id.guesVisitGoogle:
@@ -60,7 +62,7 @@ public class GuestFormTesting extends AppCompatActivity {
     public void addFragment(int fragmentID)
     {
         FragmentManager fm = getSupportFragmentManager();
-        GuestFormRegistrationStartPageFragment fragment = new GuestFormRegistrationStartPageFragment();
+        StartFragment fragment = new StartFragment();
         fm.beginTransaction().add(fragmentID,fragment).commit();
     }
 

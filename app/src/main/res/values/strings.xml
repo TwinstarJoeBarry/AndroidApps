@@ -974,8 +974,8 @@
     <string name="cancel">Cancel</string>
     <string name="title_activity_future_efforts">FutureEfforts</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
+    <string name="google_sheet_registration_first_form_fragment_label">First Form Fragment</string>
+    <string name="google_sheet_registration_second_form_fragment_label">Second Form Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
@@ -984,19 +984,28 @@
     <string name="title_activity_check_expiration_date">CheckExpirationDate</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="start_fragment_label">Start Fragment</string>
-    <string name="scan_fragment_label">Scan Fragment</string>
+    <string name="check_expiration_date_start_fragment_label">Start Fragment</string>
+    <string name="check_expiration_date_scanner_fragment_label">Scanner Fragment</string>
     <string name="hello_start_fragment">In Start Fragment</string>
     <string name="scan">Scan UPC</string>
     <string name="enter_upc">Enter UPC</string>
     <string name="scan_complete">Scan Complete</string>
     <string name="hello_scan_fragment">In Scan Fragment</string>
     <string name="in_enter_upc_fragment">In Enter Upc Fragment</string>
-    <string name="enter_upc_fragment_label">Enter UPC Fragment</string>
+    <string name="check_expiration_date_enter_upc_fragment_label">Enter UPC Fragment</string>
     <string name="in_confirm_item_fragment">In Confirm Item Fragment</string>
     <string name="in_select_item_fragment">In Select Item Fragment</string>
     <string name="in_select_expiration_fragment">In Select Printed Expiration Fragment</string>
     <string name="in_display_expiration_fragment">In Display True Expiration Fragment</string>
+    <string name="check_expiration_date_confirm_item_fragment_label">Confirm Item Fragment</string>
+    <string name="check_expiration_date_select_item_fragment_label">Select Item Fragment</string>
+    <string name="check_expiration_date_select_printed_expiration_date_fragment_label">Select Printed Expiration Date Fragment</string>
+    <string name="check_expiration_date_display_true_expiration_fragment_label">Display True Expiration Fragment</string>
+    <string name="database_registration_scanner_fragment_label">Scanner Fragment</string>
+    <string name="database_registration_start_fragment_label">Start Fragment</string>
+    <string name="database_registration_first_form_fragment_label">First Form Fragment</string>
+    <string name="database_registration_second_form_fragment_label">Second Form Fragment</string>
+    <string name="database_registration_summary_fragment_label">Summary Fragment</string>
 
     <string name="click_to_display_true_expiration_date">click to display true expiration date</string>
     <string name="item">Item:</string>
@@ -1005,20 +1014,20 @@
     <string name="expiration_dat">Expiration date:</string>
 
     <!-- START OF SCANNER STRINGS -->
-
-    <!-- END OF SCANNER STRINGS -->
     <string name="scanner_rescan_button">Re-Scan Barcode</string>
     <string name="scanner_confirm_button">Confirm Scan</string>
     <string name="scanner_waiting_for_scan">Waiting for scan …</string>
     <string name="scanner_camera_permission_required">Camera permission required.</string>
     <string name="scanner_confirm_msg">Please confirm that the barcode is correct.</string>
+    <!-- END OF SCANNER STRINGS -->
+
     <!-- START OF GUEST VISIT STRINGS -->
 
-    <!-- Strings used for GuestScanFragment -->
-    <string name="guest_scan_fragment_label">Guest Scan Fragment</string>
+    <!-- Strings used for AbstractScannerFragment -->
+    <string name="guest_visit_scanner_fragment_label">Guest Scan Fragment</string>
 
-    <!-- Strings used for GuestQuestionnaireFragment.java / fragment_guest_questionnaire.xml -->
-    <string name="guest_questionnaire_fragment_label">Guest Questionnaire Fragment</string>
+    <!-- Strings used for QuestionnaireFragment.java / fragment_guest_visit_questionnaire.xml -->
+    <string name="guest_visit_questionnaire_fragment_label">Guest Questionnaire Fragment</string>
     <string name="questionnaire_welcome_message">Welcome NEST Guest!</string>
     <string name="questionnaire_description">Please answer and submit the following questions before proceeding.</string>
     <string name="questionnaire_question_1">Who visited the NEST today? (Guest ID)</string>
@@ -1055,7 +1064,7 @@
     </string-array>
 
     <!-- Strings used in the guest visit confirmation layouts -->
-    <string name="guest_scan_confirmation_fragment_lable">Guest Scan Confirmation Fragment</string>
+    <string name="guest_visit_confirmation_fragment_label">Guest Scan Confirmation Fragment</string>
     <string name="guestVisitConfirmation_welcome_nest_guest_lbl">Welcome NEST Guest!</string>
     <string name="guestVisitConfirmation_guest_info_confirmation">Please confirm that the following information is correct.</string>
     <string name="guestVisitConfirmation_guest_name_lbl">GUEST NAME</string>

@@ -131,6 +131,9 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 
+# Database Navigator plugin
+.idea/dbnavigator.xml
+
 ### AndroidStudio Patch ###
 
 !/gradle/wrapper/gradle-wrapper.jar

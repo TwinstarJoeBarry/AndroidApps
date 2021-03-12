@@ -21,7 +21,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.DialogFragment;
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.content.Intent;
 import android.icu.util.Calendar;
 import android.os.Bundle;
@@ -32,17 +31,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.nfc.Tag;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,13 +47,18 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 
 
 import java.text.DateFormat;
 
+import edu.ncc.nest.nestapp.CheckExpirationDate.Fragments.SelectItemFragment;
+
+/**
+ * @deprecated This Activity is being replaced by a Fragment. ({@link SelectItemFragment})
+ */
+@Deprecated
 public class FoodItem extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
 
 

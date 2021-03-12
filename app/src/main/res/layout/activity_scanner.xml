@@ -16,6 +16,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -->
+
+<!--
+ * THIS LAYOUT IS DEPRECATED
+ *
+ * @deprecated This layout and related activity is being replaced
+ * by a new layout and fragment. (fragment_abstract_scanner.xml)
+-->
+
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"

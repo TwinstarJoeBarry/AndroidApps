@@ -23,6 +23,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -374,8 +375,11 @@ public class ATIQuestionaire extends AppCompatActivity implements View.OnClickLi
     }
 
     public void launchInterfaceOne() {
-        Intent intent = new Intent(this, ItemInformation.class);
-        startActivity(intent);
+        Toast.makeText(this, "ItemInformation.java is deprecated", Toast.LENGTH_LONG).show();
+
+        // ItemInformation.java is deprecated, consider replacing this with CheckExpirationDateActivity.java
+        //Intent intent = new Intent(this, ItemInformation.class);
+        //startActivity(intent);
     }
 
     public void launchDonate() {

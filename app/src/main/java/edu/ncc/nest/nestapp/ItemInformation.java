@@ -56,7 +56,10 @@ import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
 
-
+/**
+ * @deprecated This Activity is being replaced by Fragments. ({@see edu.ncc.nest.nestapp.CheckExpirationDate})
+ */
+@Deprecated
 public class ItemInformation extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
     // category list and current selected category id

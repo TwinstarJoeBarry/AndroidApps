@@ -54,7 +54,7 @@
         app:zxing_possible_result_points="@color/colorPrimary" /-->
 
     <!-- Do NOT change this id or it will cause problems with scanner implementation -->
-    <edu.ncc.nest.nestapp.FragmentScanner.FramedViewFinderView
+    <edu.ncc.nest.nestapp.AbstractScannerFragment.FramedViewFinderView
         android:id="@+id/zxing_viewfinder_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

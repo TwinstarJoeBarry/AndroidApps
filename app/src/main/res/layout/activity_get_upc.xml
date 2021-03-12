@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!--
+ * THIS LAYOUT IS DEPRECATED
+ *
+ * @deprecated This layout and related activity is being replaced
+ * by a new layout and fragment. (fragment_check_expiration_date_start.xml)
+-->
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"

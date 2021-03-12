@@ -15,16 +15,17 @@
 
     <application
         android:allowBackup="true"
+        android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:hardwareAccelerated="true" >
-        <activity android:name=".GuestVisit"></activity>
-        <activity android:name=".GuestFormTesting"></activity>
+        <activity android:name=".GuestVisit.Activities.GuestVisitActivity" />
+        <activity android:name=".GuestFormTesting" />
         <activity
-            android:name=".CheckExpirationDate"
+            android:name=".CheckExpirationDate.Activities.CheckExpirationDateActivity"
             android:label="@string/title_activity_check_expiration_date"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -32,17 +33,11 @@
             android:label="@string/title_activity_future_efforts"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".NestNewUPC" />
-        <activity android:name=".GetUPC" />
-        <activity android:name=".EnterUPC" />
-        <activity android:name=".ItemInformation" />
-        <activity android:name=".FoodItem" />
-        <activity android:name=".FinalDate" />
         <activity
             android:name=".LocalDatabase"
             android:label="@string/title_activity_local_database"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Donate" />
-        <activity android:name=".Scanner" />
         <activity android:name=".InterfaceTests" />
         <activity android:name=".UPCLookup" />
         <activity android:name=".UPCScanner" />
@@ -50,9 +45,8 @@
             android:name=".addToInventory"
             android:label="@string/title_activity_add_to_inventory"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".GuestForm" />
-        <activity android:name=".FragmentsGuestRegistration.GuestFormRegistrationActivity" />
-        <activity android:name=".GuestFormGoogleSheet" />
+        <activity android:name=".GuestDatabaseRegistration.Activities.GuestDatabaseRegistrationActivity" />
+        <activity android:name=".GuestGoogleSheetRegistration.Activities.GuestGoogleSheetRegistrationActivity" />
         <activity android:name=".Inventory" />
         <activity android:name=".Schedule" />
         <activity android:name=".VolunteerForm" />
