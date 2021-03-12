@@ -96,11 +96,13 @@ public final class TaskExecutor {
 
             try {
 
+                // Set the thread priority to background
                 Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
 
                 // Execute the background code, and get the "result"
                 result = TASK.doInBackground();
 
+                // Ensures that any pending object references have been released
                 Binder.flushPendingCommands();
 
             } catch (Throwable throwable) {

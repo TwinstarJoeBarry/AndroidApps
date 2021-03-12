@@ -20,7 +20,6 @@ package edu.ncc.nest.nestapp;
 import android.content.DialogInterface;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
