@@ -1,10 +1,5 @@
-# From: https://about.gitlab.com/handbook/marketing/product-marketing/demo/#cross-project-pipeline-triggering-and-visualization-may-2019---1110
-# And: https://docs.gitlab.com/ee/ci/multi_project_pipelines.html#creating-multi-project-pipelines-from-gitlab-ciyml
-
 stages:
 - test
-- trigger-cross-projects
-
 
 test:
   stage: test
@@ -13,11 +8,3 @@ test:
   only:
   - branches
 
-
-website:
-    stage: trigger-cross-projects
-    variables:
-        ENVIRONMENT: 'Deploy documentation to website'
-    trigger: LibreFoodPantry/librefoodpantry.gitlab.io
-    only:
-    - master
