@@ -18,6 +18,13 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -->
 
+<!--
+ * THIS LAYOUT IS DEPRECATED
+ *
+ * @deprecated This layout and related activity is being replaced
+ * by other layouts and activities. (@see edu.ncc.nest.nestapp.GuestForm.java)
+-->
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"

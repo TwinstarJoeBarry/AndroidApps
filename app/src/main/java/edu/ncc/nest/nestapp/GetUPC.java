@@ -10,6 +10,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
+import edu.ncc.nest.nestapp.CheckExpirationDate.Fragments.StartFragment;
+
 /**
  *
  * Copyright (C) 2019 The LibreFoodPantry Developers.
@@ -28,6 +30,10 @@ import android.view.View;
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+/**
+ * @deprecated This Activity is being replaced by a Fragment. ({@link StartFragment})
+ */
+@Deprecated
 public class GetUPC extends AppCompatActivity {
 
     @Override

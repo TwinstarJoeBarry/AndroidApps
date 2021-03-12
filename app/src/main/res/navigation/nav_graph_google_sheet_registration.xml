@@ -20,25 +20,32 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph_google_sheet_registration"
-    app:startDestination="@id/GuestFormFirstFragment">
+    app:startDestination="@id/GSR_FirstFormFragment">
+
+    <!-- NOTE: GSR stands for GoogleSheetRegistration :NOTE -->
+
     <fragment
-        android:id="@+id/GuestFormFirstFragment"
-        android:name="edu.ncc.nest.nestapp.GuestFormFirstFragment"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/activity_guest_form_first_fragment">
+        android:id="@+id/GSR_FirstFormFragment"
+        android:name="edu.ncc.nest.nestapp.GuestGoogleSheetRegistration.Fragments.FirstFormFragment"
+        android:label="@string/google_sheet_registration_first_form_fragment_label"
+        tools:layout="@layout/fragment_guest_google_sheet_registration_first_form">
 
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/GuestFormSecondFragment" />
+            android:id="@+id/action_GSR_FirstFormFragment_to_SecondFormFragment"
+            app:destination="@id/GSR_SecondFormFragment" />
+
     </fragment>
+
     <fragment
-        android:id="@+id/GuestFormSecondFragment"
-        android:name="edu.ncc.nest.nestapp.GuestFormSecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/activity_guest_form_second_fragment">
+        android:id="@+id/GSR_SecondFormFragment"
+        android:name="edu.ncc.nest.nestapp.GuestGoogleSheetRegistration.Fragments.SecondFormFragment"
+        android:label="@string/google_sheet_registration_second_form_fragment_label"
+        tools:layout="@layout/fragment_guest_google_sheet_registration_second_form">
 
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/GuestFormFirstFragment" />
+            android:id="@+id/action_GSR_SecondFormFragment_to_FirstFormFragment"
+            app:destination="@id/GSR_FirstFormFragment" />
+
     </fragment>
+
 </navigation>

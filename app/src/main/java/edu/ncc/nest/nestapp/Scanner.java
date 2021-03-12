@@ -280,8 +280,13 @@ import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 
+import edu.ncc.nest.nestapp.CheckExpirationDate.Fragments.ScannerFragment;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
+/**
+ * @deprecated This Activity is being replaced by a Fragment. ({@link ScannerFragment})
+ */
+@Deprecated
 public class Scanner extends AppCompatActivity implements ZXingScannerView.ResultHandler {
 
         private ZXingScannerView scannerView;

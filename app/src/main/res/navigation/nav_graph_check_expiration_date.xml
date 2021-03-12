@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+*
+* Copyright (C) 2020 The LibreFoodPantry Developers.
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program.  If not, see <https://www.gnu.org/licenses/>.
+-->
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_check_expiration"
+    app:startDestination="@id/CED_StartFragment">
+
+    <!-- NOTE: CED stands for CheckExpirationDate :NOTE -->
+
+    <fragment
+        android:id="@+id/CED_StartFragment"
+        android:name="edu.ncc.nest.nestapp.CheckExpirationDate.Fragments.StartFragment"
+        android:label="@string/check_expiration_date_start_fragment_label"
+        tools:layout="@layout/fragment_check_expiration_date_start">
+
+        <action
+            android:id="@+id/action_CED_StartFragment_to_ScannerFragment"
+            app:destination="@id/CED_ScannerFragment" />
+
+        <action
+            android:id="@+id/action_CED_StartFragment_to_EnterUpcFragment"
+            app:destination="@id/CED_EnterUpcFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/CED_ScannerFragment"
+        android:name="edu.ncc.nest.nestapp.CheckExpirationDate.Fragments.ScannerFragment"
+        android:label="@string/check_expiration_date_scanner_fragment_label"
+        tools:layout="@layout/fragment_abstract_scanner">
+
+        <action
+            android:id="@+id/action_CED_ScannerFragment_to_ConfirmItemFragment"
+            app:destination="@id/CED_ConfirmItemFragment" />
+
+        <action
+            android:id="@+id/action_CED_ScannerFragment_to_SelectItemFragment"
+            app:destination="@id/CED_SelectItemFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/CED_EnterUpcFragment"
+        android:name="edu.ncc.nest.nestapp.CheckExpirationDate.Fragments.EnterUpcFragment"
+        android:label="@string/check_expiration_date_enter_upc_fragment_label"
+        tools:layout="@layout/fragment_check_expiration_date_enter_upc">
+
+        <action
+            android:id="@+id/action_CED_EnterUpcFragment_to_ConfirmItemFragment"
+            app:destination="@id/CED_ConfirmItemFragment" />
+
+        <action
+            android:id="@+id/action_CED_EnterUpcFragment_to_SelectItemFragment"
+            app:destination="@id/CED_SelectItemFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/CED_ConfirmItemFragment"
+        android:name="edu.ncc.nest.nestapp.CheckExpirationDate.Fragments.ConfirmItemFragment"
+        android:label="@string/check_expiration_date_confirm_item_fragment_label"
+        tools:layout="@layout/fragment_check_expiration_date_confirm_item" >
+
+        <action
+            android:id="@+id/action_CED_ConfirmItemFragment_to_SelectPrintedExpirationDateFragment"
+            app:destination="@id/CED_SelectPrintedExpirationDateFragment" />
+
+        <action
+            android:id="@+id/action_CED_ConfirmItemFragment_to_SelectItemFragment"
+            app:destination="@id/CED_SelectItemFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/CED_SelectItemFragment"
+        android:name="edu.ncc.nest.nestapp.CheckExpirationDate.Fragments.SelectItemFragment"
+        android:label="@string/check_expiration_date_select_item_fragment_label"
+        tools:layout="@layout/fragment_check_expiration_date_select_item" >
+
+        <action
+            android:id="@+id/action_CED_SelectItemFragment_to_SelectPrintedExpirationDateFragment"
+            app:destination="@id/CED_SelectPrintedExpirationDateFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/CED_SelectPrintedExpirationDateFragment"
+        android:name="edu.ncc.nest.nestapp.CheckExpirationDate.Fragments.SelectPrintedExpirationDateFragment"
+        android:label="@string/check_expiration_date_select_printed_expiration_date_fragment_label"
+        tools:layout="@layout/fragment_check_expiration_date_select_printed_expiration_date" >
+
+        <action
+            android:id="@+id/action_CED_SelectPrintedExpirationDateFragment_to_DisplayTrueExpirationFragment"
+            app:destination="@id/CED_DisplayTrueExpirationFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/CED_DisplayTrueExpirationFragment"
+        android:name="edu.ncc.nest.nestapp.CheckExpirationDate.Fragments.DisplayTrueExpirationFragment"
+        android:label="@string/check_expiration_date_display_true_expiration_fragment_label"
+        tools:layout="@layout/fragment_check_expiration_date_display_true_expiration" />
+
+</navigation>

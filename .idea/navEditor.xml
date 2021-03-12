@@ -3,28 +3,28 @@
   <component name="navEditor-manualLayoutAlgorithm2">
     <option name="myPositions">
       <map>
-        <entry key="nav_graph">
+        <entry key="nav_graph_check_expiration_date.xml">
           <value>
             <LayoutPositions>
               <option name="myPositions">
                 <map>
-                  <entry key="EnterUpcFragment">
+                  <entry key="CED_ConfirmItemFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="12" />
-                            <option name="y" value="12" />
+                            <option name="x" value="500" />
+                            <option name="y" value="282" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_EnterUpcFragment_to_confirmItemFragment">
+                            <entry key="action_CED_ConfirmItemFragment_to_SelectItemFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
                             </entry>
-                            <entry key="action_EnterUpcFragment_to_selectItemFragment">
+                            <entry key="action_CED_ConfirmItemFragment_to_SelectPrintedExpirationDateFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -34,23 +34,35 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="ScanFragment">
+                  <entry key="CED_DisplayTrueExpirationFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="12" />
+                            <option name="x" value="1232" />
+                            <option name="y" value="282" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="CED_EnterUpcFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="256" />
                             <option name="y" value="12" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_ScanFragment_to_confirmItemFragment">
+                            <entry key="action_CED_EnterUpcFragment_to_ConfirmItemFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
                             </entry>
-                            <entry key="action_ScanFragment_to_selectItemFragment">
+                            <entry key="action_CED_EnterUpcFragment_to_SelectItemFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -60,23 +72,23 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="StartFragment">
+                  <entry key="CED_ScannerFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="12" />
-                            <option name="y" value="12" />
+                            <option name="x" value="256" />
+                            <option name="y" value="368" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_StartFragment_to_EnterUpcFragment">
+                            <entry key="action_CED_ScannerFragment_to_ConfirmItemFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
                             </entry>
-                            <entry key="action_StartFragment_to_ScanFragment">
+                            <entry key="action_CED_ScannerFragment_to_SelectItemFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -86,23 +98,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="confirmItemFragment">
+                  <entry key="CED_SelectItemFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="12" />
-                            <option name="y" value="12" />
+                            <option name="x" value="744" />
+                            <option name="y" value="240" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_confirmItemFragment_to_selectItemFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                            <entry key="action_confirmItemFragment_to_selectPrintedExpirationDateFragment">
+                            <entry key="action_CED_SelectItemFragment_to_SelectPrintedExpirationDateFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -112,30 +119,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="displayTrueExpirationFragment">
+                  <entry key="CED_SelectPrintedExpirationDateFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="12" />
-                            <option name="y" value="12" />
-                          </Point>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
-                  <entry key="selectItemFragment">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="12" />
-                            <option name="y" value="12" />
+                            <option name="x" value="988" />
+                            <option name="y" value="282" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_selectItemFragment_to_selectPrintedExpirationDateFragment">
+                            <entry key="action_CED_SelectPrintedExpirationDateFragment_to_DisplayTrueExpirationFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -145,18 +140,23 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="selectPrintedExpirationDateFragment">
+                  <entry key="CED_StartFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
                             <option name="x" value="12" />
-                            <option name="y" value="12" />
+                            <option name="y" value="54" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_selectPrintedExpirationDateFragment_to_displayTrueExpirationFragment">
+                            <entry key="action_CED_StartFragment_to_EnterUpcFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_CED_StartFragment_to_ScannerFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -171,106 +171,23 @@
             </LayoutPositions>
           </value>
         </entry>
-        <entry key="nav_graph.xml">
+        <entry key="nav_graph_database_registration.xml">
           <value>
             <LayoutPositions>
               <option name="myPositions">
                 <map>
-                  <entry key="EnterUpcFragment">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="256" />
-                            <option name="y" value="368" />
-                          </Point>
-                        </option>
-                        <option name="myPositions">
-                          <map>
-                            <entry key="action_EnterUpcFragment_to_confirmItemFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                            <entry key="action_EnterUpcFragment_to_selectItemFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                          </map>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
-                  <entry key="ScanFragment">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="256" />
-                            <option name="y" value="724" />
-                          </Point>
-                        </option>
-                        <option name="myPositions">
-                          <map>
-                            <entry key="action_ScanFragment_to_confirmItemFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                            <entry key="action_ScanFragment_to_selectItemFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                          </map>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
-                  <entry key="StartFragment">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="12" />
-                            <option name="y" value="410" />
-                          </Point>
-                        </option>
-                        <option name="myPositions">
-                          <map>
-                            <entry key="action_StartFragment_to_EnterUpcFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                            <entry key="action_StartFragment_to_ScanFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                          </map>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
-                  <entry key="confirmItemFragment">
+                  <entry key="DBR_FirstFormFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
                             <option name="x" value="500" />
-                            <option name="y" value="638" />
+                            <option name="y" value="368" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_confirmItemFragment_to_selectItemFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                            <entry key="action_confirmItemFragment_to_selectPrintedExpirationDateFragment">
+                            <entry key="action_DBR_FirstFormFragment_to_SecondFormFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -280,30 +197,47 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="displayTrueExpirationFragment">
+                  <entry key="DBR_ScannerFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="1232" />
-                            <option name="y" value="638" />
+                            <option name="x" value="500" />
+                            <option name="y" value="12" />
                           </Point>
                         </option>
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="selectItemFragment">
+                  <entry key="DBR_SecondFormFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="737" />
-                            <option name="y" value="346" />
+                            <option name="x" value="744" />
+                            <option name="y" value="368" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="DBR_StartFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="256" />
+                            <option name="y" value="54" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_selectItemFragment_to_selectPrintedExpirationDateFragment">
+                            <entry key="action_DBR_StartFragment_to_FirstFormFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_DBR_StartFragment_to_ScannerFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -313,23 +247,14 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="selectPrintedExpirationDateFragment">
+                  <entry key="DBR_SummaryFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="988" />
-                            <option name="y" value="638" />
+                            <option name="x" value="12" />
+                            <option name="y" value="12" />
                           </Point>
-                        </option>
-                        <option name="myPositions">
-                          <map>
-                            <entry key="action_selectPrintedExpirationDateFragment_to_displayTrueExpirationFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                          </map>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -344,54 +269,7 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
-                  <entry key="EnterUpcFragment">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="256" />
-                            <option name="y" value="368" />
-                          </Point>
-                        </option>
-                        <option name="myPositions">
-                          <map>
-                            <entry key="action_EnterUpcFragment_to_confirmItemFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                            <entry key="action_EnterUpcFragment_to_selectItemFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                          </map>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
-                  <entry key="GuestFormFirstFragment">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="12" />
-                            <option name="y" value="12" />
-                          </Point>
-                        </option>
-                        <option name="myPositions">
-                          <map>
-                            <entry key="action_FirstFragment_to_SecondFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                          </map>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
-                  <entry key="GuestFormSecondFragment">
+                  <entry key="GSR_FirstFormFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
@@ -402,7 +280,7 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_SecondFragment_to_FirstFragment">
+                            <entry key="action_GSR_FirstFormFragment_to_SecondFormFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -412,215 +290,23 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="ScanFragment">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="256" />
-                            <option name="y" value="724" />
-                          </Point>
-                        </option>
-                        <option name="myPositions">
-                          <map>
-                            <entry key="action_ScanFragment_to_confirmItemFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                            <entry key="action_ScanFragment_to_selectItemFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                          </map>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
-                  <entry key="StartFragment">
+                  <entry key="GSR_SecondFormFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
                             <option name="x" value="12" />
-                            <option name="y" value="410" />
+                            <option name="y" value="12" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_StartFragment_to_EnterUpcFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                            <entry key="action_StartFragment_to_ScanFragment">
+                            <entry key="action_GSR_SecondFormFragment_to_FirstFormFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
                             </entry>
                           </map>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
-                  <entry key="confirmItemFragment">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="500" />
-                            <option name="y" value="638" />
-                          </Point>
-                        </option>
-                        <option name="myPositions">
-                          <map>
-                            <entry key="action_confirmItemFragment_to_selectItemFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                            <entry key="action_confirmItemFragment_to_selectPrintedExpirationDateFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                          </map>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
-                  <entry key="displayTrueExpirationFragment">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="1232" />
-                            <option name="y" value="638" />
-                          </Point>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
-                  <entry key="selectItemFragment">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="744" />
-                            <option name="y" value="596" />
-                          </Point>
-                        </option>
-                        <option name="myPositions">
-                          <map>
-                            <entry key="action_selectItemFragment_to_selectPrintedExpirationDateFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                          </map>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
-                  <entry key="selectPrintedExpirationDateFragment">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="988" />
-                            <option name="y" value="638" />
-                          </Point>
-                        </option>
-                        <option name="myPositions">
-                          <map>
-                            <entry key="action_selectPrintedExpirationDateFragment_to_displayTrueExpirationFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                          </map>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
-                </map>
-              </option>
-            </LayoutPositions>
-          </value>
-        </entry>
-        <entry key="nav_graph_guest_registration.xml">
-          <value>
-            <LayoutPositions>
-              <option name="myPositions">
-                <map>
-                  <entry key="FirstFragmentGuestRegistration">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="231" />
-                            <option name="y" value="149" />
-                          </Point>
-                        </option>
-                        <option name="myPositions">
-                          <map>
-                            <entry key="action_FirstFragmentGuestRegistration_to_SecondFragmentGuestRegistration">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                          </map>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
-                  <entry key="FragmentGuestRegistrationScanner">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="228" />
-                            <option name="y" value="-153" />
-                          </Point>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
-                  <entry key="FragmentGuestRegistrationStartPage">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="12" />
-                            <option name="y" value="-4" />
-                          </Point>
-                        </option>
-                        <option name="myPositions">
-                          <map>
-                            <entry key="action_FragmentGuestRegistrationStartPage_to_FirstFragmentGuestRegistration">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                            <entry key="action_FragmentGuestRegistrationStartPage_to_FragmentGuestRegistrationScanner">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                          </map>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
-                  <entry key="SecondFragmentGuestRegistration">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="494" />
-                            <option name="y" value="149" />
-                          </Point>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -635,35 +321,23 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
-                  <entry key="GuestQuestionnaireFragment">
+                  <entry key="GV_ConfirmationFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
                             <option name="x" value="12" />
-                            <option name="y" value="12" />
-                          </Point>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
-                  <entry key="GuestScanConfirmationFragment">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="12" />
-                            <option name="y" value="12" />
+                            <option name="y" value="33" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_GuestScanConfirmationFragment_to_GuestQuestionnaireFragment">
+                            <entry key="action_GV_ConfirmationFragment_to_QuestionnaireFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
                             </entry>
-                            <entry key="action_GuestScanConfirmationFragment_to_GuestScanFragment">
+                            <entry key="action_GV_ConfirmationFragment_to_ScannerFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -673,18 +347,30 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="GuestScanFragment">
+                  <entry key="GV_QuestionnaireFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="12" />
+                            <option name="x" value="256" />
+                            <option name="y" value="368" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="GV_ScannerFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="256" />
                             <option name="y" value="12" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_GuestScanFragment_to_GuestScanConfirmationFragment">
+                            <entry key="action_GV_ScannerFragment_to_ConfirmationFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
