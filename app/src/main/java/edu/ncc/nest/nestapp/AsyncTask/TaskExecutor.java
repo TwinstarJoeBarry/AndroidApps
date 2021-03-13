@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * TaskExecutor --
  * Used to execute a BackgroundTask object, and handles the lifecycle of the BackgroundTask as it
- * executes.
+ * executes. Replacement for {@link android.os.AsyncTask}.
  */
 @SuppressWarnings("unused")
 public final class TaskExecutor {
@@ -117,8 +117,6 @@ public final class TaskExecutor {
                 // Call this lifecycle method on the Main UI thread
                 MAIN_HANDLER.post(() -> TASK.onTaskFailed(throwable));
 
-                throw throwable;
-
             } finally {
 
                 // If the BackgroundTask hasn't failed
@@ -183,8 +181,6 @@ public final class TaskExecutor {
 
                 // Call this lifecycle method on the Main UI thread
                 MAIN_HANDLER.post(() -> TASK.onTaskFailed(throwable));
-
-                throw throwable;
 
             } finally {
 
@@ -296,7 +292,8 @@ public final class TaskExecutor {
 
     /**
      * BackgroundTask --
-     * Represent a task that can be executed on a background thread.
+     * Represents a task that can be executed on a background thread. Replacement for
+     * {@link android.os.AsyncTask}.
      * @param <Progress> The data type that will represent the "progress" of this task.
      * @param <Result> The data type that will represent the "result" of this task.
      */
@@ -365,10 +362,10 @@ public final class TaskExecutor {
          * doInBackground --
          * The code/"task" to run on a background thread.
          * @return The "result" of the task that was executed.
-         * @throws Exception If an error has occurred during execution of the task. If an exception
+         * @throws Throwable If an error has occurred during execution of the task. If a Throwable
          * is thrown, it triggers the onTaskFailed method to be executed on the Main UI thread.
          */
-        protected abstract Result doInBackground();
+        protected abstract Result doInBackground() throws Throwable;
 
         /**
          * onPostExecute --
