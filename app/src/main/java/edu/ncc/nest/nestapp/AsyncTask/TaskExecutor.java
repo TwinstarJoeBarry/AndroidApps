@@ -14,6 +14,7 @@ import java.util.concurrent.AbstractExecutorService;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -81,7 +82,7 @@ public final class TaskExecutor {
      * @param <Result> The data type that will represent the "result" of the BackgroundTask.
      */
     private static <Progress, Result> void onExecute(@NonNull final BackgroundTask<Progress, Result> TASK,
-                                                     @NonNull final ExecutorService EXECUTOR_SERVICE) {
+                                                                         @NonNull final ExecutorService EXECUTOR_SERVICE) {
 
         // Call this lifecycle method on the current thread
         TASK.onPreExecute();
@@ -133,11 +134,75 @@ public final class TaskExecutor {
 
     }
 
+    /**
+     * onSubmit --
+     * Called when submitting a BackgroundTask. Handles the lifecycle of the BackgroundTask that is
+     * being executed.
+     * @param TASK The BackgroundTask to submit.
+     * @param EXECUTOR_SERVICE The ExecutorService to submit a BackgroundTask to.
+     * @param <Progress> The data type that will represent the "progress" of the BackgroundTask.
+     * @param <Result> The data type that will represent the "result" of the BackgroundTask.
+     * @return Future<?> A Future representing pending completion of the task
+     * @throws java.util.concurrent.RejectedExecutionException – if the task cannot be scheduled for execution
+     */
+    private static <Progress, Result> Future<?> onSubmit(@NonNull final BackgroundTask<Progress, Result> TASK,
+                                                     @NonNull final ExecutorService EXECUTOR_SERVICE) {
+
+        // Call this lifecycle method on the current thread
+        TASK.onPreExecute();
+
+        // Execute the following code using the EXECUTOR_SERVICE provided
+        // May need to change this to submit in the future, to be able to cancel the task
+        return EXECUTOR_SERVICE.submit(() -> {
+
+            Result result = null;
+
+            boolean taskFailed = false;
+
+            try {
+
+                // Set the thread priority to background
+                Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
+
+                // Execute the background code, and get the "result"
+                result = TASK.doInBackground();
+
+                // Ensures that any pending object references have been released
+                Binder.flushPendingCommands();
+
+            } catch (Throwable throwable) {
+
+                // If we get here the BackgroundTask has failed to fully execute
+                taskFailed = true;
+
+                // Call this lifecycle method on the Main UI thread
+                MAIN_HANDLER.post(() -> TASK.onTaskFailed(throwable));
+
+                throw throwable;
+
+            } finally {
+
+                // If the BackgroundTask hasn't failed
+                if (!taskFailed) {
+
+                    final Result RESULT = result;
+
+                    // Call this lifecycle method on the Main UI thread
+                    MAIN_HANDLER.post(() -> TASK.onPostExecute(RESULT));
+
+                }
+
+            }
+
+        });
+
+    }
+
     /////////////////////////////////////// ACTION METHODS /////////////////////////////////////////
 
     /**
      * executeAsRead --
-     * Optimized for executing BackgroundTask that will do database reads more efficiently.
+     * Optimized for executing a BackgroundTask. Performs database reads more efficiently.
      * @param TASK The BackgroundTask to execute.
      * @param <Progress> The data type that will represent the "progress" of the BackgroundTask.
      * @param <Result> The data type that will represent the "result" of the BackgroundTask.
@@ -151,7 +216,7 @@ public final class TaskExecutor {
 
     /**
      * executeAsWrite --
-     * Optimized for executing BackgroundTask that will do database writes more safely.
+     * Optimized for executing a BackgroundTask. Performs database writes more safely.
      * @param TASK The BackgroundTask to execute.
      * @param <Progress> The data type that will represent the "progress" of the BackgroundTask.
      * @param <Result> The data type that will represent the "result" of the BackgroundTask.
@@ -160,6 +225,36 @@ public final class TaskExecutor {
             @NonNull final BackgroundTask<Progress, Result> TASK) {
 
         onExecute(TASK, WRITE_EXECUTOR_SERVICE);
+
+    }
+
+    /**
+     * submitAsRead --
+     * Optimized for submitting a BackgroundTask as a read. Performs database reads more efficiently.
+     * @param TASK The BackgroundTask to submit.
+     * @param <Progress> The data type that will represent the "progress" of the BackgroundTask.
+     * @param <Result> The data type that will represent the "result" of the BackgroundTask.
+     * @return Future<?> A Future representing pending completion of the task
+     */
+    public static <Progress, Result> Future<?> submitAsRead(
+            @NonNull final BackgroundTask<Progress, Result> TASK) {
+
+        return onSubmit(TASK, READ_EXECUTOR_SERVICE);
+
+    }
+
+    /**
+     * submitAsWrite --
+     * Optimized for submitting a BackgroundTask as a write. Performs database writes more safely.
+     * @param TASK The BackgroundTask to submit.
+     * @param <Progress> The data type that will represent the "progress" of the BackgroundTask.
+     * @param <Result> The data type that will represent the "result" of the BackgroundTask.
+     * @return Future<?> A Future representing pending completion of the task
+     */
+    public static <Progress, Result> Future<?> submitAsWrite(
+            @NonNull final BackgroundTask<Progress, Result> TASK) {
+
+        return onSubmit(TASK, WRITE_EXECUTOR_SERVICE);
 
     }
 

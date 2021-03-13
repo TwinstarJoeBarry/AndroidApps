@@ -23,7 +23,7 @@ import androidx.appcompat.widget.Toolbar;
 import edu.ncc.nest.nestapp.R;
 
 /*
- * CheckExpirationDateActivity: This is the underlying activity for the fragments in nav_graph.xml (CheckExpirationDate package)
+ * CheckExpirationDateActivity: This is the underlying activity for the fragments in (CheckExpirationDate package)
  */
 public class CheckExpirationDateActivity extends AppCompatActivity {
 
