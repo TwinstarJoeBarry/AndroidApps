@@ -19,7 +19,12 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -133,10 +138,10 @@ public class NestDBOpenHelper extends SQLiteOpenHelper {
     }
 
     private void populateFromFoodKeeperAPI(SQLiteDatabase db) {
-        TaskExecutor.executeAsRead(new GetCategoriesTask(db));
-        TaskExecutor.executeAsRead(new GetCookingTipsTask(db));
-        TaskExecutor.executeAsRead(new GetCookingMethodsTask(db));
-        TaskExecutor.executeAsRead(new GetProductsTask(db));
+        TaskExecutor.submitAsRead(new GetCategoriesTask(db));
+        TaskExecutor.submitAsRead(new GetCookingTipsTask(db));
+        TaskExecutor.submitAsRead(new GetCookingMethodsTask(db));
+        TaskExecutor.submitAsRead(new GetProductsTask(db));
     }
 
     /**

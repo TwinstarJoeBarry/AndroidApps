@@ -244,7 +244,7 @@ public final class TaskExecutor {
             throw new RuntimeException("This method must be called from the Main UI Thread. " +
                     "You are not currently on the Main UI Thread");
 
-            onExecute(TASK, WRITE_EXECUTOR_SERVICE);
+        onExecute(TASK, WRITE_EXECUTOR_SERVICE);
 
     }
 
