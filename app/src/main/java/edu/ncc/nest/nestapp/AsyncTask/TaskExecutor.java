@@ -85,6 +85,9 @@ public final class TaskExecutor {
                                                                          @NonNull final ExecutorService EXECUTOR_SERVICE) {
 
         // Call this lifecycle method on the current thread
+        /* NOTE: This call is the reason we need to make sure we are on the Main UI Thread when
+         *       we executeAsWrite or executeAsRead is called.
+         */
         TASK.onPreExecute();
 
         // Execute the following code using the EXECUTOR_SERVICE provided
@@ -149,6 +152,9 @@ public final class TaskExecutor {
                                                      @NonNull final ExecutorService EXECUTOR_SERVICE) {
 
         // Call this lifecycle method on the current thread
+        /* NOTE: This call is the reason we need to make sure we are on the Main UI Thread when
+         *       we submitAsWrite or submitAsRead is called.
+         */
         TASK.onPreExecute();
 
         // Execute the following code using the EXECUTOR_SERVICE provided
