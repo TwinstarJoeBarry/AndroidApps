@@ -17,6 +17,7 @@ import java.util.concurrent.TimeUnit;
  * TaskExecutor --
  * Used to execute a BackgroundTask object, and handles the lifecycle of the BackgroundTask as it
  * executes. Replacement for {@link android.os.AsyncTask}.
+ * @author Tyler Sizse (ANewGalaxy)
  */
 @SuppressWarnings("unused")
 public final class TaskExecutor {
@@ -290,6 +291,7 @@ public final class TaskExecutor {
      * {@link android.os.AsyncTask}.
      * @param <Progress> The data type that will represent the "progress" of this task.
      * @param <Result> The data type that will represent the "result" of this task.
+     * @author Tyler Sizse (ANewGalaxy)
      */
     public abstract static class BackgroundTask<Progress, Result> {
 

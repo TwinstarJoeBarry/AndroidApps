@@ -5,6 +5,7 @@ package edu.ncc.nest.nestapp.AsynchronousTask;
  * Mainly used to listen for any "progress" updates from a TaskExecutor.BackgroundTask object. Can
  * also be used for other purposes.
  * @param <Progress> The data type that will represent the "progress" of a task.
+ * @author Tyler Sizse (ANewGalaxy)
  */
 public interface OnProgressListener<Progress> {
 
