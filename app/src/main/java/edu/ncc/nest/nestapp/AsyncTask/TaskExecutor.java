@@ -202,13 +202,20 @@ public final class TaskExecutor {
 
     /**
      * executeAsRead --
-     * Optimized for executing a BackgroundTask. Performs database reads more efficiently.
+     * Optimized for executing a BackgroundTask. Performs database reads more efficiently. Must be
+     * called from the Main UI Thread.
      * @param TASK The BackgroundTask to execute.
      * @param <Progress> The data type that will represent the "progress" of the BackgroundTask.
      * @param <Result> The data type that will represent the "result" of the BackgroundTask.
+     * @throws RuntimeException If this method is not called from the Main UI Thread
      */
     public static <Progress, Result> void executeAsRead(
             @NonNull final BackgroundTask<Progress, Result> TASK) {
+
+        if (!Thread.currentThread().equals(Looper.getMainLooper().getThread()))
+
+            throw new RuntimeException("This method must be called from the Main UI Thread. " +
+                    "You are not currently on the Main UI Thread");
 
         onExecute(TASK, READ_EXECUTOR_SERVICE);
 
@@ -216,28 +223,42 @@ public final class TaskExecutor {
 
     /**
      * executeAsWrite --
-     * Optimized for executing a BackgroundTask. Performs database writes more safely.
+     * Optimized for executing a BackgroundTask. Performs database writes more safely. Must be
+     *      * called from the Main UI Thread.
      * @param TASK The BackgroundTask to execute.
      * @param <Progress> The data type that will represent the "progress" of the BackgroundTask.
      * @param <Result> The data type that will represent the "result" of the BackgroundTask.
+     * @throws RuntimeException If this method is not called from the Main UI Thread
      */
     public static <Progress, Result> void executeAsWrite(
             @NonNull final BackgroundTask<Progress, Result> TASK) {
 
-        onExecute(TASK, WRITE_EXECUTOR_SERVICE);
+        if (!Thread.currentThread().equals(Looper.getMainLooper().getThread()))
+
+            throw new RuntimeException("This method must be called from the Main UI Thread. " +
+                    "You are not currently on the Main UI Thread");
+
+            onExecute(TASK, WRITE_EXECUTOR_SERVICE);
 
     }
 
     /**
      * submitAsRead --
      * Optimized for submitting a BackgroundTask as a read. Performs database reads more efficiently.
+     * Must be called from the Main UI Thread.
      * @param TASK The BackgroundTask to submit.
      * @param <Progress> The data type that will represent the "progress" of the BackgroundTask.
      * @param <Result> The data type that will represent the "result" of the BackgroundTask.
      * @return Future<?> A Future representing pending completion of the task
+     * @throws RuntimeException If this method is not called from the Main UI Thread
      */
     public static <Progress, Result> Future<?> submitAsRead(
             @NonNull final BackgroundTask<Progress, Result> TASK) {
+
+        if (!Thread.currentThread().equals(Looper.getMainLooper().getThread()))
+
+            throw new RuntimeException("This method must be called from the Main UI Thread. " +
+                    "You are not currently on the Main UI Thread");
 
         return onSubmit(TASK, READ_EXECUTOR_SERVICE);
 
@@ -246,13 +267,20 @@ public final class TaskExecutor {
     /**
      * submitAsWrite --
      * Optimized for submitting a BackgroundTask as a write. Performs database writes more safely.
+     * Must be called from the Main UI Thread.
      * @param TASK The BackgroundTask to submit.
      * @param <Progress> The data type that will represent the "progress" of the BackgroundTask.
      * @param <Result> The data type that will represent the "result" of the BackgroundTask.
      * @return Future<?> A Future representing pending completion of the task
+     * @throws RuntimeException If this method is not called from the Main UI Thread
      */
     public static <Progress, Result> Future<?> submitAsWrite(
             @NonNull final BackgroundTask<Progress, Result> TASK) {
+
+        if (!Thread.currentThread().equals(Looper.getMainLooper().getThread()))
+
+            throw new RuntimeException("This method must be called from the Main UI Thread. " +
+                    "You are not currently on the Main UI Thread");
 
         return onSubmit(TASK, WRITE_EXECUTOR_SERVICE);
 
