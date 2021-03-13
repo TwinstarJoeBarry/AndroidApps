@@ -1,19 +1,13 @@
-package edu.ncc.nest.nestapp.AsyncTask;
+package edu.ncc.nest.nestapp.AsynchronousTask;
 
 import android.os.Binder;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Process;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.gms.tasks.Task;
-
-import java.util.concurrent.AbstractExecutorService;
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -86,7 +80,7 @@ public final class TaskExecutor {
 
         // Call this lifecycle method on the current thread
         /* NOTE: This call is the reason we need to make sure we are on the Main UI Thread when
-         *       we executeAsWrite or executeAsRead is called.
+         *       executeAsWrite or executeAsRead is called.
          */
         TASK.onPreExecute();
 
@@ -151,7 +145,7 @@ public final class TaskExecutor {
 
         // Call this lifecycle method on the current thread
         /* NOTE: This call is the reason we need to make sure we are on the Main UI Thread when
-         *       we submitAsWrite or submitAsRead is called.
+         *       submitAsWrite or submitAsRead is called.
          */
         TASK.onPreExecute();
 
@@ -217,7 +211,7 @@ public final class TaskExecutor {
         if (!Thread.currentThread().equals(Looper.getMainLooper().getThread()))
 
             throw new RuntimeException("This method must be called from the Main UI Thread. " +
-                    "You are not currently on the Main UI Thread");
+                    "Current Thread: " + Thread.currentThread().getName());
 
         onExecute(TASK, READ_EXECUTOR_SERVICE);
 
@@ -238,7 +232,7 @@ public final class TaskExecutor {
         if (!Thread.currentThread().equals(Looper.getMainLooper().getThread()))
 
             throw new RuntimeException("This method must be called from the Main UI Thread. " +
-                    "You are not currently on the Main UI Thread");
+                    "Current Thread: " + Thread.currentThread().getName());
 
         onExecute(TASK, WRITE_EXECUTOR_SERVICE);
 
@@ -260,7 +254,7 @@ public final class TaskExecutor {
         if (!Thread.currentThread().equals(Looper.getMainLooper().getThread()))
 
             throw new RuntimeException("This method must be called from the Main UI Thread. " +
-                    "You are not currently on the Main UI Thread");
+                    "Current Thread: " + Thread.currentThread().getName());
 
         return onSubmit(TASK, READ_EXECUTOR_SERVICE);
 
@@ -282,7 +276,7 @@ public final class TaskExecutor {
         if (!Thread.currentThread().equals(Looper.getMainLooper().getThread()))
 
             throw new RuntimeException("This method must be called from the Main UI Thread. " +
-                    "You are not currently on the Main UI Thread");
+                    "Current Thread: " + Thread.currentThread().getName());
 
         return onSubmit(TASK, WRITE_EXECUTOR_SERVICE);
 

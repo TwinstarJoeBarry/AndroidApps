@@ -27,8 +27,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.google.android.gms.tasks.Task;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -42,7 +40,7 @@ import java.util.HashMap;
 
 import javax.net.ssl.HttpsURLConnection;
 
-import edu.ncc.nest.nestapp.AsyncTask.TaskExecutor;
+import edu.ncc.nest.nestapp.AsynchronousTask.TaskExecutor;
 
 /**
  * An Activity that takes a UPC and finds its corresponding FDCID.
