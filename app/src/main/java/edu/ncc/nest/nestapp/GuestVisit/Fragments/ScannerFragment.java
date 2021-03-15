@@ -46,9 +46,10 @@ import edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses.GuestRegis
 import edu.ncc.nest.nestapp.R;
 
 /**
- * AbstractScannerFragment --
+ * ScannerFragment --
  * Fragment to be used to check in a user by scanning a guest's bar code that was given to them
  * at registration time.
+ * @author Tyler Sizse
  */
 public class ScannerFragment extends AbstractScannerFragment {
 
@@ -75,11 +76,55 @@ public class ScannerFragment extends AbstractScannerFragment {
         // Create an instance of the database helper
         GuestRegistrySource db = new GuestRegistrySource(requireContext());
 
+        //////////////////////////////////// TESTING CODE START ////////////////////////////////////
+
+        /**
+         * TODO: This code is for testing purposes only and should be removed/commented-out when not testing.
+         *
+         * Uncomment the following code to add a new guest to the GuestRegistry database with the
+         * current barcode. This makes sure that a guest associated with the currently scanned
+         * barcode will be found in the GuestRegistry. This allows you to bypass having to register
+         * with the 'GuestDatabaseRegistration' feature until it is properly set up.
+         *
+         * When this code is uncommented, you should be brought to ConfirmationFragment and see the
+         * title of "Welcome NEST Guest!", and a "Guest Name" of "John Doe" and a "Guest ID" equal
+         * to the currently scanned barcode. Press 'Confirm' to be taken to the
+         * QuestionnaireFragment. The QuestionnaireFragment should auto-fill the first field for you
+         * with the currently scanned barcode.
+         *
+         * In the QuestionnaireFragment, fill in all the empty fields and press "Submit". If there
+         * are any missing fields, the form will not be submitted and should display a dialog
+         * informing you of the missing fields. If all fields have been entered, the form should be
+         * submitted to the Questionnaire database. QuestionnaireFragment will then print all the
+         * submissions submitted by the guest that is associated with the current barcode to the log
+         * from the Questionnaire database.
+         *
+         * See issue #181 on GitLab for more info about QuestionnaireFragment.
+         *
+         * You can change each parameter to whatever you want. If you want a specific barcode to be
+         * associated with this guest, just change the last parameter 'barcode' to the barcode that
+         * you want associated with this guest.
+         *
+         * @author Tyler Sizse (@ANewGalaxy)
+         */
+
+        /*
+        db.open();
+
+        // NOTE: This method may change over time, make sure it is up to date with GuestRegistrySource.
+        if (!db.insertData("John Doe", "John.Doe@example.com", "555-555-5555", "01/23/45",
+                "123 Test St", "Test", "12345", barcode))
+
+            Log.e(TAG, "Error adding \"testing\" guest to registry.");
+
+        db.close();
+        */
+
+        ///////////////////////////////////// TESTING CODE END /////////////////////////////////////
+
+        // TODO 'GuestDatabaseRegistration' feature is not finished yet so this might always be null
         // Check if the guest is registered in the database
-        // No guests yet so this will always be null. GUEST_NAME was set to "Test" for testing purposes.
         final String GUEST_NAME = db.isRegistered(barcode);
-        //TODO: Replace the line below with the one above.
-        //final String GUEST_NAME = "Test";
 
         if (GUEST_NAME != null)
 
