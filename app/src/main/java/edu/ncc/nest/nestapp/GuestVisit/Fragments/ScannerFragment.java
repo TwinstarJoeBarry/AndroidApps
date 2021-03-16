@@ -109,7 +109,7 @@ public class ScannerFragment extends AbstractScannerFragment {
          */
 
         // If a guest associated with the currently scanned barcode does not exist in the database
-        if (db.isRegistered(barcode) == null) {
+        /*if (db.isRegistered(barcode) == null) {
 
             db.open();
 
@@ -121,8 +121,7 @@ public class ScannerFragment extends AbstractScannerFragment {
 
             db.close();
 
-        }
-
+        }*/
 
         ///////////////////////////////////// TESTING CODE END /////////////////////////////////////
 
