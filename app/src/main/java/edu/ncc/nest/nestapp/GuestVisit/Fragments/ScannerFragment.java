@@ -49,7 +49,6 @@ import edu.ncc.nest.nestapp.R;
  * ScannerFragment --
  * Fragment to be used to check in a user by scanning a guest's bar code that was given to them
  * at registration time.
- * @author Tyler Sizse
  */
 public class ScannerFragment extends AbstractScannerFragment {
 
@@ -106,8 +105,6 @@ public class ScannerFragment extends AbstractScannerFragment {
          * You can change each parameter to whatever you want. If you want a specific barcode to be
          * associated with this guest, just change the last parameter 'barcode' to the barcode that
          * you want associated with this guest.
-         *
-         * @author Tyler Sizse (@ANewGalaxy)
          */
 
         // If a guest associated with the currently scanned barcode does not exist in the database
