@@ -44,7 +44,7 @@
                 android:id="@+id/selected_print_month_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Button" />
+                android:text="Month" />
         </LinearLayout>
 
         <LinearLayout
@@ -63,7 +63,7 @@
                 android:id="@+id/selected_print_day_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Button" />
+                android:text="Day" />
         </LinearLayout>
 
         <LinearLayout
@@ -81,7 +81,7 @@
                 android:id="@+id/selected_print_year_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Button" />
+                android:text="Year" />
         </LinearLayout>
 
     </LinearLayout>
