@@ -48,23 +48,23 @@
         android:text="Confirm Item"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/button_incorrect_item"
 
 
-        />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button_incorrect_item" />
 
     <Button
         android:id="@+id/button_incorrect_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="300dp"
         android:layout_marginStart="50dp"
+        android:layout_marginBottom="300dp"
         android:text="Incorrect"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/button_confirm_item"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/button_confirm_item"
 
-        />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/itemName"
@@ -102,8 +102,8 @@
 
     <TextView
         android:id="@+id/add_cat_name"
-        android:layout_height="wrap_content"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="40dp"
         android:text=""
         app:layout_constraintBottom_toTopOf="@+id/add_UPC"
