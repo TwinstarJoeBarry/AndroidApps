@@ -1005,26 +1005,23 @@
     <string name="google_sheet_registration_first_form_fragment_label">First Form Fragment</string>
     <string name="google_sheet_registration_second_form_fragment_label">Second Form Fragment</string>
     <string name="next">Next</string>
-    <string name="previous">Previous</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+
+
     <string name="title_activity_check_expiration_date">CheckExpirationDate</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <string name="check_expiration_date_start_fragment_label">Start Fragment</string>
     <string name="check_expiration_date_scanner_fragment_label">Scanner Fragment</string>
-    <string name="hello_start_fragment">In Start Fragment</string>
+
     <string name="scan">Scan UPC</string>
     <string name="enter_upc">Enter UPC</string>
-    <string name="scan_complete">Scan Complete</string>
-    <string name="hello_scan_fragment">In Scan Fragment</string>
-    <string name="in_enter_upc_fragment">In Enter Upc Fragment</string>
     <string name="check_expiration_date_enter_upc_fragment_label">Enter UPC Fragment</string>
     <string name="in_confirm_item_fragment">In Confirm Item Fragment</string>
-    <string name="in_select_item_fragment">In Select Item Fragment</string>
-    <string name="in_select_expiration_fragment">In Select Printed Expiration Fragment</string>
-    <string name="in_display_expiration_fragment">In Display True Expiration Fragment</string>
+
+
+
     <string name="check_expiration_date_confirm_item_fragment_label">Confirm Item Fragment</string>
     <string name="check_expiration_date_select_item_fragment_label">Select Item Fragment</string>
     <string name="check_expiration_date_select_printed_expiration_date_fragment_label">Select Printed Expiration Date Fragment</string>
@@ -1102,7 +1099,6 @@
     <string name="guestVisitConfirmation_register_button">Register</string>
     <string name="guestVisitConfirmation_please_register_lbl">Please register to continue</string>
     <string name="guestVisitConfirmation_sorry_guest_not_found_lbl">Sorry! We couldn\'t find a guest associated with the following barcode:</string>
-    <string name="first_Page_entry_Registration_Form_label">FirstPageEntryRegistrationFormEntry</string>
     <string name="state_lbl">State</string>
 
     <!-- END OF GUEST VISIT STRINGS -->
