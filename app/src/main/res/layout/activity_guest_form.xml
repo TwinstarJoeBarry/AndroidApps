@@ -79,7 +79,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/editText3"
-        android:hint="@string/activity_guest_form_ncc_id"
+        android:hint="@string/ncc_id"
         android:inputType="number"
         android:autofillHints="" />
 
@@ -89,7 +89,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/editText4"
-        android:hint="@string/activity_guest_form_address"
+        android:hint="@string/postal_address"
         android:inputType="textPostalAddress"
         android:autofillHints="" />
 
@@ -99,7 +99,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/editText5"
-        android:hint="@string/activity_guest_form_town_city"
+        android:hint="@string/town_city"
         android:inputType="textPersonName"
         android:autofillHints="" />
 
@@ -108,7 +108,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/editText6"
-        android:hint="@string/activity_guest_form_zip_code"
+        android:hint="@string/zip_code"
         android:inputType="number"
         android:autofillHints="" />
 
@@ -126,7 +126,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/editText7"
-        android:hint="@string/activity_guest_form_birth_date"
+        android:hint="@string/birth_date"
         android:inputType="date"
         android:autofillHints="" />
 

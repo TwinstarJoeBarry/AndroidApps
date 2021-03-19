@@ -92,14 +92,6 @@
     <string name="activity_future_efforts_choice_4">Volunteer Form</string>
 
     <!-- String names for activity_guest_form.xml (@Deprecated) -->
-    <string name="activity_guest_form_name">Name</string>
-    <string name="activity_guest_form_phone">Phone Number</string>
-    <string name="activity_guest_form_email">Email Address</string>
-    <string name="activity_guest_form_ncc_id">NCC ID</string>
-    <string name="activity_guest_form_address">Address</string>
-    <string name="activity_guest_form_town_city">Town/City</string>
-    <string name="activity_guest_form_zip_code">Zip Code</string>
-    <string name="activity_guest_form_birth_date">Birth Date</string>
     <string name="activity_guest_form_income">Household Income</string>
     <string name="activity_guest_form_more_info"><font size="14">Is there anything else you would like us to know at this time?</font></string>
     <string name="activity_guest_form_volunteer_first_name"><font size="14">What is the first name of the volunteer who helped you today?</font></string>
