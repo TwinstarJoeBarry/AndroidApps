@@ -44,7 +44,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/title_txt"
             android:hint="@string/people_lbl"
-            android:inputType="number" />
+            android:inputType="number"
+            android:autofillHints="" />
 
         <EditText
             android:id="@+id/editText2"
@@ -52,7 +53,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/editText"
             android:hint="@string/activity_guest_form_income"
-            android:inputType="number" />
+            android:inputType="number"
+            android:autofillHints="" />
 
         <EditText
             android:id="@+id/editText3"
@@ -60,7 +62,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/editText2"
             android:hint="@string/snap_lbl"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:autofillHints="" />
 
         <EditText
             android:id="@+id/editText4"
@@ -68,7 +71,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/editText3"
             android:hint="@string/other_programs_lbl"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:autofillHints="" />
 
         <EditText
             android:id="@+id/editText5"
@@ -76,7 +80,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/editText4"
             android:hint="@string/employment_status_lbl"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:autofillHints="" />
 
         <EditText
             android:id="@+id/editText6"
@@ -84,7 +89,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/editText5"
             android:hint="@string/health_status_lbl"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:autofillHints="" />
 
         <EditText
             android:id="@+id/editText7"
@@ -92,7 +98,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/editText6"
             android:hint="@string/housing_status_lbl"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:autofillHints="" />
 
         <EditText
             android:id="@+id/editText8"
@@ -100,7 +107,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/editText7"
             android:hint="@string/childcare_status_lbl"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:autofillHints="" />
 
         <EditText
             android:id="@+id/editText9"
@@ -108,7 +116,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/editText8"
             android:hint="@string/children_under_1_lbl"
-            android:inputType="number" />
+            android:inputType="number"
+            android:autofillHints="" />
 
         <EditText
             android:id="@+id/editText10"
@@ -116,7 +125,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/editText9"
             android:hint="@string/children_between_1_5_lbl"
-            android:inputType="number" />
+            android:inputType="number"
+            android:autofillHints="" />
 
         <EditText
             android:id="@+id/editText11"
@@ -132,7 +142,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/editText11"
             android:hint="@string/children_between_13_18_lbl"
-            android:inputType="number" />
+            android:inputType="number"
+            android:autofillHints="" />
 
         <EditText
             android:id="@+id/editText13"
@@ -140,7 +151,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/editText12"
             android:hint="@string/dietary_lbl"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:autofillHints="" />
 
         <EditText
             android:id="@+id/editText14"
@@ -148,7 +160,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/editText13"
             android:hint="@string/how_did_you_find_lbl"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:autofillHints="" />
 
         <EditText
             android:id="@+id/editText15"
@@ -156,7 +169,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/editText14"
             android:hint="@string/activity_guest_form_more_info"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:autofillHints="" />
 
         <EditText
             android:id="@+id/editText16"
@@ -164,7 +178,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/editText15"
             android:hint="@string/activity_guest_form_volunteer_first_name"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:autofillHints="" />
 
         <EditText
             android:id="@+id/editText17"
@@ -172,14 +187,15 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/editText16"
             android:hint="@string/activity_guest_form_volunteer_last_name"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:autofillHints="" />
 
         <Button
             android:id="@+id/submit_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/editText17"
-            android:text="@string/activity_guest_form_submit_btn" />
+            android:text="@string/submit" />
     </RelativeLayout>
 
 </ScrollView>

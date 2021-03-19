@@ -36,7 +36,7 @@
         android:layout_marginStart="0dp"
         android:layout_marginTop="56dp"
         android:fontFamily="casual"
-        android:text="@string/volunteer_form_title"
+        android:text="@string/activity_volunteer_form_title"
         android:textAlignment="center"
         android:textSize="20sp" />
 
@@ -48,7 +48,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="4dp"
         android:layout_marginTop="77dp"
-        android:hint="@string/volunteer_form_first_name"
+        android:hint="@string/first_name"
         android:inputType="textPersonName"
         android:text=""
         android:autofillHints="" />
@@ -61,7 +61,7 @@
         android:layout_alignParentStart="true"
         android:layout_marginStart="-2dp"
         android:layout_marginTop="16dp"
-        android:hint="@string/volunteer_form_last_name"
+        android:hint="@string/last_name"
         android:inputType="textPersonName"
         android:text=""
         android:autofillHints="" />
@@ -73,7 +73,7 @@
         android:layout_below="@id/last_name"
         android:layout_alignParentStart="true"
         android:layout_marginTop="20dp"
-        android:hint="@string/volunteer_form_phone_number"
+        android:hint="@string/phone_number"
         android:inputType="phone"
         android:text=""
         android:autofillHints="" />
@@ -85,7 +85,7 @@
         android:layout_below="@id/phone_number"
         android:layout_alignParentStart="true"
         android:layout_marginTop="20dp"
-        android:hint="@string/volunteer_form_email_address"
+        android:hint="@string/email_address"
         android:inputType="textEmailAddress"
         android:text=""
         android:autofillHints="" />
@@ -97,7 +97,7 @@
         android:layout_below="@id/email_address"
         android:layout_alignParentStart="true"
         android:layout_marginTop="21dp"
-        android:hint="@string/volunteer_form_town_city"
+        android:hint="@string/town_city"
         android:inputType="textPersonName"
         android:text=""
         android:autofillHints="" />
@@ -109,7 +109,7 @@
         android:layout_below="@id/city"
         android:layout_alignParentStart="true"
         android:layout_marginTop="19dp"
-        android:hint="@string/volunteer_form_zip_code"
+        android:hint="@string/zip_code"
         android:inputType="number"
         android:text=""
         android:autofillHints="" />
@@ -121,7 +121,7 @@
         android:layout_below="@id/zip_code"
         android:layout_alignParentStart="true"
         android:layout_marginTop="23dp"
-        android:hint="@string/volunteer_form_address"
+        android:hint="@string/postal_address"
         android:inputType="textPostalAddress"
         android:text=""
         android:autofillHints="" />
@@ -134,7 +134,7 @@
         android:layout_alignParentStart="true"
         android:layout_marginStart="4dp"
         android:layout_marginTop="18dp"
-        android:text="@string/volunteer_form_contact_method"
+        android:text="@string/activity_volunteer_form_contact_method"
         android:textSize="18sp" />
 
     <Spinner
@@ -162,7 +162,7 @@
         android:layout_marginEnd="124dp"
         android:layout_marginBottom="77dp"
         android:paddingTop="10dp"
-        android:text="@string/volunteer_form_push_notifications" />
+        android:text="@string/activity_volunteer_form_push_notifications" />
 
     <CheckBox
         android:id="@+id/push_not"
@@ -172,7 +172,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="-5dp"
         android:layout_marginTop="574dp"
-        android:text="@string/volunteer_form_yes_to_push" />
+        android:text="@string/activity_volunteer_form_yes_to_push" />
 
     <Button
         android:id="@+id/submit_button"
@@ -182,7 +182,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="1dp"
         android:layout_marginBottom="10dp"
-        android:text="@string/volunteer_form_submit" />
+        android:text="@string/submit" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"

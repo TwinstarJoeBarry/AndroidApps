@@ -27,7 +27,7 @@
     <fragment
         android:id="@+id/GSR_FirstFormFragment"
         android:name="edu.ncc.nest.nestapp.GuestGoogleSheetRegistration.Fragments.FirstFormFragment"
-        android:label="@string/google_sheet_registration_first_form_fragment_label"
+        android:label="@string/google_sheet_registration_first_form_fragment_lbl"
         tools:layout="@layout/fragment_guest_google_sheet_registration_first_form">
 
         <action
@@ -39,7 +39,7 @@
     <fragment
         android:id="@+id/GSR_SecondFormFragment"
         android:name="edu.ncc.nest.nestapp.GuestGoogleSheetRegistration.Fragments.SecondFormFragment"
-        android:label="@string/google_sheet_registration_second_form_fragment_label"
+        android:label="@string/google_sheet_registration_second_form_fragment_lbl"
         tools:layout="@layout/fragment_guest_google_sheet_registration_second_form">
 
         <action

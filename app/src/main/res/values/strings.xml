@@ -3,6 +3,21 @@
     <!-- Global Strings (Used globally throughout the app) -->
     <string name="app_name">NestApp</string>
     <string name="empty_string" />
+    <string name="accept">Accept</string>
+    <string name="cancel">Cancel</string>
+    <string name="next">Next</string>
+    <string name="submit">Submit</string>
+    <string name="full_name">Full Name</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="email_address">Email Address</string>
+    <string name="ncc_id">NCC ID</string>
+    <string name="postal_address">Postal Address</string>
+    <string name="town_city">Town/City</string>
+    <string name="zip_code">Zip Code</string>
+    <string name="birth_date">Birth Date</string>
+    <string name="password">Password</string>
 
     <!-- String names for AndroidManifest.xml -->
     <string name="title_activity_sign_up">SignUp</string>
@@ -17,18 +32,10 @@
     <string name="menu_main_home">HOME</string>
 
     <!-- String names for activity_volunteer_form.xml -->
-    <string name="volunteer_form_title">Volunteer Form</string>
-    <string name="volunteer_form_first_name">First Name</string>
-    <string name="volunteer_form_last_name">Last Name</string>
-    <string name="volunteer_form_phone_number">Phone Number</string>
-    <string name="volunteer_form_email_address">Email Address</string>
-    <string name="volunteer_form_town_city">Town/City</string>
-    <string name="volunteer_form_zip_code">Zip Code</string>
-    <string name="volunteer_form_address">Address</string>
-    <string name="volunteer_form_submit">Submit</string>
-    <string name="volunteer_form_contact_method">Preferred method of contact:</string>
-    <string name="volunteer_form_push_notifications">Would you like to receive Push Notifications?</string>
-    <string name="volunteer_form_yes_to_push">Yes, I would like to receive push notifications.</string>
+    <string name="activity_volunteer_form_title">Volunteer Form</string>
+    <string name="activity_volunteer_form_contact_method">Preferred method of contact:</string>
+    <string name="activity_volunteer_form_push_notifications">Would you like to receive Push Notifications?</string>
+    <string name="activity_volunteer_form_yes_to_push">Yes, I would like to receive push notifications.</string>
 
     <!-- String names for activity_main.xml -->
     <string name="activity_main_title">Login</string>
@@ -41,13 +48,7 @@
 
     <!-- String names for activity_sign_up.xml -->
     <string name="activity_sign_up_title">Sign Up For NEST Volunteer!</string>
-    <string name="activity_sign_up_first_name">First Name</string>
-    <string name="activity_sign_up_last_name">Last Name</string>
-    <string name="activity_sign_up_email_address">example@gmail.com</string>
-    <string name="activity_sign_up_password">Password</string>
-    <string name="re_enter">Re-enter Password</string>
-    <string name="activity_sign_up_n_number">N00123456</string>
-    <string name="activity_sign_up_phone_number">5165552345</string>
+    <string name="activity_sign_up_reenter_password">Re-enter Password</string>
     <string name="activity_sign_up_sign_up_btn">Sign up</string>
     <string name="activity_sign_up_background_image">Background Image</string>
 
@@ -103,7 +104,6 @@
     <string name="activity_guest_form_more_info"><font size="14">Is there anything else you would like us to know at this time?</font></string>
     <string name="activity_guest_form_volunteer_first_name"><font size="14">What is the first name of the volunteer who helped you today?</font></string>
     <string name="activity_guest_form_volunteer_last_name"><font size="14">What is the last name of the volunteer who helped you today?</font></string>
-    <string name="activity_guest_form_submit_btn">Submit</string>
 
     <!-- String names for activity_final_date.xml (@Deprecated) -->
     <string name="activity_final_date_final_date">Final Date:</string>
@@ -137,7 +137,6 @@
     <string name="activity_donate_select_date_description">Press To Select The Expiration Date:</string>
     <string name="activity_donate_select_date_btn">Select Date</string>
     <string name="activity_donate_expiration_date_lbl">Expiration Date: </string>
-    <string name="activity_donate_submit_btn">Submit</string>
 
     <!-- String names for activity_ati_questionnaire.xml -->
     <string name="activity_ati_questionnaire_title">ListView Of All Products</string>
@@ -164,70 +163,120 @@
     <string name="activity_upc_lookup_scan_btn">Scan</string>
     <string name="activity_upc_lookup_search_btn">Search</string>
 
-    <!-- TODO ///////////////////////// -->
+    <!-- strings for activity_nest_new_upc -->
+    <string name="activity_new_nest_upc_title">Adding new UPC: %1$s</string>
+    <string name="activity_new_nest_upc_brand_lbl">Brand name:</string>
+    <string name="activity_new_nest_upc_brand_hint">Enter brand name</string>
+    <string name="activity_new_nest_upc_description_lbl">Description:</string>
+    <string name="activity_new_nest_upc_description_hint">Enter description</string>
+    <string name="activity_new_nest_upc_subtitle">Choose corresponding food expiration category/product</string>
+    <string name="activity_new_nest_upc_category_lbl">Category:</string>
+    <string name="activity_new_nest_upc_product_lbl">Product:</string>
 
-    <!-- strings for NestNewUPC activity -->
-    <string name="nest_new_upc_adding_label">Adding new UPC: %1$s</string>
-    <string name="nest_new_upc_brand_prompt">Brand name:</string>
-    <string name="nest_new_upc_brand_hint">Enter brand name</string>
-    <string name="nest_new_upc_description_prompt">Description:</string>
-    <string name="nest_new_upc_description_hint">Enter description</string>
-    <string name="nest_new_upc_choose_corresponding_label">Choose corresponding food expiration category/product</string>
-    <string name="nest_new_upc_product_prompt">Product:</string>
-    <string name="nest_new_upc_category_prompt">Category:</string>
-    <string name="accept">Accept</string>
-    <string name="cancel">Cancel</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="google_sheet_registration_first_form_fragment_label">First Form Fragment</string>
-    <string name="google_sheet_registration_second_form_fragment_label">Second Form Fragment</string>
-    <string name="next">Next</string>
+    <!-- /////////////////////////////////// NAV GRAPH LABELS ///////////////////////////////////-->
 
+    <!-- String names for nav_graph_check_expiration_date.xml -->
+    <string name="check_expiration_date_start_fragment_lbl">Start Fragment</string>
+    <string name="check_expiration_date_scanner_fragment_lbl">Scanner Fragment</string>
+    <string name="check_expiration_date_enter_upc_fragment_lbl">Enter UPC Fragment</string>
+    <string name="check_expiration_date_confirm_item_fragment_lbl">Confirm Item Fragment</string>
+    <string name="check_expiration_date_select_item_fragment_lbl">Select Item Fragment</string>
+    <string name="check_expiration_date_select_printed_expiration_date_fragment_lbl">Select Printed Expiration Date Fragment</string>
+    <string name="check_expiration_date_display_true_expiration_fragment_lbl">Display True Expiration Fragment</string>
 
+    <!-- String names for nav_graph_database_registration.xml -->
+    <string name="database_registration_start_fragment_lbl">Start Fragment</string>
+    <string name="database_registration_scanner_fragment_lbl">Scanner Fragment</string>
+    <string name="database_registration_first_form_fragment_lbl">First Form Fragment</string>
+    <string name="database_registration_second_form_fragment_lbl">Second Form Fragment</string>
+    <string name="database_registration_summary_fragment_lbl">Summary Fragment</string>
 
+    <!-- String names for nav_graph_google_sheet_registration.xml -->
+    <string name="google_sheet_registration_first_form_fragment_lbl">First Form Fragment</string>
+    <string name="google_sheet_registration_second_form_fragment_lbl">Second Form Fragment</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+    <!-- String names for nav_graph_guest_visit.xml -->
+    <string name="guest_visit_scanner_fragment_lbl">Guest Scan Fragment</string>
+    <string name="guest_visit_confirmation_fragment_lbl">Guest Scan Confirmation Fragment</string>
+    <string name="guest_visit_questionnaire_fragment_lbl">Guest Questionnaire Fragment</string>
 
-    <string name="check_expiration_date_start_fragment_label">Start Fragment</string>
-    <string name="check_expiration_date_scanner_fragment_label">Scanner Fragment</string>
+<!-- CHECK EXPIRATION DATE STRINGS START -->
 
-    <string name="scan">Scan UPC</string>
-    <string name="enter_upc">Enter UPC</string>
-    <string name="check_expiration_date_enter_upc_fragment_label">Enter UPC Fragment</string>
-    <string name="in_confirm_item_fragment">In Confirm Item Fragment</string>
+    <!-- String names for fragment_check_expiration_date_start.xml -->
+    <string name="fragment_ced_start_description">Scan the food item\'s UPC\n that is printed on the barcode with a camera\nor enter the UPC code manually.</string>
+    <string name="fragment_ced_start_scan_upc">Scan UPC</string>
+    <string name="fragment_ced_start_enter_upc">Enter UPC</string>
 
+    <!-- String names for fragment_check_expiration_date_enter_upc.xml -->
+    <string name="fragment_ced_enter_upc_type_upc_hint">Type UPC here</string>
+    <string name="fragment_ced_enter_upc_enter_upc_btn">Enter UPC</string>
 
+    <!-- String names for fragment_check_expiration_date_confirm_item.xml -->
+    <string name="fragment_ced_confirm_item_notification">In Confirm Item Fragment</string>
+    <string name="fragment_ced_confirm_item_confirm_item_btn">Confirm Item</string>
+    <string name="fragment_ced_confirm_item_incorrect_btn">Incorrect</string>
+    <string name="fragment_ced_confirm_item_item_lbl">Item:</string>
+    <string name="fragment_ced_confirm_item_category_lbl">Category:</string>
+    <string name="fragment_ced_confirm_item_upc_lbl">UPC:</string>
 
-    <string name="check_expiration_date_confirm_item_fragment_label">Confirm Item Fragment</string>
-    <string name="check_expiration_date_select_item_fragment_label">Select Item Fragment</string>
-    <string name="check_expiration_date_select_printed_expiration_date_fragment_label">Select Printed Expiration Date Fragment</string>
-    <string name="check_expiration_date_display_true_expiration_fragment_label">Display True Expiration Fragment</string>
-    <string name="database_registration_scanner_fragment_label">Scanner Fragment</string>
-    <string name="database_registration_start_fragment_label">Start Fragment</string>
-    <string name="database_registration_first_form_fragment_label">First Form Fragment</string>
-    <string name="database_registration_second_form_fragment_label">Second Form Fragment</string>
-    <string name="database_registration_summary_fragment_label">Summary Fragment</string>
+    <!-- String names for fragment_check_expiration_date_select_item.xml -->
+    <string name="fragment_ced_select_item_title">Adding new UPC: %1$s</string>
+    <string name="fragment_ced_select_item_brand_lbl">Brand name:</string>
+    <string name="fragment_ced_select_item_brand_hint">Enter brand name</string>
+    <string name="fragment_ced_select_item_description_lbl">Description:</string>
+    <string name="fragment_ced_select_item_description_hint">Enter description</string>
+    <string name="fragment_ced_select_item_subtitle">Choose corresponding food expiration category/product</string>
+    <string name="fragment_ced_select_item_category_lbl">Category:</string>
+    <string name="fragment_ced_select_item_select_category_btn">Select Category</string>
+    <string name="fragment_ced_select_item_product_lbl">Product:</string>
+    <string name="fragment_ced_select_item_select_product_btn">Select Product</string>
 
-    <string name="click_to_display_true_expiration_date">click to display true expiration date</string>
-    <string name="item">Item:</string>
-    <string name="upc_text">UPC:</string>
-    <string name="category">Category:</string>
-    <string name="expiration_dat">Expiration date:</string>
+    <!-- String names for fragment_check_expiration_date_select_printed_expiration_date.xml -->
+    <string name="fragment_ced_select_printed_expiration_date_title">Select the product\'s printed expiration date</string>
+    <string name="fragment_ced_select_printed_expiration_date_month_lbl">Select a month</string>
+    <string name="fragment_ced_select_printed_expiration_date_month_btn">Month</string>
+    <string name="fragment_ced_select_printed_expiration_date_day_lbl">Select a day</string>
+    <string name="fragment_ced_select_printed_expiration_date_day_btn">Day</string>
+    <string name="fragment_ced_select_printed_expiration_date_year_lbl">Select a year</string>
+    <string name="fragment_ced_select_printed_expiration_date_year_btn">Year</string>
 
-    <!-- START OF SCANNER STRINGS -->
-    <string name="scanner_rescan_button">Re-Scan Barcode</string>
-    <string name="scanner_confirm_button">Confirm Scan</string>
+    <!-- String names for fragment_check_expiration_date_display_true_expiration.xml -->
+    <string name="fragment_ced_display_true_expiration_display_date_btn">Display true expiration date</string>
+    <string name="fragment_ced_display_true_expiration_item_lbl">Item:</string>
+    <string name="fragment_ced_display_true_expiration_upc_lbl">UPC:</string>
+    <string name="fragment_ced_display_true_expiration_category_lbl">Category:</string>
+    <string name="fragment_ced_display_true_expiration_expiration_date_lbl">Expiration date:</string>
+
+<!-- CHECK EXPIRATION DATE STRINGS END -->
+
+<!-- GUEST DATABASE REGISTRATION STRINGS START -->
+
+    <!-- String names for fragment_guest_database_registration_start.xml -->
+    <string name="fragment_dbr_start_title">GUEST FORM<br />REGISTRATION</string>
+    <string name="fragment_dbr_start_entry_form_btn">Entry Form</string>
+    <string name="fragment_dbr_start_scan_barcode_btn">Scan Barcode</string>
+
+    <!-- String names for fragment_guest_database_registration_first_form.xml -->
+    <string name="fragment_dbr_first_form_title">Guest Form Registration</string>
+
+<!-- GUEST DATABASE REGISTRATION STRINGS START -->
+
+<!-- ABSTRACT SCANNER STRINGS START -->
+
+    <!-- String names for AbstractScanner.java -->
     <string name="scanner_waiting_for_scan">Waiting for scan …</string>
     <string name="scanner_camera_permission_required">Camera permission required.</string>
     <string name="scanner_confirm_msg">Please confirm that the barcode is correct.</string>
-    <!-- END OF SCANNER STRINGS -->
 
-    <!-- START OF GUEST VISIT STRINGS -->
+    <!-- String names for fragment_abstract_scanner.xml -->
+    <string name="fragment_abstract_scanner_rescan_btn">Re-Scan Barcode</string>
+    <string name="fragment_abstract_scanner_confirm_button">Confirm Scan</string>
 
-    <!-- Strings used for AbstractScannerFragment -->
-    <string name="guest_visit_scanner_fragment_label">Guest Scan Fragment</string>
+<!-- ABSTRACT SCANNER STRINGS START -->
+
+    <!-- TODO ///////////////////////// -->
 
     <!-- Strings used for QuestionnaireFragment.java / fragment_guest_visit_questionnaire.xml -->
-    <string name="guest_visit_questionnaire_fragment_label">Guest Questionnaire Fragment</string>
     <string name="questionnaire_welcome_message">Welcome NEST Guest!</string>
     <string name="questionnaire_description">Please answer and submit the following questions before proceeding.</string>
     <string name="questionnaire_question_1">Who visited the NEST today? (Guest ID)</string>
@@ -260,7 +309,6 @@
     <string name="questionnaire_alert_msg">Please make sure to answer all of the questions before submitting the questionnaire.</string>
 
     <!-- Strings used in the guest visit confirmation layouts -->
-    <string name="guest_visit_confirmation_fragment_label">Guest Scan Confirmation Fragment</string>
     <string name="guestVisitConfirmation_welcome_nest_guest_lbl">Welcome NEST Guest!</string>
     <string name="guestVisitConfirmation_guest_info_confirmation">Please confirm that the following information is correct.</string>
     <string name="guestVisitConfirmation_guest_name_lbl">GUEST NAME</string>
@@ -271,6 +319,8 @@
     <string name="guestVisitConfirmation_please_register_lbl">Please register to continue</string>
     <string name="guestVisitConfirmation_sorry_guest_not_found_lbl">Sorry! We couldn\'t find a guest associated with the following barcode:</string>
     <string name="state_lbl">State</string>
+    <string name="fragment_gv_confirmation_found_rescan_btn">Re-Scan Barcode</string>
+    <string name="fragment_gv_confirmation_not_found_rescan_btn">Re-Scan Barcode</string>
     <!-- END OF GUEST VISIT STRINGS -->
 
 </resources>

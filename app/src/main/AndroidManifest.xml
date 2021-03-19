@@ -32,7 +32,7 @@
             android:name=".FutureEfforts"
             android:label="@string/title_activity_future_efforts"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".NestNewUPC" />
+        <activity android:name=".NewNestUPC" />
         <activity
             android:name=".LocalDatabase"
             android:label="@string/title_activity_local_database"

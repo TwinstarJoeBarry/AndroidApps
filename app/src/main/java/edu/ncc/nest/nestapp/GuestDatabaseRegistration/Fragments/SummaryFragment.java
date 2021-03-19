@@ -23,7 +23,7 @@ public class SummaryFragment extends Fragment  {
             Log.d(TAG, "In SummaryFragment onCreateView()");
 
             // Inflate the layout for this fragment - This is where the navigation begins
-            return inflater.inflate(R.layout.fragment_guest_database_registration_summary_page, container, false);
+            return inflater.inflate(R.layout.fragment_guest_database_registration_summary, container, false);
         }
 
         public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {

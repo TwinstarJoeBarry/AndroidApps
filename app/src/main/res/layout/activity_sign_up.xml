@@ -76,7 +76,7 @@
                 android:id="@+id/first_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/activity_sign_up_first_name"
+                android:hint="@string/first_name"
                 android:inputType="text"
                 android:autofillHints="" />
 
@@ -85,7 +85,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:hint="@string/activity_sign_up_last_name"
+                android:hint="@string/last_name"
                 android:inputType="text"
                 android:autofillHints="" />
 
@@ -94,7 +94,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:hint="@string/activity_sign_up_email_address"
+                android:hint="@string/email_address"
                 android:inputType="textEmailAddress"
                 android:autofillHints="" />
 
@@ -103,7 +103,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:hint="@string/activity_sign_up_password"
+                android:hint="@string/password"
                 android:inputType="textPassword"
                 android:autofillHints="" />
 
@@ -112,7 +112,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:hint="@string/re_enter"
+                android:hint="@string/activity_sign_up_reenter_password"
                 android:inputType="textPassword"
                 android:autofillHints="" />
 
@@ -121,7 +121,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:hint="@string/activity_sign_up_n_number"
+                android:hint="@string/ncc_id"
                 android:inputType="text"
                 android:autofillHints=""
                 tools:ignore="TextFields" />
@@ -131,7 +131,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:hint="@string/activity_sign_up_phone_number"
+                android:hint="@string/phone_number"
                 android:inputType="phone"
                 android:autofillHints="" />
 

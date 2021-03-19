@@ -52,7 +52,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/title_txt"
-        android:hint="@string/activity_guest_form_name"
+        android:hint="@string/full_name"
         android:inputType="textPersonName"
         android:autofillHints="" />
 
@@ -61,7 +61,7 @@
         android:layout_width="wrap_content"
         android:layout_height="45dp"
         android:layout_below="@id/editText"
-        android:hint="@string/activity_guest_form_phone"
+        android:hint="@string/phone_number"
         android:inputType="phone"
         android:autofillHints="" />
 
@@ -70,7 +70,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/editText2"
-        android:hint="@string/activity_guest_form_email"
+        android:hint="@string/email_address"
         android:inputType="textEmailAddress"
         android:autofillHints="" />
 
@@ -171,7 +171,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/editText12"
-        android:text="@string/activity_guest_form_submit_btn" />
+        android:text="@string/submit" />
     <!--android:onClick="onClick"-->
 
 </RelativeLayout>

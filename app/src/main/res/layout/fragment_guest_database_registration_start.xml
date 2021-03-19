@@ -41,11 +41,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
-            android:text="Guest Entry\nRegistration"
+            android:text="@string/fragment_dbr_start_title"
             android:textSize="26sp"
             android:textStyle="bold"
             android:fontFamily="casual"
-            android:textAllCaps="true"
             android:textColor="@android:color/white"
             android:shadowColor="@android:color/darker_gray"
             android:layout_marginTop="8dp"
@@ -71,7 +70,7 @@
             android:layout_marginTop="4dp"
             android:layout_marginBottom="6dp"
             android:backgroundTint="@color/colorPrimary"
-            android:text="Entry Form" />
+            android:text="@string/fragment_dbr_start_entry_form_btn" />
 
         <Button
             android:id="@+id/barcode_scanner_btn"
@@ -82,7 +81,7 @@
             android:layout_marginTop="4dp"
             android:layout_marginBottom="6dp"
             android:backgroundTint="@color/colorPrimary"
-            android:text="Scan Barcode" />
+            android:text="@string/fragment_dbr_start_scan_barcode_btn" />
 
     </TableRow>
 
