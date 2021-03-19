@@ -147,7 +147,7 @@ public class ItemInformation extends AppCompatActivity implements DatePickerDial
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.homeBtn) {
+        if (item.getItemId() == R.id.home_btn) {
             home();
         }
         return super.onOptionsItemSelected(item);

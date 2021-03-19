@@ -90,7 +90,7 @@ public class Donate extends AppCompatActivity implements View.OnClickListener, A
 
 
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.homeBtn) {
+        if (item.getItemId() == R.id.home_btn) {
             home();
         }
 

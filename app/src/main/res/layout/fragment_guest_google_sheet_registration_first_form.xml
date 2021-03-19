@@ -79,7 +79,7 @@
         android:layout_width="wrap_content"
         android:layout_height="45dp"
         android:layout_below="@id/editText5"
-        android:hint="@string/phone_lbl"
+        android:hint="@string/activity_guest_form_phone"
         android:inputType="phone" />
 
     <EditText
@@ -87,7 +87,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/editText6"
-        android:hint="@string/ID_lbl"
+        android:hint="@string/activity_guest_form_ncc_id"
         android:inputType="number" />
 
     <EditText
@@ -95,7 +95,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/editText7"
-        android:hint="@string/address_lbl"
+        android:hint="@string/activity_guest_form_address"
         android:inputType="textPostalAddress" />
 
     <EditText
@@ -103,7 +103,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/editText8"
-        android:hint="@string/town_lbl"
+        android:hint="@string/activity_guest_form_town_city"
         android:inputType="textPersonName" />
 
     <!--
@@ -129,7 +129,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/editText10"
-        android:hint="@string/zip_lbl"
+        android:hint="@string/activity_guest_form_zip_code"
         android:inputType="number" />
 
     <Button

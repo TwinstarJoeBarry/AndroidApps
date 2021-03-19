@@ -22,7 +22,6 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import edu.ncc.nest.nestapp.Choose;
@@ -57,7 +56,7 @@ public class GuestVisitActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         // If the view clicked was the home action
-        if (item.getItemId() == R.id.homeBtn) {
+        if (item.getItemId() == R.id.home_btn) {
 
             // Create an Intent that will bring the user back to the home page
             Intent intent = new Intent(this, Choose.class);

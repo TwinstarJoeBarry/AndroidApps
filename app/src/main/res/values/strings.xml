@@ -1,88 +1,106 @@
 <resources>
+
     <string name="app_name">NestApp</string>
-    <string name="vol_form">Volunteer Form</string>
 
-    <!-- String names for activity_login activity -->
-    <string name="account_login">Login</string>
-    <string name="user_name">Username</string>
-    <string name="password">Password</string>
-    <string name="forgot_password">Forgot password?</string>
-    <string name="sign_in">Sign in</string>
-    <string name="photo">Photo</string>
-    <string name="make_account">Don\'t have an account? Sign up.</string>
+    <!-- String names for activity_volunteer_form.xml -->
+    <string name="volunteer_form_title">Volunteer Form</string>
+    <string name="volunteer_form_first_name">First Name</string>
+    <string name="volunteer_form_last_name">Last Name</string>
+    <string name="volunteer_form_phone_number">Phone Number</string>
+    <string name="volunteer_form_email_address">Email Address</string>
+    <string name="volunteer_form_town_city">Town/City</string>
+    <string name="volunteer_form_zip_code">Zip Code</string>
+    <string name="volunteer_form_address">Address</string>
+    <string name="volunteer_form_submit">Submit</string>
+    <string name="volunteer_form_contact_method">Preferred method of contact:</string>
+    <string name="volunteer_form_push_notifications">Would you like to receive Push Notifications?</string>
+    <string name="volunteer_form_yes_to_push">Yes, I would like to receive push notifications.</string>
+    <string-array name="volunteer_form_preferred_contact_method">
+        <item>E-mail</item>
+        <item>Mobile call</item>
+        <item>Text Message</item>
+    </string-array>
 
-    <!-- String names for activity_sign_up activity -->
-    <string name="first_name">First Name</string>
-    <string name="last_name">Last Name</string>
-    <string name="n_number">N00123456</string>
-    <string name="email_address">example@gmail.com</string>
-    <string name="phone_number">5165552345</string>
-    <string name="sign_up">Sign Up For NEST Volunteer!</string>
-    <string name="sign_up_str">Sign up</string>
-    <string name="title_activity_forgot_password">ForgotPassword</string>
+    <!-- String names for activity_main.xml -->
+    <string name="activity_main_title">Login</string>
+    <string name="activity_main_user_name">Username</string>
+    <string name="activity_main_password">Password</string>
+    <string name="activity_main_forgot_password">Forgot password?</string>
+    <string name="activity_main_sign_in">Sign in</string>
+    <string name="activity_main_photo">Photo</string>
+    <string name="activity_main_make_account">Don\'t have an account? Sign up.</string>
 
-    <!-- String names for activity_inventory activity -->
-    <string name="textview">NEST Inventory</string>
-    <string name="textview2">Most Popular</string>
-    <string name="textview3">Baby Food</string>
-    <string name="textview4">Baked Goods</string>
-    <string name="textview5">Beverages</string>
-    <string name="textview6">Condiments, Sauces, and Canned Goods</string>
-    <string name="textview7">Dairy Products, and Eggs</string>
-    <string name="textview8">Deli and Prepared Foods</string>
-    <string name="textview9">Food Purchased Frozen</string>
-    <string name="textview10">Grains, Beans, and Pasta</string>
-    <string name="textview11">Meat</string>
-    <string name="textview12">Poultry</string>
-    <string name="textview13">Produce</string>
-    <string name="textview14">Seafood</string>
-    <string name="textview15">Shelf Stable Foods</string>
-    <string name="textview16">Vegetarian Proteins</string>
-
-    <!-- String names for activity_forgot_password activity -->
-    <string name="forgot_pass">Enter your email address</string>
-    <string name="reset">Send me the link!</string>
-    <string name="title_activity_choose">NEST Home</string>
+    <!-- String names for activity_sign_up.xml -->
     <string name="title_activity_sign_up">SignUp</string>
+    <string name="activity_sign_up_first_name">First Name</string>
+    <string name="activity_sign_up_last_name">Last Name</string>
+    <string name="activity_sign_up_n_number">N00123456</string>
+    <string name="activity_sign_up_email_address">example@gmail.com</string>
+    <string name="activity_sign_up_phone_number">5165552345</string>
+    <string name="activity_sign_up_title">Sign Up For NEST Volunteer!</string>
+    <string name="activity_sign_up_background_image">Background Image</string>
+    <string name="activity_sign_up_sign_up_btn">Sign up</string>
 
-    <!-- String for activity_choose -->
-    <string name="make_choice">Choose a NEST Activity:"</string>
+    <!-- String names for activity_inventory.xml -->
+    <string name="activity_inventory_title">NEST Inventory</string>
+    <string name="activity_inventory_popular">Most Popular</string>
+    <string name="activity_inventory_popular_1">Peanut Butter Natural</string>
+    <string name="activity_inventory_popular_2">Fresh Pasta</string>
+    <string name="activity_inventory_popular_3">Milk Plain or Flavored</string>
+    <string name="activity_inventory_popular_4">Whole Wheat Bread(Commercially Baked and Pre-Sliced)</string>
+    <string name="activity_inventory_popular_5">Cranberry Sauce Canned</string>
+    <string name="activity_inventory_popular_6">Canned Goods Low Acid(Soups, Beans, Carrots, Corn, Pasta, Peas, Potatoes, Spinach)</string>
+    <string name="activity_inventory_categories">Categories</string>
+    <string name="activity_inventory_category_1">Baby Food</string>
+    <string name="activity_inventory_category_2">Baked Goods</string>
+    <string name="activity_inventory_category_3">Beverages</string>
+    <string name="activity_inventory_category_4">Condiments, Sauces, and Canned Goods</string>
+    <string name="activity_inventory_category_5">Dairy Products, and Eggs</string>
+    <string name="activity_inventory_category_6">Deli and Prepared Foods</string>
+    <string name="activity_inventory_category_7">Food Purchased Frozen</string>
+    <string name="activity_inventory_category_8">Grains, Beans, and Pasta</string>
+    <string name="activity_inventory_category_9">Meat</string>
+    <string name="activity_inventory_category_10">Poultry</string>
+    <string name="activity_inventory_category_11">Produce</string>
+    <string name="activity_inventory_category_12">Seafood</string>
+    <string name="activity_inventory_category_13">Shelf Stable Foods</string>
+    <string name="activity_inventory_category_14">Vegetarian Proteins</string>
 
-    <!-- String for menu_main -->
-    <string name="home">HOME</string>
+    <!-- String names for activity_choose.xml -->
+    <string name="title_activity_choose">NEST Home</string>
+    <string name="activity_choose_make_choice">Choose a NEST Activity:"</string>
+    <string name="activity_choose_choice_1">Check Expiration Date</string>
+    <string name="activity_choose_choice_2">Guest Forms</string>
+    <string name="activity_choose_choice_3">Future Efforts</string>
+    <string name="activity_choose_choice_4">Display True Date</string>
 
-    <!-- String names for activity_guest_form activity -->
-    <string name="email_lbl">Email Address</string>
-    <string name="phone_lbl">Phone Number</string>
-    <string name="date_lbl">Date</string>
-    <string name="address_lbl">Address</string>
-    <string name="name_lbl">Name</string>
-    <string name="ID_lbl">NCC ID</string>
-    <string name="town_lbl">Town/City</string>
-    <string name="zip_lbl">Zip Code</string>
-    <string name="income_lbl">Household Income</string>
-    <string name="moreInfoQuestion_lbl"><font size="14">Is there anything else you would like us to know at this time?</font></string>
-    <string name="volFirstName_lbl"><font size="14">What is the first name of the volunteer who helped you today?</font></string>
-    <string name="volLastName_lbl"><font size="14">What is the last name of the volunteer who helped you today?</font></string>
-    <string name="submitBtn_lbl">Submit</string>
-    <string name="contact_method">Preferred method of contact:</string>
-    <string name="push_notif">Would you like to receive Push Notifications?</string>
-    <string name="yes_to_push">Yes, I would like to receive push notifications.</string>
-    <string name="re_enter">Re-enter Password</string>
-    <string name="availability">Availability</string>
-    <string name="weekly_schedule">What times are best for you during the week?</string>
-    <string name="monday">Monday</string>
-    <string name="tuesday">Tuesday</string>
-    <string name="wednesday">Wednesday</string>
-    <string name="thursday">Thursday</string>
-    <string name="friday">Friday</string>
-    <string name="api">Api</string>
-    <string name="final_date">Final Date:</string>
-    <string name="FinalDate">Final Date</string>
-    <string name="expirationDate">Expiration Date:</string>
-    <string name="metric">Metric:</string>
-    <string name="MaxDoppantryLife">Max dop_pantryLife:</string>
-    <string-array name="states_array">
+    <!-- String names for activity_future_efforts.xml -->
+    <string name="title_activity_future_efforts">FutureEfforts</string>
+    <string name="activity_future_efforts_make_choice">Choose a NEST Activity:"</string>
+    <string name="activity_future_efforts_choice_1">Add To Inventory</string>
+    <string name="activity_future_efforts_choice_2">Create NEST account</string>
+    <string name="activity_future_efforts_choice_3">Schedule (Placeholder)</string>
+    <string name="activity_future_efforts_choice_4">Volunteer Form</string>
+
+    <!-- String names for menu_main.xml -->
+    <string name="menu_main_home">HOME</string>
+
+    <!-- String names for activity_guest_form.xml -->
+    <string name="activity_guest_form_name">Name</string>
+    <string name="activity_guest_form_phone">Phone Number</string>
+    <string name="activity_guest_form_email">Email Address</string>
+    <string name="activity_guest_form_ncc_id">NCC ID</string>
+    <string name="activity_guest_form_address">Address</string>
+    <string name="activity_guest_form_town_city">Town/City</string>
+    <string name="activity_guest_form_zip_code">Zip Code</string>
+    <string name="activity_guest_form_birth_date">Birth Date</string>
+    <string name="activity_guest_form_income">Household Income</string>
+    <string name="activity_guest_form_more_info"><font size="14">Is there anything else you would like us to know at this time?</font></string>
+    <string name="activity_guest_form_volunteer_first_name"><font size="14">What is the first name of the volunteer who helped you today?</font></string>
+    <string name="activity_guest_form_volunteer_last_name"><font size="14">What is the last name of the volunteer who helped you today?</font></string>
+    <string name="activity_guest_form_submit_btn">Submit</string>
+
+    <string-array name="activity_guest_form_states_array">
         <item>Alabama</item>
         <item>Alaska</item>
         <item>Arizona</item>
@@ -134,11 +152,21 @@
         <item>Wisconsin</item>
         <item>Wyoming</item>
     </string-array>
-    <string-array name="contact">
-        <item>E-mail</item>
-        <item>Mobile call</item>
-        <item>Text Message</item>
-    </string-array>
+
+    <string name="re_enter">Re-enter Password</string>
+    <string name="availability">Availability</string>
+    <string name="weekly_schedule">What times are best for you during the week?</string>
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="api">Api</string>
+    <string name="final_date">Final Date:</string>
+    <string name="FinalDate">Final Date</string>
+    <string name="expirationDate">Expiration Date:</string>
+    <string name="metric">Metric:</string>
+    <string name="MaxDoppantryLife">Max dop_pantryLife:</string>
 
     <!-- String for activity_item_info -->
     <string name="UPC_label">Scan in or manually enter the UPC code then tap Lookup</string>
@@ -861,6 +889,7 @@
         <item>Textured soy protein (TSP)</item>
         <item>Tofu</item>
     </string-array>
+
     <string-array name="baby_list">
         <item>Cereal, dry mixes</item>
         <item>Dinners</item>
@@ -972,7 +1001,6 @@
     <string name="nest_new_upc_category_prompt">Category:</string>
     <string name="accept">Accept</string>
     <string name="cancel">Cancel</string>
-    <string name="title_activity_future_efforts">FutureEfforts</string>
     <!-- Strings used for fragments for navigation -->
     <string name="google_sheet_registration_first_form_fragment_label">First Form Fragment</string>
     <string name="google_sheet_registration_second_form_fragment_label">Second Form Fragment</string>

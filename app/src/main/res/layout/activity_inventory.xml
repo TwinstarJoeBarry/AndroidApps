@@ -23,11 +23,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         tools:context=".Inventory">
 
         <include
@@ -40,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/toolbar"
             android:layout_centerHorizontal="true"
-            android:text="@string/textview"
+            android:text="@string/activity_inventory_title"
             android:textSize="25sp" />
 
         <TextView
@@ -49,11 +47,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/textView"
             android:layout_centerHorizontal="true"
-            android:text="@string/textview2"
+            android:text="@string/activity_inventory_popular"
             android:textSize="21.5sp" />
 
         <TableLayout
-            android:id="@+id/tablelayout1"
+            android:id="@+id/most_popular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/textView3"
@@ -67,7 +65,7 @@
                     android:id="@+id/btn15"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Peanut Butter Natural" />
+                    android:text="@string/activity_inventory_popular_1" />
             </TableRow>
 
             <TableRow>
@@ -76,7 +74,7 @@
                     android:id="@+id/btn16"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Fresh Pasta" />
+                    android:text="@string/activity_inventory_popular_2" />
             </TableRow>
 
             <TableRow>
@@ -85,7 +83,7 @@
                     android:id="@+id/btn17"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Milk Plain or Flavored" />
+                    android:text="@string/activity_inventory_popular_3" />
             </TableRow>
 
             <TableRow>
@@ -94,7 +92,7 @@
                     android:id="@+id/btn18"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Whole Wheat Bread(Commercially Baked and Pre-Sliced)" />
+                    android:text="@string/activity_inventory_popular_4" />
             </TableRow>
 
             <TableRow>
@@ -103,7 +101,7 @@
                     android:id="@+id/btn19"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Cranberry Sauce Canned" />
+                    android:text="@string/activity_inventory_popular_5" />
             </TableRow>
 
             <TableRow>
@@ -112,7 +110,7 @@
                     android:id="@+id/btn20"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Canned Goods Low Acid(Soups, Beans, Carrots, Corn, Pasta, Peas, Potatoes, Spinach)" />
+                    android:text="@string/activity_inventory_popular_6" />
             </TableRow>
         </TableLayout>
 
@@ -120,9 +118,9 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tablelayout1"
+            android:layout_below="@id/most_popular"
             android:layout_centerHorizontal="true"
-            android:text="Categories"
+            android:text="@string/activity_inventory_categories"
             android:textSize="21.5sp" />
 
         <TableLayout
@@ -139,7 +137,7 @@
                     android:id="@+id/btn1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/textview3" />
+                    android:text="@string/activity_inventory_category_1" />
             </TableRow>
 
             <TableRow>
@@ -148,7 +146,7 @@
                     android:id="@+id/btn2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/textview4" />
+                    android:text="@string/activity_inventory_category_2" />
             </TableRow>
 
             <TableRow>
@@ -157,7 +155,7 @@
                     android:id="@+id/btn3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/textview5" />
+                    android:text="@string/activity_inventory_category_3" />
             </TableRow>
 
             <TableRow>
@@ -166,7 +164,7 @@
                     android:id="@+id/btn4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/textview6" />
+                    android:text="@string/activity_inventory_category_4" />
             </TableRow>
 
             <TableRow>
@@ -175,7 +173,7 @@
                     android:id="@+id/btn5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/textview7" />
+                    android:text="@string/activity_inventory_category_5" />
             </TableRow>
 
             <TableRow>
@@ -184,7 +182,7 @@
                     android:id="@+id/btn6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/textview8" />
+                    android:text="@string/activity_inventory_category_6" />
             </TableRow>
 
             <TableRow>
@@ -193,7 +191,7 @@
                     android:id="@+id/btn7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/textview9" />
+                    android:text="@string/activity_inventory_category_7" />
             </TableRow>
 
             <TableRow>
@@ -202,7 +200,7 @@
                     android:id="@+id/btn8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/textview10" />
+                    android:text="@string/activity_inventory_category_8" />
             </TableRow>
 
             <TableRow>
@@ -211,7 +209,7 @@
                     android:id="@+id/btn9"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/textview11" />
+                    android:text="@string/activity_inventory_category_9" />
             </TableRow>
 
             <TableRow>
@@ -220,7 +218,7 @@
                     android:id="@+id/btn10"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/textview12" />
+                    android:text="@string/activity_inventory_category_10" />
             </TableRow>
 
             <TableRow>
@@ -229,7 +227,7 @@
                     android:id="@+id/btn11"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/textview13" />
+                    android:text="@string/activity_inventory_category_11" />
             </TableRow>
 
             <TableRow>
@@ -238,7 +236,7 @@
                     android:id="@+id/btn12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/textview14" />
+                    android:text="@string/activity_inventory_category_12" />
             </TableRow>
 
             <TableRow>
@@ -247,7 +245,7 @@
                     android:id="@+id/btn13"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/textview15" />
+                    android:text="@string/activity_inventory_category_13" />
             </TableRow>
 
             <TableRow>
@@ -256,7 +254,7 @@
                     android:id="@+id/btn14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/textview16" />
+                    android:text="@string/activity_inventory_category_14" />
             </TableRow>
         </TableLayout>
     </RelativeLayout>

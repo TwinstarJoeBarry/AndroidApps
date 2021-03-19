@@ -51,7 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/editText"
-            android:hint="@string/income_lbl"
+            android:hint="@string/activity_guest_form_income"
             android:inputType="number" />
 
         <EditText
@@ -155,7 +155,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/editText14"
-            android:hint="@string/moreInfoQuestion_lbl"
+            android:hint="@string/activity_guest_form_more_info"
             android:inputType="textPersonName" />
 
         <EditText
@@ -163,7 +163,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/editText15"
-            android:hint="@string/volFirstName_lbl"
+            android:hint="@string/activity_guest_form_volunteer_first_name"
             android:inputType="textPersonName" />
 
         <EditText
@@ -171,7 +171,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/editText16"
-            android:hint="@string/volLastName_lbl"
+            android:hint="@string/activity_guest_form_volunteer_last_name"
             android:inputType="textPersonName" />
 
         <Button
@@ -179,7 +179,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/editText17"
-            android:text="@string/submitBtn_lbl" />
+            android:text="@string/activity_guest_form_submit_btn" />
     </RelativeLayout>
 
 </ScrollView>

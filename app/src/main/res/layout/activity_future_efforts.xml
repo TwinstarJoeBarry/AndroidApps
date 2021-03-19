@@ -34,8 +34,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="@string/make_choice"
-        android:textSize="30dp"
+        android:text="@string/activity_future_efforts_make_choice"
+        android:textSize="30sp"
         android:textStyle="bold"
         android:fontFamily="casual"
         android:layout_below="@id/toolbar"/>
@@ -64,14 +64,14 @@
                 android:layout_height="70dp"
                 android:layout_centerHorizontal="true"
                 android:onClick="onClick"
-                android:text="Add To Inventory" />
+                android:text="@string/activity_future_efforts_choice_1" />
 
             <Button
                 android:id="@+id/signUpBtn"
                 android:layout_width="138dp"
                 android:layout_height="70dp"
                 android:onClick="onClick"
-                android:text="Create NEST account"
+                android:text="@string/activity_future_efforts_choice_2"
                 android:layout_below="@id/addToInventoryBtn"
                 android:layout_centerHorizontal="true" />
 
@@ -82,7 +82,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_below="@id/signUpBtn"
                 android:onClick="onClick"
-                android:text="Schedule (Placeholder)" />
+                android:text="@string/activity_future_efforts_choice_3" />
 
             <Button
                 android:id="@+id/volunteerFormBtn"
@@ -91,7 +91,7 @@
                 android:layout_below="@id/scheduleBtn"
                 android:layout_centerHorizontal="true"
                 android:onClick="onClick"
-                android:text="Volunteer Form" />
+                android:text="@string/activity_future_efforts_choice_4" />
 
         </RelativeLayout>
     </ScrollView>
