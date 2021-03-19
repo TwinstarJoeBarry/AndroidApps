@@ -39,7 +39,7 @@ import edu.ncc.nest.nestapp.UIFoods.ShelfFoods;
 import edu.ncc.nest.nestapp.UIFoods.VegProteins;
 
 
-public class addToInventory extends AppCompatActivity {
+public class AddToInventory extends AppCompatActivity {
 
     ListView listView;
     String[] mCategory = {"Baby Food", "Baked Goods", "Beverages", "Condiments, Sauces & Canned Goods", "Dairy Products & Eggs", "Deli & Prepared Foods", "Food Purchased Frozen", "Grains, Beans & Pasta", "Meat", "Poultry", "Produce", "Seafood", "Shelf Stable Food", "Vegetarian Proteins"};
@@ -66,72 +66,72 @@ public class addToInventory extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if(position == 0)
                 {
-                    Toast.makeText(addToInventory.this, "Baby Food Test", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddToInventory.this, "Baby Food Test", Toast.LENGTH_SHORT).show();
                     questionaire(mCategory[0]);
                 }
                 if(position == 1)
                 {
-                    Toast.makeText(addToInventory.this, "Baked Goods Test", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddToInventory.this, "Baked Goods Test", Toast.LENGTH_SHORT).show();
                     questionaire(mCategory[1]);
                 }
                 if(position == 2)
                 {
-                    Toast.makeText(addToInventory.this, "Beverages Test", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddToInventory.this, "Beverages Test", Toast.LENGTH_SHORT).show();
                    questionaire(mCategory[2]);
                 }
                 if(position == 3)
                 {
-                    Toast.makeText(addToInventory.this, "Condiments Test", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddToInventory.this, "Condiments Test", Toast.LENGTH_SHORT).show();
                     questionaire(mCategory[3]);
                 }
                 if(position == 4)
                 {
-                    Toast.makeText(addToInventory.this, "Dairy Test", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddToInventory.this, "Dairy Test", Toast.LENGTH_SHORT).show();
                     questionaire(mCategory[4]);
                 }
                 if(position == 5)
                 {
-                    Toast.makeText(addToInventory.this, "Deli Test", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddToInventory.this, "Deli Test", Toast.LENGTH_SHORT).show();
                     questionaire(mCategory[5]);
                 }
                 if(position == 6)
                 {
-                    Toast.makeText(addToInventory.this, "Food Purchased Frozen Test", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddToInventory.this, "Food Purchased Frozen Test", Toast.LENGTH_SHORT).show();
                     questionaire(mCategory[6]);
                 }
                 if(position == 7)
                 {
-                    Toast.makeText(addToInventory.this, "Grains Test", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddToInventory.this, "Grains Test", Toast.LENGTH_SHORT).show();
                     questionaire(mCategory[7]);
                 }
                 if(position == 8)
                 {
-                    Toast.makeText(addToInventory.this, "Meat Test", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddToInventory.this, "Meat Test", Toast.LENGTH_SHORT).show();
                     questionaire(mCategory[8]);
                 }
                 if(position == 9)
                 {
-                    Toast.makeText(addToInventory.this, "Poultry Test", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddToInventory.this, "Poultry Test", Toast.LENGTH_SHORT).show();
                     questionaire(mCategory[9]);
                 }
                 if(position == 10)
                 {
-                    Toast.makeText(addToInventory.this, "Produce Test", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddToInventory.this, "Produce Test", Toast.LENGTH_SHORT).show();
                     questionaire(mCategory[10]);
                 }
                 if(position == 11)
                 {
-                    Toast.makeText(addToInventory.this, "Sea food test", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddToInventory.this, "Sea food test", Toast.LENGTH_SHORT).show();
                     questionaire(mCategory[11]);
                 }
                 if(position == 12)
                 {
-                    Toast.makeText(addToInventory.this, "Shelf food", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddToInventory.this, "Shelf food", Toast.LENGTH_SHORT).show();
                     questionaire(mCategory[12]);
                 }
                 if(position == 13)
                 {
-                    Toast.makeText(addToInventory.this, "Vegetales Test", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddToInventory.this, "Vegetales Test", Toast.LENGTH_SHORT).show();
                     questionaire(mCategory[13]);
                 }
             }

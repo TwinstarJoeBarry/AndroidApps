@@ -118,7 +118,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/editText6"
         android:layout_toEndOf="@id/editText6"
-        android:entries="@array/activity_guest_form_states_array"
+        android:entries="@array/united_states_array"
         android:paddingTop="10dp" />
 
     <EditText

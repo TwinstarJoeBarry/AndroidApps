@@ -42,7 +42,7 @@
         <activity android:name=".UPCLookup" />
         <activity android:name=".UPCScanner" />
         <activity
-            android:name=".addToInventory"
+            android:name=".AddToInventory"
             android:label="@string/title_activity_add_to_inventory"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".GuestDatabaseRegistration.Activities.GuestDatabaseRegistrationActivity" />

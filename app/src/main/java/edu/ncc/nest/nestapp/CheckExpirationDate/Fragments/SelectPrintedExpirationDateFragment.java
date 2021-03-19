@@ -132,7 +132,7 @@ public class SelectPrintedExpirationDateFragment extends Fragment
         PopupMenu menuPop = new PopupMenu(getContext(), monthBtn);
         Menu menu = menuPop.getMenu();
 
-        String[] mainCategories = getResources().getStringArray(R.array.MONTHS);
+        String[] mainCategories = getResources().getStringArray(R.array.months);
 
         for (int i = 0; i < mainCategories.length; ++i)
             menu.add(daysInMonth[i], i + 1, i + 1, mainCategories[i]);

@@ -208,7 +208,7 @@ public class SelectItemFragment extends Fragment implements View.OnClickListener
         PopupMenu menuPop = new PopupMenu(getContext(), categoryButton);
         Menu menu = menuPop.getMenu();
 
-        String[] mainCategories = getResources().getStringArray(R.array.categories_array);
+        String[] mainCategories = getResources().getStringArray(R.array.item_categories);
 
         for (int i = 0; i < mainCategories.length; ++i )
             menu.add(i, i, i, mainCategories[i]);

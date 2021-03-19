@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="40dp"
-            android:text="@string/UPC_label" />
+            android:text="@string/activity_item_info_upc_lbl" />
 
         <Button
             android:id="@+id/open_camera"
@@ -90,7 +90,7 @@
             android:layout_below="@id/open_camera"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="38dp"
-            android:text="@string/select_cat_and_item" />
+            android:text="@string/activity_item_info_select_cat_and_item" />
 
         <Button
             android:id="@+id/cat_select_btn"
@@ -100,7 +100,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="2dp"
             android:onClick="showCatMenu"
-            android:text="@string/select_category" />
+            android:text="@string/activity_item_info_select_category_btn" />
         
         <Button
             android:id="@+id/item_select_btn"
@@ -111,7 +111,7 @@
             android:layout_marginTop="2dp"
             android:layout_toRightOf="@id/cat_select_btn"
             android:onClick="showItemMenu"
-            android:text="@string/select_item" />
+            android:text="@string/activity_item_info_select_item_btn" />
 
         <TextView
             android:id="@+id/cat_result_lbl"
@@ -120,7 +120,7 @@
             android:layout_below="@id/item_select_btn"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="2dp"
-            android:text="@string/category_lbl" />
+            android:text="@string/activity_item_info_category_lbl" />
 
         <TextView
             android:id="@+id/cat_result"
@@ -139,7 +139,7 @@
             android:layout_below="@id/cat_result"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="2dp"
-            android:text="@string/item_lbl" />
+            android:text="@string/activity_item_info_item_lbl" />
 
         <TextView
             android:id="@+id/item_result"
@@ -158,7 +158,7 @@
             android:layout_below="@id/item_result"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="38dp"
-            android:text="@string/select_expiration" />
+            android:text="@string/activity_item_info_select_expiration_lbl" />
 
         <Button
             android:id="@+id/date_select_btn"
@@ -168,7 +168,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="2dp"
             android:onClick="showDatePickerDialog"
-            android:text="@string/select_expiration_btn" />
+            android:text="@string/activity_item_info_select_expiration_btn" />
 
         <TextView
             android:id="@+id/exp_result_lbl"
@@ -177,7 +177,7 @@
             android:layout_below="@id/date_select_btn"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="2dp"
-            android:text="@string/expiration_lbl" />
+            android:text="@string/activity_item_info_expiration_lbl" />
 
         <TextView
             android:id="@+id/exp_result"
@@ -209,7 +209,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="45dp"
             android:onClick="calculateResult"
-            android:text="@string/calculate" />
+            android:text="@string/activity_item_info_calculate_btn" />
 
         <ProgressBar
             android:id="@+id/progressbar"
@@ -235,7 +235,7 @@
             android:layout_below="@id/calculate_button"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="60dp"
-            android:text="@string/result_placeholder" />
+            android:text="@string/activity_item_info_result" />
 
     </RelativeLayout>
 

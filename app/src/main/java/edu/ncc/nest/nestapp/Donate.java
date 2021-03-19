@@ -58,7 +58,7 @@ public class Donate extends AppCompatActivity implements View.OnClickListener, A
         //This block of code sets up the category spinner listing all the foodkeeper categories as options
         Spinner spinner = findViewById(R.id.categorySpinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.categories_array, android.R.layout.simple_spinner_item);
+                R.array.item_categories, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);

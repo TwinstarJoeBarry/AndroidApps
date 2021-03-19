@@ -103,7 +103,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:hint="@string/activity_main_password"
+                android:hint="@string/activity_sign_up_password"
                 android:inputType="textPassword"
                 android:autofillHints="" />
 

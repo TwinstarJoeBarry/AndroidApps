@@ -126,7 +126,7 @@
         android:layout_marginTop="4dp"
         android:layout_marginRight="16dp"
         tools:ignore="RtlHardcoded"
-        android:text="@string/select_category" />
+        android:text="@string/activity_item_info_select_category_btn" />
 
 
     <TextView
@@ -162,7 +162,7 @@
         android:layout_marginTop="4dp"
         android:layout_marginRight="16dp"
         tools:ignore="RtlHardcoded"
-        android:text="@string/select_item" />
+        android:text="@string/activity_item_info_select_item_btn" />
 
     <TextView
         android:id="@+id/fragment_select_item_product_hint"
