@@ -35,7 +35,7 @@ import javax.net.ssl.HttpsURLConnection;
 /**
  * Activity hopefully to be used as an intent for AddToInventory
  */
-public class ATIQuestionaire extends AppCompatActivity implements View.OnClickListener {
+public class ATIQuestionnaire extends AppCompatActivity implements View.OnClickListener {
     Button btn ;
     TextView categoryTitle;
     ArrayList<HashMap<String, String>> productList;
@@ -45,7 +45,7 @@ public class ATIQuestionaire extends AppCompatActivity implements View.OnClickLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_a_t_i_questionaire);
+        setContentView(R.layout.activity_ati_questionnaire);
         btn = findViewById(R.id.atibutton);
         btn.setOnClickListener(this);
 
@@ -317,7 +317,7 @@ public class ATIQuestionaire extends AppCompatActivity implements View.OnClickLi
                     }
                     // Adapter for the list view
                     ListAdapter adapter = new SimpleAdapter(
-                            ATIQuestionaire.this, productList,
+                            ATIQuestionnaire.this, productList,
                             R.layout.list_ati,
                             new String[] { PRODUCT_NAME, SUB_PRODUCTS},
                             new int[] { R.id.productname, R.id.subproductname}

@@ -192,7 +192,7 @@
         android:layout_marginHorizontal="6dp"
         android:layout_marginBottom="6dp"
         android:layout_marginTop="4dp"
-        android:text="@string/submit"
+        android:text="@string/activity_donate_submit_btn"
         style="@style/Widget.AppCompat.Button.Colored"
         android:backgroundTint="@color/colorPrimary"/>
 

@@ -104,7 +104,7 @@ public class ItemInformation extends AppCompatActivity implements DatePickerDial
         resultDisplay = (TextView)findViewById(R.id.result);
         tipDisplay = (TextView)findViewById(R.id.tipDisplay);
         tipBut = (Button)findViewById(R.id.tips_button);
-        upcEntry = findViewById(R.id.UPCentry);
+        upcEntry = findViewById(R.id.upc_entry);
 
         expirationYear = -1; //for testing in calculateResult method
 

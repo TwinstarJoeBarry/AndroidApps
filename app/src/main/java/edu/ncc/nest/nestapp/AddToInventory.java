@@ -206,11 +206,11 @@ public class AddToInventory extends AppCompatActivity {
     }
 
     /**
-     * questionaire method -- sends out the intent(name of category) to the ATIQuestionaire activity
+     * questionaire method -- sends out the intent(name of category) to the ATIQuestionnaire activity
      * @param category
      */
     public void questionaire(String category){
-        Intent intent = new Intent(this,ATIQuestionaire.class);
+        Intent intent = new Intent(this, ATIQuestionnaire.class);
         String catName = category;
         intent.putExtra("categoryLabel",catName);
         startActivity(intent);

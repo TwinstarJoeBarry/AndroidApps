@@ -1,6 +1,8 @@
 <resources>
 
+    <!-- Global Strings (Used globally throughout the app) -->
     <string name="app_name">NestApp</string>
+    <string name="empty_string" />
 
     <!-- String names for AndroidManifest.xml -->
     <string name="title_activity_sign_up">SignUp</string>
@@ -111,6 +113,9 @@
 
     <!-- String names for activity_item_info.xml (@Deprecated) -->
     <string name="activity_item_info_upc_lbl">Scan in or manually enter the UPC code then tap Lookup</string>
+    <string name="activity_item_info_scan_btn">Scan in</string>
+    <string name="activity_item_info_enter_upc">Enter UPC code here</string>
+    <string name="activity_item_info_lookup_btn">Lookup</string>
     <string name="activity_item_info_select_cat_and_item">Select category and item:</string>
     <string name="activity_item_info_select_category_btn">Select Category</string>
     <string name="activity_item_info_select_item_btn">Select Item</string>
@@ -119,31 +124,32 @@
     <string name="activity_item_info_select_expiration_lbl">Select expiration date:</string>
     <string name="activity_item_info_select_expiration_btn">Select Expiration</string>
     <string name="activity_item_info_expiration_lbl">Expiration:</string>
+    <string name="activity_item_info_tips_btn">TIP</string>
     <string name="activity_item_info_calculate_btn">Calculate</string>
     <string name="activity_item_info_result">[result will display here]</string>
 
     <!-- String names for activity_donate.xml -->
     <string name="activity_donate_form_title">Donation Form</string>
+    <string name="activity_donate_category_lbl">Select A Category:</string>
+    <string name="activity_donate_category_msg">Waiting For A Category To Be Selected…</string>
+    <string name="activity_donate_subcategory_lbl">Select A Subcategory:</string>
+    <string name="activity_donate_item_lbl">Select An Item:</string>
+    <string name="activity_donate_select_date_description">Press To Select The Expiration Date:</string>
+    <string name="activity_donate_select_date_btn">Select Date</string>
+    <string name="activity_donate_expiration_date_lbl">Expiration Date: </string>
+    <string name="activity_donate_submit_btn">Submit</string>
 
-    <string name="category_txt">Select A Category:</string>
-    <string name="waiting_for_a_category_to_be_selected">Waiting For A Category To Be Selected…</string>
-    <string name="select_a_subcategory">Select A Subcategory:</string>
-    <string name="select_an_item">Select An Item:</string>
-    <string name="press_to_select_the_expiration_date">Press To Select The Expiration Date:</string>
-    <string name="select_date">Select Date</string>
-    <string name="expiration_date">Expiration Date: </string>
-    <string name="submit">Submit</string>
+    <!-- String names for activity_ati_questionnaire.xml -->
+    <string name="activity_ati_questionnaire_title">ListView Of All Products</string>
+    <string name="activity_ati_questionnaire_ui_test">UITest4</string>
+    <string name="activity_ati_questionnaire_related_products_btn">Press to See Related Products</string>
 
-    <!-- String names for ATIQuestionaire activity -->
-    <string name="atiqTitle">List View of All Products</string>
-    <string name="categorySelec">UITest4</string>
-    <string name="returnToATI">Press to See Related Products</string>
-    <string name="productsATI">Product:  </string>
-    <!-- String names for ATIQuestionaire activity -->
+    <!-- String names for list_ati.xml -->
+    <string name="list_ati_product_lbl">Product: </string>
 
-    <!-- String names for activity_u_p_c_lookup-->
+    <!-- String names for UPCLookup Activity -->
     <string name="upc_lookup_generating_table">Generating Lookup Table…</string>
-    <string name="upc_lookup_retreiving_json">Retrieving JSON…</string>
+    <string name="upc_lookup_retrieving_json">Retrieving JSON…</string>
     <string name="upc_lookup_match_found">Match found\nFDCID: %s</string>
     <string name="upc_lookup_no_match_found">No match found</string>
     <string name="upc_lookup_foodkeeper_category_match_found">FoodKeeperCategory %s, ID %s</string>
@@ -152,13 +158,13 @@
     <string name="upc_lookup_usda_null_response">NULL response from USDA API</string>
     <string name="upc_lookup_usda_no_response">No response from USDA API</string>
 
+    <!-- String names for activity_upc_lookup.xml -->
+    <string name="activity_upc_lookup_title">UPC Lookup Tool</string>
+    <string name="activity_upc_lookup_enter_upc">Enter UPC</string>
+    <string name="activity_upc_lookup_scan_btn">Scan</string>
+    <string name="activity_upc_lookup_search_btn">Search</string>
 
-    <string name="upcTitleText">UPC Lookup Tool</string>
-    <string name="upcSearchBtn">Search</string>
-    <string name="upcScanBtn">Scan</string>
-
-    <string name="empty_string" />
-    <string name="tips">TIP</string>
+    <!-- TODO ///////////////////////// -->
 
     <!-- strings for NestNewUPC activity -->
     <string name="nest_new_upc_adding_label">Adding new UPC: %1$s</string>

@@ -54,41 +54,40 @@
             android:layout_marginRight="10dp"
             android:textAllCaps="false"
             android:onClick="launchScanner"
-            android:text="Scan in" />
+            android:text="@string/activity_item_info_scan_btn" />
 
         <EditText
-            android:id="@+id/UPCentry"
+            android:id="@+id/upc_entry"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/label1"
             android:layout_marginTop="2dp"
-            android:layout_toRightOf="@id/open_camera"
-            android:layout_marginLeft="4dp"
-            android:hint="Enter UPC code here"
-            android:ems="9" />
+            android:layout_toEndOf="@id/open_camera"
+            android:layout_marginStart="4dp"
+            android:hint="@string/activity_item_info_enter_upc"
+            android:ems="9"
+            android:autofillHints=""
+            android:inputType="text" />
 
         <Button
             android:id="@+id/lookupUPC"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/label1"
-            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="2dp"
-            android:layout_marginRight="10dp"
-            android:layout_toRightOf="@id/UPCentry"
+            android:layout_marginEnd="10dp"
+            android:layout_toEndOf="@id/upc_entry"
             android:textAllCaps="false"
             android:onClick="lookupUPC"
-            android:text="Lookup" />
-
-
-
+            android:text="@string/activity_item_info_lookup_btn" />
 
         <TextView
             android:id="@+id/selection_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/open_camera"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="38dp"
             android:text="@string/activity_item_info_select_cat_and_item" />
 
@@ -97,7 +96,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/selection_label"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="2dp"
             android:onClick="showCatMenu"
             android:text="@string/activity_item_info_select_category_btn" />
@@ -107,9 +106,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/selection_label"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="2dp"
-            android:layout_toRightOf="@id/cat_select_btn"
+            android:layout_toEndOf="@id/cat_select_btn"
             android:onClick="showItemMenu"
             android:text="@string/activity_item_info_select_item_btn" />
 
@@ -118,7 +117,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/item_select_btn"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="2dp"
             android:text="@string/activity_item_info_category_lbl" />
 
@@ -127,9 +126,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/item_select_btn"
-            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
             android:layout_marginTop="2dp"
-            android:layout_toRightOf="@id/cat_result_lbl"
+            android:layout_toEndOf="@id/cat_result_lbl"
             android:text="" />
 
         <TextView
@@ -137,7 +136,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/cat_result"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="2dp"
             android:text="@string/activity_item_info_item_lbl" />
 
@@ -146,9 +145,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/cat_result"
-            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
             android:layout_marginTop="2dp"
-            android:layout_toRightOf="@id/item_result_lbl"
+            android:layout_toEndOf="@id/item_result_lbl"
             android:text="" />
 
         <TextView
@@ -156,7 +155,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/item_result"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="38dp"
             android:text="@string/activity_item_info_select_expiration_lbl" />
 
@@ -165,7 +164,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/expiration_select_label"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="2dp"
             android:onClick="showDatePickerDialog"
             android:text="@string/activity_item_info_select_expiration_btn" />
@@ -175,7 +174,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/date_select_btn"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="2dp"
             android:text="@string/activity_item_info_expiration_lbl" />
 
@@ -184,9 +183,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/date_select_btn"
-            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
             android:layout_marginTop="2dp"
-            android:layout_toRightOf="@id/exp_result_lbl"
+            android:layout_toEndOf="@id/exp_result_lbl"
             android:text="" />
 
         <Button
@@ -194,11 +193,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/cat_select_btn"
-            android:layout_marginLeft="200dp"
+            android:layout_marginStart="200dp"
             android:layout_marginTop="100dp"
-            android:layout_toRightOf="@id/exp_result"
+            android:layout_toEndOf="@id/exp_result"
             android:onClick="tipFound"
-            android:text="@string/tips"
+            android:text="@string/activity_item_info_tips_btn"
             android:visibility="invisible" />
 
         <Button
