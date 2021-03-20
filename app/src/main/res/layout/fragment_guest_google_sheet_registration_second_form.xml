@@ -43,7 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/title_txt"
-            android:hint="@string/people_lbl"
+            android:hint="@string/fragment_gsr_second_form_question_1"
             android:inputType="number"
             android:autofillHints="" />
 
@@ -52,7 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/editText"
-            android:hint="@string/activity_guest_form_income"
+            android:hint="@string/fragment_gsr_second_form_question_2"
             android:inputType="number"
             android:autofillHints="" />
 
@@ -61,7 +61,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/editText2"
-            android:hint="@string/snap_lbl"
+            android:hint="@string/fragment_gsr_second_form_question_3"
             android:inputType="textPersonName"
             android:autofillHints="" />
 
@@ -70,7 +70,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/editText3"
-            android:hint="@string/other_programs_lbl"
+            android:hint="@string/fragment_gsr_second_form_question_4"
             android:inputType="textPersonName"
             android:autofillHints="" />
 
@@ -79,7 +79,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/editText4"
-            android:hint="@string/employment_status_lbl"
+            android:hint="@string/fragment_gsr_second_form_question_5"
             android:inputType="textPersonName"
             android:autofillHints="" />
 
@@ -88,7 +88,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/editText5"
-            android:hint="@string/health_status_lbl"
+            android:hint="@string/fragment_gsr_second_form_question_6"
             android:inputType="textPersonName"
             android:autofillHints="" />
 
@@ -97,7 +97,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/editText6"
-            android:hint="@string/housing_status_lbl"
+            android:hint="@string/fragment_gsr_second_form_question_7"
             android:inputType="textPersonName"
             android:autofillHints="" />
 
@@ -106,7 +106,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/editText7"
-            android:hint="@string/childcare_status_lbl"
+            android:hint="@string/fragment_gsr_second_form_question_8"
             android:inputType="textPersonName"
             android:autofillHints="" />
 
@@ -115,7 +115,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/editText8"
-            android:hint="@string/children_under_1_lbl"
+            android:hint="@string/fragment_gsr_second_form_question_9"
             android:inputType="number"
             android:autofillHints="" />
 
@@ -124,7 +124,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/editText9"
-            android:hint="@string/children_between_1_5_lbl"
+            android:hint="@string/fragment_gsr_second_form_question_10"
             android:inputType="number"
             android:autofillHints="" />
 
@@ -133,15 +133,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/editText10"
-            android:hint="@string/children_between_6_12_lbl"
-            android:inputType="number" />
+            android:hint="@string/fragment_gsr_second_form_question_11"
+            android:inputType="number"
+            android:autofillHints="" />
 
         <EditText
             android:id="@+id/editText12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/editText11"
-            android:hint="@string/children_between_13_18_lbl"
+            android:hint="@string/fragment_gsr_second_form_question_12"
             android:inputType="number"
             android:autofillHints="" />
 
@@ -150,7 +151,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/editText12"
-            android:hint="@string/dietary_lbl"
+            android:hint="@string/fragment_gsr_second_form_question_13"
             android:inputType="textPersonName"
             android:autofillHints="" />
 
@@ -159,7 +160,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/editText13"
-            android:hint="@string/how_did_you_find_lbl"
+            android:hint="@string/fragment_gsr_second_form_question_14"
             android:inputType="textPersonName"
             android:autofillHints="" />
 
@@ -168,7 +169,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/editText14"
-            android:hint="@string/activity_guest_form_more_info"
+            android:hint="@string/fragment_gsr_second_form_question_15"
             android:inputType="textPersonName"
             android:autofillHints="" />
 
@@ -177,7 +178,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/editText15"
-            android:hint="@string/activity_guest_form_volunteer_first_name"
+            android:hint="@string/fragment_gsr_second_form_question_16"
             android:inputType="textPersonName"
             android:autofillHints="" />
 
@@ -186,7 +187,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/editText16"
-            android:hint="@string/activity_guest_form_volunteer_last_name"
+            android:hint="@string/fragment_gsr_second_form_question_17"
             android:inputType="textPersonName"
             android:autofillHints="" />
 
@@ -196,6 +197,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/editText17"
             android:text="@string/submit" />
+
     </RelativeLayout>
 
 </ScrollView>

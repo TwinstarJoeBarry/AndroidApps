@@ -39,72 +39,81 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/title_txt"
-        android:hint="@string/last_name_lbl"
-        android:inputType="textPersonName" />
+        android:hint="@string/first_name"
+        android:inputType="textPersonName"
+        android:autofillHints="" />
 
     <EditText
         android:id="@+id/editText2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/editText"
-        android:hint="@string/first_name_lbl"
-        android:inputType="textPersonName" />
+        android:hint="@string/last_name"
+        android:inputType="textPersonName"
+        android:autofillHints="" />
 
     <EditText
         android:id="@+id/editText3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/editText2"
-        android:hint="@string/affil_label"
-        android:inputType="textPersonName" />
+        android:hint="@string/ncc_affiliation"
+        android:inputType="textPersonName"
+        android:autofillHints="" />
 
     <EditText
         android:id="@+id/editText4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/editText3"
-        android:hint="@string/age_range_lbl"
-        android:inputType="textPersonName" />
+        android:hint="@string/birth_date"
+        android:inputType="textPersonName"
+        android:autofillHints="" />
 
     <EditText
         android:id="@+id/editText5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/editText4"
-        android:hint="@string/gender_lbl"
-        android:inputType="textPersonName" />
+        android:hint="@string/gender"
+        android:inputType="textPersonName"
+        android:autofillHints="" />
 
     <EditText
         android:id="@+id/editText6"
         android:layout_width="wrap_content"
         android:layout_height="45dp"
         android:layout_below="@id/editText5"
-        android:hint="@string/activity_guest_form_phone"
-        android:inputType="phone" />
+        android:hint="@string/phone_number"
+        android:inputType="phone"
+        android:autofillHints="" />
 
     <EditText
         android:id="@+id/editText7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/editText6"
-        android:hint="@string/activity_guest_form_ncc_id"
-        android:inputType="number" />
+        android:hint="@string/ncc_id"
+        android:inputType="text"
+        android:autofillHints="" />
 
     <EditText
         android:id="@+id/editText8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/editText7"
-        android:hint="@string/activity_guest_form_address"
-        android:inputType="textPostalAddress" />
+        android:hint="@string/postal_address"
+        android:inputType="textPostalAddress"
+        android:autofillHints="" />
 
     <EditText
         android:id="@+id/editText9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/editText8"
-        android:hint="@string/activity_guest_form_town_city"
-        android:inputType="textPersonName" />
+        android:hint="@string/town_city"
+        android:inputType="textPersonName"
+        android:autofillHints="" />
 
     <!--
     <Spinner
@@ -121,16 +130,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/editText9"
-        android:hint="@string/state_lbl"
-        android:inputType="textPersonName" />
+        android:hint="@string/state"
+        android:inputType="textPersonName"
+        android:autofillHints="" />
 
     <EditText
         android:id="@+id/editText11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/editText10"
-        android:hint="@string/activity_guest_form_zip_code"
-        android:inputType="number" />
+        android:hint="@string/zip_code"
+        android:inputType="number"
+        android:autofillHints="" />
 
     <Button
         android:id="@+id/next_button"

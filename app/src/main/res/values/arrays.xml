@@ -2,7 +2,7 @@
 <resources>
 
     <!-- Multi-Purpose Arrays (Global usage) -->
-    <string-array name="united_states_array">
+    <string-array name="states_array">
         <item>Alabama</item>
         <item>Alaska</item>
         <item>Arizona</item>
@@ -74,7 +74,7 @@
     </string-array>
 
     <!-- Arrays for activity_volunteer_form.xml -->
-    <string-array name="volunteer_form_preferred_contact_method">
+    <string-array name="activity_volunteer_form_preferred_contact_method">
         <item>E-mail</item>
         <item>Mobile call</item>
         <item>Text Message</item>

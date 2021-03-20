@@ -147,7 +147,7 @@
         android:layout_marginTop="18dp"
         android:layout_marginEnd="-1dp"
         android:layout_toEndOf="@id/preference"
-        android:entries="@array/volunteer_form_preferred_contact_method" />
+        android:entries="@array/activity_volunteer_form_preferred_contact_method" />
 
     <TextView
         android:id="@+id/push_question"

@@ -144,14 +144,14 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/Row5"
         android:layout_marginTop="0dp"
-        android:layout_marginStart="30dp"  >
+        android:layout_marginStart="30dp">
 
         <EditText
             android:id="@+id/editText5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/White"
-            android:hint="@string/address"
+            android:hint="@string/postal_address"
             android:inputType="textPostalAddress"
             android:textColorHint="@color/White"
             android:autofillHints="" />
@@ -201,7 +201,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/White"
-            android:entries="@array/united_states_array"
+            android:entries="@array/states_array"
             android:paddingTop="10dp"
             android:textColorHint="@color/White" />
 

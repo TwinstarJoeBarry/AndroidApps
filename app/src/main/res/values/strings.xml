@@ -7,16 +7,22 @@
     <string name="cancel">Cancel</string>
     <string name="next">Next</string>
     <string name="submit">Submit</string>
+    <string name="done">Done</string>
+    <string name="confirm">Confirm</string>
+    <string name="register">Register</string>
     <string name="full_name">Full Name</string>
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
     <string name="phone_number">Phone Number</string>
     <string name="email_address">Email Address</string>
+    <string name="ncc_affiliation">NCC Affiliation</string>
     <string name="ncc_id">NCC ID</string>
     <string name="postal_address">Postal Address</string>
-    <string name="town_city">Town/City</string>
+    <string name="town_city">Town / City</string>
     <string name="zip_code">Zip Code</string>
+    <string name="state">State</string>
     <string name="birth_date">Birth Date</string>
+    <string name="gender">Gender</string>
     <string name="password">Password</string>
 
     <!-- String names for AndroidManifest.xml -->
@@ -27,6 +33,9 @@
     <string name="title_activity_interface_tests">InterfaceTest</string>
     <string name="title_activity_add_to_inventory">AddToInventory</string>
     <string name="title_activity_check_expiration_date">CheckExpirationDate</string>
+    <string name="title_activity_guest_database_registration">GuestDatabaseRegistration</string>
+    <string name="title_activity_guest_google_sheet_registration">GuestGoogleSheetRegistration</string>
+    <string name="title_activity_guest_visit">GuestVisit</string>
 
     <!-- String names for menu_main.xml -->
     <string name="menu_main_home">HOME</string>
@@ -165,34 +174,18 @@
     <string name="activity_new_nest_upc_category_lbl">Category:</string>
     <string name="activity_new_nest_upc_product_lbl">Product:</string>
 
-    <!-- /////////////////////////////////// NAV GRAPH LABELS ///////////////////////////////////-->
+<!-- ABSTRACT SCANNER STRINGS START //////////////////////////////////////////////////////////// -->
 
-    <!-- String names for nav_graph_check_expiration_date.xml -->
-    <string name="check_expiration_date_start_fragment_lbl">Start Fragment</string>
-    <string name="check_expiration_date_scanner_fragment_lbl">Scanner Fragment</string>
-    <string name="check_expiration_date_enter_upc_fragment_lbl">Enter UPC Fragment</string>
-    <string name="check_expiration_date_confirm_item_fragment_lbl">Confirm Item Fragment</string>
-    <string name="check_expiration_date_select_item_fragment_lbl">Select Item Fragment</string>
-    <string name="check_expiration_date_select_printed_expiration_date_fragment_lbl">Select Printed Expiration Date Fragment</string>
-    <string name="check_expiration_date_display_true_expiration_fragment_lbl">Display True Expiration Fragment</string>
+    <!-- String names for AbstractScanner.java -->
+    <string name="abstract_scanner_fragment_waiting_for_scan">Waiting for scan …</string>
+    <string name="abstract_scanner_fragment_camera_permission_required">Camera permission required.</string>
+    <string name="abstract_scanner_fragment_confirm_msg">Please confirm that the barcode is correct.</string>
 
-    <!-- String names for nav_graph_database_registration.xml -->
-    <string name="database_registration_start_fragment_lbl">Start Fragment</string>
-    <string name="database_registration_scanner_fragment_lbl">Scanner Fragment</string>
-    <string name="database_registration_first_form_fragment_lbl">First Form Fragment</string>
-    <string name="database_registration_second_form_fragment_lbl">Second Form Fragment</string>
-    <string name="database_registration_summary_fragment_lbl">Summary Fragment</string>
+    <!-- String names for fragment_abstract_scanner.xml -->
+    <string name="fragment_abstract_scanner_rescan_btn">Re-Scan Barcode</string>
+    <string name="fragment_abstract_scanner_confirm_button">Confirm Scan</string>
 
-    <!-- String names for nav_graph_google_sheet_registration.xml -->
-    <string name="google_sheet_registration_first_form_fragment_lbl">First Form Fragment</string>
-    <string name="google_sheet_registration_second_form_fragment_lbl">Second Form Fragment</string>
-
-    <!-- String names for nav_graph_guest_visit.xml -->
-    <string name="guest_visit_scanner_fragment_lbl">Guest Scan Fragment</string>
-    <string name="guest_visit_confirmation_fragment_lbl">Guest Scan Confirmation Fragment</string>
-    <string name="guest_visit_questionnaire_fragment_lbl">Guest Questionnaire Fragment</string>
-
-<!-- CHECK EXPIRATION DATE STRINGS START -->
+<!-- CHECK EXPIRATION DATE STRINGS START /////////////////////////////////////////////////////// -->
 
     <!-- String names for fragment_check_expiration_date_start.xml -->
     <string name="fragment_ced_start_description">Scan the food item\'s UPC\n that is printed on the barcode with a camera\nor enter the UPC code manually.</string>
@@ -239,9 +232,7 @@
     <string name="fragment_ced_display_true_expiration_category_lbl">Category:</string>
     <string name="fragment_ced_display_true_expiration_expiration_date_lbl">Expiration date:</string>
 
-<!-- CHECK EXPIRATION DATE STRINGS END -->
-
-<!-- GUEST DATABASE REGISTRATION STRINGS START -->
+<!-- GUEST DATABASE REGISTRATION STRINGS START ///////////////////////////////////////////////// -->
 
     <!-- String names for fragment_guest_database_registration_start.xml -->
     <string name="fragment_dbr_start_title">GUEST FORM<br />REGISTRATION</string>
@@ -251,68 +242,91 @@
     <!-- String names for fragment_guest_database_registration_first_form.xml -->
     <string name="fragment_dbr_first_form_title">Guest Form Registration</string>
 
-<!-- GUEST DATABASE REGISTRATION STRINGS START -->
+    <!-- String names for fragment_guest_database_registration_second_form.xml -->
+    <string name="fragment_dbr_second_form_description">Household Information Fragment</string>
 
-<!-- ABSTRACT SCANNER STRINGS START -->
+    <!-- String names for fragment_guest_database_registration_summary.xml -->
+    <string name="fragment_dbr_summary_description">Summary page of GuestGoogleSheetRegistration</string>
 
-    <!-- String names for AbstractScanner.java -->
-    <string name="scanner_waiting_for_scan">Waiting for scan …</string>
-    <string name="scanner_camera_permission_required">Camera permission required.</string>
-    <string name="scanner_confirm_msg">Please confirm that the barcode is correct.</string>
+<!-- GUEST DATABASE REGISTRATION STRINGS START ///////////////////////////////////////////////// -->
 
-    <!-- String names for fragment_abstract_scanner.xml -->
-    <string name="fragment_abstract_scanner_rescan_btn">Re-Scan Barcode</string>
-    <string name="fragment_abstract_scanner_confirm_button">Confirm Scan</string>
+    <!-- String names for fragment_guest_google_sheet_registration_first_form.xml -->
 
-<!-- ABSTRACT SCANNER STRINGS START -->
+    <!-- String names for fragment_guest_google_sheet_registration_second_form.xml -->
+    <string name="fragment_gsr_second_form_question_1">Number of People in Your Household</string>
+    <string name="fragment_gsr_second_form_question_2">What is your household income?</string>
+    <string name="fragment_gsr_second_form_question_3">Do you have SNAP/food stamps?</string>
+    <string name="fragment_gsr_second_form_question_4"><font size="14">Do you know of any other emergency food programs in the area?</font></string>
+    <string name="fragment_gsr_second_form_question_5">What is your employment status?</string>
+    <string name="fragment_gsr_second_form_question_6">What is your health status?</string>
+    <string name="fragment_gsr_second_form_question_7">What is your housing status?</string>
+    <string name="fragment_gsr_second_form_question_8">What is your childcare status?</string>
+    <string name="fragment_gsr_second_form_question_9"><font size="14">How many children are in your household under the age of 1 year?</font></string>
+    <string name="fragment_gsr_second_form_question_10"><font size="14">How many children are in your household between ages 1-5?</font></string>
+    <string name="fragment_gsr_second_form_question_11"><font size="14">How many children are in your household between ages 6-12?</font></string>
+    <string name="fragment_gsr_second_form_question_12"><font size="14">How many children are in your household between ages 13-18?</font></string>
+    <string name="fragment_gsr_second_form_question_13">What are your dietary needs and preferences?</string>
+    <string name="fragment_gsr_second_form_question_14">How did you find us?</string>
+    <string name="fragment_gsr_second_form_question_15"><font size="14">Is there anything else you would like us to know at this time?</font></string>
+    <string name="fragment_gsr_second_form_question_16"><font size="14">What is the first name of the volunteer who helped you today?</font></string>
+    <string name="fragment_gsr_second_form_question_17"><font size="14">What is the last name of the volunteer who helped you today?</font></string>
 
-    <!-- TODO ///////////////////////// -->
+<!-- GUEST VISIT STRINGS START ///////////////////////////////////////////////////////////////// -->
 
-    <!-- Strings used for QuestionnaireFragment.java / fragment_guest_visit_questionnaire.xml -->
-    <string name="questionnaire_welcome_message">Welcome NEST Guest!</string>
-    <string name="questionnaire_description">Please answer and submit the following questions before proceeding.</string>
-    <string name="questionnaire_question_1">Who visited the NEST today? (Guest ID)</string>
-    <string name="questionnaire_question_2">How many adults (ages 19–64) are in your household?</string>
-    <string name="questionnaire_question_3">How many adults (over the age of 64) are in your household?</string>
-    <string name="questionnaire_question_4">How many children (ages 18 and under) are in your household?</string>
-    <string name="questionnaire_question_5">Is this your first visit to the NEST?</string>
-    <string name="questionnaire_spinner_prompt">Choose an answer</string>
-    <string name="questionnaire_hint_number">Enter a number</string>
-    <string name="questionnaire_hint_id">NEST Guest Id#</string>
-    <string name="first_name_lbl">First Name</string>
-    <string name="last_name_lbl">Last Name</string>
-    <string name="affil_label">NCC Affiliation</string>
-    <string name="age_range_lbl">Age Range</string>
-    <string name="gender_lbl">Gender</string>
-    <string name="people_lbl">Number of People in Your Household</string>
-    <string name="snap_lbl">Do you have SNAP/food stamps?</string>
-    <string name="other_programs_lbl"><font size="13">Do you know of any other emergency food programs in the area?</font></string>
-    <string name="employment_status_lbl">What is your employment status?</string>
-    <string name="health_status_lbl">What is your health status?</string>
-    <string name="housing_status_lbl">What is your housing status?</string>
-    <string name="childcare_status_lbl">What is your childcare status?</string>
-    <string name="children_under_1_lbl"><font size="13">How many children are in your household under the age of 1 year?</font></string>
-    <string name="children_between_1_5_lbl"><font size="14">How many children are in your household between ages 1-5?</font></string>
-    <string name="children_between_6_12_lbl"><font size="14">How many children are in your household between ages 6-12?</font></string>
-    <string name="children_between_13_18_lbl"><font size="14">How many children are in your household between ages 13-18?</font></string>
-    <string name="dietary_lbl">What are your dietary needs and preferences?</string>
-    <string name="how_did_you_find_lbl">How did you find us?</string>
-    <string name="questionnaire_alert_title">"SUBMISSION HAS MISSING FIELDS!"</string>
-    <string name="questionnaire_alert_msg">Please make sure to answer all of the questions before submitting the questionnaire.</string>
-
-    <!-- Strings used in the guest visit confirmation layouts -->
-    <string name="guestVisitConfirmation_welcome_nest_guest_lbl">Welcome NEST Guest!</string>
-    <string name="guestVisitConfirmation_guest_info_confirmation">Please confirm that the following information is correct.</string>
-    <string name="guestVisitConfirmation_guest_name_lbl">GUEST NAME</string>
-    <string name="guestVisitConfirmation_guest_id">GUEST ID</string>
-    <string name="guestVisitConfirmation_confirm">Confirm</string>
-    <string name="guestVisitConfirmation_nest_guest_not_found_lbl">NEST GUEST NOT FOUND!</string>
-    <string name="guestVisitConfirmation_register_button">Register</string>
-    <string name="guestVisitConfirmation_please_register_lbl">Please register to continue</string>
-    <string name="guestVisitConfirmation_sorry_guest_not_found_lbl">Sorry! We couldn\'t find a guest associated with the following barcode:</string>
-    <string name="state_lbl">State</string>
+    <!-- String names for fragment_guest_visit_confirmation_found.xml -->
+    <string name="fragment_gv_confirmation_found_title">Welcome NEST Guest!</string>
+    <string name="fragment_gv_confirmation_found_msg">Please confirm that the following information is correct.</string>
+    <string name="fragment_gv_confirmation_found_guest_name_lbl">GUEST NAME</string>
+    <string name="fragment_gv_confirmation_found_guest_id_lbl">GUEST ID</string>
     <string name="fragment_gv_confirmation_found_rescan_btn">Re-Scan Barcode</string>
+
+    <!-- String names for fragment_guest_visit_confirmation_not_found.xml -->
+    <string name="fragment_gv_confirmation_not_found_title">NEST GUEST NOT FOUND!</string>
+    <string name="fragment_gv_confirmation_not_found_msg">Sorry! We couldn\'t find a guest associated with the following barcode:</string>
+    <string name="fragment_gv_confirmation_not_found_register_msg">Please register to continue</string>
     <string name="fragment_gv_confirmation_not_found_rescan_btn">Re-Scan Barcode</string>
-    <!-- END OF GUEST VISIT STRINGS -->
+
+    <!-- String names for GuestVisit.Fragments.QuestionnaireFragment.java -->
+    <string name="questionnaire_fragment_alert_title">"SUBMISSION HAS MISSING FIELDS!"</string>
+    <string name="questionnaire_fragment_alert_msg">Please make sure to answer all of the questions before submitting the questionnaire.</string>
+
+    <!-- String names for fragment_guest_visit_questionnaire.xml -->
+    <string name="fragment_gv_questionnaire_welcome_message">Welcome NEST Guest!</string>
+    <string name="fragment_gv_questionnaire_description">Please answer and submit the following questions before proceeding.</string>
+    <string name="fragment_gv_questionnaire_question_1">Who visited the NEST today? (Guest ID)</string>
+    <string name="fragment_gv_questionnaire_question_2">How many adults (ages 19–64) are in your household?</string>
+    <string name="fragment_gv_questionnaire_question_3">How many adults (over the age of 64) are in your household?</string>
+    <string name="fragment_gv_questionnaire_question_4">How many children (ages 18 and under) are in your household?</string>
+    <string name="fragment_gv_questionnaire_question_5">Is this your first visit to the NEST?</string>
+    <string name="fragment_gv_questionnaire_spinner_prompt">Choose an answer</string>
+    <string name="fragment_gv_questionnaire_hint_number">Enter a number</string>
+    <string name="fragment_gv_questionnaire_hint_id">NEST Guest Id#</string>
+
+<!-- NAV GRAPH LABELS START //////////////////////////////////////////////////////////////////// -->
+
+    <!-- String names for nav_graph_check_expiration_date.xml -->
+    <string name="nav_graph_ced_start_fragment_lbl">Start Fragment</string>
+    <string name="nav_graph_ced__scanner_fragment_lbl">Scanner Fragment</string>
+    <string name="nav_graph_ced_enter_upc_fragment_lbl">Enter UPC Fragment</string>
+    <string name="nav_graph_ced_confirm_item_fragment_lbl">Confirm Item Fragment</string>
+    <string name="nav_graph_ced_select_item_fragment_lbl">Select Item Fragment</string>
+    <string name="nav_graph_ced_select_printed_expiration_date_fragment_lbl">Select Printed Expiration Date Fragment</string>
+    <string name="nav_graph_ced_display_true_expiration_fragment_lbl">Display True Expiration Fragment</string>
+
+    <!-- String names for nav_graph_database_registration.xml -->
+    <string name="nav_graph_dbr_start_fragment_lbl">Start Fragment</string>
+    <string name="nav_graph_dbr_scanner_fragment_lbl">Scanner Fragment</string>
+    <string name="nav_graph_dbr_first_form_fragment_lbl">First Form Fragment</string>
+    <string name="nav_graph_dbr_second_form_fragment_lbl">Second Form Fragment</string>
+    <string name="nav_graph_dbr_summary_fragment_lbl">Summary Fragment</string>
+
+    <!-- String names for nav_graph_google_sheet_registration.xml -->
+    <string name="nav_graph_gsr_first_form_fragment_lbl">First Form Fragment</string>
+    <string name="nav_graph_gsr_second_form_fragment_lbl">Second Form Fragment</string>
+
+    <!-- String names for nav_graph_guest_visit.xml -->
+    <string name="nav_graph_gv_scanner_fragment_lbl">Guest Scan Fragment</string>
+    <string name="nav_graph_gv_confirmation_fragment_lbl">Guest Scan Confirmation Fragment</string>
+    <string name="nav_graph_gv_questionnaire_fragment_lbl">Guest Questionnaire Fragment</string>
 
 </resources>

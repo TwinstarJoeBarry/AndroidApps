@@ -27,7 +27,7 @@
     <fragment
         android:id="@+id/DBR_StartFragment"
         android:name="edu.ncc.nest.nestapp.GuestDatabaseRegistration.Fragments.StartFragment"
-        android:label="@string/database_registration_start_fragment_lbl"
+        android:label="@string/nav_graph_dbr_start_fragment_lbl"
         tools:layout="@layout/fragment_guest_database_registration_start">
 
         <!-- This action & destination should be named and assigned accordingly to the proper fragment once it is available -->
@@ -50,7 +50,7 @@
     <fragment
         android:id="@+id/DBR_ScannerFragment"
         android:name="edu.ncc.nest.nestapp.GuestDatabaseRegistration.Fragments.ScannerFragment"
-        android:label="@string/database_registration_scanner_fragment_lbl"
+        android:label="@string/nav_graph_dbr_scanner_fragment_lbl"
         tools:layout="@layout/fragment_abstract_scanner" >
 
     </fragment>
@@ -58,7 +58,7 @@
     <fragment
         android:id="@+id/DBR_FirstFormFragment"
         android:name="edu.ncc.nest.nestapp.GuestDatabaseRegistration.Fragments.FirstFormFragment"
-        android:label="@string/database_registration_first_form_fragment_lbl"
+        android:label="@string/nav_graph_dbr_first_form_fragment_lbl"
         tools:layout="@layout/fragment_guest_database_registration_first_form" >
 
         <action
@@ -71,7 +71,7 @@
     <fragment
         android:id="@+id/DBR_SecondFormFragment"
         android:name="edu.ncc.nest.nestapp.GuestDatabaseRegistration.Fragments.SecondFormFragment"
-        android:label="@string/database_registration_second_form_fragment_lbl"
+        android:label="@string/nav_graph_dbr_second_form_fragment_lbl"
         tools:layout="@layout/fragment_guest_database_registration_second_form" >
 
     </fragment>
@@ -79,7 +79,7 @@
     <fragment
         android:id="@+id/DBR_SummaryFragment"
         android:name="edu.ncc.nest.nestapp.GuestDatabaseRegistration.Fragments.SummaryFragment"
-        android:label="@string/database_registration_summary_fragment_lbl"
+        android:label="@string/nav_graph_dbr_summary_fragment_lbl"
         tools:layout="@layout/fragment_guest_database_registration_summary" >
 
     </fragment>
