@@ -50,7 +50,7 @@
                 android:id="@+id/selected_print_month_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/fragment_ced_select_printed_expiration_date_month_btn" />
+                android:text="@string/month" />
 
         </LinearLayout>
 
@@ -73,7 +73,7 @@
                 android:id="@+id/selected_print_day_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/fragment_ced_select_printed_expiration_date_day_btn" />
+                android:text="@string/day" />
 
         </LinearLayout>
 
@@ -95,7 +95,7 @@
                 android:id="@+id/selected_print_year_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/fragment_ced_select_printed_expiration_date_year_btn" />
+                android:text="@string/year" />
 
         </LinearLayout>
 

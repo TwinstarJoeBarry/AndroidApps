@@ -23,7 +23,11 @@
     <string name="state">State</string>
     <string name="birth_date">Birth Date</string>
     <string name="gender">Gender</string>
+    <string name="username">Username</string>
     <string name="password">Password</string>
+    <string name="month">Month</string>
+    <string name="day">Day</string>
+    <string name="year">Year</string>
 
     <!-- Strings used in AndroidManifest.xml -->
     <string name="title_activity_sign_up">SignUp</string>
@@ -48,11 +52,8 @@
 
     <!-- Strings used in activity_main.xml -->
     <string name="activity_main_title">Login</string>
-    <string name="activity_main_user_name">Username</string>
-    <string name="activity_main_password">Password</string>
     <string name="activity_main_forgot_password">Forgot password?</string>
     <string name="activity_main_sign_in">Sign in</string>
-    <string name="activity_main_photo">Photo</string>
     <string name="activity_main_make_account">Don\'t have an account? Sign up.</string>
 
     <!-- Strings used in activity_sign_up.xml -->
@@ -219,11 +220,8 @@
     <!-- Strings used in fragment_check_expiration_date_select_printed_expiration_date.xml -->
     <string name="fragment_ced_select_printed_expiration_date_title">Select the product\'s printed expiration date</string>
     <string name="fragment_ced_select_printed_expiration_date_month_lbl">Select a month</string>
-    <string name="fragment_ced_select_printed_expiration_date_month_btn">Month</string>
     <string name="fragment_ced_select_printed_expiration_date_day_lbl">Select a day</string>
-    <string name="fragment_ced_select_printed_expiration_date_day_btn">Day</string>
     <string name="fragment_ced_select_printed_expiration_date_year_lbl">Select a year</string>
-    <string name="fragment_ced_select_printed_expiration_date_year_btn">Year</string>
 
     <!-- Strings used in fragment_check_expiration_date_display_true_expiration.xml -->
     <string name="fragment_ced_display_true_expiration_display_date_btn">Display true expiration date</string>

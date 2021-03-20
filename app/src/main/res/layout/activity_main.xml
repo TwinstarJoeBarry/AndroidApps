@@ -69,7 +69,7 @@
                 android:id="@+id/user_name"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/activity_main_user_name"
+                android:hint="@string/username"
                 android:inputType="text"
                 android:autofillHints="" />
 
@@ -78,7 +78,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:hint="@string/activity_main_password"
+                android:hint="@string/password"
                 android:inputType="textPassword"
                 android:autofillHints="" />
 
