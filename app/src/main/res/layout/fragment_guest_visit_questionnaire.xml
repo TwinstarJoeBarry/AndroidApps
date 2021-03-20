@@ -40,7 +40,7 @@
         android:textAllCaps="true"
         android:fontFamily="casual"
         android:textColor="@android:color/white"
-        android:text="@string/fragment_gv_questionnaire_welcome_message" />
+        android:text="@string/hello_world" />
 
     <TextView
         android:id="@+id/questionnaire_description"
