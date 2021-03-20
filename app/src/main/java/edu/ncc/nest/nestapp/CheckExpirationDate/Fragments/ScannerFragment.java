@@ -46,6 +46,16 @@ import edu.ncc.nest.nestapp.NestDBDataSource;
 import edu.ncc.nest.nestapp.NestUPC;
 import edu.ncc.nest.nestapp.R;
 
+/**
+ * ScannerFragment: Used to scan in a UPC barcode, and send to the appropriate fragment depending
+ * on whether or not a product with the scanned barcode exist in the database.
+ *
+ * Navigates to {@link ConfirmItemFragment} with the item pulled from database, if the upc exists in
+ * the local database.
+ *
+ * Navigates to {@link SelectItemFragment} with the barcode, if the upc does not exist in the local
+ * database.
+ */
 public class ScannerFragment extends AbstractScannerFragment {
 
     @Override
@@ -60,10 +70,13 @@ public class ScannerFragment extends AbstractScannerFragment {
     @Override
     protected void onBarcodeConfirmed(@NonNull String barcode, @NonNull BarcodeFormat format) {
 
+        // Log the barcode result and format
         Log.d(TAG, "Scan Confirmed: [" + barcode + ", " + format.toString() + "]");
 
-        // Check database
-        NestDBDataSource dataSource = new NestDBDataSource(getContext());
+        // Open a database object so we can check whether the barcode exist in the database
+        NestDBDataSource dataSource = new NestDBDataSource(requireContext());
+
+        // Find the NestUPC object that matches the scanned barcode
         NestUPC result = dataSource.getNestUPC(barcode);
 
         // Used this to test if there was a non-null result given (successful)
@@ -71,24 +84,30 @@ public class ScannerFragment extends AbstractScannerFragment {
                 123, "Hershey's Chocolate Bar", null,
                 1234,"Some category description");*/
 
-        // If there is a result from the database
-        if(result != null) {
+        Bundle bundle = new Bundle();
+
+        if (result != null) {
+
+            // If we get here, then the upc is already in the database.
 
             Log.d(TAG, "Result returned: " + result.getUpc() + " " + result.getProductName());
 
             // Put the item in a bundle and pass it to ConfirmItemFragment
-            Bundle bundle = new Bundle();
             bundle.putSerializable("foodItem", result);
+
             getParentFragmentManager().setFragmentResult("FOOD ITEM", bundle);
+
             NavHostFragment.findNavController(ScannerFragment.this).navigate((R.id.CED_ConfirmItemFragment));
 
-        // If there was no result from the database
         } else {
 
+            // If we get here, then the upc is does not exist in the database.
+
             // Put UPC into a bundle and pass it to SelectItemFragment (may not be necessary)
-            Bundle bundle = new Bundle();
             bundle.putString("barcode", barcode);
+
             getParentFragmentManager().setFragmentResult("BARCODE", bundle);
+
             NavHostFragment.findNavController(ScannerFragment.this).navigate((R.id.CED_SelectItemFragment));
 
         }

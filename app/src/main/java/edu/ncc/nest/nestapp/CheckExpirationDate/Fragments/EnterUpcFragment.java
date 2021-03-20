@@ -33,72 +33,87 @@ import edu.ncc.nest.nestapp.NestDBDataSource;
 import edu.ncc.nest.nestapp.NestUPC;
 import edu.ncc.nest.nestapp.R;
 
+/**
+ * EnterUpcFragment: Allows user to enter a upc barcode manually. When the user presses a "Lookup"
+ * button, it should then validate the upc and check whether or not the upc exists in the local
+ * database.
+ *
+ * Navigates to {@link ConfirmItemFragment} with the item pulled from database, if the upc exists in
+ * the local database.
+ *
+ * Navigates to {@link SelectItemFragment} with the barcode, if the upc does not exist in the local
+ * database.
+ */
 public class EnterUpcFragment extends Fragment {
 
     @Override
-    public View onCreateView(
-            LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState
-    ) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_check_expiration_date_enter_upc, container, false);
+
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        view.findViewById(R.id.button_enter_next).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                // Run retrieve UPC to validate input and navigate to correct Fragment
-                retrieveUPC(view);
-
-            }
-        });
+        // Call retrieveUPC method when button_enter_next is pressed
+        view.findViewById(R.id.button_enter_next).setOnClickListener(v -> retrieveUPC());
 
     }
 
     /**
-     * retrieveUPC method - (Taken from EnterUPC class)
+     * retrieveUPC - (Taken from EnterUPC class)
      * Gets the UPC from the EditText object the user entered the UPC into
-     * and starts the FoodItem activity with the entered UPC
-     * @param view
+     * and navigates to the appropriate fragment with the entered UPC.
      */
-
-    public void retrieveUPC(View view) {
+    public void retrieveUPC() {
 
         // Look in the EditText widget and retrieve the String the user passed in
-        EditText editText = (EditText)getView().findViewById(R.id.edittext_enter_upc);
-        Log.d("SCAN", "Made it!");
+        EditText editText = requireView().findViewById(R.id.edittext_enter_upc);
+
+        // Get the upc string from the EditText object
         String upc = editText.getText().toString();
 
         // Check validity of the UPC
-        if(upc.equals("") || upc.length() < 12 || upc.length() >12){
+        if(upc.length() != 12) {
+
             Toast.makeText(this.getContext(),"UPC length is 12 numbers, please enter a 12-digit number", Toast.LENGTH_SHORT).show();
+
         } else {
+
             NestDBDataSource dataSource = new NestDBDataSource(getContext());
             NestUPC result = dataSource.getNestUPC(upc);
 
             // If there is a result from the database
-            if(result != null) {
+            Bundle bundle = new Bundle();
+            if (result != null) {
+
+                // If we get here, then the upc is already in the database.
 
                 // Put the item in a bundle and pass it to ConfirmItemFragment
-                Bundle bundle = new Bundle();
                 bundle.putSerializable("foodItem", result);
+
                 getParentFragmentManager().setFragmentResult("FOOD ITEM", bundle);
+
                 NavHostFragment.findNavController(EnterUpcFragment.this).navigate((R.id.CED_ConfirmItemFragment));
 
-                // If there was no result from the database
-            }else {
+            } else {
+
+                // If we get here, then the upc is does not exist in the database.
 
                 // Put UPC into a bundle and pass it to SelectItemFragment (may not be necessary)
-                Bundle bundle = new Bundle();
                 bundle.putString("barcode", upc);
+
                 getParentFragmentManager().setFragmentResult("BARCODE", bundle);
+
                 NavHostFragment.findNavController(EnterUpcFragment.this).navigate((R.id.CED_SelectItemFragment));
+
             }
+
         }
 
     }
+
 }

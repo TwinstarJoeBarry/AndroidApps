@@ -27,33 +27,50 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import edu.ncc.nest.nestapp.R;
 
+/**
+ * StartFragment: This is the starting fragment for the CheckExpirationDate feature. This fragment
+ * should ask the user whether or not they want to scan or enter a UPC barcode.
+ *
+ * Navigates to {@link ScannerFragment} when "Scan UPC" is selected.
+ *
+ * Navigates to {@link EnterUpcFragment} when "Enter UPC Manually" is selected.
+ */
 public class StartFragment extends Fragment {
 
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState
-    ) {
+            Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_check_expiration_date_start, container, false);
+
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // Set the OnClickListener for button_scan
         view.findViewById(R.id.button_scan).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                // Navigate to ScannerFragment.java
                 NavHostFragment.findNavController(StartFragment.this)
                         .navigate(R.id.CED_ScannerFragment);
+
             }
         });
 
+        // Set the OnClickListener for button_enter
         view.findViewById(R.id.button_enter).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                // Navigate to EnterUpcFragment.java
                 NavHostFragment.findNavController(StartFragment.this)
                         .navigate(R.id.CED_EnterUpcFragment);
+
             }
         });
     }

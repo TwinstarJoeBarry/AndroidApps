@@ -33,6 +33,15 @@ import android.widget.TextView;
 import edu.ncc.nest.nestapp.NestUPC;
 import edu.ncc.nest.nestapp.R;
 
+/**
+ * ConfirmItemFragment: Ask the user to confirm that the item that pulled from the database, is the
+ * correct item they wanted.
+ *
+ * Navigates to {@link SelectPrintedExpirationDateFragment} with the item, if the user confirms the
+ * item is correct.
+ *
+ * Navigates to {@link SelectItemFragment} with the UPC barcode, if the item is incorrect.
+ */
 public class ConfirmItemFragment extends Fragment {
 
     private static final String TAG_ITEM = "TEST ITEM";
@@ -49,15 +58,14 @@ public class ConfirmItemFragment extends Fragment {
     private NestUPC item;
 
     @Override
-    public View onCreateView(
-            LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState
-    ) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
 
         Log.d(TAG, "In ConfirmItemFragment onCreateView()");
 
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_check_expiration_date_confirm_item, container, false);
+
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
@@ -66,9 +74,9 @@ public class ConfirmItemFragment extends Fragment {
         Log.d(TAG, "In ConfirmItemFragment onViewCreated()");
 
         // Get respective views from layout
-        itemName = (TextView) view.findViewById(R.id.add_item_name);
-        catName = (TextView) view.findViewById(R.id.add_cat_name);
-        upc = (TextView) view.findViewById(R.id.add_UPC);
+        itemName = view.findViewById(R.id.add_item_name);
+        catName = view.findViewById(R.id.add_cat_name);
+        upc = view.findViewById(R.id.add_UPC);
 
         if (savedInstanceState != null) {
 

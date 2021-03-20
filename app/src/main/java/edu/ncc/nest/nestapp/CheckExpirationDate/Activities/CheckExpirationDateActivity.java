@@ -23,7 +23,8 @@ import androidx.appcompat.widget.Toolbar;
 import edu.ncc.nest.nestapp.R;
 
 /*
- * CheckExpirationDateActivity: This is the underlying activity for the fragments in nav_graph.xml (CheckExpirationDate package)
+ * CheckExpirationDateActivity: This is the underlying activity for the fragments in
+ * nav_graph_check_expiration_date.xml (CheckExpirationDate package)
  */
 public class CheckExpirationDateActivity extends AppCompatActivity {
 
@@ -31,8 +32,9 @@ public class CheckExpirationDateActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_expiration_date);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+
+        setSupportActionBar(findViewById(R.id.toolbar));
 
     }
+
 }
