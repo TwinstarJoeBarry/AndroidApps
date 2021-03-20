@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- Multi-Purpose Arrays (Global usage) -->
+    <!-- Global Arrays (Used globally throughout the app. Not file specific.) -->
     <string-array name="states_array">
         <item>Alabama</item>
         <item>Alaska</item>
@@ -80,7 +80,7 @@
         <item>Text Message</item>
     </string-array>
 
-<!--///////////////////////////////////// FOOD ITEMS START //////////////////////////////////////-->
+<!-- FOOD ITEMS START ///////////////////////////////////////////////////////////////////////////-->
 
     <!-- Categories -->
     <string-array name="item_categories">
@@ -758,6 +758,6 @@
         <item>Tofu</item>
     </string-array>
 
-<!--////////////////////////////////////// FOOD ITEMS END ///////////////////////////////////////-->
+<!-- FOOD ITEMS END /////////////////////////////////////////////////////////////////////////////-->
 
 </resources>
