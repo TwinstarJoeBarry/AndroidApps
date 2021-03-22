@@ -27,11 +27,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
-import edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses.GuestRegistrySource;
-import edu.ncc.nest.nestapp.R;
-import  androidx.annotation.NonNull;
+
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
+
+import edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses.GuestRegistrySource;
+import edu.ncc.nest.nestapp.R;
 
 public class FirstFormFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 

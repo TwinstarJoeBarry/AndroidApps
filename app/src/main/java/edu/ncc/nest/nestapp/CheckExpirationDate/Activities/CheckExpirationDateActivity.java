@@ -18,19 +18,19 @@ package edu.ncc.nest.nestapp.CheckExpirationDate.Activities;
  */
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import edu.ncc.nest.nestapp.R;
 
 /*
  * CheckExpirationDateActivity: This is the underlying activity for the fragments in
- * nav_graph_check_expiration_date.xml (CheckExpirationDate package)
+ * nav_graph_check_expiration_date.xml (CheckExpirationDate feature)
  */
 public class CheckExpirationDateActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_check_expiration_date);
 
         setSupportActionBar(findViewById(R.id.toolbar));

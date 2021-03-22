@@ -1,4 +1,7 @@
 package edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses;
+
+import androidx.annotation.NonNull;
+
 /**
  *
  * Copyright (C) 2019 The LibreFoodPantry Developers.
@@ -17,6 +20,10 @@ package edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses;
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+/**
+ * GuestRegistryEntry: Represents a entry into the GuestRegistry database
+ * (See {@link GuestRegistryHelper}).
+ */
 public class GuestRegistryEntry {
     private long id;
     private String name;
@@ -31,8 +38,7 @@ public class GuestRegistryEntry {
     private String nameOfVolunteer;
     private String nccID;
 
-    public GuestRegistryEntry()
-    {
+    public GuestRegistryEntry() {
         this.name = null;
         this.email = null;
         this.phone = null;
@@ -48,8 +54,8 @@ public class GuestRegistryEntry {
 
     // parameterized constructor
     public GuestRegistryEntry(String name, String email, String phone, String date, String address, String city, String zipcode,
-                              String state, String additionalInfo, String nameOfVolunteer, String nccID)
-    {
+                              String state, String additionalInfo, String nameOfVolunteer, String nccID) {
+
         this.name = name;
         this.email = email;
         this.phone = phone;
@@ -61,6 +67,7 @@ public class GuestRegistryEntry {
         this.additionalInfo = additionalInfo;
         this.nameOfVolunteer = nameOfVolunteer;
         this.nccID = nccID;
+
     }
 
     // Getter Methods
@@ -93,17 +100,31 @@ public class GuestRegistryEntry {
 
     /**
      * equals method --
-     * this method accepts a guest entry as an argument.
-     * It compares the argument ID to the object calling the method's ID
-     * @param otherEntry - the guest entry that the object calling the method is being compared to
+     * Returns whether or not the id variables of the two {@link GuestRegistryEntry} objects are
+     * equal.
+     * @param otherEntry The entry to compare to
      * @return true if the entry has the same ID, false otherwise
      */
-    public boolean equals(Object otherEntry) { return this.id == ((GuestRegistryEntry) otherEntry).id; }
+    @Override
+    public boolean equals(Object otherEntry) {
+
+        if (otherEntry instanceof GuestRegistryEntry)
+
+            return (this.id == ((GuestRegistryEntry) otherEntry).id);
+
+        return false;
+
+    }
 
     // Will be used by the ArrayAdapter in the ListView
+    @NonNull
     @Override
     public String toString() {
-        return id + ": " + name + " - " + email + " - " + phone + " - " + date + " - " + address + " - " + city + " - " + zipcode + " - " + state + " - " + additionalInfo + " - "
+
+        return id + ": " + name + " - " + email + " - " + phone + " - " + date + " - " + address +
+                " - " + city + " - " + zipcode + " - " + state + " - " + additionalInfo + " - "
                 + nameOfVolunteer + " - " + nccID;
+
     }
+
 }

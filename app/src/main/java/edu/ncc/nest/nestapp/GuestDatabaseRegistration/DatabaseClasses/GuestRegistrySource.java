@@ -6,12 +6,18 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
+import androidx.annotation.NonNull;
+
 import static edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses.GuestRegistryHelper.BARCODE;
 import static edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses.GuestRegistryHelper.NAME;
 import static edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses.GuestRegistryHelper.TABLE_NAME;
 
-public class GuestRegistrySource
-{
+/**
+ * GuestRegistrySource: Handles the insertion and removal of data into the GuestRegistry database
+ * (See {@link GuestRegistryHelper}). Also has methods that allow for searching the database.
+ *
+ */
+public class GuestRegistrySource {
     private SQLiteDatabase database;
     private GuestRegistryHelper guestHelper;
 
@@ -19,27 +25,31 @@ public class GuestRegistrySource
      * Default Constructor --
      * @param context
      */
-    public GuestRegistrySource(Context context )
-    {
+    public GuestRegistrySource(Context context) {
+
         guestHelper = new GuestRegistryHelper( context );
+
     }
 
     /**
-     * open method -- opens a writeable database
+     * open --
+     * Opens a writeable database
      * @throws SQLException
      */
-    public void open( ) throws SQLException
-    {
+    public void open( ) throws SQLException {
+
         database = guestHelper.getWritableDatabase( );
+
     }
 
     /**
      * close method --
-     * closes a database
+     * Closes the database
      */
-    public void close( )
-    {
+    public void close( ) {
+
         guestHelper.close( );
+
     }
 
     /**
@@ -55,45 +65,40 @@ public class GuestRegistrySource
      * @param date - the date that the form has been filled out
      * @param address - the address of the guest
      * @param city - the city of the guests' address
-     * @param zip - the zipcode of the guests' address
+     * @param zip - the zip-code of the guests' address
      * @param barcode - the barcode that belongs to the guest
      * @return true if the data has been inserted without issue, false otherwise
      */
-    public boolean insertData(String name, String email, String phone, String date, String address, String city, String zip, String barcode)
-    {
+    // FIXME Needs to be updated to match all columns of the database
+    public boolean insertData(String name, String email, String phone, String date, String address, String city, String zip, String barcode) {
+
         //All info for a single user will be placed into the same ContentValue variable (Key & Value map-like variable)
         ContentValues cValues = new ContentValues();
 
         //loading user information into the content value
-        cValues.put(NAME, name);
-        cValues.put(guestHelper.EMAIL, email);
-        cValues.put(guestHelper.PHONE, phone);
-        cValues.put(guestHelper.DATE, date);
-        cValues.put(guestHelper.ADDRESS, address);
-        cValues.put(guestHelper.CITY, city);
-        cValues.put(guestHelper.ZIP, zip);
-        cValues.put(BARCODE, barcode);
+        cValues.put(GuestRegistryHelper.NAME, name);
+        cValues.put(GuestRegistryHelper.EMAIL, email);
+        cValues.put(GuestRegistryHelper.PHONE, phone);
+        cValues.put(GuestRegistryHelper.DATE, date);
+        cValues.put(GuestRegistryHelper.ADDRESS, address);
+        cValues.put(GuestRegistryHelper.CITY, city);
+        cValues.put(GuestRegistryHelper.ZIP, zip);
+        cValues.put(GuestRegistryHelper.BARCODE, barcode);
         // leaving out for now: cValues.put(STATE, state);
 
-        //placing the information into the database
-        long res = database.insert(TABLE_NAME, null, cValues);
+        // Insert method will return a negative 1 if there was an error with the insert
+        return database.insert(TABLE_NAME, null, cValues) != -1;
 
-        //insert method will return a negative 1 if there was an error with the insert
-        if (res == -1) {
-            return false;
-        }
-
-        //returning true if insertion was successful
-        return true;
     }
 
     /**
      * isRegistered - Takes 1 parameter
+     * Determines whether or not a guest is currently registered with the provided barcode
      * @param barcode - The barcode to search the database for
      * @return Returns the name of the first guest who is registered in the database with the barcode
      * or null if there is no guest registered with that barcode
      */
-    public String isRegistered(String barcode) {
+    public String isRegistered(@NonNull String barcode) {
 
         // Getting a readable SQLLite database
         open();
@@ -108,6 +113,7 @@ public class GuestRegistrySource
 
         // Determine if there is at least 1 guest registered with the barcode and get the name of the first person registered with it
         if (cursor.moveToFirst())
+
             name = cursor.getString(cursor.getColumnIndex(NAME));
 
         // Close the cursor and readableDatabase to release all of their resources
@@ -119,7 +125,5 @@ public class GuestRegistrySource
 
     }
 
-    // More methods...
-
-} //End of GuestRegistrySource class
+}
 

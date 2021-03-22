@@ -21,47 +21,59 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import edu.ncc.nest.nestapp.Choose;
 import edu.ncc.nest.nestapp.R;
 
 /**
- * GuestDatabaseRegistrationActivity - Underlying Activity for fragments related to registering a
- * guest in the local database
+ * GuestDatabaseRegistrationActivity: This is the underlying activity for the fragments in
+ * nav_graph_database_registration.xml (GuestDatabaseRegistration feature)
  */
 public class GuestDatabaseRegistrationActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_guest_database_registration);
+
         setSupportActionBar(findViewById(R.id.database_registration_toolbar));
+
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
 
         return true;
+
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.home_btn) {
+
+        if (item.getItemId() == R.id.home_btn)
+
             home();
-        }
 
         return super.onOptionsItemSelected(item);
+
     }
 
     /**
-     * home method - goes to the home screen
+     * home --
+     * Starts the {@link Choose} Activity
      */
     public void home() {
+
         Intent intent = new Intent(this, Choose.class);
+
         startActivity(intent);
+
     }
 
     @Override
@@ -101,10 +113,7 @@ public class GuestDatabaseRegistrationActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState)
-    {
-        super.onSaveInstanceState(outState);
-    }
+    public void onSaveInstanceState(@NonNull Bundle outState) { super.onSaveInstanceState(outState); }
 
     @Override
     public void onRestoreInstanceState(Bundle inState)
