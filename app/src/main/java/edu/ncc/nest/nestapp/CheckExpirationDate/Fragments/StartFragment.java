@@ -38,12 +38,12 @@ import edu.ncc.nest.nestapp.R;
 public class StartFragment extends Fragment {
 
     @Override
-    public View onCreateView(
-            LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_check_expiration_date_start, container, false);
+        return inflater.inflate(R.layout.fragment_check_expiration_date_start,
+                container, false);
 
     }
 
@@ -51,27 +51,23 @@ public class StartFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         // Set the OnClickListener for button_scan
-        view.findViewById(R.id.button_scan).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        view.findViewById(R.id.button_scan).setOnClickListener(view1 -> {
 
-                // Navigate to ScannerFragment.java
-                NavHostFragment.findNavController(StartFragment.this)
-                        .navigate(R.id.CED_ScannerFragment);
+            // Navigate to ScannerFragment
+            NavHostFragment.findNavController(StartFragment.this)
+                    .navigate(R.id.CED_ScannerFragment);
 
-            }
         });
 
         // Set the OnClickListener for button_enter
-        view.findViewById(R.id.button_enter).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        view.findViewById(R.id.button_enter).setOnClickListener(view12 -> {
 
-                // Navigate to EnterUpcFragment.java
-                NavHostFragment.findNavController(StartFragment.this)
-                        .navigate(R.id.CED_EnterUpcFragment);
+            // Navigate to EnterUpcFragment
+            NavHostFragment.findNavController(StartFragment.this)
+                    .navigate(R.id.CED_EnterUpcFragment);
 
-            }
         });
+
     }
+
 }

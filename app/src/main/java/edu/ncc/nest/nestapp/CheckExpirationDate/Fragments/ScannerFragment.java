@@ -95,8 +95,12 @@ public class ScannerFragment extends AbstractScannerFragment {
             // Put the item in a bundle and pass it to ConfirmItemFragment
             bundle.putSerializable("foodItem", result);
 
+            // Make sure there is no result currently set for this request key
+            getParentFragmentManager().clearFragmentResult("FOOD ITEM");
+
             getParentFragmentManager().setFragmentResult("FOOD ITEM", bundle);
 
+            // Navigate to ConfirmItemFragment
             NavHostFragment.findNavController(ScannerFragment.this).navigate((R.id.CED_ConfirmItemFragment));
 
         } else {
@@ -106,8 +110,12 @@ public class ScannerFragment extends AbstractScannerFragment {
             // Put UPC into a bundle and pass it to SelectItemFragment (may not be necessary)
             bundle.putString("barcode", barcode);
 
+            // Make sure there is no result currently set for this request key
+            getParentFragmentManager().clearFragmentResult("BARCODE");
+
             getParentFragmentManager().setFragmentResult("BARCODE", bundle);
 
+            // Navigate to SelectItemFragment
             NavHostFragment.findNavController(ScannerFragment.this).navigate((R.id.CED_SelectItemFragment));
 
         }

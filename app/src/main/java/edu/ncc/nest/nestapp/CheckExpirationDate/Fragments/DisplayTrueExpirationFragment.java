@@ -34,149 +34,160 @@ import edu.ncc.nest.nestapp.NestUPC;
 import edu.ncc.nest.nestapp.R;
 import edu.ncc.nest.nestapp.ShelfLife;
 
+/**
+ * DisplayTrueExpirationFragment:  Calculates the true expiration date based upon the printed
+ * expiration date. Then displays the true expiration date for the item along with a synopsis of
+ * the item including the UPC, category, item, and printed expiration date.
+ */
 public class DisplayTrueExpirationFragment extends Fragment {
+
+    private static final String TAG = DisplayTrueExpirationFragment.class.getSimpleName();
+
     private NestDBDataSource dataSource;
-    private String TAG = "TESTING";
-    private NestUPC product = null;
+    private NestUPC foodItem = null;
+    private ShelfLife shortestShelfLife;
     private String exp;
-    private ShelfLife shelfLife;
 
     @Override
-    public View onCreateView(
-            LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState
-    ) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_check_expiration_date_display_true_expiration, container, false);
+        return inflater.inflate(R.layout.fragment_check_expiration_date_display_true_expiration,
+                container, false);
+
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
-        // Receiving the bundle
+        // Set the FragmentResultListener
         getParentFragmentManager().setFragmentResultListener("FOOD ITEM", this, (requestKey, data) -> {
 
-            // Parsing the product from the bundle
-            product = (NestUPC) data.getSerializable("foodItem");
+            // Get the foodItem from the bundle
+            foodItem = (NestUPC) data.getSerializable("foodItem");
 
-            // Parsing expiration date from the bundle
-            exp = data.getString("DATE");
+            // Get the printed expiration date
+            exp = data.getString("PRINTED EXPIRATION DATE");
 
-            //TESTING ********************* Delete this after productId issue is fixed.
-            product = new NestUPC("123456789","Tuscan","", 644, "Milk","",2,"Dairy");
+            // Used for testing purposes. TODO Delete this line after productId issue is fixed, issue #188.
+            foodItem = new NestUPC("123456789","Tuscan","", 644, "Milk","",2,"Dairy");
 
-            // product exists
-            if (product != null) {
+            if (foodItem != null) {
 
                 // Display item name , upc , category name on fragment_check_expiration_date_display_true_expiration.xml
-                ((TextView) view.findViewById(R.id.item_display)).setText(product.getProductName());
-                ((TextView) view.findViewById(R.id.upc_display)).setText(product.getUpc());
-                ((TextView) view.findViewById(R.id.category_display)).setText(product.getCatDesc());
+                ((TextView) view.findViewById(R.id.item_display)).setText(foodItem.getProductName());
+                ((TextView) view.findViewById(R.id.upc_display)).setText(foodItem.getUpc());
+                ((TextView) view.findViewById(R.id.category_display)).setText(foodItem.getCatDesc());
 
                 // NOTE: The following code will throw an error when using the product from result,
                 // due to the productId not being properly set in SelectItemFragment.java.
-                // The productId is being set to -1. See SelectItemFragment.java, line 155.
+                // The productId is being set to -1. See SelectItemFragment.java, and issue #188.
 
-                // Instantiating Database
-                dataSource = new NestDBDataSource(this.getContext());
+                // Instantiating database
+                dataSource = new NestDBDataSource(getContext());
 
-                // getting the product shelf life from the database
-                List<ShelfLife> shelfLives = dataSource.getShelfLivesForProduct(product.getProductId());
+                // Getting the product's shelf life from the database
+                List<ShelfLife> shelfLives = dataSource.getShelfLivesForProduct(foodItem.getProductId());
 
-                Log.d(TAG, "DisplayTrueExpirationFragment: onViewCreated: " + shelfLives.toString());    //********************   Testing
+                Log.d(TAG, "shelfLives: " + shelfLives.toString());
 
-                // get the shortest shelf life from the list of shelf lives
-                shelfLife = getShortestShelfLife(shelfLives);
+                // Get the shortest shelf life from the list of shelf lives
+                shortestShelfLife = getShortestShelfLife(shelfLives);
 
-            }
-            // product doesn't exist
-            else {
-                Log.d(TAG, "DisplayTrueExpirationFragment: onViewCreated: product doesn't exist");
-            }
+            } else
 
+                Log.e(TAG, "'foodItem' is null.");
+
+            // Clear the FragmentResultListener so we can use this requestKey again.
             getParentFragmentManager().clearFragmentResultListener("FOOD ITEM");
 
         });
 
+        // Set the OnClickListener for button_display_date
         view.findViewById(R.id.button_display_date).setOnClickListener(view1 -> {
 
-            // product exist
-            if (product != null)
-                // Display True Expiration Date
-                ((TextView) view.findViewById(R.id.exp_date_display)).setText(trueExpDate(shelfLife, exp));
+            if (shortestShelfLife != null && exp != null)
+
+                // Display the food item's true expiration date to the user
+                ((TextView) view.findViewById(R.id.exp_date_display)).setText(trueExpDate(shortestShelfLife, exp));
 
         });
-
 
     }
 
 
     /**
-     * getShortestShelfLife method -
-     * This method takes a List of shelf lives as a parameter and find the shortest shelflife which then gets returned
+     * getShortestShelfLife --
+     * Finds and returns the shortest shelf life from a List of {@link ShelfLife} objects.
      *
-     * @param shelfLives List<ShelfLife></ShelfLife>
-     * @return shelflife ShelfLife
+     * @param shelfLives A list of {@link ShelfLife} objects.
+     * @return The shortest shelf life from the list.
      */
     public ShelfLife getShortestShelfLife(List<ShelfLife> shelfLives) {
 
-
         int index = -1;
+
         String metric = "";
 
         ShelfLife shelfLife;
 
-
-        // loop through the list of shelf lives
+        // loop through the list of shelf lives and compare its metric
         for (int i = 0; i < shelfLives.size(); i++) {
 
             shelfLife = shelfLives.get(i);
 
             switch (shelfLife.getMetric()) {
+
                 case "Years":
-                    if (metric == "") {
+                    if (metric.isEmpty()) {
                         metric = "Years";
                         index = i;
                     }
                     break;
+
                 case "Months":
-                    if (metric == "" || metric == "Years") {
+                    if (metric.isEmpty() || metric.equals("Years")) {
                         metric = "Months";
                         index = i;
                     }
                     break;
+
                 case "Weeks":
-                    if (metric == "" || metric == "Years" || metric == "Months") {
+                    if (metric.isEmpty() || metric.equals("Years") || metric.equals("Months")) {
                         metric = "Weeks";
                         index = i;
                     }
                     break;
+
                 case "Days":
-                    if (metric == "" || metric == "Years" || metric == "Months" || metric == "Weeks") {
+                    if (metric.isEmpty() || metric.equals("Years") || metric.equals("Months") || metric.equals("Weeks")) {
                         metric = "Days";
                         index = i;
                     }
                     break;
+
                 default:
-                    Log.d(TAG, "getShortedShelfLife: Error invalid option");
+                    Log.d(TAG, "getShortestShelfLife: Error invalid option");
                     break;
+
             }
 
         }
 
         return shelfLives.get(index);
+
     }
 
 
     /**
      * trueExpDate --
-     * calculates the true expiration date of the item that has been scanned.
-     * @param shelfLife - ShelfLife
-     * @param expDate - String
+     * Calculates the true expiration date of an item based on it's shelf life and printed expiration
+     * date.
+     * @param shelfLife The shelf life of the item.
+     * @param printedExpDate The printed expiration date of the item.
      */
-    public String trueExpDate(ShelfLife shelfLife, String expDate) {
+    public String trueExpDate(ShelfLife shelfLife, String printedExpDate) {
 
         // metric dop_pantryLife
         String metric = shelfLife.getMetric();
@@ -187,15 +198,15 @@ public class DisplayTrueExpirationFragment extends Fragment {
         int max = shelfLife.getMax();
 
         // separating month, day, and year
-        int slash = expDate.indexOf("/");
+        int slash = printedExpDate.indexOf("/");
 
-        int secondSlash = expDate.indexOf("/", slash + 1);
+        int secondSlash = printedExpDate.indexOf("/", slash + 1);
 
-        int month = Integer.parseInt(expDate.substring(0, slash));
+        int month = Integer.parseInt(printedExpDate.substring(0, slash));
 
-        int day = Integer.parseInt(expDate.substring(slash + 1, secondSlash));
+        int day = Integer.parseInt(printedExpDate.substring(slash + 1, secondSlash));
 
-        int year = Integer.parseInt(expDate.substring(secondSlash + 1));
+        int year = Integer.parseInt(printedExpDate.substring(secondSlash + 1));
 
         int finalExMonth = 0;
         int finalExDate = 0;
@@ -282,7 +293,7 @@ public class DisplayTrueExpirationFragment extends Fragment {
 
 
         return finalExMonth + "/" + finalExDate + "/" + finalExYear;
-    }
 
+    }
 
 }
