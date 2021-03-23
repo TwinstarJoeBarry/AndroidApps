@@ -18,8 +18,10 @@ import static edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses.Gue
  *
  */
 public class GuestRegistrySource {
-    private SQLiteDatabase database;
-    private GuestRegistryHelper guestHelper;
+    
+    private final GuestRegistryHelper registryHelper;
+
+    private final SQLiteDatabase database;
 
     /**
      * Default Constructor --
@@ -27,28 +29,22 @@ public class GuestRegistrySource {
      */
     public GuestRegistrySource(Context context) {
 
-        guestHelper = new GuestRegistryHelper( context );
+        registryHelper = new GuestRegistryHelper(context);
+
+        // Open a database that will be used for reading and writing
+        database = registryHelper.getWritableDatabase();
 
     }
 
     /**
-     * open --
-     * Opens a writeable database
-     * @throws SQLException
-     */
-    public void open( ) throws SQLException {
-
-        database = guestHelper.getWritableDatabase( );
-
-    }
-
-    /**
-     * close method --
-     * Closes the database
+     * close --
+     * Closes the database.
      */
     public void close( ) {
 
-        guestHelper.close( );
+        database.close();
+
+        registryHelper.close();
 
     }
 
@@ -100,28 +96,40 @@ public class GuestRegistrySource {
      */
     public String isRegistered(@NonNull String barcode) {
 
-        // Getting a readable SQLLite database
-        open();
+        if (database.isOpen()) {
 
-        // Get all the guest records from the table (TABLE_NAME) who's field name (BARCODE) matches the field value (?).
-        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE " + BARCODE + " = ?";
+            // Get all the guest records from the table (TABLE_NAME) who's field name (BARCODE) matches the field value (?).
+            String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE " + BARCODE + " = ?";
 
-        // Run the SQL query from above and replace the '?' character with the respective argument stored in the String[] array
-        Cursor cursor = database.rawQuery(sqlQuery, new String[] {barcode});
+            // Run the SQL query from above and replace the '?' character with the respective argument stored in the String[] array
+            Cursor cursor = database.rawQuery(sqlQuery, new String[]{barcode});
 
-        String name = null;
+            String name = null;
 
-        // Determine if there is at least 1 guest registered with the barcode and get the name of the first person registered with it
-        if (cursor.moveToFirst())
+            // Determine if there is at least 1 guest registered with the barcode and get the name of the first person registered with it
+            if (cursor.moveToFirst())
 
-            name = cursor.getString(cursor.getColumnIndex(NAME));
+                name = cursor.getString(cursor.getColumnIndex(NAME));
 
-        // Close the cursor and readableDatabase to release all of their resources
-        cursor.close();
+            // Close the cursor to release all of its resources
+            cursor.close();
 
+            return name;
+
+        } else
+
+            throw new RuntimeException("Cannot query a closed database.");
+
+    }
+
+
+    @Override // Called by the garbage collector
+    protected void finalize() throws Throwable {
+
+        // Make sure we close the writable database before this object is finalized
         database.close();
 
-        return name;
+        super.finalize();
 
     }
 
