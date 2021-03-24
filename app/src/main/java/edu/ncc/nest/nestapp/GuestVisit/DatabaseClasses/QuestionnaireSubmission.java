@@ -22,9 +22,7 @@ import androidx.annotation.NonNull;
 import java.util.ArrayList;
 
 /**
- * QuestionnaireSubmission Class
- *
- * Represents a submission in the questionnaire database.
+ * QuestionnaireSubmission: Represents a submission in the questionnaire database.
  */
 public class QuestionnaireSubmission {
 

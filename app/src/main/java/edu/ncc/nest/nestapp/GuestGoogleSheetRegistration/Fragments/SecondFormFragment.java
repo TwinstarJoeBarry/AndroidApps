@@ -30,12 +30,14 @@ import androidx.fragment.app.Fragment;
 
 import edu.ncc.nest.nestapp.R;
 
-
+/**
+ * SecondFormFragment: Represents a form that a guest can fill in with their household information.
+ */
 public class SecondFormFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
     public static final String TAG = SecondFormFragment.class.getSimpleName();
 
-    //variables to store user information
+    // Variables to store user information
     private EditText people, income, snap, otherPrograms, employmentStatus, healthStatus,
             housingStatus, childcareStatus, childrenUnderOne, childrenBetweenOneAndFive,
             childrenBetweenSixAndTwelve, childrenBetweenThirteenAndEighteen, dietary,
@@ -55,7 +57,7 @@ public class SecondFormFragment extends Fragment implements View.OnClickListener
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        //getting a handle on info from the UI
+        // Getting a handle on info from the UI
         people = (EditText) view.findViewById(R.id.editText);
         income = (EditText) view.findViewById(R.id.editText2);
         snap = (EditText) view.findViewById(R.id.editText3);
@@ -119,4 +121,5 @@ public class SecondFormFragment extends Fragment implements View.OnClickListener
     public void onNothingSelected(AdapterView<?> adapterView) {
 
     }
+
 }

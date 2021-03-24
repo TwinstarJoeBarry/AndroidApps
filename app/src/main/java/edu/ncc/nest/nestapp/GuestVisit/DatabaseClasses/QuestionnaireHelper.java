@@ -25,10 +25,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 /**
- * QuestionnaireHelper Class
- *
- * The helper file of the three database files. This file creates the table itself for the database
- * to have items stored in.
+ * QuestionnaireHelper: The helper file of the three database files. This file creates the table
+ * itself for the database to have items stored in.
  */
 public class QuestionnaireHelper extends SQLiteOpenHelper {
 

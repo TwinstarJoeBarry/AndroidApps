@@ -30,7 +30,7 @@ import edu.ncc.nest.nestapp.Choose;
 import edu.ncc.nest.nestapp.R;
 
 /**
- * GuestVisitActivity - Activity to use for navigation between fragments when a guest checks-in
+ * GuestVisitActivity: Underlying activity for fragments of the GuestVisit feature.
  */
 public class GuestVisitActivity extends AppCompatActivity {
 

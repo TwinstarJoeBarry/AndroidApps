@@ -31,7 +31,8 @@ import edu.ncc.nest.nestapp.R;
 
 /**
  * SummaryFragment: This fragment represent a summary of the registration process. Displays messages
- * to the guest depending on whether or not the registration process was successful or not.
+ * to the guest depending on whether or not the registration process was successful or not. Should
+ * also generate a barcode for the guest if needed.
  *
  * TODO: ///////////////////////////////////////////////////////////////////////////////////////////
  *  - This fragment should retrieve all the guest's information passed in a FragmentResult from

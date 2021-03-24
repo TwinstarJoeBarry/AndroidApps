@@ -30,8 +30,8 @@ import edu.ncc.nest.nestapp.Choose;
 import edu.ncc.nest.nestapp.R;
 
 /**
- * GuestDatabaseRegistrationActivity: This is the underlying activity for the fragments in
- * nav_graph_database_registration.xml (GuestDatabaseRegistration feature)
+ * GuestDatabaseRegistrationActivity: This is the underlying activity for the fragments of the
+ * GuestDatabaseRegistration feature.
  */
 public class GuestDatabaseRegistrationActivity extends AppCompatActivity {
 

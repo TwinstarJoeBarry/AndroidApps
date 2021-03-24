@@ -26,8 +26,8 @@ import edu.ncc.nest.nestapp.Choose;
 import edu.ncc.nest.nestapp.R;
 
 /**
- * GuestGoogleSheetRegistrationActivity: Underlying Activity for fragments related to registering a
- * guest with google sheets.
+ * GuestGoogleSheetRegistrationActivity: Underlying Activity for fragments of
+ * GuestGoogleSheetRegistration feature.
  */
 public class GuestGoogleSheetRegistrationActivity extends AppCompatActivity {
 

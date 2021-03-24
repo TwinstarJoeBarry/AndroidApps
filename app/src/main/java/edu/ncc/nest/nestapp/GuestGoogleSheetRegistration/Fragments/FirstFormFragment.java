@@ -30,25 +30,24 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses.GuestRegistryHelper;
+import edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses.GuestRegistrySource;
 import edu.ncc.nest.nestapp.GuestDatabaseRegistration.Fragments.SecondFormFragment;
 import edu.ncc.nest.nestapp.R;
 
 /**
  * FirstFormFragment: Represents a form that a guest can fill in with their personal information
  * such as, name, phone-number, email-address, ncc-id, postal-address, city, zip-code, birth-date,
- * and date-of-registration. The fragment should then bundle all of the user's inputs and sends them
- * to the next fragment
- * {@link edu.ncc.nest.nestapp.GuestGoogleSheetRegistration.Fragments.SecondFormFragment}.
+ * and date-of-registration.
  */
 public class FirstFormFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
     public static final String TAG = FirstFormFragment.class.getSimpleName();
 
-    //database where we will store user information
-    private GuestRegistryHelper db;
+    // Database where we will store user information
+    private GuestRegistrySource db;
 
-    //variables to store user information
-    EditText lastName, firstName, ncc_affil, birth_date, gender, phone, ncc_id, address, city, state, zip;
+    // Variables to store user information
+    private EditText lastName, firstName, ncc_affil, birth_date, gender, phone, ncc_id, address, city, state, zip;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -66,28 +65,28 @@ public class FirstFormFragment extends Fragment implements View.OnClickListener,
 
         Log.d(TAG,"In FirstFormFragment onViewCreated()");
 
-        //creating the database and passing the correct context as the argument
-        //db = new GuestRegistryHelper(this);
+        // Creating the database and passing the correct context as the argument
+        //db = new GuestRegistrySource(this);
 
-        //getting a handle on info from the UI
-        lastName = (EditText)(getView().findViewById(R.id.editText));
-        firstName = (EditText)(getView().findViewById(R.id.editText2));
-        ncc_affil = (EditText)(getView().findViewById(R.id.editText3));
-        birth_date = (EditText)(getView().findViewById(R.id.editText4));
-        gender = (EditText)(getView().findViewById(R.id.editText5));
-        phone = (EditText)(getView().findViewById(R.id.editText6));
-        ncc_id = (EditText)(getView().findViewById(R.id.editText7));
-        address = (EditText)(getView().findViewById(R.id.editText8));
-        city = (EditText)(getView().findViewById(R.id.editText9));
-        state = (EditText)(getView().findViewById(R.id.editText10));
-        zip = (EditText)(getView().findViewById(R.id.editText11));
+        // Getting a handle on info from the UI
+        lastName = (EditText)(view.findViewById(R.id.editText));
+        firstName = (EditText)(view.findViewById(R.id.editText2));
+        ncc_affil = (EditText)(view.findViewById(R.id.editText3));
+        birth_date = (EditText)(view.findViewById(R.id.editText4));
+        gender = (EditText)(view.findViewById(R.id.editText5));
+        phone = (EditText)(view.findViewById(R.id.editText6));
+        ncc_id = (EditText)(view.findViewById(R.id.editText7));
+        address = (EditText)(view.findViewById(R.id.editText8));
+        city = (EditText)(view.findViewById(R.id.editText9));
+        state = (EditText)(view.findViewById(R.id.editText10));
+        zip = (EditText)(view.findViewById(R.id.editText11));
 
-        view.findViewById(R.id.next_button).setOnClickListener(view1 -> {
+        view.findViewById(R.id.next_button).setOnClickListener(clickedView -> {
 
-            //variable used for checks
+            // Variable used for checks
             //boolean ins = false;
 
-            //adding the values into the database if submit button is pressed
+            // Adding the values into the database if submit button is pressed
             /*
             if (view.getId() == R.id.done_button) {
 
@@ -98,7 +97,7 @@ public class FirstFormFragment extends Fragment implements View.OnClickListener,
             }
              */
 
-            //notifying the user if the add was successful
+            // Notifying the user if the add was successful
             /*
             if (ins) {
                 Toast.makeText(getApplicationContext(), "User Added", Toast.LENGTH_LONG).show();
