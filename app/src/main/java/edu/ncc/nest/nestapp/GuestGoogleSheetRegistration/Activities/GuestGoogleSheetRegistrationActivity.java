@@ -26,8 +26,8 @@ import edu.ncc.nest.nestapp.Choose;
 import edu.ncc.nest.nestapp.R;
 
 /**
- * GuestGoogleSheetRegistrationActivity - Underlying Activity for fragments related to registering a
- * guest with google sheets
+ * GuestGoogleSheetRegistrationActivity: Underlying Activity for fragments related to registering a
+ * guest with google sheets.
  */
 public class GuestGoogleSheetRegistrationActivity extends AppCompatActivity {
 
@@ -46,7 +46,8 @@ public class GuestGoogleSheetRegistrationActivity extends AppCompatActivity {
     }
 
     /**
-     * home method - goes to the home screen
+     * home --
+     * Navigates to the home page activity ({@link Choose}).
      */
     public void home() {
 

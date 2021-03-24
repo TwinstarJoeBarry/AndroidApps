@@ -1,17 +1,5 @@
 package edu.ncc.nest.nestapp.GuestGoogleSheetRegistration.Fragments;
 
-import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.EditText;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
-import edu.ncc.nest.nestapp.R;
-
 /**
  *
  * Copyright (C) 2020 The LibreFoodPantry Developers.
@@ -29,6 +17,19 @@ import edu.ncc.nest.nestapp.R;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+
+import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.EditText;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+
+import edu.ncc.nest.nestapp.R;
+
 
 public class SecondFormFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 

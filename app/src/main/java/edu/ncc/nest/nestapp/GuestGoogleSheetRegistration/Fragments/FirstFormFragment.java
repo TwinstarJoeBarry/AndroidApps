@@ -1,19 +1,5 @@
 package edu.ncc.nest.nestapp.GuestGoogleSheetRegistration.Fragments;
 
-import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.EditText;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
-
-import edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses.GuestRegistryHelper;
-import edu.ncc.nest.nestapp.R;
-
 /**
  *
  * Copyright (C) 2020 The LibreFoodPantry Developers.
@@ -32,6 +18,28 @@ import edu.ncc.nest.nestapp.R;
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.EditText;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
+
+import edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses.GuestRegistryHelper;
+import edu.ncc.nest.nestapp.GuestDatabaseRegistration.Fragments.SecondFormFragment;
+import edu.ncc.nest.nestapp.R;
+
+/**
+ * FirstFormFragment: Represents a form that a guest can fill in with their personal information
+ * such as, name, phone-number, email-address, ncc-id, postal-address, city, zip-code, birth-date,
+ * and date-of-registration. The fragment should then bundle all of the user's inputs and sends them
+ * to the next fragment
+ * {@link edu.ncc.nest.nestapp.GuestGoogleSheetRegistration.Fragments.SecondFormFragment}.
+ */
 public class FirstFormFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
     public static final String TAG = FirstFormFragment.class.getSimpleName();

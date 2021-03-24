@@ -1,15 +1,5 @@
 package edu.ncc.nest.nestapp.GuestDatabaseRegistration.Fragments;
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
-import edu.ncc.nest.nestapp.R;
-
 /**
  *
  * Copyright (C) 2020 The LibreFoodPantry Developers.
@@ -27,6 +17,16 @@ import edu.ncc.nest.nestapp.R;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+
+import edu.ncc.nest.nestapp.R;
 
 /**
  * SecondFormFragment: Represents a form that a guest can fill in with their household information.

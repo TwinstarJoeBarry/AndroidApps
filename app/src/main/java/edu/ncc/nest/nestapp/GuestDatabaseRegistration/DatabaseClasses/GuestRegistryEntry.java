@@ -1,10 +1,8 @@
 package edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses;
 
-import androidx.annotation.NonNull;
-
 /**
  *
- * Copyright (C) 2019 The LibreFoodPantry Developers.
+ * Copyright (C) 2020 The LibreFoodPantry Developers.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,6 +17,8 @@ import androidx.annotation.NonNull;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+
+import androidx.annotation.NonNull;
 
 /**
  * GuestRegistryEntry: Represents a entry into the GuestRegistry database
