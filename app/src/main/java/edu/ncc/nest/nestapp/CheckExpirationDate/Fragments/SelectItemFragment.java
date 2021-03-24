@@ -1,5 +1,6 @@
 package edu.ncc.nest.nestapp.CheckExpirationDate.Fragments;
-/*
+
+/**
  *
  * Copyright (C) 2020 The LibreFoodPantry Developers.
  *
