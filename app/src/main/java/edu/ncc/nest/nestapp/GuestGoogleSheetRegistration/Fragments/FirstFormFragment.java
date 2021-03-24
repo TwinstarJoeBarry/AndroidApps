@@ -33,30 +33,29 @@ import edu.ncc.nest.nestapp.R;
  */
 
 public class FirstFormFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemSelectedListener {
-    protected static final String TAG = "TESTING";
-    @Override
-    public void onStart() {
-        super.onStart();
-        Log.d(TAG,"In FirstFormFragment onStart()");
-    }
+
+    public static final String TAG = FirstFormFragment.class.getSimpleName();
+
     //database where we will store user information
-    GuestRegistryHelper db;
+    private GuestRegistryHelper db;
 
     //variables to store user information
     EditText lastName, firstName, ncc_affil, birth_date, gender, phone, ncc_id, address, city, state, zip;
 
     @Override
-    public View onCreateView(
-            LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState
-    ) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
         Log.d(TAG,"In FirstFormFragment onCreateView()");
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_guest_google_sheet_registration_first_form, container, false);
+
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         Log.d(TAG,"In FirstFormFragment onViewCreated()");
 
         //creating the database and passing the correct context as the argument
@@ -75,51 +74,49 @@ public class FirstFormFragment extends Fragment implements View.OnClickListener,
         state = (EditText)(getView().findViewById(R.id.editText10));
         zip = (EditText)(getView().findViewById(R.id.editText11));
 
-        view.findViewById(R.id.next_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //variable used for checks
-                //boolean ins = false;
+        view.findViewById(R.id.next_button).setOnClickListener(view1 -> {
 
-                //adding the values into the database if submit button is pressed
-                /*
-                if (view.getId() == R.id.done_button) {
+            //variable used for checks
+            //boolean ins = false;
 
-                    // NOTE: The parameter 'barcode' was recently added to this method
-                    // TODO: Update parameter 'barcode' to the barcode representing this user
-                    //ins = db.insertData(name.getText().toString(), email.getText().toString(), phone.getText().toString(), date.getText().toString(), address.getText().toString(), city.getText().toString(), zip.getText().toString(), null);
+            //adding the values into the database if submit button is pressed
+            /*
+            if (view.getId() == R.id.done_button) {
 
-                }
-                 */
+                // NOTE: The parameter 'barcode' was recently added to this method
+                // TODO: Update parameter 'barcode' to the barcode representing this user
+                //ins = db.insertData(name.getText().toString(), email.getText().toString(), phone.getText().toString(), date.getText().toString(), address.getText().toString(), city.getText().toString(), zip.getText().toString(), null);
 
-                //notifying the user if the add was successful
-                /*
-                if (ins) {
-                    Toast.makeText(getApplicationContext(), "User Added", Toast.LENGTH_LONG).show();
-                }
-                */
-
-                NavHostFragment.findNavController(FirstFormFragment.this)
-                        .navigate(R.id.action_GSR_FirstFormFragment_to_SecondFormFragment);
             }
+             */
+
+            //notifying the user if the add was successful
+            /*
+            if (ins) {
+                Toast.makeText(getApplicationContext(), "User Added", Toast.LENGTH_LONG).show();
+            }
+            */
+
+            // Navigate to SecondFormFragment
+            NavHostFragment.findNavController(FirstFormFragment.this)
+                    .navigate(R.id.action_GSR_FirstFormFragment_to_SecondFormFragment);
+
         });
-    }
 
-    /**
-     * home method - goes to the home screen
-     */
-    /*
-    public void home() {
-        Intent intent = new Intent(this, Choose.class);
-        startActivity(intent);
     }
-     */
-
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
-        // save state
+    public void onStart() {
+        super.onStart();
+
+        Log.d(TAG,"In FirstFormFragment onStart()");
+
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
+
     }
 
     @Override
@@ -136,4 +133,5 @@ public class FirstFormFragment extends Fragment implements View.OnClickListener,
     public void onNothingSelected(AdapterView<?> adapterView) {
 
     }
+
 }

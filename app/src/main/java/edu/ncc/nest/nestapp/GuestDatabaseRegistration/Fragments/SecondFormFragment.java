@@ -10,10 +10,9 @@ import androidx.fragment.app.Fragment;
 
 import edu.ncc.nest.nestapp.R;
 
-
 /**
  *
- * Copyright (C) 2019 The LibreFoodPantry Developers.
+ * Copyright (C) 2020 The LibreFoodPantry Developers.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,14 +27,20 @@ import edu.ncc.nest.nestapp.R;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+
+/**
+ * SecondFormFragment: Represents a form that a guest can fill in with their household information.
+ * The fragment then bundles all of the user's inputs (including info passed from
+ * {@link FirstFormFragment} and sends them to the next fragment {@link SummaryFragment}.
+ */
 public class SecondFormFragment extends Fragment {
 
-    public View onCreateView(
-            LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState
-    ) {
-        // Inflate the layout for this fragment - This is where the navigation begins
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_guest_database_registration_second_form, container, false);
+
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
@@ -43,4 +48,4 @@ public class SecondFormFragment extends Fragment {
 
     }
 
-    }
+}

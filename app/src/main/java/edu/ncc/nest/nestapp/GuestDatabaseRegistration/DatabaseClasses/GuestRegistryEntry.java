@@ -37,8 +37,10 @@ public class GuestRegistryEntry {
     private String additionalInfo;
     private String nameOfVolunteer;
     private String nccID;
+    private String barcode;
 
     public GuestRegistryEntry() {
+
         this.name = null;
         this.email = null;
         this.phone = null;
@@ -50,11 +52,13 @@ public class GuestRegistryEntry {
         this.additionalInfo = null;
         this.nameOfVolunteer = null;
         this.nccID = null;
+        this.barcode = null;
+
     }
 
     // parameterized constructor
     public GuestRegistryEntry(String name, String email, String phone, String date, String address, String city, String zipcode,
-                              String state, String additionalInfo, String nameOfVolunteer, String nccID) {
+                              String state, String additionalInfo, String nameOfVolunteer, String nccID, String barcode) {
 
         this.name = name;
         this.email = email;
@@ -67,6 +71,7 @@ public class GuestRegistryEntry {
         this.additionalInfo = additionalInfo;
         this.nameOfVolunteer = nameOfVolunteer;
         this.nccID = nccID;
+        this.barcode = barcode;
 
     }
 
@@ -83,6 +88,7 @@ public class GuestRegistryEntry {
     public String getAdditionalInfo() { return additionalInfo; }
     public String getNameOfVolunteer() { return nameOfVolunteer; }
     public String getNccID() { return nccID; }
+    public String getBarcode() { return barcode; }
 
     // Setter Methods
     public void setId(long id) { this.id = id; }
@@ -97,13 +103,14 @@ public class GuestRegistryEntry {
     public void setAdditionalInfo(String additionalInfo) { this.additionalInfo = additionalInfo; }
     public void setNameOfVolunteer(String nameOfVolunteer) { this.nameOfVolunteer = nameOfVolunteer; }
     public void setNccID(String nccID) { this.nccID = nccID; }
+    public void setBarcode(String barcode) { this.barcode = barcode; }
 
     /**
      * equals method --
      * Returns whether or not the id variables of the two {@link GuestRegistryEntry} objects are
      * equal.
      * @param otherEntry The entry to compare to
-     * @return true if the entry has the same ID, false otherwise
+     * @return true if the entry has the same id, false otherwise
      */
     @Override
     public boolean equals(Object otherEntry) {
@@ -116,10 +123,11 @@ public class GuestRegistryEntry {
 
     }
 
-    // Will be used by the ArrayAdapter in the ListView
     @NonNull
     @Override
     public String toString() {
+
+        // Will be used by the ArrayAdapter in the ListView
 
         return id + ": " + name + " - " + email + " - " + phone + " - " + date + " - " + address +
                 " - " + city + " - " + zipcode + " - " + state + " - " + additionalInfo + " - "
