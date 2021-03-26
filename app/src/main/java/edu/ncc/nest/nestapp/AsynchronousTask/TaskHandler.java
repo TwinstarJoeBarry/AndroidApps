@@ -6,7 +6,9 @@ import android.os.Looper;
 import android.os.Process;
 import android.util.Log;
 
+import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
+import androidx.annotation.WorkerThread;
 
 import java.util.concurrent.CancellationException;
 import java.util.concurrent.Future;
@@ -23,9 +25,9 @@ public final class TaskHandler {
 
     public static final String LOG_TAG = TaskHandler.class.getSimpleName();
 
-    private final ThreadPoolExecutor threadPoolExecutor;
+    private static final Handler mainHandler = new Handler(Looper.getMainLooper());
 
-    private final Handler mainHandler;
+    private final ThreadPoolExecutor threadPoolExecutor;
 
     ///////////////////////////////////////// CONSTRUCTORS /////////////////////////////////////////
 
@@ -42,9 +44,7 @@ public final class TaskHandler {
 
             threadPoolExecutor.allowCoreThreadTimeOut(true);
 
-        threadPoolExecutor.prestartAllCoreThreads();
-
-        mainHandler = new Handler(Looper.getMainLooper());
+         threadPoolExecutor.prestartAllCoreThreads();
 
     }
 
@@ -116,14 +116,11 @@ public final class TaskHandler {
 
             throw new RuntimeException("This method must be called from the main Thread.");
 
-        // TODO Add a check here to make sure the task is running or has been run
-
-        // Make sure we create a FutureTask for the executable, in-case cancel is called in onPreExecute()
-        RunnableFuture<Result> futureTask = createFutureTask(executableTask);
+        // TODO Add a check here to make sure the task isn't running or has been run
 
         executableTask.onPreExecute();
 
-        threadPoolExecutor.execute(futureTask);
+        threadPoolExecutor.execute(createFutureTask(executableTask));
 
     }
 
@@ -134,12 +131,11 @@ public final class TaskHandler {
 
             throw new RuntimeException("This method must be called from the main Thread.");
 
-        // TODO Add a check here to make sure the task is running or has been run
-
-        // Make sure we create a FutureTask for the executable, in-case cancel is called in onPreExecute()
-        RunnableFuture<Result> futureTask = createFutureTask(executableTask);
+        // TODO Add a check here to make sure the task isn't running or has been run
 
         executableTask.onPreExecute();
+
+        RunnableFuture<Result> futureTask = createFutureTask(executableTask);
 
         threadPoolExecutor.execute(futureTask);
 
@@ -182,8 +178,6 @@ public final class TaskHandler {
 
         private final AtomicBoolean cancelled = new AtomicBoolean(false);
 
-        private final Handler mainHandler = new Handler(Looper.getMainLooper());
-
         private OnProgressListener<Progress> onProgressListener;
 
         private Future<Result> future;
@@ -214,7 +208,7 @@ public final class TaskHandler {
 
         }
 
-        /////////////////////////////////// TASK ACTION METHODS ////////////////////////////////////
+        /////////////////////////////////// TASK CLASS METHODS /////////////////////////////////////
 
         /**
          * postProgress --
@@ -263,16 +257,18 @@ public final class TaskHandler {
          * onPreExecute --
          * Always called before doInBackground() method is executed.
          */
+        @MainThread
         protected void onPreExecute() { }
 
         /**
          * doInBackground --
-         * The code/"task" to run on a background thread.
+         * The code/task to run on a background thread.
          * @return The "result" of the task that was executed.
          * @throws Exception If an error has occurred during execution of the task. If a Execution
          * is thrown, it triggers the onCancelled method to be executed on the Main UI thread, with
          * a "result" value of null.
          */
+        @WorkerThread
         protected abstract Result doInBackground() throws Exception;
 
         /**
@@ -280,6 +276,7 @@ public final class TaskHandler {
          * Called after doInBackground() method is executed, as long as the task has NOT failed.
          * @param result The "result" of the task that was executed.
          */
+        @MainThread
         protected void onPostExecute(Result result) { }
 
         /**
@@ -288,8 +285,10 @@ public final class TaskHandler {
          * update any UI about the progress of this task.
          * @param progress The "progress" this task has made. (Usually used as percentage)
          */
+        @MainThread
         protected void onProgressUpdate(@NonNull Progress progress) { }
 
+        @MainThread
         protected void onCancelled() {
 
             Log.w(ExecutableTask.LOG_TAG, "Task cancelled");
