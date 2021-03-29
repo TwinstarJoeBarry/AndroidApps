@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="32dp"
-        android:text="@string/nest_new_upc_adding_label"
+        android:text="@string/fragment_ced_select_item_title"
         android:textSize="22sp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -45,7 +45,7 @@
         android:layout_below="@id/fragment_select_item_headline"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="32dp"
-        android:text="@string/nest_new_upc_brand_prompt"
+        android:text="@string/fragment_ced_select_item_brand_lbl"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/fragment_select_item_headline"
         tools:ignore="RtlHardcoded" />
@@ -56,9 +56,9 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:autofillHints="@string/nest_new_upc_brand_hint"
+        android:autofillHints="@string/fragment_ced_select_item_brand_hint"
         android:ems="10"
-        android:hint="@string/nest_new_upc_brand_hint"
+        android:hint="@string/fragment_ced_select_item_brand_hint"
         android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragment_select_item_brand_prompt"
@@ -71,7 +71,7 @@
         android:layout_below="@id/fragment_select_item_headline"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="24dp"
-        android:text="@string/nest_new_upc_description_prompt"
+        android:text="@string/fragment_ced_select_item_description_lbl"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/fragment_select_item_brand_entry"
         tools:ignore="RtlHardcoded" />
@@ -82,9 +82,9 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:autofillHints="@string/nest_new_upc_description_hint"
+        android:autofillHints="@string/fragment_ced_select_item_description_hint"
         android:ems="10"
-        android:hint="@string/nest_new_upc_description_hint"
+        android:hint="@string/fragment_ced_select_item_description_hint"
         android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/fragment_select_item_description_prompt"
@@ -96,7 +96,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/fragment_select_item_headline"
         android:layout_marginTop="24dp"
-        android:text="@string/nest_new_upc_choose_corresponding_label"
+        android:text="@string/fragment_ced_select_item_subtitle"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -110,7 +110,7 @@
         android:layout_below="@id/fragment_select_item_headline"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="24dp"
-        android:text="@string/nest_new_upc_category_prompt"
+        android:text="@string/fragment_ced_select_item_category_lbl"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/selected_print_headline"
         tools:ignore="RtlHardcoded" />
@@ -126,7 +126,7 @@
         android:layout_marginTop="4dp"
         android:layout_marginRight="16dp"
         tools:ignore="RtlHardcoded"
-        android:text="@string/select_category" />
+        android:text="@string/fragment_ced_select_item_select_category_btn" />
 
 
     <TextView
@@ -147,7 +147,7 @@
         android:layout_below="@id/fragment_select_item_headline"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="24dp"
-        android:text="@string/nest_new_upc_product_prompt"
+        android:text="@string/activity_new_nest_upc_product_lbl"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/fragment_select_item_category_select"
         tools:ignore="RtlHardcoded" />
@@ -162,7 +162,7 @@
         android:layout_marginTop="4dp"
         android:layout_marginRight="16dp"
         tools:ignore="RtlHardcoded"
-        android:text="@string/select_item" />
+        android:text="@string/fragment_ced_select_item_select_product_btn" />
 
     <TextView
         android:id="@+id/fragment_select_item_product_hint"

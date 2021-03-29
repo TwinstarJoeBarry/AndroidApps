@@ -141,7 +141,7 @@ public class FutureEfforts extends AppCompatActivity implements OnClickListener 
      */
     public void launchAddToInventory()
     {
-        Intent intent = new Intent(this, addToInventory.class);
+        Intent intent = new Intent(this, AddToInventory.class);
         startActivity(intent);
     }
 

@@ -61,7 +61,7 @@ public class UPCLookup extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_u_p_c_lookup);
+        setContentView(R.layout.activity_upc_lookup);
 
         upcInput = findViewById(R.id.upcEditText);
         fdcidText = findViewById(R.id.fdcidText);
@@ -209,7 +209,7 @@ public class UPCLookup extends AppCompatActivity {
             foodKeeperText.setText("");
         } else {
             fdcidText.setText(getString(R.string.upc_lookup_match_found, fdcid));
-            usdaText.setText(R.string.upc_lookup_retreiving_json);
+            usdaText.setText(R.string.upc_lookup_retrieving_json);
             TaskExecutor.executeAsRead(new JSONGetter());
         }
     }

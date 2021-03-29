@@ -36,7 +36,7 @@
         android:layout_marginStart="0dp"
         android:layout_marginTop="56dp"
         android:fontFamily="casual"
-        android:text="@string/vol_form"
+        android:text="@string/activity_volunteer_form_title"
         android:textAlignment="center"
         android:textSize="20sp" />
 
@@ -48,9 +48,10 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="4dp"
         android:layout_marginTop="77dp"
-        android:hint="First Name"
+        android:hint="@string/first_name"
         android:inputType="textPersonName"
-        android:text="" />
+        android:text=""
+        android:autofillHints="" />
 
     <EditText
         android:id="@+id/last_name"
@@ -60,9 +61,10 @@
         android:layout_alignParentStart="true"
         android:layout_marginStart="-2dp"
         android:layout_marginTop="16dp"
-        android:hint="Last Name"
+        android:hint="@string/last_name"
         android:inputType="textPersonName"
-        android:text="" />
+        android:text=""
+        android:autofillHints="" />
 
     <EditText
         android:id="@+id/phone_number"
@@ -71,9 +73,10 @@
         android:layout_below="@id/last_name"
         android:layout_alignParentStart="true"
         android:layout_marginTop="20dp"
-        android:hint="@string/phone_lbl"
+        android:hint="@string/phone_number"
         android:inputType="phone"
-        android:text="" />
+        android:text=""
+        android:autofillHints="" />
 
     <EditText
         android:id="@+id/email_address"
@@ -82,9 +85,10 @@
         android:layout_below="@id/phone_number"
         android:layout_alignParentStart="true"
         android:layout_marginTop="20dp"
-        android:hint="@string/email_lbl"
+        android:hint="@string/email_address"
         android:inputType="textEmailAddress"
-        android:text="" />
+        android:text=""
+        android:autofillHints="" />
 
     <EditText
         android:id="@+id/city"
@@ -93,9 +97,10 @@
         android:layout_below="@id/email_address"
         android:layout_alignParentStart="true"
         android:layout_marginTop="21dp"
-        android:hint="@string/town_lbl"
+        android:hint="@string/town_city"
         android:inputType="textPersonName"
-        android:text="" />
+        android:text=""
+        android:autofillHints="" />
 
     <EditText
         android:id="@+id/zip_code"
@@ -104,9 +109,10 @@
         android:layout_below="@id/city"
         android:layout_alignParentStart="true"
         android:layout_marginTop="19dp"
-        android:hint="@string/zip_lbl"
+        android:hint="@string/zip_code"
         android:inputType="number"
-        android:text="" />
+        android:text=""
+        android:autofillHints="" />
 
     <EditText
         android:id="@+id/postal_address"
@@ -115,9 +121,10 @@
         android:layout_below="@id/zip_code"
         android:layout_alignParentStart="true"
         android:layout_marginTop="23dp"
-        android:hint="@string/address_lbl"
+        android:hint="@string/postal_address"
         android:inputType="textPostalAddress"
-        android:text="" />
+        android:text=""
+        android:autofillHints="" />
 
     <TextView
         android:id="@+id/preference"
@@ -127,7 +134,7 @@
         android:layout_alignParentStart="true"
         android:layout_marginStart="4dp"
         android:layout_marginTop="18dp"
-        android:text="@string/contact_method"
+        android:text="@string/activity_volunteer_form_contact_method"
         android:textSize="18sp" />
 
     <Spinner
@@ -136,11 +143,11 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/postal_address"
         android:layout_alignParentEnd="true"
-        android:layout_marginLeft="0dp"
+        android:layout_marginStart="0dp"
         android:layout_marginTop="18dp"
         android:layout_marginEnd="-1dp"
-        android:layout_toRightOf="@id/preference"
-        android:entries="@array/contact" />
+        android:layout_toEndOf="@id/preference"
+        android:entries="@array/activity_volunteer_form_preferred_contact_method" />
 
     <TextView
         android:id="@+id/push_question"
@@ -155,7 +162,7 @@
         android:layout_marginEnd="124dp"
         android:layout_marginBottom="77dp"
         android:paddingTop="10dp"
-        android:text="@string/push_notif" />
+        android:text="@string/activity_volunteer_form_push_notifications" />
 
     <CheckBox
         android:id="@+id/push_not"
@@ -165,7 +172,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="-5dp"
         android:layout_marginTop="574dp"
-        android:text="@string/yes_to_push" />
+        android:text="@string/activity_volunteer_form_yes_to_push" />
 
     <Button
         android:id="@+id/submit_button"
@@ -175,7 +182,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="1dp"
         android:layout_marginBottom="10dp"
-        android:text="@string/submitBtn_lbl" />
+        android:text="@string/submit" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"

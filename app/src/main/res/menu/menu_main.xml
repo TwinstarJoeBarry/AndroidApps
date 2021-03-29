@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/homeBtn"
+        android:id="@+id/home_btn"
         app:showAsAction="always"
-        android:title="@string/home"/>
+        android:title="@string/menu_main_home"/>
+
 </menu>

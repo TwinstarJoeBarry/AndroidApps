@@ -1,4 +1,5 @@
 package edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses;
+
 /**
  *
  * Copyright (C) 2019 The LibreFoodPantry Developers.
@@ -17,15 +18,15 @@ package edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses;
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 
+/**
+ * GuestRegistryHelper: Handles the creation and upgrade of the GuestRegistry database.
+ */
 public class GuestRegistryHelper extends SQLiteOpenHelper {
-
 
     // The URI scheme used for content URIs
     public static final String SCHEME = "content";
@@ -35,10 +36,10 @@ public class GuestRegistryHelper extends SQLiteOpenHelper {
 
     public static final Uri CONTENT_URI = Uri.parse(SCHEME + "://" + AUTHORITY);
 
-    // table name
+    // Table name FIXME May want to change this to NESTGuestRegistry to match class naming
     public static final String TABLE_NAME = "NESTGuestForm";
 
-    // columns in the table
+    // Columns in the table
     public static final String _ID = "_id";
     public static final String NAME = "name";
     public static final String EMAIL = "email";
@@ -48,35 +49,39 @@ public class GuestRegistryHelper extends SQLiteOpenHelper {
     public static final String CITY = "city";
     public static final String ZIP = "zipcode";
     public static final String STATE = "state";
-    public static final String ADDITIONALINFO = "addInfo";
-    public static final String NAMEOFVOLUNTEER = "nameOfVolunteer";
+    public static final String NCC_ID = "nccID";
+    public static final String ADDITIONAL_INFO = "addInfo";
+    public static final String NAME_OF_VOLUNTEER = "nameOfVolunteer";
     public static final String BARCODE = "barcode";
 
-    public static final String NCCID = "nccID";
-
-    public static final String LOCATION = "location";
-
-    // database version and name
+    // Database version and name
     private static final int DATABASE_VERSION = 1;
+    // FIXME May want to change this to GuestRegistry to match class naming
     private static final String DATABASE_NAME = "GuestFormInformation.db";
 
     public GuestRegistryHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+
         db.execSQL("CREATE TABLE " + TABLE_NAME + " (" + _ID +
                 " INTEGER PRIMARY KEY AUTOINCREMENT, " + NAME + " TEXT, " + EMAIL + " TEXT, " +
                 DATE + " TEXT, " + ADDRESS + " TEXT, " + CITY + " TEXT, " + ZIP + " TEXT, " +
-                STATE + " TEXT, " + ADDITIONALINFO + " TEXT, " + NAMEOFVOLUNTEER + " TEXT, " +
-                NCCID + " TEXT, " + PHONE + " TEXT, " + BARCODE + " TEXT);");
+                STATE + " TEXT, " + ADDITIONAL_INFO + " TEXT, " + NAME_OF_VOLUNTEER + " TEXT, " +
+                NCC_ID + " TEXT, " + PHONE + " TEXT, " + BARCODE + " TEXT);");
+
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+
         onCreate(db);
+
     }
 
 }

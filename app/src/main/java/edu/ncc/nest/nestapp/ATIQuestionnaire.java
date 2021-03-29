@@ -34,9 +34,9 @@ import javax.net.ssl.HttpsURLConnection;
 import edu.ncc.nest.nestapp.AsynchronousTask.TaskExecutor;
 
 /**
- * Activity hopefully to be used as an intent for addToInventory
+ * Activity hopefully to be used as an intent for AddToInventory
  */
-public class ATIQuestionaire extends AppCompatActivity implements View.OnClickListener {
+public class ATIQuestionnaire extends AppCompatActivity implements View.OnClickListener {
     Button btn ;
     TextView categoryTitle;
     ArrayList<HashMap<String, String>> productList;
@@ -46,11 +46,11 @@ public class ATIQuestionaire extends AppCompatActivity implements View.OnClickLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_a_t_i_questionaire);
+        setContentView(R.layout.activity_ati_questionnaire);
         btn = findViewById(R.id.atibutton);
         btn.setOnClickListener(this);
 
-        //gets intent from addToInventory activity
+        //gets intent from AddToInventory activity
         Intent intent = getIntent();
         categoryTitle = findViewById(R.id.categoryChosen);
         categoryTitle.setText(intent.getStringExtra("categoryLabel"));
@@ -84,7 +84,7 @@ public class ATIQuestionaire extends AppCompatActivity implements View.OnClickLi
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.homeBtn) {
+        if (item.getItemId() == R.id.home_btn) {
             home();
         }
 
@@ -151,7 +151,7 @@ public class ATIQuestionaire extends AppCompatActivity implements View.OnClickLi
                         int id = Integer.parseInt(categoryID);
                         String name = "";
                         String subCategories = "";
-                        //Distinguishing when a different button from addToInventory class is pushed
+                        //Distinguishing when a different button from AddToInventory class is pushed
                         // Category Id's are: Baby Food = 1; Baked Goods = 2,3,4;
                         //Beverages 5; Condiments, Sauces & Canned Goods = 6; Dairy Products & Eggs = 7
                         // Food Purchased Frozen = 8; Grains, Beans & Pasta = 9; Meat = 10,11,12,13; Poultry = 14,15,16,17
@@ -317,7 +317,7 @@ public class ATIQuestionaire extends AppCompatActivity implements View.OnClickLi
                     }
                     // Adapter for the list view
                     ListAdapter adapter = new SimpleAdapter(
-                            ATIQuestionaire.this, productList,
+                            ATIQuestionnaire.this, productList,
                             R.layout.list_ati,
                             new String[] { PRODUCT_NAME, SUB_PRODUCTS},
                             new int[] { R.id.productname, R.id.subproductname}

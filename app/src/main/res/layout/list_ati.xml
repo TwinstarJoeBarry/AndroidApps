@@ -8,13 +8,13 @@
         android:id="@+id/listadpaterati"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/productsATI" />
+        android:text="@string/list_ati_product_lbl" />
 
     <TextView
     android:id="@+id/productname"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_toRightOf="@id/listadpaterati" />
+    android:layout_toEndOf="@id/listadpaterati" />
 
     <TextView
         android:id="@+id/subproductname"

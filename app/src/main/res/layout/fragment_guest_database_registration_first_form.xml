@@ -40,9 +40,8 @@
             android:textStyle="bold"
             android:fontFamily="casual"
             android:textAllCaps="true"
-            android:text="Guest Entry Registration"
+            android:text="@string/fragment_dbr_first_form_title"
             android:textAlignment="center"
-
             android:textColor="@color/White"
             android:textSize="20sp" />
     </TableRow>
@@ -65,16 +64,18 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/Row1"
         android:layout_marginTop="35dp"
-        android:paddingLeft="30dp" >
+        android:layout_marginStart="30dp" >
 
         <EditText
             android:id="@+id/editText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/White"
-            android:hint="@string/name_lbl"
+            android:hint="@string/full_name"
             android:inputType="textPersonName"
-            android:textColorHint="@color/White" />
+            android:textColorHint="@color/White"
+            android:autofillHints="" />
+
     </TableRow>
 
     <TableRow
@@ -83,15 +84,18 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/Row2"
         android:layout_marginTop="0dp"
-        android:paddingLeft="30dp" >
+        android:layout_marginStart="30dp" >
+
         <EditText
             android:id="@+id/editText2"
             android:layout_width="wrap_content"
             android:layout_height="45dp"
             android:backgroundTint="@color/White"
-            android:hint="@string/phone_lbl"
+            android:hint="@string/phone_number"
             android:inputType="phone"
-            android:textColorHint="@color/White" />
+            android:textColorHint="@color/White"
+            android:autofillHints="" />
+
     </TableRow>
 
     <TableRow
@@ -100,15 +104,18 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/Row3"
         android:layout_marginTop="0dp"
-        android:paddingLeft="30dp"  >
+        android:layout_marginStart="30dp">
+
         <EditText
             android:id="@+id/editText3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/White"
-            android:hint="@string/email_lbl"
+            android:hint="@string/email_address"
             android:inputType="textEmailAddress"
-            android:textColorHint="@color/White" />
+            android:textColorHint="@color/White"
+            android:autofillHints="" />
+
     </TableRow>
 
     <TableRow
@@ -117,16 +124,18 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/Row4"
         android:layout_marginTop="0dp"
-        android:paddingLeft="30dp" >
+        android:layout_marginStart="30dp" >
 
         <EditText
             android:id="@+id/editText4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/White"
-            android:hint="@string/ID_lbl"
+            android:hint="@string/ncc_id"
             android:inputType="number"
-            android:textColorHint="@color/White" />
+            android:textColorHint="@color/White"
+            android:autofillHints="" />
+
     </TableRow>
 
     <TableRow
@@ -135,15 +144,18 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/Row5"
         android:layout_marginTop="0dp"
-        android:paddingLeft="30dp"  >
+        android:layout_marginStart="30dp">
+
         <EditText
             android:id="@+id/editText5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/White"
-            android:hint="@string/address_lbl"
+            android:hint="@string/postal_address"
             android:inputType="textPostalAddress"
-            android:textColorHint="@color/White" />
+            android:textColorHint="@color/White"
+            android:autofillHints="" />
+
     </TableRow>
 
     <TableRow
@@ -152,15 +164,18 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/Row6"
         android:layout_marginTop="0dp"
-        android:paddingLeft="30dp" >
+        android:layout_marginStart="30dp" >
+
         <EditText
             android:id="@+id/editText6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/White"
-            android:hint="@string/town_lbl"
+            android:hint="@string/town_city"
             android:inputType="textPersonName"
-            android:textColorHint="@color/White" />
+            android:textColorHint="@color/White"
+            android:autofillHints="" />
+
     </TableRow>
 
     <TableRow
@@ -169,16 +184,17 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/Row7"
         android:layout_marginTop="0dp"
-        android:paddingLeft="30dp"  >
+        android:layout_marginStart="30dp"  >
+
         <EditText
             android:id="@+id/editText7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/White"
-            android:hint="@string/zip_lbl"
+            android:hint="@string/zip_code"
             android:inputType="number"
-            android:textColorHint="@color/White" />
-
+            android:textColorHint="@color/White"
+            android:autofillHints="" />
 
         <Spinner
             android:id="@+id/states_spinner"
@@ -188,6 +204,7 @@
             android:entries="@array/states_array"
             android:paddingTop="10dp"
             android:textColorHint="@color/White" />
+
     </TableRow>
 
     <TableRow
@@ -196,17 +213,19 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/Row8"
         android:layout_marginTop="0dp"
-        android:paddingLeft="30dp"  >
+        android:layout_marginStart="30dp"  >
+
         <EditText
             android:id="@+id/editText8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/White"
-            android:hint="@string/date_lbl"
+            android:hint="@string/birth_date"
             android:inputType="date"
-            android:textColorHint="@color/White" />
-    </TableRow>
+            android:textColorHint="@color/White"
+            android:autofillHints="" />
 
+    </TableRow>
 
     <TableRow
         android:id="@+id/Row10"
@@ -225,6 +244,7 @@
             android:backgroundTint="@color/colorPrimary"
             android:text="@string/next"
             android:textColor="@color/White" />
+
     </TableRow>
 
 </RelativeLayout>

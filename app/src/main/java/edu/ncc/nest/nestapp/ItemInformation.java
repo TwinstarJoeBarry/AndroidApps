@@ -106,7 +106,7 @@ public class ItemInformation extends AppCompatActivity implements DatePickerDial
         resultDisplay = (TextView)findViewById(R.id.result);
         tipDisplay = (TextView)findViewById(R.id.tipDisplay);
         tipBut = (Button)findViewById(R.id.tips_button);
-        upcEntry = findViewById(R.id.UPCentry);
+        upcEntry = findViewById(R.id.upc_entry);
 
         expirationYear = -1; //for testing in calculateResult method
 
@@ -149,7 +149,7 @@ public class ItemInformation extends AppCompatActivity implements DatePickerDial
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.homeBtn) {
+        if (item.getItemId() == R.id.home_btn) {
             home();
         }
         return super.onOptionsItemSelected(item);
@@ -533,7 +533,7 @@ public class ItemInformation extends AppCompatActivity implements DatePickerDial
      * - if found, fill out all the remaining fields based on the associated foodkeeper product,
      *   including doing the calculating of the "real" expiration date(s) (would be good to
      *   do entry/select of "package" expiration date prior to UPC scan/enter)
-     *  - if not found, start the NestNewUPC activity so the Nest volunteer can add it
+     *  - if not found, start the NewNestUPC activity so the Nest volunteer can add it
      *   as a new upc in the database.  If that activity is successful it should return with
      *   the newly associated FoodKeeper product id.  Proceed then as if the UPC had been found
      *   to begin with.
@@ -544,7 +544,7 @@ public class ItemInformation extends AppCompatActivity implements DatePickerDial
         int productId = dataSource.getProductIdFromUPC(upc); // returns -1 if not found
         if (productId < 0) {
             // upc not found in Nest UPCs table, let's add it...
-            Intent intent = new Intent(this, NestNewUPC.class);
+            Intent intent = new Intent(this, NewNestUPC.class);
             intent.putExtra("upc", upc);
             startActivityForResult(intent, 0);
         } else {
@@ -556,7 +556,7 @@ public class ItemInformation extends AppCompatActivity implements DatePickerDial
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        // handle result from NestNewUPC activity launched in processUPC method
+        // handle result from NewNestUPC activity launched in processUPC method
         if (resultCode == RESULT_OK) {
             processDataFromUPC();
         }

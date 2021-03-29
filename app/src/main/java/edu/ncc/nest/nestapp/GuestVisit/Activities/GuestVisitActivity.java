@@ -1,4 +1,5 @@
 package edu.ncc.nest.nestapp.GuestVisit.Activities;
+
 /**
  *
  * Copyright (C) 2020 The LibreFoodPantry Developers.
@@ -16,20 +17,20 @@ package edu.ncc.nest.nestapp.GuestVisit.Activities;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import edu.ncc.nest.nestapp.Choose;
 import edu.ncc.nest.nestapp.R;
 
 /**
- * GuestVisitActivity - Activity to use for navigation between fragments when a guest checks-in
+ * GuestVisitActivity: Underlying activity for fragments of the GuestVisit feature.
  */
 public class GuestVisitActivity extends AppCompatActivity {
 
@@ -57,7 +58,7 @@ public class GuestVisitActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         // If the view clicked was the home action
-        if (item.getItemId() == R.id.homeBtn) {
+        if (item.getItemId() == R.id.home_btn) {
 
             // Create an Intent that will bring the user back to the home page
             Intent intent = new Intent(this, Choose.class);

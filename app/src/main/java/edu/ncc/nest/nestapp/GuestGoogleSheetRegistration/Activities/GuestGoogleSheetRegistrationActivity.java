@@ -26,26 +26,35 @@ import edu.ncc.nest.nestapp.Choose;
 import edu.ncc.nest.nestapp.R;
 
 /**
- * GuestGoogleSheetRegistrationActivity - Underlying Activity for fragments related to registering a
- * guest with google sheets
+ * GuestGoogleSheetRegistrationActivity: Underlying Activity for fragments of
+ * GuestGoogleSheetRegistration feature.
  */
 public class GuestGoogleSheetRegistrationActivity extends AppCompatActivity {
 
-    protected static final String TAG = "TESTING";
+    public static final String TAG = GuestGoogleSheetRegistrationActivity.class.getSimpleName();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         Log.d(TAG, "In GuestGoogleSheetRegistrationActivity onCreate()");
+
         setContentView(R.layout.activity_guest_google_sheet_registration);
+
         setSupportActionBar(findViewById(R.id.google_sheet_registration_toolbar));
+
     }
 
     /**
-     * home method - goes to the home screen
+     * home --
+     * Navigates to the home page activity ({@link Choose}).
      */
-
     public void home() {
+
         Intent intent = new Intent(this, Choose.class);
+
         startActivity(intent);
+
     }
+
 }

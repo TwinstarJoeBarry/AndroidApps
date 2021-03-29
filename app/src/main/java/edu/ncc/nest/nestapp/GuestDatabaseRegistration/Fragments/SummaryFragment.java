@@ -1,5 +1,23 @@
 package edu.ncc.nest.nestapp.GuestDatabaseRegistration.Fragments;
 
+/**
+ *
+ * Copyright (C) 2020 The LibreFoodPantry Developers.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,43 +29,47 @@ import androidx.fragment.app.Fragment;
 
 import edu.ncc.nest.nestapp.R;
 
+/**
+ * SummaryFragment: This fragment represent a summary of the registration process. Displays messages
+ * to the guest depending on whether or not the registration process was successful or not. Should
+ * also generate a barcode for the guest if needed.
+ *
+ * TODO: ///////////////////////////////////////////////////////////////////////////////////////////
+ *  - This fragment should retrieve all the guest's information passed in a FragmentResult from
+ *    previous fragments.
+ *  - Check to make sure that the guest isn't already registered in the database (using name).
+ *  - Generate a unique barcode not currently in use for the guest (if the user did not scan one).
+ *  - Register the guest with all their information and barcode into the local registry database.
+ *  - If the guest is already registered, this fragment should show a message saying that the guest
+ *    is already registered.
+ *  - If the registration is successful this fragment should display a message saying that
+ *    registration was successful and display the users newly generated barcode back to the guest.
+ * TODO: ///////////////////////////////////////////////////////////////////////////////////////////
+ */
 public class SummaryFragment extends Fragment  {
 
+    public static final String TAG = SummaryFragment.class.getSimpleName();
 
-        protected static final String TAG = "TESTING";
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
 
-        public View onCreateView(
-                LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState
-        ) {
-            Log.d(TAG, "In SummaryFragment onCreateView()");
+        Log.d(TAG, "In SummaryFragment onCreateView()");
 
-            // Inflate the layout for this fragment - This is where the navigation begins
-            return inflater.inflate(R.layout.fragment_guest_database_registration_summary_page, container, false);
-        }
-
-        public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-            super.onViewCreated(view, savedInstanceState);
-
-            // Navigates to the Guest Registration Entry Form for person information
-            view.findViewById(R.id.entry_form_btn).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    // Uncomment this code when the layouts for the registration form page is available &
-                    // complete this line with the appropriate nav action -> navigate( R.id.action_secondFragment_to_summaryFragmnet)
-//                    NavHostFragment.findNavController(edu.ncc.nest.nestapp.FragmentsGuestRegistration.StartFragment.this)
-//                            .navigate(R.id.action_DBR_StartFragment_to_FirstFormFragment);
-                }
-            });
-
-
-        }
-
-
-
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_guest_database_registration_summary, container, false);
 
     }
 
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        // OnClickListener for the "Done" button
+        view.findViewById(R.id.button).setOnClickListener(clickedView -> {
 
 
 
+        });
+
+    }
+
+}

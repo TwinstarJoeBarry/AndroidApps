@@ -1,4 +1,5 @@
 package edu.ncc.nest.nestapp.GuestDatabaseRegistration.Activities;
+
 /**
  *
  * Copyright (C) 2020 The LibreFoodPantry Developers.
@@ -16,52 +17,65 @@ package edu.ncc.nest.nestapp.GuestDatabaseRegistration.Activities;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import edu.ncc.nest.nestapp.Choose;
 import edu.ncc.nest.nestapp.R;
 
 /**
- * GuestDatabaseRegistrationActivity - Underlying Activity for fragments related to registering a
- * guest in the local database
+ * GuestDatabaseRegistrationActivity: This is the underlying activity for the fragments of the
+ * GuestDatabaseRegistration feature.
  */
 public class GuestDatabaseRegistrationActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_guest_database_registration);
+
         setSupportActionBar(findViewById(R.id.database_registration_toolbar));
+
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
 
         return true;
+
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.homeBtn) {
+
+        if (item.getItemId() == R.id.home_btn)
+
             home();
-        }
 
         return super.onOptionsItemSelected(item);
+
     }
 
     /**
-     * home method - goes to the home screen
+     * home --
+     * Starts the {@link Choose} Activity
      */
     public void home() {
+
         Intent intent = new Intent(this, Choose.class);
+
         startActivity(intent);
+
     }
 
     @Override
@@ -101,10 +115,7 @@ public class GuestDatabaseRegistrationActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState)
-    {
-        super.onSaveInstanceState(outState);
-    }
+    public void onSaveInstanceState(@NonNull Bundle outState) { super.onSaveInstanceState(outState); }
 
     @Override
     public void onRestoreInstanceState(Bundle inState)

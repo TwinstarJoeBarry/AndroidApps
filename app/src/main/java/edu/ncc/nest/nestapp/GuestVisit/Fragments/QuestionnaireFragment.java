@@ -38,8 +38,7 @@ import edu.ncc.nest.nestapp.GuestVisit.DatabaseClasses.QuestionnaireSource;
 import edu.ncc.nest.nestapp.R;
 
 /**
- * This fragment is used to ask a guest a set of questions about their visit.
- * @author Tyler Sizse
+ * QuestionnaireFragment: Used to ask a guest a set of questions about their visit.
  */
 public class QuestionnaireFragment extends Fragment implements View.OnClickListener {
 
@@ -162,9 +161,9 @@ public class QuestionnaireFragment extends Fragment implements View.OnClickListe
                     Builder alertDialogBuilder = new Builder(requireContext());
 
                     // Build the AlertDialog
-                    alertDialogBuilder.setTitle(R.string.questionnaire_alert_title);
+                    alertDialogBuilder.setTitle(R.string.questionnaire_fragment_alert_title);
 
-                    alertDialogBuilder.setMessage(R.string.questionnaire_alert_msg);
+                    alertDialogBuilder.setMessage(R.string.questionnaire_fragment_alert_msg);
 
                     alertDialogBuilder.setPositiveButton("OK", null);
 

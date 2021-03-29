@@ -30,9 +30,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import edu.ncc.nest.nestapp.UIFoods.BabyFood;
 import edu.ncc.nest.nestapp.UIFoods.BakedGoods;
 import edu.ncc.nest.nestapp.UIFoods.Beverages;
@@ -85,7 +82,7 @@ public class Inventory extends AppCompatActivity implements View.OnClickListener
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.homeBtn) {
+        if (item.getItemId() == R.id.home_btn) {
             home();
         }
 

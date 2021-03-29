@@ -22,7 +22,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:hardwareAccelerated="true" >
-        <activity android:name=".GuestVisit.Activities.GuestVisitActivity" />
+        <activity
+            android:name=".GuestVisit.Activities.GuestVisitActivity"
+            android:label="@string/title_activity_guest_visit"/>
         <activity android:name=".GuestFormTesting" />
         <activity
             android:name=".CheckExpirationDate.Activities.CheckExpirationDateActivity"
@@ -32,7 +34,7 @@
             android:name=".FutureEfforts"
             android:label="@string/title_activity_future_efforts"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".NestNewUPC" />
+        <activity android:name=".NewNestUPC" />
         <activity
             android:name=".LocalDatabase"
             android:label="@string/title_activity_local_database"
@@ -42,11 +44,15 @@
         <activity android:name=".UPCLookup" />
         <activity android:name=".UPCScanner" />
         <activity
-            android:name=".addToInventory"
+            android:name=".AddToInventory"
             android:label="@string/title_activity_add_to_inventory"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".GuestDatabaseRegistration.Activities.GuestDatabaseRegistrationActivity" />
-        <activity android:name=".GuestGoogleSheetRegistration.Activities.GuestGoogleSheetRegistrationActivity" />
+        <activity
+            android:name=".GuestDatabaseRegistration.Activities.GuestDatabaseRegistrationActivity"
+            android:label="@string/title_activity_guest_database_registration" />
+        <activity
+            android:name=".GuestGoogleSheetRegistration.Activities.GuestGoogleSheetRegistrationActivity"
+            android:label="@string/title_activity_guest_google_sheet_registration" />
         <activity android:name=".Inventory" />
         <activity android:name=".Schedule" />
         <activity android:name=".VolunteerForm" />

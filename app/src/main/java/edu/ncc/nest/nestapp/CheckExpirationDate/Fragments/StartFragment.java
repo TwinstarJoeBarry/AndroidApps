@@ -1,4 +1,5 @@
 package edu.ncc.nest.nestapp.CheckExpirationDate.Fragments;
+
 /**
  *
  * Copyright (C) 2020 The LibreFoodPantry Developers.
@@ -16,6 +17,7 @@ package edu.ncc.nest.nestapp.CheckExpirationDate.Fragments;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,34 +29,47 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import edu.ncc.nest.nestapp.R;
 
+/**
+ * StartFragment: This is the starting fragment for the CheckExpirationDate feature. This fragment
+ * should ask the user whether or not they want to scan or enter a UPC barcode.
+ *
+ * Navigates to {@link ScannerFragment} when "Scan UPC" is selected.
+ *
+ * Navigates to {@link EnterUpcFragment} when "Enter UPC Manually" is selected.
+ */
 public class StartFragment extends Fragment {
 
     @Override
-    public View onCreateView(
-            LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState
-    ) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_check_expiration_date_start, container, false);
+        return inflater.inflate(R.layout.fragment_check_expiration_date_start,
+                container, false);
+
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        view.findViewById(R.id.button_scan).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NavHostFragment.findNavController(StartFragment.this)
-                        .navigate(R.id.CED_ScannerFragment);
-            }
+        // Set the OnClickListener for button_scan
+        view.findViewById(R.id.button_scan).setOnClickListener(view1 -> {
+
+            // Navigate to ScannerFragment
+            NavHostFragment.findNavController(StartFragment.this)
+                    .navigate(R.id.CED_ScannerFragment);
+
         });
 
-        view.findViewById(R.id.button_enter).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NavHostFragment.findNavController(StartFragment.this)
-                        .navigate(R.id.CED_EnterUpcFragment);
-            }
+        // Set the OnClickListener for button_enter
+        view.findViewById(R.id.button_enter).setOnClickListener(view12 -> {
+
+            // Navigate to EnterUpcFragment
+            NavHostFragment.findNavController(StartFragment.this)
+                    .navigate(R.id.CED_EnterUpcFragment);
+
         });
+
     }
+
 }
