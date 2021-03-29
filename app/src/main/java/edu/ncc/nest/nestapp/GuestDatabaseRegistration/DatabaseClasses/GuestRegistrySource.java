@@ -1,45 +1,69 @@
 package edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses;
 
+/**
+ *
+ * Copyright (C) 2020 The LibreFoodPantry Developers.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
+import androidx.annotation.NonNull;
+
 import static edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses.GuestRegistryHelper.BARCODE;
 import static edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses.GuestRegistryHelper.NAME;
 import static edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses.GuestRegistryHelper.TABLE_NAME;
 
-public class GuestRegistrySource
-{
-    private SQLiteDatabase database;
-    private GuestRegistryHelper guestHelper;
+/**
+ * GuestRegistrySource: Handles the insertion and removal of data into the GuestRegistry database
+ * (See {@link GuestRegistryHelper}). Also has methods that allow for searching the database.
+ *
+ */
+public class GuestRegistrySource {
+    
+    private final GuestRegistryHelper registryHelper;
+
+    private final SQLiteDatabase database;
 
     /**
      * Default Constructor --
      * @param context
      */
-    public GuestRegistrySource(Context context )
-    {
-        guestHelper = new GuestRegistryHelper( context );
+    public GuestRegistrySource(Context context) {
+
+        registryHelper = new GuestRegistryHelper(context);
+
+        // Open a database that will be used for reading and writing
+        database = registryHelper.getWritableDatabase();
+
     }
 
     /**
-     * open method -- opens a writeable database
-     * @throws SQLException
+     * close --
+     * Closes the database.
      */
-    public void open( ) throws SQLException
-    {
-        database = guestHelper.getWritableDatabase( );
-    }
+    public void close( ) {
 
-    /**
-     * close method --
-     * closes a database
-     */
-    public void close( )
-    {
-        guestHelper.close( );
+        database.close();
+
+        registryHelper.close();
+
     }
 
     /**
@@ -55,71 +79,77 @@ public class GuestRegistrySource
      * @param date - the date that the form has been filled out
      * @param address - the address of the guest
      * @param city - the city of the guests' address
-     * @param zip - the zipcode of the guests' address
+     * @param zip - the zip-code of the guests' address
      * @param barcode - the barcode that belongs to the guest
      * @return true if the data has been inserted without issue, false otherwise
      */
-    public boolean insertData(String name, String email, String phone, String date, String address, String city, String zip, String barcode)
-    {
+    // FIXME Needs to be updated to match all columns of the database
+    public boolean insertData(String name, String email, String phone, String date, String address, String city, String zip, String barcode) {
+
         //All info for a single user will be placed into the same ContentValue variable (Key & Value map-like variable)
         ContentValues cValues = new ContentValues();
 
         //loading user information into the content value
-        cValues.put(NAME, name);
-        cValues.put(guestHelper.EMAIL, email);
-        cValues.put(guestHelper.PHONE, phone);
-        cValues.put(guestHelper.DATE, date);
-        cValues.put(guestHelper.ADDRESS, address);
-        cValues.put(guestHelper.CITY, city);
-        cValues.put(guestHelper.ZIP, zip);
-        cValues.put(BARCODE, barcode);
+        cValues.put(GuestRegistryHelper.NAME, name);
+        cValues.put(GuestRegistryHelper.EMAIL, email);
+        cValues.put(GuestRegistryHelper.PHONE, phone);
+        cValues.put(GuestRegistryHelper.DATE, date);
+        cValues.put(GuestRegistryHelper.ADDRESS, address);
+        cValues.put(GuestRegistryHelper.CITY, city);
+        cValues.put(GuestRegistryHelper.ZIP, zip);
+        cValues.put(GuestRegistryHelper.BARCODE, barcode);
         // leaving out for now: cValues.put(STATE, state);
 
-        //placing the information into the database
-        long res = database.insert(TABLE_NAME, null, cValues);
+        // Insert method will return a negative 1 if there was an error with the insert
+        return database.insert(TABLE_NAME, null, cValues) != -1;
 
-        //insert method will return a negative 1 if there was an error with the insert
-        if (res == -1) {
-            return false;
-        }
-
-        //returning true if insertion was successful
-        return true;
     }
 
     /**
      * isRegistered - Takes 1 parameter
+     * Determines whether or not a guest is currently registered with the provided barcode
      * @param barcode - The barcode to search the database for
      * @return Returns the name of the first guest who is registered in the database with the barcode
      * or null if there is no guest registered with that barcode
      */
-    public String isRegistered(String barcode) {
+    public String isRegistered(@NonNull String barcode) {
 
-        // Getting a readable SQLLite database
-        open();
+        if (database.isOpen()) {
 
-        // Get all the guest records from the table (TABLE_NAME) who's field name (BARCODE) matches the field value (?).
-        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE " + BARCODE + " = ?";
+            // Get all the guest records from the table (TABLE_NAME) who's field name (BARCODE) matches the field value (?).
+            String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE " + BARCODE + " = ?";
 
-        // Run the SQL query from above and replace the '?' character with the respective argument stored in the String[] array
-        Cursor cursor = database.rawQuery(sqlQuery, new String[] {barcode});
+            // Run the SQL query from above and replace the '?' character with the respective argument stored in the String[] array
+            Cursor cursor = database.rawQuery(sqlQuery, new String[]{barcode});
 
-        String name = null;
+            String name = null;
 
-        // Determine if there is at least 1 guest registered with the barcode and get the name of the first person registered with it
-        if (cursor.moveToFirst())
-            name = cursor.getString(cursor.getColumnIndex(NAME));
+            // Determine if there is at least 1 guest registered with the barcode and get the name of the first person registered with it
+            if (cursor.moveToFirst())
 
-        // Close the cursor and readableDatabase to release all of their resources
-        cursor.close();
+                name = cursor.getString(cursor.getColumnIndex(NAME));
 
-        database.close();
+            // Close the cursor to release all of its resources
+            cursor.close();
 
-        return name;
+            return name;
+
+        } else
+
+            throw new RuntimeException("Cannot query a closed database.");
 
     }
 
-    // More methods...
 
-} //End of GuestRegistrySource class
+    @Override // Called by the garbage collector
+    protected void finalize() throws Throwable {
+
+        // Make sure we close the writable database before this object is finalized
+        database.close();
+
+        super.finalize();
+
+    }
+
+}
 

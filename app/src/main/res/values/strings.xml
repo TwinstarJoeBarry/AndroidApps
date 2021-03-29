@@ -28,6 +28,7 @@
     <string name="month">Month</string>
     <string name="day">Day</string>
     <string name="year">Year</string>
+    <string name="error">Error</string>
 
     <!-- Strings used in AndroidManifest.xml -->
     <string name="title_activity_sign_up">SignUp</string>
@@ -331,6 +332,6 @@
 
     <!-- This string is used only for the creation of new strings. -->
     <!-- When a new string is created it should appear below this string. -->
-    <string name="STRINGS_BELOW_THIS_SHOULD_BE_MOVED_TO_AN_APPROPRIATE_LOCATION_ABOVE_THIS_STRING"/>
+    <string name="STRINGS_BELOW_THIS_SHOULD_BE_MOVED_TO_AN_APPROPRIATE_LOCATION_ABOVE"/>
 
 </resources>

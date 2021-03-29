@@ -38,8 +38,7 @@ import edu.ncc.nest.nestapp.GuestVisit.DatabaseClasses.QuestionnaireSource;
 import edu.ncc.nest.nestapp.R;
 
 /**
- * This fragment is used to ask a guest a set of questions about their visit.
- * @author Tyler Sizse
+ * QuestionnaireFragment: Used to ask a guest a set of questions about their visit.
  */
 public class QuestionnaireFragment extends Fragment implements View.OnClickListener {
 

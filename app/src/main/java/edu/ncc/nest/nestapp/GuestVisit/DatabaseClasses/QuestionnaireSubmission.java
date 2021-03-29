@@ -22,13 +22,7 @@ import androidx.annotation.NonNull;
 import java.util.ArrayList;
 
 /**
- * QuestionnaireSubmission Class
- *
- * Represents a submission in the questionnaire database.
- *
- * @author Tyler Sizse
- * @author (Co-Author) Owen Wurster
- * @author (Co-Author) Charles Cohen
+ * QuestionnaireSubmission: Represents a submission in the questionnaire database.
  */
 public class QuestionnaireSubmission {
 

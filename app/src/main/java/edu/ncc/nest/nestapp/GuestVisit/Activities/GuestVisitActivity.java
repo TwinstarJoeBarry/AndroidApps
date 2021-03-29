@@ -1,4 +1,5 @@
 package edu.ncc.nest.nestapp.GuestVisit.Activities;
+
 /**
  *
  * Copyright (C) 2020 The LibreFoodPantry Developers.
@@ -16,6 +17,7 @@ package edu.ncc.nest.nestapp.GuestVisit.Activities;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -28,7 +30,7 @@ import edu.ncc.nest.nestapp.Choose;
 import edu.ncc.nest.nestapp.R;
 
 /**
- * GuestVisitActivity - Activity to use for navigation between fragments when a guest checks-in
+ * GuestVisitActivity: Underlying activity for fragments of the GuestVisit feature.
  */
 public class GuestVisitActivity extends AppCompatActivity {
 

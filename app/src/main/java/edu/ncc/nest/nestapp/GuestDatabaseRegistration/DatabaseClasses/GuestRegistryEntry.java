@@ -1,7 +1,8 @@
 package edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses;
+
 /**
  *
- * Copyright (C) 2019 The LibreFoodPantry Developers.
+ * Copyright (C) 2020 The LibreFoodPantry Developers.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,6 +18,12 @@ package edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses;
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+import androidx.annotation.NonNull;
+
+/**
+ * GuestRegistryEntry: Represents a entry into the GuestRegistry database
+ * (See {@link GuestRegistryHelper}).
+ */
 public class GuestRegistryEntry {
     private long id;
     private String name;
@@ -30,9 +37,10 @@ public class GuestRegistryEntry {
     private String additionalInfo;
     private String nameOfVolunteer;
     private String nccID;
+    private String barcode;
 
-    public GuestRegistryEntry()
-    {
+    public GuestRegistryEntry() {
+
         this.name = null;
         this.email = null;
         this.phone = null;
@@ -44,12 +52,14 @@ public class GuestRegistryEntry {
         this.additionalInfo = null;
         this.nameOfVolunteer = null;
         this.nccID = null;
+        this.barcode = null;
+
     }
 
     // parameterized constructor
     public GuestRegistryEntry(String name, String email, String phone, String date, String address, String city, String zipcode,
-                              String state, String additionalInfo, String nameOfVolunteer, String nccID)
-    {
+                              String state, String additionalInfo, String nameOfVolunteer, String nccID, String barcode) {
+
         this.name = name;
         this.email = email;
         this.phone = phone;
@@ -61,6 +71,8 @@ public class GuestRegistryEntry {
         this.additionalInfo = additionalInfo;
         this.nameOfVolunteer = nameOfVolunteer;
         this.nccID = nccID;
+        this.barcode = barcode;
+
     }
 
     // Getter Methods
@@ -76,6 +88,7 @@ public class GuestRegistryEntry {
     public String getAdditionalInfo() { return additionalInfo; }
     public String getNameOfVolunteer() { return nameOfVolunteer; }
     public String getNccID() { return nccID; }
+    public String getBarcode() { return barcode; }
 
     // Setter Methods
     public void setId(long id) { this.id = id; }
@@ -90,20 +103,36 @@ public class GuestRegistryEntry {
     public void setAdditionalInfo(String additionalInfo) { this.additionalInfo = additionalInfo; }
     public void setNameOfVolunteer(String nameOfVolunteer) { this.nameOfVolunteer = nameOfVolunteer; }
     public void setNccID(String nccID) { this.nccID = nccID; }
+    public void setBarcode(String barcode) { this.barcode = barcode; }
 
     /**
      * equals method --
-     * this method accepts a guest entry as an argument.
-     * It compares the argument ID to the object calling the method's ID
-     * @param otherEntry - the guest entry that the object calling the method is being compared to
-     * @return true if the entry has the same ID, false otherwise
+     * Returns whether or not the id variables of the two {@link GuestRegistryEntry} objects are
+     * equal.
+     * @param otherEntry The entry to compare to
+     * @return true if the entry has the same id, false otherwise
      */
-    public boolean equals(Object otherEntry) { return this.id == ((GuestRegistryEntry) otherEntry).id; }
+    @Override
+    public boolean equals(Object otherEntry) {
 
-    // Will be used by the ArrayAdapter in the ListView
+        if (otherEntry instanceof GuestRegistryEntry)
+
+            return (this.id == ((GuestRegistryEntry) otherEntry).id);
+
+        return false;
+
+    }
+
+    @NonNull
     @Override
     public String toString() {
-        return id + ": " + name + " - " + email + " - " + phone + " - " + date + " - " + address + " - " + city + " - " + zipcode + " - " + state + " - " + additionalInfo + " - "
+
+        // Will be used by the ArrayAdapter in the ListView
+
+        return id + ": " + name + " - " + email + " - " + phone + " - " + date + " - " + address +
+                " - " + city + " - " + zipcode + " - " + state + " - " + additionalInfo + " - "
                 + nameOfVolunteer + " - " + nccID;
+
     }
+
 }

@@ -32,6 +32,10 @@ import androidx.navigation.fragment.NavHostFragment;
 import edu.ncc.nest.nestapp.GuestDatabaseRegistration.Activities.GuestDatabaseRegistrationActivity;
 import edu.ncc.nest.nestapp.R;
 
+/**
+ * ConfirmationFragment: Ask the user to confirm whether or not the information pulled from the
+ * database is correct.
+ */
 public class ConfirmationFragment extends Fragment implements View.OnClickListener {
 
     public static final String TAG = ConfirmationFragment.class.getSimpleName();
@@ -40,7 +44,7 @@ public class ConfirmationFragment extends Fragment implements View.OnClickListen
 
     private String guestId = null;
 
-    /************ LifeCycle Methods Start ************/
+    ////////////// Lifecycle Methods Start //////////////
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -89,7 +93,7 @@ public class ConfirmationFragment extends Fragment implements View.OnClickListen
 
     }
 
-    /************ Implementation Methods Start ************/
+    ////////////// Implementation Methods Start  //////////////
 
     @Override
     public void onClick(View view) {
@@ -133,7 +137,7 @@ public class ConfirmationFragment extends Fragment implements View.OnClickListen
 
     }
 
-    /************ Custom Methods Start ************/
+    ////////////// Custom Methods Start  //////////////
 
     /**
      * selectDisplayedView --

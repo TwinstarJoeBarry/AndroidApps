@@ -30,13 +30,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * QuestionnaireSource Class
- *
- * This class finds and inserts data from and to the QuestionnaireHelper class / database
- *
- * @author Owen Wurster
- * @author (Co-Author) Tyler Sizse
- * @author (Co-Author) Charles Cohen
+ * QuestionnaireSource: This class finds and inserts data from and to the
+ * {@link QuestionnaireHelper} class / database.
  */
 public class QuestionnaireSource {
 
