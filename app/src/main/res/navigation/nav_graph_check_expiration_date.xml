@@ -27,7 +27,7 @@
     <fragment
         android:id="@+id/CED_StartFragment"
         android:name="edu.ncc.nest.nestapp.CheckExpirationDate.Fragments.StartFragment"
-        android:label="@string/check_expiration_date_start_fragment_label"
+        android:label="@string/nav_graph_ced_start_fragment_lbl"
         tools:layout="@layout/fragment_check_expiration_date_start">
 
         <action
@@ -43,7 +43,7 @@
     <fragment
         android:id="@+id/CED_ScannerFragment"
         android:name="edu.ncc.nest.nestapp.CheckExpirationDate.Fragments.ScannerFragment"
-        android:label="@string/check_expiration_date_scanner_fragment_label"
+        android:label="@string/nav_graph_ced__scanner_fragment_lbl"
         tools:layout="@layout/fragment_abstract_scanner">
 
         <action
@@ -59,7 +59,7 @@
     <fragment
         android:id="@+id/CED_EnterUpcFragment"
         android:name="edu.ncc.nest.nestapp.CheckExpirationDate.Fragments.EnterUpcFragment"
-        android:label="@string/check_expiration_date_enter_upc_fragment_label"
+        android:label="@string/nav_graph_ced_enter_upc_fragment_lbl"
         tools:layout="@layout/fragment_check_expiration_date_enter_upc">
 
         <action
@@ -75,7 +75,7 @@
     <fragment
         android:id="@+id/CED_ConfirmItemFragment"
         android:name="edu.ncc.nest.nestapp.CheckExpirationDate.Fragments.ConfirmItemFragment"
-        android:label="@string/check_expiration_date_confirm_item_fragment_label"
+        android:label="@string/nav_graph_ced_confirm_item_fragment_lbl"
         tools:layout="@layout/fragment_check_expiration_date_confirm_item" >
 
         <action
@@ -91,7 +91,7 @@
     <fragment
         android:id="@+id/CED_SelectItemFragment"
         android:name="edu.ncc.nest.nestapp.CheckExpirationDate.Fragments.SelectItemFragment"
-        android:label="@string/check_expiration_date_select_item_fragment_label"
+        android:label="@string/nav_graph_ced_select_item_fragment_lbl"
         tools:layout="@layout/fragment_check_expiration_date_select_item" >
 
         <action
@@ -103,7 +103,7 @@
     <fragment
         android:id="@+id/CED_SelectPrintedExpirationDateFragment"
         android:name="edu.ncc.nest.nestapp.CheckExpirationDate.Fragments.SelectPrintedExpirationDateFragment"
-        android:label="@string/check_expiration_date_select_printed_expiration_date_fragment_label"
+        android:label="@string/nav_graph_ced_select_printed_expiration_date_fragment_lbl"
         tools:layout="@layout/fragment_check_expiration_date_select_printed_expiration_date" >
 
         <action
@@ -115,7 +115,7 @@
     <fragment
         android:id="@+id/CED_DisplayTrueExpirationFragment"
         android:name="edu.ncc.nest.nestapp.CheckExpirationDate.Fragments.DisplayTrueExpirationFragment"
-        android:label="@string/check_expiration_date_display_true_expiration_fragment_label"
+        android:label="@string/nav_graph_ced_display_true_expiration_fragment_lbl"
         tools:layout="@layout/fragment_check_expiration_date_display_true_expiration" />
 
 </navigation>

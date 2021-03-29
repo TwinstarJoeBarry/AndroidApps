@@ -1,950 +1,156 @@
 <resources>
+
+    <!-- Global Strings (Used globally throughout the app. Not file specific.) -->
     <string name="app_name">NestApp</string>
-    <string name="vol_form">Volunteer Form</string>
-
-    <!-- String names for activity_login activity -->
-    <string name="account_login">Login</string>
-    <string name="user_name">Username</string>
-    <string name="password">Password</string>
-    <string name="forgot_password">Forgot password?</string>
-    <string name="sign_in">Sign in</string>
-    <string name="photo">Photo</string>
-    <string name="make_account">Don\'t have an account? Sign up.</string>
-
-    <!-- String names for activity_sign_up activity -->
+    <string name="empty_string" />
+    <string name="accept">Accept</string>
+    <string name="cancel">Cancel</string>
+    <string name="next">Next</string>
+    <string name="submit">Submit</string>
+    <string name="done">Done</string>
+    <string name="confirm">Confirm</string>
+    <string name="register">Register</string>
+    <string name="full_name">Full Name</string>
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
-    <string name="n_number">N00123456</string>
-    <string name="email_address">example@gmail.com</string>
-    <string name="phone_number">5165552345</string>
-    <string name="sign_up">Sign Up For NEST Volunteer!</string>
-    <string name="sign_up_str">Sign up</string>
-    <string name="title_activity_forgot_password">ForgotPassword</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="email_address">Email Address</string>
+    <string name="ncc_affiliation">NCC Affiliation</string>
+    <string name="ncc_id">NCC ID</string>
+    <string name="postal_address">Postal Address</string>
+    <string name="town_city">Town / City</string>
+    <string name="zip_code">Zip Code</string>
+    <string name="state">State</string>
+    <string name="birth_date">Birth Date</string>
+    <string name="gender">Gender</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="month">Month</string>
+    <string name="day">Day</string>
+    <string name="year">Year</string>
 
-    <!-- String names for activity_inventory activity -->
-    <string name="textview">NEST Inventory</string>
-    <string name="textview2">Most Popular</string>
-    <string name="textview3">Baby Food</string>
-    <string name="textview4">Baked Goods</string>
-    <string name="textview5">Beverages</string>
-    <string name="textview6">Condiments, Sauces, and Canned Goods</string>
-    <string name="textview7">Dairy Products, and Eggs</string>
-    <string name="textview8">Deli and Prepared Foods</string>
-    <string name="textview9">Food Purchased Frozen</string>
-    <string name="textview10">Grains, Beans, and Pasta</string>
-    <string name="textview11">Meat</string>
-    <string name="textview12">Poultry</string>
-    <string name="textview13">Produce</string>
-    <string name="textview14">Seafood</string>
-    <string name="textview15">Shelf Stable Foods</string>
-    <string name="textview16">Vegetarian Proteins</string>
-
-    <!-- String names for activity_forgot_password activity -->
-    <string name="forgot_pass">Enter your email address</string>
-    <string name="reset">Send me the link!</string>
-    <string name="title_activity_choose">NEST Home</string>
+    <!-- Strings used in AndroidManifest.xml -->
     <string name="title_activity_sign_up">SignUp</string>
-
-    <!-- String for activity_choose -->
-    <string name="make_choice">Choose a NEST Activity:"</string>
-
-    <!-- String for menu_main -->
-    <string name="home">HOME</string>
-
-    <!-- String names for activity_guest_form activity -->
-    <string name="email_lbl">Email Address</string>
-    <string name="phone_lbl">Phone Number</string>
-    <string name="date_lbl">Date</string>
-    <string name="address_lbl">Address</string>
-    <string name="name_lbl">Name</string>
-    <string name="ID_lbl">NCC ID</string>
-    <string name="town_lbl">Town/City</string>
-    <string name="zip_lbl">Zip Code</string>
-    <string name="income_lbl">Household Income</string>
-    <string name="moreInfoQuestion_lbl"><font size="14">Is there anything else you would like us to know at this time?</font></string>
-    <string name="volFirstName_lbl"><font size="14">What is the first name of the volunteer who helped you today?</font></string>
-    <string name="volLastName_lbl"><font size="14">What is the last name of the volunteer who helped you today?</font></string>
-    <string name="submitBtn_lbl">Submit</string>
-    <string name="contact_method">Preferred method of contact:</string>
-    <string name="push_notif">Would you like to receive Push Notifications?</string>
-    <string name="yes_to_push">Yes, I would like to receive push notifications.</string>
-    <string name="re_enter">Re-enter Password</string>
-    <string name="availability">Availability</string>
-    <string name="weekly_schedule">What times are best for you during the week?</string>
-    <string name="monday">Monday</string>
-    <string name="tuesday">Tuesday</string>
-    <string name="wednesday">Wednesday</string>
-    <string name="thursday">Thursday</string>
-    <string name="friday">Friday</string>
-    <string name="api">Api</string>
-    <string name="final_date">Final Date:</string>
-    <string name="FinalDate">Final Date</string>
-    <string name="expirationDate">Expiration Date:</string>
-    <string name="metric">Metric:</string>
-    <string name="MaxDoppantryLife">Max dop_pantryLife:</string>
-    <string-array name="states_array">
-        <item>Alabama</item>
-        <item>Alaska</item>
-        <item>Arizona</item>
-        <item>Arkansas</item>
-        <item>California</item>
-        <item>Colorado</item>
-        <item>Connecticut</item>
-        <item>Delaware</item>
-        <item>Florida</item>
-        <item>Georgia</item>
-        <item>Hawaii</item>
-        <item>Idaho</item>
-        <item>Illinois</item>
-        <item>Indiana</item>
-        <item>Iowa</item>
-        <item>Kansas</item>
-        <item>Kentucky</item>
-        <item>Louisiana</item>
-        <item>Maine</item>
-        <item>Maryland</item>
-        <item>Massachusetts</item>
-        <item>Michigan</item>
-        <item>Minnesota</item>
-        <item>Mississippi</item>
-        <item>Missouri</item>
-        <item>Montana</item>
-        <item>Nebraska</item>
-        <item>Nevada</item>
-        <item>New Hampshire</item>
-        <item>New Jersey</item>
-        <item>New Mexico</item>
-        <item>New York</item>
-        <item>North Carolina</item>
-        <item>North Dakota</item>
-        <item>Ohio</item>
-        <item>Oklahoma</item>
-        <item>Oregon</item>
-        <item>Pennsylvania</item>
-        <item>Rhode Island</item>
-        <item>South Carolina</item>
-        <item>South Dakota</item>
-        <item>Tennessee</item>
-        <item>Texas</item>
-        <item>Utah</item>
-        <item>Vermont</item>
-        <item>Virginia</item>
-        <item>Washington</item>
-        <item>West Virginia</item>
-        <item>Wisconsin</item>
-        <item>Wyoming</item>
-    </string-array>
-    <string-array name="contact">
-        <item>E-mail</item>
-        <item>Mobile call</item>
-        <item>Text Message</item>
-    </string-array>
-
-    <!-- String for activity_item_info -->
-    <string name="UPC_label">Scan in or manually enter the UPC code then tap Lookup</string>
-    <string name="open_camera">Open Camera</string>
-    <string name="UPC_message">UPC number from scan:</string>
-    <string name="item_name_message">Item name from scan:</string>
-    <string name="final_date_message">Final date of item from scan:</string>
-    <string name="select_cat_and_item">Select category and item:</string>
-    <string name="select_category">Select Category</string>
-    <string name="select_item">Select Item</string>
-    <string name="category_lbl">Category:</string>
-    <string name="item_lbl">Item:</string>
-    <string name="select_expiration">Select expiration date:</string>
-    <string name="select_expiration_btn">Select Expiration</string>
-    <string name="expiration_lbl">Expiration:</string>
-    <string name="calculate">Calculate</string>
-    <string name="result_placeholder">[result will display here]</string>
+    <string name="title_activity_choose">NEST Home</string>
+    <string name="title_activity_future_efforts">FutureEfforts</string>
     <string name="title_activity_local_database">LocalDatabase</string>
-    <string name="title_activity_alert_dialog">alertDialog</string>
-    <string name="title_activity_interface_tests">interface_tests</string>
+    <string name="title_activity_interface_tests">InterfaceTest</string>
+    <string name="title_activity_add_to_inventory">AddToInventory</string>
+    <string name="title_activity_check_expiration_date">CheckExpirationDate</string>
+    <string name="title_activity_guest_database_registration">GuestDatabaseRegistration</string>
+    <string name="title_activity_guest_google_sheet_registration">GuestGoogleSheetRegistration</string>
+    <string name="title_activity_guest_visit">GuestVisit</string>
 
-    <!-- String names for donate activity -->
-    <string-array name="categories_array">
-        <item>Baby Food</item>
-        <item>Baked Goods</item>
-        <item>Beverages</item>
-        <item>Condiments, Sauces and Canned Goods</item>
-        <item>Dairy Products and Eggs</item>
-        <item>Deli and Prepared Food</item>
-        <item>Food Purchased Frozen</item>
-        <item>Grains, Beans and Pasta</item>
-        <item>Meat</item>
-        <item>Poultry</item>
-        <item>Produce</item>
-        <item>Seafood</item>
-        <item>Shelf Stable Foods</item>
-        <item>Vegetarian Proteins</item>
-    </string-array>
+    <!-- Strings used in menu_main.xml -->
+    <string name="menu_main_home">HOME</string>
 
-    <string-array name="baked_goods_subcategories">
-        <item>Bakery</item>
-        <item>Baking and Cooking</item>
-        <item>Refrigerated Dough</item>
-    </string-array>
+    <!-- Strings used in activity_volunteer_form.xml -->
+    <string name="activity_volunteer_form_title">Volunteer Form</string>
+    <string name="activity_volunteer_form_contact_method">Preferred method of contact:</string>
+    <string name="activity_volunteer_form_push_notifications">Would you like to receive Push Notifications?</string>
+    <string name="activity_volunteer_form_yes_to_push">Yes, I would like to receive push notifications.</string>
 
-    <string-array name="meat_subcategories">
-        <item>Fresh</item>
-        <item>Shelf Stable Foods</item>
-        <item>Smoked or Processed</item>
-        <item>Stuffed or Assembled</item>
-    </string-array>
+    <!-- Strings used in activity_main.xml -->
+    <string name="activity_main_title">Login</string>
+    <string name="activity_main_forgot_password">Forgot password?</string>
+    <string name="activity_main_sign_in">Sign in</string>
+    <string name="activity_main_make_account">Don\'t have an account? Sign up.</string>
 
-    <string-array name="poultry_subcategories">
-        <item>Cooked or Processed</item>
-        <item>Fresh</item>
-        <item>Shelf Stable Foods</item>
-        <item>Stuffed or Assembled</item>
-    </string-array>
+    <!-- Strings used in activity_sign_up.xml -->
+    <string name="activity_sign_up_title">Sign Up For NEST Volunteer!</string>
+    <string name="activity_sign_up_reenter_password">Re-enter Password</string>
+    <string name="activity_sign_up_sign_up_btn">Sign up</string>
+    <string name="activity_sign_up_background_image">Background Image</string>
 
-    <string-array name="produce_subcategories">
-        <item>Fresh Fruits</item>
-        <item>Fresh Vegetables</item>
-    </string-array>
+    <!-- Strings used in activity_inventory.xml -->
+    <string name="activity_inventory_title">NEST Inventory</string>
+    <string name="activity_inventory_popular">Most Popular</string>
+    <string name="activity_inventory_popular_1">Peanut Butter Natural</string>
+    <string name="activity_inventory_popular_2">Fresh Pasta</string>
+    <string name="activity_inventory_popular_3">Milk Plain or Flavored</string>
+    <string name="activity_inventory_popular_4">Whole Wheat Bread(Commercially Baked and Pre-Sliced)</string>
+    <string name="activity_inventory_popular_5">Cranberry Sauce Canned</string>
+    <string name="activity_inventory_popular_6">Canned Goods Low Acid(Soups, Beans, Carrots, Corn, Pasta, Peas, Potatoes, Spinach)</string>
+    <string name="activity_inventory_categories">Categories</string>
+    <string name="activity_inventory_category_1">Baby Food</string>
+    <string name="activity_inventory_category_2">Baked Goods</string>
+    <string name="activity_inventory_category_3">Beverages</string>
+    <string name="activity_inventory_category_4">Condiments, Sauces, and Canned Goods</string>
+    <string name="activity_inventory_category_5">Dairy Products, and Eggs</string>
+    <string name="activity_inventory_category_6">Deli and Prepared Foods</string>
+    <string name="activity_inventory_category_7">Food Purchased Frozen</string>
+    <string name="activity_inventory_category_8">Grains, Beans, and Pasta</string>
+    <string name="activity_inventory_category_9">Meat</string>
+    <string name="activity_inventory_category_10">Poultry</string>
+    <string name="activity_inventory_category_11">Produce</string>
+    <string name="activity_inventory_category_12">Seafood</string>
+    <string name="activity_inventory_category_13">Shelf Stable Foods</string>
+    <string name="activity_inventory_category_14">Vegetarian Proteins</string>
 
-    <string-array name="seafood_subcategories">
-        <item>Fresh</item>
-        <item>Shellfish</item>
-        <item>Smoked</item>
-    </string-array>
+    <!-- Strings used in activity_choose.xml -->
+    <string name="activity_choose_make_choice">Choose a NEST Activity:"</string>
+    <string name="activity_choose_choice_1">Check Expiration Date</string>
+    <string name="activity_choose_choice_2">Guest Forms</string>
+    <string name="activity_choose_choice_3">Future Efforts</string>
+    <string name="activity_choose_choice_4">Display True Date</string>
 
-    <string-array name="baby_food_items">
-        <item>Cereal, dry mixes</item>
-        <item>Dinners</item>
-        <item>Formula Prepared</item>
-        <item>Fruit</item>
-        <item>Jars or Pouches</item>
-        <item>Liquid concentrate or ready-to-feed formula</item>
-        <item>Vegetables</item>
-    </string-array>
+    <!-- Strings used in activity_future_efforts.xml -->
+    <string name="activity_future_efforts_make_choice">Choose a NEST Activity:"</string>
+    <string name="activity_future_efforts_choice_1">Add To Inventory</string>
+    <string name="activity_future_efforts_choice_2">Create NEST account</string>
+    <string name="activity_future_efforts_choice_3">Schedule (Placeholder)</string>
+    <string name="activity_future_efforts_choice_4">Volunteer Form</string>
 
-    <string-array name="baked_goods_bakery_items">
-        <item>Bagel commercially frozen</item>
-        <item>Bagel fresh baked</item>
-        <item>Bread homemade</item>
-        <item>Cheesecake</item>
-        <item>Commercial bread products including pan breads, flat breads, rolls, and buns</item>
-        <item>Commercial cakes and muffins</item>
-        <item>Cookies crispy</item>
-        <item>Cookies soft</item>
-        <item>Dairy filled eclairs</item>
-        <item>Doughnuts</item>
-        <item>Fruit cake</item>
-        <item>Macaroons french</item>
-        <item>Muffin commercially packaged</item>
-        <item>Muffin homemade - including bran, blueberry, banana, corn, chocolate chip</item>
-        <item>Muffin mix, dry, commercially packaged</item>
-        <item>Pastries, danish</item>
-        <item>Pies chiffon</item>
-        <item>Pies cream</item>
-        <item>Pies fruit</item>
-        <item>Pies mincemeat</item>
-        <item>Pies pecan</item>
-        <item>Pies pumpkin</item>
-        <item>Quiche</item>
-    </string-array>
+    <!-- Strings used in activity_guest_form.xml (@Deprecated) -->
+    <string name="activity_guest_form_income">Household Income</string>
+    <string name="activity_guest_form_more_info"><font size="14">Is there anything else you would like us to know at this time?</font></string>
+    <string name="activity_guest_form_volunteer_first_name"><font size="14">What is the first name of the volunteer who helped you today?</font></string>
+    <string name="activity_guest_form_volunteer_last_name"><font size="14">What is the last name of the volunteer who helped you today?</font></string>
 
-    <string-array name="baked_goods_baking_and_cooking_items">
-        <item>Almond extract</item>
-        <item>Amaranth flour, meal</item>
-        <item>Baking powder</item>
-        <item>Baking soda</item>
-        <item>Barley flour, meal</item>
-        <item>Biscuit or pancake mix</item>
-        <item>Buckwheat flour, meal</item>
-        <item>Butter flavor</item>
-        <item>Cake, brownie, bread mixes</item>
-        <item>Chili powder</item>
-        <item>Chocolate unsweetened and semi-sweet, solid</item>
-        <item>Cinnamon extract</item>
-        <item>Cocoa and cocoa mixes</item>
-        <item>Coconut flavor</item>
-        <item>Cornmeal regular, degerminated</item>
-        <item>Cornmeal stone ground or blue</item>
-        <item>Cornstarch</item>
-        <item>Farro flour, meal</item>
-        <item>Flavored or herb mixes</item>
-        <item>Flour white</item>
-        <item>Flour whole wheat</item>
-        <item>Frosting or icing</item>
-        <item>Garam masala</item>
-        <item>Garlic chopped, commercial jars</item>
-        <item>Gelatin flavored</item>
-        <item>Gelatin unflavored</item>
-        <item>Herbs dried</item>
-        <item>Lemon extract</item>
-        <item>Millet flour, meal</item>
-        <item>Nut oils</item>
-        <item>Oats flour, meal</item>
-        <item>Oils olive or vegetable</item>
-        <item>Pure vanilla extract</item>
-        <item>Rye flour, meal</item>
-        <item>Seasoning blends</item>
-        <item>Shortening solid</item>
-        <item>Sorghum flour, meal</item>
-        <item>Spelt flour, meal</item>
-        <item>Spice/spices ground</item>
-        <item>Spice/spices whole</item>
-        <item>Sugar substitutes</item>
-        <item>Sugar brown</item>
-        <item>Sugar confectioners</item>
-        <item>Sugar granulated</item>
-        <item>Tamarind paste</item>
-        <item>Tapiocas</item>
-        <item>Teff flour, meal</item>
-        <item>Vegetable oil sprays</item>
-        <item>Whole wheat flour</item>
-        <item>Yeast packaged</item>
-    </string-array>
+    <!-- Strings used in activity_final_date.xml (@Deprecated) -->
+    <string name="activity_final_date_final_date">Final Date:</string>
+    <string name="activity_final_date_expiration">Expiration Date:</string>
+    <string name="activity_final_date_metric">Metric:</string>
+    <string name="activity_final_date_max_dop_pantry_life">Max dop_pantryLife:</string>
 
-    <string-array name="baked_goods_refrigerated_dough_items">
-        <item>Biscuits refrigerated</item>
-        <item>Cookie dough</item>
-        <item>Pie crust refrigerated</item>
-        <item>Puff pastry</item>
-        <item>Ready-to-bake pie crust</item>
-        <item>Tube cans of biscuits, rolls, pizza dough, etc.</item>
-    </string-array>
+    <!-- Strings used in activity_item_info.xml (@Deprecated) -->
+    <string name="activity_item_info_upc_lbl">Scan in or manually enter the UPC code then tap Lookup</string>
+    <string name="activity_item_info_scan_btn">Scan in</string>
+    <string name="activity_item_info_enter_upc">Enter UPC code here</string>
+    <string name="activity_item_info_lookup_btn">Lookup</string>
+    <string name="activity_item_info_select_cat_and_item">Select category and item:</string>
+    <string name="activity_item_info_select_category_btn">Select Category</string>
+    <string name="activity_item_info_select_item_btn">Select Item</string>
+    <string name="activity_item_info_category_lbl">Category:</string>
+    <string name="activity_item_info_item_lbl">Item:</string>
+    <string name="activity_item_info_select_expiration_lbl">Select expiration date:</string>
+    <string name="activity_item_info_select_expiration_btn">Select Expiration</string>
+    <string name="activity_item_info_expiration_lbl">Expiration:</string>
+    <string name="activity_item_info_tips_btn">TIP</string>
+    <string name="activity_item_info_calculate_btn">Calculate</string>
+    <string name="activity_item_info_result">[result will display here]</string>
 
-    <string-array name="beverages_items">
-        <item>Apple juice fresh squeezed</item>
-        <item>Carrot juice fresh squeezed</item>
-        <item>Coffee commercial ground, non-vacuum</item>
-        <item>Coffee home ground, non-vacuum</item>
-        <item>Coffee instant</item>
-        <item>Coffee whole beans</item>
-        <item>Cream liquors unopened</item>
-        <item>Diet powder mixes and drink mixes</item>
-        <item>Fruit Juice in cartons, fruit drinks, punch</item>
-        <item>Hard liquors</item>
-        <item>Juice, boxes</item>
-        <item>Lemon juice</item>
-        <item>Lemon juice fresh squeezed</item>
-        <item>Lime juice</item>
-        <item>Nectar papaya, mango, guava, or guavabana</item>
-        <item>Nutrition supplement drinks canned</item>
-        <item>Orange juice commercially frozen concentrate</item>
-        <item>Orange juice commercially packaged carton</item>
-        <item>Orange juice fresh squeezed</item>
-        <item>Orange juice freshly squeezed</item>
-        <item>Red wine</item>
-        <item>Soda carbonated cola drinks, mixers, diet sodas; bottles or cans</item>
-        <item>Soy or rice beverage</item>
-        <item>Tea bags</item>
-        <item>Tea instant</item>
-        <item>Tea loose</item>
-        <item>Vegetable juice commercial, sold refrigerated</item>
-        <item>Vegetable juice homemade</item>
-        <item>Vegetable juice shelf-stable</item>
-        <item>Water commercially bottled</item>
-        <item>White wine</item>
-    </string-array>
+    <!-- Strings used in activity_donate.xml -->
+    <string name="activity_donate_form_title">Donation Form</string>
+    <string name="activity_donate_category_lbl">Select A Category:</string>
+    <string name="activity_donate_category_msg">Waiting For A Category To Be Selected…</string>
+    <string name="activity_donate_subcategory_lbl">Select A Subcategory:</string>
+    <string name="activity_donate_item_lbl">Select An Item:</string>
+    <string name="activity_donate_select_date_description">Press To Select The Expiration Date:</string>
+    <string name="activity_donate_select_date_btn">Select Date</string>
+    <string name="activity_donate_expiration_date_lbl">Expiration Date: </string>
 
-    <string-array name="condiments_sauces_and_canned_goods_items">
-        <item>Apple cider vinegar</item>
-        <item>Bacon grease</item>
-        <item>Barbecue sauce bottled</item>
-        <item>Beef broth/stock/consommé commercially produced</item>
-        <item>Black bean sauce</item>
-        <item>Broth homemade</item>
-        <item>Chicken broth/stock/consommé commercially produced</item>
-        <item>Chutney</item>
-        <item>Cranberry sauce canned</item>
-        <item>Cranberry sauce homemade</item>
-        <item>Cream sauces, milk solids</item>
-        <item>Dry gravy mixes</item>
-        <item>Duck fat</item>
-        <item>Frying oil re-used</item>
-        <item>Gravy jars and cans</item>
-        <item>Hoisin sauce</item>
-        <item>Honey</item>
-        <item>Horseradish in jar</item>
-        <item>Hot sauce</item>
-        <item>Jams, jellies, and preserves</item>
-        <item>Ketchup, cocktail, or chili sauce</item>
-        <item>Marinades</item>
-        <item>Mayonnaise commercial</item>
-        <item>Mustard</item>
-        <item>Olives black and green</item>
-        <item>Oyster sauce</item>
-        <item>Pesto jarred</item>
-        <item>Pickles</item>
-        <item>Relish</item>
-        <item>Salad dressings commercial, bottled</item>
-        <item>Salsa picante and taco sauces</item>
-        <item>Sauce mixes nondairy (spaghetti, taco, etc.)</item>
-        <item>Soy sauce or teriyaki sauce</item>
-        <item>Spaghetti sauce in jars</item>
-        <item>Tahini</item>
-        <item>Thai red curry paste</item>
-        <item>Tomato sauce spaghetti, pizza</item>
-        <item>Vegetable stock/broth commercially produced</item>
-        <item>Vinegar</item>
-        <item>Worcestershire sauce</item>
-    </string-array>
+    <!-- Strings used in activity_ati_questionnaire.xml -->
+    <string name="activity_ati_questionnaire_title">ListView Of All Products</string>
+    <string name="activity_ati_questionnaire_ui_test">UITest4</string>
+    <string name="activity_ati_questionnaire_related_products_btn">Press to See Related Products</string>
 
-    <string-array name="dairy_products_and_eggs_items">
-        <item>Almond milk</item>
-        <item>Butter</item>
-        <item>Buttermilk</item>
-        <item>Cheese hard such as cheddar, swiss, block parmesan</item>
-        <item>Cheese parmesan; shredded or grated</item>
-        <item>Cheese processed slices</item>
-        <item>Cheese shredded; cheddar, mozzarella, etc.</item>
-        <item>Cheese soft such as brie, bel paese</item>
-        <item>Coconut milk</item>
-        <item>Coffee creamer liquid refrigerated</item>
-        <item>Coffee creamer powdered</item>
-        <item>Cottage cheese</item>
-        <item>Cream cheese</item>
-        <item> Cream half and half</item>
-        <item>Cream heavy</item>
-        <item>Cream light</item>
-        <item>Cream whipped, sweetened</item>
-        <item>Cream whipping, ultrapasteurized</item>
-        <item>Dips sour cream based</item>
-        <item>Egg dishes</item>
-        <item>Egg substitutes liquid</item>
-        <item>Eggnog commercial</item>
-        <item>Eggs hard boiled cooked</item>
-        <item>Eggs in shell</item>
-        <item>Eggs raw whites, yolks</item>
-        <item>Kefir fermented milk</item>
-        <item>Margarine</item>
-        <item>Milk lactose-free</item>
-        <item>Milk plain or flavored</item>
-        <item>Nacho cheese store bought</item>
-        <item>Powdered milk</item>
-        <item>Pudding</item>
-        <item>Quark fresh cheese</item>
-        <item>Rice milk</item>
-        <item>Ricotta</item>
-        <item>Sour cream</item>
-        <item>Soy milk</item>
-        <item>String Cheese</item>
-        <item>Vegan Cheddar Cheese</item>
-        <item>Whipped cream aerosol can</item>
-        <item>Whipped topping aerosol can</item>
-        <item>Whipped topping tub</item>
-        <item>Yogurt</item>
-    </string-array>
+    <!-- Strings used in list_ati.xml -->
+    <string name="list_ati_product_lbl">Product: </string>
 
-    <string-array name="deli_and_prepared_foods_items">
-        <item>Canadian bacon sliced</item>
-        <item>Canadian bacon whole</item>
-        <item>Casseroles</item>
-        <item>Chicken salad</item>
-        <item>Chicken pre-packaged, luncheon/deli meat</item>
-        <item>Commercial brand vacuum-packed dinners with USDA seal</item>
-        <item>Cooked pasta</item>
-        <item>Cooked rice</item>
-        <item>Egg salad</item>
-        <item>Fruit, cut</item>
-        <item>Guacamole</item>
-        <item>Ham salad</item>
-        <item>Ham pre-packaged, luncheon/deli meat</item>
-        <item>Hummus commercial (pasteurized, with preservatives)</item>
-        <item>Hummus traditional (no preservatives, not pasteurized)</item>
-        <item>Leftovers pizza</item>
-        <item>Leftovers with meat, fish, poultry, or egg</item>
-        <item>Leftovers without meat, fish, poultry, or egg (such as cooked vegetables, rice, or potatoes)</item>
-        <item>Luncheon meat or poultry pre-packaged</item>
-        <item>Luncheon meat or poultry store-sliced</item>
-        <item>Main dishes or meals hot or refrigerated</item>
-        <item>Meats covered with gravy or broth</item>
-        <item>Olives from olive bar</item>
-        <item>Pasta salad</item>
-        <item>Pate</item>
-        <item>Potato salad</item>
-        <item>Poultry pieces covered with gravy or broth</item>
-        <item>Salami pre-packaged, luncheon/deli meat</item>
-        <item>Salsa fresh</item>
-        <item>Seafood salads (tuna salad, shrimp salad, salmon salad, mixed seafood salad, etc.)</item>
-        <item>Soup, stews</item>
-        <item>Turkey pre-packaged, luncheon/deli meat</item>
-    </string-array>
-
-    <string-array name="food_purchased_frozen_items">
-        <item>Dough commercial (bread or cookie)</item>
-        <item>Egg substitutes</item>
-        <item>Fish breaded</item>
-        <item>Fish raw but headed and gutted</item>
-        <item>Frozen potato products fries, hashbrowns, tater tots</item>
-        <item>Frozen pretzels</item>
-        <item>Fruits such as berries, melons</item>
-        <item>Ice cream</item>
-        <item>Ice pops</item>
-        <item>Juice concentrates</item>
-        <item>Lobster tails</item>
-        <item>Pancakes, waffles</item>
-        <item>Pizza frozen</item>
-        <item>Sausages precooked</item>
-        <item>Sausages uncooked</item>
-        <item>Sherbet, sorbet</item>
-        <item>Shrimp, shellfish</item>
-        <item>Soy crumbles and hot dogs</item>
-        <item>Soy meat substitutes</item>
-        <item>TV dinners, entrees, breakfast</item>
-        <item>Tempeh</item>
-        <item>Vegetables</item>
-    </string-array>
-
-    <string-array name="grains_beans_and_pasta_items">
-        <item>Amaranth whole grain</item>
-        <item>Barley whole grain</item>
-        <item>Beans dried</item>
-        <item>Buckwheat whole grain</item>
-        <item>Dry egg noodles</item>
-        <item>Farro whole grain</item>
-        <item>Fresh pasta</item>
-        <item>Lentils dried</item>
-        <item>Millet whole grain</item>
-        <item>Oats whole grain</item>
-        <item>Pasta dry, without eggs</item>
-        <item>Peanuts boiled, shelled</item>
-        <item>Peas dried split</item>
-        <item>Quinoa cooked</item>
-        <item>Quinoa uncooked</item>
-        <item>Refried beans</item>
-        <item>Rice brown</item>
-        <item>Rice white or wild</item>
-        <item>Rye whole grain</item>
-        <item>Sorghum whole grain</item>
-        <item>Spelt whole grain</item>
-        <item>Teff whole grain</item>
-        <item>Tortillas corn</item>
-        <item>Tortillas flour</item>
-        <item>Whole wheat bread commercially baked &amp; pre-sliced</item>
-        <item>Whole wheat bread homemade</item>
-    </string-array>
-
-    <string-array name="meat_fresh_items">
-        <item>Beef chuck roast, brisket</item>
-        <item>Beef ground</item>
-        <item>Beef rib roast, bone-in</item>
-        <item>Beef rib roast; boneless, rolled</item>
-        <item>Beef round or rump roast</item>
-        <item>Beef short ribs</item>
-        <item>Beef steaks</item>
-        <item>Beef stew, cubes</item>
-        <item>Beef tenderloin, half</item>
-        <item>Beef tenderloin, whole</item>
-        <item>Goat ground</item>
-        <item>Goat less tender whole cuts (stew meat, riblets, shanks)</item>
-        <item>Goat tender whole cuts (legs, ribs, shoulder, loin)</item>
-        <item>Lamb breast, rolled</item>
-        <item>Lamb chops, ribs, or loin</item>
-        <item>Lamb crown roast</item>
-        <item>Lamb cubes for kabobs</item>
-        <item>Lamb ground</item>
-        <item>Lamb leg steaks</item>
-        <item>Lamb leg, bone-in - large</item>
-        <item>Lamb leg, bone-in - small</item>
-        <item>Lamb leg; boneless, rolled</item>
-        <item>Lamb shanks</item>
-        <item>Lamb shoulder roast or shank leg half</item>
-        <item>Lamb stew meat, pieces</item>
-        <item>Pork crown roast - large</item>
-        <item>Pork crown roast - small</item>
-        <item>Pork ground</item>
-        <item>Pork loin chops, bone-in</item>
-        <item>Pork loin chops, boneless</item>
-        <item>Pork loin roast, bone-in</item>
-        <item>Pork loin roast, boneless</item>
-        <item>Pork loin, cubes</item>
-        <item>Pork ribs</item>
-        <item>Pork shoulder</item>
-        <item>Pork tenderloin</item>
-        <item>Pork tenderloin medallions or loin cubes</item>
-        <item>Rabbit whole, fresh</item>
-        <item>Variety meats liver, tongue, chitterlings, etc.</item>
-        <item>Veal ground</item>
-        <item>Veal leg rump or round roast, boneless</item>
-        <item>Veal loin roast, bone-in</item>
-        <item>Veal shoulder roast, boneless</item>
-        <item>Venison round, rump, loin, or rib roast</item>
-    </string-array>
-
-    <string-array name="meat_shelf_stable_foods_items">
-        <item>Bacon fully cooked</item>
-        <item>Ham shelf-stable cans</item>
-        <item>Jerky commercially dried</item>
-        <item>Jerky homemade</item>
-        <item>Meat products canned</item>
-        <item>Retort pouches or boxes</item>
-    </string-array>
-
-    <string-array name="meat_smoked_or_processed_items">
-        <item>Bacon</item>
-        <item>Corned beef in pouch with pickling juices</item>
-        <item>Ham canned (“keep refrigerated” label)</item>
-        <item>Ham country ham (whole or half)</item>
-        <item>Ham fresh, cook-before-eating, arm picnic shoulder, boneless</item>
-        <item>Ham fresh, cook-before-eating, bone-in, half</item>
-        <item>Ham fresh, cook-before-eating, bone-in, whole</item>
-        <item>Ham fresh, cook-before-eating, shank or butt portion, bone-in</item>
-        <item>Ham fresh, cook-before-eating, shoulder roll (butt), boneless</item>
-        <item>Ham fresh, uncooked, half leg, bone-in</item>
-        <item>Ham fresh, uncooked, whole leg, bone-in</item>
-        <item>Ham fresh, uncooked, whole leg, boneless</item>
-        <item>Ham fully cooked, arm picnic shoulder, boneless</item>
-        <item>Ham fully cooked, bone-in, half</item>
-        <item>Ham fully cooked, bone-in, whole</item>
-        <item>Ham fully cooked, canned, boneless (refrigerated)</item>
-        <item>Ham fully cooked, slices, half, or spiral cut</item>
-        <item>Ham fully cooked, vacuum packed, boneless</item>
-        <item>Hot dogs</item>
-        <item>Pate meat</item>
-        <item>Pork roll</item>
-        <item>Sausage fully cooked smoked links, kielbasa</item>
-        <item>Sausage hard, dry (pepperoni), sliced</item>
-        <item>Sausage raw bulk type or patties</item>
-    </string-array>
-
-    <string-array name="meat_stuffed_or_assembled_items">
-        <item>Raw kabobs with vegetables</item>
-        <item>Stuffed, raw pork chops</item>
-    </string-array>
-
-    <string-array name="poultry_cooked_or_processed_items">
-        <item>Chicken nuggets, patties</item>
-        <item>Cooked poultry dishes</item>
-        <item>Fried chicken</item>
-        <item>Pate poultry</item>
-        <item>Rotisserie chicken</item>
-        <item>Turkey bacon</item>
-    </string-array>
-
-    <string-array name="poultry_fresh_items">
-        <item>Capon whole</item>
-        <item>Chicken parts breast halves, bone-in</item>
-        <item>Chicken parts breast halves, boneless</item>
-        <item>Chicken parts legs or thighs</item>
-        <item>Chicken whole</item>
-        <item>Cornish Hens whole</item>
-        <item>Duckling domestic or wild, whole</item>
-        <item>Giblets</item>
-        <item>Goose domestic or wild, whole</item>
-        <item>Ground turkey or chicken</item>
-        <item>Pheasant young, whole</item>
-        <item>Quail whole</item>
-        <item>Turkey parts breast halves, bone-in</item>
-        <item>Turkey parts breast halves, boneless</item>
-        <item>Turkey parts legs or thighs</item>
-        <item>Turkey whole</item>
-    </string-array>
-
-    <string-array name="poultry_shelf_stable_foods_items">
-        <item>Canned chicken</item>
-        <item>Retort pouches or boxes</item>
-    </string-array>
-
-    <string-array name="poultry_stuffed_or_assembled_items">
-        <item>Raw kabobs with vegetables</item>
-        <item>Stuffed, raw chicken breasts</item>
-        <item>Turducken</item>
-    </string-array>
-
-    <string-array name="produce_fresh_fruits_items">
-        <item>Apples</item>
-        <item>Applesauce homemade</item>
-        <item>Apricots</item>
-        <item>Avocados</item>
-        <item>Bananas</item>
-        <item>Berries blackberries, boysenberries, currant</item>
-        <item>Berries cherries, goose berries, lychee</item>
-        <item>Blueberries</item>
-        <item>Cantaloupe</item>
-        <item>Cherimoya</item>
-        <item>Cherries</item>
-        <item>Citrus fruit lemon, lime, orange, grapefruit, tangerines, clementines</item>
-        <item>Coconut shredded</item>
-        <item>Coconuts fresh</item>
-        <item>Cranberries</item>
-        <item>Dates</item>
-        <item>Grapes</item>
-        <item>Guava</item>
-        <item>Honeydew</item>
-        <item>Kiwi fruit</item>
-        <item>Kumquats</item>
-        <item>Melons</item>
-        <item>Papaya, mango, feijoa, passionfruit, casaha melon</item>
-        <item>Peaches, nectarines, plums, pears, sapote</item>
-        <item>Pineapple</item>
-        <item>Pitaya/dragon fruit</item>
-        <item>Plantains</item>
-        <item>Pomegranate</item>
-        <item>Prickly pear</item>
-        <item>Raspberries</item>
-        <item>Star fruit</item>
-        <item>Strawberries</item>
-        <item>Watermelon</item>
-    </string-array>
-
-    <string-array name="produce_fresh_vegetables_items">
-        <item>Artichokes, whole</item>
-        <item>Asparagus</item>
-        <item>Baby carrots</item>
-        <item>Bagged greens leaf, spinach, lettuce, etc.</item>
-        <item>Bamboo shoots</item>
-        <item>Basil dried</item>
-        <item>Basil fresh</item>
-        <item>Bean sprouts</item>
-        <item>Beans and peas green, fava, lima, soybean, wax, snow, sugar snap</item>
-        <item>Beets</item>
-        <item>Bok choy</item>
-        <item>Broccoli and broccoli raab (rapini)</item>
-        <item>Brussels sprouts</item>
-        <item>Cabbage</item>
-        <item>Carrots, parsnips</item>
-        <item>Cauliflower</item>
-        <item>Celery</item>
-        <item>Cherry tomatoes</item>
-        <item>Chives</item>
-        <item>Cilantro</item>
-        <item>Corn on the cob</item>
-        <item>Cucumbers</item>
-        <item>Eggplant</item>
-        <item>Garlic</item>
-        <item>Ginger root</item>
-        <item>Greens</item>
-        <item>Herbs</item>
-        <item>Hot peppers</item>
-        <item>Jicama fresh</item>
-        <item>Kale</item>
-        <item>Kimchi</item>
-        <item>Kohlrabi</item>
-        <item>Leeks</item>
-        <item>Lemongrass</item>
-        <item>Lettuce iceberg, romaine</item>
-        <item>Lettuce leaf, spinach</item>
-        <item>Marinated vegetables in oil</item>
-        <item>Mint</item>
-        <item>Mushrooms</item>
-        <item>Okra</item>
-        <item>Onions spring or green</item>
-        <item>Onions yellow, white, red, etc.</item>
-        <item>Oregano</item>
-        <item>Peppers</item>
-        <item>Potatoes</item>
-        <item>Pumpkins</item>
-        <item>Radishes</item>
-        <item>Rhubarb</item>
-        <item>Rosemary</item>
-        <item>Rutabagas</item>
-        <item>Spaghetti squash cut</item>
-        <item>Spaghetti squash whole</item>
-        <item>Squash summer and zucchini</item>
-        <item>Squash winter</item>
-        <item>Swiss chard</item>
-        <item>Tamarind</item>
-        <item>Taro</item>
-        <item>Thyme</item>
-        <item>Tomatoes</item>
-        <item>Turnips</item>
-        <item>Yams/sweet potatoes</item>
-        <item>Yuca/cassava</item>
-        <item>Zucchini fresh, whole</item>
-    </string-array>
-
-    <string-array name="seafood_fresh_items">
-        <item>Caviar fresh, in jar</item>
-        <item>Cooked fish all</item>
-        <item>Fatty fish bluefish, catfish, mackerel, mullet, salmon, tuna, etc.</item>
-        <item>Lean fish cod, flounder, haddock, halibut, sole, etc.</item>
-        <item>Lean fish pollock, ocean perch, rockfish, sea trout.</item>
-        <item>Surimi seafood</item>
-    </string-array>
-
-    <string-array name="seafood_shellfish_items">
-        <item>Cooked shellfish all</item>
-        <item>Crab legs king, dungeness, snow</item>
-        <item>Crab meat fresh</item>
-        <item>Crab meat pasteurized</item>
-        <item>Fresh clams, mussels, oysters</item>
-        <item>Fresh lobster tails cooked</item>
-        <item>Fresh whole lobster frozen</item>
-        <item>Fresh whole lobster live</item>
-        <item>Live clams, mussels, crab, and oysters</item>
-        <item>Scallops</item>
-        <item>Shrimp, crayfish</item>
-        <item>Shucked clams, mussels, and oysters</item>
-        <item>Squid</item>
-    </string-array>
-
-    <string-array name="seafood_smoked_items">
-        <item>Fish cold smoked, air pack</item>
-        <item>Fish cold smoked, vacuum pack</item>
-        <item>Fish hot smoked, air pack</item>
-        <item>Fish hot smoked, vacuum pack</item>
-        <item>Herring glass packed, in wine sauce</item>
-    </string-array>
-
-    <string-array name="shelf_stable_foods_items">
-        <item>"Genuine" Maple syrup unopened, glass</item>
-        <item>"Genuine" Maple syrup unopened, plastic</item>
-        <item>Almond butter</item>
-        <item>Almond oil</item>
-        <item>Almonds no shell</item>
-        <item>Almonds shell</item>
-        <item>Applesauce commercial</item>
-        <item>Bacon bits imitation</item>
-        <item>Black pepper cracked, dried, commercially bottled or purchased in bulk</item>
-        <item>Black pepper ground, dried, commercially bottled or purchased in bulk</item>
-        <item>Cajun seasoning blend ground, dried, commercially bottled or purchased in bulk</item>
-        <item>Canned goods high acid (such as juices, fruit, pickles, sauerkraut, tomato soup, and foods in vinegar-based sauce)</item>
-        <item>Canned goods low acid (such as meat, poultry, fish, gravy, stew, soups, beans, carrots, corn, pasta, peas, potatoes, spinach)</item>
-        <item>Canola oil</item>
-        <item>Cashew butter</item>
-        <item>Cashews no shell</item>
-        <item>Cereal cook before eating (oatmeal, etc.)</item>
-        <item>Cereal ready-to-eat</item>
-        <item>Chia seeds</item>
-        <item>Chocolate syrup</item>
-        <item>Cinnamon ground, dried, commercially bottled or purchased in bulk</item>
-        <item>Coconut oil</item>
-        <item>Crackers</item>
-        <item>Cumin ground, dried, commercially bottled or purchased in bulk, opened or unopened</item>
-        <item>Dry stuffing mix commercially packaged</item>
-        <item>Flaxseed ground</item>
-        <item>Flaxseed whole seed</item>
-        <item>Fruit cocktail canned</item>
-        <item>Fruits, dried raisins, apricots, mangoes, cranberries, etc.</item>
-        <item>Garlic powder dried, commercially bottled or purchased in bulk</item>
-        <item>Graham cracker/animal cracker</item>
-        <item>Granola</item>
-        <item>Grapeseed oil</item>
-        <item>Gummy (fruit) snacks</item>
-        <item>Macadamias no shell</item>
-        <item>Marshmallow crème</item>
-        <item>Marshmallows</item>
-        <item>Milk canned evaporated or condensed</item>
-        <item>Molasses</item>
-        <item>Mushrooms dried</item>
-        <item>Nutmeg ground, dried, commercially bottled or purchased in bulk</item>
-        <item>Nuts jars or cans</item>
-        <item>Onion powder dried, commercially bottled or purchased in bulk</item>
-        <item>Peanut butter commercial</item>
-        <item>Peanut butter commercially produced, containing hydrogenated fat or other stabilizers</item>
-        <item>Peanut butter natural</item>
-        <item>Peanuts no shell</item>
-        <item>Peanuts shell</item>
-        <item>Pecans no shell</item>
-        <item>Pecans shell</item>
-        <item>Pectin</item>
-        <item>Pistachios shell or no shell</item>
-        <item>Popcorn commercially popped in bags</item>
-        <item>Popcorn dry kernels in jar</item>
-        <item>Popcorn microwave packets</item>
-        <item>Pork rinds</item>
-        <item>Potato chips</item>
-        <item>Potatoes instant</item>
-        <item>Pretzels</item>
-        <item>Pudding mixes</item>
-        <item>Roasted red peppers jar</item>
-        <item>Salt table, plain, or iodized</item>
-        <item>Soup mixes dry bouillon</item>
-        <item>Sun dried tomatoes</item>
-        <item>Sunflower oil</item>
-        <item>Syrup</item>
-        <item>Tapenade</item>
-        <item>Toaster pastries</item>
-        <item>Tomato paste</item>
-        <item>Walnuts shell or no shell</item>
-    </string-array>
-
-    <string-array name="vegetarian_protein_items">
-        <item>Miso</item>
-        <item>Re-hydrated textured soy protein (TSP)</item>
-        <item>Soy flour full-fat</item>
-        <item>Textured soy protein (TSP)</item>
-        <item>Tofu</item>
-    </string-array>
-    <string-array name="baby_list">
-        <item>Cereal, dry mixes</item>
-        <item>Dinners</item>
-        <item>Formula prepared</item>
-        <item>Fruit</item>
-        <item>Jars or pouches</item>
-        <item>Liquid concentrate or ready-to-feed formula</item>
-        <item>Vegetables</item>
-    </string-array>
-
-    <string-array name="baking_cooking">
-        <item>Almond extract</item>
-        <item>Amaranth flour, meal</item>
-        <item>Baking powder</item>
-        <item>Baking soda</item>
-        <item>Barley flour, meal</item>
-        <item>Biscuit or pancake mix</item>
-        <item>Buckwheat flour, meal</item>
-        <item>Butter flavor</item>
-        <item>Cake, brownie, bread mixes</item>
-        <item>Chili powder</item>
-        <item>Chocolate unsweetened and semi-sweet, solid</item>
-        <item>Cinnamon extract</item>
-        <item>Cocoa and cocoa mixes</item>
-        <item>Coconut flavor</item>
-        <item>Cornmeal regular, degerminated</item>
-        <item>Cornmeal stone ground or blue</item>
-        <item>Cornstarch</item>
-        <item>Farro flour, meal</item>
-        <item>Flavored or herb mixes</item>
-        <item>Flour white</item>
-        <item>Flour whole wheat</item>
-        <item>Frosting or icing</item>
-        <item>Garam masala</item>
-        <item>Garlic chopped, commercial jars</item>
-        <item>Gelatin flavored</item>
-        <item>Gelatin unflavored</item>
-        <item>Herbs dried</item>
-        <item>Lemon extract</item>
-        <item>Millet flour, meal</item>
-        <item>Nut oils</item>
-        <item> Oats flour, meal</item>
-        <item> Oils olive or vegetable</item>
-        <item>Pure vanilla extract</item>
-        <item>Rye flour, meal</item>
-        <item>Seasoning blends</item>
-        <item> Shortening solid</item>
-        <item>Sorghum flour, meal</item>
-        <item>Spelt flour, meal</item>
-        <item>Spice/spices ground</item>
-        <item>Spice/spices whole</item>
-        <item>Sugar substitutes</item>
-        <item>Sugar brown</item>
-        <item> Sugar confectioners</item>
-        <item> Sugar granulated</item>
-        <item> Tamarind paste</item>
-        <item> Tapiocas</item>
-        <item> Teff flour, meal</item>
-        <item>Vegetable oil sprays</item>
-        <item>Whole wheat flour</item>
-        <item>Yeast packaged</item>
-    </string-array>
-
-    <string name="category_txt">Select A Category:</string>
-    <string name="waiting_for_a_category_to_be_selected">Waiting For A Category To Be Selected…</string>
-    <string name="select_a_subcategory">Select A Subcategory:</string>
-    <string name="title_donate">Donation Form</string>
-    <string name="select_an_item">Select An Item:</string>
-    <string name="press_to_select_the_expiration_date">Press To Select The Expiration Date:</string>
-    <string name="select_date">Select Date</string>
-    <string name="expiration_date">Expiration Date: </string>
-    <string name="submit">Submit</string>
-    <string name="title_activity_add_to_inventory">Add To Inventory</string>
-
-    <!-- String names for ATIQuestionaire activity -->
-    <string name="atiqTitle">List View of All Products</string>
-    <string name="categorySelec">UITest4</string>
-    <string name="returnToATI">Press to See Related Products</string>
-    <string name="productsATI">Product:  </string>
-    <!-- String names for ATIQuestionaire activity -->
-
-    <!-- String names for activity_u_p_c_lookup-->
+    <!-- Strings used in UPCLookup.java Activity -->
     <string name="upc_lookup_generating_table">Generating Lookup Table…</string>
-    <string name="upc_lookup_retreiving_json">Retrieving JSON…</string>
+    <string name="upc_lookup_retrieving_json">Retrieving JSON…</string>
     <string name="upc_lookup_match_found">Match found\nFDCID: %s</string>
     <string name="upc_lookup_no_match_found">No match found</string>
     <string name="upc_lookup_foodkeeper_category_match_found">FoodKeeperCategory %s, ID %s</string>
@@ -953,148 +159,178 @@
     <string name="upc_lookup_usda_null_response">NULL response from USDA API</string>
     <string name="upc_lookup_usda_no_response">No response from USDA API</string>
 
+    <!-- Strings used in activity_upc_lookup.xml -->
+    <string name="activity_upc_lookup_title">UPC Lookup Tool</string>
+    <string name="activity_upc_lookup_enter_upc">Enter UPC</string>
+    <string name="activity_upc_lookup_scan_btn">Scan</string>
+    <string name="activity_upc_lookup_search_btn">Search</string>
 
-    <string name="upcTitleText">UPC Lookup Tool</string>
-    <string name="upcSearchBtn">Search</string>
-    <string name="upcScanBtn">Scan</string>
+    <!-- Strings used in activity_new_nest_upc.xml -->
+    <string name="activity_new_nest_upc_title">Adding new UPC: %1$s</string>
+    <string name="activity_new_nest_upc_brand_lbl">Brand name:</string>
+    <string name="activity_new_nest_upc_brand_hint">Enter brand name</string>
+    <string name="activity_new_nest_upc_description_lbl">Description:</string>
+    <string name="activity_new_nest_upc_description_hint">Enter description</string>
+    <string name="activity_new_nest_upc_subtitle">Choose corresponding food expiration category/product</string>
+    <string name="activity_new_nest_upc_category_lbl">Category:</string>
+    <string name="activity_new_nest_upc_product_lbl">Product:</string>
 
-    <string name="empty_string" />
-    <string name="tips">TIP</string>
+<!-- ABSTRACT SCANNER STRINGS START //////////////////////////////////////////////////////////// -->
 
-    <!-- strings for NestNewUPC activity -->
-    <string name="nest_new_upc_adding_label">Adding new UPC: %1$s</string>
-    <string name="nest_new_upc_brand_prompt">Brand name:</string>
-    <string name="nest_new_upc_brand_hint">Enter brand name</string>
-    <string name="nest_new_upc_description_prompt">Description:</string>
-    <string name="nest_new_upc_description_hint">Enter description</string>
-    <string name="nest_new_upc_choose_corresponding_label">Choose corresponding food expiration category/product</string>
-    <string name="nest_new_upc_product_prompt">Product:</string>
-    <string name="nest_new_upc_category_prompt">Category:</string>
-    <string name="accept">Accept</string>
-    <string name="cancel">Cancel</string>
-    <string name="title_activity_future_efforts">FutureEfforts</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="google_sheet_registration_first_form_fragment_label">First Form Fragment</string>
-    <string name="google_sheet_registration_second_form_fragment_label">Second Form Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
+    <!-- Strings used in AbstractScanner.java -->
+    <string name="abstract_scanner_fragment_waiting_for_scan">Waiting for scan …</string>
+    <string name="abstract_scanner_fragment_camera_permission_required">Camera permission required.</string>
+    <string name="abstract_scanner_fragment_confirm_msg">Please confirm that the barcode is correct.</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-    <string name="title_activity_check_expiration_date">CheckExpirationDate</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="check_expiration_date_start_fragment_label">Start Fragment</string>
-    <string name="check_expiration_date_scanner_fragment_label">Scanner Fragment</string>
-    <string name="hello_start_fragment">In Start Fragment</string>
-    <string name="scan">Scan UPC</string>
-    <string name="enter_upc">Enter UPC</string>
-    <string name="scan_complete">Scan Complete</string>
-    <string name="hello_scan_fragment">In Scan Fragment</string>
-    <string name="in_enter_upc_fragment">In Enter Upc Fragment</string>
-    <string name="check_expiration_date_enter_upc_fragment_label">Enter UPC Fragment</string>
-    <string name="in_confirm_item_fragment">In Confirm Item Fragment</string>
-    <string name="in_select_item_fragment">In Select Item Fragment</string>
-    <string name="in_select_expiration_fragment">In Select Printed Expiration Fragment</string>
-    <string name="in_display_expiration_fragment">In Display True Expiration Fragment</string>
-    <string name="check_expiration_date_confirm_item_fragment_label">Confirm Item Fragment</string>
-    <string name="check_expiration_date_select_item_fragment_label">Select Item Fragment</string>
-    <string name="check_expiration_date_select_printed_expiration_date_fragment_label">Select Printed Expiration Date Fragment</string>
-    <string name="check_expiration_date_display_true_expiration_fragment_label">Display True Expiration Fragment</string>
-    <string name="database_registration_scanner_fragment_label">Scanner Fragment</string>
-    <string name="database_registration_start_fragment_label">Start Fragment</string>
-    <string name="database_registration_first_form_fragment_label">First Form Fragment</string>
-    <string name="database_registration_second_form_fragment_label">Second Form Fragment</string>
-    <string name="database_registration_summary_fragment_label">Summary Fragment</string>
+    <!-- Strings used in fragment_abstract_scanner.xml -->
+    <string name="fragment_abstract_scanner_rescan_btn">Re-Scan Barcode</string>
+    <string name="fragment_abstract_scanner_confirm_button">Confirm Scan</string>
 
-    <string name="click_to_display_true_expiration_date">click to display true expiration date</string>
-    <string name="item">Item:</string>
-    <string name="upc_text">UPC:</string>
-    <string name="category">Category:</string>
-    <string name="expiration_dat">Expiration date:</string>
+<!-- CHECK EXPIRATION DATE STRINGS START /////////////////////////////////////////////////////// -->
 
-    <!-- START OF SCANNER STRINGS -->
-    <string name="scanner_rescan_button">Re-Scan Barcode</string>
-    <string name="scanner_confirm_button">Confirm Scan</string>
-    <string name="scanner_waiting_for_scan">Waiting for scan …</string>
-    <string name="scanner_camera_permission_required">Camera permission required.</string>
-    <string name="scanner_confirm_msg">Please confirm that the barcode is correct.</string>
-    <!-- END OF SCANNER STRINGS -->
+    <!-- Strings used in fragment_check_expiration_date_start.xml -->
+    <string name="fragment_ced_start_description">Scan the food item\'s UPC\n that is printed on the barcode with a camera\nor enter the UPC code manually.</string>
+    <string name="fragment_ced_start_scan_upc">Scan UPC</string>
+    <string name="fragment_ced_start_enter_upc">Enter UPC</string>
 
-    <!-- START OF GUEST VISIT STRINGS -->
+    <!-- Strings used in fragment_check_expiration_date_enter_upc.xml -->
+    <string name="fragment_ced_enter_upc_type_upc_hint">Type UPC here</string>
+    <string name="fragment_ced_enter_upc_enter_upc_btn">Enter UPC</string>
 
-    <!-- Strings used for AbstractScannerFragment -->
-    <string name="guest_visit_scanner_fragment_label">Guest Scan Fragment</string>
+    <!-- Strings used in fragment_check_expiration_date_confirm_item.xml -->
+    <string name="fragment_ced_confirm_item_notification">In Confirm Item Fragment</string>
+    <string name="fragment_ced_confirm_item_confirm_item_btn">Confirm Item</string>
+    <string name="fragment_ced_confirm_item_incorrect_btn">Incorrect</string>
+    <string name="fragment_ced_confirm_item_item_lbl">Item:</string>
+    <string name="fragment_ced_confirm_item_category_lbl">Category:</string>
+    <string name="fragment_ced_confirm_item_upc_lbl">UPC:</string>
 
-    <!-- Strings used for QuestionnaireFragment.java / fragment_guest_visit_questionnaire.xml -->
-    <string name="guest_visit_questionnaire_fragment_label">Guest Questionnaire Fragment</string>
-    <string name="questionnaire_welcome_message">Welcome NEST Guest!</string>
-    <string name="questionnaire_description">Please answer and submit the following questions before proceeding.</string>
-    <string name="questionnaire_question_1">Who visited the NEST today? (Guest ID)</string>
-    <string name="questionnaire_question_2">How many adults (ages 19–64) are in your household?</string>
-    <string name="questionnaire_question_3">How many adults (over the age of 64) are in your household?</string>
-    <string name="questionnaire_question_4">How many children (ages 18 and under) are in your household?</string>
-    <string name="questionnaire_question_5">Is this your first visit to the NEST?</string>
-    <string name="questionnaire_spinner_prompt">Choose an answer</string>
-    <string name="questionnaire_hint_number">Enter a number</string>
-    <string name="questionnaire_hint_id">NEST Guest Id#</string>
-    <string name="first_name_lbl">First Name</string>
-    <string name="last_name_lbl">Last Name</string>
-    <string name="affil_label">NCC Affiliation</string>
-    <string name="age_range_lbl">Age Range</string>
-    <string name="gender_lbl">Gender</string>
-    <string name="people_lbl">Number of People in Your Household</string>
-    <string name="snap_lbl">Do you have SNAP/food stamps?</string>
-    <string name="other_programs_lbl"><font size="13">Do you know of any other emergency food programs in the area?</font></string>
-    <string name="employment_status_lbl">What is your employment status?</string>
-    <string name="health_status_lbl">What is your health status?</string>
-    <string name="housing_status_lbl">What is your housing status?</string>
-    <string name="childcare_status_lbl">What is your childcare status?</string>
-    <string name="children_under_1_lbl"><font size="13">How many children are in your household under the age of 1 year?</font></string>
-    <string name="children_between_1_5_lbl"><font size="14">How many children are in your household between ages 1-5?</font></string>
-    <string name="children_between_6_12_lbl"><font size="14">How many children are in your household between ages 6-12?</font></string>
-    <string name="children_between_13_18_lbl"><font size="14">How many children are in your household between ages 13-18?</font></string>
-    <string name="dietary_lbl">What are your dietary needs and preferences?</string>
-    <string name="how_did_you_find_lbl">How did you find us?</string>
-    <string name="questionnaire_alert_title">"SUBMISSION HAS MISSING FIELDS!"</string>
-    <string name="questionnaire_alert_msg">Please make sure to answer all of the questions before submitting the questionnaire.</string>
-    <string-array name="array_yes_no">
-        <item>Yes</item>
-        <item>No</item>
-    </string-array>
+    <!-- Strings used in fragment_check_expiration_date_select_item.xml -->
+    <string name="fragment_ced_select_item_title">Adding new UPC: %1$s</string>
+    <string name="fragment_ced_select_item_brand_lbl">Brand name:</string>
+    <string name="fragment_ced_select_item_brand_hint">Enter brand name</string>
+    <string name="fragment_ced_select_item_description_lbl">Description:</string>
+    <string name="fragment_ced_select_item_description_hint">Enter description</string>
+    <string name="fragment_ced_select_item_subtitle">Choose corresponding food expiration category/product</string>
+    <string name="fragment_ced_select_item_category_lbl">Category:</string>
+    <string name="fragment_ced_select_item_select_category_btn">Select Category</string>
+    <string name="fragment_ced_select_item_product_lbl">Product:</string>
+    <string name="fragment_ced_select_item_select_product_btn">Select Product</string>
 
-    <!-- Strings used in the guest visit confirmation layouts -->
-    <string name="guest_visit_confirmation_fragment_label">Guest Scan Confirmation Fragment</string>
-    <string name="guestVisitConfirmation_welcome_nest_guest_lbl">Welcome NEST Guest!</string>
-    <string name="guestVisitConfirmation_guest_info_confirmation">Please confirm that the following information is correct.</string>
-    <string name="guestVisitConfirmation_guest_name_lbl">GUEST NAME</string>
-    <string name="guestVisitConfirmation_guest_id">GUEST ID</string>
-    <string name="guestVisitConfirmation_confirm">Confirm</string>
-    <string name="guestVisitConfirmation_nest_guest_not_found_lbl">NEST GUEST NOT FOUND!</string>
-    <string name="guestVisitConfirmation_register_button">Register</string>
-    <string name="guestVisitConfirmation_please_register_lbl">Please register to continue</string>
-    <string name="guestVisitConfirmation_sorry_guest_not_found_lbl">Sorry! We couldn\'t find a guest associated with the following barcode:</string>
-    <string name="first_Page_entry_Registration_Form_label">FirstPageEntryRegistrationFormEntry</string>
-    <string name="state_lbl">State</string>
+    <!-- Strings used in fragment_check_expiration_date_select_printed_expiration_date.xml -->
+    <string name="fragment_ced_select_printed_expiration_date_title">Select the product\'s printed expiration date</string>
+    <string name="fragment_ced_select_printed_expiration_date_month_lbl">Select a month</string>
+    <string name="fragment_ced_select_printed_expiration_date_day_lbl">Select a day</string>
+    <string name="fragment_ced_select_printed_expiration_date_year_lbl">Select a year</string>
 
-    <!-- END OF GUEST VISIT STRINGS -->
+    <!-- Strings used in fragment_check_expiration_date_display_true_expiration.xml -->
+    <string name="fragment_ced_display_true_expiration_display_date_btn">Display true expiration date</string>
+    <string name="fragment_ced_display_true_expiration_item_lbl">Item:</string>
+    <string name="fragment_ced_display_true_expiration_upc_lbl">UPC:</string>
+    <string name="fragment_ced_display_true_expiration_category_lbl">Category:</string>
+    <string name="fragment_ced_display_true_expiration_expiration_date_lbl">Expiration date:</string>
 
+<!-- GUEST DATABASE REGISTRATION STRINGS START ///////////////////////////////////////////////// -->
 
-    <!-- START PRINTED DATE EXPIRATION FRAGMENT STRINGS -->
-    <string-array name="MONTHS">
-        <item>January</item>
-        <item>February</item>
-        <item>March</item>
-        <item>April</item>
-        <item>May</item>
-        <item>June</item>
-        <item>July</item>
-        <item>August</item>
-        <item>September</item>
-        <item>October</item>
-        <item>November</item>
-        <item>December</item>
-    </string-array>
-    <!-- END PRINTED DATE EXPIRATION FRAGMENT STRINGS -->
+    <!-- Strings used in fragment_guest_database_registration_start.xml -->
+    <string name="fragment_dbr_start_title">GUEST FORM\nREGISTRATION</string>
+    <string name="fragment_dbr_start_entry_form_btn">Entry Form</string>
+    <string name="fragment_dbr_start_scan_barcode_btn">Scan Barcode</string>
+
+    <!-- Strings used in fragment_guest_database_registration_first_form.xml -->
+    <string name="fragment_dbr_first_form_title">Guest Form Registration</string>
+
+    <!-- Strings used in fragment_guest_database_registration_second_form.xml -->
+    <string name="fragment_dbr_second_form_description">Household Information Fragment</string>
+
+    <!-- Strings used in fragment_guest_database_registration_summary.xml -->
+    <string name="fragment_dbr_summary_description">Summary page of GuestGoogleSheetRegistration</string>
+
+<!-- GUEST DATABASE REGISTRATION STRINGS START ///////////////////////////////////////////////// -->
+
+    <!-- Strings used in fragment_guest_google_sheet_registration_first_form.xml -->
+
+    <!-- Strings used in fragment_guest_google_sheet_registration_second_form.xml -->
+    <string name="fragment_gsr_second_form_question_1">Number of People in Your Household</string>
+    <string name="fragment_gsr_second_form_question_2">What is your household income?</string>
+    <string name="fragment_gsr_second_form_question_3">Do you have SNAP/food stamps?</string>
+    <string name="fragment_gsr_second_form_question_4"><font size="14">Do you know of any other emergency food programs in the area?</font></string>
+    <string name="fragment_gsr_second_form_question_5">What is your employment status?</string>
+    <string name="fragment_gsr_second_form_question_6">What is your health status?</string>
+    <string name="fragment_gsr_second_form_question_7">What is your housing status?</string>
+    <string name="fragment_gsr_second_form_question_8">What is your childcare status?</string>
+    <string name="fragment_gsr_second_form_question_9"><font size="14">How many children are in your household under the age of 1 year?</font></string>
+    <string name="fragment_gsr_second_form_question_10"><font size="14">How many children are in your household between ages 1-5?</font></string>
+    <string name="fragment_gsr_second_form_question_11"><font size="14">How many children are in your household between ages 6-12?</font></string>
+    <string name="fragment_gsr_second_form_question_12"><font size="14">How many children are in your household between ages 13-18?</font></string>
+    <string name="fragment_gsr_second_form_question_13">What are your dietary needs and preferences?</string>
+    <string name="fragment_gsr_second_form_question_14">How did you find us?</string>
+    <string name="fragment_gsr_second_form_question_15"><font size="14">Is there anything else you would like us to know at this time?</font></string>
+    <string name="fragment_gsr_second_form_question_16"><font size="14">What is the first name of the volunteer who helped you today?</font></string>
+    <string name="fragment_gsr_second_form_question_17"><font size="14">What is the last name of the volunteer who helped you today?</font></string>
+
+<!-- GUEST VISIT STRINGS START ///////////////////////////////////////////////////////////////// -->
+
+    <!-- Strings used in fragment_guest_visit_confirmation_found.xml -->
+    <string name="fragment_gv_confirmation_found_title">Welcome NEST Guest!</string>
+    <string name="fragment_gv_confirmation_found_msg">Please confirm that the following information is correct.</string>
+    <string name="fragment_gv_confirmation_found_guest_name_lbl">GUEST NAME</string>
+    <string name="fragment_gv_confirmation_found_guest_id_lbl">GUEST ID</string>
+    <string name="fragment_gv_confirmation_found_rescan_btn">Re-Scan Barcode</string>
+
+    <!-- Strings used in fragment_guest_visit_confirmation_not_found.xml -->
+    <string name="fragment_gv_confirmation_not_found_title">NEST GUEST NOT FOUND!</string>
+    <string name="fragment_gv_confirmation_not_found_msg">Sorry! We couldn\'t find a guest associated with the following barcode:</string>
+    <string name="fragment_gv_confirmation_not_found_register_msg">Please register to continue</string>
+    <string name="fragment_gv_confirmation_not_found_rescan_btn">Re-Scan Barcode</string>
+
+    <!-- Strings used in GuestVisit.Fragments.QuestionnaireFragment.java -->
+    <string name="questionnaire_fragment_alert_title">"SUBMISSION HAS MISSING FIELDS!"</string>
+    <string name="questionnaire_fragment_alert_msg">Please make sure to answer all of the questions before submitting the questionnaire.</string>
+
+    <!-- Strings used in fragment_guest_visit_questionnaire.xml -->
+    <string name="fragment_gv_questionnaire_welcome_message">Welcome NEST Guest!</string>
+    <string name="fragment_gv_questionnaire_description">Please answer and submit the following questions before proceeding.</string>
+    <string name="fragment_gv_questionnaire_question_1">Who visited the NEST today? (Guest ID)</string>
+    <string name="fragment_gv_questionnaire_question_2">How many adults (ages 19–64) are in your household?</string>
+    <string name="fragment_gv_questionnaire_question_3">How many adults (over the age of 64) are in your household?</string>
+    <string name="fragment_gv_questionnaire_question_4">How many children (ages 18 and under) are in your household?</string>
+    <string name="fragment_gv_questionnaire_question_5">Is this your first visit to the NEST?</string>
+    <string name="fragment_gv_questionnaire_spinner_prompt">Choose an answer</string>
+    <string name="fragment_gv_questionnaire_hint_number">Enter a number</string>
+    <string name="fragment_gv_questionnaire_hint_id">NEST Guest Id#</string>
+
+<!-- NAV GRAPH LABELS START //////////////////////////////////////////////////////////////////// -->
+
+    <!-- Strings used in nav_graph_check_expiration_date.xml -->
+    <string name="nav_graph_ced_start_fragment_lbl">Start Fragment</string>
+    <string name="nav_graph_ced__scanner_fragment_lbl">Scanner Fragment</string>
+    <string name="nav_graph_ced_enter_upc_fragment_lbl">Enter UPC Fragment</string>
+    <string name="nav_graph_ced_confirm_item_fragment_lbl">Confirm Item Fragment</string>
+    <string name="nav_graph_ced_select_item_fragment_lbl">Select Item Fragment</string>
+    <string name="nav_graph_ced_select_printed_expiration_date_fragment_lbl">Select Printed Expiration Date Fragment</string>
+    <string name="nav_graph_ced_display_true_expiration_fragment_lbl">Display True Expiration Fragment</string>
+
+    <!-- Strings used in nav_graph_database_registration.xml -->
+    <string name="nav_graph_dbr_start_fragment_lbl">Start Fragment</string>
+    <string name="nav_graph_dbr_scanner_fragment_lbl">Scanner Fragment</string>
+    <string name="nav_graph_dbr_first_form_fragment_lbl">First Form Fragment</string>
+    <string name="nav_graph_dbr_second_form_fragment_lbl">Second Form Fragment</string>
+    <string name="nav_graph_dbr_summary_fragment_lbl">Summary Fragment</string>
+
+    <!-- Strings used in nav_graph_google_sheet_registration.xml -->
+    <string name="nav_graph_gsr_first_form_fragment_lbl">First Form Fragment</string>
+    <string name="nav_graph_gsr_second_form_fragment_lbl">Second Form Fragment</string>
+
+    <!-- Strings used in nav_graph_guest_visit.xml -->
+    <string name="nav_graph_gv_scanner_fragment_lbl">Guest Scan Fragment</string>
+    <string name="nav_graph_gv_confirmation_fragment_lbl">Guest Scan Confirmation Fragment</string>
+    <string name="nav_graph_gv_questionnaire_fragment_lbl">Guest Questionnaire Fragment</string>
+
+<!-- NEW STRINGS START ///////////////////////////////////////////////////////////////////////// -->
+
+    <!-- This string is used only for the creation of new strings. -->
+    <!-- When a new string is created it should appear below this string. -->
+    <string name="STRINGS_BELOW_THIS_SHOULD_BE_MOVED_TO_AN_APPROPRIATE_LOCATION_ABOVE_THIS_STRING"/>
 
 </resources>

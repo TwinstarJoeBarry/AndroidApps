@@ -41,7 +41,7 @@
         android:shadowDx="2"
         android:shadowDy="2"
         android:shadowRadius="1.5"
-        android:text="@string/account_login"
+        android:text="@string/activity_main_title"
         android:textColor="#fff"
         android:textSize="26sp"
         android:textStyle="bold" />
@@ -69,8 +69,9 @@
                 android:id="@+id/user_name"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/user_name"
-                android:inputType="text" />
+                android:hint="@string/username"
+                android:inputType="text"
+                android:autofillHints="" />
 
             <EditText
                 android:id="@+id/password"
@@ -78,7 +79,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:hint="@string/password"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                android:autofillHints="" />
 
             <TextView
                 android:id="@+id/forgotPass"
@@ -87,7 +89,7 @@
                 android:layout_gravity="end"
                 android:onClick="onClick"
                 android:paddingTop="5dp"
-                android:text="@string/forgot_password" />
+                android:text="@string/activity_main_forgot_password" />
 
             <Button
                 android:id="@+id/log_in_button"
@@ -97,7 +99,7 @@
                 android:background="@color/colorAccent"
                 android:elevation="4dp"
                 android:onClick="onClick"
-                android:text="@string/sign_in"
+                android:text="@string/activity_main_sign_in"
                 android:textAllCaps="false"
                 android:textColor="#fff"
                 android:textSize="18sp" />
@@ -109,7 +111,7 @@
                 android:layout_gravity="center"
                 android:onClick="onClick"
                 android:paddingTop="2dp"
-                android:text="@string/make_account"
+                android:text="@string/activity_main_make_account"
                 android:textColor="@color/colorPrimaryDark" />
         </LinearLayout>
     </RelativeLayout>

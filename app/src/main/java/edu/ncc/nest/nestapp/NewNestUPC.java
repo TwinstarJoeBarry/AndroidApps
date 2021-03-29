@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import java.util.Locale;
 
-public class NestNewUPC extends AppCompatActivity {
+public class NewNestUPC extends AppCompatActivity {
     private String upcBeingAdded;
     private int selectedCategoryId, selectedProductId;
     private EditText brandEdit, descriptionEdit;
@@ -22,7 +22,7 @@ public class NestNewUPC extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_nest_new_upc);
+        setContentView(R.layout.activity_new_nest_upc);
 
         // get the new UPC code and display it in addingLabel
         Intent intent = getIntent();

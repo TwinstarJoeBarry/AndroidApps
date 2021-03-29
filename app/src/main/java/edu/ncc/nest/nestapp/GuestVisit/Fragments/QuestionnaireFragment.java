@@ -162,9 +162,9 @@ public class QuestionnaireFragment extends Fragment implements View.OnClickListe
                     Builder alertDialogBuilder = new Builder(requireContext());
 
                     // Build the AlertDialog
-                    alertDialogBuilder.setTitle(R.string.questionnaire_alert_title);
+                    alertDialogBuilder.setTitle(R.string.questionnaire_fragment_alert_title);
 
-                    alertDialogBuilder.setMessage(R.string.questionnaire_alert_msg);
+                    alertDialogBuilder.setMessage(R.string.questionnaire_fragment_alert_msg);
 
                     alertDialogBuilder.setPositiveButton("OK", null);
 

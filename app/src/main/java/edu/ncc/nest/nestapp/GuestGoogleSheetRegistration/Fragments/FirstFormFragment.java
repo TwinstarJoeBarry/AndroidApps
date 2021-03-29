@@ -43,7 +43,7 @@ public class FirstFormFragment extends Fragment implements View.OnClickListener,
     GuestRegistryHelper db;
 
     //variables to store user information
-    EditText lastName, firstName, ncc_affil, age, gender, phone, ncc_id, address, city, state, zip;
+    EditText lastName, firstName, ncc_affil, birth_date, gender, phone, ncc_id, address, city, state, zip;
 
     @Override
     public View onCreateView(
@@ -66,7 +66,7 @@ public class FirstFormFragment extends Fragment implements View.OnClickListener,
         lastName = (EditText)(getView().findViewById(R.id.editText));
         firstName = (EditText)(getView().findViewById(R.id.editText2));
         ncc_affil = (EditText)(getView().findViewById(R.id.editText3));
-        age = (EditText)(getView().findViewById(R.id.editText4));
+        birth_date = (EditText)(getView().findViewById(R.id.editText4));
         gender = (EditText)(getView().findViewById(R.id.editText5));
         phone = (EditText)(getView().findViewById(R.id.editText6));
         ncc_id = (EditText)(getView().findViewById(R.id.editText7));

@@ -148,7 +148,7 @@ public abstract class AbstractScannerFragment extends Fragment implements Barcod
                 != PackageManager.PERMISSION_GRANTED) {
 
             // Update the status text to inform the guest that camera permission is required
-            decBarcodeView.setStatusText(getString(R.string.scanner_camera_permission_required));
+            decBarcodeView.setStatusText(getString(R.string.abstract_scanner_fragment_camera_permission_required));
 
             // Clear the result text view
             resultTextView.setText(null);
@@ -225,7 +225,7 @@ public abstract class AbstractScannerFragment extends Fragment implements Barcod
             beepManager.playBeepSoundAndVibrate();
 
             // Tell the user to confirm that the barcode is correct
-            decBarcodeView.setStatusText(getString(R.string.scanner_confirm_msg));
+            decBarcodeView.setStatusText(getString(R.string.abstract_scanner_fragment_confirm_msg));
 
             // Display the barcode back to the user
             resultTextView.setText(resultText);
@@ -290,7 +290,7 @@ public abstract class AbstractScannerFragment extends Fragment implements Barcod
             decBarcodeView.setStatusText(getString(R.string.zxing_msg_default_status));
 
             // Update the display text so the user knows we are waiting for them to scan a barcode
-            resultTextView.setText(getString(R.string.scanner_waiting_for_scan));
+            resultTextView.setText(getString(R.string.abstract_scanner_fragment_waiting_for_scan));
 
             // Disable the feedback buttons until we scan another barcode
             setFeedbackButtonsEnabled(false);

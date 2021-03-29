@@ -55,7 +55,7 @@
             android:layout_weight="0.5"
             android:layout_height="wrap_content"
             android:layout_marginEnd="1dp"
-            android:text="@string/scanner_rescan_button"
+            android:text="@string/fragment_abstract_scanner_rescan_btn"
             style="@style/Widget.AppCompat.Button.Colored"
             android:backgroundTint="@color/colorPrimary" />
 
@@ -65,7 +65,7 @@
             android:layout_weight="0.5"
             android:layout_height="wrap_content"
             android:layout_marginStart="1dp"
-            android:text="@string/scanner_confirm_button"
+            android:text="@string/fragment_abstract_scanner_confirm_button"
             style="@style/Widget.AppCompat.Button.Colored"
             android:backgroundTint="@color/colorPrimary" />
 

@@ -40,7 +40,7 @@
         android:textAllCaps="true"
         android:fontFamily="casual"
         android:textColor="@android:color/white"
-        android:text="@string/questionnaire_welcome_message" />
+        android:text="@string/fragment_gv_questionnaire_welcome_message" />
 
     <TextView
         android:id="@+id/questionnaire_description"
@@ -54,7 +54,7 @@
         android:textSize="16sp"
         android:textStyle="bold|italic"
         android:textColor="@android:color/white"
-        android:text="@string/questionnaire_description"
+        android:text="@string/fragment_gv_questionnaire_description"
         android:backgroundTint="@color/colorPrimary"
         android:background="@drawable/background_dialog" />
 
@@ -82,7 +82,7 @@
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:textColor="@android:color/black"
-                android:text="@string/questionnaire_question_1" />
+                android:text="@string/fragment_gv_questionnaire_question_1" />
 
             <EditText
                 android:id="@+id/questionnaire_q1_edit_text"
@@ -92,7 +92,7 @@
                 android:inputType="number"
                 android:textSize="16sp"
                 android:maxLength="16"
-                android:hint="@string/questionnaire_hint_id"
+                android:hint="@string/fragment_gv_questionnaire_hint_id"
                 android:autofillHints="" />
 
             <TextView
@@ -104,7 +104,7 @@
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:textColor="@android:color/black"
-                android:text="@string/questionnaire_question_2" />
+                android:text="@string/fragment_gv_questionnaire_question_2" />
 
             <EditText
                 android:id="@+id/questionnaire_q2_edit_text"
@@ -114,7 +114,7 @@
                 android:inputType="number"
                 android:textSize="16sp"
                 android:maxLength="2"
-                android:hint="@string/questionnaire_hint_number"
+                android:hint="@string/fragment_gv_questionnaire_hint_number"
                 android:autofillHints="" />
 
             <TextView
@@ -126,7 +126,7 @@
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:textColor="@android:color/black"
-                android:text="@string/questionnaire_question_3" />
+                android:text="@string/fragment_gv_questionnaire_question_3" />
 
             <EditText
                 android:id="@+id/questionnaire_q3_edit_text"
@@ -136,7 +136,7 @@
                 android:inputType="number"
                 android:textSize="16sp"
                 android:maxLength="2"
-                android:hint="@string/questionnaire_hint_number"
+                android:hint="@string/fragment_gv_questionnaire_hint_number"
                 android:autofillHints="" />
 
             <TextView
@@ -148,7 +148,7 @@
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:textColor="@android:color/black"
-                android:text="@string/questionnaire_question_4" />
+                android:text="@string/fragment_gv_questionnaire_question_4" />
 
             <EditText
                 android:id="@+id/questionnaire_q4_edit_text"
@@ -158,7 +158,7 @@
                 android:inputType="number"
                 android:textSize="16sp"
                 android:maxLength="2"
-                android:hint="@string/questionnaire_hint_number"
+                android:hint="@string/fragment_gv_questionnaire_hint_number"
                 android:autofillHints="" />
 
             <TextView
@@ -170,7 +170,7 @@
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:textColor="@android:color/black"
-                android:text="@string/questionnaire_question_5" />
+                android:text="@string/fragment_gv_questionnaire_question_5" />
 
             <Spinner
                 android:id="@+id/questionnaire_q5_spinner"
@@ -179,7 +179,7 @@
                 android:saveEnabled="true"
                 android:entries="@array/array_yes_no"
                 android:spinnerMode="dialog"
-                android:prompt="@string/questionnaire_spinner_prompt" />
+                android:prompt="@string/fragment_gv_questionnaire_spinner_prompt" />
 
         </LinearLayout>
 
