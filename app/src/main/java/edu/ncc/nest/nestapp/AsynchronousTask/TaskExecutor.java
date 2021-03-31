@@ -1,24 +1,18 @@
 package edu.ncc.nest.nestapp.AsynchronousTask;
 
-import android.os.Binder;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Process;
 import android.util.Log;
 
-import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
-import androidx.annotation.WorkerThread;
 
-import java.util.concurrent.CancellationException;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
-import java.util.concurrent.FutureTask;
 import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @SuppressWarnings("unused")
@@ -138,11 +132,6 @@ public final class TaskExecutor {
             Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
 
             super.run();
-
-            /* Reset the thread priority to act as a background thread, so that it will have less
-             * chance of impacting the responsiveness of the user interface.
-             * Changing this affects how fast the tasks execute. */
-            Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
 
         }
 
