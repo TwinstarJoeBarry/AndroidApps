@@ -23,7 +23,7 @@ import java.util.Scanner;
 
 import javax.net.ssl.HttpsURLConnection;
 
-import edu.ncc.nest.nestapp.AsynchronousTask.ExecutableTask;
+import edu.ncc.nest.nestapp.AsynchronousTask.BackgroundTask;
 import edu.ncc.nest.nestapp.AsynchronousTask.TaskExecutor;
 
 /**
@@ -147,7 +147,7 @@ public class NestDBOpenHelper extends SQLiteOpenHelper {
     /**
      * Inner class to retrieve all categories from the FoodKeeper API
      */
-    private static class GetCategoriesTask extends ExecutableTask<Float, String> {
+    private static class GetCategoriesTask extends BackgroundTask<Float, String> {
 
         private final SQLiteDatabase db;
 
@@ -237,7 +237,7 @@ public class NestDBOpenHelper extends SQLiteOpenHelper {
     /**
      * Inner class to retrieve all cookingTips from the FoodKeeper API
      */
-    private static class GetCookingTipsTask extends ExecutableTask<Float, String> {
+    private static class GetCookingTipsTask extends BackgroundTask<Float, String> {
 
         private final SQLiteDatabase db;
 
@@ -322,7 +322,7 @@ public class NestDBOpenHelper extends SQLiteOpenHelper {
     /**
      * Inner class to retrieve all cookingmethods from the FoodKeeper API
      */
-    private static class GetCookingMethodsTask extends ExecutableTask<Float, String> {
+    private static class GetCookingMethodsTask extends BackgroundTask<Float, String> {
 
         private final SQLiteDatabase db;
 
@@ -412,7 +412,7 @@ public class NestDBOpenHelper extends SQLiteOpenHelper {
     /**
      * Inner class to retrieve all products from the FoodKeeper API
      */
-    private static class GetProductsTask extends ExecutableTask<Float, String> {
+    private static class GetProductsTask extends BackgroundTask<Float, String> {
 
         private final SQLiteDatabase db;
 

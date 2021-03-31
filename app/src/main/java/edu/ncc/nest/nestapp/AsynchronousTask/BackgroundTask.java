@@ -14,11 +14,11 @@ import java.util.concurrent.FutureTask;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public abstract class ExecutableTask<Progress, Result> {
+public abstract class BackgroundTask<Progress, Result> {
 
     /**
      * OnProgressListener --
-     * Mainly used to listen for any "progress" updates from a TaskExecutor.ExecutableTask object. Can
+     * Mainly used to listen for any "progress" updates from a TaskExecutor.BackgroundTask object. Can
      * also be used for other purposes.
      * @param <Progress> The data type that will represent the "progress" of a task.
      */
@@ -33,7 +33,7 @@ public abstract class ExecutableTask<Progress, Result> {
 
     }
 
-    public static final String LOG_TAG = ExecutableTask.class.getSimpleName();
+    public static final String LOG_TAG = BackgroundTask.class.getSimpleName();
 
     private static final Handler mainHandler = new Handler(Looper.getMainLooper());
 
@@ -43,8 +43,8 @@ public abstract class ExecutableTask<Progress, Result> {
 
     private final FutureTask<Result> futureTask;
 
-    // TODO Possibly add a String (name) to identify this task.
-    public ExecutableTask() {
+    // TODO Possibly add a String (name) to identify this task, add a priority (int) variable
+    public BackgroundTask() {
 
         futureTask = new FutureTask<>(() -> {
 
@@ -63,7 +63,7 @@ public abstract class ExecutableTask<Progress, Result> {
 
             } catch (CancellationException cancellationException) {
 
-                Log.w(LOG_TAG, "ExecutableTask was cancelled: " + cancellationException.getMessage());
+                Log.w(LOG_TAG, "BackgroundTask was cancelled: " + cancellationException.getMessage());
 
                 // Call the onCancelled method on the main thread.
                 mainHandler.post(this::onCancelled);

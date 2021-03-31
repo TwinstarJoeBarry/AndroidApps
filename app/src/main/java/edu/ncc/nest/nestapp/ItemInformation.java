@@ -56,7 +56,7 @@ import java.util.concurrent.ExecutionException;
 
 import javax.net.ssl.HttpsURLConnection;
 
-import edu.ncc.nest.nestapp.AsynchronousTask.ExecutableTask;
+import edu.ncc.nest.nestapp.AsynchronousTask.BackgroundTask;
 import edu.ncc.nest.nestapp.AsynchronousTask.TaskExecutor;
 
 
@@ -368,7 +368,7 @@ public class ItemInformation extends AppCompatActivity implements DatePickerDial
     /**
      * Inner class to retrieve all categories from the FoodKeeper API
      */
-    private class GetCategoriesTask extends ExecutableTask<Void, String> {
+    private class GetCategoriesTask extends BackgroundTask<Void, String> {
         private final String TAG = GetCategoriesTask.class.getSimpleName();
 
         @Override
@@ -465,7 +465,7 @@ public class ItemInformation extends AppCompatActivity implements DatePickerDial
     /**
      * Inner class to retrieve all items for the currently selected category from the FoodKeeper API
      */
-    private class GetItemsForCategoryTask extends ExecutableTask<Void, String> {
+    private class GetItemsForCategoryTask extends BackgroundTask<Void, String> {
         private final String TAG = GetItemsForCategoryTask.class.getSimpleName();
 
         @Override

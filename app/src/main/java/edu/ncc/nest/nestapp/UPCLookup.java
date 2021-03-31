@@ -41,7 +41,7 @@ import java.util.concurrent.ExecutionException;
 
 import javax.net.ssl.HttpsURLConnection;
 
-import edu.ncc.nest.nestapp.AsynchronousTask.ExecutableTask;
+import edu.ncc.nest.nestapp.AsynchronousTask.BackgroundTask;
 import edu.ncc.nest.nestapp.AsynchronousTask.TaskExecutor;
 
 /**
@@ -231,7 +231,7 @@ public class UPCLookup extends AppCompatActivity {
     /**
      * Class for pulling from the USDA database.  It runs asynchronously from everything else in this class to prevent freezing while looking up.
      */
-    private class JSONGetter extends ExecutableTask<Float, String> {
+    private class JSONGetter extends BackgroundTask<Float, String> {
 
 
         @Override

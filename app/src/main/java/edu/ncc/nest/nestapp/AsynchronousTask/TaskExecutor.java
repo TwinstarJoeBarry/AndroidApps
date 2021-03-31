@@ -1,5 +1,6 @@
 package edu.ncc.nest.nestapp.AsynchronousTask;
 
+import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Process;
@@ -45,59 +46,59 @@ public final class TaskExecutor {
 
     //////////////////////////////////////// CLASS METHODS /////////////////////////////////////////
 
-    public <Result> void execute(@NonNull final ExecutableTask<?, Result> executableTask) {
+    public <Result> void execute(@NonNull final BackgroundTask<?, Result> backgroundTask) {
 
         // If we are NOT currently on the main Thread
         if (!Looper.getMainLooper().isCurrentThread())
 
             throw new RuntimeException("This method must be called from the main Thread.");
 
-        if (executableTask.invoked())
+        if (backgroundTask.invoked())
 
             throw new RuntimeException("Task has already been executed.");
 
-        if (executableTask.isCancelled())
+        if (backgroundTask.isCancelled())
 
             throw new RuntimeException("Task has been pre-cancelled.");
 
-        executableTask.onPreExecute();
+        backgroundTask.onPreExecute();
 
-        executableTask.executeOn(threadPoolExecutor);
+        backgroundTask.executeOn(threadPoolExecutor);
 
     }
 
-    public <Result> Future<Result> submit(@NonNull final ExecutableTask<?, Result> executableTask) {
+    public <Result> Future<Result> submit(@NonNull final BackgroundTask<?, Result> backgroundTask) {
 
         // If we are NOT currently on the main Thread
         if (!Looper.getMainLooper().isCurrentThread())
 
             throw new RuntimeException("This method must be called from the main Thread.");
 
-        if (executableTask.invoked())
+        if (backgroundTask.invoked())
 
             throw new RuntimeException("Task has already been executed.");
 
-        if (executableTask.isCancelled())
+        if (backgroundTask.isCancelled())
 
             throw new RuntimeException("Task has been pre-cancelled.");
 
-        executableTask.onPreExecute();
+        backgroundTask.onPreExecute();
 
-        return executableTask.submitOn(threadPoolExecutor);
+        return backgroundTask.submitOn(threadPoolExecutor);
 
     }
 
-    public <Result> Result executeAndWait(@NonNull final ExecutableTask<?, Result> executableTask)
+    public <Result> Result executeAndWait(@NonNull final BackgroundTask<?, Result> backgroundTask)
             throws ExecutionException, InterruptedException {
 
-        return submit(executableTask).get();
+        return submit(backgroundTask).get();
 
     }
 
-    public <Result> Result executeAndWait(@NonNull final ExecutableTask<?, Result> executableTask, long timeout, TimeUnit unit)
+    public <Result> Result executeAndWait(@NonNull final BackgroundTask<?, Result> backgroundTask, long timeout, TimeUnit unit)
             throws ExecutionException, InterruptedException, TimeoutException {
 
-        return submit(executableTask).get(timeout, unit);
+        return submit(backgroundTask).get(timeout, unit);
 
     }
 
@@ -112,6 +113,9 @@ public final class TaskExecutor {
 
     ////////////////////////////////////// EXECUTION THREAD ////////////////////////////////////////
 
+    /**
+     * ExecutionThread: Represents a Thread that BackgroundTask will be run on.
+     */
     private static class ExecutionThread extends Thread {
 
         private static final AtomicInteger threadCount = new AtomicInteger(0);
@@ -130,6 +134,8 @@ public final class TaskExecutor {
              * chance of impacting the responsiveness of the user interface.
              * Changing this affects how fast the tasks execute. */
             Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
+
+            AsyncTask<String, String, String> a;
 
             super.run();
 

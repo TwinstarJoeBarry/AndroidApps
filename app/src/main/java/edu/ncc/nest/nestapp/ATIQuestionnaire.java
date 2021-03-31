@@ -32,7 +32,7 @@ import java.util.concurrent.ExecutionException;
 
 import javax.net.ssl.HttpsURLConnection;
 
-import edu.ncc.nest.nestapp.AsynchronousTask.ExecutableTask;
+import edu.ncc.nest.nestapp.AsynchronousTask.BackgroundTask;
 import edu.ncc.nest.nestapp.AsynchronousTask.TaskExecutor;
 
 /**
@@ -99,7 +99,7 @@ public class ATIQuestionnaire extends AppCompatActivity implements View.OnClickL
      * inner class that will access the rest API and process the JSON returned
      * used in order to get all the items from the API
      */
-    private class Items extends ExecutableTask<Float, String> {
+    private class Items extends BackgroundTask<Float, String> {
 
         @Override
         protected String doInBackground() {

@@ -54,7 +54,7 @@ import java.util.List;
 import java.text.DateFormat;
 import java.util.concurrent.ExecutionException;
 
-import edu.ncc.nest.nestapp.AsynchronousTask.ExecutableTask;
+import edu.ncc.nest.nestapp.AsynchronousTask.BackgroundTask;
 import edu.ncc.nest.nestapp.AsynchronousTask.TaskExecutor;
 
 import edu.ncc.nest.nestapp.CheckExpirationDate.Fragments.SelectItemFragment;
@@ -361,7 +361,7 @@ public class FoodItem extends AppCompatActivity implements DatePickerDialog.OnDa
      * needed to retrieve the data from the requested URL and parse the JSON to use the
      * information stored in it for application use and display.</p>
      */
-    private class GetItemTask extends ExecutableTask<Float, String> {
+    private class GetItemTask extends BackgroundTask<Float, String> {
 
         @Override
         protected void onPreExecute() {

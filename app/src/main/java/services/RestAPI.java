@@ -16,8 +16,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import edu.ncc.nest.nestapp.AsynchronousTask.ExecutableTask;
-import edu.ncc.nest.nestapp.AsynchronousTask.TaskExecutor;
+import edu.ncc.nest.nestapp.AsynchronousTask.BackgroundTask;
 
 /*
 All Rest API Functionality is here.
@@ -25,7 +24,7 @@ Currently this only has headers and implementations to send Notifications with R
 requests through Firebase service.
  */
 
-public class RestAPI extends ExecutableTask<Float, String> {
+public class RestAPI extends BackgroundTask<Float, String> {
     /*This should be the Key associated to your Firebase's Project file.
     To get your API Key, go to Project Directory, Press the COG Icon on the left (next to project
      overview) and Click on the Cloud Messaging Tab.
