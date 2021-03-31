@@ -28,9 +28,11 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.ExecutionException;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import edu.ncc.nest.nestapp.AsynchronousTask.ExecutableTask;
 import edu.ncc.nest.nestapp.AsynchronousTask.TaskExecutor;
 
 /**
@@ -97,7 +99,7 @@ public class ATIQuestionnaire extends AppCompatActivity implements View.OnClickL
      * inner class that will access the rest API and process the JSON returned
      * used in order to get all the items from the API
      */
-    private class Items extends TaskExecutor.BackgroundTask<Float, String> {
+    private class Items extends ExecutableTask<Float, String> {
 
         @Override
         protected String doInBackground() {
@@ -343,7 +345,7 @@ public class ATIQuestionnaire extends AppCompatActivity implements View.OnClickL
      * home method - goes to the nest home screen
      */
     public void home() {
-        TaskExecutor.executeAsRead(new Items());
+        // FIXME
     }
 
     /**
@@ -356,7 +358,17 @@ public class ATIQuestionnaire extends AppCompatActivity implements View.OnClickL
         // either for list view, ui#1, donate
         switch (view.getId()){
             case R.id.atibutton:
-                TaskExecutor.executeAsRead(new Items());
+                TaskExecutor taskExecutor = new TaskExecutor(1);
+
+                try {
+
+                    taskExecutor.executeAndWait(new Items());
+
+                } catch (ExecutionException | InterruptedException e) {
+
+                    e.printStackTrace();
+
+                }
                 break;
             case R.id.uiLink:
                 launchInterfaceOne();

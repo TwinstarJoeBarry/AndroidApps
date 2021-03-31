@@ -52,9 +52,11 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import edu.ncc.nest.nestapp.AsynchronousTask.ExecutableTask;
 import edu.ncc.nest.nestapp.AsynchronousTask.TaskExecutor;
 
 
@@ -121,7 +123,17 @@ public class ItemInformation extends AppCompatActivity implements DatePickerDial
         selectedItemPosition = -1;
 
         // load categories into list
-        TaskExecutor.executeAsRead(new GetCategoriesTask());
+        TaskExecutor taskExecutor = new TaskExecutor(1);
+
+        try {
+
+            taskExecutor.executeAndWait(new GetCategoriesTask());
+
+        } catch (ExecutionException | InterruptedException e) {
+
+            e.printStackTrace();
+
+        }
 
     }
 
@@ -191,7 +203,19 @@ public class ItemInformation extends AppCompatActivity implements DatePickerDial
                     selectedItemPosition = -1;
                     itemDisplay.setText("");
                     items.clear();
-                    TaskExecutor.executeAsRead(new GetItemsForCategoryTask());
+
+                    TaskExecutor taskExecutor = new TaskExecutor(1);
+
+                    try {
+
+                        taskExecutor.executeAndWait(new GetItemsForCategoryTask());
+
+                    } catch (ExecutionException | InterruptedException e) {
+
+                        e.printStackTrace();
+
+                    }
+
                 }
                 // update selected category id and display
                 catDisplay.setText(item.getTitle().toString());
@@ -344,7 +368,7 @@ public class ItemInformation extends AppCompatActivity implements DatePickerDial
     /**
      * Inner class to retrieve all categories from the FoodKeeper API
      */
-    private class GetCategoriesTask extends TaskExecutor.BackgroundTask<Void, String> {
+    private class GetCategoriesTask extends ExecutableTask<Void, String> {
         private final String TAG = GetCategoriesTask.class.getSimpleName();
 
         @Override
@@ -441,7 +465,7 @@ public class ItemInformation extends AppCompatActivity implements DatePickerDial
     /**
      * Inner class to retrieve all items for the currently selected category from the FoodKeeper API
      */
-    private class GetItemsForCategoryTask extends TaskExecutor.BackgroundTask<Void, String> {
+    private class GetItemsForCategoryTask extends ExecutableTask<Void, String> {
         private final String TAG = GetItemsForCategoryTask.class.getSimpleName();
 
         @Override

@@ -23,6 +23,7 @@ import java.util.Scanner;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import edu.ncc.nest.nestapp.AsynchronousTask.ExecutableTask;
 import edu.ncc.nest.nestapp.AsynchronousTask.TaskExecutor;
 
 /**
@@ -133,18 +134,22 @@ public class NestDBOpenHelper extends SQLiteOpenHelper {
     }
 
     private void populateFromFoodKeeperAPI(SQLiteDatabase db) {
-        TaskExecutor.submitAsRead(new GetCategoriesTask(db));
-        TaskExecutor.submitAsRead(new GetCookingTipsTask(db));
-        TaskExecutor.submitAsRead(new GetCookingMethodsTask(db));
-        TaskExecutor.submitAsRead(new GetProductsTask(db));
+
+        TaskExecutor taskExecutor = new TaskExecutor();
+
+        taskExecutor.execute(new GetCategoriesTask(db));
+        taskExecutor.execute(new GetCookingTipsTask(db));
+        taskExecutor.execute(new GetCookingMethodsTask(db));
+        taskExecutor.execute(new GetProductsTask(db));
+
     }
 
     /**
      * Inner class to retrieve all categories from the FoodKeeper API
      */
-    private static class GetCategoriesTask extends TaskExecutor.BackgroundTask<Float, String> {
+    private static class GetCategoriesTask extends ExecutableTask<Float, String> {
 
-        private SQLiteDatabase db;
+        private final SQLiteDatabase db;
 
         public GetCategoriesTask(@NonNull SQLiteDatabase db) { this.db = db; }
 
@@ -232,9 +237,9 @@ public class NestDBOpenHelper extends SQLiteOpenHelper {
     /**
      * Inner class to retrieve all cookingTips from the FoodKeeper API
      */
-    private static class GetCookingTipsTask extends TaskExecutor.BackgroundTask<Float, String> {
+    private static class GetCookingTipsTask extends ExecutableTask<Float, String> {
 
-        private SQLiteDatabase db;
+        private final SQLiteDatabase db;
 
         public GetCookingTipsTask(@NonNull SQLiteDatabase db) { this.db = db; }
 
@@ -317,9 +322,9 @@ public class NestDBOpenHelper extends SQLiteOpenHelper {
     /**
      * Inner class to retrieve all cookingmethods from the FoodKeeper API
      */
-    private static class GetCookingMethodsTask extends TaskExecutor.BackgroundTask<Float, String> {
+    private static class GetCookingMethodsTask extends ExecutableTask<Float, String> {
 
-        private SQLiteDatabase db;
+        private final SQLiteDatabase db;
 
         public GetCookingMethodsTask(@NonNull SQLiteDatabase db) { this.db = db; }
 
@@ -407,9 +412,9 @@ public class NestDBOpenHelper extends SQLiteOpenHelper {
     /**
      * Inner class to retrieve all products from the FoodKeeper API
      */
-    private static class GetProductsTask extends TaskExecutor.BackgroundTask<Float, String> {
+    private static class GetProductsTask extends ExecutableTask<Float, String> {
 
-        private SQLiteDatabase db;
+        private final SQLiteDatabase db;
 
         public GetProductsTask(@NonNull SQLiteDatabase db) { this.db = db; }
 

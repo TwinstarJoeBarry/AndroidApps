@@ -52,7 +52,9 @@ import java.util.List;
 
 
 import java.text.DateFormat;
+import java.util.concurrent.ExecutionException;
 
+import edu.ncc.nest.nestapp.AsynchronousTask.ExecutableTask;
 import edu.ncc.nest.nestapp.AsynchronousTask.TaskExecutor;
 
 import edu.ncc.nest.nestapp.CheckExpirationDate.Fragments.SelectItemFragment;
@@ -232,8 +234,19 @@ public class FoodItem extends AppCompatActivity implements DatePickerDialog.OnDa
                    +productList.get(0).getItemName()).show();
 
        }else { //product list is empty, upc not found in local database, make call to foodkeeper Api
-           TaskExecutor.executeAsRead(new GetItemTask()); //this is where the foodKeeper api call begins
            Toast.makeText(FoodItem.this, "Please wait a moment, for search results to load...", Toast.LENGTH_SHORT).show();
+
+           TaskExecutor taskExecutor = new TaskExecutor(1);
+
+           try {
+
+               taskExecutor.executeAndWait(new GetItemTask()); //this is where the foodKeeper api call begins
+
+           } catch (ExecutionException | InterruptedException e) {
+
+               e.printStackTrace();
+
+           }
        }
 
     }
@@ -348,7 +361,7 @@ public class FoodItem extends AppCompatActivity implements DatePickerDialog.OnDa
      * needed to retrieve the data from the requested URL and parse the JSON to use the
      * information stored in it for application use and display.</p>
      */
-    private class GetItemTask extends TaskExecutor.BackgroundTask<Float, String> {
+    private class GetItemTask extends ExecutableTask<Float, String> {
 
         @Override
         protected void onPreExecute() {

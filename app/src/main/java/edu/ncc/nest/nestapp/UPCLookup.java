@@ -37,9 +37,11 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.concurrent.ExecutionException;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import edu.ncc.nest.nestapp.AsynchronousTask.ExecutableTask;
 import edu.ncc.nest.nestapp.AsynchronousTask.TaskExecutor;
 
 /**
@@ -210,14 +212,26 @@ public class UPCLookup extends AppCompatActivity {
         } else {
             fdcidText.setText(getString(R.string.upc_lookup_match_found, fdcid));
             usdaText.setText(R.string.upc_lookup_retrieving_json);
-            TaskExecutor.executeAsRead(new JSONGetter());
+
+            TaskExecutor taskExecutor = new TaskExecutor(1);
+
+            try {
+
+                taskExecutor.executeAndWait(new JSONGetter());
+
+            } catch (ExecutionException | InterruptedException e) {
+
+                e.printStackTrace();
+
+            }
+
         }
     }
 
     /**
      * Class for pulling from the USDA database.  It runs asynchronously from everything else in this class to prevent freezing while looking up.
      */
-    private class JSONGetter extends TaskExecutor.BackgroundTask<Float, String> {
+    private class JSONGetter extends ExecutableTask<Float, String> {
 
 
         @Override

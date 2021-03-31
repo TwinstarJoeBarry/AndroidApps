@@ -4,386 +4,147 @@ import android.os.Binder;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Process;
+import android.util.Log;
 
+import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
+import androidx.annotation.WorkerThread;
 
-import java.util.concurrent.ExecutorService;
+import java.util.concurrent.CancellationException;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
-import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.FutureTask;
+import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 
-/**
- * TaskExecutor --
- * Used to execute a BackgroundTask object, and handles the lifecycle of the BackgroundTask as it
- * executes. Replacement for {@link android.os.AsyncTask}.
- * @author Tyler Sizse (ANewGalaxy)
- */
 @SuppressWarnings("unused")
 public final class TaskExecutor {
 
-    // Create a ExecutorService that can use multiple threads to process tasks, best used for database reads.
-    private static final ExecutorService READ_EXECUTOR_SERVICE =
-            new ThreadPoolExecutor(4, 20, 3000L,
-                    TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>());
+    public static final String LOG_TAG = TaskExecutor.class.getSimpleName();
 
-    // Create a ExecutorService that will process one task at a time, best used for database writes.
-    private static final ExecutorService WRITE_EXECUTOR_SERVICE =
-            new ThreadPoolExecutor(1, 1, 0L,
-                    TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>());
+    private static final Handler mainHandler = new Handler(Looper.getMainLooper());
 
-    // Get a Handler for the Main UI thread
-    private static final Handler MAIN_HANDLER = new Handler(Looper.getMainLooper());
+    private final ThreadPoolExecutor threadPoolExecutor;
 
-    // Whether or not we should pre-start core thread on initialization
-    public static final boolean PRE_START_CORE_THREADS = true;
+    ///////////////////////////////////////// CONSTRUCTORS /////////////////////////////////////////
 
-    // Keep this at the bottom so it gets called last, after executors have been initialized
-    private static final TaskExecutor INSTANCE = new TaskExecutor();
+    public TaskExecutor() { this(4, 128, 1000L); }
 
-    //////////////////////////////////////// Constructors //////////////////////////////////////////
+    public TaskExecutor(int nThreads) { this(nThreads, nThreads, 0L); }
 
-    /**
-     * TaskExecutor --
-     * Used to set any initial settings
-     */
-    private TaskExecutor() {
+    public TaskExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime) {
 
-        ThreadPoolExecutor readExecutor = (ThreadPoolExecutor) READ_EXECUTOR_SERVICE;
+        threadPoolExecutor = new ThreadPoolExecutor(corePoolSize, maximumPoolSize, keepAliveTime,
+                TimeUnit.MILLISECONDS, new SynchronousQueue<>(), ExecutionThread::new);
 
-        ThreadPoolExecutor writeExecutor = (ThreadPoolExecutor) WRITE_EXECUTOR_SERVICE;
+        if (maximumPoolSize > corePoolSize)
 
-        readExecutor.allowCoreThreadTimeOut(true);
+            threadPoolExecutor.allowCoreThreadTimeOut(true);
 
-        if (PRE_START_CORE_THREADS) {
+        threadPoolExecutor.prestartAllCoreThreads();
 
-            readExecutor.prestartAllCoreThreads();
+    }
 
-            writeExecutor.prestartCoreThread();
+    //////////////////////////////////////// CLASS METHODS /////////////////////////////////////////
+
+    public <Result> void execute(@NonNull final ExecutableTask<?, Result> executableTask) {
+
+        // If we are NOT currently on the main Thread
+        if (!Looper.getMainLooper().isCurrentThread())
+
+            throw new RuntimeException("This method must be called from the main Thread.");
+
+        if (executableTask.invoked())
+
+            throw new RuntimeException("Task has already been executed.");
+
+        if (executableTask.isCancelled())
+
+            throw new RuntimeException("Task has been pre-cancelled.");
+
+        executableTask.onPreExecute();
+
+        executableTask.executeOn(threadPoolExecutor);
+
+    }
+
+    public <Result> Future<Result> submit(@NonNull final ExecutableTask<?, Result> executableTask) {
+
+        // If we are NOT currently on the main Thread
+        if (!Looper.getMainLooper().isCurrentThread())
+
+            throw new RuntimeException("This method must be called from the main Thread.");
+
+        if (executableTask.invoked())
+
+            throw new RuntimeException("Task has already been executed.");
+
+        if (executableTask.isCancelled())
+
+            throw new RuntimeException("Task has been pre-cancelled.");
+
+        executableTask.onPreExecute();
+
+        return executableTask.submitOn(threadPoolExecutor);
+
+    }
+
+    public <Result> Result executeAndWait(@NonNull final ExecutableTask<?, Result> executableTask)
+            throws ExecutionException, InterruptedException {
+
+        return submit(executableTask).get();
+
+    }
+
+    public <Result> Result executeAndWait(@NonNull final ExecutableTask<?, Result> executableTask, long timeout, TimeUnit unit)
+            throws ExecutionException, InterruptedException, TimeoutException {
+
+        return submit(executableTask).get(timeout, unit);
+
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+
+        threadPoolExecutor.shutdown();
+
+        super.finalize();
+
+    }
+
+    ////////////////////////////////////// EXECUTION THREAD ////////////////////////////////////////
+
+    private static class ExecutionThread extends Thread {
+
+        private static final AtomicInteger threadCount = new AtomicInteger(0);
+
+        public ExecutionThread(Runnable runnable) {
+            super(runnable, "ExecutionThread::" + threadCount.incrementAndGet());
+
+            Log.d(LOG_TAG, "Thread created: " + getName());
 
         }
 
-    }
-
-    ////////////////////////////////////// LIFECYCLE METHODS ///////////////////////////////////////
-
-    /**
-     * onExecute --
-     * Called when executing a BackgroundTask. Handles the lifecycle of the BackgroundTask that is
-     * being executed.
-     * @param TASK The BackgroundTask to execute.
-     * @param EXECUTOR_SERVICE The ExecutorService to use to execute a BackgroundTask.
-     * @param <Progress> The data type that will represent the "progress" of the BackgroundTask.
-     * @param <Result> The data type that will represent the "result" of the BackgroundTask.
-     */
-    private static <Progress, Result> void onExecute(@NonNull final BackgroundTask<Progress, Result> TASK,
-                                                                         @NonNull final ExecutorService EXECUTOR_SERVICE) {
-
-        // Call this lifecycle method on the current thread
-        /* NOTE: This call is the reason we need to make sure we are on the Main UI Thread when
-         *       executeAsWrite or executeAsRead is called.
-         */
-        TASK.onPreExecute();
-
-        // Execute the following code using the EXECUTOR_SERVICE provided
-        // May need to change this to submit in the future, to be able to cancel the task
-        EXECUTOR_SERVICE.execute(() -> {
-
-            Result result = null;
-
-            boolean taskFailed = false;
-
-            try {
-
-                // Set the thread priority to background
-                Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
-
-                // Execute the background code, and get the "result"
-                result = TASK.doInBackground();
-
-                // Ensures that any pending object references have been released
-                Binder.flushPendingCommands();
-
-            } catch (Throwable throwable) {
-
-                // If we get here the BackgroundTask has failed to fully execute
-                taskFailed = true;
-
-                // Call this lifecycle method on the Main UI thread
-                MAIN_HANDLER.post(() -> TASK.onTaskFailed(throwable));
-
-            } finally {
-
-                // If the BackgroundTask hasn't failed
-                if (!taskFailed) {
-
-                    final Result RESULT = result;
-
-                    // Call this lifecycle method on the Main UI thread
-                    MAIN_HANDLER.post(() -> TASK.onPostExecute(RESULT));
-
-                }
-
-            }
-
-        });
-
-    }
-
-    /**
-     * onSubmit --
-     * Called when submitting a BackgroundTask. Handles the lifecycle of the BackgroundTask that is
-     * being executed.
-     * @param TASK The BackgroundTask to submit.
-     * @param EXECUTOR_SERVICE The ExecutorService to submit a BackgroundTask to.
-     * @param <Progress> The data type that will represent the "progress" of the BackgroundTask.
-     * @param <Result> The data type that will represent the "result" of the BackgroundTask.
-     * @return Future<?> A Future representing pending completion of the task
-     * @throws java.util.concurrent.RejectedExecutionException – if the task cannot be scheduled for execution
-     */
-    private static <Progress, Result> Future<?> onSubmit(@NonNull final BackgroundTask<Progress, Result> TASK,
-                                                     @NonNull final ExecutorService EXECUTOR_SERVICE) {
-
-        // Call this lifecycle method on the current thread
-        /* NOTE: This call is the reason we need to make sure we are on the Main UI Thread when
-         *       submitAsWrite or submitAsRead is called.
-         */
-        TASK.onPreExecute();
-
-        // Execute the following code using the EXECUTOR_SERVICE provided
-        // May need to change this to submit in the future, to be able to cancel the task
-        return EXECUTOR_SERVICE.submit(() -> {
-
-            Result result = null;
-
-            boolean taskFailed = false;
-
-            try {
-
-                // Set the thread priority to background
-                Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
-
-                // Execute the background code, and get the "result"
-                result = TASK.doInBackground();
-
-                // Ensures that any pending object references have been released
-                Binder.flushPendingCommands();
-
-            } catch (Throwable throwable) {
-
-                // If we get here the BackgroundTask has failed to fully execute
-                taskFailed = true;
-
-                // Call this lifecycle method on the Main UI thread
-                MAIN_HANDLER.post(() -> TASK.onTaskFailed(throwable));
-
-            } finally {
-
-                // If the BackgroundTask hasn't failed
-                if (!taskFailed) {
-
-                    final Result RESULT = result;
-
-                    // Call this lifecycle method on the Main UI thread
-                    MAIN_HANDLER.post(() -> TASK.onPostExecute(RESULT));
-
-                }
-
-            }
-
-        });
-
-    }
-
-    /////////////////////////////////////// ACTION METHODS /////////////////////////////////////////
-
-    /**
-     * executeAsRead --
-     * Optimized for executing a BackgroundTask. Performs database reads more efficiently. Must be
-     * called from the Main UI Thread.
-     * @param TASK The BackgroundTask to execute.
-     * @param <Progress> The data type that will represent the "progress" of the BackgroundTask.
-     * @param <Result> The data type that will represent the "result" of the BackgroundTask.
-     * @throws RuntimeException If this method is not called from the Main UI Thread
-     */
-    public static <Progress, Result> void executeAsRead(
-            @NonNull final BackgroundTask<Progress, Result> TASK) {
-
-        if (!Thread.currentThread().equals(Looper.getMainLooper().getThread()))
-
-            throw new RuntimeException("This method must be called from the Main UI Thread. " +
-                    "Current Thread: " + Thread.currentThread().getName());
-
-        onExecute(TASK, READ_EXECUTOR_SERVICE);
-
-    }
-
-    /**
-     * executeAsWrite --
-     * Optimized for executing a BackgroundTask. Performs database writes more safely. Must be
-     *      * called from the Main UI Thread.
-     * @param TASK The BackgroundTask to execute.
-     * @param <Progress> The data type that will represent the "progress" of the BackgroundTask.
-     * @param <Result> The data type that will represent the "result" of the BackgroundTask.
-     * @throws RuntimeException If this method is not called from the Main UI Thread
-     */
-    public static <Progress, Result> void executeAsWrite(
-            @NonNull final BackgroundTask<Progress, Result> TASK) {
-
-        if (!Thread.currentThread().equals(Looper.getMainLooper().getThread()))
-
-            throw new RuntimeException("This method must be called from the Main UI Thread. " +
-                    "Current Thread: " + Thread.currentThread().getName());
-
-        onExecute(TASK, WRITE_EXECUTOR_SERVICE);
-
-    }
-
-    /**
-     * submitAsRead --
-     * Optimized for submitting a BackgroundTask as a read. Performs database reads more efficiently.
-     * Must be called from the Main UI Thread.
-     * @param TASK The BackgroundTask to submit.
-     * @param <Progress> The data type that will represent the "progress" of the BackgroundTask.
-     * @param <Result> The data type that will represent the "result" of the BackgroundTask.
-     * @return Future<?> A Future representing pending completion of the task
-     * @throws RuntimeException If this method is not called from the Main UI Thread
-     */
-    public static <Progress, Result> Future<?> submitAsRead(
-            @NonNull final BackgroundTask<Progress, Result> TASK) {
-
-        if (!Thread.currentThread().equals(Looper.getMainLooper().getThread()))
-
-            throw new RuntimeException("This method must be called from the Main UI Thread. " +
-                    "Current Thread: " + Thread.currentThread().getName());
-
-        return onSubmit(TASK, READ_EXECUTOR_SERVICE);
-
-    }
-
-    /**
-     * submitAsWrite --
-     * Optimized for submitting a BackgroundTask as a write. Performs database writes more safely.
-     * Must be called from the Main UI Thread.
-     * @param TASK The BackgroundTask to submit.
-     * @param <Progress> The data type that will represent the "progress" of the BackgroundTask.
-     * @param <Result> The data type that will represent the "result" of the BackgroundTask.
-     * @return Future<?> A Future representing pending completion of the task
-     * @throws RuntimeException If this method is not called from the Main UI Thread
-     */
-    public static <Progress, Result> Future<?> submitAsWrite(
-            @NonNull final BackgroundTask<Progress, Result> TASK) {
-
-        if (!Thread.currentThread().equals(Looper.getMainLooper().getThread()))
-
-            throw new RuntimeException("This method must be called from the Main UI Thread. " +
-                    "Current Thread: " + Thread.currentThread().getName());
-
-        return onSubmit(TASK, WRITE_EXECUTOR_SERVICE);
-
-    }
-
-    //////////////////////////////////// BACKGROUND TASK CLASS /////////////////////////////////////
-
-    /**
-     * BackgroundTask --
-     * Represents a task that can be executed on a background thread. Replacement for
-     * {@link android.os.AsyncTask}.
-     * @param <Progress> The data type that will represent the "progress" of this task.
-     * @param <Result> The data type that will represent the "result" of this task.
-     * @author Tyler Sizse (ANewGalaxy)
-     */
-    public abstract static class BackgroundTask<Progress, Result> {
-
-        // Useful for updating UI as a task progresses
-        private OnProgressListener<Progress> onProgressListener = null;
-
-        /////////////////////////////// ON PROGRESS LISTENER METHODS ///////////////////////////////
-
-        /**
-         * setOnProgressListener --
-         * Set the onProgressListener class variable.
-         * @param onProgressListener The listener to use when setting the class variable.
-         */
-        public final void setOnProgressListener(OnProgressListener<Progress> onProgressListener) {
-
-            this.onProgressListener = onProgressListener;
+        @Override
+        public void run() {
+
+            /* Set the thread priority to act as a background thread, so that it will have less
+             * chance of impacting the responsiveness of the user interface.
+             * Changing this affects how fast the tasks execute. */
+            Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
+
+            super.run();
+
+            /* Reset the thread priority to act as a background thread, so that it will have less
+             * chance of impacting the responsiveness of the user interface.
+             * Changing this affects how fast the tasks execute. */
+            Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
 
         }
-
-        /**
-         * getOnProgressListener --
-         * Get the value of the onProgressListener class variable.
-         * @return The value of onProgressListener class variable.
-         */
-        public final OnProgressListener<Progress> getOnProgressListener() {
-
-            return onProgressListener;
-
-        }
-
-        /////////////////////////////////// TASK ACTION METHODS ////////////////////////////////////
-
-        /**
-         * postProgress --
-         * Calls onProgress method in both the class and onProgressListener class. Called on the
-         * Main UI thread.
-         * @param PROGRESS The "progress" this task has made. (Usually used as percentage)
-         */
-        public final void publishProgress(@NonNull final Progress PROGRESS) {
-
-            // Run the onProgress methods on the Main UI thread
-            MAIN_HANDLER.post(() -> {
-
-                this.onProgressUpdate(PROGRESS);
-
-                // If the onProgressListener has been set, then call its method as well
-                if (onProgressListener != null)
-
-                    onProgressListener.onProgressUpdate(PROGRESS);
-
-            });
-
-        }
-
-        ////////////////////////////////// TASK LIFECYCLE METHODS //////////////////////////////////
-
-        /**
-         * onPreExecute --
-         * Always called before doInBackground() method is executed.
-         */
-        protected void onPreExecute() { }
-
-        /**
-         * doInBackground --
-         * The code/"task" to run on a background thread.
-         * @return The "result" of the task that was executed.
-         * @throws Throwable If an error has occurred during execution of the task. If a Throwable
-         * is thrown, it triggers the onTaskFailed method to be executed on the Main UI thread.
-         */
-        protected abstract Result doInBackground() throws Throwable;
-
-        /**
-         * onPostExecute --
-         * Called after doInBackground() method is executed, as long as the task has NOT failed.
-         * @param result The "result" of the task that was executed.
-         */
-        protected void onPostExecute(Result result) { }
-
-        /**
-         * onTaskFailed --
-         * Called if an Throwable has been thrown from the doInBackground() method.
-         * @param throwable The Throwable thrown from the doInBackground() method.
-         */
-        protected void onTaskFailed(@NonNull Throwable throwable) { throwable.printStackTrace(); }
-
-        /**
-         * onProgress --
-         * Called on Main UI thread after a call to the postProgress method has been called. Used to
-         * update any UI about the progress of this task.
-         * @param progress The "progress" this task has made. (Usually used as percentage)
-         */
-        protected void onProgressUpdate(@NonNull Progress progress) { }
 
     }
 
