@@ -21,8 +21,6 @@ public final class TaskExecutor {
 
     public static final String LOG_TAG = TaskExecutor.class.getSimpleName();
 
-    private static final Handler mainHandler = new Handler(Looper.getMainLooper());
-
     private final ThreadPoolExecutor threadPoolExecutor;
 
     ///////////////////////////////////////// CONSTRUCTORS /////////////////////////////////////////

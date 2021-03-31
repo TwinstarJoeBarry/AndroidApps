@@ -98,7 +98,7 @@ public abstract class BackgroundTask<Progress, Result> {
 
     }
 
-    /////////////////////////////// ON PROGRESS LISTENER METHODS ///////////////////////////////
+    ///////////////////////////////// ON PROGRESS LISTENER METHODS /////////////////////////////////
 
     /**
      * setOnProgressListener --
@@ -124,7 +124,7 @@ public abstract class BackgroundTask<Progress, Result> {
 
     }
 
-    /////////////////////////////////// TASK CLASS METHODS /////////////////////////////////////
+    ///////////////////////////////////// TASK CLASS METHODS ///////////////////////////////////////
 
     /**
      * postProgress --
@@ -149,6 +149,16 @@ public abstract class BackgroundTask<Progress, Result> {
 
     }
 
+    public final boolean isCancelled() { return futureTask.isCancelled(); }
+
+    public final boolean cancel(boolean mayInterruptIfRunning) {
+
+        return (futureTask.cancel(mayInterruptIfRunning));
+
+    }
+
+    //////////////////////////////////// PACKAGE-PRIVATE METHODS ///////////////////////////////////
+
     final void executeOn(@NonNull ThreadPoolExecutor threadPoolExecutor) {
 
         threadPoolExecutor.execute(futureTask);
@@ -165,15 +175,7 @@ public abstract class BackgroundTask<Progress, Result> {
 
     final boolean invoked() { return taskInvoked.get(); }
 
-    public final boolean isCancelled() { return futureTask.isCancelled(); }
-
-    public final boolean cancel(boolean mayInterruptIfRunning) {
-
-        return (futureTask.cancel(mayInterruptIfRunning));
-
-    }
-
-    ////////////////////////////////// TASK LIFECYCLE METHODS //////////////////////////////////
+    //////////////////////////////////// TASK LIFECYCLE METHODS ////////////////////////////////////
 
     /**
      * onPreExecute --
