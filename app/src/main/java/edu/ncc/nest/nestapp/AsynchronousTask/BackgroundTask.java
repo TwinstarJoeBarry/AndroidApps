@@ -33,6 +33,8 @@ public abstract class BackgroundTask<Progress, Result> {
 
     }
 
+    /////////////////////////////////////// CLASS VARIABLES ////////////////////////////////////////
+
     public static final String LOG_TAG = BackgroundTask.class.getSimpleName();
 
     private static final Handler mainHandler = new Handler(Looper.getMainLooper());
@@ -42,6 +44,8 @@ public abstract class BackgroundTask<Progress, Result> {
     private OnProgressListener<Progress> onProgressListener;
 
     private final FutureTask<Result> futureTask;
+
+    ///////////////////////////////////////// CONSTRUCTORS /////////////////////////////////////////
 
     // TODO Possibly add a String (name) to identify this task, add a priority (int) variable
     public BackgroundTask() {
