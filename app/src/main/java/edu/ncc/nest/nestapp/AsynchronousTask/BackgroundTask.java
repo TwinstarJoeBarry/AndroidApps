@@ -102,7 +102,7 @@ public abstract class BackgroundTask<Progress, Result> {
 
     }
 
-    ///////////////////////////////// ON PROGRESS LISTENER METHODS /////////////////////////////////
+    /////////////////////////////////////// CLASS METHODS //////////////////////////////////////////
 
     /**
      * setOnProgressListener --
@@ -127,8 +127,6 @@ public abstract class BackgroundTask<Progress, Result> {
         return onProgressListener;
 
     }
-
-    ///////////////////////////////////// TASK CLASS METHODS ///////////////////////////////////////
 
     /**
      * postProgress --
@@ -157,7 +155,17 @@ public abstract class BackgroundTask<Progress, Result> {
 
     public final boolean cancel(boolean mayInterruptIfRunning) {
 
-        return (futureTask.cancel(mayInterruptIfRunning));
+        if (futureTask.cancel(mayInterruptIfRunning)) {
+
+            if (!taskInvoked.get())
+
+                mainHandler.post(this::onCancelled);
+
+            return true;
+
+        } else
+
+            return false;
 
     }
 
