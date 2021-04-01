@@ -1,7 +1,5 @@
 package edu.ncc.nest.nestapp.AsynchronousTask;
 
-import android.os.AsyncTask;
-import android.os.Handler;
 import android.os.Looper;
 import android.os.Process;
 import android.util.Log;
@@ -51,7 +49,7 @@ public final class TaskExecutor {
 
             throw new RuntimeException("This method must be called from the main Thread.");
 
-        if (backgroundTask.invoked())
+        if (backgroundTask.getInvoked())
 
             throw new RuntimeException("Task has already been executed.");
 
@@ -72,7 +70,7 @@ public final class TaskExecutor {
 
             throw new RuntimeException("This method must be called from the main Thread.");
 
-        if (backgroundTask.invoked())
+        if (backgroundTask.getInvoked())
 
             throw new RuntimeException("Task has already been executed.");
 
@@ -132,8 +130,6 @@ public final class TaskExecutor {
              * chance of impacting the responsiveness of the user interface.
              * Changing this affects how fast the tasks execute. */
             Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
-
-            AsyncTask<String, String, String> a;
 
             super.run();
 

@@ -39,7 +39,7 @@ public abstract class BackgroundTask<Progress, Result> {
 
     private static final Handler mainHandler = new Handler(Looper.getMainLooper());
 
-    private final AtomicBoolean taskInvoked = new AtomicBoolean(false);
+    private final AtomicBoolean bInvoked = new AtomicBoolean(false);
 
     private OnProgressListener<Progress> onProgressListener;
 
@@ -58,7 +58,8 @@ public abstract class BackgroundTask<Progress, Result> {
 
             try {
 
-                if (taskInvoked.getAndSet(true))
+                // Make sure the task has not been previously executed
+                if (bInvoked.getAndSet(true))
 
                     throw new RuntimeException("Task has already been invoked.");
 
@@ -151,13 +152,15 @@ public abstract class BackgroundTask<Progress, Result> {
 
     }
 
+    public final boolean getInvoked() { return bInvoked.get(); }
+
     public final boolean isCancelled() { return futureTask.isCancelled(); }
 
     public final boolean cancel(boolean mayInterruptIfRunning) {
 
         if (futureTask.cancel(mayInterruptIfRunning)) {
 
-            if (!taskInvoked.get())
+            if (!bInvoked.get())
 
                 mainHandler.post(this::onCancelled);
 
@@ -184,8 +187,6 @@ public abstract class BackgroundTask<Progress, Result> {
         return futureTask;
 
     }
-
-    final boolean invoked() { return taskInvoked.get(); }
 
     //////////////////////////////////// TASK LIFECYCLE METHODS ////////////////////////////////////
 
