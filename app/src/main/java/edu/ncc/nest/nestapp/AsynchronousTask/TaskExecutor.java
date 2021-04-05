@@ -5,6 +5,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import java.util.List;
 import java.util.concurrent.CancellationException;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -12,6 +13,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
@@ -37,7 +39,7 @@ public final class TaskExecutor {
     public TaskExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime) {
 
         executorService = new ThreadPoolExecutor(corePoolSize, maximumPoolSize, keepAliveTime,
-                TimeUnit.MILLISECONDS, new LinkedBlockingDeque<>(), ExecutionThread::new);
+                TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>(), ExecutionThread::new);
 
         if (maximumPoolSize > corePoolSize)
 
@@ -70,6 +72,7 @@ public final class TaskExecutor {
      * @throws java.util.concurrent.RejectedExecutionException If this task cannot be accepted for
      * execution
      */
+
     public <Result> Future<Result> submit(@NonNull final BackgroundTask<?, Result> backgroundTask) {
 
         return backgroundTask.submitOn(executorService);
@@ -144,10 +147,86 @@ public final class TaskExecutor {
 
     }
 
+    /////////////////////////////////////// WRAPPER METHODS ////////////////////////////////////////
+
+    /**
+     * shutdown --
+     *
+     * Initiates an orderly shutdown in which previously submitted
+     * tasks are executed, but no new tasks will be accepted.
+     * Invocation has no additional effect if already shut down.
+     *
+     * <p>This method does not wait for previously submitted tasks to
+     * complete execution.  Use {@link #awaitTermination awaitTermination}
+     * to do that.
+     */
+    public void shutdown() { executorService.shutdown(); }
+
+    /**
+     * shutdownNow --
+     *
+     * Attempts to stop all actively executing tasks, halts the
+     * processing of waiting tasks, and returns a list of the tasks
+     * that were awaiting execution.
+     *
+     * <p>This method does not wait for actively executing tasks to
+     * terminate.  Use {@link #awaitTermination awaitTermination} to
+     * do that.
+     *
+     * <p>There are no guarantees beyond best-effort attempts to stop
+     * processing actively executing tasks.  For example, typical
+     * implementations will cancel via {@link Thread#interrupt}, so any
+     * task that fails to respond to interrupts may never terminate.
+     *
+     * @return list of tasks that never commenced execution
+     */
+    public List<Runnable> shutdownNow() { return executorService.shutdownNow(); }
+
+    /**
+     * awaitTermination --
+     *
+     * Blocks until all tasks have completed execution after a shutdown
+     * request, or the timeout occurs, or the current thread is
+     * interrupted, whichever happens first.
+     *
+     * @param timeout the maximum time to wait
+     * @param unit the time unit of the timeout argument
+     * @return {@code true} if this executor terminated and
+     *         {@code false} if the timeout elapsed before termination
+     * @throws InterruptedException if interrupted while waiting
+     */
+    public boolean awaitTermination(long timeout, TimeUnit unit) throws InterruptedException {
+
+        return executorService.awaitTermination(timeout, unit);
+
+    }
+
+    /**
+     * isShutdown --
+     *
+     * Returns {@code true} if this executor has been shut down.
+     *
+     * @return {@code true} if this executor has been shut down
+     */
+    public boolean isShutdown() { return executorService.isShutdown(); }
+
+    /**
+     * isTerminated --
+     * 
+     * Returns {@code true} if all tasks have completed following shut down.
+     * Note that {@code isTerminated} is never {@code true} unless
+     * either {@code shutdown} or {@code shutdownNow} was called first.
+     *
+     * @return {@code true} if all tasks have completed following shut down
+     */
+    public boolean isTerminated() { return executorService.isTerminated(); }
+
+    //////////////////////////////////////// OBJECT METHODS ////////////////////////////////////////
+
     @Override
     protected void finalize() throws Throwable {
 
-        executorService.shutdown();
+        executorService.shutdownNow();
 
         super.finalize();
 
