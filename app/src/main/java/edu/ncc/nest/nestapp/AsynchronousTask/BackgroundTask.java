@@ -1,5 +1,6 @@
 package edu.ncc.nest.nestapp.AsynchronousTask;
 
+import android.os.AsyncTask;
 import android.os.Binder;
 import android.os.Handler;
 import android.os.Looper;
@@ -10,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.WorkerThread;
 
 import java.util.concurrent.CancellationException;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -29,6 +32,7 @@ public abstract class BackgroundTask<Progress, Result> {
          * Called by a task, to inform the listener of any progress the related task has made.
          * @param progress The "progress" of the related task.
          */
+        @MainThread
         void onProgressUpdate(Progress progress);
 
     }
@@ -75,7 +79,10 @@ public abstract class BackgroundTask<Progress, Result> {
 
             } catch (Throwable throwable) {
 
-                Log.e(LOG_TAG, "An error occurred while executing task: " + throwable.getMessage());
+                Log.e(LOG_TAG, "An error occurred while executing BackgroundTask: " + throwable.getMessage());
+
+                // Call the onError method on the main thread.
+                mainHandler.post(() -> this.onError(throwable));
 
                 // Throw the throwable since we aren't handling the error here
                 // This allows the FutureTask to see the Exception
@@ -86,14 +93,16 @@ public abstract class BackgroundTask<Progress, Result> {
                 // Ensures that any pending object references have been released
                 Binder.flushPendingCommands();
 
-                // Store the result as final so we can use it in our posted run-ables
-                final Result finalResult = result;
-
                 // If the task was not cancelled
-                if (!isCancelled())
+                if (result != null) {
+
+                    // Store the result as final so we can use it in our posted run-ables
+                    final Result finalResult = result;
 
                     // Call the onPostExecute method with the result on the main thread
                     mainHandler.post(() -> onPostExecute(finalResult));
+
+                }
 
             }
 
@@ -131,24 +140,18 @@ public abstract class BackgroundTask<Progress, Result> {
 
     /**
      * postProgress --
-     * Calls onProgress method in both the class and onProgressListener class. Called on the
-     * Main UI thread.
+     * Calls onProgressUpdate method in the onProgressListener class.
+     * (Useful for loading bars, etc...)
      *
-     * @param progress The "progress" this task has made. (Usually used as percentage)
+     * @param progress The "progress" this task has made.
      */
-    public final void publishProgress(@NonNull final Progress progress) {
+    protected final void postProgress(@NonNull final Progress progress) {
 
-        // Run the onProgress methods on the Main UI thread
-        mainHandler.post(() -> {
+        // If the onProgressListener has been set, then call its method as well
+        if (onProgressListener != null)
 
-            this.onProgressUpdate(progress);
-
-            // If the onProgressListener has been set, then call its method as well
-            if (onProgressListener != null)
-
-                onProgressListener.onProgressUpdate(progress);
-
-        });
+            // Run the onProgress methods on the Main UI thread
+            mainHandler.post(() -> onProgressListener.onProgressUpdate(progress));
 
     }
 
@@ -172,21 +175,45 @@ public abstract class BackgroundTask<Progress, Result> {
 
     }
 
-    //////////////////////////////////// PACKAGE-PRIVATE METHODS ///////////////////////////////////
+    public final synchronized void executeOn(@NonNull Executor executor) {
 
-    final void executeOn(@NonNull ThreadPoolExecutor threadPoolExecutor) {
+        // If we are NOT currently on the main Thread
+        if (!Looper.getMainLooper().isCurrentThread())
 
-        threadPoolExecutor.execute(futureTask);
+            throw new RuntimeException("This method must be called from the main Thread.");
+
+        if (!bInvoked.get())
+
+            throw new RuntimeException("Task has already been executed.");
+
+        this.onPreExecute();
+
+        executor.execute(futureTask);
 
     }
 
-    final FutureTask<Result> submitOn(@NonNull ThreadPoolExecutor threadPoolExecutor) {
+    public final synchronized FutureTask<Result> submitOn(@NonNull Executor executor) {
 
-        threadPoolExecutor.execute(futureTask);
+        // If we are NOT currently on the main Thread
+        if (!Looper.getMainLooper().isCurrentThread())
+
+            throw new RuntimeException("This method must be called from the main Thread.");
+
+        if (!bInvoked.get())
+
+            throw new RuntimeException("Task has already been executed.");
+
+        this.onPreExecute();
+
+        executor.execute(futureTask);
 
         return futureTask;
 
     }
+
+    //////////////////////////////////// PACKAGE-PRIVATE METHODS ///////////////////////////////////
+
+    final FutureTask<Result> getFutureTask() { return futureTask; }
 
     //////////////////////////////////// TASK LIFECYCLE METHODS ////////////////////////////////////
 
@@ -216,16 +243,10 @@ public abstract class BackgroundTask<Progress, Result> {
     @MainThread
     protected void onPostExecute(Result result) { }
 
-    /**
-     * onProgress --
-     * Called on Main UI thread after a call to the postProgress method has been called. Used to
-     * update any UI about the progress of this task.
-     * @param progress The "progress" this task has made. (Usually used as percentage)
-     */
-    @MainThread
-    protected void onProgressUpdate(@NonNull Progress progress) { }
-
     @MainThread
     protected void onCancelled() { Log.w(LOG_TAG, "Task cancelled"); }
+
+    @MainThread
+    protected void onError(@NonNull Throwable throwable) { }
 
 }

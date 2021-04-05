@@ -127,7 +127,7 @@ public class ItemInformation extends AppCompatActivity implements DatePickerDial
 
         try {
 
-            taskExecutor.executeAndWait(new GetCategoriesTask());
+            taskExecutor.submitAndWait(new GetCategoriesTask());
 
         } catch (ExecutionException | InterruptedException e) {
 
@@ -208,7 +208,7 @@ public class ItemInformation extends AppCompatActivity implements DatePickerDial
 
                     try {
 
-                        taskExecutor.executeAndWait(new GetItemsForCategoryTask());
+                        taskExecutor.submitAndWait(new GetItemsForCategoryTask());
 
                     } catch (ExecutionException | InterruptedException e) {
 

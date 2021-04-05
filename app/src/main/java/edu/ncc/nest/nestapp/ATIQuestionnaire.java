@@ -362,7 +362,7 @@ public class ATIQuestionnaire extends AppCompatActivity implements View.OnClickL
 
                 try {
 
-                    taskExecutor.executeAndWait(new Items());
+                    taskExecutor.submitAndWait(new Items());
 
                 } catch (ExecutionException | InterruptedException e) {
 
