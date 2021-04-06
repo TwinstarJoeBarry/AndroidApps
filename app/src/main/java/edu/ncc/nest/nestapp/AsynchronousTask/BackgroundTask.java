@@ -1,6 +1,5 @@
 package edu.ncc.nest.nestapp.AsynchronousTask;
 
-import android.os.AsyncTask;
 import android.os.Binder;
 import android.os.Handler;
 import android.os.Looper;
@@ -12,9 +11,7 @@ import androidx.annotation.WorkerThread;
 
 import java.util.concurrent.CancellationException;
 import java.util.concurrent.Executor;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.FutureTask;
-import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public abstract class BackgroundTask<Progress, Result> {
