@@ -208,10 +208,6 @@ public abstract class BackgroundTask<Progress, Result> {
 
     }
 
-    //////////////////////////////////// PACKAGE-PRIVATE METHODS ///////////////////////////////////
-
-    final FutureTask<Result> getFutureTask() { return futureTask; }
-
     //////////////////////////////////// TASK LIFECYCLE METHODS ////////////////////////////////////
 
     /**
