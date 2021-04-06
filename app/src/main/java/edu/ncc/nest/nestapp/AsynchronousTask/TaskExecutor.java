@@ -70,7 +70,7 @@ public final class TaskExecutor {
     public TaskExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime) {
 
         executorService = new ThreadPoolExecutor(corePoolSize, maximumPoolSize, keepAliveTime,
-                TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>(), ExecutionThread::new);
+                TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>(), TaskThread::new);
 
         ThreadPoolExecutor threadPoolExecutor = (ThreadPoolExecutor) executorService;
 
@@ -262,16 +262,16 @@ public final class TaskExecutor {
     /**
      * Represents a Thread that BackgroundTask will be run on.
      */
-    private static class ExecutionThread extends Thread {
+    private static class TaskThread extends Thread {
 
         /** The tag to use when printing to the log from this class. */
-        private static final String LOG_TAG = ExecutionThread.class.getSimpleName();
+        private static final String LOG_TAG = TaskThread.class.getSimpleName();
 
         /** Keeps track of how many ExecutionThreads have been created */
         private static final AtomicInteger threadCount = new AtomicInteger(0);
 
-        public ExecutionThread(Runnable runnable) {
-            super(runnable, "ExecutionThread::" + threadCount.incrementAndGet());
+        public TaskThread(Runnable runnable) {
+            super(runnable, "TaskThread::" + threadCount.incrementAndGet());
 
             Log.d(LOG_TAG, "Thread created: " + getName());
 

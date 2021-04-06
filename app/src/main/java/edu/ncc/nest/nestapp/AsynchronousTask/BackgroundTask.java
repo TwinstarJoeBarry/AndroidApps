@@ -55,6 +55,8 @@ public abstract class BackgroundTask<Progress, Result> {
 
             // TODO Possibly move Process.setThreadPriority here to allow each task to define its own priority
 
+            boolean interrupted = true;
+
             Result result = null;
 
             try {
@@ -66,6 +68,8 @@ public abstract class BackgroundTask<Progress, Result> {
 
                 // Execute the background code, and get the "Result"
                 result = doInBackground();
+
+                interrupted = false;
 
             } catch (CancellationException cancellationException) {
 
@@ -90,8 +94,8 @@ public abstract class BackgroundTask<Progress, Result> {
                 // Ensures that any pending object references have been released
                 Binder.flushPendingCommands();
 
-                // If the task was not cancelled
-                if (result != null) {
+                // If the task was not interrupted
+                if (!interrupted) {
 
                     // Store the result as final so we can use it in our posted run-ables
                     final Result finalResult = result;
