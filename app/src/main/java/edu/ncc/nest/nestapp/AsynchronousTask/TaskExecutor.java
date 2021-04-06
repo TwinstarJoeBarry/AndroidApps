@@ -6,14 +6,12 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import java.util.List;
-import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.CancellationException;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
@@ -33,7 +31,7 @@ public final class TaskExecutor {
      * {@link ThreadPoolExecutor#prestartAllCoreThreads()} */
     private static final boolean PRE_START_CORE_THREADS = true;
 
-    /** The wrapped {@link ThreadPoolExecutor} to execute {@link BackgroundTask} on. */
+    /** The wrapped {@link ExecutorService} to execute {@link BackgroundTask} on. */
     private final ExecutorService executorService;
 
     ///////////////////////////////////////// CONSTRUCTORS /////////////////////////////////////////
@@ -55,8 +53,6 @@ public final class TaskExecutor {
     /**
      * Creates a new TaskExecutor object and initializes the internal ExecutorService to a new
      * customized ThreadPoolExecutor using the provided parameters.
-     * {@link ThreadPoolExecutor#ThreadPoolExecutor(int, int, long, TimeUnit, BlockingQueue,
-     * ThreadFactory)}
      *
      * @param corePoolSize The number of threads to keep in the pool, even if they are idle,
      *                     unless allowCoreThreadTimeOut is set
