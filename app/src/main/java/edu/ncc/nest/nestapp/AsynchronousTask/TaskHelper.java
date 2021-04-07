@@ -6,22 +6,21 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import java.util.List;
-import java.util.concurrent.CancellationException;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.FutureTask;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.RejectedExecutionHandler;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @SuppressWarnings("unused")
-public final class TaskExecutor {
+public final class TaskHelper implements RejectedExecutionHandler {
 
     /** The tag to use when printing to the log from this class. */
-    public static final String LOG_TAG = TaskExecutor.class.getSimpleName();
+    public static final String LOG_TAG = TaskHelper.class.getSimpleName();
 
     /** Whether or not this class should allow core thread time-out.
      * {@link ThreadPoolExecutor#allowCoreThreadTimeOut(boolean)} */
@@ -37,21 +36,21 @@ public final class TaskExecutor {
     ///////////////////////////////////////// CONSTRUCTORS /////////////////////////////////////////
 
     /**
-     * Creates a new TaskExecutor object and initializes the internal ExecutorService to a new
+     * Creates a new TaskHelper object and initializes the internal ExecutorService to a new
      * single thread executor.
      */
-    public TaskExecutor() { this(1); }
+    public TaskHelper() { this(1); }
 
     /**
-     * Creates a new TaskExecutor object and initializes the internal ExecutorService to a new
+     * Creates a new TaskHelper object and initializes the internal ExecutorService to a new
      * fixed thread pool executor. {@link Executors#newFixedThreadPool(int)}
      *
      * @param nThreads The number of threads to keep in the pool, even if they are idle
      */
-    public TaskExecutor(int nThreads) { this(nThreads, nThreads, 0L); }
+    public TaskHelper(int nThreads) { this(nThreads, nThreads, 0L); }
 
     /**
-     * Creates a new TaskExecutor object and initializes the internal ExecutorService to a new
+     * Creates a new TaskHelper object and initializes the internal ExecutorService to a new
      * customized ThreadPoolExecutor using the provided parameters.
      *
      * @param corePoolSize The number of threads to keep in the pool, even if they are idle,
@@ -63,7 +62,7 @@ public final class TaskExecutor {
      * @throws IllegalArgumentException If coreThreadTimeOut is true and the current keep-alive
      *                                  time is not greater than zero
      */
-    public TaskExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime) {
+    public TaskHelper(int corePoolSize, int maximumPoolSize, long keepAliveTime) {
 
         executorService = new ThreadPoolExecutor(corePoolSize, maximumPoolSize, keepAliveTime,
                 TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>(), TaskThread::new);
@@ -75,6 +74,8 @@ public final class TaskExecutor {
         if (PRE_START_CORE_THREADS)
 
             threadPoolExecutor.prestartAllCoreThreads();
+
+        threadPoolExecutor.setRejectedExecutionHandler(this);
 
     }
 
@@ -108,76 +109,6 @@ public final class TaskExecutor {
 
     }
 
-    /**
-     *
-     * @param backgroundTask
-     * @param <Result>
-     * @throws ExecutionException If the task threw an exception
-     * @throws InterruptedException If the current thread was interrupted while waiting
-     * @throws CancellationException If the task was cancelled
-     */
-    public <Result> void executeAndWait(@NonNull final BackgroundTask<?, Result> backgroundTask)
-            throws ExecutionException, InterruptedException {
-
-        backgroundTask.submitOn(executorService).get();
-
-    }
-
-    /**
-     *
-     * @param backgroundTask
-     * @param timeout
-     * @param unit
-     * @param <Result>
-     * @throws ExecutionException If the task threw an exception
-     * @throws InterruptedException If the current thread was interrupted while waiting
-     * @throws CancellationException If the task was cancelled
-     * @throws TimeoutException If the wait timed out
-     */
-    public <Result> void executeAndWait(@NonNull final BackgroundTask<?, Result> backgroundTask,
-                                        long timeout, TimeUnit unit)
-            throws ExecutionException, InterruptedException, TimeoutException {
-
-        backgroundTask.submitOn(executorService).get(timeout, unit);
-
-    }
-
-    /**
-     *
-     * @param backgroundTask
-     * @param <Result>
-     * @return
-     * @throws ExecutionException If the task threw an exception
-     * @throws InterruptedException If the current thread was interrupted while waiting
-     * @throws CancellationException If the task was cancelled
-     */
-    public <Result> Result submitAndWait(@NonNull final BackgroundTask<?, Result> backgroundTask)
-            throws ExecutionException, InterruptedException {
-
-        return backgroundTask.submitOn(executorService).get();
-
-    }
-
-    /**
-     *
-     * @param backgroundTask
-     * @param timeout
-     * @param unit
-     * @param <Result>
-     * @return
-     * @throws ExecutionException If the task threw an exception
-     * @throws InterruptedException If the current thread was interrupted while waiting
-     * @throws CancellationException If the task was cancelled
-     * @throws TimeoutException If the wait timed out
-     */
-    public <Result> Result submitAndWait(@NonNull final BackgroundTask<?, Result> backgroundTask,
-                                         long timeout, TimeUnit unit)
-            throws ExecutionException, InterruptedException, TimeoutException {
-
-        return backgroundTask.submitOn(executorService).get(timeout, unit);
-
-    }
-
     /////////////////////////////////////// WRAPPER METHODS ////////////////////////////////////////
 
     /**
@@ -186,12 +117,12 @@ public final class TaskExecutor {
      * Invocation has no additional effect if already shut down.
      *
      * <p>This method does not wait for previously submitted tasks to
-     * complete execution.  Use {@link #awaitTermination awaitTermination}
+     * complete execution.  Use {@link #awaitExecutorTermination awaitExecutorTermination}
      * to do that.
      *
      * <p><br>Wrapper method for: {@link ExecutorService#shutdown()}</p>
      */
-    public void shutdown() { executorService.shutdown(); }
+    public void shutdownExecutor() { executorService.shutdown(); }
 
     /**
      * Attempts to stop all actively executing tasks, halts the
@@ -199,7 +130,7 @@ public final class TaskExecutor {
      * that were awaiting execution.
      *
      * <p>This method does not wait for actively executing tasks to
-     * terminate.  Use {@link #awaitTermination awaitTermination} to
+     * terminate.  Use {@link #awaitExecutorTermination awaitExecutorTermination} to
      * do that.
      *
      * <p>There are no guarantees beyond best-effort attempts to stop
@@ -212,7 +143,7 @@ public final class TaskExecutor {
      * @return {@link List} of tasks that never commenced execution
      */
     // TODO Possibly convert the returned List to a List of BackgroundTask
-    public List<Runnable> shutdownNow() { return executorService.shutdownNow(); }
+    public List<Runnable> shutdownExecutorNow() { return executorService.shutdownNow(); }
 
     /**
      * Blocks until all tasks have completed execution after a shutdown
@@ -227,7 +158,7 @@ public final class TaskExecutor {
      *         {@code false} if the timeout elapsed before termination
      * @throws InterruptedException If interrupted while waiting
      */
-    public boolean awaitTermination(long timeout, TimeUnit unit) throws InterruptedException {
+    public boolean awaitExecutorTermination(long timeout, TimeUnit unit) throws InterruptedException {
 
         return executorService.awaitTermination(timeout, unit);
 
@@ -240,7 +171,7 @@ public final class TaskExecutor {
      *
      * @return {@code true} if this executor has been shut down, false otherwise.
      */
-    public boolean isShutdown() { return executorService.isShutdown(); }
+    public boolean isExecutorShutdown() { return executorService.isShutdown(); }
 
     /**
      * Returns {@code true} if all tasks have completed following shut down.
@@ -251,7 +182,20 @@ public final class TaskExecutor {
      *
      * @return {@code true} if all tasks have completed following shut down, {@code false} otherwise
      */
-    public boolean isTerminated() { return executorService.isTerminated(); }
+    public boolean isExecutorTerminated() { return executorService.isTerminated(); }
+
+    @Override
+    public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {
+
+        // TODO Update this method
+
+        if (r instanceof FutureTask)
+
+            Log.e(LOG_TAG, "r instanceof FutureTask");
+
+        Log.e(LOG_TAG, "Execution rejected");
+
+    }
 
     /////////////////////////////////////// EXECUTION THREAD ///////////////////////////////////////
 

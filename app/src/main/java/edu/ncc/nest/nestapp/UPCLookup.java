@@ -42,7 +42,7 @@ import java.util.concurrent.ExecutionException;
 import javax.net.ssl.HttpsURLConnection;
 
 import edu.ncc.nest.nestapp.AsynchronousTask.BackgroundTask;
-import edu.ncc.nest.nestapp.AsynchronousTask.TaskExecutor;
+import edu.ncc.nest.nestapp.AsynchronousTask.TaskHelper;
 
 /**
  * An Activity that takes a UPC and finds its corresponding FDCID.
@@ -213,11 +213,11 @@ public class UPCLookup extends AppCompatActivity {
             fdcidText.setText(getString(R.string.upc_lookup_match_found, fdcid));
             usdaText.setText(R.string.upc_lookup_retrieving_json);
 
-            TaskExecutor taskExecutor = new TaskExecutor(1);
+            TaskHelper taskHelper = new TaskHelper(1);
 
             try {
 
-                taskExecutor.submitAndWait(new JSONGetter());
+                taskHelper.submit(new JSONGetter()).get();
 
             } catch (ExecutionException | InterruptedException e) {
 

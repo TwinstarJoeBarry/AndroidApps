@@ -57,7 +57,7 @@ import java.util.concurrent.ExecutionException;
 import javax.net.ssl.HttpsURLConnection;
 
 import edu.ncc.nest.nestapp.AsynchronousTask.BackgroundTask;
-import edu.ncc.nest.nestapp.AsynchronousTask.TaskExecutor;
+import edu.ncc.nest.nestapp.AsynchronousTask.TaskHelper;
 
 
 /**
@@ -123,11 +123,11 @@ public class ItemInformation extends AppCompatActivity implements DatePickerDial
         selectedItemPosition = -1;
 
         // load categories into list
-        TaskExecutor taskExecutor = new TaskExecutor(1);
+        TaskHelper taskHelper = new TaskHelper(1);
 
         try {
 
-            taskExecutor.submitAndWait(new GetCategoriesTask());
+            taskHelper.submit(new GetCategoriesTask()).get();
 
         } catch (ExecutionException | InterruptedException e) {
 
@@ -204,11 +204,11 @@ public class ItemInformation extends AppCompatActivity implements DatePickerDial
                     itemDisplay.setText("");
                     items.clear();
 
-                    TaskExecutor taskExecutor = new TaskExecutor(1);
+                    TaskHelper taskHelper = new TaskHelper(1);
 
                     try {
 
-                        taskExecutor.submitAndWait(new GetItemsForCategoryTask());
+                        taskHelper.submit(new GetItemsForCategoryTask()).get();
 
                     } catch (ExecutionException | InterruptedException e) {
 

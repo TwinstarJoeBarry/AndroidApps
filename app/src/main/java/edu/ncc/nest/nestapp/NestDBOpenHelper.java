@@ -24,7 +24,7 @@ import java.util.Scanner;
 import javax.net.ssl.HttpsURLConnection;
 
 import edu.ncc.nest.nestapp.AsynchronousTask.BackgroundTask;
-import edu.ncc.nest.nestapp.AsynchronousTask.TaskExecutor;
+import edu.ncc.nest.nestapp.AsynchronousTask.TaskHelper;
 
 /**
  *
@@ -135,12 +135,30 @@ public class NestDBOpenHelper extends SQLiteOpenHelper {
 
     private void populateFromFoodKeeperAPI(SQLiteDatabase db) {
 
-        TaskExecutor taskExecutor = new TaskExecutor();
+        TaskHelper taskHelper = new TaskHelper(4);
 
-        taskExecutor.execute(new GetCategoriesTask(db));
-        taskExecutor.execute(new GetCookingTipsTask(db));
-        taskExecutor.execute(new GetCookingMethodsTask(db));
-        taskExecutor.execute(new GetProductsTask(db));
+        taskHelper.execute(new GetCategoriesTask(db));
+        taskHelper.execute(new GetCookingTipsTask(db));
+        taskHelper.execute(new GetCookingMethodsTask(db));
+        taskHelper.execute(new GetProductsTask(db));
+
+        taskHelper.shutdown();
+
+        while (!taskHelper.isTerminated()) {
+
+            Log.d("NestDBOpenHelper", "Waiting for completion of task...");
+
+            try {
+
+                Thread.sleep(100L);
+
+            } catch (InterruptedException e) {
+
+                e.printStackTrace();
+
+            }
+
+        }
 
     }
 

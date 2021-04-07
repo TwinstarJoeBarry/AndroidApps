@@ -33,7 +33,7 @@ import java.util.concurrent.ExecutionException;
 import javax.net.ssl.HttpsURLConnection;
 
 import edu.ncc.nest.nestapp.AsynchronousTask.BackgroundTask;
-import edu.ncc.nest.nestapp.AsynchronousTask.TaskExecutor;
+import edu.ncc.nest.nestapp.AsynchronousTask.TaskHelper;
 
 /**
  * Activity hopefully to be used as an intent for AddToInventory
@@ -358,11 +358,11 @@ public class ATIQuestionnaire extends AppCompatActivity implements View.OnClickL
         // either for list view, ui#1, donate
         switch (view.getId()){
             case R.id.atibutton:
-                TaskExecutor taskExecutor = new TaskExecutor(1);
+                TaskHelper taskHelper = new TaskHelper(1);
 
                 try {
 
-                    taskExecutor.submitAndWait(new Items());
+                    taskHelper.submit(new Items()).get();
 
                 } catch (ExecutionException | InterruptedException e) {
 

@@ -55,7 +55,7 @@ import java.text.DateFormat;
 import java.util.concurrent.ExecutionException;
 
 import edu.ncc.nest.nestapp.AsynchronousTask.BackgroundTask;
-import edu.ncc.nest.nestapp.AsynchronousTask.TaskExecutor;
+import edu.ncc.nest.nestapp.AsynchronousTask.TaskHelper;
 
 import edu.ncc.nest.nestapp.CheckExpirationDate.Fragments.SelectItemFragment;
 
@@ -236,11 +236,11 @@ public class FoodItem extends AppCompatActivity implements DatePickerDialog.OnDa
        }else { //product list is empty, upc not found in local database, make call to foodkeeper Api
            Toast.makeText(FoodItem.this, "Please wait a moment, for search results to load...", Toast.LENGTH_SHORT).show();
 
-           TaskExecutor taskExecutor = new TaskExecutor(1);
+           TaskHelper taskHelper = new TaskHelper(1);
 
            try {
 
-               taskExecutor.submitAndWait(new GetItemTask()); //this is where the foodKeeper api call begins
+               taskHelper.submit(new GetItemTask()).get(); //this is where the foodKeeper api call begins
 
            } catch (ExecutionException | InterruptedException e) {
 
