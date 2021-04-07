@@ -141,8 +141,6 @@ public abstract class BackgroundTask<Progress, Result> {
 
     public final boolean getInvoked() { return bInvoked.get(); }
 
-    public boolean isCancelled() { return futureTask.isCancelled(); }
-
     public final synchronized void executeOn(@NonNull Executor executor) {
 
         // If we are NOT on the main Thread
