@@ -78,12 +78,11 @@ public abstract class BackgroundTask<Progress, Result> {
 
             } catch (Throwable e) {
 
-                // Call the onError method on the main thread.
-                mainHandler.post(() -> onError(e));
-
                 bInterrupted.set(true);
 
-                // Throw the throwable since we aren't handling the error here
+                // Call the onError method on the main thread.
+                mainHandler.post(() -> onError(e));
+                
                 // This should allow the FutureTask to see the Exception
                 throw e;
 
