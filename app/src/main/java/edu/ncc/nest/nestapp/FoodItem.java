@@ -54,8 +54,8 @@ import java.util.List;
 import java.text.DateFormat;
 import java.util.concurrent.ExecutionException;
 
-import edu.ncc.nest.nestapp.AsynchronousTask.BackgroundTask;
-import edu.ncc.nest.nestapp.AsynchronousTask.TaskHelper;
+import edu.ncc.nest.nestapp.async.BackgroundTask;
+import edu.ncc.nest.nestapp.async.TaskHelper;
 
 import edu.ncc.nest.nestapp.CheckExpirationDate.Fragments.SelectItemFragment;
 
@@ -245,6 +245,10 @@ public class FoodItem extends AppCompatActivity implements DatePickerDialog.OnDa
            } catch (ExecutionException | InterruptedException e) {
 
                e.printStackTrace();
+
+           } finally {
+
+               taskHelper.shutdown();
 
            }
        }

@@ -23,8 +23,8 @@ import java.util.Scanner;
 
 import javax.net.ssl.HttpsURLConnection;
 
-import edu.ncc.nest.nestapp.AsynchronousTask.BackgroundTask;
-import edu.ncc.nest.nestapp.AsynchronousTask.TaskHelper;
+import edu.ncc.nest.nestapp.async.BackgroundTask;
+import edu.ncc.nest.nestapp.async.TaskHelper;
 
 /**
  *
@@ -143,22 +143,6 @@ public class NestDBOpenHelper extends SQLiteOpenHelper {
         taskHelper.execute(new GetProductsTask(db));
 
         taskHelper.shutdown();
-
-        while (!taskHelper.isTerminated()) {
-
-            Log.d("NestDBOpenHelper", "Waiting for completion of task...");
-
-            try {
-
-                Thread.sleep(100L);
-
-            } catch (InterruptedException e) {
-
-                e.printStackTrace();
-
-            }
-
-        }
 
     }
 

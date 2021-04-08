@@ -16,7 +16,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import edu.ncc.nest.nestapp.AsynchronousTask.BackgroundTask;
+import edu.ncc.nest.nestapp.async.BackgroundTask;
 
 /*
 All Rest API Functionality is here.

@@ -32,8 +32,8 @@ import java.util.concurrent.ExecutionException;
 
 import javax.net.ssl.HttpsURLConnection;
 
-import edu.ncc.nest.nestapp.AsynchronousTask.BackgroundTask;
-import edu.ncc.nest.nestapp.AsynchronousTask.TaskHelper;
+import edu.ncc.nest.nestapp.async.BackgroundTask;
+import edu.ncc.nest.nestapp.async.TaskHelper;
 
 /**
  * Activity hopefully to be used as an intent for AddToInventory
@@ -358,6 +358,7 @@ public class ATIQuestionnaire extends AppCompatActivity implements View.OnClickL
         // either for list view, ui#1, donate
         switch (view.getId()){
             case R.id.atibutton:
+
                 TaskHelper taskHelper = new TaskHelper(1);
 
                 try {
@@ -368,8 +369,13 @@ public class ATIQuestionnaire extends AppCompatActivity implements View.OnClickL
 
                     e.printStackTrace();
 
+                } finally {
+
+                    taskHelper.shutdown();
+
                 }
                 break;
+
             case R.id.uiLink:
                 launchInterfaceOne();
                 break;

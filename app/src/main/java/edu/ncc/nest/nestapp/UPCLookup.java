@@ -41,8 +41,8 @@ import java.util.concurrent.ExecutionException;
 
 import javax.net.ssl.HttpsURLConnection;
 
-import edu.ncc.nest.nestapp.AsynchronousTask.BackgroundTask;
-import edu.ncc.nest.nestapp.AsynchronousTask.TaskHelper;
+import edu.ncc.nest.nestapp.async.BackgroundTask;
+import edu.ncc.nest.nestapp.async.TaskHelper;
 
 /**
  * An Activity that takes a UPC and finds its corresponding FDCID.
@@ -222,6 +222,10 @@ public class UPCLookup extends AppCompatActivity {
             } catch (ExecutionException | InterruptedException e) {
 
                 e.printStackTrace();
+
+            } finally {
+
+                taskHelper.shutdown();
 
             }
 

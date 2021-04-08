@@ -56,8 +56,8 @@ import java.util.concurrent.ExecutionException;
 
 import javax.net.ssl.HttpsURLConnection;
 
-import edu.ncc.nest.nestapp.AsynchronousTask.BackgroundTask;
-import edu.ncc.nest.nestapp.AsynchronousTask.TaskHelper;
+import edu.ncc.nest.nestapp.async.BackgroundTask;
+import edu.ncc.nest.nestapp.async.TaskHelper;
 
 
 /**
@@ -132,6 +132,10 @@ public class ItemInformation extends AppCompatActivity implements DatePickerDial
         } catch (ExecutionException | InterruptedException e) {
 
             e.printStackTrace();
+
+        } finally {
+
+            taskHelper.shutdown();
 
         }
 
@@ -213,6 +217,10 @@ public class ItemInformation extends AppCompatActivity implements DatePickerDial
                     } catch (ExecutionException | InterruptedException e) {
 
                         e.printStackTrace();
+
+                    } finally {
+
+                        taskHelper.shutdown();
 
                     }
 
