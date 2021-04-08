@@ -82,7 +82,7 @@ public abstract class BackgroundTask<Progress, Result> {
 
                 // Call the onError method on the main thread.
                 mainHandler.post(() -> onError(e));
-                
+
                 // This should allow the FutureTask to see the Exception
                 throw e;
 

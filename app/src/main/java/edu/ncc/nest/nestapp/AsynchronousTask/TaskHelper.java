@@ -28,7 +28,7 @@ public final class TaskHelper implements RejectedExecutionHandler {
 
     /** Whether or not this class should pre-start all core threads on initialization.
      * {@link ThreadPoolExecutor#prestartAllCoreThreads()} */
-    private static final boolean PRE_START_CORE_THREADS = true;
+    private static final boolean PRE_START_CORE_THREADS = false;
 
     /** The wrapped {@link ExecutorService} to execute {@link BackgroundTask} on. */
     private final ExecutorService executorService;
@@ -37,7 +37,7 @@ public final class TaskHelper implements RejectedExecutionHandler {
 
     /**
      * Creates a new TaskHelper object and initializes the internal ExecutorService to a new
-     * single thread executor.
+     * single thread executor. Best used for database writes.
      */
     public TaskHelper() { this(1); }
 
@@ -108,6 +108,15 @@ public final class TaskHelper implements RejectedExecutionHandler {
 
     }
 
+    @Override
+    public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {
+
+        // TODO Update this method
+
+        Log.e(LOG_TAG, "Execution rejected");
+
+    }
+
     /////////////////////////////////////// WRAPPER METHODS ////////////////////////////////////////
 
     /**
@@ -116,12 +125,12 @@ public final class TaskHelper implements RejectedExecutionHandler {
      * Invocation has no additional effect if already shut down.
      *
      * <p>This method does not wait for previously submitted tasks to
-     * complete execution.  Use {@link #awaitExecutorTermination awaitExecutorTermination}
+     * complete execution.  Use {@link #awaitTermination}
      * to do that.
      *
      * <p><br>Wrapper method for: {@link ExecutorService#shutdown()}</p>
      */
-    public void shutdownExecutor() { executorService.shutdown(); }
+    public void shutdown() { executorService.shutdown(); }
 
     /**
      * Attempts to stop all actively executing tasks, halts the
@@ -129,7 +138,7 @@ public final class TaskHelper implements RejectedExecutionHandler {
      * that were awaiting execution.
      *
      * <p>This method does not wait for actively executing tasks to
-     * terminate.  Use {@link #awaitExecutorTermination awaitExecutorTermination} to
+     * terminate.  Use {@link #awaitTermination} to
      * do that.
      *
      * <p>There are no guarantees beyond best-effort attempts to stop
@@ -142,7 +151,7 @@ public final class TaskHelper implements RejectedExecutionHandler {
      * @return {@link List} of tasks that never commenced execution
      */
     // TODO Possibly convert the returned List to a List of BackgroundTask
-    public List<Runnable> shutdownExecutorNow() { return executorService.shutdownNow(); }
+    public List<Runnable> shutdownNow() { return executorService.shutdownNow(); }
 
     /**
      * Blocks until all tasks have completed execution after a shutdown
@@ -157,20 +166,20 @@ public final class TaskHelper implements RejectedExecutionHandler {
      *         {@code false} if the timeout elapsed before termination
      * @throws InterruptedException If interrupted while waiting
      */
-    public boolean awaitExecutorTermination(long timeout, TimeUnit unit) throws InterruptedException {
+    public boolean awaitTermination(long timeout, TimeUnit unit) throws InterruptedException {
 
         return executorService.awaitTermination(timeout, unit);
 
     }
 
     /**
-     * Returns {@code true} if this executor has been shut down.
+     * Returns {@code true} if the internal executor has been shut down.
      *
      * <p><br>Wrapper method for: {@link ExecutorService#isShutdown()}</p>
      *
      * @return {@code true} if this executor has been shut down, false otherwise.
      */
-    public boolean isExecutorShutdown() { return executorService.isShutdown(); }
+    public boolean isShutdown() { return executorService.isShutdown(); }
 
     /**
      * Returns {@code true} if all tasks have completed following shut down.
@@ -181,16 +190,7 @@ public final class TaskHelper implements RejectedExecutionHandler {
      *
      * @return {@code true} if all tasks have completed following shut down, {@code false} otherwise
      */
-    public boolean isExecutorTerminated() { return executorService.isTerminated(); }
-
-    @Override
-    public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {
-
-        // TODO Update this method
-
-        Log.e(LOG_TAG, "Execution rejected");
-
-    }
+    public boolean isTerminated() { return executorService.isTerminated(); }
 
     /////////////////////////////////////// EXECUTION THREAD ///////////////////////////////////////
 
