@@ -82,11 +82,10 @@ public final class TaskHelper implements RejectedExecutionHandler {
     //////////////////////////////////////// CLASS METHODS /////////////////////////////////////////
 
     /**
+     * Submits a {@link BackgroundTask} for execution.
      *
-     * @param backgroundTask
-     * @param <Result>
-     * @throws java.util.concurrent.RejectedExecutionException If this task cannot be accepted for
-     * execution
+     * @param backgroundTask The task to execute
+     * @param <Result> The data type returned by the task
      */
     public <Result> void execute(@NonNull final BackgroundTask<?, Result> backgroundTask) {
 
@@ -95,12 +94,12 @@ public final class TaskHelper implements RejectedExecutionHandler {
     }
 
     /**
+     * Submits a {@link BackgroundTask} for execution and returns a {@link Future} object that
+     * represents that task. The Future's get method will return the {@code Result} of the task.
      *
-     * @param backgroundTask
-     * @param <Result>
-     * @return
-     * @throws java.util.concurrent.RejectedExecutionException If this task cannot be accepted for
-     * execution
+     * @param backgroundTask The task to submit for execution
+     * @param <Result> The data type returned by the task
+     * @return The {@code Result} of the task
      */
 
     public <Result> Future<Result> submit(@NonNull final BackgroundTask<?, Result> backgroundTask) {
@@ -189,10 +188,6 @@ public final class TaskHelper implements RejectedExecutionHandler {
 
         // TODO Update this method
 
-        if (r instanceof FutureTask)
-
-            Log.e(LOG_TAG, "r instanceof FutureTask");
-
         Log.e(LOG_TAG, "Execution rejected");
 
     }
@@ -207,7 +202,7 @@ public final class TaskHelper implements RejectedExecutionHandler {
         /** The tag to use when printing to the log from this class. */
         private static final String LOG_TAG = TaskThread.class.getSimpleName();
 
-        /** Keeps track of how many ExecutionThreads have been created */
+        /** Keeps track of how many {@link TaskThread} objects have been created */
         private static final AtomicInteger threadCount = new AtomicInteger(0);
 
         public TaskThread(Runnable runnable) {

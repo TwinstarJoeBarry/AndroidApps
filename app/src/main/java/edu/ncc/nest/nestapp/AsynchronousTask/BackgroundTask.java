@@ -16,6 +16,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public abstract class BackgroundTask<Progress, Result> {
 
+    ////////////////////////////////////// OnProgressListener //////////////////////////////////////
+
     /**
      * Mainly used to listen for any "progress" updates from a {@link BackgroundTask} object. Can
      * also be used for other purposes.
@@ -34,16 +36,22 @@ public abstract class BackgroundTask<Progress, Result> {
 
     /////////////////////////////////////// CLASS VARIABLES ////////////////////////////////////////
 
+    /** The tag to use when printing to the log from this class. */
     public static final String LOG_TAG = BackgroundTask.class.getSimpleName();
 
+    /** The {@link Handler} object to use to post {@link Runnable} objects to the main thread */
     private static final Handler mainHandler = new Handler(Looper.getMainLooper());
 
+    /** Represents whether or not this task has been interrupted */
     private final AtomicBoolean bInterrupted = new AtomicBoolean(false);
 
+    /** Represents whether or not the {@code futureTask}'s call method has ever been invoked */
     private final AtomicBoolean bInvoked = new AtomicBoolean(false);
 
+    /** The progress listener for this task */
     private volatile OnProgressListener<Progress> onProgressListener;
 
+    /** The {@link FutureTask} object that represents this task */
     private final FutureTask<Result> futureTask;
 
     ///////////////////////////////////////// CONSTRUCTORS /////////////////////////////////////////
@@ -53,7 +61,13 @@ public abstract class BackgroundTask<Progress, Result> {
 
         futureTask = new FutureTask<>(() -> {
 
-            // TODO Possibly move Process.setThreadPriority here to allow each task to define its own priority
+            if (bInvoked.getAndSet(true))
+
+                throw new IllegalStateException("Task has already been invoked");
+
+            /* TODO Possibly add Thread.setPriority here to allow each task to define its
+             *   own priority
+             */
 
             Result result = null;
 
@@ -70,7 +84,7 @@ public abstract class BackgroundTask<Progress, Result> {
                 bInterrupted.set(true);
 
                 // Throw the throwable since we aren't handling the error here
-                // This should allow the FutureTask and Thread to see the Exception
+                // This should allow the FutureTask to see the Exception
                 throw e;
 
             } finally {
@@ -132,7 +146,7 @@ public abstract class BackgroundTask<Progress, Result> {
         // If the onProgressListener has been set, then call its method as well
         if (onProgressListener != null)
 
-            // Run the onProgress methods on the Main UI thread
+            // Run the onProgressListeners method on the main/UI thread
             mainHandler.post(() -> onProgressListener.onProgressUpdate(progress));
 
     }
@@ -141,6 +155,11 @@ public abstract class BackgroundTask<Progress, Result> {
 
     public final boolean getInvoked() { return bInvoked.get(); }
 
+    /**
+     * Executes this task using the provided Executor.
+     *
+     * @param executor The {@link Executor} to execute this task on
+     */
     public final synchronized void executeOn(@NonNull Executor executor) {
 
         // If we are NOT on the main Thread
@@ -158,6 +177,13 @@ public abstract class BackgroundTask<Progress, Result> {
 
     }
 
+    /**
+     * Executes this task using the provided Executor, and then returns a {@link Future} object that
+     * represents this task.
+     *
+     * @param executor The {@link Executor} to execute this task on
+     * @return A {@link Future} object that represents this task
+     */
     public final synchronized Future<Result> submitOn(@NonNull Executor executor) {
 
         executeOn(executor);
@@ -175,7 +201,7 @@ public abstract class BackgroundTask<Progress, Result> {
     protected void onPreExecute() { }
 
     /**
-     * The code/task to run on a background thread.
+     * The code/task to run in the background.
      *
      * @return The "result" of the task that was executed
      * @throws Exception If an error has occurred during execution of the task. If a Exception
@@ -194,7 +220,7 @@ public abstract class BackgroundTask<Progress, Result> {
     protected void onPostExecute(Result result) { }
 
     /**
-     * Called if an exception is thrown during execution.
+     * Called if an exception is thrown during the execution of {@link #doInBackground()}.
      *
      * @param throwable The {@link Throwable} thrown during execution
      */
