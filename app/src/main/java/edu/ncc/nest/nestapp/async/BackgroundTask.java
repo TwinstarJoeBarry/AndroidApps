@@ -39,7 +39,7 @@ public abstract class BackgroundTask<Progress, Result> {
     /** The tag to use when printing to the log from this class. */
     public static final String LOG_TAG = BackgroundTask.class.getSimpleName();
 
-    /** The {@link Handler} object to use to post {@link Runnable} objects to the main thread */
+    /** The {@link Handler} object used to post {@link Runnable} objects to the main thread */
     private static final Handler mainHandler = new Handler(Looper.getMainLooper());
 
     /** Represents whether or not this task has been interrupted */
@@ -80,8 +80,12 @@ public abstract class BackgroundTask<Progress, Result> {
 
                 bInterrupted.set(true);
 
-                // Call the onError method on the main thread.
-                mainHandler.post(() -> onError(e));
+                synchronized(mainHandler) {
+
+                    // Call the onError method on the main thread.
+                    mainHandler.post(() -> onError(e));
+
+                }
 
                 // This should allow the FutureTask to see the Exception
                 throw e;
@@ -97,8 +101,12 @@ public abstract class BackgroundTask<Progress, Result> {
                     // Store the result as final so we can use it in our posted run-ables
                     final Result finalResult = result;
 
-                    // Call the onPostExecute method with the result on the main thread
-                    mainHandler.post(() -> onPostExecute(finalResult));
+                    synchronized (mainHandler) {
+
+                        // Call the onPostExecute method with the result on the main thread
+                        mainHandler.post(() -> onPostExecute(finalResult));
+
+                    }
 
                 }
 
@@ -145,8 +153,12 @@ public abstract class BackgroundTask<Progress, Result> {
         // If the onProgressListener has been set, then call its method as well
         if (onProgressListener != null)
 
-            // Run the onProgressListeners method on the main/UI thread
-            mainHandler.post(() -> onProgressListener.onProgressUpdate(progress));
+            synchronized (mainHandler) {
+
+                // Run the onProgressListeners method on the main/UI thread
+                mainHandler.post(() -> onProgressListener.onProgressUpdate(progress));
+
+            }
 
     }
 
