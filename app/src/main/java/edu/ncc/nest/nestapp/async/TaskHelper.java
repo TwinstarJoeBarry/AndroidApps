@@ -18,6 +18,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 @SuppressWarnings("unused")
 public final class TaskHelper implements RejectedExecutionHandler {
 
+    /////////////////////////////////////// CLASS VARIABLES ////////////////////////////////////////
+
     /** The tag to use when printing to the log from this class. */
     public static final String LOG_TAG = TaskHelper.class.getSimpleName();
 
@@ -191,7 +193,7 @@ public final class TaskHelper implements RejectedExecutionHandler {
      */
     public boolean isTerminated() { return executorService.isTerminated(); }
 
-    /////////////////////////////////////// EXECUTION THREAD ///////////////////////////////////////
+    ///////////////////////////////////////// TASK THREAD //////////////////////////////////////////
 
     /**
      * Represents a Thread that BackgroundTask will be run on.
