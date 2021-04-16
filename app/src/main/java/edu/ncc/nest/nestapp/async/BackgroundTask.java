@@ -173,16 +173,9 @@ public abstract class BackgroundTask<Progress, Result> {
      */
     public final synchronized void executeOn(@NonNull Executor executor) {
 
-        // If we are NOT on the main Thread
-        if (!Looper.getMainLooper().isCurrentThread())
-
-            throw new RuntimeException("This method must be called from the main Thread");
-
         if (this.getInvoked())
 
             throw new IllegalStateException("Task has already been executed.");
-
-        this.onPreExecute();
 
         executor.execute(futureTask);
 
@@ -204,12 +197,6 @@ public abstract class BackgroundTask<Progress, Result> {
     }
 
     //////////////////////////////////// TASK LIFECYCLE METHODS ////////////////////////////////////
-
-    /**
-     * Always called before task is executed.
-     */
-    @MainThread
-    protected void onPreExecute() { }
 
     /**
      * The code/task to run in the background.

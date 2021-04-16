@@ -5,9 +5,15 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,7 +25,15 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.sql.Time;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Objects;
 import java.util.Scanner;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -66,6 +80,9 @@ public class NestDBOpenHelper extends SQLiteOpenHelper {
     @SuppressLint("StaticFieldLeak")  // we use Application Context only (no memory leak)
     private static NestDBOpenHelper mInstance = null;
 
+
+    private static final HashMap<String, String> taskResults = new HashMap<>();
+
     // getInstance static factory method (Singleton pattern)
     public static NestDBOpenHelper getInstance(Context context) {
         if (mInstance == null)
@@ -99,13 +116,15 @@ public class NestDBOpenHelper extends SQLiteOpenHelper {
                 }
             }
             db.setTransactionSuccessful();
+
+            new Handler(Looper.getMainLooper()).post(() -> this.populateFromFoodKeeperAPI(db));
+
         } catch (IOException e) {
             e.printStackTrace();
         } catch (Exception e) {
             Log.wtf(DATABASE_NAME, DATABASE_NAME + " creation failed: " + e.getMessage(), e);
         }
         db.endTransaction();
-        populateFromFoodKeeperAPI(db);
     }
 
     @Override
@@ -135,17 +154,29 @@ public class NestDBOpenHelper extends SQLiteOpenHelper {
 
     private void populateFromFoodKeeperAPI(SQLiteDatabase db) {
 
+        ArrayList<Future<?>> futures = new ArrayList<>();
+
         TaskHelper taskHelper = new TaskHelper(4);
 
         try {
 
-            taskHelper.execute(new GetCategoriesTask(db));
+            futures.add(taskHelper.submit(new GetCategoriesTask(db)));
 
-            taskHelper.execute(new GetCookingTipsTask(db));
+            futures.add(taskHelper.submit(new GetCookingTipsTask(db)));
 
-            taskHelper.execute(new GetCookingMethodsTask(db));
+            futures.add(taskHelper.submit(new GetCookingMethodsTask(db)));
 
-            taskHelper.execute(new GetProductsTask(db));
+            futures.add(taskHelper.submit(new GetProductsTask(db)));
+
+            for (Future<?> future : futures) try {
+
+                future.get();
+
+            } catch (InterruptedException | ExecutionException e) {
+
+                e.printStackTrace();
+
+            }
 
         } finally {
 
@@ -158,48 +189,40 @@ public class NestDBOpenHelper extends SQLiteOpenHelper {
     /**
      * Inner class to retrieve all categories from the FoodKeeper API
      */
-    private static class GetCategoriesTask extends BackgroundTask<Float, String> {
+    private static class GetCategoriesTask extends BackgroundTask<Integer, String> {
 
         private final SQLiteDatabase db;
 
         public GetCategoriesTask(@NonNull SQLiteDatabase db) { this.db = db; }
 
-
         @Override
-        protected String doInBackground() {
+        protected String doInBackground() throws Exception {
 
             HttpURLConnection urlConnection;
             BufferedReader reader;
 
-            try {
+            // set the URL for the API call
+            String apiCall = "https://foodkeeper-api.herokuapp.com/categories";
+            Log.d(DATABASE_NAME, "apiCall = " + apiCall);
+            URL url = new URL(apiCall);
+            // connect to the site to read information
+            urlConnection = (HttpsURLConnection) url.openConnection();
+            urlConnection.setRequestMethod("GET");
+            urlConnection.connect();
 
-                // set the URL for the API call
-                String apiCall = "https://foodkeeper-api.herokuapp.com/categories";
-                Log.d(DATABASE_NAME, "apiCall = " + apiCall);
-                URL url = new URL(apiCall);
-                // connect to the site to read information
-                urlConnection = (HttpsURLConnection) url.openConnection();
-                urlConnection.setRequestMethod("GET");
-                urlConnection.connect();
-
-                // store the data retrieved by the request
-                InputStream inputStream = urlConnection.getInputStream();
-                // no data returned by the request, so terminate the method
-                if (inputStream == null) {
-                    // Nothing to do.
-                    return null;
-                }
-
-                // connect a BufferedReader to the input stream at URL
-                reader = new BufferedReader(new InputStreamReader(inputStream));
-                // store the data in result string
-                return reader.readLine();
-
-            } catch (Exception e) {
-                Log.d(DATABASE_NAME, "EXCEPTION in HttpAsyncTask: " + e.getMessage());
+            // store the data retrieved by the request
+            InputStream inputStream = urlConnection.getInputStream();
+            // no data returned by the request, so terminate the method
+            if (inputStream == null) {
+                // Nothing to do.
+                return null;
             }
 
-            return null;
+            // connect a BufferedReader to the input stream at URL
+            reader = new BufferedReader(new InputStreamReader(inputStream));
+            // store the data in result string
+            return reader.readLine();
+
         }
 
         @Override
@@ -232,6 +255,7 @@ public class NestDBOpenHelper extends SQLiteOpenHelper {
                     }
                     db.setTransactionSuccessful();
                     Log.d(DATABASE_NAME, "inserted " + jsonArray.length() + " categories");
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 } finally {
@@ -248,12 +272,11 @@ public class NestDBOpenHelper extends SQLiteOpenHelper {
     /**
      * Inner class to retrieve all cookingTips from the FoodKeeper API
      */
-    private static class GetCookingTipsTask extends BackgroundTask<Float, String> {
+    private static class GetCookingTipsTask extends BackgroundTask<Integer, String> {
 
         private final SQLiteDatabase db;
 
         public GetCookingTipsTask(@NonNull SQLiteDatabase db) { this.db = db; }
-
 
         @Override
         protected String doInBackground() {
@@ -333,12 +356,11 @@ public class NestDBOpenHelper extends SQLiteOpenHelper {
     /**
      * Inner class to retrieve all cookingmethods from the FoodKeeper API
      */
-    private static class GetCookingMethodsTask extends BackgroundTask<Float, String> {
+    private static class GetCookingMethodsTask extends BackgroundTask<Integer, String> {
 
         private final SQLiteDatabase db;
 
         public GetCookingMethodsTask(@NonNull SQLiteDatabase db) { this.db = db; }
-
 
         @Override
         protected String doInBackground() {
@@ -423,12 +445,11 @@ public class NestDBOpenHelper extends SQLiteOpenHelper {
     /**
      * Inner class to retrieve all products from the FoodKeeper API
      */
-    private static class GetProductsTask extends BackgroundTask<Float, String> {
+    private static class GetProductsTask extends BackgroundTask<Integer, String> {
 
         private final SQLiteDatabase db;
 
         public GetProductsTask(@NonNull SQLiteDatabase db) { this.db = db; }
-
 
         @Override
         protected String doInBackground() {

@@ -27,6 +27,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.widget.PopupMenu;
 
+import android.os.Looper;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -375,17 +376,22 @@ public class ItemInformation extends AppCompatActivity implements DatePickerDial
     private class GetCategoriesTask extends BackgroundTask<Void, String> {
         private final String TAG = GetCategoriesTask.class.getSimpleName();
 
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
+        public GetCategoriesTask() {
 
-            Log.d(TAG, "on pre execute");
-            // give a little Toast message to explain any delay...
-            Toast.makeText(getApplicationContext(),"Gathering the food categories please wait",
-                    Toast.LENGTH_SHORT).show();
-            // show the progress circle
-            progressBar.setVisibility(View.VISIBLE);
-            waitingForCategories = true;
+            if (Looper.getMainLooper().isCurrentThread()) {
+
+                // give a little Toast message to explain any delay...
+                Toast.makeText(getApplicationContext(), "Gathering the food categories please wait",
+                        Toast.LENGTH_SHORT).show();
+
+                // show the progress circle
+                progressBar.setVisibility(View.VISIBLE);
+
+                waitingForCategories = true;
+
+            } else
+
+                throw new IllegalThreadStateException("This task must be created from the main thread.");
 
         }
 
@@ -472,17 +478,22 @@ public class ItemInformation extends AppCompatActivity implements DatePickerDial
     private class GetItemsForCategoryTask extends BackgroundTask<Void, String> {
         private final String TAG = GetItemsForCategoryTask.class.getSimpleName();
 
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
+        public GetItemsForCategoryTask() {
 
-            Log.d(TAG, "on pre execute");
-            // give a little Toast message to explain any delay...
-            Toast.makeText(getApplicationContext(),"Gathering items for selected category, please wait",
-                    Toast.LENGTH_SHORT).show();
-            // show the progress circle
-            progressBar.setVisibility(View.VISIBLE);
-            waitingForItems = true;
+            if (Looper.getMainLooper().isCurrentThread()) {
+
+                // give a little Toast message to explain any delay...
+                Toast.makeText(getApplicationContext(),"Gathering items for selected category, please wait",
+                        Toast.LENGTH_SHORT).show();
+
+                // show the progress circle
+                progressBar.setVisibility(View.VISIBLE);
+
+                waitingForItems = true;
+
+            } else
+
+                throw new IllegalThreadStateException("This task must be created from the main thread.");
 
         }
 

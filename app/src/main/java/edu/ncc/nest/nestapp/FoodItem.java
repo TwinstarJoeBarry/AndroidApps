@@ -365,14 +365,6 @@ public class FoodItem extends AppCompatActivity implements DatePickerDialog.OnDa
     private class GetItemTask extends BackgroundTask<Float, String> {
 
         @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-
-            Log.d(TAG, "on pre execute");
-
-        }
-
-        @Override
         protected String doInBackground() {
 
             StringBuilder result = new StringBuilder();

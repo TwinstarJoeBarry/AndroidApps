@@ -86,9 +86,8 @@ public final class TaskHelper implements RejectedExecutionHandler {
      * Submits a {@link BackgroundTask} for execution.
      *
      * @param backgroundTask The task to execute
-     * @param <Result> The data type returned by the task
      */
-    public <Result> void execute(@NonNull final BackgroundTask<?, Result> backgroundTask) {
+    public void execute(@NonNull final BackgroundTask<?, ?> backgroundTask) {
 
         backgroundTask.executeOn(executorService);
 

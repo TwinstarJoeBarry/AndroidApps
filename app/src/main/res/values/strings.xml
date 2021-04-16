@@ -176,6 +176,10 @@
     <string name="activity_new_nest_upc_category_lbl">Category:</string>
     <string name="activity_new_nest_upc_product_lbl">Product:</string>
 
+<!-- LOADING DIALOG START ////////////////////////////////////////////////////////////////////// -->
+
+    <string name="dialog_loading_msg">Loading database. Please wait…</string>
+
 <!-- ABSTRACT SCANNER STRINGS START //////////////////////////////////////////////////////////// -->
 
     <!-- Strings used in AbstractScanner.java -->

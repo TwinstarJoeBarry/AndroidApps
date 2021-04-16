@@ -39,6 +39,7 @@ public class NestDBDataSource {
 
     public NestDBDataSource(Context context) throws SQLException {
         helper = NestDBOpenHelper.getInstance(context);
+
         this.db = helper.getWritableDatabase();
     }
 

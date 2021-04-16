@@ -36,6 +36,7 @@ import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.google.zxing.BarcodeFormat;
@@ -44,6 +45,8 @@ import edu.ncc.nest.nestapp.AbstractScannerFragment.AbstractScannerFragment;
 import edu.ncc.nest.nestapp.NestDBDataSource;
 import edu.ncc.nest.nestapp.NestUPC;
 import edu.ncc.nest.nestapp.R;
+import edu.ncc.nest.nestapp.async.BackgroundTask;
+import edu.ncc.nest.nestapp.async.TaskHelper;
 
 /**
  * ScannerFragment: Used to scan in a UPC barcode, and send to the appropriate fragment depending
@@ -56,6 +59,8 @@ import edu.ncc.nest.nestapp.R;
  * database.
  */
 public class ScannerFragment extends AbstractScannerFragment {
+
+    private AlertDialog alertDialog = null;
 
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
@@ -72,52 +77,85 @@ public class ScannerFragment extends AbstractScannerFragment {
         // Log the barcode result and format
         Log.d(TAG, "Scan Confirmed: [" + barcode + ", " + format.toString() + "]");
 
-        // Open a database object so we can check whether the barcode exist in the database
-        NestDBDataSource dataSource = new NestDBDataSource(requireContext());
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
 
-        // Find the NestUPC object that matches the scanned barcode
-        NestUPC result = dataSource.getNestUPC(barcode);
+        builder.setView(R.layout.dialog_loading);
 
-        // Used this to test if there was a non-null result given (successful)
-        /*result = new NestUPC("123456789123", "Hershey's", "Chocolate Bar",
+        builder.setCancelable(false);
+
+        alertDialog = builder.create();
+
+        alertDialog.show();
+
+        TaskHelper taskHelper = new TaskHelper(1);
+
+        taskHelper.execute(new BackgroundTask<Integer, NestDBDataSource>() {
+
+            @Override
+            protected NestDBDataSource doInBackground() throws Exception {
+
+                Thread.sleep(1000L);
+
+                // Open a database object so we can check whether the barcode exist in the database
+                return new NestDBDataSource(requireContext());
+
+            }
+
+            @Override
+            protected void onPostExecute(NestDBDataSource nestDBDataSource) {
+                super.onPostExecute(nestDBDataSource);
+
+                // Find the NestUPC object that matches the scanned barcode
+                NestUPC result = nestDBDataSource.getNestUPC(barcode);
+
+                // Used this to test if there was a non-null result given (successful)
+                /*result = new NestUPC("123456789123", "Hershey's", "Chocolate Bar",
                 123, "Hershey's Chocolate Bar", null,
                 1234,"Some category description");*/
 
-        Bundle bundle = new Bundle();
+                Bundle bundle = new Bundle();
 
-        if (result != null) {
+                if (result != null) {
 
-            // If we get here, then the upc is already in the database.
+                    // If we get here, then the upc is already in the database.
 
-            Log.d(TAG, "Result returned: " + result.getUpc() + " " + result.getProductName());
+                    Log.d(TAG, "Result returned: " + result.getUpc() + " " + result.getProductName());
 
-            // Put the item in a bundle and pass it to ConfirmItemFragment
-            bundle.putSerializable("foodItem", result);
+                    // Put the item in a bundle and pass it to ConfirmItemFragment
+                    bundle.putSerializable("foodItem", result);
 
-            // Make sure there is no result currently set for this request key
-            getParentFragmentManager().clearFragmentResult("FOOD ITEM");
+                    // Make sure there is no result currently set for this request key
+                    getParentFragmentManager().clearFragmentResult("FOOD ITEM");
 
-            getParentFragmentManager().setFragmentResult("FOOD ITEM", bundle);
+                    getParentFragmentManager().setFragmentResult("FOOD ITEM", bundle);
 
-            // Navigate to ConfirmItemFragment
-            NavHostFragment.findNavController(ScannerFragment.this).navigate((R.id.CED_ConfirmItemFragment));
+                    // Navigate to ConfirmItemFragment
+                    NavHostFragment.findNavController(ScannerFragment.this).navigate((R.id.CED_ConfirmItemFragment));
 
-        } else {
+                } else {
 
-            // If we get here, then the upc is does not exist in the database.
+                    // If we get here, then the upc is does not exist in the database.
 
-            // Put UPC into a bundle and pass it to SelectItemFragment (may not be necessary)
-            bundle.putString("barcode", barcode);
+                    // Put UPC into a bundle and pass it to SelectItemFragment (may not be necessary)
+                    bundle.putString("barcode", barcode);
 
-            // Make sure there is no result currently set for this request key
-            getParentFragmentManager().clearFragmentResult("BARCODE");
+                    // Make sure there is no result currently set for this request key
+                    getParentFragmentManager().clearFragmentResult("BARCODE");
 
-            getParentFragmentManager().setFragmentResult("BARCODE", bundle);
+                    getParentFragmentManager().setFragmentResult("BARCODE", bundle);
 
-            // Navigate to SelectItemFragment
-            NavHostFragment.findNavController(ScannerFragment.this).navigate((R.id.CED_SelectItemFragment));
+                    // Navigate to SelectItemFragment
+                    NavHostFragment.findNavController(ScannerFragment.this).navigate((R.id.CED_SelectItemFragment));
 
-        }
+                }
+
+                alertDialog.dismiss();
+
+            }
+
+        });
+
+        taskHelper.shutdown();
 
     }
 

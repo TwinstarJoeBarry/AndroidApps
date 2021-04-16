@@ -328,7 +328,7 @@ public abstract class AbstractScannerFragment extends Fragment implements Barcod
      *
      * @param enabled true to enable or false to disable
      */
-    private void setFeedbackButtonsEnabled(boolean enabled) {
+    protected void setFeedbackButtonsEnabled(boolean enabled) {
 
         confirmButton.setEnabled(enabled);
 
