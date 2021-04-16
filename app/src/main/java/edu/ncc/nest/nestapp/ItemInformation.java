@@ -212,11 +212,7 @@ public class ItemInformation extends AppCompatActivity implements DatePickerDial
 
                     try {
 
-                        taskHelper.submit(new GetItemsForCategoryTask()).get();
-
-                    } catch (ExecutionException | InterruptedException e) {
-
-                        e.printStackTrace();
+                        taskHelper.execute(new GetItemsForCategoryTask());
 
                     } finally {
 

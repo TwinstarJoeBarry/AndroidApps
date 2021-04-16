@@ -217,11 +217,7 @@ public class UPCLookup extends AppCompatActivity {
 
             try {
 
-                taskHelper.submit(new JSONGetter()).get();
-
-            } catch (ExecutionException | InterruptedException e) {
-
-                e.printStackTrace();
+                taskHelper.execute(new JSONGetter());
 
             } finally {
 

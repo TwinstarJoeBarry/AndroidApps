@@ -137,12 +137,21 @@ public class NestDBOpenHelper extends SQLiteOpenHelper {
 
         TaskHelper taskHelper = new TaskHelper(4);
 
-        taskHelper.execute(new GetCategoriesTask(db));
-        taskHelper.execute(new GetCookingTipsTask(db));
-        taskHelper.execute(new GetCookingMethodsTask(db));
-        taskHelper.execute(new GetProductsTask(db));
+        try {
 
-        taskHelper.shutdown();
+            taskHelper.execute(new GetCategoriesTask(db));
+
+            taskHelper.execute(new GetCookingTipsTask(db));
+
+            taskHelper.execute(new GetCookingMethodsTask(db));
+
+            taskHelper.execute(new GetProductsTask(db));
+
+        } finally {
+
+            taskHelper.shutdown();
+
+        }
 
     }
 

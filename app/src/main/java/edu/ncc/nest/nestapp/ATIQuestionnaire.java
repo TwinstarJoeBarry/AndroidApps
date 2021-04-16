@@ -363,17 +363,14 @@ public class ATIQuestionnaire extends AppCompatActivity implements View.OnClickL
 
                 try {
 
-                    taskHelper.submit(new Items()).get();
-
-                } catch (ExecutionException | InterruptedException e) {
-
-                    e.printStackTrace();
+                    taskHelper.execute(new Items());
 
                 } finally {
 
                     taskHelper.shutdown();
 
                 }
+
                 break;
 
             case R.id.uiLink:

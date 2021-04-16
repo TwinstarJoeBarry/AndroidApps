@@ -240,11 +240,8 @@ public class FoodItem extends AppCompatActivity implements DatePickerDialog.OnDa
 
            try {
 
-               taskHelper.submit(new GetItemTask()).get(); //this is where the foodKeeper api call begins
-
-           } catch (ExecutionException | InterruptedException e) {
-
-               e.printStackTrace();
+               //this is where the foodKeeper api call begins
+               taskHelper.execute(new GetItemTask());
 
            } finally {
 
