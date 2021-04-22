@@ -70,7 +70,7 @@ import edu.ncc.nest.nestapp.R;
  */
 public abstract class AbstractScannerFragment extends Fragment implements BarcodeCallback {
 
-    public static final String TAG = AbstractScannerFragment.class.getSimpleName();
+    public static final String LOG_TAG = AbstractScannerFragment.class.getSimpleName();
 
     // Used to ask for camera permission. Calls onCameraPermissionResult method with the result
     private final ActivityResultLauncher<String> REQUEST_CAMERA_PERMISSION_LAUNCHER =
@@ -122,9 +122,15 @@ public abstract class AbstractScannerFragment extends Fragment implements Barcod
 
 
         // Set the onClick listeners to call the respective method onClick
-        confirmButton.setOnClickListener(v -> onBarcodeConfirmed(barcodeText, barcodeFormat));
-
         rescanButton.setOnClickListener(v -> resumeScanning());
+
+        confirmButton.setOnClickListener(v -> {
+
+            setFeedbackButtonsEnabled(false);
+
+            onBarcodeConfirmed(barcodeText, barcodeFormat);
+
+        });
 
         // Disable the feedback buttons until we scan a barcode
         setFeedbackButtonsEnabled(false);

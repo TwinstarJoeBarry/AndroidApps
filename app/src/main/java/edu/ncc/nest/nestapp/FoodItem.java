@@ -362,7 +362,7 @@ public class FoodItem extends AppCompatActivity implements DatePickerDialog.OnDa
      * needed to retrieve the data from the requested URL and parse the JSON to use the
      * information stored in it for application use and display.</p>
      */
-    private class GetItemTask extends BackgroundTask<Float, String> {
+    private class GetItemTask extends BackgroundTask<Void, String> {
 
         @Override
         protected String doInBackground() {

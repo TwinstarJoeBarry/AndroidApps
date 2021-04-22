@@ -76,7 +76,7 @@ public abstract class BackgroundTask<Progress, Result> {
                 // Execute the background code, and get the "Result"
                 result = doInBackground();
 
-            } catch (Throwable e) {
+            } catch (final Throwable e) {
 
                 bInterrupted.set(true);
 
@@ -150,12 +150,19 @@ public abstract class BackgroundTask<Progress, Result> {
      */
     protected final void postProgress(@NonNull final Progress progress) {
 
+        synchronized (mainHandler) {
+
+            // Run the onProgressUpdate method on the main/UI thread
+            mainHandler.post(() -> onProgressUpdate(progress));
+
+        }
+
         // If the onProgressListener has been set, then call its method as well
         if (onProgressListener != null)
 
             synchronized (mainHandler) {
 
-                // Run the onProgressListeners method on the main/UI thread
+                // Run the onProgressListener's method on the main/UI thread
                 mainHandler.post(() -> onProgressListener.onProgressUpdate(progress));
 
             }
@@ -225,9 +232,19 @@ public abstract class BackgroundTask<Progress, Result> {
     @MainThread
     protected void onError(@NonNull Throwable throwable) {
 
-        Log.e(LOG_TAG, throwable.getClass().getCanonicalName() + ": " +
-                throwable.getMessage());
+        String message = throwable.getMessage();
+
+        if (message != null)
+
+            Log.e(LOG_TAG, throwable.getClass().getCanonicalName() + ": " + message);
+
+        else
+
+            Log.e(LOG_TAG, throwable.getClass().getCanonicalName());
 
     }
+
+    @MainThread
+    protected void onProgressUpdate(Progress progress) { }
 
 }

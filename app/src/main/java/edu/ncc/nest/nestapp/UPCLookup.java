@@ -231,7 +231,7 @@ public class UPCLookup extends AppCompatActivity {
     /**
      * Class for pulling from the USDA database.  It runs asynchronously from everything else in this class to prevent freezing while looking up.
      */
-    private class JSONGetter extends BackgroundTask<Float, String> {
+    private class JSONGetter extends BackgroundTask<Void, String> {
 
 
         @Override

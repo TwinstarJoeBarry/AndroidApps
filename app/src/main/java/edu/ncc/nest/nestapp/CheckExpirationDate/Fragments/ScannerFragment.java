@@ -31,15 +31,20 @@ package edu.ncc.nest.nestapp.CheckExpirationDate.Fragments;
  * limitations under the License.
  */
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.google.zxing.BarcodeFormat;
+
+import java.util.Objects;
+import java.util.concurrent.Future;
 
 import edu.ncc.nest.nestapp.AbstractScannerFragment.AbstractScannerFragment;
 import edu.ncc.nest.nestapp.NestDBDataSource;
@@ -60,7 +65,11 @@ import edu.ncc.nest.nestapp.async.TaskHelper;
  */
 public class ScannerFragment extends AbstractScannerFragment {
 
-    private AlertDialog alertDialog = null;
+    public static final String LOG_TAG = ScannerFragment.class.getSimpleName();
+
+    private final TaskHelper taskHelper = new TaskHelper(2);
+
+    private Future<NestDBDataSource> future = null;
 
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
@@ -75,43 +84,99 @@ public class ScannerFragment extends AbstractScannerFragment {
     protected void onBarcodeConfirmed(@NonNull String barcode, @NonNull BarcodeFormat format) {
 
         // Log the barcode result and format
-        Log.d(TAG, "Scan Confirmed: [" + barcode + ", " + format.toString() + "]");
+        Log.d(LOG_TAG, "Scan Confirmed: [" + barcode + ", " + format.toString() + "]");
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        if (future == null) {
 
-        builder.setView(R.layout.dialog_loading);
+            // Submit a new LoadDatabaseTask to the helper, store the resulting future
+            future = taskHelper.submit(new LoadDatabaseTask(barcode) {
 
-        builder.setCancelable(false);
+                @Override
+                protected void onError(@NonNull Throwable throwable) {
+                    super.onError(throwable);
 
-        alertDialog = builder.create();
+                    // Clear the future object since the original task failed
+                    future = null;
 
-        alertDialog.show();
+                }
 
-        TaskHelper taskHelper = new TaskHelper(1);
+            });
 
-        taskHelper.execute(new BackgroundTask<Integer, NestDBDataSource>() {
+        } else
 
-            @Override
-            protected NestDBDataSource doInBackground() throws Exception {
+            // Execute a new task that retrieves the database from the original submitted task
+            taskHelper.execute(new LoadDatabaseTask(barcode) {
 
-                Thread.sleep(1000L);
+                @Override
+                protected NestDBDataSource doInBackground() throws Exception {
 
-                // Open a database object so we can check whether the barcode exist in the database
-                return new NestDBDataSource(requireContext());
+                    // Optional delay, used for testing
+                    Thread.sleep(SLEEP_DURATION);
 
-            }
+                    // Retrieve the database from the previously submitted task
+                    return future.get();
 
-            @Override
-            protected void onPostExecute(NestDBDataSource nestDBDataSource) {
-                super.onPostExecute(nestDBDataSource);
+                }
+
+            });
+
+    }
+
+    /**
+     * TODO
+     */
+    private class LoadDatabaseTask extends BackgroundTask<Void, NestDBDataSource> {
+
+        protected final long SLEEP_DURATION = 5000L;
+
+        private final String confirmedBarcode;
+
+        private AlertDialog loadingDialog;
+
+        /**
+         * Constructs a LoadDatabaseTask and creates a loading dialog then shows it.
+         *
+         * @param barcode The barcode that was confirmed
+         */
+        public LoadDatabaseTask(@NonNull String barcode) {
+
+            this.confirmedBarcode = Objects.requireNonNull(barcode);
+
+            // Create a loading dialog and then show it
+            AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+
+            builder.setView(R.layout.dialog_loading);
+
+            builder.setCancelable(false);
+
+            loadingDialog = builder.create();
+
+            loadingDialog.show();
+
+        }
+
+        @Override
+        protected NestDBDataSource doInBackground() throws Exception {
+
+            // Open a database object so we can check whether the barcode exist in the database
+            NestDBDataSource nestDBDataSource = new NestDBDataSource(requireContext());
+
+            // Optional delay, used for testing
+            Thread.sleep(SLEEP_DURATION);
+
+            return nestDBDataSource;
+
+        }
+
+        @Override
+        protected void onPostExecute(NestDBDataSource nestDBDataSource) {
+
+            try {
 
                 // Find the NestUPC object that matches the scanned barcode
-                NestUPC result = nestDBDataSource.getNestUPC(barcode);
+                NestUPC result = nestDBDataSource.getNestUPC(confirmedBarcode);
 
-                // Used this to test if there was a non-null result given (successful)
-                /*result = new NestUPC("123456789123", "Hershey's", "Chocolate Bar",
-                123, "Hershey's Chocolate Bar", null,
-                1234,"Some category description");*/
+                FragmentManager fragmentManager = getParentFragmentManager();
 
                 Bundle bundle = new Bundle();
 
@@ -119,43 +184,68 @@ public class ScannerFragment extends AbstractScannerFragment {
 
                     // If we get here, then the upc is already in the database.
 
-                    Log.d(TAG, "Result returned: " + result.getUpc() + " " + result.getProductName());
+                    Log.d(ScannerFragment.LOG_TAG, "Result returned: " + result.getUpc() + " " + result.getProductName());
 
                     // Put the item in a bundle and pass it to ConfirmItemFragment
                     bundle.putSerializable("foodItem", result);
 
                     // Make sure there is no result currently set for this request key
-                    getParentFragmentManager().clearFragmentResult("FOOD ITEM");
+                    fragmentManager.clearFragmentResult("FOOD ITEM");
 
-                    getParentFragmentManager().setFragmentResult("FOOD ITEM", bundle);
+                    fragmentManager.setFragmentResult("FOOD ITEM", bundle);
 
                     // Navigate to ConfirmItemFragment
-                    NavHostFragment.findNavController(ScannerFragment.this).navigate((R.id.CED_ConfirmItemFragment));
+                    NavHostFragment.findNavController(ScannerFragment.this)
+                            .navigate((R.id.CED_ConfirmItemFragment));
 
                 } else {
 
                     // If we get here, then the upc is does not exist in the database.
 
                     // Put UPC into a bundle and pass it to SelectItemFragment (may not be necessary)
-                    bundle.putString("barcode", barcode);
+                    bundle.putString("barcode", confirmedBarcode);
 
                     // Make sure there is no result currently set for this request key
-                    getParentFragmentManager().clearFragmentResult("BARCODE");
+                    fragmentManager.clearFragmentResult("BARCODE");
 
-                    getParentFragmentManager().setFragmentResult("BARCODE", bundle);
+                    fragmentManager.setFragmentResult("BARCODE", bundle);
 
                     // Navigate to SelectItemFragment
-                    NavHostFragment.findNavController(ScannerFragment.this).navigate((R.id.CED_SelectItemFragment));
+                    NavHostFragment.findNavController(ScannerFragment.this)
+                            .navigate((R.id.CED_SelectItemFragment));
 
                 }
 
-                alertDialog.dismiss();
+            } finally {
+
+                dispose();
 
             }
 
-        });
+        }
 
-        taskHelper.shutdown();
+        @Override
+        protected void onError(@NonNull Throwable throwable) {
+            super.onError(throwable);
+
+            dispose();
+
+        }
+
+        /**
+         * Disposes of any UI objects that may be holding onto a Context reference.
+         */
+        protected void dispose() {
+
+            if (loadingDialog != null) {
+
+                loadingDialog.dismiss();
+
+                loadingDialog = null;
+
+            }
+
+        }
 
     }
 

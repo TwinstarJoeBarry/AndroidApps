@@ -99,7 +99,7 @@ public class ATIQuestionnaire extends AppCompatActivity implements View.OnClickL
      * inner class that will access the rest API and process the JSON returned
      * used in order to get all the items from the API
      */
-    private class Items extends BackgroundTask<Float, String> {
+    private class Items extends BackgroundTask<Void, String> {
 
         @Override
         protected String doInBackground() {

@@ -70,6 +70,9 @@ import edu.ncc.nest.nestapp.async.TaskHelper;
  * call its static getInstance() method.
  */
 public class NestDBOpenHelper extends SQLiteOpenHelper {
+
+    public static final String LOG_TAG = NestDBDataSource.class.getSimpleName();
+
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "Nest.db";
     private static final String DATABASE_CREATE_SQL = "NestDB.Create.sql";
@@ -116,15 +119,13 @@ public class NestDBOpenHelper extends SQLiteOpenHelper {
                 }
             }
             db.setTransactionSuccessful();
-
-            new Handler(Looper.getMainLooper()).post(() -> this.populateFromFoodKeeperAPI(db));
-
         } catch (IOException e) {
             e.printStackTrace();
         } catch (Exception e) {
             Log.wtf(DATABASE_NAME, DATABASE_NAME + " creation failed: " + e.getMessage(), e);
         }
         db.endTransaction();
+        populateFromFoodKeeperAPI(db);
     }
 
     @Override
@@ -154,11 +155,11 @@ public class NestDBOpenHelper extends SQLiteOpenHelper {
 
     private void populateFromFoodKeeperAPI(SQLiteDatabase db) {
 
-        ArrayList<Future<?>> futures = new ArrayList<>();
-
         TaskHelper taskHelper = new TaskHelper(4);
 
         try {
+
+            ArrayList<Future<?>> futures = new ArrayList<>();
 
             futures.add(taskHelper.submit(new GetCategoriesTask(db)));
 
@@ -168,13 +169,26 @@ public class NestDBOpenHelper extends SQLiteOpenHelper {
 
             futures.add(taskHelper.submit(new GetProductsTask(db)));
 
-            for (Future<?> future : futures) try {
+            if (Looper.getMainLooper().isCurrentThread()) {
 
-                future.get();
+                Log.w(LOG_TAG, "Populating database from main thread may cause UI to freeze");
 
-            } catch (InterruptedException | ExecutionException e) {
+                Toast.makeText(mContext, "Warning: Populating database from main thread",
+                        Toast.LENGTH_LONG).show();
 
-                e.printStackTrace();
+            }
+
+            for (Future<?> future : futures) {
+
+                try {
+
+                    future.get();
+
+                } catch (InterruptedException | ExecutionException e) {
+
+                   e.printStackTrace();
+
+                }
 
             }
 
