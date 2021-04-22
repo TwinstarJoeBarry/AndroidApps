@@ -42,7 +42,7 @@ public abstract class BackgroundTask<Progress, Result> {
     /** The {@link Handler} object used to post {@link Runnable} objects to the main thread */
     private static final Handler mainHandler = new Handler(Looper.getMainLooper());
 
-    /** Represents whether or not this task has been interrupted */
+    /** Represents whether or not this task has been interrupted by an Exception */
     private final AtomicBoolean bInterrupted = new AtomicBoolean(false);
 
     /** Represents whether or not the {@code futureTask}'s call method has ever been invoked */
@@ -150,13 +150,6 @@ public abstract class BackgroundTask<Progress, Result> {
      */
     protected final void postProgress(@NonNull final Progress progress) {
 
-        synchronized (mainHandler) {
-
-            // Run the onProgressUpdate method on the main/UI thread
-            mainHandler.post(() -> onProgressUpdate(progress));
-
-        }
-
         // If the onProgressListener has been set, then call its method as well
         if (onProgressListener != null)
 
@@ -169,8 +162,18 @@ public abstract class BackgroundTask<Progress, Result> {
 
     }
 
+    /**
+     * Returns whether or not this task has been interrupted due to an Exception.
+     *
+     * @return Whether or not this task has been interrupted due to an Exception
+     */
     public final boolean getInterrupted() { return bInterrupted.get(); }
 
+    /**
+     * Returns whether or not the {@code futureTask}'s call method has ever been invoked.
+     *
+     * @return Whether or not the {@code futureTask}'s call method has ever been invoked
+     */
     public final boolean getInvoked() { return bInvoked.get(); }
 
     /**
@@ -180,7 +183,7 @@ public abstract class BackgroundTask<Progress, Result> {
      */
     public final synchronized void executeOn(@NonNull Executor executor) {
 
-        if (this.getInvoked())
+        if (bInvoked.get())
 
             throw new IllegalStateException("Task has already been executed.");
 
@@ -232,19 +235,8 @@ public abstract class BackgroundTask<Progress, Result> {
     @MainThread
     protected void onError(@NonNull Throwable throwable) {
 
-        String message = throwable.getMessage();
-
-        if (message != null)
-
-            Log.e(LOG_TAG, throwable.getClass().getCanonicalName() + ": " + message);
-
-        else
-
-            Log.e(LOG_TAG, throwable.getClass().getCanonicalName());
+       Log.e(LOG_TAG, Log.getStackTraceString(throwable));
 
     }
-
-    @MainThread
-    protected void onProgressUpdate(Progress progress) { }
 
 }

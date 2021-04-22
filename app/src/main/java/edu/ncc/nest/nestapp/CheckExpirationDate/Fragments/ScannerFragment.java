@@ -31,7 +31,6 @@ package edu.ncc.nest.nestapp.CheckExpirationDate.Fragments;
  * limitations under the License.
  */
 
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -95,7 +94,7 @@ public class ScannerFragment extends AbstractScannerFragment {
                 protected void onError(@NonNull Throwable throwable) {
                     super.onError(throwable);
 
-                    // Clear the future object since the original task failed
+                    // Clear the future object since this original task failed
                     future = null;
 
                 }
@@ -110,9 +109,6 @@ public class ScannerFragment extends AbstractScannerFragment {
                 @Override
                 protected NestDBDataSource doInBackground() throws Exception {
 
-                    // Optional delay, used for testing
-                    Thread.sleep(SLEEP_DURATION);
-
                     // Retrieve the database from the previously submitted task
                     return future.get();
 
@@ -123,14 +119,14 @@ public class ScannerFragment extends AbstractScannerFragment {
     }
 
     /**
-     * TODO
+     * {@link BackgroundTask} that loads/creates the Nest.db database.
      */
     private class LoadDatabaseTask extends BackgroundTask<Void, NestDBDataSource> {
 
-        protected final long SLEEP_DURATION = 5000L;
-
+        /** Holds a reference to the barcode that was confirmed */
         private final String confirmedBarcode;
 
+        /** Holds a reference to the AlertDialog that informs the user that this task is running. */
         private AlertDialog loadingDialog;
 
         /**
@@ -159,24 +155,21 @@ public class ScannerFragment extends AbstractScannerFragment {
         protected NestDBDataSource doInBackground() throws Exception {
 
             // Open a database object so we can check whether the barcode exist in the database
-            NestDBDataSource nestDBDataSource = new NestDBDataSource(requireContext());
-
-            // Optional delay, used for testing
-            Thread.sleep(SLEEP_DURATION);
-
-            return nestDBDataSource;
+            return new NestDBDataSource(requireContext());
 
         }
 
         @Override
         protected void onPostExecute(NestDBDataSource nestDBDataSource) {
 
+            Log.d(LOG_TAG, "In ScannerFragment.LoadDatabaseTask's onPostExecute method");
+
             try {
 
                 // Find the NestUPC object that matches the scanned barcode
                 NestUPC result = nestDBDataSource.getNestUPC(confirmedBarcode);
 
-                FragmentManager fragmentManager = getParentFragmentManager();
+                FragmentManager fragmentManager = ScannerFragment.this.getParentFragmentManager();
 
                 Bundle bundle = new Bundle();
 
@@ -218,7 +211,7 @@ public class ScannerFragment extends AbstractScannerFragment {
 
             } finally {
 
-                dispose();
+                LoadDatabaseTask.this.dispose();
 
             }
 
@@ -228,7 +221,13 @@ public class ScannerFragment extends AbstractScannerFragment {
         protected void onError(@NonNull Throwable throwable) {
             super.onError(throwable);
 
-            dispose();
+            LoadDatabaseTask.this.dispose();
+
+            if (ScannerFragment.this.isResumed())
+
+                ScannerFragment.this.onResume();
+
+            // TODO Possibly add a AlertDialog here informing user there was an error.
 
         }
 
