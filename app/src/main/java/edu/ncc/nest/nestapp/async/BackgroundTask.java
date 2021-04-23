@@ -16,24 +16,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public abstract class BackgroundTask<Progress, Result> {
 
-    ////////////////////////////////////// OnProgressListener //////////////////////////////////////
-
-    /**
-     * Mainly used to listen for any "progress" updates from a {@link BackgroundTask} object. Can
-     * also be used for other purposes.
-     * @param <Progress> The data type that will represent the "progress" of a task.
-     */
-    public interface OnProgressListener<Progress> {
-
-        /**
-         * Called by a task, to inform the listener of any progress the related task has made.
-         * @param progress The "progress" of the related task.
-         */
-        @MainThread
-        void onProgressUpdate(Progress progress);
-
-    }
-
     /////////////////////////////////////// CLASS VARIABLES ////////////////////////////////////////
 
     /** The tag to use when printing to the log from this class. */
@@ -48,15 +30,12 @@ public abstract class BackgroundTask<Progress, Result> {
     /** Represents whether or not the {@code futureTask}'s call method has ever been invoked */
     private final AtomicBoolean bInvoked = new AtomicBoolean(false);
 
-    /** The progress listener for this task */
-    private volatile OnProgressListener<Progress> onProgressListener;
-
     /** The {@link FutureTask} object that represents this task */
     private final FutureTask<Result> futureTask;
 
     ///////////////////////////////////////// CONSTRUCTORS /////////////////////////////////////////
 
-    // TODO Possibly add a String (name) to identify this task
+    // TODO Possibly add a String (tag) to identify this task
     public BackgroundTask() {
 
         futureTask = new FutureTask<>(() -> {
@@ -121,48 +100,6 @@ public abstract class BackgroundTask<Progress, Result> {
     /////////////////////////////////////// CLASS METHODS //////////////////////////////////////////
 
     /**
-     * Set the onProgressListener class variable.
-     *
-     * @param onProgressListener The listener to use when setting the class variable.
-     */
-    public final void setOnProgressListener(OnProgressListener<Progress> onProgressListener) {
-
-        this.onProgressListener = onProgressListener;
-
-    }
-
-    /**
-     * Get the value of the onProgressListener class variable.
-     *
-     * @return The value of onProgressListener class variable.
-     */
-    public final OnProgressListener<Progress> getOnProgressListener() {
-
-        return onProgressListener;
-
-    }
-
-    /**
-     * Calls onProgressUpdate method in the onProgressListener class.
-     * (Useful for loading bars, etc...)
-     *
-     * @param progress The "progress" this task has made.
-     */
-    protected final void postProgress(@NonNull final Progress progress) {
-
-        // If the onProgressListener has been set, then call its method as well
-        if (onProgressListener != null)
-
-            synchronized (mainHandler) {
-
-                // Run the onProgressListener's method on the main/UI thread
-                mainHandler.post(() -> onProgressListener.onProgressUpdate(progress));
-
-            }
-
-    }
-
-    /**
      * Returns whether or not this task has been interrupted due to an Exception.
      *
      * @return Whether or not this task has been interrupted due to an Exception
@@ -206,6 +143,23 @@ public abstract class BackgroundTask<Progress, Result> {
 
     }
 
+    /**
+     * Calls onProgressUpdate method in the onProgressListener class.
+     * (Useful for loading bars, etc...)
+     *
+     * @param progress The "progress" this task has made.
+     */
+    protected final void postProgress(final Progress progress) {
+
+        synchronized (mainHandler) {
+
+            // Run the onProgressUpdate method on the main/UI thread
+            mainHandler.post(() -> onProgressUpdate(progress));
+
+        }
+
+    }
+
     //////////////////////////////////// TASK LIFECYCLE METHODS ////////////////////////////////////
 
     /**
@@ -238,5 +192,13 @@ public abstract class BackgroundTask<Progress, Result> {
        Log.e(LOG_TAG, Log.getStackTraceString(throwable));
 
     }
+
+    /**
+     * Called when any progress is posted by this task.
+     *
+     * @param progress The "progress" of the task.
+     */
+    @MainThread
+    protected void onProgressUpdate(Progress progress) { }
 
 }
