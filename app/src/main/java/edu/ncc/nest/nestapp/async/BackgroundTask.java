@@ -117,6 +117,7 @@ public abstract class BackgroundTask<Progress, Result> {
      * Executes this task using the provided Executor.
      *
      * @param executor The {@link Executor} to execute this task on
+     * @throws IllegalStateException If this task has already been invoked
      */
     public final synchronized void executeOn(@NonNull Executor executor) {
 
