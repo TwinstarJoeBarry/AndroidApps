@@ -179,8 +179,8 @@
 <!-- LOADING DIALOG START ////////////////////////////////////////////////////////////////////// -->
 
     <string name="dialog_loading_database_msg">Loading database. Please wait…</string>
-    <string name="dialog_loading_database_success_msg">Database successfully loaded!</string>
-    <string name="dialog_loading_database_error_msg">Error! Failed to load database.</string>
+    <string name="dialog_loading_database_success_msg">Database successfully loaded</string>
+    <string name="dialog_loading_database_error_msg">Error! Failed to load database</string>
 
 <!-- ABSTRACT SCANNER STRINGS START //////////////////////////////////////////////////////////// -->
 
