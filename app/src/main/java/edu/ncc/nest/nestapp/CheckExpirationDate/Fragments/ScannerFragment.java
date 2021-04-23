@@ -55,8 +55,9 @@ import edu.ncc.nest.nestapp.async.BackgroundTask;
 import edu.ncc.nest.nestapp.async.TaskHelper;
 
 /**
- * ScannerFragment: Used to scan in a UPC barcode, and send to the appropriate fragment depending
- * on whether or not a product with the scanned barcode exist in the database.
+ * ScannerFragment: Used to scan in a UPC barcode, and send it to the appropriate fragment depending
+ * on whether or not a product with the scanned barcode exist in the database. This class performs
+ * the initial loading of the Nest.db database using {@link BackgroundTask}.
  *
  * Navigates to {@link ConfirmItemFragment} with the item pulled from database, if the upc exists in
  * the local database.
