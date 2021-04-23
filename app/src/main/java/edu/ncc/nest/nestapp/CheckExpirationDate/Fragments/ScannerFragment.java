@@ -121,7 +121,7 @@ public class ScannerFragment extends AbstractScannerFragment {
     }
 
     /**
-     * {@link BackgroundTask} that loads/creates the Nest.db database.
+     * {@link BackgroundTask} that performs the initial loading/creation of the Nest.db database.
      */
     private class LoadDatabaseTask extends BackgroundTask<Void, NestDBDataSource> {
 
@@ -238,6 +238,7 @@ public class ScannerFragment extends AbstractScannerFragment {
 
                 dialog.dismiss();
 
+                // Resume scanning if outer ScannerFragment class is resumed
                 if (ScannerFragment.this.isResumed())
 
                     ScannerFragment.this.onResume();
@@ -246,6 +247,7 @@ public class ScannerFragment extends AbstractScannerFragment {
 
             builder.setOnCancelListener(dialog -> {
 
+                // Resume scanning if outer ScannerFragment class is resumed
                 if (ScannerFragment.this.isResumed())
 
                     ScannerFragment.this.onResume();
