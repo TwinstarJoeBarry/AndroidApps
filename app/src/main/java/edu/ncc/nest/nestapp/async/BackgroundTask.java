@@ -197,7 +197,8 @@ public abstract class BackgroundTask<Progress, Result> {
     @MainThread
     protected void onError(@NonNull Throwable throwable) {
 
-       Log.e(LOG_TAG, Log.getStackTraceString(throwable));
+        // Print the Throwable's stack trace as an error to the log
+        Log.e(LOG_TAG, Log.getStackTraceString(throwable));
 
     }
 
