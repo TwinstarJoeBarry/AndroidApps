@@ -31,6 +31,8 @@ package edu.ncc.nest.nestapp.CheckExpirationDate.Fragments;
  * limitations under the License.
  */
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -221,13 +223,38 @@ public class ScannerFragment extends AbstractScannerFragment {
         protected void onError(@NonNull Throwable throwable) {
             super.onError(throwable);
 
+            // Make sure we dispose of loadingDialog first
             LoadDatabaseTask.this.dispose();
 
-            if (ScannerFragment.this.isResumed())
+            // Create a error dialog informing the user there was an error and then show it
+            AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
 
-                ScannerFragment.this.onResume();
+            builder.setTitle("Error loading database!");
 
-            // TODO Possibly add a AlertDialog here informing user there was an error.
+            builder.setMessage("There was an error loading the database, please try again." +
+                    "\n\nSee log for more info.");
+
+            builder.setPositiveButton("DISMISS", (dialog, which) -> {
+
+                dialog.dismiss();
+
+                if (ScannerFragment.this.isResumed())
+
+                    ScannerFragment.this.onResume();
+
+            });
+
+            builder.setOnCancelListener(dialog -> {
+
+                if (ScannerFragment.this.isResumed())
+
+                    ScannerFragment.this.onResume();
+
+            });
+
+            builder.setCancelable(true);
+
+            builder.create().show();
 
         }
 
