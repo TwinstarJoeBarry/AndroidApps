@@ -174,6 +174,14 @@ public abstract class BackgroundTask<Progress, Result> {
     protected abstract Result doInBackground() throws Exception;
 
     /**
+     * Called when any progress is posted by this task.
+     *
+     * @param progress The "progress" of the task.
+     */
+    @MainThread
+    protected void onProgressUpdate(Progress progress) { }
+
+    /**
      * Called after {@link #doInBackground} method is executed, as long as the task has NOT failed.
      *
      * @param result The "result" of the task that was executed
@@ -192,13 +200,5 @@ public abstract class BackgroundTask<Progress, Result> {
        Log.e(LOG_TAG, Log.getStackTraceString(throwable));
 
     }
-
-    /**
-     * Called when any progress is posted by this task.
-     *
-     * @param progress The "progress" of the task.
-     */
-    @MainThread
-    protected void onProgressUpdate(Progress progress) { }
 
 }
