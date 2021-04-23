@@ -147,6 +147,15 @@ public class NestDBOpenHelper extends SQLiteOpenHelper {
 
     private void populateFromFoodKeeperAPI(SQLiteDatabase db) {
 
+        if (Looper.getMainLooper().isCurrentThread()) {
+
+            Log.w(LOG_TAG, "Populating database from main thread may cause UI to freeze.");
+
+            Toast.makeText(mContext, "Warning: Populating database from main thread",
+                    Toast.LENGTH_LONG).show();
+
+        }
+
         TaskHelper taskHelper = new TaskHelper(4);
 
         try {
@@ -160,15 +169,6 @@ public class NestDBOpenHelper extends SQLiteOpenHelper {
             futures.add(taskHelper.submit(new GetCookingMethodsTask(db)));
 
             futures.add(taskHelper.submit(new GetProductsTask(db)));
-
-            if (Looper.getMainLooper().isCurrentThread()) {
-
-                Log.w(LOG_TAG, "Populating database from main thread may cause UI to freeze");
-
-                Toast.makeText(mContext, "Warning: Populating database from main thread",
-                        Toast.LENGTH_LONG).show();
-
-            }
 
             for (Future<?> future : futures) {
 

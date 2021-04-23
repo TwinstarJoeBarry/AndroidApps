@@ -31,8 +31,6 @@ package edu.ncc.nest.nestapp.CheckExpirationDate.Fragments;
  * limitations under the License.
  */
 
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
