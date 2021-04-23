@@ -34,7 +34,9 @@ package edu.ncc.nest.nestapp.CheckExpirationDate.Fragments;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ViewFlipper;
 
+import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.FragmentManager;
@@ -67,7 +69,7 @@ public class ScannerFragment extends AbstractScannerFragment {
 
     public static final String LOG_TAG = ScannerFragment.class.getSimpleName();
 
-    private final TaskHelper taskHelper = new TaskHelper(2);
+    private final TaskHelper taskHelper = new TaskHelper(1);
 
     private Future<NestDBDataSource> future = null;
 
@@ -120,6 +122,62 @@ public class ScannerFragment extends AbstractScannerFragment {
     }
 
     /**
+     * Called from {@link LoadDatabaseTask#onPostExecute} after the Nest.db database has been
+     * successfully loaded/created, and after the user has been informed that the database has been
+     * successfully loaded/created.
+     *
+     * @param nestDBDataSource The database source object used to interact with the database
+     * @param confirmedBarcode The barcode that was confirmed when the task was created
+     */
+    private void onSuccessfulDatabaseLoad(@NonNull NestDBDataSource nestDBDataSource,
+                                          @NonNull String confirmedBarcode) {
+
+        // Find the NestUPC object that matches the scanned barcode
+        NestUPC result = nestDBDataSource.getNestUPC(confirmedBarcode);
+
+        FragmentManager fragmentManager = ScannerFragment.this.getParentFragmentManager();
+
+        Bundle bundle = new Bundle();
+
+        if (result != null) {
+
+            // If we get here, then the upc is already in the database.
+
+            Log.d(ScannerFragment.LOG_TAG, "Result returned: " + result.getUpc() + " " + result.getProductName());
+
+            // Put the item in a bundle and pass it to ConfirmItemFragment
+            bundle.putSerializable("foodItem", result);
+
+            // Make sure there is no result currently set for this request key
+            fragmentManager.clearFragmentResult("FOOD ITEM");
+
+            fragmentManager.setFragmentResult("FOOD ITEM", bundle);
+
+            // Navigate to ConfirmItemFragment
+            NavHostFragment.findNavController(ScannerFragment.this)
+                    .navigate((R.id.CED_ConfirmItemFragment));
+
+        } else {
+
+            // If we get here, then the upc is does not exist in the database.
+
+            // Put UPC into a bundle and pass it to SelectItemFragment (may not be necessary)
+            bundle.putString("barcode", confirmedBarcode);
+
+            // Make sure there is no result currently set for this request key
+            fragmentManager.clearFragmentResult("BARCODE");
+
+            fragmentManager.setFragmentResult("BARCODE", bundle);
+
+            // Navigate to SelectItemFragment
+            NavHostFragment.findNavController(ScannerFragment.this)
+                    .navigate((R.id.CED_SelectItemFragment));
+
+        }
+
+    }
+
+    /**
      * {@link BackgroundTask} that performs the initial loading/creation of the Nest.db database.
      */
     private class LoadDatabaseTask extends BackgroundTask<Void, NestDBDataSource> {
@@ -128,7 +186,7 @@ public class ScannerFragment extends AbstractScannerFragment {
         private final String confirmedBarcode;
 
         /** Holds a reference to the AlertDialog that informs the user that this task is running. */
-        private AlertDialog loadingDialog;
+        private AlertDialog loadDialog;
 
         /**
          * Constructs a LoadDatabaseTask and creates a loading dialog then shows it.
@@ -140,15 +198,21 @@ public class ScannerFragment extends AbstractScannerFragment {
             this.confirmedBarcode = Objects.requireNonNull(barcode);
 
             // Create a loading dialog and then show it
-            AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
 
-            builder.setView(R.layout.dialog_loading);
+            AlertDialog.Builder builder = new AlertDialog.Builder(
+                    ScannerFragment.this.requireContext());
+
+            // Set the positive button's listener to null so we can use it later
+            builder.setPositiveButton("DISMISS", null);
+
+            builder.setView(R.layout.dialog_loading_database);
 
             builder.setCancelable(false);
 
-            loadingDialog = builder.create();
+            (loadDialog = builder.create()).show();
 
-            loadingDialog.show();
+            // Hide the "dismiss" button until it is needed
+            loadDialog.getButton(AlertDialog.BUTTON_POSITIVE).setVisibility(View.GONE);
 
         }
 
@@ -161,114 +225,77 @@ public class ScannerFragment extends AbstractScannerFragment {
         }
 
         @Override
-        protected void onPostExecute(NestDBDataSource nestDBDataSource) {
-
-            Log.d(LOG_TAG, "In ScannerFragment.LoadDatabaseTask's onPostExecute method");
+        protected final void onPostExecute(NestDBDataSource nestDBDataSource) {
 
             try {
 
-                // Find the NestUPC object that matches the scanned barcode
-                NestUPC result = nestDBDataSource.getNestUPC(confirmedBarcode);
+                // Switch the displayed view to the first child view
+                ((ViewFlipper) loadDialog.findViewById(R.id.dialog_flipper)).setDisplayedChild(1);
 
-                FragmentManager fragmentManager = ScannerFragment.this.getParentFragmentManager();
+                // Display the positive button to the user
+                loadDialog.getButton(AlertDialog.BUTTON_POSITIVE).setVisibility(View.VISIBLE);
 
-                Bundle bundle = new Bundle();
+                loadDialog.setButton(AlertDialog.BUTTON_POSITIVE,
+                        "DISMISS", (dialog, which) -> {
 
-                if (result != null) {
+                    try {
 
-                    // If we get here, then the upc is already in the database.
+                        // Send the result to the outer ScannerFragment class
+                        ScannerFragment.this.onSuccessfulDatabaseLoad(nestDBDataSource,
+                                confirmedBarcode);
 
-                    Log.d(ScannerFragment.LOG_TAG, "Result returned: " + result.getUpc() + " " + result.getProductName());
+                    } finally {
 
-                    // Put the item in a bundle and pass it to ConfirmItemFragment
-                    bundle.putSerializable("foodItem", result);
+                        dialog.dismiss();
 
-                    // Make sure there is no result currently set for this request key
-                    fragmentManager.clearFragmentResult("FOOD ITEM");
+                    }
 
-                    fragmentManager.setFragmentResult("FOOD ITEM", bundle);
-
-                    // Navigate to ConfirmItemFragment
-                    NavHostFragment.findNavController(ScannerFragment.this)
-                            .navigate((R.id.CED_ConfirmItemFragment));
-
-                } else {
-
-                    // If we get here, then the upc is does not exist in the database.
-
-                    // Put UPC into a bundle and pass it to SelectItemFragment (may not be necessary)
-                    bundle.putString("barcode", confirmedBarcode);
-
-                    // Make sure there is no result currently set for this request key
-                    fragmentManager.clearFragmentResult("BARCODE");
-
-                    fragmentManager.setFragmentResult("BARCODE", bundle);
-
-                    // Navigate to SelectItemFragment
-                    NavHostFragment.findNavController(ScannerFragment.this)
-                            .navigate((R.id.CED_SelectItemFragment));
-
-                }
+                });
 
             } finally {
 
-                LoadDatabaseTask.this.dispose();
+                // Set loading dialog to null to prevent Context leaks
+                loadDialog = null;
 
             }
 
         }
 
         @Override
+        @CallSuper
         protected void onError(@NonNull Throwable throwable) {
             super.onError(throwable);
 
-            // Make sure we dispose of loadingDialog first
-            LoadDatabaseTask.this.dispose();
+            try {
 
-            // Create a error dialog informing the user there was an error and then show it
-            AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+                // Switch the displayed view to the second child view
+                ((ViewFlipper) loadDialog.findViewById(R.id.dialog_flipper)).setDisplayedChild(2);
 
-            builder.setTitle("Error loading database!");
+                // Display the positive button to the user
+                loadDialog.getButton(AlertDialog.BUTTON_POSITIVE).setVisibility(View.VISIBLE);
 
-            builder.setMessage("There was an error loading the database, please try again." +
-                    "\n\nSee log for more info.");
+                loadDialog.setButton(AlertDialog.BUTTON_POSITIVE,
+                        "DISMISS", (dialog, which) -> {
 
-            builder.setPositiveButton("DISMISS", (dialog, which) -> {
+                    try {
 
-                dialog.dismiss();
+                        // Resume scanning if outer ScannerFragment class is resumed
+                        if (ScannerFragment.this.isResumed())
 
-                // Resume scanning if outer ScannerFragment class is resumed
-                if (ScannerFragment.this.isResumed())
+                            ScannerFragment.this.onResume();
 
-                    ScannerFragment.this.onResume();
+                    } finally {
 
-            });
+                        dialog.dismiss();
 
-            builder.setOnCancelListener(dialog -> {
+                    }
 
-                // Resume scanning if outer ScannerFragment class is resumed
-                if (ScannerFragment.this.isResumed())
+                });
 
-                    ScannerFragment.this.onResume();
+            } finally {
 
-            });
-
-            builder.setCancelable(true);
-
-            builder.create().show();
-
-        }
-
-        /**
-         * Disposes of any UI objects that may be holding onto a Context reference.
-         */
-        protected void dispose() {
-
-            if (loadingDialog != null) {
-
-                loadingDialog.dismiss();
-
-                loadingDialog = null;
+                // Set loading dialog to null to prevent Context leaks
+                loadDialog = null;
 
             }
 
