@@ -5,8 +5,11 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.os.AsyncTask;
+import android.os.Looper;
 import android.util.Log;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -18,9 +21,16 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 import javax.net.ssl.HttpsURLConnection;
+
+import edu.ncc.nest.nestapp.async.BackgroundTask;
+import edu.ncc.nest.nestapp.async.TaskHelper;
 
 /**
  *
@@ -52,6 +62,9 @@ import javax.net.ssl.HttpsURLConnection;
  * call its static getInstance() method.
  */
 public class NestDBOpenHelper extends SQLiteOpenHelper {
+
+    public static final String LOG_TAG = NestDBDataSource.class.getSimpleName();
+
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "Nest.db";
     private static final String DATABASE_CREATE_SQL = "NestDB.Create.sql";
@@ -61,6 +74,9 @@ public class NestDBOpenHelper extends SQLiteOpenHelper {
     // keep static reference to single instance of this class (Singleton pattern)
     @SuppressLint("StaticFieldLeak")  // we use Application Context only (no memory leak)
     private static NestDBOpenHelper mInstance = null;
+
+
+    private static final HashMap<String, String> taskResults = new HashMap<>();
 
     // getInstance static factory method (Singleton pattern)
     public static NestDBOpenHelper getInstance(Context context) {
@@ -130,62 +146,94 @@ public class NestDBOpenHelper extends SQLiteOpenHelper {
     }
 
     private void populateFromFoodKeeperAPI(SQLiteDatabase db) {
-        // todo use threading directly instead of AsyncTasks or maybe don't go asynchronous at all?
-        new GetCategories(db).execute();
-        new GetCookingMethods(db).execute();
-        new GetCookingTips(db).execute();
-        new GetProducts(db).execute();
+
+        if (Looper.getMainLooper().isCurrentThread()) {
+
+            Log.w(LOG_TAG, "Populating database from main thread may cause UI to freeze.");
+
+            Toast.makeText(mContext, "Warning: Populating database from main thread",
+                    Toast.LENGTH_LONG).show();
+
+        }
+
+        TaskHelper taskHelper = new TaskHelper(4);
+
+        try {
+
+            ArrayList<Future<?>> futures = new ArrayList<>();
+
+            futures.add(taskHelper.submit(new GetCategoriesTask(db)));
+
+            futures.add(taskHelper.submit(new GetCookingTipsTask(db)));
+
+            futures.add(taskHelper.submit(new GetCookingMethodsTask(db)));
+
+            futures.add(taskHelper.submit(new GetProductsTask(db)));
+
+            for (Future<?> future : futures) {
+
+                try {
+
+                    future.get();
+
+                } catch (InterruptedException | ExecutionException e) {
+
+                   e.printStackTrace();
+
+                }
+
+            }
+
+        } finally {
+
+            taskHelper.shutdown();
+
+        }
+
     }
 
     /**
      * Inner class to retrieve all categories from the FoodKeeper API
      */
-    private static class GetCategories extends AsyncTask<Void, Void, Void> {
-        private String result = "";
-        private SQLiteDatabase db;
+    private static class GetCategoriesTask extends BackgroundTask<Integer, String> {
 
-        GetCategories(SQLiteDatabase db) {
-            this.db = db;
-        }
+        private final SQLiteDatabase db;
+
+        public GetCategoriesTask(@NonNull SQLiteDatabase db) { this.db = db; }
 
         @Override
-        protected Void doInBackground(Void... arg0) {
+        protected String doInBackground() throws Exception {
+
             HttpURLConnection urlConnection;
             BufferedReader reader;
 
-            try {
-                // set the URL for the API call
-                String apiCall = "https://foodkeeper-api.herokuapp.com/categories";
-                Log.d(DATABASE_NAME, "apiCall = " + apiCall);
-                URL url = new URL(apiCall);
-                // connect to the site to read information
-                urlConnection = (HttpsURLConnection) url.openConnection();
-                urlConnection.setRequestMethod("GET");
-                urlConnection.connect();
+            // set the URL for the API call
+            String apiCall = "https://foodkeeper-api.herokuapp.com/categories";
+            Log.d(DATABASE_NAME, "apiCall = " + apiCall);
+            URL url = new URL(apiCall);
+            // connect to the site to read information
+            urlConnection = (HttpsURLConnection) url.openConnection();
+            urlConnection.setRequestMethod("GET");
+            urlConnection.connect();
 
-                // store the data retrieved by the request
-                InputStream inputStream = urlConnection.getInputStream();
-                // no data returned by the request, so terminate the method
-                if (inputStream == null) {
-                    // Nothing to do.
-                    return null;
-                }
-
-                // connect a BufferedReader to the input stream at URL
-                reader = new BufferedReader(new InputStreamReader(inputStream));
-                // store the data in result string
-                result = reader.readLine();
-
-            } catch (Exception e) {
-                Log.d(DATABASE_NAME, "EXCEPTION in HttpAsyncTask: " + e.getMessage());
+            // store the data retrieved by the request
+            InputStream inputStream = urlConnection.getInputStream();
+            // no data returned by the request, so terminate the method
+            if (inputStream == null) {
+                // Nothing to do.
+                return null;
             }
 
-            return null;
+            // connect a BufferedReader to the input stream at URL
+            reader = new BufferedReader(new InputStreamReader(inputStream));
+            // store the data in result string
+            return reader.readLine();
+
         }
 
         @Override
-        protected void onPostExecute(Void r) {
-            super.onPostExecute(r);
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
 
             if (result != null) {
                 Log.d(DATABASE_NAME, "categories JSON result length = " + result.length());
@@ -204,7 +252,7 @@ public class NestDBOpenHelper extends SQLiteOpenHelper {
                         if (!jsonObj.isNull("subcategory")) {
                             values.put("subcategory", jsonObj.getString("subcategory"));
                             values.put("description", jsonObj.getString("name")
-                                      + " (" + jsonObj.getString("subcategory") + ")");
+                                    + " (" + jsonObj.getString("subcategory") + ")");
                         } else {
                             values.put("description", jsonObj.getString("name"));
                         }
@@ -213,6 +261,7 @@ public class NestDBOpenHelper extends SQLiteOpenHelper {
                     }
                     db.setTransactionSuccessful();
                     Log.d(DATABASE_NAME, "inserted " + jsonArray.length() + " categories");
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 } finally {
@@ -223,21 +272,21 @@ public class NestDBOpenHelper extends SQLiteOpenHelper {
             }
 
         }
+
     }
 
     /**
      * Inner class to retrieve all cookingTips from the FoodKeeper API
      */
-    private static class GetCookingTips extends AsyncTask<Void, Void, Void> {
-        private String result = "";
-        private SQLiteDatabase db;
+    private static class GetCookingTipsTask extends BackgroundTask<Integer, String> {
 
-        GetCookingTips(SQLiteDatabase db) {
-            this.db = db;
-        }
+        private final SQLiteDatabase db;
+
+        public GetCookingTipsTask(@NonNull SQLiteDatabase db) { this.db = db; }
 
         @Override
-        protected Void doInBackground(Void... arg0) {
+        protected String doInBackground() {
+
             HttpURLConnection urlConnection;
             BufferedReader reader;
 
@@ -262,18 +311,19 @@ public class NestDBOpenHelper extends SQLiteOpenHelper {
                 // connect a BufferedReader to the input stream at URL
                 reader = new BufferedReader(new InputStreamReader(inputStream));
                 // store the data in result string
-                result = reader.readLine();
+                return reader.readLine();
 
             } catch (Exception e) {
                 Log.d(DATABASE_NAME, "EXCEPTION in HttpAsyncTask: " + e.getMessage());
             }
 
             return null;
+
         }
 
         @Override
-        protected void onPostExecute(Void r) {
-            super.onPostExecute(r);
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
 
             if (result != null) {
                 Log.d(DATABASE_NAME, "cookingTips JSON result length = " + result.length());
@@ -306,21 +356,21 @@ public class NestDBOpenHelper extends SQLiteOpenHelper {
             }
 
         }
+
     }
 
     /**
      * Inner class to retrieve all cookingmethods from the FoodKeeper API
      */
-    private static class GetCookingMethods extends AsyncTask<Void, Void, Void> {
-        private String result = "";
-        private SQLiteDatabase db;
+    private static class GetCookingMethodsTask extends BackgroundTask<Integer, String> {
 
-        GetCookingMethods(SQLiteDatabase db) {
-            this.db = db;
-        }
+        private final SQLiteDatabase db;
+
+        public GetCookingMethodsTask(@NonNull SQLiteDatabase db) { this.db = db; }
 
         @Override
-        protected Void doInBackground(Void... arg0) {
+        protected String doInBackground() {
+
             HttpURLConnection urlConnection;
             BufferedReader reader;
 
@@ -345,18 +395,19 @@ public class NestDBOpenHelper extends SQLiteOpenHelper {
                 // connect a BufferedReader to the input stream at URL
                 reader = new BufferedReader(new InputStreamReader(inputStream));
                 // store the data in result string
-                result = reader.readLine();
+                return reader.readLine();
 
             } catch (Exception e) {
                 Log.d(DATABASE_NAME, "EXCEPTION in HttpAsyncTask: " + e.getMessage());
             }
 
             return null;
+
         }
 
         @Override
-        protected void onPostExecute(Void r) {
-            super.onPostExecute(r);
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
 
             if (result != null) {
                 Log.d(DATABASE_NAME, "cookingMethods JSON result length = " + result.length());
@@ -394,21 +445,21 @@ public class NestDBOpenHelper extends SQLiteOpenHelper {
             }
 
         }
+
     }
 
     /**
      * Inner class to retrieve all products from the FoodKeeper API
      */
-    private static class GetProducts extends AsyncTask<Void, Void, Void> {
-        private String result = "";
-        private SQLiteDatabase db;
+    private static class GetProductsTask extends BackgroundTask<Integer, String> {
 
-        GetProducts(SQLiteDatabase db) {
-            this.db = db;
-        }
+        private final SQLiteDatabase db;
+
+        public GetProductsTask(@NonNull SQLiteDatabase db) { this.db = db; }
 
         @Override
-        protected Void doInBackground(Void... arg0) {
+        protected String doInBackground() {
+
             HttpURLConnection urlConnection;
             BufferedReader reader;
 
@@ -433,18 +484,19 @@ public class NestDBOpenHelper extends SQLiteOpenHelper {
                 // connect a BufferedReader to the input stream at URL
                 reader = new BufferedReader(new InputStreamReader(inputStream));
                 // store the data in result string
-                result = reader.readLine();
+                return reader.readLine();
 
             } catch (Exception e) {
                 Log.d(DATABASE_NAME, "EXCEPTION in HttpAsyncTask: " + e.getMessage());
             }
 
             return null;
+
         }
 
         @Override
-        protected void onPostExecute(Void r) {
-            super.onPostExecute(r);
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
 
             if (result != null) {
                 Log.d(DATABASE_NAME, "products JSON result length = " + result.length());
@@ -515,6 +567,7 @@ public class NestDBOpenHelper extends SQLiteOpenHelper {
             }
 
         }
+
     }
 
 }

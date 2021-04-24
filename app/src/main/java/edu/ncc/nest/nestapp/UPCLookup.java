@@ -22,7 +22,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -38,8 +37,12 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.concurrent.ExecutionException;
 
 import javax.net.ssl.HttpsURLConnection;
+
+import edu.ncc.nest.nestapp.async.BackgroundTask;
+import edu.ncc.nest.nestapp.async.TaskHelper;
 
 /**
  * An Activity that takes a UPC and finds its corresponding FDCID.
@@ -209,18 +212,30 @@ public class UPCLookup extends AppCompatActivity {
         } else {
             fdcidText.setText(getString(R.string.upc_lookup_match_found, fdcid));
             usdaText.setText(R.string.upc_lookup_retrieving_json);
-            new JSONGetter().execute();
+
+            TaskHelper taskHelper = new TaskHelper(1);
+
+            try {
+
+                taskHelper.execute(new JSONGetter());
+
+            } finally {
+
+                taskHelper.shutdown();
+
+            }
+
         }
     }
 
     /**
      * Class for pulling from the USDA database.  It runs asynchronously from everything else in this class to prevent freezing while looking up.
      */
-    private class JSONGetter extends AsyncTask<Void, Void, Void> {
-        String result = "";
+    private class JSONGetter extends BackgroundTask<Void, String> {
+
 
         @Override
-        protected Void doInBackground(Void... voids) {
+        protected String doInBackground() {
             HttpURLConnection httpConnection;
             BufferedReader httpBuffReader;
 
@@ -246,21 +261,23 @@ public class UPCLookup extends AppCompatActivity {
                 while ((line = httpBuffReader.readLine()) != null) {
                     resultBuilder.append(line);
                 }
-                result = resultBuilder.toString();
                 httpBuffReader.close();
                 httpInStreamReader.close();
                 httpInputStream.close();
                 httpConnection.disconnect();
 
+                return resultBuilder.toString();
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
             return null;
+
         }
 
         @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
 
             if (result == null) {
                 usdaText.setText(R.string.upc_lookup_usda_null_response);
@@ -288,6 +305,8 @@ public class UPCLookup extends AppCompatActivity {
             } else {
                 foodKeeperText.setText(R.string.upc_lookup_no_foodkeeper_category_match_found);
             }
+
         }
     }
+
 }

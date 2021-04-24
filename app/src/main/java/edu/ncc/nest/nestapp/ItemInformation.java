@@ -20,7 +20,6 @@ package edu.ncc.nest.nestapp;
 // still need to implement camera, API call for items in category, connecting to scanner layout
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -28,6 +27,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.widget.PopupMenu;
 
+import android.os.Looper;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -53,8 +53,13 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import javax.net.ssl.HttpsURLConnection;
+
+import edu.ncc.nest.nestapp.async.BackgroundTask;
+import edu.ncc.nest.nestapp.async.TaskHelper;
+
 
 /**
  * @deprecated This Activity is being replaced by Fragments. ({@see edu.ncc.nest.nestapp.CheckExpirationDate})
@@ -119,7 +124,21 @@ public class ItemInformation extends AppCompatActivity implements DatePickerDial
         selectedItemPosition = -1;
 
         // load categories into list
-        new GetCategories().execute();
+        TaskHelper taskHelper = new TaskHelper(1);
+
+        try {
+
+            taskHelper.submit(new GetCategoriesTask()).get();
+
+        } catch (ExecutionException | InterruptedException e) {
+
+            e.printStackTrace();
+
+        } finally {
+
+            taskHelper.shutdown();
+
+        }
 
     }
 
@@ -189,7 +208,19 @@ public class ItemInformation extends AppCompatActivity implements DatePickerDial
                     selectedItemPosition = -1;
                     itemDisplay.setText("");
                     items.clear();
-                    new GetItemsForCategory().execute();
+
+                    TaskHelper taskHelper = new TaskHelper(1);
+
+                    try {
+
+                        taskHelper.execute(new GetItemsForCategoryTask());
+
+                    } finally {
+
+                        taskHelper.shutdown();
+
+                    }
+
                 }
                 // update selected category id and display
                 catDisplay.setText(item.getTitle().toString());
@@ -342,24 +373,31 @@ public class ItemInformation extends AppCompatActivity implements DatePickerDial
     /**
      * Inner class to retrieve all categories from the FoodKeeper API
      */
-    private class GetCategories extends AsyncTask<Void, Void, Void> {
-        private final String TAG = GetCategories.class.getSimpleName();
-        private String result = "";
+    private class GetCategoriesTask extends BackgroundTask<Void, String> {
+        private final String TAG = GetCategoriesTask.class.getSimpleName();
 
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            Log.d(TAG, "on pre execute");
-            // give a little Toast message to explain any delay...
-            Toast.makeText(getApplicationContext(),"Gathering the food categories please wait",
-                    Toast.LENGTH_SHORT).show();
-            // show the progress circle
-            progressBar.setVisibility(View.VISIBLE);
-            waitingForCategories = true;
+        public GetCategoriesTask() {
+
+            if (Looper.getMainLooper().isCurrentThread()) {
+
+                // give a little Toast message to explain any delay...
+                Toast.makeText(getApplicationContext(), "Gathering the food categories please wait",
+                        Toast.LENGTH_SHORT).show();
+
+                // show the progress circle
+                progressBar.setVisibility(View.VISIBLE);
+
+                waitingForCategories = true;
+
+            } else
+
+                throw new IllegalThreadStateException("This task must be created from the main thread.");
+
         }
 
         @Override
-        protected Void doInBackground(Void... arg0) {
+        protected String doInBackground() {
+
             HttpURLConnection urlConnection;
             BufferedReader reader;
 
@@ -384,19 +422,22 @@ public class ItemInformation extends AppCompatActivity implements DatePickerDial
                 // connect a BufferedReader to the input stream at URL
                 reader = new BufferedReader(new InputStreamReader(inputStream));
                 // store the data in a string and display in the Logcat window
-                result = reader.readLine();
+                String result = reader.readLine();
                 Log.d(TAG, "returned string: " + result);
+
+                return result;
 
             } catch (Exception e) {
                 Log.d(TAG, "EXCEPTION in HttpAsyncTask: " + e.getMessage());
             }
 
             return null;
+
         }
 
         @Override
-        protected void onPostExecute(Void r) {
-            super.onPostExecute(r);
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
 
             if (result != null) {
                 Log.d(TAG, "about to start the JSON parsing" + result);
@@ -434,24 +475,31 @@ public class ItemInformation extends AppCompatActivity implements DatePickerDial
     /**
      * Inner class to retrieve all items for the currently selected category from the FoodKeeper API
      */
-    private class GetItemsForCategory extends AsyncTask<Void, Void, Void> {
-        private final String TAG = GetItemsForCategory.class.getSimpleName();
-        private String result = "";
+    private class GetItemsForCategoryTask extends BackgroundTask<Void, String> {
+        private final String TAG = GetItemsForCategoryTask.class.getSimpleName();
 
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            Log.d(TAG, "on pre execute");
-            // give a little Toast message to explain any delay...
-            Toast.makeText(getApplicationContext(),"Gathering items for selected category, please wait",
-                    Toast.LENGTH_SHORT).show();
-            // show the progress circle
-            progressBar.setVisibility(View.VISIBLE);
-            waitingForItems = true;
+        public GetItemsForCategoryTask() {
+
+            if (Looper.getMainLooper().isCurrentThread()) {
+
+                // give a little Toast message to explain any delay...
+                Toast.makeText(getApplicationContext(),"Gathering items for selected category, please wait",
+                        Toast.LENGTH_SHORT).show();
+
+                // show the progress circle
+                progressBar.setVisibility(View.VISIBLE);
+
+                waitingForItems = true;
+
+            } else
+
+                throw new IllegalThreadStateException("This task must be created from the main thread.");
+
         }
 
         @Override
-        protected Void doInBackground(Void... arg0) {
+        protected String doInBackground() {
+
             HttpURLConnection urlConnection;
             BufferedReader reader;
 
@@ -477,8 +525,10 @@ public class ItemInformation extends AppCompatActivity implements DatePickerDial
                 // connect a BufferedReader to the input stream at URL
                 reader = new BufferedReader(new InputStreamReader(inputStream));
                 // store the data in a string and display in the Logcat window
-                result = reader.readLine();
+                String result = reader.readLine();
                 Log.d(TAG, "returned string: " + result);
+
+                return result;
 
             } catch (Exception e) {
                 Log.d(TAG, "EXCEPTION in HttpAsyncTask: " + e.getMessage());
@@ -488,8 +538,8 @@ public class ItemInformation extends AppCompatActivity implements DatePickerDial
         }
 
         @Override
-        protected void onPostExecute(Void r) {
-            super.onPostExecute(r);
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
 
             if (result != null) {
                 Log.d(TAG, "about to start the JSON parsing" + result);
@@ -510,9 +560,9 @@ public class ItemInformation extends AppCompatActivity implements DatePickerDial
             // hide the progress circle
             progressBar.setVisibility(View.INVISIBLE);
             waitingForItems = false;
+
         }
     }
-
 
     /**
      * processUPC method --

@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -29,8 +28,12 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.ExecutionException;
 
 import javax.net.ssl.HttpsURLConnection;
+
+import edu.ncc.nest.nestapp.async.BackgroundTask;
+import edu.ncc.nest.nestapp.async.TaskHelper;
 
 /**
  * Activity hopefully to be used as an intent for AddToInventory
@@ -90,20 +93,17 @@ public class ATIQuestionnaire extends AppCompatActivity implements View.OnClickL
         return super.onOptionsItemSelected(item);
     }
 
+
+
     /**
      * inner class that will access the rest API and process the JSON returned
      * used in order to get all the items from the API
      */
-    private class Items extends AsyncTask<Void, Void, Void> {
-        String result = "";
+    private class Items extends BackgroundTask<Void, String> {
 
         @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
+        protected String doInBackground() {
 
-        @Override
-        protected Void doInBackground(Void... arg0) {
             HttpURLConnection urlConnection;
             BufferedReader reader;
 
@@ -127,18 +127,20 @@ public class ATIQuestionnaire extends AppCompatActivity implements View.OnClickL
                 // connect a BufferedReader to the input stream at URL
                 reader = new BufferedReader(new InputStreamReader(inputStream));
                 // store the data in a string and display in the Logcat window
-                result = reader.readLine();
+                return reader.readLine();
 
             } catch (Exception e) {
                 Log.i("HttpAsyncTask", "EXCEPTION: " + e.getMessage());
             }
 
             return null;
+
         }
 
         @Override
-        protected void onPostExecute(Void r) {
-            super.onPostExecute(r);
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+
             Log.d("TAG", "about to start the JSON parsing" + result);
             if (result != null) {
                 try {
@@ -336,13 +338,14 @@ public class ATIQuestionnaire extends AppCompatActivity implements View.OnClickL
             }
 
         }
+
     }
 
     /**
      * home method - goes to the nest home screen
      */
     public void home() {
-        new Items().execute();
+        // FIXME
     }
 
     /**
@@ -355,8 +358,21 @@ public class ATIQuestionnaire extends AppCompatActivity implements View.OnClickL
         // either for list view, ui#1, donate
         switch (view.getId()){
             case R.id.atibutton:
-                new Items().execute();
+
+                TaskHelper taskHelper = new TaskHelper(1);
+
+                try {
+
+                    taskHelper.execute(new Items());
+
+                } finally {
+
+                    taskHelper.shutdown();
+
+                }
+
                 break;
+
             case R.id.uiLink:
                 launchInterfaceOne();
                 break;
