@@ -84,8 +84,6 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
             // Get the foodItem from the bundle
             foodItem = (NestUPC) bundle.getSerializable("foodItem"); // TODO this probably won't work if there isn't a UPC to get
 
-            iUPC = foodItem.getUpc();
-
             if (foodItem != null)
             {
                 iUPC = foodItem.getUpc();
