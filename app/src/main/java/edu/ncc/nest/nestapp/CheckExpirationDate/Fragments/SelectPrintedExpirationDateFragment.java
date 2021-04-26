@@ -84,11 +84,12 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
             // Get the foodItem from the bundle
             foodItem = (NestUPC) bundle.getSerializable("foodItem"); // TODO this probably won't work if there isn't a UPC to get
 
-            iUPC = foodItem.getUpc();
-
             if (foodItem != null)
-
+            {
+                iUPC = foodItem.getUpc();
                 ((TextView) view.findViewById(R.id.selected_print_headline)).setText( iUPC );
+            }
+
 
             // Make sure we clear the FragmentResultListener so we can use this requestKey again
             getParentFragmentManager().clearFragmentResultListener("FOOD ITEM");
