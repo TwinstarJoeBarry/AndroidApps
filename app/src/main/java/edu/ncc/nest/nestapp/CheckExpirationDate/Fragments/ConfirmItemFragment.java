@@ -80,7 +80,8 @@ public class ConfirmItemFragment extends Fragment {
         catName = view.findViewById(R.id.add_cat_name);
         upc = view.findViewById(R.id.add_UPC);
 
-        if (savedInstanceState != null) {
+        if (savedInstanceState != null)
+        {
 
             Log.d(TAG, "In ConfirmItemFragment onViewCreated() If savedInstanceSate != null");
 
@@ -105,7 +106,9 @@ public class ConfirmItemFragment extends Fragment {
             catName.setText(cat_name);
             upc.setText(upc_string);
 
-        } else {
+        }
+        else
+            {
 
             // Retrieve Bundle
             getParentFragmentManager().setFragmentResultListener("FOOD ITEM", this, (requestKey, result) -> {
@@ -138,6 +141,20 @@ public class ConfirmItemFragment extends Fragment {
             });
 
         }
+
+        getParentFragmentManager().setFragmentResultListener("BARCODE", this, (requestKey, result) -> {
+
+            Log.d(TAG, "In ConfirmItemFragment onFragmentResult()");
+
+
+            upc_string = result.getString("barcode");
+
+            upc.setText(upc_string);
+
+            // Clear the result listener since we successfully received the result
+            getParentFragmentManager().clearFragmentResultListener("BARCODE");
+
+        });
 
 
 
