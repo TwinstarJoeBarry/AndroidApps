@@ -19,6 +19,7 @@ package edu.ncc.nest.nestapp.CheckExpirationDate.Fragments;
  */
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -49,6 +50,7 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
     private NestUPC foodItem;
     private int monthNum, dayNum, yearNum;
     private TextView monthText, dayText, yearText;
+    private String iUPC;
 
     @Override
     public View onCreateView (LayoutInflater inflater, ViewGroup container,
@@ -83,8 +85,11 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
             foodItem = (NestUPC) bundle.getSerializable("foodItem"); // TODO this probably won't work if there isn't a UPC to get
 
             if (foodItem != null)
+            {
+                iUPC = foodItem.getUpc();
+                ((TextView) view.findViewById(R.id.selected_print_headline)).setText( iUPC );
+            }
 
-                ((TextView) view.findViewById(R.id.selected_print_headline)).setText( foodItem.getUpc() );
 
             // Make sure we clear the FragmentResultListener so we can use this requestKey again
             getParentFragmentManager().clearFragmentResultListener("FOOD ITEM");
@@ -234,6 +239,22 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
 
         menuPop.show();
 
+    }
+
+    @Override
+    public void onPause()
+    {
+        super.onPause();
+        Log.d("*****", "onSaveInstanceState");
+
+        Bundle bundle = new Bundle();
+
+        bundle.putString("barcode", iUPC);
+
+        // Need to clear the result with the same request key, before using possibly same request key again.
+        getParentFragmentManager().clearFragmentResult("BARCODE");
+
+        getParentFragmentManager().setFragmentResult("BARCODE", bundle);
     }
 
 }

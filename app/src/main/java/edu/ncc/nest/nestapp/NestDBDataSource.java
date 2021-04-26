@@ -39,7 +39,11 @@ public class NestDBDataSource {
 
     public NestDBDataSource(Context context) throws SQLException {
         helper = NestDBOpenHelper.getInstance(context);
+
+        /** Moving this call out of the constructor will most definitely cause issues with other classes.
+         *  See {@link edu.ncc.nest.nestapp.CheckExpirationDate.Fragments.ScannerFragment} */
         this.db = helper.getWritableDatabase();
+
     }
 
 //  opting to not have these methods...

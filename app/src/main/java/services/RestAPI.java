@@ -3,7 +3,7 @@ package services;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.AsyncTask;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.BufferedReader;
@@ -16,13 +16,15 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import edu.ncc.nest.nestapp.async.BackgroundTask;
+
 /*
 All Rest API Functionality is here.
 Currently this only has headers and implementations to send Notifications with Rest API Post
 requests through Firebase service.
  */
 
-public class RestAPI extends AsyncTask<String, Void, String> {
+public class RestAPI extends BackgroundTask<Float, String> {
     /*This should be the Key associated to your Firebase's Project file.
     To get your API Key, go to Project Directory, Press the COG Icon on the left (next to project
      overview) and Click on the Cloud Messaging Tab.
@@ -105,8 +107,9 @@ public static String makeRequest(String id) throws JSONException {
     }
     return result;
 }
+
     @Override
-    protected String doInBackground(String... strings) {
+    protected String doInBackground() {
         return null;
     }
 
