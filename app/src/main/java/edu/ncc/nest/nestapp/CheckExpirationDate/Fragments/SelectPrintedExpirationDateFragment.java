@@ -87,8 +87,11 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
             iUPC = foodItem.getUpc();
 
             if (foodItem != null)
-
+            {
+                iUPC = foodItem.getUpc();
                 ((TextView) view.findViewById(R.id.selected_print_headline)).setText( iUPC );
+            }
+
 
             // Make sure we clear the FragmentResultListener so we can use this requestKey again
             getParentFragmentManager().clearFragmentResultListener("FOOD ITEM");
