@@ -12,12 +12,11 @@ import android.widget.Toast;
 
 import java.util.Locale;
 
-public class NewNestUPC extends AppCompatActivity {
+public class NewNestUPC extends NestDBDataSource.NestDBActivity {
     private String upcBeingAdded;
     private int selectedCategoryId, selectedProductId;
     private EditText brandEdit, descriptionEdit;
     private Spinner categorySpinner, productSpinner;
-    private NestDBDataSource dataSource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +35,6 @@ public class NewNestUPC extends AppCompatActivity {
         categorySpinner = findViewById(R.id.categorySpinner);
         productSpinner = findViewById(R.id.productSpinner);
 
-        // open the database
-        dataSource = new NestDBDataSource(this);
-
     }
 
     public void acceptClicked(View view) {
@@ -52,7 +48,7 @@ public class NewNestUPC extends AppCompatActivity {
             return;
         }
         // use dataSource to add the new upc to the Nest UPCs table
-        dataSource.insertNewUPC(upcBeingAdded, brand, description, selectedProductId);
+        requireDataSource().insertNewUPC(upcBeingAdded, brand, description, selectedProductId);
 
         setResult(RESULT_OK);
         finish();

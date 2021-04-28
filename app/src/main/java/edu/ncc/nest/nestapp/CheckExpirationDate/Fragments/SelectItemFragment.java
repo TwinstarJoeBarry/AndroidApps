@@ -34,6 +34,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
+import edu.ncc.nest.nestapp.NestDBDataSource.NestDBActivity;
 import edu.ncc.nest.nestapp.NestDBDataSource;
 import edu.ncc.nest.nestapp.NestUPC;
 import edu.ncc.nest.nestapp.R;
@@ -136,7 +137,7 @@ public class SelectItemFragment extends Fragment {
         view.findViewById(R.id.acceptButton).setOnClickListener( view1 -> {
 
             // Open a source to the database to add the information;
-            NestDBDataSource database = new NestDBDataSource( requireContext() );
+            NestDBDataSource dataSource = ((NestDBActivity) requireActivity()).requireDataSource();
 
             // Retrieve the String information from each view, casting as appropriate;
             String name = ((EditText) (view.findViewById(R.id.fragment_select_item_brand_entry))).getText().toString();
@@ -159,7 +160,7 @@ public class SelectItemFragment extends Fragment {
 
                 // Use our source to the database to add the new upc to the NEST's table after parsing the ID
                 // NOTE: This will return -1 if the UPC has never been added before and will cause errors in future fragments.
-                int itemId = database.getProductIdFromUPC(upcString);
+                int itemId = dataSource.getProductIdFromUPC(upcString);
 
                 if (itemId == -1) {
 
@@ -170,9 +171,9 @@ public class SelectItemFragment extends Fragment {
 
                 }
 
-                database.insertNewUPC(upcString, name, description, itemId);
+                dataSource.insertNewUPC(upcString, name, description, itemId);
 
-                NestUPC foodItem = database.getNestUPC(upcString);
+                NestUPC foodItem = dataSource.getNestUPC(upcString);
 
                 Bundle bundle = new Bundle();
 

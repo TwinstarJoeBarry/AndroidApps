@@ -29,6 +29,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
+import edu.ncc.nest.nestapp.NestDBDataSource.NestDBActivity;
 import edu.ncc.nest.nestapp.NestDBDataSource;
 import edu.ncc.nest.nestapp.NestUPC;
 import edu.ncc.nest.nestapp.R;
@@ -83,11 +84,13 @@ public class EnterUpcFragment extends Fragment {
 
         } else {
 
-            NestDBDataSource dataSource = new NestDBDataSource(getContext());
+            NestDBDataSource dataSource = ((NestDBActivity) requireActivity()).requireDataSource();
+
             NestUPC result = dataSource.getNestUPC(upc);
 
             // If there is a result from the database
             Bundle bundle = new Bundle();
+
             if (result != null) {
 
                 // If we get here, then the upc is already in the database.

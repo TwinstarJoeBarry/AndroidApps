@@ -19,15 +19,15 @@ package edu.ncc.nest.nestapp.CheckExpirationDate.Activities;
  */
 
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
 
+import edu.ncc.nest.nestapp.NestDBDataSource;
 import edu.ncc.nest.nestapp.R;
 
 /*
  * CheckExpirationDateActivity: This is the underlying activity for the fragments of the
  * CheckExpirationDate feature.
  */
-public class CheckExpirationDateActivity extends AppCompatActivity {
+public class CheckExpirationDateActivity extends NestDBDataSource.NestDBActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

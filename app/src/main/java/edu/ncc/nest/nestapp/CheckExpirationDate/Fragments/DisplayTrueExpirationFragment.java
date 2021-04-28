@@ -31,6 +31,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import edu.ncc.nest.nestapp.NestDBDataSource.NestDBActivity;
 import edu.ncc.nest.nestapp.NestDBDataSource;
 import edu.ncc.nest.nestapp.NestUPC;
 import edu.ncc.nest.nestapp.R;
@@ -87,7 +88,7 @@ public class DisplayTrueExpirationFragment extends Fragment {
                 // The productId is being set to -1. See SelectItemFragment.java, and issue #188.
 
                 // Instantiating database
-                dataSource = new NestDBDataSource(getContext());
+                dataSource = ((NestDBActivity) requireActivity()).requireDataSource();
 
                 // Getting the product's shelf life from the database
                 List<ShelfLife> shelfLives = dataSource.getShelfLivesForProduct(foodItem.getProductId());

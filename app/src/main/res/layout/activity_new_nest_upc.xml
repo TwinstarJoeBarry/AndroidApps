@@ -140,7 +140,6 @@
         android:text="@string/accept"
         android:textStyle="bold"
         android:textAllCaps="false"
-        android:onClick="acceptClicked"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/cancelButton"
         app:layout_constraintHorizontal_bias="0.5"

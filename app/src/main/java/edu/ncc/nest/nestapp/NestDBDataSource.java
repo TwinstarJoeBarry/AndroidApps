@@ -24,12 +24,26 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ViewFlipper;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.concurrent.Future;
+
+import edu.ncc.nest.nestapp.async.BackgroundTask;
+import edu.ncc.nest.nestapp.async.TaskHelper;
 
 public class NestDBDataSource {
     private SQLiteDatabase db;
@@ -37,11 +51,11 @@ public class NestDBDataSource {
     public static String TABLE_NAME_NEST_UPCS = "nestUPCs";
     public String TAG = "TESTING";
 
-    public NestDBDataSource(Context context) throws SQLException {
+    private NestDBDataSource(Context context) throws SQLException {
         helper = NestDBOpenHelper.getInstance(context);
 
         /** Moving this call out of the constructor will most definitely cause issues with other classes.
-         *  See {@link edu.ncc.nest.nestapp.CheckExpirationDate.Fragments.ScannerFragment} */
+         *  See {@link NestDBActivity} */
         this.db = helper.getWritableDatabase();
 
     }
@@ -173,6 +187,167 @@ public class NestDBDataSource {
         }
         c.close();
         return result;
+    }
+
+    public static abstract class NestDBActivity extends AppCompatActivity {
+
+        public static final String LOG_TAG = NestDBActivity.class.getSimpleName();
+
+        private final TaskHelper taskHelper = new TaskHelper(1);
+
+        private NestDBDataSource nestDBDataSource = null;
+
+        private Future<NestDBDataSource> future = null;
+
+        private static final long LOAD_DELAY = 1000L;
+
+        @Override
+        protected void onCreate(@Nullable Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+
+            // Create a loading dialog
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+            // Set the positive button's listener to null so we can use it later
+            builder.setPositiveButton("DISMISS", null);
+
+            builder.setView(R.layout.dialog_loading_database);
+
+            builder.setCancelable(false);
+
+            AlertDialog loadDialog = builder.create();
+
+            loadDialog.show();
+
+            // Hide the "dismiss" button until it is needed
+            loadDialog.getButton(AlertDialog.BUTTON_POSITIVE).setVisibility(View.GONE);
+
+            if (future == null || future.isCancelled())
+
+                // Submit a new BackgroundTask to the helper that loads the database, store the resulting future
+                future = taskHelper.submit(new BackgroundTask<Void, NestDBDataSource>() {
+
+                    @Override
+                    protected NestDBDataSource doInBackground() throws Exception {
+
+                        try {
+
+                            // This allows the user to see the loading bar for a short time
+                            // Optional: This can be removed if not needed/desired
+                            Thread.sleep(LOAD_DELAY);
+
+                        } catch (InterruptedException e) {
+
+                            Log.w(LOG_TAG, "Non-Fatal Exception occurred");
+
+                            Log.w(LOG_TAG, Log.getStackTraceString(e));
+
+                        }
+
+                        return new NestDBDataSource(NestDBActivity.this);
+
+                    }
+
+                    @Override
+                    protected void onPostExecute(NestDBDataSource nestDBDataSource) {
+
+                        // Update our instance variable since the database was successfully loaded
+                        NestDBActivity.this.nestDBDataSource = nestDBDataSource;
+
+                        // Switch the displayed view to the first child view
+                        ((ViewFlipper) loadDialog.findViewById(R.id.dialog_flipper)).setDisplayedChild(1);
+
+                        // Display the positive button to the user
+                        loadDialog.getButton(AlertDialog.BUTTON_POSITIVE).setVisibility(View.VISIBLE);
+
+                        loadDialog.setButton(AlertDialog.BUTTON_POSITIVE,
+                                "DISMISS", (dialog, which) -> {
+
+                            try {
+
+                                // Send the result to the outer class
+                                NestDBActivity.this.onLoadSuccess(nestDBDataSource);
+
+                            } finally {
+
+                                dialog.dismiss();
+
+                            }
+
+                        });
+
+                    }
+
+                    @Override
+                    protected void onError(@NonNull Throwable throwable) {
+
+                        // Failed to load the database so make sure source object is set to null
+                        NestDBActivity.this.nestDBDataSource = null;
+
+                        // Switch the displayed view to the second child view
+                        ((ViewFlipper) loadDialog.findViewById(R.id.dialog_flipper)).setDisplayedChild(2);
+
+                        // Display the positive button to the user
+                        loadDialog.getButton(AlertDialog.BUTTON_POSITIVE).setVisibility(View.VISIBLE);
+
+                        loadDialog.setButton(AlertDialog.BUTTON_POSITIVE,
+                                "DISMISS", (dialog, which) -> {
+
+                            try {
+
+                                NestDBActivity.this.onLoadError(throwable);
+
+                            } finally {
+
+                                dialog.dismiss();
+
+                            }
+
+                        });
+
+                    }
+
+                });
+
+        }
+
+        /**
+         * Returns the {@link NestDBDataSource} object stored in {@code nestDBDataSource} instance
+         * variable.
+         *
+         * @return the {@link NestDBDataSource} object stored in {@code nestDBDataSource} instance
+         * variable
+         * @throws NullPointerException If the object is {@code null}/not-yet-loaded
+         */
+        @NonNull
+        public final NestDBDataSource requireDataSource() {
+
+            return Objects.requireNonNull(nestDBDataSource, "nestDBDataSource is null");
+
+        }
+
+        /**
+         * Called after the user has been informed that the Nest.db database has been successfully
+         * loaded/created.
+         *
+         * @param nestDBDataSource The database source object used to interact with the database
+         */
+        protected void onLoadSuccess(@NonNull NestDBDataSource nestDBDataSource) {
+
+        }
+
+        /**
+         * Called if there was an error while loading the database.
+         *
+         * NOTE: This method is called after the user is informed (by an {@link AlertDialog}) of the
+         * error.
+         */
+        protected void onLoadError(@NonNull Throwable throwable) {
+
+            throw new RuntimeException("Error loading Nest.db database", throwable);
+
+        }
+
     }
 
 }

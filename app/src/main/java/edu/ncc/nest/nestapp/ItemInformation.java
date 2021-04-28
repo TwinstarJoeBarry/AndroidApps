@@ -22,6 +22,7 @@ package edu.ncc.nest.nestapp;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -65,7 +66,8 @@ import edu.ncc.nest.nestapp.async.TaskHelper;
  * @deprecated This Activity is being replaced by Fragments. ({@see edu.ncc.nest.nestapp.CheckExpirationDate})
  */
 @Deprecated
-public class ItemInformation extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
+public class ItemInformation extends NestDBDataSource.NestDBActivity
+        implements DatePickerDialog.OnDateSetListener {
 
     // category list and current selected category id
     private ArrayList<String> categories;
@@ -113,8 +115,6 @@ public class ItemInformation extends AppCompatActivity implements DatePickerDial
 
         expirationYear = -1; //for testing in calculateResult method
 
-        dataSource = new NestDBDataSource(this);
-
         // initialize category list and current selection
         categories = new ArrayList<>();
         selectedCategoryId = -1;
@@ -128,17 +128,21 @@ public class ItemInformation extends AppCompatActivity implements DatePickerDial
 
         try {
 
-            taskHelper.submit(new GetCategoriesTask()).get();
-
-        } catch (ExecutionException | InterruptedException e) {
-
-            e.printStackTrace();
+            taskHelper.execute(new GetCategoriesTask());
 
         } finally {
 
             taskHelper.shutdown();
 
         }
+
+    }
+
+    @Override
+    protected void onLoadSuccess(@NonNull NestDBDataSource nestDBDataSource) {
+        super.onLoadSuccess(nestDBDataSource);
+
+        dataSource = nestDBDataSource;
 
     }
 
@@ -608,6 +612,7 @@ public class ItemInformation extends AppCompatActivity implements DatePickerDial
      * displaying of the info
      */
     private void processDataFromUPC() {
+
         String upc = upcEntry.getText().toString();
         // we get the relevant fields from the Nest UPCs, product and category tables all in one object
         NestUPC upcData = dataSource.getNestUPC(upc);
