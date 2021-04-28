@@ -189,7 +189,7 @@ public class NestDBDataSource {
 
         private Future<NestDBDataSource> future = null;
 
-        private static final long LOAD_DELAY = 1000L;
+        private static final long LOAD_DELAY = 1500L;
 
         @Override
         protected void onCreate(@Nullable Bundle savedInstanceState) {
