@@ -42,11 +42,11 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.google.zxing.BarcodeFormat;
 
 import edu.ncc.nest.nestapp.AbstractScannerFragment.AbstractScannerFragment;
-import edu.ncc.nest.nestapp.NestDBDataSource;
-import edu.ncc.nest.nestapp.NestDBDataSource.NestDBActivity;
-import edu.ncc.nest.nestapp.NestUPC;
 import edu.ncc.nest.nestapp.R;
 import edu.ncc.nest.nestapp.async.BackgroundTask;
+import edu.ncc.nest.nestapp.nestdb.NestDBActivity;
+import edu.ncc.nest.nestapp.nestdb.NestDBDataSource;
+import edu.ncc.nest.nestapp.nestdb.NestUPC;
 
 /**
  * ScannerFragment: Used to scan in a UPC barcode, and send it to the appropriate fragment depending

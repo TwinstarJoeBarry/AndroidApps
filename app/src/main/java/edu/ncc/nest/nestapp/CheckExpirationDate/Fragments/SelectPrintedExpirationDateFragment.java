@@ -32,8 +32,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
-import edu.ncc.nest.nestapp.NestUPC;
 import edu.ncc.nest.nestapp.R;
+import edu.ncc.nest.nestapp.nestdb.NestUPC;
 
 /**
  * SelectPrintedExpirationDateFragment: Allows the user to select or enter the item's printed

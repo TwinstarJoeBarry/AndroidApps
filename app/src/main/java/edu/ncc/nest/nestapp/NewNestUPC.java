@@ -1,7 +1,5 @@
 package edu.ncc.nest.nestapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -12,7 +10,9 @@ import android.widget.Toast;
 
 import java.util.Locale;
 
-public class NewNestUPC extends NestDBDataSource.NestDBActivity {
+import edu.ncc.nest.nestapp.nestdb.NestDBActivity;
+
+public class NewNestUPC extends NestDBActivity {
     private String upcBeingAdded;
     private int selectedCategoryId, selectedProductId;
     private EditText brandEdit, descriptionEdit;

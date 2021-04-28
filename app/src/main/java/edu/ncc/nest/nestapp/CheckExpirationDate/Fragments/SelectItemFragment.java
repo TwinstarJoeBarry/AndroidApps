@@ -34,10 +34,10 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
-import edu.ncc.nest.nestapp.NestDBDataSource.NestDBActivity;
-import edu.ncc.nest.nestapp.NestDBDataSource;
-import edu.ncc.nest.nestapp.NestUPC;
 import edu.ncc.nest.nestapp.R;
+import edu.ncc.nest.nestapp.nestdb.NestDBActivity;
+import edu.ncc.nest.nestapp.nestdb.NestDBDataSource;
+import edu.ncc.nest.nestapp.nestdb.NestUPC;
 
 /**
  * SelectItemFragment: Allows user to select item options that will be used to determine a proper

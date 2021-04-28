@@ -19,15 +19,9 @@ package edu.ncc.nest.nestapp;
 
 // still need to implement camera, API call for items in category, connecting to scanner layout
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.appcompat.widget.PopupMenu;
-
 import android.os.Looper;
 import android.util.Log;
 import android.view.Menu;
@@ -39,8 +33,12 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.app.DatePickerDialog;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.PopupMenu;
+import androidx.appcompat.widget.Toolbar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -54,20 +52,21 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import javax.net.ssl.HttpsURLConnection;
 
 import edu.ncc.nest.nestapp.async.BackgroundTask;
 import edu.ncc.nest.nestapp.async.TaskHelper;
+import edu.ncc.nest.nestapp.nestdb.NestDBActivity;
+import edu.ncc.nest.nestapp.nestdb.NestDBDataSource;
+import edu.ncc.nest.nestapp.nestdb.NestUPC;
 
 
 /**
  * @deprecated This Activity is being replaced by Fragments. ({@see edu.ncc.nest.nestapp.CheckExpirationDate})
  */
 @Deprecated
-public class ItemInformation extends NestDBDataSource.NestDBActivity
-        implements DatePickerDialog.OnDateSetListener {
+public class ItemInformation extends NestDBActivity implements DatePickerDialog.OnDateSetListener {
 
     // category list and current selected category id
     private ArrayList<String> categories;

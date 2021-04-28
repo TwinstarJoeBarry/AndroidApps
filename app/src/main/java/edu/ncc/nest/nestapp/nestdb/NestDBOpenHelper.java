@@ -1,4 +1,4 @@
-package edu.ncc.nest.nestapp;
+package edu.ncc.nest.nestapp.nestdb;
 
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
