@@ -60,16 +60,6 @@ public class NestDBDataSource {
 
     }
 
-//  opting to not have these methods...
-//    public void open() throws SQLException {
-//        // why have an open? since we don't need a close, just get the db as part of the constructor
-//    }
-//
-//    public void close() {
-//        // as NestDBOpenHelper is Singleton, do not call itd close() method; close not required anyway
-//        // helper.close();
-//    }
-
     /**
      * insertNewUPC method --
      * adds a new record the Nest UPCs table
