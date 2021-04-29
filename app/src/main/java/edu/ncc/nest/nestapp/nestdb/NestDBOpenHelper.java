@@ -75,9 +75,6 @@ public class NestDBOpenHelper extends SQLiteOpenHelper {
     @SuppressLint("StaticFieldLeak")  // we use Application Context only (no memory leak)
     private static NestDBOpenHelper mInstance = null;
 
-
-    private static final HashMap<String, String> taskResults = new HashMap<>();
-
     // getInstance static factory method (Singleton pattern)
     public static NestDBOpenHelper getInstance(Context context) {
         if (mInstance == null)
