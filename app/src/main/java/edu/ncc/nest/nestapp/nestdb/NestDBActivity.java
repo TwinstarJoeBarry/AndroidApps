@@ -40,7 +40,7 @@ public abstract class NestDBActivity extends AppCompatActivity {
 
     private Future<NestDBDataSource> future = null;
 
-    private static final long LOAD_DELAY = 1500L;
+    private static final long LOAD_DELAY = 1250L;
 
     ////////////////////////////////////// LIFECYCLE METHODS ///////////////////////////////////////
 
