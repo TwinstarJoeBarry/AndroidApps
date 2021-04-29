@@ -8,9 +8,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+
 import java.util.Locale;
 
 import edu.ncc.nest.nestapp.nestdb.NestDBActivity;
+import edu.ncc.nest.nestapp.nestdb.NestDBDataSource;
 
 public class NewNestUPC extends NestDBActivity {
     private String upcBeingAdded;
@@ -21,6 +24,13 @@ public class NewNestUPC extends NestDBActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+    }
+
+    @Override
+    protected void onLoadSuccess(@NonNull NestDBDataSource nestDBDataSource) {
+        super.onLoadSuccess(nestDBDataSource);
+
         setContentView(R.layout.activity_new_nest_upc);
 
         // get the new UPC code and display it in addingLabel
@@ -34,6 +44,12 @@ public class NewNestUPC extends NestDBActivity {
         descriptionEdit = findViewById(R.id.fragment_select_item_description_entry);
         categorySpinner = findViewById(R.id.categorySpinner);
         productSpinner = findViewById(R.id.productSpinner);
+
+    }
+
+    @Override
+    protected void onLoadError(@NonNull Throwable throwable) {
+        super.onLoadError(throwable);
 
     }
 

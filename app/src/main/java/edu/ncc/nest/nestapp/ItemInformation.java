@@ -38,7 +38,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.PopupMenu;
-import androidx.appcompat.widget.Toolbar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -98,19 +97,6 @@ public class ItemInformation extends NestDBActivity implements DatePickerDialog.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_item_info);
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        progressBar = findViewById(R.id.progressbar);
-        catDisplay = (TextView)findViewById(R.id.cat_result);
-        itemDisplay = (TextView)findViewById(R.id.item_result);
-        expDisplay = (TextView)findViewById(R.id.exp_result);
-        resultDisplay = (TextView)findViewById(R.id.result);
-        tipDisplay = (TextView)findViewById(R.id.tipDisplay);
-        tipBut = (Button)findViewById(R.id.tips_button);
-        upcEntry = findViewById(R.id.upc_entry);
 
         expirationYear = -1; //for testing in calculateResult method
 
@@ -122,7 +108,29 @@ public class ItemInformation extends NestDBActivity implements DatePickerDialog.
         items = new ArrayList<>();
         selectedItemPosition = -1;
 
+    }
+
+    @Override
+    protected void onLoadSuccess(@NonNull NestDBDataSource nestDBDataSource) {
+        super.onLoadSuccess(nestDBDataSource);
+
+        dataSource = nestDBDataSource;
+
+        setContentView(R.layout.activity_item_info);
+
+        setSupportActionBar(findViewById(R.id.toolbar));
+
+        progressBar = findViewById(R.id.progressbar);
+        catDisplay = (TextView)findViewById(R.id.cat_result);
+        itemDisplay = (TextView)findViewById(R.id.item_result);
+        expDisplay = (TextView)findViewById(R.id.exp_result);
+        resultDisplay = (TextView)findViewById(R.id.result);
+        tipDisplay = (TextView)findViewById(R.id.tipDisplay);
+        tipBut = (Button)findViewById(R.id.tips_button);
+        upcEntry = findViewById(R.id.upc_entry);
+
         // load categories into list
+
         TaskHelper taskHelper = new TaskHelper(1);
 
         try {
@@ -138,10 +146,8 @@ public class ItemInformation extends NestDBActivity implements DatePickerDialog.
     }
 
     @Override
-    protected void onLoadSuccess(@NonNull NestDBDataSource nestDBDataSource) {
-        super.onLoadSuccess(nestDBDataSource);
-
-        dataSource = nestDBDataSource;
+    protected void onLoadError(@NonNull Throwable throwable) {
+        super.onLoadError(throwable);
 
     }
 

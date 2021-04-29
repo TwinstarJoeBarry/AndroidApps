@@ -136,8 +136,8 @@ public class SelectItemFragment extends Fragment {
         // ACCEPT BUTTON CODE - PARSE VALUES FOR NEW UPC, PASS INFO TO PRINTED EXPIRATION DATE
         view.findViewById(R.id.acceptButton).setOnClickListener( view1 -> {
 
-            // Open a source to the database to add the information;
-            NestDBDataSource dataSource = ((NestDBActivity) requireActivity()).requireDataSource();
+            // Get a source object of the database to add the information;
+            NestDBDataSource dataSource = NestDBActivity.requireDataSource(this);
 
             // Retrieve the String information from each view, casting as appropriate;
             String name = ((EditText) (view.findViewById(R.id.fragment_select_item_brand_entry))).getText().toString();

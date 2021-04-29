@@ -43,15 +43,13 @@ import com.google.zxing.BarcodeFormat;
 
 import edu.ncc.nest.nestapp.AbstractScannerFragment.AbstractScannerFragment;
 import edu.ncc.nest.nestapp.R;
-import edu.ncc.nest.nestapp.async.BackgroundTask;
 import edu.ncc.nest.nestapp.nestdb.NestDBActivity;
 import edu.ncc.nest.nestapp.nestdb.NestDBDataSource;
 import edu.ncc.nest.nestapp.nestdb.NestUPC;
 
 /**
  * ScannerFragment: Used to scan in a UPC barcode, and send it to the appropriate fragment depending
- * on whether or not a product with the scanned barcode exist in the database. This class performs
- * the initial loading of the Nest.db database using {@link BackgroundTask}.
+ * on whether or not a product with the scanned barcode exist in the database.
  *
  * Navigates to {@link ConfirmItemFragment} with the item pulled from database, if the upc exists in
  * the local database.
@@ -78,12 +76,10 @@ public class ScannerFragment extends AbstractScannerFragment {
         // Log the barcode result and format
         Log.d(LOG_TAG, "Scan Confirmed: [" + barcode + ", " + format.toString() + "]");
 
-        NestDBDataSource dataSource = ((NestDBActivity) requireActivity()).requireDataSource();
+        NestDBDataSource dataSource = NestDBActivity.requireDataSource(this);
 
         // Find the NestUPC object that matches the scanned barcode
         NestUPC result = dataSource.getNestUPC(barcode);
-
-        FragmentManager fragmentManager = ScannerFragment.this.getParentFragmentManager();
 
         Bundle bundle = new Bundle();
 
@@ -95,6 +91,8 @@ public class ScannerFragment extends AbstractScannerFragment {
 
             // Put the item in a bundle and pass it to ConfirmItemFragment
             bundle.putSerializable("foodItem", result);
+
+            FragmentManager fragmentManager = getParentFragmentManager();
 
             // Make sure there is no result currently set for this request key
             fragmentManager.clearFragmentResult("FOOD ITEM");
@@ -111,6 +109,8 @@ public class ScannerFragment extends AbstractScannerFragment {
 
             // Put UPC into a bundle and pass it to SelectItemFragment (may not be necessary)
             bundle.putString("barcode", barcode);
+
+            FragmentManager fragmentManager = getParentFragmentManager();
 
             // Make sure there is no result currently set for this request key
             fragmentManager.clearFragmentResult("BARCODE");

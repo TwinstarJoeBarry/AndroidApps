@@ -20,8 +20,12 @@ package edu.ncc.nest.nestapp.CheckExpirationDate.Activities;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import edu.ncc.nest.nestapp.R;
 import edu.ncc.nest.nestapp.nestdb.NestDBActivity;
+import edu.ncc.nest.nestapp.nestdb.NestDBDataSource;
 
 /*
  * CheckExpirationDateActivity: This is the underlying activity for the fragments of the
@@ -30,12 +34,30 @@ import edu.ncc.nest.nestapp.nestdb.NestDBActivity;
 public class CheckExpirationDateActivity extends NestDBActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        /* Don't set content view here so that fragments are NOT created while the database is
+         * loading */
+
+
+    }
+
+    @Override
+    protected void onLoadSuccess(@NonNull NestDBDataSource nestDBDataSource) {
+        super.onLoadSuccess(nestDBDataSource);
+
+        /* Set the content view and support action toolbar here, so that fragments are NOT created
+         * until the database successfully loads. */
         setContentView(R.layout.activity_check_expiration_date);
 
-        setSupportActionBar(findViewById(R.id.toolbar));
+        setSupportActionBar(findViewById(R.id.check_expiration_date_toolbar));
+
+    }
+
+    @Override
+    protected void onLoadError(@NonNull Throwable throwable) {
+        super.onLoadError(throwable);
 
     }
 

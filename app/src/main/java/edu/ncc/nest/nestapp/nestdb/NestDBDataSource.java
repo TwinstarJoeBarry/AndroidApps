@@ -36,24 +36,18 @@ public class NestDBDataSource {
 
     public static final String LOG_TAG = NestDBDataSource.class.getSimpleName();
 
-    private final NestDBOpenHelper openHelper;
-
     private final SQLiteDatabase db;
 
     /**
-     * Package-private constructor so that this class has to be loaded through a
+     * Package-private constructor so that this class can only be created through the
      * {@link NestDBActivity} class.
-     *
-     * NOTE: Do not change the access modifier of this constructor.
      */
+    // NOTE: Do not change the access modifier of this constructor.
     NestDBDataSource(Context context) throws SQLException {
-
-        // Get a instance of the helper class
-        openHelper = NestDBOpenHelper.getInstance(context);
 
         /* Moving this call out of the constructor will most definitely cause issues with other
          * classes. See edu.ncc.nest.nestapp.nestdb.NestDBActivity */
-        this.db = openHelper.getWritableDatabase();
+        db = NestDBOpenHelper.getInstance(context).getWritableDatabase();
 
     }
 
@@ -177,3 +171,4 @@ public class NestDBDataSource {
     }
 
 }
+

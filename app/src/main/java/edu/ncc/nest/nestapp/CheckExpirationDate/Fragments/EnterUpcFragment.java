@@ -84,7 +84,7 @@ public class EnterUpcFragment extends Fragment {
 
         } else {
 
-            NestDBDataSource dataSource = ((NestDBActivity) requireActivity()).requireDataSource();
+            NestDBDataSource dataSource = NestDBActivity.requireDataSource(this);
 
             NestUPC result = dataSource.getNestUPC(upc);
 
