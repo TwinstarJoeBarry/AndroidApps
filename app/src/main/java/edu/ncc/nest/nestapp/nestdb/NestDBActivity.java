@@ -95,7 +95,7 @@ public abstract class NestDBActivity extends AppCompatActivity {
                     // Update our instance variable since the database was successfully loaded
                     NestDBActivity.this.nestDBDataSource = nestDBDataSource;
 
-                    // Switch the displayed view to the first child view
+                    // Switch the displayed view to the second child view
                     ((ViewFlipper) loadDialog.findViewById(R.id.dialog_flipper))
                             .setDisplayedChild(1);
 
@@ -128,7 +128,7 @@ public abstract class NestDBActivity extends AppCompatActivity {
                     // Failed to load the database so make sure source object is set to null
                     NestDBActivity.this.nestDBDataSource = null;
 
-                    // Switch the displayed view to the second child view
+                    // Switch the displayed view to the third child view
                     ((ViewFlipper) loadDialog.findViewById(R.id.dialog_flipper))
                             .setDisplayedChild(2);
 
