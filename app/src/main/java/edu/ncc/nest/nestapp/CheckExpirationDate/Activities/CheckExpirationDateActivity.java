@@ -40,7 +40,6 @@ public class CheckExpirationDateActivity extends NestDBActivity {
         /* Don't set content view here so that fragments are NOT created while the database is
          * loading */
 
-
     }
 
     @Override

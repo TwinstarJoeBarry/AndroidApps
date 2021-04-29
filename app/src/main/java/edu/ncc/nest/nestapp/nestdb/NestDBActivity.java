@@ -66,7 +66,7 @@ public abstract class NestDBActivity extends AppCompatActivity {
             // Make sure this is dialog is not cancelable so the user is forced to wait
             builder.setCancelable(false);
 
-            AlertDialog loadDialog = builder.create();
+            final AlertDialog loadDialog = builder.create();
 
             loadDialog.show();
 
