@@ -34,6 +34,12 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 import edu.ncc.nest.nestapp.NestDBDataSource;
 import edu.ncc.nest.nestapp.NestUPC;
 import edu.ncc.nest.nestapp.R;
@@ -111,6 +117,7 @@ public class SelectItemFragment extends Fragment {
         productHint = view.findViewById(R.id.fragment_select_item_product_hint);
         productButton = view.findViewById(R.id.fragment_select_item_product_select);
         productButton.setOnClickListener( v -> showProducts() );
+
 
         // GRAB THE UPC VALUES FROM THE BUNDLE SENT FROM SCANNER FRAGMENT OR CONFIRM ITEM FRAGMENT
         getParentFragmentManager().setFragmentResultListener("BARCODE", this, (key, bundle) -> {

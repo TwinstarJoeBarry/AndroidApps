@@ -28,6 +28,12 @@ import android.util.Log;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +42,7 @@ public class NestDBDataSource {
     private NestDBOpenHelper helper;
     public static String TABLE_NAME_NEST_UPCS = "nestUPCs";
     public String TAG = "TESTING";
+
 
     public NestDBDataSource(Context context) throws SQLException {
         helper = NestDBOpenHelper.getInstance(context);
@@ -131,7 +138,8 @@ public class NestDBDataSource {
      * @param iName  the item name    *
      * @return if found, the product id; -1 otherwise
      */
-    public int getProdIdfromProdInfo(int cId, String iName) {
+    public int getProdIdfromProdInfo(int cId, String iName)
+    {
         int pId = -1;
 
         String qry = "SELECT * FROM products WHERE categoryId = " + cId + " AND upper(name) = upper(?)";
@@ -144,6 +152,37 @@ public class NestDBDataSource {
         }
         c.close();
         return pId;
+    }
+
+    public List<InventoryEntry> getCategories()
+    {
+
+        List<InventoryEntry> ret = new ArrayList<>();
+
+
+        Cursor cursor = db.query
+            (
+            "categories",
+            new String[]{"id", "name", "subcategory", "description", "_id"},
+            null,
+            null,
+            null,
+            null,
+            null
+            );
+
+        cursor.moveToFirst();
+
+
+
+
+
+
+        Log.d(TAG, "Returned string: ");
+
+        //Cursor cursor = db.query(InventoryInfoHelper.categories,
+
+        return ret;
     }
 
 
