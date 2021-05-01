@@ -42,10 +42,10 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.google.zxing.BarcodeFormat;
 
 import edu.ncc.nest.nestapp.AbstractScannerFragment.AbstractScannerFragment;
+import edu.ncc.nest.nestapp.CheckExpirationDate.Activities.CheckExpirationDateActivity;
 import edu.ncc.nest.nestapp.R;
-import edu.ncc.nest.nestapp.nestdb.NestDBActivity;
-import edu.ncc.nest.nestapp.nestdb.NestDBDataSource;
-import edu.ncc.nest.nestapp.nestdb.NestUPC;
+import edu.ncc.nest.nestapp.CheckExpirationDate.DatabaseClasses.NestDBDataSource;
+import edu.ncc.nest.nestapp.CheckExpirationDate.DatabaseClasses.NestUPC;
 
 /**
  * ScannerFragment: Used to scan in a UPC barcode, and send it to the appropriate fragment depending
@@ -76,7 +76,7 @@ public class ScannerFragment extends AbstractScannerFragment {
         // Log the barcode result and format
         Log.d(LOG_TAG, "Scan Confirmed: [" + barcode + ", " + format.toString() + "]");
 
-        NestDBDataSource dataSource = NestDBActivity.requireDataSource(this);
+        NestDBDataSource dataSource = CheckExpirationDateActivity.requireDataSource(this);
 
         // Find the NestUPC object that matches the scanned barcode
         NestUPC result = dataSource.getNestUPC(barcode);

@@ -56,16 +56,16 @@ import javax.net.ssl.HttpsURLConnection;
 
 import edu.ncc.nest.nestapp.async.BackgroundTask;
 import edu.ncc.nest.nestapp.async.TaskHelper;
-import edu.ncc.nest.nestapp.nestdb.NestDBActivity;
-import edu.ncc.nest.nestapp.nestdb.NestDBDataSource;
-import edu.ncc.nest.nestapp.nestdb.NestUPC;
+import edu.ncc.nest.nestapp.CheckExpirationDate.DatabaseClasses.NestDBDataSource;
+import edu.ncc.nest.nestapp.CheckExpirationDate.DatabaseClasses.NestUPC;
 
 
 /**
  * @deprecated This Activity is being replaced by Fragments. ({@see edu.ncc.nest.nestapp.CheckExpirationDate})
  */
 @Deprecated
-public class ItemInformation extends NestDBActivity implements DatePickerDialog.OnDateSetListener {
+public class ItemInformation extends NestDBDataSource.NestDBActivity
+        implements DatePickerDialog.OnDateSetListener {
 
     // category list and current selected category id
     private ArrayList<String> categories;

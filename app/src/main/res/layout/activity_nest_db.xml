@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".nestdb.NestDBActivity">
+    tools:context=".CheckExpirationDate.DatabaseClasses.NestDBDataSource$NestDBActivity">
 
     <include layout="@layout/toolbar"
         android:id="@+id/nest_db_toolbar" />

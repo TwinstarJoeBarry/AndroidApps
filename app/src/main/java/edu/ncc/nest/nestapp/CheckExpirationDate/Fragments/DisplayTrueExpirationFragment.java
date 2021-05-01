@@ -30,11 +30,11 @@ import androidx.fragment.app.Fragment;
 
 import java.util.List;
 
+import edu.ncc.nest.nestapp.CheckExpirationDate.Activities.CheckExpirationDateActivity;
 import edu.ncc.nest.nestapp.R;
 import edu.ncc.nest.nestapp.ShelfLife;
-import edu.ncc.nest.nestapp.nestdb.NestDBActivity;
-import edu.ncc.nest.nestapp.nestdb.NestDBDataSource;
-import edu.ncc.nest.nestapp.nestdb.NestUPC;
+import edu.ncc.nest.nestapp.CheckExpirationDate.DatabaseClasses.NestDBDataSource;
+import edu.ncc.nest.nestapp.CheckExpirationDate.DatabaseClasses.NestUPC;
 
 /**
  * DisplayTrueExpirationFragment:  Calculates the true expiration date based upon the printed
@@ -87,7 +87,7 @@ public class DisplayTrueExpirationFragment extends Fragment {
                 // The productId is being set to -1. See SelectItemFragment.java, and issue #188.
 
                 // Instantiating database
-                dataSource = NestDBActivity.requireDataSource(this);
+                dataSource = CheckExpirationDateActivity.requireDataSource(this);
 
                 // Getting the product's shelf life from the database
                 List<ShelfLife> shelfLives = dataSource.getShelfLivesForProduct(foodItem.getProductId());

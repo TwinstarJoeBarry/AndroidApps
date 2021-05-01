@@ -29,10 +29,10 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
+import edu.ncc.nest.nestapp.CheckExpirationDate.Activities.CheckExpirationDateActivity;
 import edu.ncc.nest.nestapp.R;
-import edu.ncc.nest.nestapp.nestdb.NestDBActivity;
-import edu.ncc.nest.nestapp.nestdb.NestDBDataSource;
-import edu.ncc.nest.nestapp.nestdb.NestUPC;
+import edu.ncc.nest.nestapp.CheckExpirationDate.DatabaseClasses.NestDBDataSource;
+import edu.ncc.nest.nestapp.CheckExpirationDate.DatabaseClasses.NestUPC;
 
 /**
  * EnterUpcFragment: Allows user to enter a upc barcode manually. When the user presses a "Lookup"
@@ -84,7 +84,7 @@ public class EnterUpcFragment extends Fragment {
 
         } else {
 
-            NestDBDataSource dataSource = NestDBActivity.requireDataSource(this);
+            NestDBDataSource dataSource = CheckExpirationDateActivity.requireDataSource(this);
 
             NestUPC result = dataSource.getNestUPC(upc);
 

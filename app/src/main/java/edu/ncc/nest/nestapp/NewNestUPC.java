@@ -12,10 +12,9 @@ import androidx.annotation.NonNull;
 
 import java.util.Locale;
 
-import edu.ncc.nest.nestapp.nestdb.NestDBActivity;
-import edu.ncc.nest.nestapp.nestdb.NestDBDataSource;
+import edu.ncc.nest.nestapp.CheckExpirationDate.DatabaseClasses.NestDBDataSource;
 
-public class NewNestUPC extends NestDBActivity {
+public class NewNestUPC extends NestDBDataSource.NestDBActivity {
     private String upcBeingAdded;
     private int selectedCategoryId, selectedProductId;
     private EditText brandEdit, descriptionEdit;

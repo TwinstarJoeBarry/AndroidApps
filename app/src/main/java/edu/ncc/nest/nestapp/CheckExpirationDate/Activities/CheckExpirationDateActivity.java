@@ -24,14 +24,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import edu.ncc.nest.nestapp.R;
-import edu.ncc.nest.nestapp.nestdb.NestDBActivity;
-import edu.ncc.nest.nestapp.nestdb.NestDBDataSource;
+import edu.ncc.nest.nestapp.CheckExpirationDate.DatabaseClasses.NestDBDataSource;
 
 /*
  * CheckExpirationDateActivity: This is the underlying activity for the fragments of the
  * CheckExpirationDate feature.
  */
-public class CheckExpirationDateActivity extends NestDBActivity {
+public class CheckExpirationDateActivity extends NestDBDataSource.NestDBActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

@@ -34,10 +34,10 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
+import edu.ncc.nest.nestapp.CheckExpirationDate.Activities.CheckExpirationDateActivity;
 import edu.ncc.nest.nestapp.R;
-import edu.ncc.nest.nestapp.nestdb.NestDBActivity;
-import edu.ncc.nest.nestapp.nestdb.NestDBDataSource;
-import edu.ncc.nest.nestapp.nestdb.NestUPC;
+import edu.ncc.nest.nestapp.CheckExpirationDate.DatabaseClasses.NestDBDataSource;
+import edu.ncc.nest.nestapp.CheckExpirationDate.DatabaseClasses.NestUPC;
 
 /**
  * SelectItemFragment: Allows user to select item options that will be used to determine a proper
@@ -137,7 +137,7 @@ public class SelectItemFragment extends Fragment {
         view.findViewById(R.id.acceptButton).setOnClickListener( view1 -> {
 
             // Get a source object of the database to add the information;
-            NestDBDataSource dataSource = NestDBActivity.requireDataSource(this);
+            NestDBDataSource dataSource = CheckExpirationDateActivity.requireDataSource(this);
 
             // Retrieve the String information from each view, casting as appropriate;
             String name = ((EditText) (view.findViewById(R.id.fragment_select_item_brand_entry))).getText().toString();

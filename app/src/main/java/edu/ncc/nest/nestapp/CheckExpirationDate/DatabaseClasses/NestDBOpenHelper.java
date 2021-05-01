@@ -1,4 +1,4 @@
-package edu.ncc.nest.nestapp.nestdb;
+package edu.ncc.nest.nestapp.CheckExpirationDate.DatabaseClasses;
 
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
@@ -22,7 +22,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Scanner;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
