@@ -116,30 +116,35 @@ public class ItemInformation extends NestDBDataSource.NestDBActivity
 
         dataSource = nestDBDataSource;
 
-        setContentView(R.layout.activity_item_info);
+        // If the activity is not dead
+        if (!this.isDestroyed()) {
 
-        setSupportActionBar(findViewById(R.id.toolbar));
+            setContentView(R.layout.activity_item_info);
 
-        progressBar = findViewById(R.id.progressbar);
-        catDisplay = (TextView)findViewById(R.id.cat_result);
-        itemDisplay = (TextView)findViewById(R.id.item_result);
-        expDisplay = (TextView)findViewById(R.id.exp_result);
-        resultDisplay = (TextView)findViewById(R.id.result);
-        tipDisplay = (TextView)findViewById(R.id.tipDisplay);
-        tipBut = (Button)findViewById(R.id.tips_button);
-        upcEntry = findViewById(R.id.upc_entry);
+            setSupportActionBar(findViewById(R.id.toolbar));
 
-        // load categories into list
+            progressBar = findViewById(R.id.progressbar);
+            catDisplay = (TextView) findViewById(R.id.cat_result);
+            itemDisplay = (TextView) findViewById(R.id.item_result);
+            expDisplay = (TextView) findViewById(R.id.exp_result);
+            resultDisplay = (TextView) findViewById(R.id.result);
+            tipDisplay = (TextView) findViewById(R.id.tipDisplay);
+            tipBut = (Button) findViewById(R.id.tips_button);
+            upcEntry = findViewById(R.id.upc_entry);
 
-        TaskHelper taskHelper = new TaskHelper(1);
+            // load categories into list
 
-        try {
+            TaskHelper taskHelper = new TaskHelper(1);
 
-            taskHelper.execute(new GetCategoriesTask());
+            try {
 
-        } finally {
+                taskHelper.execute(new GetCategoriesTask());
 
-            taskHelper.shutdown();
+            } finally {
+
+                taskHelper.shutdown();
+
+            }
 
         }
 

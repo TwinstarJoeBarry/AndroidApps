@@ -30,19 +30,24 @@ public class NewNestUPC extends NestDBDataSource.NestDBActivity {
     protected void onLoadSuccess(@NonNull NestDBDataSource nestDBDataSource) {
         super.onLoadSuccess(nestDBDataSource);
 
-        setContentView(R.layout.activity_new_nest_upc);
+        // If the activity is not dead
+        if (!this.isDestroyed()) {
 
-        // get the new UPC code and display it in addingLabel
-        Intent intent = getIntent();
-        upcBeingAdded = intent.getStringExtra("upc");
-        TextView addingLabel = findViewById(R.id.fragment_select_item_headline);
-        addingLabel.setText(String.format(Locale.getDefault(),addingLabel.getText().toString(), upcBeingAdded));
+            setContentView(R.layout.activity_new_nest_upc);
 
-        // get view references
-        brandEdit = findViewById(R.id.fragment_select_item_brand_entry);
-        descriptionEdit = findViewById(R.id.fragment_select_item_description_entry);
-        categorySpinner = findViewById(R.id.categorySpinner);
-        productSpinner = findViewById(R.id.productSpinner);
+            // get the new UPC code and display it in addingLabel
+            Intent intent = getIntent();
+            upcBeingAdded = intent.getStringExtra("upc");
+            TextView addingLabel = findViewById(R.id.fragment_select_item_headline);
+            addingLabel.setText(String.format(Locale.getDefault(), addingLabel.getText().toString(), upcBeingAdded));
+
+            // get view references
+            brandEdit = findViewById(R.id.fragment_select_item_brand_entry);
+            descriptionEdit = findViewById(R.id.fragment_select_item_description_entry);
+            categorySpinner = findViewById(R.id.categorySpinner);
+            productSpinner = findViewById(R.id.productSpinner);
+
+        }
 
     }
 

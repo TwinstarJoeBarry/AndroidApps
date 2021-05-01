@@ -45,11 +45,16 @@ public class CheckExpirationDateActivity extends NestDBDataSource.NestDBActivity
     protected void onLoadSuccess(@NonNull NestDBDataSource nestDBDataSource) {
         super.onLoadSuccess(nestDBDataSource);
 
-        /* Set the content view and support action toolbar here, so that fragments are NOT created
-         * until the database successfully loads. */
-        setContentView(R.layout.activity_check_expiration_date);
+        // Make sure the activity is not dead
+        if (!this.isDestroyed()) {
 
-        setSupportActionBar(findViewById(R.id.check_expiration_date_toolbar));
+            /* Set the content view and support action toolbar here, so that fragments are NOT created
+             * until the database successfully loads. */
+            setContentView(R.layout.activity_check_expiration_date);
+
+            setSupportActionBar(findViewById(R.id.check_expiration_date_toolbar));
+
+        }
 
     }
 

@@ -276,10 +276,8 @@ public class NestDBDataSource {
 
                                     try {
 
-                                        if (!NestDBActivity.this.isDestroyed())
-
-                                            // Send the result to the outer class
-                                            NestDBActivity.this.onLoadSuccess(nestDBDataSource);
+                                        // Send the result to the outer class
+                                        NestDBActivity.this.onLoadSuccess(nestDBDataSource);
 
                                     } finally {
 
@@ -312,10 +310,8 @@ public class NestDBDataSource {
 
                                     try {
 
-                                        if (!NestDBActivity.this.isDestroyed())
-
-                                            // Send the error to the outer NestDBActivity class
-                                            NestDBActivity.this.onLoadError(throwable);
+                                        // Send the error to the outer NestDBActivity class
+                                        NestDBActivity.this.onLoadError(throwable);
 
                                     } finally {
 
