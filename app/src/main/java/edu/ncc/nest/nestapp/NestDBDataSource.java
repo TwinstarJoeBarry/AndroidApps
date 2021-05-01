@@ -154,35 +154,33 @@ public class NestDBDataSource {
         return pId;
     }
 
-    public List<InventoryEntry> getCategories()
+    public ArrayList<String> getCategories()
     {
+        // Create an empty list to store the categories into
+        ArrayList<String> categories = new ArrayList<>();
 
-        List<InventoryEntry> ret = new ArrayList<>();
+        // (* = all, categories = table name)
+        Cursor cursor = db.rawQuery("SELECT * FROM categories", new String[]{});
 
+        // Get the index of the "name" column, "this column stores the actual name of the category"
+        final int NAME_INDEX = cursor.getColumnIndex("name");
 
-        Cursor cursor = db.query
-            (
-            "categories",
-            new String[]{"id", "name", "subcategory", "description", "_id"},
-            null,
-            null,
-            null,
-            null,
-            null
-            );
+        // While we are not after the last row
+        for (cursor.moveToFirst(); !cursor.isAfterLast();)
+        {
+            // Get the String stored in the "name" column, add it to the list
+            categories.add(cursor.getString(NAME_INDEX));
 
-        cursor.moveToFirst();
+            // Move to the next row
+            cursor.moveToNext();
 
+        }
 
+        // Make sure to close the cursor to release all of its resources
+        cursor.close();
 
-
-
-
-        Log.d(TAG, "Returned string: ");
-
-        //Cursor cursor = db.query(InventoryInfoHelper.categories,
-
-        return ret;
+        // Return the list
+        return categories;
     }
 
 
