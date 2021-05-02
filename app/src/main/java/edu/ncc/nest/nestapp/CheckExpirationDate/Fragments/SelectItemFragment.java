@@ -39,6 +39,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 
 import edu.ncc.nest.nestapp.NestDBDataSource;
 import edu.ncc.nest.nestapp.NestUPC;
@@ -58,6 +59,9 @@ public class SelectItemFragment extends Fragment {
     private final String DEFAULT_STRING = "[LEFT BLANK]";
     // FOR ESSENTIAL TEXT ENTRY VIEWS THAT SHOULD NEVER BE BLANK AND REPLACED IN CODE
     private final String PLACEHOLDER_STRING = "[NOT RECEIVED]";
+    public ArrayList<String> categories2;
+    public ArrayList<String> subtitles;
+    public ArrayList<String> names;
 
     // (DETAILED IN THE INSTANCE VARS SECTION)
     private final int[] categories = {
@@ -117,6 +121,26 @@ public class SelectItemFragment extends Fragment {
         productHint = view.findViewById(R.id.fragment_select_item_product_hint);
         productButton = view.findViewById(R.id.fragment_select_item_product_select);
         productButton.setOnClickListener( v -> showProducts() );
+
+
+        // TESTING CODE FOR ISSUE 201 - AH
+
+        NestDBDataSource source = new NestDBDataSource(this.getContext());
+
+        categories2 = source.getCategories();
+
+        Log.d("TAGGG", categories2.toString());
+
+        names = source.getNames();
+
+        Log.d("TAGGG", names.toString());
+
+        subtitles = source.getSubtitles();
+
+        Log.d("TAGGG", subtitles.toString());
+
+        //END TEST CODE ISSUE 201 - AH
+
 
 
         // GRAB THE UPC VALUES FROM THE BUNDLE SENT FROM SCANNER FRAGMENT OR CONFIRM ITEM FRAGMENT
@@ -242,6 +266,7 @@ public class SelectItemFragment extends Fragment {
     }
 
 
+
     /**
      * showProduct --
      * Creates a PopupMenu to display a list of products for the user to choose from, as long as a
@@ -249,7 +274,8 @@ public class SelectItemFragment extends Fragment {
      **/
     private void showProducts() {
 
-        if (categoryIndex != -1) {
+        if (categoryIndex != -1)
+        {
 
             PopupMenu menuPop = new PopupMenu(getContext(), productButton);
 
