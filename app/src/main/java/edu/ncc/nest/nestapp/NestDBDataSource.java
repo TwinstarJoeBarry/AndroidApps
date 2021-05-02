@@ -184,6 +184,35 @@ public class NestDBDataSource {
     }
 
 
+    public ArrayList<String> getNames()
+    {
+        // Create an empty list to store the categories into
+        ArrayList<String> names = new ArrayList<>();
+
+        // (* = all, categories = table name)
+        Cursor cursor = db.rawQuery("SELECT * FROM products", new String[]{});
+
+        // Get the index of the "name" column, "this column stores the actual name of the category"
+        final int NAME_INDEX = cursor.getColumnIndex("name");
+
+        // While we are not after the last row
+        for (cursor.moveToFirst(); !cursor.isAfterLast();)
+        {
+            // Get the String stored in the "name" column, add it to the list
+            names.add(cursor.getString(NAME_INDEX));
+
+            // Move to the next row
+            cursor.moveToNext();
+        }
+
+        // Make sure to close the cursor to release all of its resources
+        cursor.close();
+
+        // Return the list
+        return names;
+    }
+
+
     /**
      * getShelfLivesForProduct method --
      * looks up the shelf life records for the given productId
