@@ -224,7 +224,7 @@ public class SelectItemFragment extends Fragment {
 
         // CANCEL BUTTON CODE - NAVIGATE BACK TO START FRAGMENT
         view.findViewById(R.id.cancelButton).setOnClickListener( view12 ->
-            NavHostFragment.findNavController(SelectItemFragment.this).navigate(R.id.CED_StartFragment));
+                NavHostFragment.findNavController(SelectItemFragment.this).navigate(R.id.CED_StartFragment));
 
     }
 
