@@ -131,7 +131,7 @@ public class NestDBDataSource {
      * @param iName  the item name    *
      * @return if found, the product id; -1 otherwise
      */
-    public int getProdIdfromProdInfo(int cId, String iName) {
+    public int getProdIdfromProdInfo(int cId, String iName, String iSubtitle) {
         int pId = -1;
 
         String qry = "SELECT * FROM products WHERE categoryId = " + cId + " AND upper(name) = upper(?)";
