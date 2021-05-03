@@ -134,7 +134,7 @@ public class NestDBDataSource {
     public int getProdIdfromProdInfo(int cId, String iName, String iSubtitle) {
         int pId = -1;
 
-        String qry = "SELECT * FROM products WHERE categoryId = " + cId + " AND upper(name) = upper(?)";
+        String qry = "SELECT * FROM products WHERE (categoryId = " + cId + " AND subtitle = " + iSubtitle + ") AND upper(name) = upper(?)";
 
         Cursor c = db.rawQuery(qry, new String[]{iName});
         if (c.moveToFirst()) {
