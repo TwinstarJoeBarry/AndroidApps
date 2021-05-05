@@ -12,6 +12,11 @@ import android.widget.Toast;
 
 import java.util.Locale;
 
+/**
+ * @deprecated This Activity is being replaced by Fragments.
+ * ({@link edu.ncc.nest.nestapp.CheckExpirationDate.Fragments.SelectItemFragment})
+ */
+@Deprecated
 public class NewNestUPC extends AppCompatActivity {
     private String upcBeingAdded;
     private int selectedCategoryId, selectedProductId;
