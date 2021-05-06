@@ -68,6 +68,7 @@ import edu.ncc.nest.nestapp.R;
 /**
  * Abstract Fragment class that handles the scanning of bar-codes.
  */
+@SuppressWarnings("unused")
 public abstract class AbstractScannerFragment extends Fragment implements BarcodeCallback {
 
     public static final String LOG_TAG = AbstractScannerFragment.class.getSimpleName();
@@ -151,8 +152,7 @@ public abstract class AbstractScannerFragment extends Fragment implements Barcod
                 Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
 
             // Update the status text to inform the guest that camera permission is required
-            decBarcodeView.setStatusText(
-                    getString(R.string.abstract_scanner_fragment_camera_permission_required));
+            decBarcodeView.setStatusText(getString(R.string.abstract_scanner_fragment_camera_permission_required));
 
             // Clear the result text view
             resultTextView.setText(null);
