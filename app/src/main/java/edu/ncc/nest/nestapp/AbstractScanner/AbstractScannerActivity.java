@@ -63,6 +63,7 @@ import java.util.Objects;
 
 import edu.ncc.nest.nestapp.R;
 
+@SuppressWarnings("unused")
 public abstract class AbstractScannerActivity extends AppCompatActivity implements BarcodeCallback {
 
     public static final String LOG_TAG = AbstractScannerActivity.class.getSimpleName();

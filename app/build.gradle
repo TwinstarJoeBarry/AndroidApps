@@ -39,7 +39,7 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.3.0'
     testImplementation 'junit:junit:4.13.2'
 
-    // New ZXing scanner implementation
+    // ZXing Scanner
     implementation 'com.journeyapps:zxing-android-embedded:4.2.0'
 
 }
