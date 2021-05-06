@@ -1,84 +1,57 @@
 package edu.ncc.nest.nestapp;
 
-import androidx.appcompat.app.AppCompatActivity;
+/*
+ * Copyright (C) 2019-2021 The LibreFoodPantry Developers.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ *
+ * Copyright (C) 2012-2018 ZXing authors, Journey Mobile
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
-import android.Manifest;
 import android.content.Intent;
-import android.os.Bundle;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.zxing.Result;
-import com.karumi.dexter.Dexter;
-import com.karumi.dexter.PermissionToken;
-import com.karumi.dexter.listener.PermissionDeniedResponse;
-import com.karumi.dexter.listener.PermissionGrantedResponse;
-import com.karumi.dexter.listener.PermissionRequest;
-import com.karumi.dexter.listener.single.PermissionListener;
+import androidx.annotation.NonNull;
 
-import me.dm7.barcodescanner.zxing.ZXingScannerView;
+import com.google.zxing.BarcodeFormat;
 
-public class UPCScanner extends AppCompatActivity implements ZXingScannerView.ResultHandler {
+import edu.ncc.nest.nestapp.AbstractScanner.AbstractScannerActivity;
 
-    private ZXingScannerView scannerView;
-    private TextView txtResult;
-
-    /**
-     * Name: onCreate Method
-     * displays initial scanner layout. request permission to use the camera.
-     */
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scanner);
-
-        scannerView = (ZXingScannerView) findViewById(R.id.zxscan);
-        txtResult = (TextView) findViewById(R.id.txt_result);
-        //request permission
-        Dexter.withActivity(this)
-                .withPermission(Manifest.permission.CAMERA)
-                .withListener(new PermissionListener() {
-                    @Override
-                    public void onPermissionGranted(PermissionGrantedResponse response) {
-                        scannerView.setResultHandler(UPCScanner.this);
-                        scannerView.startCamera();
-                    }
-
-                    @Override
-                    public void onPermissionDenied(PermissionDeniedResponse response) {
-                        Toast.makeText(UPCScanner.this, "you must accept this permission", Toast.LENGTH_LONG).show();
-                    }
-
-                    @Override
-                    public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
-
-                    }
-                })
-                .check();
-    }
-
-    // This method was causing the app to crash when the back button was being pressed.
-
-//    @Override
-//    protected void onDestroy() {
-//        scannerView.stopCamera();
-//        super.onDestroy();
-//    }
+public class UPCScanner extends AbstractScannerActivity {
 
     @Override
-    public void handleResult(Result rawResult) {
-        //here we can recieve rawResult
-        txtResult.setText(rawResult.getText());
-        // I think the camera should be stopped not started here
-        scannerView.stopCamera();
-        String str = rawResult.getText();
+    protected void onBarcodeConfirmed(@NonNull String barcode, @NonNull BarcodeFormat format) {
+
         Intent intent = new Intent(this, UPCLookup.class);
 
-        intent.putExtra("barcode", str);
+        intent.putExtra("barcode", barcode);
+
         startActivity(intent);
+
         finish();
 
     }
 
 }
-

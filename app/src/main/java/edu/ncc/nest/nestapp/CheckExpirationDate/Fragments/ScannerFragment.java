@@ -47,7 +47,7 @@ import com.google.zxing.BarcodeFormat;
 import java.util.Objects;
 import java.util.concurrent.Future;
 
-import edu.ncc.nest.nestapp.AbstractScannerFragment.AbstractScannerFragment;
+import edu.ncc.nest.nestapp.AbstractScanner.AbstractScannerFragment;
 import edu.ncc.nest.nestapp.NestDBDataSource;
 import edu.ncc.nest.nestapp.NestUPC;
 import edu.ncc.nest.nestapp.R;

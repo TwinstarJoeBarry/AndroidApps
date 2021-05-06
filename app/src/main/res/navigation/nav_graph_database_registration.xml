@@ -51,7 +51,7 @@
         android:id="@+id/DBR_ScannerFragment"
         android:name="edu.ncc.nest.nestapp.GuestDatabaseRegistration.Fragments.ScannerFragment"
         android:label="@string/nav_graph_dbr_scanner_fragment_lbl"
-        tools:layout="@layout/fragment_abstract_scanner" >
+        tools:layout="@layout/abstract_scanner" >
 
     </fragment>
 

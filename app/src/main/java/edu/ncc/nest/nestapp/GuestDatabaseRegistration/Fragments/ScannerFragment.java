@@ -38,7 +38,7 @@ import androidx.annotation.NonNull;
 
 import com.google.zxing.BarcodeFormat;
 
-import edu.ncc.nest.nestapp.AbstractScannerFragment.AbstractScannerFragment;
+import edu.ncc.nest.nestapp.AbstractScanner.AbstractScannerFragment;
 
 /**
  * ScannerFragment: Scans in a barcode provided by the guest using the camera. It then checks

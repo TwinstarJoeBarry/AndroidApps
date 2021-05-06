@@ -1,7 +1,7 @@
-package edu.ncc.nest.nestapp.AbstractScannerFragment;
+package edu.ncc.nest.nestapp.AbstractScanner;
 
 /*
- * Copyright (C) 2020 The LibreFoodPantry Developers.
+ * Copyright (C) 2020-2021 The LibreFoodPantry Developers.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -36,9 +36,6 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -46,9 +43,10 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts.RequestPermission;
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.ResultPoint;
@@ -65,13 +63,9 @@ import java.util.Objects;
 
 import edu.ncc.nest.nestapp.R;
 
-/**
- * Abstract Fragment class that handles the scanning of bar-codes.
- */
-@SuppressWarnings("unused")
-public abstract class AbstractScannerFragment extends Fragment implements BarcodeCallback {
+public abstract class AbstractScannerActivity extends AppCompatActivity implements BarcodeCallback {
 
-    public static final String LOG_TAG = AbstractScannerFragment.class.getSimpleName();
+    public static final String LOG_TAG = AbstractScannerActivity.class.getSimpleName();
 
     // Used to ask for camera permission. Calls onCameraPermissionResult method with the result
     private final ActivityResultLauncher<String> REQUEST_CAMERA_PERMISSION_LAUNCHER =
@@ -94,34 +88,27 @@ public abstract class AbstractScannerFragment extends Fragment implements Barcod
 
     //////////////////////////////////// Abstract Methods Start ////////////////////////////////////
 
-    protected abstract void onBarcodeConfirmed(@NonNull String barcode, @NonNull BarcodeFormat format);
+    protected abstract void onBarcodeConfirmed(@NonNull String barcode,
+                                               @NonNull BarcodeFormat format);
 
 
     /////////////////////////////////// Lifecycle Methods Start ////////////////////////////////////
 
     @Override
     @CallSuper
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_abstract_scanner, container, false);
-
-    }
-
-    @Override
-    @CallSuper
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+        setContentView(R.layout.abstract_scanner);
 
         // Get respective views from layout
-        decBarcodeView = view.findViewById(R.id.scanner_decorated_barcode_view);
+        decBarcodeView = findViewById(R.id.scanner_decorated_barcode_view);
 
-        resultTextView = view.findViewById(R.id.scanner_result_view);
+        resultTextView = findViewById(R.id.scanner_result_view);
 
-        confirmButton = view.findViewById(R.id.scanner_confirm_button);
+        confirmButton = findViewById(R.id.scanner_confirm_button);
 
-        rescanButton = view.findViewById(R.id.scanner_rescan_button);
+        rescanButton = findViewById(R.id.scanner_rescan_button);
 
 
         // Set the onClick listeners to call the respective method onClick
@@ -140,7 +127,7 @@ public abstract class AbstractScannerFragment extends Fragment implements Barcod
 
 
         // Create new BeepManager object to handle beeps and vibration
-        beepManager = new BeepManager(requireActivity());
+        beepManager = new BeepManager(AbstractScannerActivity.this);
 
         beepManager.setVibrateEnabled(true);
 
@@ -148,7 +135,7 @@ public abstract class AbstractScannerFragment extends Fragment implements Barcod
 
 
         // If camera permission is not granted, request the camera permission to be granted
-        if (ContextCompat.checkSelfPermission(requireContext(),
+        if (ContextCompat.checkSelfPermission(getApplicationContext(),
                 Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
 
             // Update the status text to inform the guest that camera permission is required
@@ -162,7 +149,7 @@ public abstract class AbstractScannerFragment extends Fragment implements Barcod
 
                 /* Create a AlertDialog that informs the user that the camera permission needs to be
                  * granted in order to use this feature */
-                AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+                AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
 
                 // Allow the user one more chance to accept the permission from within the app
                 builder.setPositiveButton("OK", (dialog, which) -> {
@@ -198,7 +185,7 @@ public abstract class AbstractScannerFragment extends Fragment implements Barcod
         super.onResume();
 
         // If camera permission is granted, then resume scanning
-        if (ContextCompat.checkSelfPermission(requireContext(),
+        if (ContextCompat.checkSelfPermission(getApplicationContext(),
                 Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED)
 
             resumeScanning();
@@ -275,7 +262,7 @@ public abstract class AbstractScannerFragment extends Fragment implements Barcod
         } else
 
             // Scan for another bar-code
-            decBarcodeView.decodeSingle(AbstractScannerFragment.this);
+            decBarcodeView.decodeSingle(AbstractScannerActivity.this);
 
     }
 
@@ -300,7 +287,7 @@ public abstract class AbstractScannerFragment extends Fragment implements Barcod
              * permission that the user has denied. Respect the user's decision. DON'T link to
              * system settings in an effort to convince the user to change their decision. */
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+            AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
 
             builder.setNeutralButton("Dismiss", (dialog, which) -> dialog.dismiss());
 
@@ -354,7 +341,7 @@ public abstract class AbstractScannerFragment extends Fragment implements Barcod
                 if (!scannerPaused)
 
                     // Tells the decoder to stop after a single scan
-                    decBarcodeView.decodeSingle(AbstractScannerFragment.this);
+                    decBarcodeView.decodeSingle(AbstractScannerActivity.this);
 
             }, DECODER_DELAY);
 
@@ -409,5 +396,6 @@ public abstract class AbstractScannerFragment extends Fragment implements Barcod
             decBarcodeView.setDecoderFactory(new DefaultDecoderFactory());
 
     }
+
 
 }
