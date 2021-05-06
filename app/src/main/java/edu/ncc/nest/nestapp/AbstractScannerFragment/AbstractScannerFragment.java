@@ -44,6 +44,7 @@ import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts.RequestPermission;
+import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
@@ -98,6 +99,7 @@ public abstract class AbstractScannerFragment extends Fragment implements Barcod
     /////////////////////////////////// Lifecycle Methods Start ////////////////////////////////////
 
     @Override
+    @CallSuper
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
@@ -107,6 +109,7 @@ public abstract class AbstractScannerFragment extends Fragment implements Barcod
     }
 
     @Override
+    @CallSuper
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
