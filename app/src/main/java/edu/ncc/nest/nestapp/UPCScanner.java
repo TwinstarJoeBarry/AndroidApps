@@ -32,14 +32,24 @@ package edu.ncc.nest.nestapp;
  */
 
 import android.content.Intent;
+import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.google.zxing.BarcodeFormat;
 
 import edu.ncc.nest.nestapp.AbstractScanner.AbstractScannerActivity;
 
 public class UPCScanner extends AbstractScannerActivity {
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        super.setDecoderFormats(BarcodeFormat.UPC_A);
+
+    }
 
     @Override
     protected void onBarcodeConfirmed(@NonNull String barcode, @NonNull BarcodeFormat format) {
