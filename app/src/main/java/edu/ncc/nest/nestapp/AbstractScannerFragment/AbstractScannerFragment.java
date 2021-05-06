@@ -1,6 +1,6 @@
 package edu.ncc.nest.nestapp.AbstractScannerFragment;
 
-/**
+/*
  * Copyright (C) 2020 The LibreFoodPantry Developers.
  *
  * This program is free software: you can redistribute it and/or modify
