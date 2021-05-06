@@ -52,6 +52,7 @@ public class Scanner extends AbstractScannerActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // Make sure we don't set formats until our super has a handle on the DecoratedBarcodeView
         super.setDecoderFormats(BarcodeFormat.UPC_A);
 
     }
