@@ -62,6 +62,7 @@ public class SelectItemFragment extends Fragment {
     public ArrayList<String> categories2;
     public ArrayList<String> subtitles;
     public ArrayList<String> names;
+    NestDBDataSource source = new NestDBDataSource(this.getContext());
 
     // (DETAILED IN THE INSTANCE VARS SECTION)
     private final int[] categories = {
@@ -125,19 +126,17 @@ public class SelectItemFragment extends Fragment {
 
         // TESTING CODE FOR ISSUE 201 - AH
 
-        NestDBDataSource source = new NestDBDataSource(this.getContext());
-
         categories2 = source.getCategories();
 
         Log.d("TAGGG", categories2.toString());
 
         //names = source.getNames();
 
-        Log.d("TAGGG", names.toString());
+        //Log.d("TAGGG", names.toString());
 
-        subtitles = source.getSubtitles();
+        //subtitles = source.getSubtitles();
 
-        Log.d("TAGGG", subtitles.toString());
+        //Log.d("TAGGG", subtitles.toString());
 
         //END TEST CODE ISSUE 201 - AH
 
@@ -233,17 +232,20 @@ public class SelectItemFragment extends Fragment {
      * showCategories --
      * Creates a PopupMenu to display a list of categories for the user to choose from.
      **/
-    private void showCategories() {
+    private void showCategories()
+    {
 
         PopupMenu menuPop = new PopupMenu(getContext(), categoryButton);
 
         Menu menu = menuPop.getMenu();
 
-        String[] mainCategories = getResources().getStringArray(R.array.item_categories);
+        ArrayList<String> categories = source.getCategories();
 
-        for (int i = 0; i < mainCategories.length; ++i )
+        //String[] mainCategories = (String[]) source.getCategories().toArray();
 
-            menu.add(i, i, i, mainCategories[i]);
+        for (int i = 0; i < categories.size(); ++i )
+
+            menu.add(i, i, i, categories.get(i));
 
         // THE ACTUAL ON CLICK CODE TO SET THE SUB CATEGORY INDEX AND POPULATE A TEXT VIEW WITH THE INFORMATION
         menuPop.setOnMenuItemClickListener(item -> {

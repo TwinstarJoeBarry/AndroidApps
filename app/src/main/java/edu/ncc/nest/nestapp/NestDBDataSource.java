@@ -215,13 +215,13 @@ public class NestDBDataSource {
         return names;
     }
 
-    public ArrayList<String> getSubtitles()
+    public ArrayList<String> getSubtitles(String nameA)
     {
         // Create an empty list to store the categories into
         ArrayList<String> subtitles = new ArrayList<>();
 
         // (* = all, categories = table name)
-        Cursor cursor = db.rawQuery("SELECT * FROM products", new String[]{});
+        Cursor cursor = db.rawQuery("SELECT * FROM products Where name = " + nameA, new String[]{});
 
         // Get the index of the "name" column, "this column stores the actual name of the category"
         final int NAME_INDEX = cursor.getColumnIndex("subtitle");
