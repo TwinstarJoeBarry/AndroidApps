@@ -184,13 +184,16 @@ public class NestDBDataSource {
     }
 
 
-    public ArrayList<String> getNames()
+    public ArrayList<String> getNames(String categoryId)
     {
         // Create an empty list to store the categories into
         ArrayList<String> names = new ArrayList<>();
 
         // (* = all, categories = table name)
-        Cursor cursor = db.rawQuery("SELECT * FROM products", new String[]{});
+        //Cursor cursor = db.rawQuery("SELECT * FROM products", new String[]{});
+
+        Cursor cursor = db.rawQuery("SELECT * FROM products WHERE categoryId = ?",
+                new String[]{ String.valueOf(categoryId) });
 
         // Get the index of the "name" column, "this column stores the actual name of the category"
         final int NAME_INDEX = cursor.getColumnIndex("name");

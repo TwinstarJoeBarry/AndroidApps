@@ -131,7 +131,7 @@ public class SelectItemFragment extends Fragment {
 
         Log.d("TAGGG", categories2.toString());
 
-        names = source.getNames();
+        //names = source.getNames();
 
         Log.d("TAGGG", names.toString());
 
