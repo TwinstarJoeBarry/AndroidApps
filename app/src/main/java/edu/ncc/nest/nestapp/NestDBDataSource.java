@@ -175,4 +175,77 @@ public class NestDBDataSource {
         return result;
     }
 
+    /**
+     * getCategories method --
+     * looks up the category records for the given productId
+     *
+     * @param productId the FoodKeeper product id to lookup
+     * @return an ArrayList<String> object, which will have no
+     * contents if nothing is found
+     */
+    public ArrayList<String> getCategories() {
+
+        ArrayList<String> categories = new ArrayList<>();
+        Cursor cursor = db.rawQuery("SELECT * FROM categories", new String[]{});
+        final int NAME_INDEX = cursor.getColumnIndex("name");
+
+        for (cursor.moveToFirst(); !cursor.isAfterLast();)
+        {
+            categories.add(cursor.getString(NAME_INDEX));
+            cursor.moveToNext();
+        }
+
+        cursor.close();
+        return categories;
+    }
+
+    /**
+     * getNames method --
+     * looks up the name records for the given productId
+     *
+     * @param productId the FoodKeeper product id to lookup
+     * @return an ArrayList<String> object, which will have no
+     * contents if nothing is found
+     */
+    public ArrayList<String> getNames() {
+
+        ArrayList<String> names = new ArrayList<>();
+        Cursor cursor = db.rawQuery("SELECT * FROM products", new String[]{});
+        final int NAME_INDEX = cursor.getColumnIndex("name");
+
+        for (cursor.moveToFirst(); !cursor.isAfterLast();)
+        {
+            names.add(cursor.getString(NAME_INDEX));
+            cursor.moveToNext();
+        }
+
+        cursor.close();
+        return names;
+    }
+
+    /**
+     * getSubtitles method --
+     * looks up the subtitle records for the given productId
+     *
+     * @param productId the FoodKeeper product id to lookup
+     * @return an ArrayList<String> object, which will have no
+     * contents if nothing is found
+     */
+    public ArrayList<String> getSubtitles() {
+
+        ArrayList<String> subtitles = new ArrayList<>();
+        Cursor cursor = db.rawQuery("SELECT * FROM categories", new String[]{});
+        final int NAME_INDEX = cursor.getColumnIndex("name");
+
+        for (cursor.moveToFirst(); !cursor.isAfterLast();)
+        {
+            subtitles.add(cursor.getString(NAME_INDEX));
+            cursor.moveToNext();
+        }
+
+        cursor.close();
+        return subtitles;
+    }
+
+
 }
