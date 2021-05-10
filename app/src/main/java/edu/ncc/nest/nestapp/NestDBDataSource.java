@@ -187,11 +187,11 @@ public class NestDBDataSource {
 
         ArrayList<String> categories = new ArrayList<>();
         Cursor cursor = db.rawQuery("SELECT * FROM categories", new String[]{});
-        final int NAME_INDEX = cursor.getColumnIndex("name");
+        final int CAT_NAME_INDEX = cursor.getColumnIndex("name");
 
         for (cursor.moveToFirst(); !cursor.isAfterLast();)
         {
-            categories.add(cursor.getString(NAME_INDEX));
+            categories.add(cursor.getString(CAT_NAME_INDEX));
             cursor.moveToNext();
         }
 
@@ -234,12 +234,13 @@ public class NestDBDataSource {
     public ArrayList<String> getSubtitles() {
 
         ArrayList<String> subtitles = new ArrayList<>();
-        Cursor cursor = db.rawQuery("SELECT * FROM categories", new String[]{});
-        final int NAME_INDEX = cursor.getColumnIndex("name");
+        Cursor cursor = db.rawQuery("SELECT * FROM products", new String[]{});
+        final int SUB_NAME_INDEX = cursor.getColumnIndex("subtitle");
+
 
         for (cursor.moveToFirst(); !cursor.isAfterLast();)
         {
-            subtitles.add(cursor.getString(NAME_INDEX));
+            subtitles.add(cursor.getString(SUB_NAME_INDEX));
             cursor.moveToNext();
         }
 
