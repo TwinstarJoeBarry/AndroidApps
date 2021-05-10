@@ -284,6 +284,7 @@ public class SelectItemFragment extends Fragment {
 
         if (categoryIndex != -1)
         {
+            Log.d("*******", "2");
 
             PopupMenu menuPop = new PopupMenu(getContext(), productButton);
 
@@ -291,9 +292,14 @@ public class SelectItemFragment extends Fragment {
 
             ArrayList<String> products = source.getNames(category);
 
+            //Log.d("*****", "products: "+  products.get(0));
+            Log.d("*******", products.toString());
             for (int i = 0; i < products.size(); ++i)
-
+            {
+                Log.d("TESTING", "products @ i :" + products.get(i));
                 menu.add(categoryIndex, i, i, products.get(i));
+            }
+
 
             // THE ACTUAL ON CLICK CODE TO SET THE SUBCATEGORY AND POPULATE A TEXT VIEW WITH THE INFORMATION
             menuPop.setOnMenuItemClickListener(item -> {

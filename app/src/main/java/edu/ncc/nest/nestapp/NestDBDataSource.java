@@ -203,6 +203,7 @@ public class NestDBDataSource {
         {
             // Get the String stored in the "name" column, add it to the list
             names.add(cursor.getString(NAME_INDEX));
+            Log.d("TESTING", cursor.getString(NAME_INDEX));
 
             // Move to the next row
             cursor.moveToNext();
