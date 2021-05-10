@@ -121,6 +121,7 @@ public class SelectItemFragment extends Fragment {
 
         productHint = view.findViewById(R.id.fragment_select_item_product_hint);
         productButton = view.findViewById(R.id.fragment_select_item_product_select);
+       //String cat = (String) categoryButton.getText();
         productButton.setOnClickListener( v -> showProducts() );
 
 
@@ -274,7 +275,12 @@ public class SelectItemFragment extends Fragment {
      * Creates a PopupMenu to display a list of products for the user to choose from, as long as a
      * category has been selected.
      **/
-    private void showProducts() {
+    private void showProducts()
+    {
+
+        String category = (String) categoryHint.getText();
+
+        Log.d("*******", "category: " + category);
 
         if (categoryIndex != -1)
         {
@@ -283,11 +289,11 @@ public class SelectItemFragment extends Fragment {
 
             Menu menu = menuPop.getMenu();
 
-            String[] subCategories = getResources().getStringArray(categories[categoryIndex]);
+            ArrayList<String> products = source.getNames(category);
 
-            for (int i = 0; i < subCategories.length; ++i)
+            for (int i = 0; i < products.size(); ++i)
 
-                menu.add(categoryIndex, i, i, subCategories[i]);
+                menu.add(categoryIndex, i, i, products.get(i));
 
             // THE ACTUAL ON CLICK CODE TO SET THE SUBCATEGORY AND POPULATE A TEXT VIEW WITH THE INFORMATION
             menuPop.setOnMenuItemClickListener(item -> {
