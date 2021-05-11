@@ -274,6 +274,9 @@ public class SelectItemFragment extends Fragment {
      * showProduct --
      * Creates a PopupMenu to display a list of products for the user to choose from, as long as a
      * category has been selected.
+     *
+     * TODO Needs to be tested once getNames() in NestDBDataSource is verified working
+     *
      **/
     private void showProducts()
     {

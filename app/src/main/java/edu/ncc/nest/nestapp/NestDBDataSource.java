@@ -154,6 +154,11 @@ public class NestDBDataSource {
         return pId;
     }
 
+    /**
+     * getCategories
+     *
+     * @return ArrayList<String> containing the categories
+     */
     public ArrayList<String> getCategories()
     {
         // Create an empty list to store the categories into
@@ -184,6 +189,14 @@ public class NestDBDataSource {
     }
 
 
+    /**
+     * getNames
+     *
+     *  TODO Doesn't properly grab product names using categoryId
+     *
+     * @param categoryId
+     * @return
+     */
     public ArrayList<String> getNames(String categoryId)
     {
         // Create an empty list to store the categories into
@@ -216,6 +229,15 @@ public class NestDBDataSource {
         return names;
     }
 
+    /**
+     * getSubtitles
+     *
+     * TODO once getNames is tested working, do the same thing here
+     * TODO using the product name user chose to get a list of subtitles related to that name
+     *
+     * @param nameA
+     * @return
+     */
     public ArrayList<String> getSubtitles(String nameA)
     {
         // Create an empty list to store the categories into
