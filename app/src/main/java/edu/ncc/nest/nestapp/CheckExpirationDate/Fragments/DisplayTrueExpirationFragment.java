@@ -73,7 +73,7 @@ public class DisplayTrueExpirationFragment extends Fragment {
             exp = data.getString("PRINTED EXPIRATION DATE");
 
             // Used for testing purposes. TODO Delete this line after productId issue is fixed, issue #188.
-            foodItem = new NestUPC("123456789","Tuscan","", 644, "Milk","",2,"Dairy");
+            //foodItem = new NestUPC("123456789","Tuscan","", 644, "Milk","",2,"Dairy");
 
             if (foodItem != null) {
 

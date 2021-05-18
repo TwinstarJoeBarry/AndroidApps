@@ -34,6 +34,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -151,22 +152,47 @@ public class SelectItemFragment extends Fragment {
 
                 // Use our source to the database to add the new upc to the NEST's table after parsing the ID
                 // NOTE: This will return -1 if the UPC has never been added before and will cause errors in future fragments.
-                int itemId = database.getProductIdFromUPC(upcString);
+                int productId = database.getProductIdFromUPC(upcString);
 
-                if (itemId == -1) {
+                if (productId == -1) {
 
                     // Product ID does not exist for this UPC
-                    // TODO: Need a way of setting the proper productId
+                    Log.w("SelectItemFragment", "Product ID Warning: productId = -1");
 
-                    Log.e("SelectItemFragment", "Product ID Error: itemId = -1");
+                    String productName = productHint.getText().toString();
+
+                    String productSubtitle = subtitleHint.getText().toString();
+
+                    productId = database.getProdIdfromProdInfo(
+                            productCategoryIndex + 1, productName, productSubtitle);
+
+                    if (database.insertNewUPC(upcString, productName, description, productId) == -1)
+
+                        throw new RuntimeException("Error inserting new UPC");
+
+                } else {
+
+                    String productName = productHint.getText().toString();
+
+                    String productSubtitle = subtitleHint.getText().toString();
+
+                    productId = database.getProdIdfromProdInfo(
+                            productCategoryIndex + 1, productName, productSubtitle);
+
+                    // TODO Update the NestUPC with the new brand, description, && productId
+
+                    // Adding this exception for now to prevent errors
+                    throw new RuntimeException("NestUPC exists. Need to update NestUPC in database.");
 
                 }
 
-                database.insertNewUPC(upcString, name, description, itemId);
-
-                NestUPC foodItem = database.getNestUPC(upcString);
-
                 Bundle bundle = new Bundle();
+
+                Serializable foodItem = database.getNestUPC(upcString);
+
+                if (foodItem == null)
+
+                    throw new RuntimeException("Error retrieving NestUPC");
 
                 bundle.putSerializable("foodItem", foodItem);
 
