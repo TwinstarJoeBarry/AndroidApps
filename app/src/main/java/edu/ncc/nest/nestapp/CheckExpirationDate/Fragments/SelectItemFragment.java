@@ -233,8 +233,7 @@ public class SelectItemFragment extends Fragment {
      * showCategories --
      * Creates a PopupMenu to display a list of categories for the user to choose from.
      **/
-    private void showCategories()
-    {
+    private void showCategories() {
 
         PopupMenu menuPop = new PopupMenu(getContext(), categoryButton);
 
@@ -242,9 +241,7 @@ public class SelectItemFragment extends Fragment {
 
         ArrayList<String> categories = source.getCategories();
 
-        //String[] mainCategories = (String[]) source.getCategories().toArray();
-
-        for (int i = 0; i < categories.size(); ++i )
+        for (int i = categories.size() - 1; i >= 0; i--)
 
             menu.add(i, i, i, categories.get(i));
 
@@ -266,6 +263,7 @@ public class SelectItemFragment extends Fragment {
         });
 
         menuPop.show();
+
     }
 
 
@@ -293,7 +291,7 @@ public class SelectItemFragment extends Fragment {
 
             Menu menu = menuPop.getMenu();
 
-            ArrayList<String> products = source.getProductNames(category);
+            ArrayList<String> products = source.getProductNames(categoryIndex + 1);
 
             //Log.d("*****", "products: "+  products.get(0));
             Log.d("*******", products.toString());

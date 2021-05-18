@@ -210,7 +210,7 @@ public class NestDBDataSource {
      * @param categoryId
      * @return
      */
-    public ArrayList<String> getProductNames(String categoryId) {
+    public ArrayList<String> getProductNames(int categoryId) {
 
         // Create an empty list to store the product names into
         ArrayList<String> names = new ArrayList<>();
@@ -225,8 +225,13 @@ public class NestDBDataSource {
         // While we are not after the last row
         for (cursor.moveToFirst(); !cursor.isAfterLast();) {
 
-            // Get the String stored in the "name" column, add it to the list
-            names.add(cursor.getString(NAME_INDEX));
+            String productName = cursor.getString(NAME_INDEX);
+
+            // If the productName has not already been added to the list
+            if (!names.contains(productName))
+
+                // Add the product name to the list
+                names.add(productName);
 
             Log.d("TESTING", cursor.getString(NAME_INDEX));
 
