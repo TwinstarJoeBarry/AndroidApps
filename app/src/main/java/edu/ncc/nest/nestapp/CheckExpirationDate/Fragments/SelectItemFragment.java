@@ -293,7 +293,7 @@ public class SelectItemFragment extends Fragment {
 
             Menu menu = menuPop.getMenu();
 
-            ArrayList<String> products = source.getNames(category);
+            ArrayList<String> products = source.getProductNames(category);
 
             //Log.d("*****", "products: "+  products.get(0));
             Log.d("*******", products.toString());

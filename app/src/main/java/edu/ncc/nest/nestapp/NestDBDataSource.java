@@ -160,11 +160,13 @@ public class NestDBDataSource {
         c.close();
 
         return pId;
-        
+
     }
 
     /**
      * getCategories
+     *
+     * TODO
      *
      * @return ArrayList<String> containing the categories
      */
@@ -176,14 +178,15 @@ public class NestDBDataSource {
         // (* = all, categories = table name)
         Cursor cursor = db.rawQuery("SELECT * FROM categories", new String[]{});
 
-        // Get the index of the "name" column, "this column stores the actual name of the category"
-        final int NAME_INDEX = cursor.getColumnIndex("name");
+        /* Get the index of the "description" column. This column stores both name and subcategory
+         * columns concatenated */
+        final int DESCRIPTION_INDEX = cursor.getColumnIndex("description");
 
         // While we are not after the last row
-        for (cursor.moveToFirst(); !cursor.isAfterLast();)
-        {
-            // Get the String stored in the "name" column, add it to the list
-            categories.add(cursor.getString(NAME_INDEX));
+        for (cursor.moveToFirst(); !cursor.isAfterLast();) {
+
+            // Get the String stored in the "description" column, add it to the list
+            categories.add(cursor.getString(DESCRIPTION_INDEX));
 
             // Move to the next row
             cursor.moveToNext();
@@ -202,40 +205,40 @@ public class NestDBDataSource {
     /**
      * getNames
      *
-     *  TODO Doesn't properly grab product names using categoryId
+     * TODO
      *
      * @param categoryId
      * @return
      */
-    public ArrayList<String> getNames(String categoryId) {
+    public ArrayList<String> getProductNames(String categoryId) {
 
-        // Create an empty list to store the categories into
+        // Create an empty list to store the product names into
         ArrayList<String> names = new ArrayList<>();
 
-        // (* = all, categories = table name)
-        //Cursor cursor = db.rawQuery("SELECT * FROM products", new String[]{});
-
+        // (* = all columns, products = table name)
         Cursor cursor = db.rawQuery("SELECT * FROM products WHERE categoryId = ?",
-                new String[]{ String.valueOf(categoryId) });
+                new String[]{ String.valueOf( categoryId ) });
 
         // Get the index of the "name" column, "this column stores the actual name of the category"
         final int NAME_INDEX = cursor.getColumnIndex("name");
 
         // While we are not after the last row
-        for (cursor.moveToFirst(); !cursor.isAfterLast();)
-        {
+        for (cursor.moveToFirst(); !cursor.isAfterLast();) {
+
             // Get the String stored in the "name" column, add it to the list
             names.add(cursor.getString(NAME_INDEX));
+
             Log.d("TESTING", cursor.getString(NAME_INDEX));
 
             // Move to the next row
             cursor.moveToNext();
+
         }
 
         // Make sure to close the cursor to release all of its resources
         cursor.close();
 
-        // Return the list
+        // Return the list of product names
         return names;
 
     }
@@ -243,31 +246,34 @@ public class NestDBDataSource {
     /**
      * getSubtitles
      *
-     * TODO once getNames is tested working, do the same thing here
-     * TODO using the product name user chose to get a list of subtitles related to that name
+     * TODO
      *
-     * @param nameA
+     * @param categoryId
+     * @param productName
      * @return
      */
-    public ArrayList<String> getSubtitles(String nameA) {
+    public ArrayList<String> getProductSubtitles(int categoryId, String productName) {
 
-        // Create an empty list to store the categories into
+        // Create an empty list to store the product's subtitles into
         ArrayList<String> subtitles = new ArrayList<>();
 
-        // (* = all, categories = table name)
-        Cursor cursor = db.rawQuery("SELECT * FROM products Where name = " + nameA, new String[]{});
+        // (* = all columns, products = table name)
+        Cursor cursor = db.rawQuery(
+                "SELECT * FROM products WHERE categoryId = ? AND upper(name) = upper(?)",
+                new String[]{ String.valueOf(categoryId), productName });
 
-        // Get the index of the "name" column, "this column stores the actual name of the category"
-        final int NAME_INDEX = cursor.getColumnIndex("subtitle");
+        // Get the index of the "subtitle" column, "this column stores the actual subtitle of the product"
+        final int SUBTITLE_INDEX = cursor.getColumnIndex("subtitle");
 
         // While we are not after the last row
-        for (cursor.moveToFirst(); !cursor.isAfterLast();)
-        {
-            // Get the String stored in the "name" column, add it to the list
-            subtitles.add(cursor.getString(NAME_INDEX));
+        for (cursor.moveToFirst(); !cursor.isAfterLast();) {
+
+            // Get the String stored in the "subtitle" column, add it to the list
+            subtitles.add(cursor.getString(SUBTITLE_INDEX));
 
             // Move to the next row
             cursor.moveToNext();
+
         }
 
         // Make sure to close the cursor to release all of its resources
