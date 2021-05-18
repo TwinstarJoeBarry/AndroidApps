@@ -28,6 +28,12 @@ import android.util.Log;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +42,7 @@ public class NestDBDataSource {
     private NestDBOpenHelper helper;
     public static String TABLE_NAME_NEST_UPCS = "nestUPCs";
     public String TAG = "TESTING";
+
 
     public NestDBDataSource(Context context) throws SQLException {
         helper = NestDBOpenHelper.getInstance(context);
@@ -127,23 +134,148 @@ public class NestDBDataSource {
     /**
      * getProdIdfromProdInfo method --
      * looks up the related product id based upon the category id and item name
-     * @param cId  the category id
-     * @param iName  the item name    *
+     * @param categoryId  The product's categoryId
+     * @param name  The product's name
+     * @param subtitle The product's subtitle
      * @return if found, the product id; -1 otherwise
      */
-    public int getProdIdfromProdInfo(int cId, String iName, String iSubtitle) {
+    public int getProdIdfromProdInfo(int categoryId, String name, String subtitle) {
+
         int pId = -1;
 
-        String qry = "SELECT * FROM products WHERE (categoryId = " + cId + " AND subtitle = " + iSubtitle + ") AND upper(name) = upper(?)";
+        String qry = "SELECT id FROM products WHERE categoryId = ?" +
+                " AND upper(name) = upper(?) AND upper(subtitle) = ?";
 
-        Cursor c = db.rawQuery(qry, new String[]{iName});
+        Cursor c = db.rawQuery(qry, new String[]{ String.valueOf(categoryId), name, subtitle });
+
         if (c.moveToFirst()) {
+
             // line below for testing purposes
             Log.d("DBASE", "data: " + c.getString(0) + " " + c.getString(1) + " " + c.getString(2) + " " + c.getString(3));
-            pId = c.getInt(c.getColumnIndex("id"));
+
+            pId = c.getInt(0);
+
         }
+
         c.close();
+
         return pId;
+        
+    }
+
+    /**
+     * getCategories
+     *
+     * @return ArrayList<String> containing the categories
+     */
+    public ArrayList<String> getCategories() {
+
+        // Create an empty list to store the categories into
+        ArrayList<String> categories = new ArrayList<>();
+
+        // (* = all, categories = table name)
+        Cursor cursor = db.rawQuery("SELECT * FROM categories", new String[]{});
+
+        // Get the index of the "name" column, "this column stores the actual name of the category"
+        final int NAME_INDEX = cursor.getColumnIndex("name");
+
+        // While we are not after the last row
+        for (cursor.moveToFirst(); !cursor.isAfterLast();)
+        {
+            // Get the String stored in the "name" column, add it to the list
+            categories.add(cursor.getString(NAME_INDEX));
+
+            // Move to the next row
+            cursor.moveToNext();
+
+        }
+
+        // Make sure to close the cursor to release all of its resources
+        cursor.close();
+
+        // Return the list
+        return categories;
+
+    }
+
+
+    /**
+     * getNames
+     *
+     *  TODO Doesn't properly grab product names using categoryId
+     *
+     * @param categoryId
+     * @return
+     */
+    public ArrayList<String> getNames(String categoryId) {
+
+        // Create an empty list to store the categories into
+        ArrayList<String> names = new ArrayList<>();
+
+        // (* = all, categories = table name)
+        //Cursor cursor = db.rawQuery("SELECT * FROM products", new String[]{});
+
+        Cursor cursor = db.rawQuery("SELECT * FROM products WHERE categoryId = ?",
+                new String[]{ String.valueOf(categoryId) });
+
+        // Get the index of the "name" column, "this column stores the actual name of the category"
+        final int NAME_INDEX = cursor.getColumnIndex("name");
+
+        // While we are not after the last row
+        for (cursor.moveToFirst(); !cursor.isAfterLast();)
+        {
+            // Get the String stored in the "name" column, add it to the list
+            names.add(cursor.getString(NAME_INDEX));
+            Log.d("TESTING", cursor.getString(NAME_INDEX));
+
+            // Move to the next row
+            cursor.moveToNext();
+        }
+
+        // Make sure to close the cursor to release all of its resources
+        cursor.close();
+
+        // Return the list
+        return names;
+
+    }
+
+    /**
+     * getSubtitles
+     *
+     * TODO once getNames is tested working, do the same thing here
+     * TODO using the product name user chose to get a list of subtitles related to that name
+     *
+     * @param nameA
+     * @return
+     */
+    public ArrayList<String> getSubtitles(String nameA) {
+
+        // Create an empty list to store the categories into
+        ArrayList<String> subtitles = new ArrayList<>();
+
+        // (* = all, categories = table name)
+        Cursor cursor = db.rawQuery("SELECT * FROM products Where name = " + nameA, new String[]{});
+
+        // Get the index of the "name" column, "this column stores the actual name of the category"
+        final int NAME_INDEX = cursor.getColumnIndex("subtitle");
+
+        // While we are not after the last row
+        for (cursor.moveToFirst(); !cursor.isAfterLast();)
+        {
+            // Get the String stored in the "name" column, add it to the list
+            subtitles.add(cursor.getString(NAME_INDEX));
+
+            // Move to the next row
+            cursor.moveToNext();
+        }
+
+        // Make sure to close the cursor to release all of its resources
+        cursor.close();
+
+        // Return the list
+        return subtitles;
+
     }
 
 
@@ -155,7 +287,8 @@ public class NestDBDataSource {
      * @return an ArrayList<ShelfLife> object, which will have no
      * contents if nothing is found
      */
-    public List<ShelfLife> getShelfLivesForProduct(int productId) {
+    public List<ShelfLife> getShelfLivesForProduct(int productId)
+    {
         List<ShelfLife> result = new ArrayList<>();
         String qry = "SELECT * FROM view_shelf_lives_and_type_info_joined WHERE productId = ?";
         Cursor c = db.rawQuery(qry, new String[]{String.valueOf(productId)});
@@ -174,79 +307,5 @@ public class NestDBDataSource {
         c.close();
         return result;
     }
-
-    /**
-     * getCategories method --
-     * looks up the category records for the given productId
-     *
-     * @param productId the FoodKeeper product id to lookup
-     * @return an ArrayList<String> object, which will have no
-     * contents if nothing is found
-     */
-    public ArrayList<String> getCategories() {
-
-        ArrayList<String> categories = new ArrayList<>();
-        Cursor cursor = db.rawQuery("SELECT * FROM categories", new String[]{});
-        final int CAT_NAME_INDEX = cursor.getColumnIndex("name");
-
-        for (cursor.moveToFirst(); !cursor.isAfterLast();)
-        {
-            categories.add(cursor.getString(CAT_NAME_INDEX));
-            cursor.moveToNext();
-        }
-
-        cursor.close();
-        return categories;
-    }
-
-    /**
-     * getNames method --
-     * looks up the name records for the given productId
-     *
-     * @param productId the FoodKeeper product id to lookup
-     * @return an ArrayList<String> object, which will have no
-     * contents if nothing is found
-     */
-    public ArrayList<String> getNames() {
-
-        ArrayList<String> names = new ArrayList<>();
-        Cursor cursor = db.rawQuery("SELECT * FROM products", new String[]{});
-        final int NAME_INDEX = cursor.getColumnIndex("name");
-
-        for (cursor.moveToFirst(); !cursor.isAfterLast();)
-        {
-            names.add(cursor.getString(NAME_INDEX));
-            cursor.moveToNext();
-        }
-
-        cursor.close();
-        return names;
-    }
-
-    /**
-     * getSubtitles method --
-     * looks up the subtitle records for the given productId
-     *
-     * @param productId the FoodKeeper product id to lookup
-     * @return an ArrayList<String> object, which will have no
-     * contents if nothing is found
-     */
-    public ArrayList<String> getSubtitles() {
-
-        ArrayList<String> subtitles = new ArrayList<>();
-        Cursor cursor = db.rawQuery("SELECT * FROM products", new String[]{});
-        final int SUB_NAME_INDEX = cursor.getColumnIndex("subtitle");
-
-
-        for (cursor.moveToFirst(); !cursor.isAfterLast();)
-        {
-            subtitles.add(cursor.getString(SUB_NAME_INDEX));
-            cursor.moveToNext();
-        }
-
-        cursor.close();
-        return subtitles;
-    }
-
 
 }

@@ -34,6 +34,13 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
+
 import edu.ncc.nest.nestapp.NestDBDataSource;
 import edu.ncc.nest.nestapp.NestUPC;
 import edu.ncc.nest.nestapp.R;
@@ -52,6 +59,10 @@ public class SelectItemFragment extends Fragment {
     private final String DEFAULT_STRING = "[LEFT BLANK]";
     // FOR ESSENTIAL TEXT ENTRY VIEWS THAT SHOULD NEVER BE BLANK AND REPLACED IN CODE
     private final String PLACEHOLDER_STRING = "[NOT RECEIVED]";
+    public ArrayList<String> categories2;
+    public ArrayList<String> subtitles;
+    public ArrayList<String> names;
+    NestDBDataSource source = new NestDBDataSource(this.getContext());
 
     // (DETAILED IN THE INSTANCE VARS SECTION)
     private final int[] categories = {
@@ -110,7 +121,27 @@ public class SelectItemFragment extends Fragment {
 
         productHint = view.findViewById(R.id.fragment_select_item_product_hint);
         productButton = view.findViewById(R.id.fragment_select_item_product_select);
+       //String cat = (String) categoryButton.getText();
         productButton.setOnClickListener( v -> showProducts() );
+
+
+        // TESTING CODE FOR ISSUE 201 - AH
+
+        categories2 = source.getCategories();
+
+        Log.d("TAGGG", categories2.toString());
+
+        //names = source.getNames();
+
+        //Log.d("TAGGG", names.toString());
+
+        //subtitles = source.getSubtitles();
+
+        //Log.d("TAGGG", subtitles.toString());
+
+        //END TEST CODE ISSUE 201 - AH
+
+
 
         // GRAB THE UPC VALUES FROM THE BUNDLE SENT FROM SCANNER FRAGMENT OR CONFIRM ITEM FRAGMENT
         getParentFragmentManager().setFragmentResultListener("BARCODE", this, (key, bundle) -> {
@@ -202,17 +233,20 @@ public class SelectItemFragment extends Fragment {
      * showCategories --
      * Creates a PopupMenu to display a list of categories for the user to choose from.
      **/
-    private void showCategories() {
+    private void showCategories()
+    {
 
         PopupMenu menuPop = new PopupMenu(getContext(), categoryButton);
 
         Menu menu = menuPop.getMenu();
 
-        String[] mainCategories = getResources().getStringArray(R.array.item_categories);
+        ArrayList<String> categories = source.getCategories();
 
-        for (int i = 0; i < mainCategories.length; ++i )
+        //String[] mainCategories = (String[]) source.getCategories().toArray();
 
-            menu.add(i, i, i, mainCategories[i]);
+        for (int i = 0; i < categories.size(); ++i )
+
+            menu.add(i, i, i, categories.get(i));
 
         // THE ACTUAL ON CLICK CODE TO SET THE SUB CATEGORY INDEX AND POPULATE A TEXT VIEW WITH THE INFORMATION
         menuPop.setOnMenuItemClickListener(item -> {
@@ -235,24 +269,40 @@ public class SelectItemFragment extends Fragment {
     }
 
 
+
     /**
      * showProduct --
      * Creates a PopupMenu to display a list of products for the user to choose from, as long as a
      * category has been selected.
+     *
+     * TODO Needs to be tested once getNames() in NestDBDataSource is verified working
+     *
      **/
-    private void showProducts() {
+    private void showProducts()
+    {
 
-        if (categoryIndex != -1) {
+        String category = (String) categoryHint.getText();
+
+        Log.d("*******", "category: " + category);
+
+        if (categoryIndex != -1)
+        {
+            Log.d("*******", "2");
 
             PopupMenu menuPop = new PopupMenu(getContext(), productButton);
 
             Menu menu = menuPop.getMenu();
 
-            String[] subCategories = getResources().getStringArray(categories[categoryIndex]);
+            ArrayList<String> products = source.getNames(category);
 
-            for (int i = 0; i < subCategories.length; ++i)
+            //Log.d("*****", "products: "+  products.get(0));
+            Log.d("*******", products.toString());
+            for (int i = 0; i < products.size(); ++i)
+            {
+                Log.d("TESTING", "products @ i :" + products.get(i));
+                menu.add(categoryIndex, i, i, products.get(i));
+            }
 
-                menu.add(categoryIndex, i, i, subCategories[i]);
 
             // THE ACTUAL ON CLICK CODE TO SET THE SUBCATEGORY AND POPULATE A TEXT VIEW WITH THE INFORMATION
             menuPop.setOnMenuItemClickListener(item -> {
