@@ -227,8 +227,9 @@ public class NestDBDataSource {
 
             String productName = cursor.getString(NAME_INDEX);
 
-            // If the productName has not already been added to the list
-            if (!names.contains(productName))
+            // If the productName is not null and has not already been added to the list
+            if (!cursor.isNull(NAME_INDEX) && !productName.equals("null") &&
+                    !names.contains(productName))
 
                 // Add the product name to the list
                 names.add(productName);
@@ -273,8 +274,13 @@ public class NestDBDataSource {
         // While we are not after the last row
         for (cursor.moveToFirst(); !cursor.isAfterLast();) {
 
-            // Get the String stored in the "subtitle" column, add it to the list
-            subtitles.add(cursor.getString(SUBTITLE_INDEX));
+            String productSubtitle = cursor.getString(SUBTITLE_INDEX);
+
+            // If the subtitle is not null
+            if (!cursor.isNull(SUBTITLE_INDEX) && !productSubtitle.equals("null"))
+
+                // Get the String stored in the "subtitle" column, add it to the list
+                subtitles.add(productSubtitle);
 
             // Move to the next row
             cursor.moveToNext();

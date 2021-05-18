@@ -34,12 +34,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import edu.ncc.nest.nestapp.NestDBDataSource;
 import edu.ncc.nest.nestapp.NestUPC;
@@ -54,47 +50,24 @@ import edu.ncc.nest.nestapp.R;
  * for reference.
  */
 public class SelectItemFragment extends Fragment {
+
     /** CONSTANT DEFAULTS **/
     // FOR NON ESSENTIAL TEXT ENTRY VIEWS THAT WERE OPTIONAL AND INTENTIONALLY LEFT BLANK;
     private final String DEFAULT_STRING = "[LEFT BLANK]";
     // FOR ESSENTIAL TEXT ENTRY VIEWS THAT SHOULD NEVER BE BLANK AND REPLACED IN CODE
     private final String PLACEHOLDER_STRING = "[NOT RECEIVED]";
-    public ArrayList<String> categories2;
-    public ArrayList<String> subtitles;
-    public ArrayList<String> names;
     NestDBDataSource source = new NestDBDataSource(this.getContext());
-
-    // (DETAILED IN THE INSTANCE VARS SECTION)
-    private final int[] categories = {
-            // TODO some present subcategories were not included in R.array.categories in the strings.xml file;
-            //  (as of 12.15.2020 all that were currently listed and was able to has been ported)
-            R.array.baby_food_items,
-            R.array.baked_goods_bakery_items,
-            R.array.beverages_items,
-            R.array.condiments_sauces_and_canned_goods_items,
-            R.array.dairy_products_and_eggs_items,
-            R.array.deli_and_prepared_foods_items,
-            R.array.food_purchased_frozen_items,
-            R.array.grains_beans_and_pasta_items,
-            R.array.meat_fresh_items,
-            R.array.poultry_fresh_items,
-            R.array.produce_fresh_fruits_items,
-            R.array.seafood_fresh_items,
-            R.array.shelf_stable_foods_items,
-            R.array.vegetarian_protein_items,
-    };
-
 
     /** INSTANCE VARS **/
     private String upcString; // UPC as passed from previous fragments (populated with saved bundle)
 
-    int categoryIndex; // index selected for the main category, used to slice the categories array
-    private int subCategory; // index within the sub category, used to parse a product type and specific id
+    private int productCategoryIndex; // index selected for the main category, used to slice the categories array
+    private int productNameIndex; // index within the sub category, used to parse a product type and specific id
+    private int productSubtitleIndex;
 
     // To access UI elements; both directly and indirectly
-    Button categoryButton, productButton;
-    TextView categoryHint, productHint;
-
+    Button categoryButton, productButton, subtitleButton;
+    TextView categoryHint, productHint, subtitleHint;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -102,8 +75,9 @@ public class SelectItemFragment extends Fragment {
 
         // Initialize variables; placeholder values replaced later
         upcString = PLACEHOLDER_STRING;
-        categoryIndex = -1;
-        subCategory = -1;
+        productCategoryIndex = -1;
+        productNameIndex = -1;
+        productSubtitleIndex = -1;
 
         return inflater.inflate(R.layout.fragment_check_expiration_date_select_item,
                 container, false);
@@ -121,26 +95,13 @@ public class SelectItemFragment extends Fragment {
 
         productHint = view.findViewById(R.id.fragment_select_item_product_hint);
         productButton = view.findViewById(R.id.fragment_select_item_product_select);
-       //String cat = (String) categoryButton.getText();
         productButton.setOnClickListener( v -> showProducts() );
 
-
-        // TESTING CODE FOR ISSUE 201 - AH
-
-        categories2 = source.getCategories();
-
-        Log.d("TAGGG", categories2.toString());
-
-        //names = source.getNames();
-
-        //Log.d("TAGGG", names.toString());
-
-        //subtitles = source.getSubtitles();
-
-        //Log.d("TAGGG", subtitles.toString());
-
-        //END TEST CODE ISSUE 201 - AH
-
+        subtitleHint = view.findViewById(R.id.fragment_select_item_subtitle_hint);
+        subtitleButton = view.findViewById(R.id.fragment_select_item_subtitle_select);
+        subtitleButton.setOnClickListener( v -> showProductSubtitles(
+                productCategoryIndex + 1, productHint.getText().toString()));
+        subtitleButton.setEnabled(false);
 
 
         // GRAB THE UPC VALUES FROM THE BUNDLE SENT FROM SCANNER FRAGMENT OR CONFIRM ITEM FRAGMENT
@@ -182,9 +143,9 @@ public class SelectItemFragment extends Fragment {
                 description = DEFAULT_STRING;
 
             // and first assert that the values that CANNOT be blank, are not;
-            if (subCategory == -1)
+            if (productNameIndex == -1 || (subtitleButton.isEnabled() && productSubtitleIndex == -1))
 
-                Toast.makeText(getContext(), "Don't forget to fill the category AND subcategory!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "Don't forget to select a category, name, and subtitle-(if required)!", Toast.LENGTH_LONG).show();
 
             else {
 
@@ -251,12 +212,19 @@ public class SelectItemFragment extends Fragment {
             // Set a text view with the category for the user to see;
             categoryHint.setText( item.toString() );
 
-            categoryIndex = item.getItemId();
+            productCategoryIndex = item.getItemId();
 
             // Clear out subcategory between menu changes;
             productHint.setText("");
 
-            subCategory =  -1;
+            productNameIndex =  -1;
+
+            // Clear out subtitle between menu changes;
+            subtitleHint.setText("");
+
+            productSubtitleIndex =  -1;
+
+            subtitleButton.setEnabled(false);
 
             return true;
 
@@ -272,42 +240,39 @@ public class SelectItemFragment extends Fragment {
      * showProduct --
      * Creates a PopupMenu to display a list of products for the user to choose from, as long as a
      * category has been selected.
-     *
-     * TODO Needs to be tested once getNames() in NestDBDataSource is verified working
-     *
      **/
-    private void showProducts()
-    {
+    private void showProducts() {
 
-        String category = (String) categoryHint.getText();
-
-        Log.d("*******", "category: " + category);
-
-        if (categoryIndex != -1)
-        {
-            Log.d("*******", "2");
+        if (productCategoryIndex != -1) {
 
             PopupMenu menuPop = new PopupMenu(getContext(), productButton);
 
             Menu menu = menuPop.getMenu();
 
-            ArrayList<String> products = source.getProductNames(categoryIndex + 1);
+            ArrayList<String> products = source.getProductNames(productCategoryIndex + 1);
 
-            //Log.d("*****", "products: "+  products.get(0));
-            Log.d("*******", products.toString());
-            for (int i = 0; i < products.size(); ++i)
-            {
-                Log.d("TESTING", "products @ i :" + products.get(i));
-                menu.add(categoryIndex, i, i, products.get(i));
-            }
+            for (int i = products.size() - 1; i >= 0; i--)
+
+                menu.add(productCategoryIndex, i, i, products.get(i));
 
 
             // THE ACTUAL ON CLICK CODE TO SET THE SUBCATEGORY AND POPULATE A TEXT VIEW WITH THE INFORMATION
             menuPop.setOnMenuItemClickListener(item -> {
 
-                productHint.setText(item.toString());
+                String productName = item.toString();
 
-                subCategory = item.getItemId();
+                // Clear out subtitle between menu changes;
+                subtitleHint.setText("");
+
+                productSubtitleIndex =  -1;
+
+                subtitleButton.setEnabled(
+                        !source.getProductSubtitles(
+                                productCategoryIndex + 1, productName).isEmpty());
+
+                productHint.setText(productName);
+
+                productNameIndex = item.getItemId();
 
                 return true;
 
@@ -318,6 +283,43 @@ public class SelectItemFragment extends Fragment {
         } else
 
             Toast.makeText(getContext(), "Please narrow the choices with a main category first!", Toast.LENGTH_LONG).show();
+
+    }
+
+    /**
+     * showProductSubtitles --
+     *
+     * TODO
+     *
+     * @param categoryId
+     * @param productName
+     */
+    private void showProductSubtitles(int categoryId, @NonNull String productName) {
+
+        PopupMenu menuPop = new PopupMenu(getContext(), subtitleButton);
+
+        Menu menu = menuPop.getMenu();
+
+        ArrayList<String> subtitles = source.getProductSubtitles(categoryId,
+                Objects.requireNonNull(productName));
+
+        for (int i = subtitles.size() - 1; i >= 0; i--)
+
+            menu.add(i, i, i, subtitles.get(i));
+
+        // THE ACTUAL ON CLICK CODE TO SET THE SUB CATEGORY INDEX AND POPULATE A TEXT VIEW WITH THE INFORMATION
+        menuPop.setOnMenuItemClickListener(item -> {
+
+            // Set a text view with the subtitle for the user to see;
+            subtitleHint.setText(item.toString());
+
+            productSubtitleIndex = item.getItemId();
+
+            return true;
+
+        });
+
+        menuPop.show();
 
     }
 
