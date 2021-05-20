@@ -139,24 +139,6 @@ public class ConfirmItemFragment extends Fragment {
 
         }
 
-
-        getParentFragmentManager().setFragmentResultListener("BARCODE", this, (requestKey, result) -> {
-
-            Log.d(TAG, "In ConfirmItemFragment onFragmentResult()");
-
-
-            upc_string = result.getString("barcode");
-
-            upc.setText(upc_string);
-
-            // Clear the result listener since we successfully received the result
-            getParentFragmentManager().clearFragmentResultListener("BARCODE");
-
-        });
-
-
-
-
         ////////////// Navigation //////////////
 
         // if confirm button clicked, nav to fragment_check_expiration_date_select_printed_expiration_date.xml
