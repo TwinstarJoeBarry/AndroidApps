@@ -110,7 +110,7 @@ public class SelectItemFragment extends Fragment {
 
             upcString = bundle.getString("barcode");
 
-            if (!upcString.equals(PLACEHOLDER_STRING)) {
+            if (upcString != null) {
 
                 String text = "Adding UPC: " + upcString;
 
@@ -156,8 +156,7 @@ public class SelectItemFragment extends Fragment {
 
             } else {
 
-                // Use our source to the database to add the new upc to the NEST's table after parsing the ID
-                // NOTE: This will return -1 if the UPC has never been added before and will cause errors in future fragments.
+                // NOTE: This will return -1 if the UPC has never been added before
                 if (dataSource.getProductIdFromUPC(upcString) == -1) {
 
                     // No productId associated with this upc in the database
@@ -184,7 +183,7 @@ public class SelectItemFragment extends Fragment {
                     // TODO Update the UPC stored in the database with the new brand, description,
                     //  and productId
 
-                    // Adding this exception for now to prevent errors
+                    // Adding this exception for now to prevent hidden errors
                     throw new RuntimeException("NestUPC exists. Need to update upc in database.");
 
                 }
@@ -195,7 +194,7 @@ public class SelectItemFragment extends Fragment {
 
                 if (foodItem == null)
 
-                    throw new RuntimeException("Error retrieving NestUPC");
+                    throw new NullPointerException("Error retrieving NestUPC");
 
                 Log.d("SelectItemFragment", "foodItem.toString(): " + foodItem.toString());
 
