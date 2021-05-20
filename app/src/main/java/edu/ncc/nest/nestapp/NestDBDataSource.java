@@ -133,7 +133,7 @@ public class NestDBDataSource {
 
     /**
      * getProdIdfromProdInfo method --
-     * looks up the related product id based upon the category id and item name
+     * looks up the related product id based upon the category id, item name, and item subtitle
      * @param categoryId  The product's categoryId
      * @param name  The product's name
      * @param subtitle The product's subtitle
@@ -143,17 +143,19 @@ public class NestDBDataSource {
 
         int pId = -1;
 
-        String qry = "SELECT id FROM products WHERE categoryId = ?" +
-                " AND upper(name) = upper(?) AND upper(subtitle) = ?";
+        String qry = "SELECT * FROM products WHERE categoryId = ? AND " +
+                "upper(name) = upper(?) AND upper(subtitle) = upper(?)";
 
-        Cursor c = db.rawQuery(qry, new String[]{ String.valueOf(categoryId), name, subtitle });
+        // Use String.valueOf() to convert null objects to "null" as a string
+        Cursor c = db.rawQuery(qry, new String[]{
+                String.valueOf(categoryId), String.valueOf(name), String.valueOf(subtitle)});
 
         if (c.moveToFirst()) {
 
             // line below for testing purposes
             Log.d("DBASE", "data: " + c.getString(0) + " " + c.getString(1) + " " + c.getString(2) + " " + c.getString(3));
 
-            pId = c.getInt(0);
+            pId = c.getInt(c.getColumnIndex("id"));
 
         }
 

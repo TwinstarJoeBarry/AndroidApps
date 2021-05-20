@@ -34,7 +34,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -57,18 +56,17 @@ public class SelectItemFragment extends Fragment {
     private final String DEFAULT_STRING = "[LEFT BLANK]";
     // FOR ESSENTIAL TEXT ENTRY VIEWS THAT SHOULD NEVER BE BLANK AND REPLACED IN CODE
     private final String PLACEHOLDER_STRING = "[NOT RECEIVED]";
-    NestDBDataSource source = new NestDBDataSource(this.getContext());
+    NestDBDataSource dataSource = new NestDBDataSource(this.getContext());
 
     /** INSTANCE VARS **/
     private String upcString; // UPC as passed from previous fragments (populated with saved bundle)
 
-    private int productCategoryIndex; // index selected for the main category, used to slice the categories array
-    private int productNameIndex; // index within the sub category, used to parse a product type and specific id
-    private int productSubtitleIndex;
-
     // To access UI elements; both directly and indirectly
     Button categoryButton, productButton, subtitleButton;
     TextView categoryHint, productHint, subtitleHint;
+
+    private String productName, productSubtitle;
+    private int productCategoryId;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -76,9 +74,10 @@ public class SelectItemFragment extends Fragment {
 
         // Initialize variables; placeholder values replaced later
         upcString = PLACEHOLDER_STRING;
-        productCategoryIndex = -1;
-        productNameIndex = -1;
-        productSubtitleIndex = -1;
+
+        productCategoryId = -1;
+        productName = null;
+        productSubtitle = null;
 
         return inflater.inflate(R.layout.fragment_check_expiration_date_select_item,
                 container, false);
@@ -97,11 +96,12 @@ public class SelectItemFragment extends Fragment {
         productHint = view.findViewById(R.id.fragment_select_item_product_hint);
         productButton = view.findViewById(R.id.fragment_select_item_product_select);
         productButton.setOnClickListener( v -> showProducts() );
+        productButton.setEnabled(false);
 
         subtitleHint = view.findViewById(R.id.fragment_select_item_subtitle_hint);
         subtitleButton = view.findViewById(R.id.fragment_select_item_subtitle_select);
         subtitleButton.setOnClickListener( v -> showProductSubtitles(
-                productCategoryIndex + 1, productHint.getText().toString()));
+                productCategoryId, productName));
         subtitleButton.setEnabled(false);
 
 
@@ -116,9 +116,14 @@ public class SelectItemFragment extends Fragment {
 
                 ((TextView) view.findViewById(R.id.fragment_select_item_headline)).setText(text);
 
-            }
+            } else {
 
-            // FIXME Nothing to get when navigating backward from next fragment (select printed expiration date); not likely desirable behavior!
+                // FIXME Nothing to get when navigating backward from next fragment
+                //  (select printed expiration date); not likely desirable behavior!
+
+                throw new RuntimeException("Failed to retrieve UPC barcode.");
+
+            }
 
             // Clear the result listener since we have successfully retrieved the result
             getParentFragmentManager().clearFragmentResultListener("BARCODE");
@@ -128,71 +133,71 @@ public class SelectItemFragment extends Fragment {
         // ACCEPT BUTTON CODE - PARSE VALUES FOR NEW UPC, PASS INFO TO PRINTED EXPIRATION DATE
         view.findViewById(R.id.acceptButton).setOnClickListener( view1 -> {
 
-            // Open a source to the database to add the information;
-            NestDBDataSource database = new NestDBDataSource( requireContext() );
-
             // Retrieve the String information from each view, casting as appropriate;
-            String name = ((EditText) (view.findViewById(R.id.fragment_select_item_brand_entry))).getText().toString();
-            String description = ((EditText) (view.findViewById(R.id.fragment_select_item_description_entry))).getText().toString();
+            String brand = ((EditText) (view.findViewById(
+                    R.id.fragment_select_item_brand_entry))).getText().toString();
 
+            String description = ((EditText) (view.findViewById(
+                    R.id.fragment_select_item_description_entry))).getText().toString();
 
             // Replace any fields from above with blank values;
-            if ( name.isEmpty() )
-                name = DEFAULT_STRING;
+            if ( brand.isEmpty() )
+                brand = DEFAULT_STRING;
 
             if ( description.isEmpty() )
                 description = DEFAULT_STRING;
 
             // and first assert that the values that CANNOT be blank, are not;
-            if (productNameIndex == -1 || (subtitleButton.isEnabled() && productSubtitleIndex == -1))
+            if ((productCategoryId == -1) || (productButton.isEnabled() && productName == null) ||
+                    (subtitleButton.isEnabled() && productSubtitle == null)) {
 
-                Toast.makeText(getContext(), "Don't forget to select a category, name, and subtitle-(if required)!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "Don't forget to select a category, name, and " +
+                        "subtitle-(if required)!", Toast.LENGTH_LONG).show();
 
-            else {
+            } else {
 
                 // Use our source to the database to add the new upc to the NEST's table after parsing the ID
                 // NOTE: This will return -1 if the UPC has never been added before and will cause errors in future fragments.
-                int productId = database.getProductIdFromUPC(upcString);
+                if (dataSource.getProductIdFromUPC(upcString) == -1) {
 
-                if (productId == -1) {
+                    // No productId associated with this upc in the database
 
-                    // Product ID does not exist for this UPC
-                    Log.w("SelectItemFragment", "Product ID Warning: productId = -1");
+                    Log.d("SelectItemFragment", "Selected Product: " + productCategoryId +
+                            ", " + productName + ", " + productSubtitle);
 
-                    String productName = productHint.getText().toString();
+                    int productId = dataSource.getProdIdfromProdInfo(
+                            productCategoryId, productName, productSubtitle);
 
-                    String productSubtitle = subtitleHint.getText().toString();
+                    Log.d("SelectItemFragment", "Product ID: " + productId);
 
-                    productId = database.getProdIdfromProdInfo(
-                            productCategoryIndex + 1, productName, productSubtitle);
-
-                    if (database.insertNewUPC(upcString, productName, description, productId) == -1)
+                    if (dataSource.insertNewUPC(upcString, brand, description, productId) == -1)
 
                         throw new RuntimeException("Error inserting new UPC");
 
                 } else {
 
-                    String productName = productHint.getText().toString();
+                    // A productId is already associated with this upc in the database.
 
-                    String productSubtitle = subtitleHint.getText().toString();
+                    int productId = dataSource.getProdIdfromProdInfo(
+                            productCategoryId, productName, productSubtitle);
 
-                    productId = database.getProdIdfromProdInfo(
-                            productCategoryIndex + 1, productName, productSubtitle);
-
-                    // TODO Update the NestUPC with the new brand, description, && productId
+                    // TODO Update the UPC stored in the database with the new brand, description,
+                    //  and productId
 
                     // Adding this exception for now to prevent errors
-                    throw new RuntimeException("NestUPC exists. Need to update NestUPC in database.");
+                    throw new RuntimeException("NestUPC exists. Need to update upc in database.");
 
                 }
 
                 Bundle bundle = new Bundle();
 
-                Serializable foodItem = database.getNestUPC(upcString);
+                NestUPC foodItem = dataSource.getNestUPC(upcString);
 
                 if (foodItem == null)
 
                     throw new RuntimeException("Error retrieving NestUPC");
+
+                Log.d("SelectItemFragment", "foodItem.toString(): " + foodItem.toString());
 
                 bundle.putSerializable("foodItem", foodItem);
 
@@ -211,7 +216,8 @@ public class SelectItemFragment extends Fragment {
 
         // CANCEL BUTTON CODE - NAVIGATE BACK TO START FRAGMENT
         view.findViewById(R.id.cancelButton).setOnClickListener( view12 ->
-                NavHostFragment.findNavController(SelectItemFragment.this).navigate(R.id.CED_StartFragment));
+                NavHostFragment.findNavController(SelectItemFragment.this)
+                        .navigate(R.id.CED_StartFragment));
 
     }
 
@@ -226,31 +232,29 @@ public class SelectItemFragment extends Fragment {
 
         Menu menu = menuPop.getMenu();
 
-        ArrayList<String> categories = source.getCategories();
+        ArrayList<String> categories = dataSource.getCategories();
 
         for (int i = categories.size() - 1; i >= 0; i--)
 
-            menu.add(i, i, i, categories.get(i));
+            menu.add(i + 1, i, i, categories.get(i));
 
         // THE ACTUAL ON CLICK CODE TO SET THE SUB CATEGORY INDEX AND POPULATE A TEXT VIEW WITH THE INFORMATION
         menuPop.setOnMenuItemClickListener(item -> {
 
+            productCategoryId = item.getItemId() + 1;
+
             // Set a text view with the category for the user to see;
-            categoryHint.setText( item.toString() );
+            categoryHint.setText(item.toString());
 
-            productCategoryIndex = item.getItemId();
-
-            // Clear out subcategory between menu changes;
-            productHint.setText("");
-
-            productNameIndex =  -1;
-
-            // Clear out subtitle between menu changes;
-            subtitleHint.setText("");
-
-            productSubtitleIndex =  -1;
+            clearSubtitleSelection();
 
             subtitleButton.setEnabled(false);
+
+            productButton.setEnabled(true);
+
+            productHint.setText("");
+
+            productName = null;
 
             return true;
 
@@ -269,36 +273,30 @@ public class SelectItemFragment extends Fragment {
      **/
     private void showProducts() {
 
-        if (productCategoryIndex != -1) {
+        if (productCategoryId != -1) {
 
             PopupMenu menuPop = new PopupMenu(getContext(), productButton);
 
             Menu menu = menuPop.getMenu();
 
-            ArrayList<String> products = source.getProductNames(productCategoryIndex + 1);
+            final ArrayList<String> products = dataSource.getProductNames(productCategoryId);
 
             for (int i = products.size() - 1; i >= 0; i--)
 
-                menu.add(productCategoryIndex, i, i, products.get(i));
+                menu.add(productCategoryId, i, i, products.get(i));
 
 
             // THE ACTUAL ON CLICK CODE TO SET THE SUBCATEGORY AND POPULATE A TEXT VIEW WITH THE INFORMATION
             menuPop.setOnMenuItemClickListener(item -> {
 
-                String productName = item.toString();
-
-                // Clear out subtitle between menu changes;
-                subtitleHint.setText("");
-
-                productSubtitleIndex =  -1;
-
-                subtitleButton.setEnabled(
-                        !source.getProductSubtitles(
-                                productCategoryIndex + 1, productName).isEmpty());
+                productName = item.toString();
 
                 productHint.setText(productName);
 
-                productNameIndex = item.getItemId();
+                clearSubtitleSelection();
+
+                subtitleButton.setEnabled(!dataSource.getProductSubtitles(
+                        productCategoryId, productName).isEmpty());
 
                 return true;
 
@@ -315,7 +313,8 @@ public class SelectItemFragment extends Fragment {
     /**
      * showProductSubtitles --
      *
-     * TODO
+     * Creates a PopupMenu to display a list of subtitles for the user to choose from, as long as a
+     * product has been selected.
      *
      * @param categoryId
      * @param productName
@@ -326,7 +325,7 @@ public class SelectItemFragment extends Fragment {
 
         Menu menu = menuPop.getMenu();
 
-        ArrayList<String> subtitles = source.getProductSubtitles(categoryId,
+        ArrayList<String> subtitles = dataSource.getProductSubtitles(categoryId,
                 Objects.requireNonNull(productName));
 
         for (int i = subtitles.size() - 1; i >= 0; i--)
@@ -336,16 +335,27 @@ public class SelectItemFragment extends Fragment {
         // THE ACTUAL ON CLICK CODE TO SET THE SUB CATEGORY INDEX AND POPULATE A TEXT VIEW WITH THE INFORMATION
         menuPop.setOnMenuItemClickListener(item -> {
 
-            // Set a text view with the subtitle for the user to see;
-            subtitleHint.setText(item.toString());
+            productSubtitle = item.toString();
 
-            productSubtitleIndex = item.getItemId();
+            // Set a text view with the subtitle for the user to see;
+            subtitleHint.setText(productSubtitle);
 
             return true;
 
         });
 
         menuPop.show();
+
+    }
+
+    /**
+     * Clears the subtitle selection
+     */
+    private void clearSubtitleSelection() {
+
+        subtitleHint.setText("");
+
+        productSubtitle = null;
 
     }
 
