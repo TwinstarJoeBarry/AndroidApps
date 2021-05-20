@@ -159,7 +159,8 @@ public class SelectItemFragment extends Fragment {
                 // NOTE: This will return -1 if the UPC has never been added before
                 if (dataSource.getProductIdFromUPC(upcString) == -1) {
 
-                    // No productId associated with this upc in the database
+                    // No productId associated with this upc in the database, add it to the database
+                    // with the appropriate product id
 
                     Log.d("SelectItemFragment", "Selected Product: " + productCategoryId +
                             ", " + productName + ", " + productSubtitle);
@@ -175,7 +176,8 @@ public class SelectItemFragment extends Fragment {
 
                 } else {
 
-                    // A productId is already associated with this upc in the database.
+                    // A productId is already associated with this upc in the database. Update it
+                    // with the new values.
 
                     int productId = dataSource.getProdIdfromProdInfo(
                             productCategoryId, productName, productSubtitle);
