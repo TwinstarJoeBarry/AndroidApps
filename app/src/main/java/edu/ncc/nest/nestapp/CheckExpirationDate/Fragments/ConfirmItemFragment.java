@@ -31,8 +31,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.Objects;
-
 import edu.ncc.nest.nestapp.NestDBDataSource;
 import edu.ncc.nest.nestapp.NestUPC;
 import edu.ncc.nest.nestapp.R;
@@ -110,14 +108,15 @@ public class ConfirmItemFragment extends Fragment {
 
         } else {
 
+            // Retrieve Bundle
             getParentFragmentManager().setFragmentResultListener("FOOD ITEM", this, (requestKey, result) -> {
-
-                // If FOOD ITEM fragment result is retrieved
 
                 Log.d(TAG, "In ConfirmItemFragment onFragmentResult()");
 
                 // Retrieve foodItem from Bundle
-                onFragmentResult((NestUPC) result.getSerializable("foodItem"));
+                foodItem = (NestUPC) result.getSerializable("foodItem");
+
+                onFragmentResult();
 
                 // Clear the result listener since we successfully received the result
                 getParentFragmentManager().clearFragmentResultListener("FOOD ITEM");
@@ -126,13 +125,13 @@ public class ConfirmItemFragment extends Fragment {
 
             getParentFragmentManager().setFragmentResultListener("BARCODE", this, (requestKey, result) -> {
 
-                // If BARCODE fragment result is retrieved
-
                 Log.d(TAG, "In ConfirmItemFragment onFragmentResult()");
 
                 NestDBDataSource dataSource = new NestDBDataSource(requireContext());
 
-                onFragmentResult(Objects.requireNonNull(dataSource.getNestUPC(upc_string)));
+                foodItem = dataSource.getNestUPC(result.getString("barcode"));
+
+                onFragmentResult();
 
                 // Clear the result listener since we successfully received the result
                 getParentFragmentManager().clearFragmentResultListener("BARCODE");
@@ -187,9 +186,7 @@ public class ConfirmItemFragment extends Fragment {
 
     }
 
-    public void onFragmentResult(@NonNull NestUPC foodItem) {
-
-        this.foodItem = foodItem;
+    private void onFragmentResult() {
 
         // Retrieve the foodItem's product name, category, and UPC, log the results
         item_name = foodItem.getProductName();
