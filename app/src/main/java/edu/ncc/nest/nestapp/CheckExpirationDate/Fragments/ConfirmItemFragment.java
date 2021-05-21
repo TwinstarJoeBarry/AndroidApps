@@ -121,6 +121,9 @@ public class ConfirmItemFragment extends Fragment {
                 // Clear the result listener since we successfully received the result
                 getParentFragmentManager().clearFragmentResultListener("FOOD ITEM");
 
+                // Clear the other result listener since we successfully received a result
+                getParentFragmentManager().clearFragmentResultListener("BARCODE");
+
             });
 
             getParentFragmentManager().setFragmentResultListener("BARCODE", this, (requestKey, result) -> {
@@ -135,6 +138,9 @@ public class ConfirmItemFragment extends Fragment {
 
                 // Clear the result listener since we successfully received the result
                 getParentFragmentManager().clearFragmentResultListener("BARCODE");
+
+                // Clear the other result listener since we successfully received a result
+                getParentFragmentManager().clearFragmentResultListener("FOOD ITEM");
 
             });
 
