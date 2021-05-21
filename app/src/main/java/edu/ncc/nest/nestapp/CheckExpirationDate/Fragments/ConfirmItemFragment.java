@@ -31,6 +31,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.Objects;
+
+import edu.ncc.nest.nestapp.NestDBDataSource;
 import edu.ncc.nest.nestapp.NestUPC;
 import edu.ncc.nest.nestapp.R;
 
@@ -113,27 +116,23 @@ public class ConfirmItemFragment extends Fragment {
                 Log.d(TAG, "In ConfirmItemFragment onFragmentResult()");
 
                 // Retrieve foodItem from Bundle
-                foodItem = (NestUPC) result.getSerializable("foodItem");
-
-                // TODO Add null pointer check
-
-                // Retrieve the foodItem's product name, category, and UPC, log the results
-                item_name = foodItem.getProductName();
-                Log.d(TAG, "Item Name: " + item_name);
-
-                cat_name = foodItem.getCatDesc();
-                Log.d(TAG, "Cat Desc: " + cat_name);
-
-                upc_string = foodItem.getUpc();
-                Log.d(TAG, "UPC: " + upc_string);
-
-                // Send retrieved data to TextView
-                itemName.setText(item_name);
-                catName.setText(cat_name);
-                upc.setText(upc_string);
+                onFragmentResult((NestUPC) result.getSerializable("foodItem"));
 
                 // Clear the result listener since we successfully received the result
                 getParentFragmentManager().clearFragmentResultListener("FOOD ITEM");
+
+            });
+
+            getParentFragmentManager().setFragmentResultListener("BARCODE", this, (requestKey, result) -> {
+
+                Log.d(TAG, "In ConfirmItemFragment onFragmentResult()");
+
+                NestDBDataSource dataSource = new NestDBDataSource(requireContext());
+
+                onFragmentResult(Objects.requireNonNull(dataSource.getNestUPC(upc_string)));
+
+                // Clear the result listener since we successfully received the result
+                getParentFragmentManager().clearFragmentResultListener("BARCODE");
 
             });
 
@@ -182,9 +181,32 @@ public class ConfirmItemFragment extends Fragment {
 
 
         });
+
+    }
+
+    public void onFragmentResult(@NonNull NestUPC foodItem) {
+
+        this.foodItem = foodItem;
+
+        // Retrieve the foodItem's product name, category, and UPC, log the results
+        item_name = foodItem.getProductName();
+        Log.d(TAG, "Item Name: " + item_name);
+
+        cat_name = foodItem.getCatDesc();
+        Log.d(TAG, "Cat Desc: " + cat_name);
+
+        upc_string = foodItem.getUpc();
+        Log.d(TAG, "UPC: " + upc_string);
+
+        // Send retrieved data to TextView
+        itemName.setText(item_name);
+        catName.setText(cat_name);
+        upc.setText(upc_string);
+
     }
 
     /////////// LIFE CYCLE ////////////
+
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
 
