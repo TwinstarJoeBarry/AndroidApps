@@ -110,8 +110,9 @@ public class ConfirmItemFragment extends Fragment {
 
         } else {
 
-            // Retrieve Bundle
             getParentFragmentManager().setFragmentResultListener("FOOD ITEM", this, (requestKey, result) -> {
+
+                // If FOOD ITEM fragment result is retrieved
 
                 Log.d(TAG, "In ConfirmItemFragment onFragmentResult()");
 
@@ -124,6 +125,8 @@ public class ConfirmItemFragment extends Fragment {
             });
 
             getParentFragmentManager().setFragmentResultListener("BARCODE", this, (requestKey, result) -> {
+
+                // If BARCODE fragment result is retrieved
 
                 Log.d(TAG, "In ConfirmItemFragment onFragmentResult()");
 
