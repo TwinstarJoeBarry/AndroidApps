@@ -360,4 +360,19 @@ public class SelectItemFragment extends Fragment {
 
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        Bundle bundle = new Bundle();
+
+        bundle.putString("barcode", upcString);
+
+        // Need to clear the result with the same request key, before using possibly same request key again.
+        getParentFragmentManager().clearFragmentResult("BARCODE");
+
+        getParentFragmentManager().setFragmentResult("BARCODE", bundle);
+
+    }
+
 }
