@@ -121,7 +121,7 @@ public class SelectItemFragment extends Fragment {
                 // FIXME Nothing to get when navigating backward from next fragment
                 //  (select printed expiration date); not likely desirable behavior!
 
-                throw new RuntimeException("Failed to retrieve UPC barcode.");
+                throw new NullPointerException("Failed to retrieve UPC barcode.");
 
             }
 
