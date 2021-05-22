@@ -37,8 +37,9 @@ import androidx.navigation.fragment.NavHostFragment;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import edu.ncc.nest.nestapp.NestDBDataSource;
-import edu.ncc.nest.nestapp.NestUPC;
+import edu.ncc.nest.nestapp.CheckExpirationDate.Activities.CheckExpirationDateActivity;
+import edu.ncc.nest.nestapp.CheckExpirationDate.DatabaseClasses.NestDBDataSource;
+import edu.ncc.nest.nestapp.CheckExpirationDate.DatabaseClasses.NestUPC;
 import edu.ncc.nest.nestapp.R;
 
 /**
@@ -56,7 +57,7 @@ public class SelectItemFragment extends Fragment {
     private final String DEFAULT_STRING = "[LEFT BLANK]";
     // FOR ESSENTIAL TEXT ENTRY VIEWS THAT SHOULD NEVER BE BLANK AND REPLACED IN CODE
     private final String PLACEHOLDER_STRING = "[NOT RECEIVED]";
-    NestDBDataSource dataSource = new NestDBDataSource(this.getContext());
+    NestDBDataSource dataSource;
 
     /** INSTANCE VARS **/
     private String upcString; // UPC as passed from previous fragments (populated with saved bundle)
@@ -87,6 +88,9 @@ public class SelectItemFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        // Get a source object of the database to add the information;
+        dataSource = CheckExpirationDateActivity.requireDataSource(this);
 
         // INITIALIZE UI ELEMENTS THAT ARE INSTANCE VARIABLES
         categoryHint = view.findViewById(R.id.fragment_select_item_category_hint);

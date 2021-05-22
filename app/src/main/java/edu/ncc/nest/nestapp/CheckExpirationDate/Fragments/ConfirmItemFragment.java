@@ -19,20 +19,19 @@ package edu.ncc.nest.nestapp.CheckExpirationDate.Fragments;
  */
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
-
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import edu.ncc.nest.nestapp.NestDBDataSource;
-import edu.ncc.nest.nestapp.NestUPC;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
+
+import edu.ncc.nest.nestapp.CheckExpirationDate.Activities.CheckExpirationDateActivity;
+import edu.ncc.nest.nestapp.CheckExpirationDate.DatabaseClasses.NestDBDataSource;
+import edu.ncc.nest.nestapp.CheckExpirationDate.DatabaseClasses.NestUPC;
 import edu.ncc.nest.nestapp.R;
 
 /**
@@ -130,7 +129,8 @@ public class ConfirmItemFragment extends Fragment {
 
                 Log.d(TAG, "In ConfirmItemFragment onFragmentResult()");
 
-                NestDBDataSource dataSource = new NestDBDataSource(requireContext());
+                NestDBDataSource dataSource = CheckExpirationDateActivity
+                        .requireDataSource(ConfirmItemFragment.this);
 
                 foodItem = dataSource.getNestUPC(result.getString("barcode"));
 
