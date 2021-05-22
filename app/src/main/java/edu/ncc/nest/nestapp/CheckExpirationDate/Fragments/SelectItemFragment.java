@@ -84,7 +84,7 @@ public class SelectItemFragment extends Fragment {
 
     }
 
-
+    @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
@@ -219,6 +219,21 @@ public class SelectItemFragment extends Fragment {
         view.findViewById(R.id.cancelButton).setOnClickListener( view12 ->
                 NavHostFragment.findNavController(SelectItemFragment.this)
                         .navigate(R.id.CED_StartFragment));
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        Bundle bundle = new Bundle();
+
+        bundle.putString("barcode", upcString);
+
+        // Need to clear the result with the same request key, before using possibly same request key again.
+        getParentFragmentManager().clearFragmentResult("BARCODE");
+
+        getParentFragmentManager().setFragmentResult("BARCODE", bundle);
 
     }
 
@@ -357,21 +372,6 @@ public class SelectItemFragment extends Fragment {
         subtitleHint.setText("");
 
         productSubtitle = null;
-
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-
-        Bundle bundle = new Bundle();
-
-        bundle.putString("barcode", upcString);
-
-        // Need to clear the result with the same request key, before using possibly same request key again.
-        getParentFragmentManager().clearFragmentResult("BARCODE");
-
-        getParentFragmentManager().setFragmentResult("BARCODE", bundle);
 
     }
 
