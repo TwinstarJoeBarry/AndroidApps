@@ -41,7 +41,6 @@ import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts.RequestPermission;
-import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -63,10 +62,13 @@ import java.util.Objects;
 
 import edu.ncc.nest.nestapp.R;
 
+/**
+ * Abstract Fragment class that handles the scanning of bar-codes.
+ */
 @SuppressWarnings("unused")
 public abstract class AbstractScannerActivity extends AppCompatActivity implements BarcodeCallback {
 
-    public static final String LOG_TAG = AbstractScannerActivity.class.getSimpleName();
+    public static final String LOG_TAG = AbstractScannerFragment.class.getSimpleName();
 
     // Used to ask for camera permission. Calls onCameraPermissionResult method with the result
     private final ActivityResultLauncher<String> REQUEST_CAMERA_PERMISSION_LAUNCHER =
@@ -89,18 +91,15 @@ public abstract class AbstractScannerActivity extends AppCompatActivity implemen
 
     //////////////////////////////////// Abstract Methods Start ////////////////////////////////////
 
-    protected abstract void onBarcodeConfirmed(@NonNull String barcode,
-                                               @NonNull BarcodeFormat format);
+    protected abstract void onBarcodeConfirmed(@NonNull String barcode, @NonNull BarcodeFormat format);
 
 
     /////////////////////////////////// Lifecycle Methods Start ////////////////////////////////////
 
+
     @Override
-    @CallSuper
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.abstract_scanner);
 
         // Get respective views from layout
         decBarcodeView = findViewById(R.id.scanner_decorated_barcode_view);
@@ -128,7 +127,7 @@ public abstract class AbstractScannerActivity extends AppCompatActivity implemen
 
 
         // Create new BeepManager object to handle beeps and vibration
-        beepManager = new BeepManager(AbstractScannerActivity.this);
+        beepManager = new BeepManager(this);
 
         beepManager.setVibrateEnabled(true);
 
@@ -136,7 +135,7 @@ public abstract class AbstractScannerActivity extends AppCompatActivity implemen
 
 
         // If camera permission is not granted, request the camera permission to be granted
-        if (ContextCompat.checkSelfPermission(getApplicationContext(),
+        if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
 
             // Update the status text to inform the guest that camera permission is required
@@ -150,7 +149,7 @@ public abstract class AbstractScannerActivity extends AppCompatActivity implemen
 
                 /* Create a AlertDialog that informs the user that the camera permission needs to be
                  * granted in order to use this feature */
-                AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
                 // Allow the user one more chance to accept the permission from within the app
                 builder.setPositiveButton("OK", (dialog, which) -> {
@@ -186,7 +185,7 @@ public abstract class AbstractScannerActivity extends AppCompatActivity implemen
         super.onResume();
 
         // If camera permission is granted, then resume scanning
-        if (ContextCompat.checkSelfPermission(getApplicationContext(),
+        if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED)
 
             resumeScanning();
@@ -288,7 +287,7 @@ public abstract class AbstractScannerActivity extends AppCompatActivity implemen
              * permission that the user has denied. Respect the user's decision. DON'T link to
              * system settings in an effort to convince the user to change their decision. */
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
             builder.setNeutralButton("Dismiss", (dialog, which) -> dialog.dismiss());
 
@@ -397,6 +396,5 @@ public abstract class AbstractScannerActivity extends AppCompatActivity implemen
             decBarcodeView.setDecoderFactory(new DefaultDecoderFactory());
 
     }
-
 
 }

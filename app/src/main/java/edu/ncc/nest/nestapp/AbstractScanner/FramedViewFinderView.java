@@ -1,6 +1,6 @@
 package edu.ncc.nest.nestapp.AbstractScanner;
 
-/**
+/*
  * Copyright (C) 2020 The LibreFoodPantry Developers.
  *
  * This program is free software: you can redistribute it and/or modify
@@ -44,7 +44,6 @@ import edu.ncc.nest.nestapp.R;
 /**
  * FramedViewFinderView --
  * Adds a frame around a ViewFinderView
- * @author Tyler Sizse
  */
 public class FramedViewFinderView extends ViewfinderView {
 
