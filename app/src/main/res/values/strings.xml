@@ -223,6 +223,8 @@
     <string name="fragment_ced_select_item_select_category_btn">Select Category</string>
     <string name="fragment_ced_select_item_product_lbl">Product:</string>
     <string name="fragment_ced_select_item_select_product_btn">Select Product</string>
+    <string name="fragment_ced_select_item_subtitle_lbl">Type:</string>
+    <string name="fragment_ced_select_item_select_subtitle_btn">Select Type</string>
 
     <!-- Strings used in fragment_check_expiration_date_select_printed_expiration_date.xml -->
     <string name="fragment_ced_select_printed_expiration_date_title">Select the product\'s printed expiration date</string>
