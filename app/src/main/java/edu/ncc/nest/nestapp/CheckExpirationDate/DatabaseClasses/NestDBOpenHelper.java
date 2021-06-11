@@ -1,4 +1,4 @@
-package edu.ncc.nest.nestapp;
+package edu.ncc.nest.nestapp.CheckExpirationDate.DatabaseClasses;
 
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
@@ -22,7 +22,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Scanner;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -74,9 +73,6 @@ public class NestDBOpenHelper extends SQLiteOpenHelper {
     // keep static reference to single instance of this class (Singleton pattern)
     @SuppressLint("StaticFieldLeak")  // we use Application Context only (no memory leak)
     private static NestDBOpenHelper mInstance = null;
-
-
-    private static final HashMap<String, String> taskResults = new HashMap<>();
 
     // getInstance static factory method (Singleton pattern)
     public static NestDBOpenHelper getInstance(Context context) {
