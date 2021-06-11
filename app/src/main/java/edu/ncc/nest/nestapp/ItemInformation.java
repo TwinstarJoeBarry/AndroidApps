@@ -19,14 +19,9 @@ package edu.ncc.nest.nestapp;
 
 // still need to implement camera, API call for items in category, connecting to scanner layout
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.appcompat.widget.PopupMenu;
-
 import android.os.Looper;
 import android.util.Log;
 import android.view.Menu;
@@ -38,8 +33,11 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.app.DatePickerDialog;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.PopupMenu;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -53,10 +51,11 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import edu.ncc.nest.nestapp.CheckExpirationDate.DatabaseClasses.NestDBDataSource;
+import edu.ncc.nest.nestapp.CheckExpirationDate.DatabaseClasses.NestUPC;
 import edu.ncc.nest.nestapp.async.BackgroundTask;
 import edu.ncc.nest.nestapp.async.TaskHelper;
 
@@ -65,7 +64,8 @@ import edu.ncc.nest.nestapp.async.TaskHelper;
  * @deprecated This Activity is being replaced by Fragments. ({@see edu.ncc.nest.nestapp.CheckExpirationDate})
  */
 @Deprecated
-public class ItemInformation extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
+public class ItemInformation extends NestDBDataSource.NestDBActivity
+        implements DatePickerDialog.OnDateSetListener {
 
     // category list and current selected category id
     private ArrayList<String> categories;
@@ -97,23 +97,8 @@ public class ItemInformation extends AppCompatActivity implements DatePickerDial
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_item_info);
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        progressBar = findViewById(R.id.progressbar);
-        catDisplay = (TextView)findViewById(R.id.cat_result);
-        itemDisplay = (TextView)findViewById(R.id.item_result);
-        expDisplay = (TextView)findViewById(R.id.exp_result);
-        resultDisplay = (TextView)findViewById(R.id.result);
-        tipDisplay = (TextView)findViewById(R.id.tipDisplay);
-        tipBut = (Button)findViewById(R.id.tips_button);
-        upcEntry = findViewById(R.id.upc_entry);
 
         expirationYear = -1; //for testing in calculateResult method
-
-        dataSource = new NestDBDataSource(this);
 
         // initialize category list and current selection
         categories = new ArrayList<>();
@@ -123,22 +108,51 @@ public class ItemInformation extends AppCompatActivity implements DatePickerDial
         items = new ArrayList<>();
         selectedItemPosition = -1;
 
-        // load categories into list
-        TaskHelper taskHelper = new TaskHelper(1);
+    }
 
-        try {
+    @Override
+    protected void onLoadSuccess(@NonNull NestDBDataSource nestDBDataSource) {
+        super.onLoadSuccess(nestDBDataSource);
 
-            taskHelper.submit(new GetCategoriesTask()).get();
+        dataSource = nestDBDataSource;
 
-        } catch (ExecutionException | InterruptedException e) {
+        // If the activity is not dead
+        if (!this.isDestroyed()) {
 
-            e.printStackTrace();
+            setContentView(R.layout.activity_item_info);
 
-        } finally {
+            setSupportActionBar(findViewById(R.id.toolbar));
 
-            taskHelper.shutdown();
+            progressBar = findViewById(R.id.progressbar);
+            catDisplay = (TextView) findViewById(R.id.cat_result);
+            itemDisplay = (TextView) findViewById(R.id.item_result);
+            expDisplay = (TextView) findViewById(R.id.exp_result);
+            resultDisplay = (TextView) findViewById(R.id.result);
+            tipDisplay = (TextView) findViewById(R.id.tipDisplay);
+            tipBut = (Button) findViewById(R.id.tips_button);
+            upcEntry = findViewById(R.id.upc_entry);
+
+            // load categories into list
+
+            TaskHelper taskHelper = new TaskHelper(1);
+
+            try {
+
+                taskHelper.execute(new GetCategoriesTask());
+
+            } finally {
+
+                taskHelper.shutdown();
+
+            }
 
         }
+
+    }
+
+    @Override
+    protected void onLoadError(@NonNull Throwable throwable) {
+        super.onLoadError(throwable);
 
     }
 
@@ -608,6 +622,7 @@ public class ItemInformation extends AppCompatActivity implements DatePickerDial
      * displaying of the info
      */
     private void processDataFromUPC() {
+
         String upc = upcEntry.getText().toString();
         // we get the relevant fields from the Nest UPCs, product and category tables all in one object
         NestUPC upcData = dataSource.getNestUPC(upc);

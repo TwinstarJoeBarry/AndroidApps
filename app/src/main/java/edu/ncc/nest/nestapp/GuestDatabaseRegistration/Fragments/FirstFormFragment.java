@@ -62,13 +62,15 @@ public class FirstFormFragment extends Fragment implements View.OnClickListener,
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState)
+    {
         super.onViewCreated(view, savedInstanceState);
 
         // Creating the database and passing the correct context as the argument
         db = new GuestRegistrySource(requireContext());
 
-        view.findViewById(R.id.next_button_first_fragment_gRegistration).setOnClickListener(v -> {
+        view.findViewById(R.id.next_button_first_fragment_gRegistration).setOnClickListener(v ->
+        {
 
             // Getting a handle on info from the UI
             name = view.findViewById(R.id.editText);
@@ -150,12 +152,14 @@ public class FirstFormFragment extends Fragment implements View.OnClickListener,
     }
 
     @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+    {
 
     }
 
     @Override
-    public void onNothingSelected(AdapterView<?> parent) {
+    public void onNothingSelected(AdapterView<?> parent)
+    {
 
     }
 
