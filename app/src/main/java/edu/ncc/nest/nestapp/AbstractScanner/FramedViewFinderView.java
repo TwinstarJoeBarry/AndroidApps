@@ -44,6 +44,7 @@ import edu.ncc.nest.nestapp.R;
 /**
  * FramedViewFinderView --
  * Adds a frame around a ViewFinderView
+ * @author Tyler Sizse
  */
 public class FramedViewFinderView extends ViewfinderView {
 

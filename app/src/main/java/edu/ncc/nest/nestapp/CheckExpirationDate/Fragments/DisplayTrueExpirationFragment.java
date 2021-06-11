@@ -19,20 +19,20 @@ package edu.ncc.nest.nestapp.CheckExpirationDate.Fragments;
  */
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+
 import java.util.List;
 
-import edu.ncc.nest.nestapp.NestDBDataSource;
-import edu.ncc.nest.nestapp.NestUPC;
+import edu.ncc.nest.nestapp.CheckExpirationDate.Activities.CheckExpirationDateActivity;
+import edu.ncc.nest.nestapp.CheckExpirationDate.DatabaseClasses.NestDBDataSource;
+import edu.ncc.nest.nestapp.CheckExpirationDate.DatabaseClasses.NestUPC;
 import edu.ncc.nest.nestapp.R;
 import edu.ncc.nest.nestapp.ShelfLife;
 
@@ -72,9 +72,6 @@ public class DisplayTrueExpirationFragment extends Fragment {
             // Get the printed expiration date
             exp = data.getString("PRINTED EXPIRATION DATE");
 
-            // Used for testing purposes. TODO Delete this line after productId issue is fixed, issue #188.
-            foodItem = new NestUPC("123456789","Tuscan","", 644, "Milk","",2,"Dairy");
-
             if (foodItem != null) {
 
                 // Display item name , upc , category name on fragment_check_expiration_date_display_true_expiration.xml
@@ -87,7 +84,7 @@ public class DisplayTrueExpirationFragment extends Fragment {
                 // The productId is being set to -1. See SelectItemFragment.java, and issue #188.
 
                 // Instantiating database
-                dataSource = new NestDBDataSource(getContext());
+                dataSource = CheckExpirationDateActivity.requireDataSource(this);
 
                 // Getting the product's shelf life from the database
                 List<ShelfLife> shelfLives = dataSource.getShelfLivesForProduct(foodItem.getProductId());
