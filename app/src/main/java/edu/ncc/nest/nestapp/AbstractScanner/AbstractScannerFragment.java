@@ -91,11 +91,9 @@ public abstract class AbstractScannerFragment extends Fragment implements Barcod
     private BarcodeFormat barcodeFormat;
     private String barcodeText;
 
-
     //////////////////////////////////// Abstract Methods Start ////////////////////////////////////
 
     protected abstract void onBarcodeConfirmed(@NonNull String barcode, @NonNull BarcodeFormat format);
-
 
     /////////////////////////////////// Lifecycle Methods Start ////////////////////////////////////
 
@@ -194,6 +192,7 @@ public abstract class AbstractScannerFragment extends Fragment implements Barcod
     }
 
     @Override
+    @CallSuper
     public void onResume() {
         super.onResume();
 
@@ -206,6 +205,7 @@ public abstract class AbstractScannerFragment extends Fragment implements Barcod
     }
 
     @Override
+    @CallSuper
     public void onPause() {
         super.onPause();
 
@@ -221,6 +221,7 @@ public abstract class AbstractScannerFragment extends Fragment implements Barcod
     }
 
     @Override
+    @CallSuper
     public void onDestroy() {
 
         // Make sure we have the view in-case the view isn't initialized before destruction

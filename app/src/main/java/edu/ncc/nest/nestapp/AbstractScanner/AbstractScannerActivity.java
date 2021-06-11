@@ -41,6 +41,7 @@ import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts.RequestPermission;
+import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -88,7 +89,6 @@ public abstract class AbstractScannerActivity extends AppCompatActivity implemen
     private BarcodeFormat barcodeFormat;
     private String barcodeText;
 
-
     //////////////////////////////////// Abstract Methods Start ////////////////////////////////////
 
     protected abstract void onBarcodeConfirmed(@NonNull String barcode, @NonNull BarcodeFormat format);
@@ -96,8 +96,8 @@ public abstract class AbstractScannerActivity extends AppCompatActivity implemen
 
     /////////////////////////////////// Lifecycle Methods Start ////////////////////////////////////
 
-
     @Override
+    @CallSuper
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -181,6 +181,7 @@ public abstract class AbstractScannerActivity extends AppCompatActivity implemen
     }
 
     @Override
+    @CallSuper
     public void onResume() {
         super.onResume();
 
@@ -193,6 +194,7 @@ public abstract class AbstractScannerActivity extends AppCompatActivity implemen
     }
 
     @Override
+    @CallSuper
     public void onPause() {
         super.onPause();
 
@@ -208,6 +210,7 @@ public abstract class AbstractScannerActivity extends AppCompatActivity implemen
     }
 
     @Override
+    @CallSuper
     public void onDestroy() {
 
         // Make sure we have the view in-case the view isn't initialized before destruction
@@ -223,7 +226,6 @@ public abstract class AbstractScannerActivity extends AppCompatActivity implemen
         super.onDestroy();
 
     }
-
 
     ////////////////////////////////// Other Event Methods Start  //////////////////////////////////
 
@@ -268,7 +270,6 @@ public abstract class AbstractScannerActivity extends AppCompatActivity implemen
 
     @Override // Made this method final so it can't be overridden
     public final void possibleResultPoints(List<ResultPoint> resultPoints) { }
-
 
     //////////////////////////////////// Custom Methods Start  /////////////////////////////////////
 
