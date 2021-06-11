@@ -19,19 +19,19 @@ package edu.ncc.nest.nestapp.CheckExpirationDate.Fragments;
  */
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
-
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import edu.ncc.nest.nestapp.NestUPC;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
+
+import edu.ncc.nest.nestapp.CheckExpirationDate.Activities.CheckExpirationDateActivity;
+import edu.ncc.nest.nestapp.CheckExpirationDate.DatabaseClasses.NestDBDataSource;
+import edu.ncc.nest.nestapp.CheckExpirationDate.DatabaseClasses.NestUPC;
 import edu.ncc.nest.nestapp.R;
 
 /**
@@ -115,47 +115,36 @@ public class ConfirmItemFragment extends Fragment {
                 // Retrieve foodItem from Bundle
                 foodItem = (NestUPC) result.getSerializable("foodItem");
 
-                // TODO Add null pointer check
-
-                // Retrieve the foodItem's product name, category, and UPC, log the results
-                item_name = foodItem.getProductName();
-                Log.d(TAG, "Item Name: " + item_name);
-
-                cat_name = foodItem.getCatDesc();
-                Log.d(TAG, "Cat Desc: " + cat_name);
-
-                upc_string = foodItem.getUpc();
-                Log.d(TAG, "UPC: " + upc_string);
-
-                // Send retrieved data to TextView
-                itemName.setText(item_name);
-                catName.setText(cat_name);
-                upc.setText(upc_string);
+                onFragmentResult();
 
                 // Clear the result listener since we successfully received the result
+                getParentFragmentManager().clearFragmentResultListener("FOOD ITEM");
+
+                // Clear the other result listener since we successfully received a result
+                getParentFragmentManager().clearFragmentResultListener("BARCODE");
+
+            });
+
+            getParentFragmentManager().setFragmentResultListener("BARCODE", this, (requestKey, result) -> {
+
+                Log.d(TAG, "In ConfirmItemFragment onFragmentResult()");
+
+                NestDBDataSource dataSource = CheckExpirationDateActivity
+                        .requireDataSource(ConfirmItemFragment.this);
+
+                foodItem = dataSource.getNestUPC(result.getString("barcode"));
+
+                onFragmentResult();
+
+                // Clear the result listener since we successfully received the result
+                getParentFragmentManager().clearFragmentResultListener("BARCODE");
+
+                // Clear the other result listener since we successfully received a result
                 getParentFragmentManager().clearFragmentResultListener("FOOD ITEM");
 
             });
 
         }
-
-
-        getParentFragmentManager().setFragmentResultListener("BARCODE", this, (requestKey, result) -> {
-
-            Log.d(TAG, "In ConfirmItemFragment onFragmentResult()");
-
-
-            upc_string = result.getString("barcode");
-
-            upc.setText(upc_string);
-
-            // Clear the result listener since we successfully received the result
-            getParentFragmentManager().clearFragmentResultListener("BARCODE");
-
-        });
-
-
-
 
         ////////////// Navigation //////////////
 
@@ -200,9 +189,30 @@ public class ConfirmItemFragment extends Fragment {
 
 
         });
+
+    }
+
+    private void onFragmentResult() {
+
+        // Retrieve the foodItem's product name, category, and UPC, log the results
+        item_name = foodItem.getProductName();
+        Log.d(TAG, "Item Name: " + item_name);
+
+        cat_name = foodItem.getCatDesc();
+        Log.d(TAG, "Cat Desc: " + cat_name);
+
+        upc_string = foodItem.getUpc();
+        Log.d(TAG, "UPC: " + upc_string);
+
+        // Send retrieved data to TextView
+        itemName.setText(item_name);
+        catName.setText(cat_name);
+        upc.setText(upc_string);
+
     }
 
     /////////// LIFE CYCLE ////////////
+
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
 

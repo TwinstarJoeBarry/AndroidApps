@@ -131,12 +131,16 @@
 
     <TextView
         android:id="@+id/fragment_select_item_category_hint"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/fragment_select_item_category_prompt"
+        android:layout_weight="1"
+        android:gravity="left"
+        app:layout_constraintTop_toTopOf="@id/fragment_select_item_category_select"
         app:layout_constraintLeft_toRightOf="@id/fragment_select_item_category_select"
+        app:layout_constraintBottom_toBottomOf="@id/fragment_select_item_category_select"
+        app:layout_constraintRight_toRightOf="parent"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginRight="16dp"
         tools:ignore="RtlHardcoded" />
 
 
@@ -166,12 +170,54 @@
 
     <TextView
         android:id="@+id/fragment_select_item_product_hint"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="left"
+        app:layout_constraintTop_toTopOf="@id/fragment_select_item_product_select"
+        app:layout_constraintLeft_toRightOf="@id/fragment_select_item_product_select"
+        app:layout_constraintBottom_toBottomOf="@id/fragment_select_item_product_select"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        tools:ignore="RtlHardcoded" />
+
+    <TextView
+        android:id="@+id/fragment_select_item_subtitle_prompt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/fragment_select_item_product_prompt"
-        app:layout_constraintLeft_toRightOf="@id/fragment_select_item_product_select"
+        android:layout_below="@id/fragment_select_item_headline"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="24dp"
+        android:text="@string/fragment_ced_select_item_subtitle_lbl"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fragment_select_item_product_select"
+        tools:ignore="RtlHardcoded" />
+
+    <Button
+        android:id="@+id/fragment_select_item_subtitle_select"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fragment_select_item_subtitle_prompt"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginRight="16dp"
+        tools:ignore="RtlHardcoded"
+        android:text="@string/fragment_ced_select_item_select_subtitle_btn" />
+
+    <TextView
+        android:id="@+id/fragment_select_item_subtitle_hint"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="left"
+        app:layout_constraintTop_toTopOf="@id/fragment_select_item_subtitle_select"
+        app:layout_constraintLeft_toRightOf="@id/fragment_select_item_subtitle_select"
+        app:layout_constraintBottom_toBottomOf="@id/fragment_select_item_subtitle_select"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         tools:ignore="RtlHardcoded" />
 
     <Button
