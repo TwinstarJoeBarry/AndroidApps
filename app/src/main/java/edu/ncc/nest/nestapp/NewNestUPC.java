@@ -14,6 +14,11 @@ import java.util.Locale;
 
 import edu.ncc.nest.nestapp.CheckExpirationDate.DatabaseClasses.NestDBDataSource;
 
+/**
+ * @deprecated This Activity is being replaced by Fragments.
+ * ({@link edu.ncc.nest.nestapp.CheckExpirationDate.Fragments.SelectItemFragment})
+ */
+@Deprecated
 public class NewNestUPC extends NestDBDataSource.NestDBActivity {
     private String upcBeingAdded;
     private int selectedCategoryId, selectedProductId;
