@@ -42,11 +42,9 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.google.zxing.BarcodeFormat;
 
 import edu.ncc.nest.nestapp.AbstractScanner.AbstractScannerFragment;
-
 import edu.ncc.nest.nestapp.CheckExpirationDate.Activities.CheckExpirationDateActivity;
 import edu.ncc.nest.nestapp.CheckExpirationDate.DatabaseClasses.NestDBDataSource;
 import edu.ncc.nest.nestapp.CheckExpirationDate.DatabaseClasses.NestUPC;
-
 import edu.ncc.nest.nestapp.R;
 
 /**

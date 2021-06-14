@@ -41,11 +41,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts.RequestPermission;
+import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
@@ -60,14 +61,14 @@ import com.journeyapps.barcodescanner.DefaultDecoderFactory;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 import edu.ncc.nest.nestapp.R;
 
 /**
- * AbstractScannerFragment --
  * Abstract Fragment class that handles the scanning of bar-codes.
- * @author Tyler Sizse
  */
+@SuppressWarnings("unused")
 public abstract class AbstractScannerFragment extends Fragment implements BarcodeCallback {
 
     public static final String LOG_TAG = AbstractScannerFragment.class.getSimpleName();
@@ -90,15 +91,14 @@ public abstract class AbstractScannerFragment extends Fragment implements Barcod
     private BarcodeFormat barcodeFormat;
     private String barcodeText;
 
-
-    ////////////// Abstract Methods Start //////////////
+    //////////////////////////////////// Abstract Methods Start ////////////////////////////////////
 
     protected abstract void onBarcodeConfirmed(@NonNull String barcode, @NonNull BarcodeFormat format);
 
-
-    ////////////// Lifecycle Methods Start //////////////
+    /////////////////////////////////// Lifecycle Methods Start ////////////////////////////////////
 
     @Override
+    @CallSuper
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
@@ -108,6 +108,7 @@ public abstract class AbstractScannerFragment extends Fragment implements Barcod
     }
 
     @Override
+    @CallSuper
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
@@ -143,15 +144,10 @@ public abstract class AbstractScannerFragment extends Fragment implements Barcod
 
         beepManager.setBeepEnabled(true);
 
-    }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        // If the camera permission is granted
-        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
-                != PackageManager.PERMISSION_GRANTED) {
+        // If camera permission is not granted, request the camera permission to be granted
+        if (ContextCompat.checkSelfPermission(requireContext(),
+                Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
 
             // Update the status text to inform the guest that camera permission is required
             decBarcodeView.setStatusText(getString(R.string.abstract_scanner_fragment_camera_permission_required));
@@ -159,26 +155,57 @@ public abstract class AbstractScannerFragment extends Fragment implements Barcod
             // Clear the result text view
             resultTextView.setText(null);
 
+            // If we should show a request permission rationale for the camera permission
             if (shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)) {
 
-                // TODO Create a dialog window describing why we need the permission for this feature
+                /* Create a AlertDialog that informs the user that the camera permission needs to be
+                 * granted in order to use this feature */
+                AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
 
-                // Display a reason of why we need the permission
-                Toast.makeText(requireContext(), "Camera permission is needed in order to scan.",
-                        Toast.LENGTH_LONG).show();
+                // Allow the user one more chance to accept the permission from within the app
+                builder.setPositiveButton("OK", (dialog, which) -> {
+
+                    dialog.dismiss();
+
+                    // Request the camera permission
+                    REQUEST_CAMERA_PERMISSION_LAUNCHER.launch(Manifest.permission.CAMERA);
+
+                });
+
+                /* Include a "cancel" or "no thanks" button that allows the user to continue using
+                 * the app without granting the permission. */
+                builder.setNeutralButton("No thanks", (dialog, which) -> dialog.dismiss());
+
+                builder.setMessage("Camera permission is needed in order to scan.");
+
+                builder.setTitle("Permission Required");
+
+                builder.create().show();
 
             } else
 
                 // Request the camera permission
                 REQUEST_CAMERA_PERMISSION_LAUNCHER.launch(Manifest.permission.CAMERA);
 
-        } else
+        }
+
+    }
+
+    @Override
+    @CallSuper
+    public void onResume() {
+        super.onResume();
+
+        // If camera permission is granted, then resume scanning
+        if (ContextCompat.checkSelfPermission(requireContext(),
+                Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED)
 
             resumeScanning();
 
     }
 
     @Override
+    @CallSuper
     public void onPause() {
         super.onPause();
 
@@ -194,10 +221,11 @@ public abstract class AbstractScannerFragment extends Fragment implements Barcod
     }
 
     @Override
+    @CallSuper
     public void onDestroy() {
 
         // Make sure we have the view in-case the view isn't initialized before destruction
-        if (decBarcodeView != null && !scannerPaused) {
+        if (!scannerPaused) {
 
             // Since we are destroying the fragment, pause and wait for the camera to close
             decBarcodeView.pauseAndWait();
@@ -211,7 +239,7 @@ public abstract class AbstractScannerFragment extends Fragment implements Barcod
     }
 
 
-    ////////////// Other Event Methods Start  //////////////
+    ////////////////////////////////// Other Event Methods Start  //////////////////////////////////
 
     @Override
     public final void barcodeResult(BarcodeResult result) {
@@ -256,24 +284,32 @@ public abstract class AbstractScannerFragment extends Fragment implements Barcod
     public final void possibleResultPoints(List<ResultPoint> resultPoints) { }
 
 
-    ////////////// Custom Methods Start  //////////////
+    //////////////////////////////////// Custom Methods Start  /////////////////////////////////////
 
     /**
      * onCameraPermissionResult -- Takes 1 parameter.
      * This method gets called by the REQUEST_CAMERA_PERMISSION_LAUNCHER, after
      * asking for camera permission. Determines what happens when the permission gets granted or
      * denied.
-     * @param isGranted - true if permission was granted false otherwise
+     * @param cameraPermissionGranted - true if permission was granted false otherwise
      */
-    private void onCameraPermissionResult(boolean isGranted) {
+    private void onCameraPermissionResult(boolean cameraPermissionGranted) {
 
-        if (!isGranted) {
+        if (!cameraPermissionGranted) {
 
-            // TODO Create dialog that informs the user why permission is needed
+            /* Explain to the user that the feature is unavailable because the feature requires a
+             * permission that the user has denied. Respect the user's decision. DON'T link to
+             * system settings in an effort to convince the user to change their decision. */
 
-            // Display a reason of why we need the permission
-            Toast.makeText(requireContext(), "Camera permission is needed in order to scan.",
-                    Toast.LENGTH_LONG).show();
+            AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+
+            builder.setNeutralButton("Dismiss", (dialog, which) -> dialog.dismiss());
+
+            builder.setMessage("Camera permission is needed in order to scan.");
+
+            builder.setTitle("Permission Required");
+
+            builder.create().show();
 
         } else
 
@@ -336,9 +372,13 @@ public abstract class AbstractScannerFragment extends Fragment implements Barcod
      */
     protected void setFeedbackButtonsEnabled(boolean enabled) {
 
-        confirmButton.setEnabled(enabled);
+        if (confirmButton != null && rescanButton != null) {
 
-        rescanButton.setEnabled(enabled);
+            confirmButton.setEnabled(enabled);
+
+            rescanButton.setEnabled(enabled);
+
+        }
 
     }
 
@@ -352,7 +392,7 @@ public abstract class AbstractScannerFragment extends Fragment implements Barcod
      */
     protected final void setDecoderFormats(@NonNull BarcodeFormat...barcodeFormats) {
 
-        if (barcodeFormats.length > 0) {
+        if (Objects.requireNonNull(barcodeFormats).length > 0) {
 
             List<BarcodeFormat> formatList = new ArrayList<>(barcodeFormats.length);
 

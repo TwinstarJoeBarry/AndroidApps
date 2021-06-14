@@ -63,10 +63,13 @@ import java.util.Objects;
 
 import edu.ncc.nest.nestapp.R;
 
+/**
+ * Abstract Fragment class that handles the scanning of bar-codes.
+ */
 @SuppressWarnings("unused")
 public abstract class AbstractScannerActivity extends AppCompatActivity implements BarcodeCallback {
 
-    public static final String LOG_TAG = AbstractScannerActivity.class.getSimpleName();
+    public static final String LOG_TAG = AbstractScannerFragment.class.getSimpleName();
 
     // Used to ask for camera permission. Calls onCameraPermissionResult method with the result
     private final ActivityResultLauncher<String> REQUEST_CAMERA_PERMISSION_LAUNCHER =
@@ -86,11 +89,9 @@ public abstract class AbstractScannerActivity extends AppCompatActivity implemen
     private BarcodeFormat barcodeFormat;
     private String barcodeText;
 
-
     //////////////////////////////////// Abstract Methods Start ////////////////////////////////////
 
-    protected abstract void onBarcodeConfirmed(@NonNull String barcode,
-                                               @NonNull BarcodeFormat format);
+    protected abstract void onBarcodeConfirmed(@NonNull String barcode, @NonNull BarcodeFormat format);
 
 
     /////////////////////////////////// Lifecycle Methods Start ////////////////////////////////////
@@ -99,8 +100,6 @@ public abstract class AbstractScannerActivity extends AppCompatActivity implemen
     @CallSuper
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.abstract_scanner);
 
         // Get respective views from layout
         decBarcodeView = findViewById(R.id.scanner_decorated_barcode_view);
@@ -128,7 +127,7 @@ public abstract class AbstractScannerActivity extends AppCompatActivity implemen
 
 
         // Create new BeepManager object to handle beeps and vibration
-        beepManager = new BeepManager(AbstractScannerActivity.this);
+        beepManager = new BeepManager(this);
 
         beepManager.setVibrateEnabled(true);
 
@@ -136,7 +135,7 @@ public abstract class AbstractScannerActivity extends AppCompatActivity implemen
 
 
         // If camera permission is not granted, request the camera permission to be granted
-        if (ContextCompat.checkSelfPermission(getApplicationContext(),
+        if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
 
             // Update the status text to inform the guest that camera permission is required
@@ -150,7 +149,7 @@ public abstract class AbstractScannerActivity extends AppCompatActivity implemen
 
                 /* Create a AlertDialog that informs the user that the camera permission needs to be
                  * granted in order to use this feature */
-                AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
                 // Allow the user one more chance to accept the permission from within the app
                 builder.setPositiveButton("OK", (dialog, which) -> {
@@ -182,11 +181,12 @@ public abstract class AbstractScannerActivity extends AppCompatActivity implemen
     }
 
     @Override
+    @CallSuper
     public void onResume() {
         super.onResume();
 
         // If camera permission is granted, then resume scanning
-        if (ContextCompat.checkSelfPermission(getApplicationContext(),
+        if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED)
 
             resumeScanning();
@@ -194,6 +194,7 @@ public abstract class AbstractScannerActivity extends AppCompatActivity implemen
     }
 
     @Override
+    @CallSuper
     public void onPause() {
         super.onPause();
 
@@ -209,6 +210,7 @@ public abstract class AbstractScannerActivity extends AppCompatActivity implemen
     }
 
     @Override
+    @CallSuper
     public void onDestroy() {
 
         // Make sure we have the view in-case the view isn't initialized before destruction
@@ -224,7 +226,6 @@ public abstract class AbstractScannerActivity extends AppCompatActivity implemen
         super.onDestroy();
 
     }
-
 
     ////////////////////////////////// Other Event Methods Start  //////////////////////////////////
 
@@ -270,7 +271,6 @@ public abstract class AbstractScannerActivity extends AppCompatActivity implemen
     @Override // Made this method final so it can't be overridden
     public final void possibleResultPoints(List<ResultPoint> resultPoints) { }
 
-
     //////////////////////////////////// Custom Methods Start  /////////////////////////////////////
 
     /**
@@ -288,7 +288,7 @@ public abstract class AbstractScannerActivity extends AppCompatActivity implemen
              * permission that the user has denied. Respect the user's decision. DON'T link to
              * system settings in an effort to convince the user to change their decision. */
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
             builder.setNeutralButton("Dismiss", (dialog, which) -> dialog.dismiss());
 
@@ -397,6 +397,5 @@ public abstract class AbstractScannerActivity extends AppCompatActivity implemen
             decBarcodeView.setDecoderFactory(new DefaultDecoderFactory());
 
     }
-
 
 }
