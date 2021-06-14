@@ -27,7 +27,7 @@
         android:id="@+id/GV_ScannerFragment"
         android:name="edu.ncc.nest.nestapp.GuestVisit.Fragments.ScannerFragment"
         android:label="@string/nav_graph_gv_scanner_fragment_lbl"
-        tools:layout="@layout/fragment_abstract_scanner" >
+        tools:layout="@layout/abstract_scanner" >
 
         <action
             android:id="@+id/action_GV_ScannerFragment_to_ConfirmationFragment"

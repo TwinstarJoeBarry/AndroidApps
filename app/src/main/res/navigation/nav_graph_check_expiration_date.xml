@@ -44,7 +44,7 @@
         android:id="@+id/CED_ScannerFragment"
         android:name="edu.ncc.nest.nestapp.CheckExpirationDate.Fragments.ScannerFragment"
         android:label="@string/nav_graph_ced__scanner_fragment_lbl"
-        tools:layout="@layout/fragment_abstract_scanner">
+        tools:layout="@layout/abstract_scanner">
 
         <action
             android:id="@+id/action_CED_ScannerFragment_to_ConfirmItemFragment"

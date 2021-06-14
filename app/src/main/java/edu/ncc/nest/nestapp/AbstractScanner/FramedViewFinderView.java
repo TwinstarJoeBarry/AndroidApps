@@ -1,4 +1,4 @@
-package edu.ncc.nest.nestapp.AbstractScannerFragment;
+package edu.ncc.nest.nestapp.AbstractScanner;
 
 /**
  * Copyright (C) 2020 The LibreFoodPantry Developers.

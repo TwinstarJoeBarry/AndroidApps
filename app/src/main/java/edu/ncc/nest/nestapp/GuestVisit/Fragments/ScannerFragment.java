@@ -32,16 +32,15 @@ package edu.ncc.nest.nestapp.GuestVisit.Fragments;
  */
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.navigation.fragment.NavHostFragment;
 
-import android.util.Log;
-import android.view.View;
-
 import com.google.zxing.BarcodeFormat;
 
-import edu.ncc.nest.nestapp.AbstractScannerFragment.AbstractScannerFragment;
+import edu.ncc.nest.nestapp.AbstractScanner.AbstractScannerFragment;
 import edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses.GuestRegistrySource;
 import edu.ncc.nest.nestapp.R;
 

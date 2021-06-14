@@ -1,7 +1,7 @@
-package edu.ncc.nest.nestapp.AbstractScannerFragment;
+package edu.ncc.nest.nestapp.AbstractScanner;
 
-/**
- * Copyright (C) 2020 The LibreFoodPantry Developers.
+/*
+ * Copyright (C) 2020-2021 The LibreFoodPantry Developers.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -103,7 +103,7 @@ public abstract class AbstractScannerFragment extends Fragment implements Barcod
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_abstract_scanner, container, false);
+        return inflater.inflate(R.layout.abstract_scanner, container, false);
 
     }
 
