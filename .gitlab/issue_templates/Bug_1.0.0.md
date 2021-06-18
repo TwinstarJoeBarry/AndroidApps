@@ -35,4 +35,4 @@ it's very hard to read otherwise.)
 
 (If you can, link to the line of code that might be responsible for the problem or the file)
 
-/label ~Status::Accepting-Merge-Requests ~Type::Bug ~Component:Check Expiration Date
+/label ~Status::Accepting-Merge-Requests ~Type::Bug ~component:check expiration date
