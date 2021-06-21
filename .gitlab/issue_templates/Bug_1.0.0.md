@@ -35,4 +35,6 @@ it's very hard to read otherwise.)
 
 (If you can, link to the line of code that might be responsible for the problem or the file)
 
-/label ~Status::Accepting-Merge-Requests ~Type::Bug ~component:check expiration date
+## Labels
+
+(We have not finalized our list of labels, for now, include the labels you would like to include as a comment.
