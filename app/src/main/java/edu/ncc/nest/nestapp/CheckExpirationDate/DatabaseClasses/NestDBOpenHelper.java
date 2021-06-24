@@ -64,6 +64,9 @@ public class NestDBOpenHelper extends SQLiteOpenHelper {
 
     public static final String LOG_TAG = NestDBDataSource.class.getSimpleName();
 
+    // Whether or not to print executed sql statements to the log.
+    public static final boolean DEBUG_SQL = false;
+
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "Nest.db";
     private static final String DATABASE_CREATE_SQL = "NestDB.Create.sql";
@@ -131,11 +134,13 @@ public class NestDBOpenHelper extends SQLiteOpenHelper {
                 // Avoid trying to execute empty statements (execSQL doesn't like that)
                 if (!sql.isEmpty()) {
 
-                    Log.d(LOG_TAG, "sql statement is:\n" + sql);
+                    if (DEBUG_SQL)
+
+                        Log.d(LOG_TAG, "sql statement is:\n" + sql);
 
                     db.execSQL(sql);
 
-                } else
+                } else if (DEBUG_SQL)
 
                     Log.d(LOG_TAG, "sql statement is empty");
 
