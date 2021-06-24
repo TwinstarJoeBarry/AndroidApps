@@ -6,6 +6,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Looper;
+import android.util.AndroidRuntimeException;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -20,6 +21,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -76,9 +78,13 @@ public class NestDBOpenHelper extends SQLiteOpenHelper {
 
     // getInstance static factory method (Singleton pattern)
     public static NestDBOpenHelper getInstance(Context context) {
+
         if (mInstance == null)
+
             mInstance = new NestDBOpenHelper(context.getApplicationContext());
+
         return mInstance;
+
     }
 
     /**
@@ -87,58 +93,68 @@ public class NestDBOpenHelper extends SQLiteOpenHelper {
      * @param context application context
      */
     private NestDBOpenHelper(Context context) {
+
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+
         mContext = context;
+
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.beginTransaction();
-        try (Scanner scan = new Scanner(mContext.getAssets().open(DATABASE_CREATE_SQL))) {
-            scan.useDelimiter(";"); // everything up to the next semicolon is the next statement
-            while (scan.hasNext()) {
-                String sql = scan.next().trim();
-                // avoid trying to execute empty statements (execSQL doesn't like that)
-                if (!sql.isEmpty()) {
-                    Log.d(DATABASE_NAME, "sql statement is:\n" + sql);
-                    db.execSQL(sql);
-                } else {
-                    Log.d(DATABASE_NAME, "sql statement is empty");
-                }
-            }
-            db.setTransactionSuccessful();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            Log.wtf(DATABASE_NAME, DATABASE_NAME + " creation failed: " + e.getMessage(), e);
-        }
-        db.endTransaction();
+
+        executeSqlFile(db, DATABASE_CREATE_SQL, DATABASE_NAME + " creation failed");
+
         populateFromFoodKeeperAPI(db);
+
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion,int newVersion){
-        db.beginTransaction();
-        try (Scanner scan = new Scanner(mContext.getAssets().open(DATABASE_DESTROY_SQL))) {
-            scan.useDelimiter(";"); // everything up to the next semicolon is the next statement
-            while (scan.hasNext()) {
-                String sql = scan.next().trim();
-                // avoid trying to execute empty statements (execSQL doesn't like that)
-                if (!sql.isEmpty()) {
-                    Log.d(DATABASE_NAME, "sql statement is:\n" + sql);
-                    db.execSQL(sql);
-                } else {
-                    Log.d(DATABASE_NAME, "sql statement is empty");
-                }
-            }
-            db.setTransactionSuccessful();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            Log.wtf(DATABASE_NAME, DATABASE_NAME + " upgrade preparation failed: " + e.getMessage(), e);
-        }
-        db.endTransaction();
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+
+        executeSqlFile(db, DATABASE_DESTROY_SQL,
+                DATABASE_NAME + " upgrade preparation failed");
+
         onCreate(db);
+
+    }
+
+    private void executeSqlFile(SQLiteDatabase db, String fileName, String errorMsg) {
+
+        db.beginTransaction();
+
+        try (Scanner scan = new Scanner(mContext.getAssets().open(fileName))) {
+
+            // Everything up to the next semicolon is the next statement
+            for (scan.useDelimiter(";"); scan.hasNext();) {
+
+                String sql = scan.next().trim();
+
+                // Avoid trying to execute empty statements (execSQL doesn't like that)
+                if (!sql.isEmpty()) {
+
+                    Log.d(LOG_TAG, "sql statement is:\n" + sql);
+
+                    db.execSQL(sql);
+
+                } else
+
+                    Log.d(LOG_TAG, "sql statement is empty");
+
+            }
+
+            db.setTransactionSuccessful();
+
+        } catch (Exception e) {
+
+            throw new RuntimeException(errorMsg + ": " + e.getMessage(), e);
+
+        } finally {
+
+            db.endTransaction();
+
+        }
+
     }
 
     private void populateFromFoodKeeperAPI(SQLiteDatabase db) {
@@ -152,7 +168,7 @@ public class NestDBOpenHelper extends SQLiteOpenHelper {
 
         }
 
-        TaskHelper taskHelper = new TaskHelper(4);
+        TaskHelper taskHelper = new TaskHelper();
 
         try {
 
@@ -174,7 +190,12 @@ public class NestDBOpenHelper extends SQLiteOpenHelper {
 
                 } catch (InterruptedException | ExecutionException e) {
 
-                   e.printStackTrace();
+                    taskHelper.shutdownNow();
+
+                    executeSqlFile(db, DATABASE_DESTROY_SQL,
+                            DATABASE_NAME + " failed to populate");
+
+                   throw new RuntimeException(e);
 
                 }
 
@@ -281,39 +302,32 @@ public class NestDBOpenHelper extends SQLiteOpenHelper {
         public GetCookingTipsTask(@NonNull SQLiteDatabase db) { this.db = db; }
 
         @Override
-        protected String doInBackground() {
+        protected String doInBackground() throws IOException {
 
             HttpURLConnection urlConnection;
             BufferedReader reader;
 
-            try {
-                // set the URL for the API call
-                String apiCall = "https://foodkeeper-api.herokuapp.com/cookingTips";
-                Log.d(DATABASE_NAME, "apiCall = " + apiCall);
-                URL url = new URL(apiCall);
-                // connect to the site to read information
-                urlConnection = (HttpsURLConnection) url.openConnection();
-                urlConnection.setRequestMethod("GET");
-                urlConnection.connect();
+            // set the URL for the API call
+            String apiCall = "https://foodkeeper-api.herokuapp.com/cookingTips";
+            Log.d(DATABASE_NAME, "apiCall = " + apiCall);
+            URL url = new URL(apiCall);
+            // connect to the site to read information
+            urlConnection = (HttpsURLConnection) url.openConnection();
+            urlConnection.setRequestMethod("GET");
+            urlConnection.connect();
 
-                // store the data retrieved by the request
-                InputStream inputStream = urlConnection.getInputStream();
-                // no data returned by the request, so terminate the method
-                if (inputStream == null) {
-                    // Nothing to do.
-                    return null;
-                }
-
-                // connect a BufferedReader to the input stream at URL
-                reader = new BufferedReader(new InputStreamReader(inputStream));
-                // store the data in result string
-                return reader.readLine();
-
-            } catch (Exception e) {
-                Log.d(DATABASE_NAME, "EXCEPTION in HttpAsyncTask: " + e.getMessage());
+            // store the data retrieved by the request
+            InputStream inputStream = urlConnection.getInputStream();
+            // no data returned by the request, so terminate the method
+            if (inputStream == null) {
+                // Nothing to do.
+                return null;
             }
 
-            return null;
+            // connect a BufferedReader to the input stream at URL
+            reader = new BufferedReader(new InputStreamReader(inputStream));
+            // store the data in result string
+            return reader.readLine();
 
         }
 
@@ -365,39 +379,32 @@ public class NestDBOpenHelper extends SQLiteOpenHelper {
         public GetCookingMethodsTask(@NonNull SQLiteDatabase db) { this.db = db; }
 
         @Override
-        protected String doInBackground() {
+        protected String doInBackground() throws IOException {
 
             HttpURLConnection urlConnection;
             BufferedReader reader;
 
-            try {
-                // set the URL for the API call
-                String apiCall = "https://foodkeeper-api.herokuapp.com/cookingMethods";
-                Log.d(DATABASE_NAME, "apiCall = " + apiCall);
-                URL url = new URL(apiCall);
-                // connect to the site to read information
-                urlConnection = (HttpsURLConnection) url.openConnection();
-                urlConnection.setRequestMethod("GET");
-                urlConnection.connect();
+            // set the URL for the API call
+            String apiCall = "https://foodkeeper-api.herokuapp.com/cookingMethods";
+            Log.d(DATABASE_NAME, "apiCall = " + apiCall);
+            URL url = new URL(apiCall);
+            // connect to the site to read information
+            urlConnection = (HttpsURLConnection) url.openConnection();
+            urlConnection.setRequestMethod("GET");
+            urlConnection.connect();
 
-                // store the data retrieved by the request
-                InputStream inputStream = urlConnection.getInputStream();
-                // no data returned by the request, so terminate the method
-                if (inputStream == null) {
-                    // Nothing to do.
-                    return null;
-                }
-
-                // connect a BufferedReader to the input stream at URL
-                reader = new BufferedReader(new InputStreamReader(inputStream));
-                // store the data in result string
-                return reader.readLine();
-
-            } catch (Exception e) {
-                Log.d(DATABASE_NAME, "EXCEPTION in HttpAsyncTask: " + e.getMessage());
+            // store the data retrieved by the request
+            InputStream inputStream = urlConnection.getInputStream();
+            // no data returned by the request, so terminate the method
+            if (inputStream == null) {
+                // Nothing to do.
+                return null;
             }
 
-            return null;
+            // connect a BufferedReader to the input stream at URL
+            reader = new BufferedReader(new InputStreamReader(inputStream));
+            // store the data in result string
+            return reader.readLine();
 
         }
 
@@ -454,39 +461,32 @@ public class NestDBOpenHelper extends SQLiteOpenHelper {
         public GetProductsTask(@NonNull SQLiteDatabase db) { this.db = db; }
 
         @Override
-        protected String doInBackground() {
+        protected String doInBackground() throws IOException {
 
             HttpURLConnection urlConnection;
             BufferedReader reader;
 
-            try {
-                // set the URL for the API call
-                String apiCall = "https://foodkeeper-api.herokuapp.com/products";
-                Log.d(DATABASE_NAME, "apiCall = " + apiCall);
-                URL url = new URL(apiCall);
-                // connect to the site to read information
-                urlConnection = (HttpsURLConnection) url.openConnection();
-                urlConnection.setRequestMethod("GET");
-                urlConnection.connect();
+            // set the URL for the API call
+            String apiCall = "https://foodkeeper-api.herokuapp.com/products";
+            Log.d(DATABASE_NAME, "apiCall = " + apiCall);
+            URL url = new URL(apiCall);
+            // connect to the site to read information
+            urlConnection = (HttpsURLConnection) url.openConnection();
+            urlConnection.setRequestMethod("GET");
+            urlConnection.connect();
 
-                // store the data retrieved by the request
-                InputStream inputStream = urlConnection.getInputStream();
-                // no data returned by the request, so terminate the method
-                if (inputStream == null) {
-                    // Nothing to do.
-                    return null;
-                }
-
-                // connect a BufferedReader to the input stream at URL
-                reader = new BufferedReader(new InputStreamReader(inputStream));
-                // store the data in result string
-                return reader.readLine();
-
-            } catch (Exception e) {
-                Log.d(DATABASE_NAME, "EXCEPTION in HttpAsyncTask: " + e.getMessage());
+            // store the data retrieved by the request
+            InputStream inputStream = urlConnection.getInputStream();
+            // no data returned by the request, so terminate the method
+            if (inputStream == null) {
+                // Nothing to do.
+                return null;
             }
 
-            return null;
+            // connect a BufferedReader to the input stream at URL
+            reader = new BufferedReader(new InputStreamReader(inputStream));
+            // store the data in result string
+            return reader.readLine();
 
         }
 
