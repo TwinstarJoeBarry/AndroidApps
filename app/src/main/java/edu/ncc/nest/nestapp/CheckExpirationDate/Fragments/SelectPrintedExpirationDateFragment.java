@@ -209,10 +209,10 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
 
         Menu menu = menuPop.getMenu();
 
-        final int ACTUAL_MAX_DAYS = printedExpDate.getActualMaximum(Calendar.DAY_OF_MONTH);
+        final int ACTUAL_MAXIMUM = printedExpDate.getActualMaximum(Calendar.DAY_OF_MONTH);
 
         // Add each day of the month to the menu
-        for (int i = 1; i <= ACTUAL_MAX_DAYS; i++)
+        for (int i = 1; i <= ACTUAL_MAXIMUM; i++)
 
             menu.add(Menu.NONE, i, Menu.NONE, String.valueOf(i));
 
