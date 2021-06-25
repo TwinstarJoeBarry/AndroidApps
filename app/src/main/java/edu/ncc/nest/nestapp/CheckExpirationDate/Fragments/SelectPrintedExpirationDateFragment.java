@@ -81,10 +81,6 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
         dayTextView = view.findViewById(R.id.selected_print_day_text);
         yearTextView = view.findViewById(R.id.selected_print_year_text);
 
-        // Update the printed expiration date to reflect the current date
-        setPrintedExpDate(printedExpDate.get(Calendar.YEAR), printedExpDate.get(Calendar.MONTH),
-                printedExpDate.get(Calendar.DAY_OF_MONTH));
-
         /* Get a reference to each of the Buttons from the current View and set their OnClick
            methods to call the respective method */
         view.findViewById(R.id.selected_print_month_button).setOnClickListener(this::pickMonth);
@@ -94,6 +90,18 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
         // Listen for the foodItem from the bundle sent from the previous fragment
         getParentFragmentManager().setFragmentResultListener("FOOD ITEM",
                 this, (key, bundle) -> {
+
+            if (!bundle.containsKey("printedExpDate")) {
+
+                // Update the printed expiration date to reflect the current date
+                setPrintedExpDate(printedExpDate.get(Calendar.YEAR),
+                        printedExpDate.get(Calendar.MONTH),
+                        printedExpDate.get(Calendar.DAY_OF_MONTH));
+
+            } else
+
+                // Retrieve the printed expiration date from the bundle
+                printedExpDate.setTime((Date) bundle.getSerializable("printedExpDate"));
 
             // Get the foodItem from the bundle
             foodItem = (NestUPC) bundle.getSerializable("foodItem");
