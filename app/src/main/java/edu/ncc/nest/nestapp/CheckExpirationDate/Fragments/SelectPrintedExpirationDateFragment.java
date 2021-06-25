@@ -118,9 +118,6 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
             // Make sure we clear the FragmentResultListener so we can use this requestKey again
             getParentFragmentManager().clearFragmentResultListener("FOOD ITEM");
 
-            // Make sure we clear the FragmentResult so we can re-use the requestKey
-            getParentFragmentManager().clearFragmentResult("FOOD ITEM");
-
         });
 
         // Set the OnClickListener for the "Accept" Button
