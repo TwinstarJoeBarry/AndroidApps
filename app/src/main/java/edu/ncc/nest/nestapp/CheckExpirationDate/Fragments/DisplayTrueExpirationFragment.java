@@ -76,12 +76,8 @@ public class DisplayTrueExpirationFragment extends Fragment {
         getParentFragmentManager().setFragmentResultListener("FOOD ITEM",
                 this, (requestKey, data) -> {
 
-            //printedExpDate.setTime((Date) data.getSerializable("PRINTED_EXPIRATION_DATE"));
-
             // Retrieve the NestUPC from the bundle
             foodItem = (NestUPC) data.getSerializable("foodItem");
-
-            Log.e(LOG_TAG, data.containsKey("printedExpDate") + "");
 
             // Retrieve the printed expiration date from the bundle
             printedExpDate.setTime((Date) data.getSerializable("printedExpDate"));

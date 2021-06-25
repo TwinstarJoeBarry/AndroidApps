@@ -155,8 +155,8 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
 
                 bundle.putSerializable("printedExpDate", printedExpDate.getTime());
 
-            /* Need to clear the result with the same request key, before possibly using same
-               request key again. */
+                /* Need to clear the result with the same request key, before possibly using same
+                   request key again. */
                 getParentFragmentManager().clearFragmentResult("FOOD ITEM");
 
                 getParentFragmentManager().setFragmentResult("FOOD ITEM", bundle);
@@ -301,7 +301,7 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
         // Make sure to set the year and month before calculating the actual maximum number of days
         temp.set(year, month, 1);
 
-        // Set the clamp the days of the date to the actual maximum
+        // Set and clamp the date to the actual maximum number of days
         temp.set(year, month, Math.min(day, temp.getActualMaximum(Calendar.DAY_OF_MONTH)));
 
         return temp.getTime();
