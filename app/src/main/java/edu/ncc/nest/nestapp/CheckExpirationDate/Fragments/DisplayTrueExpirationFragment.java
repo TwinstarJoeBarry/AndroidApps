@@ -28,6 +28,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import edu.ncc.nest.nestapp.CheckExpirationDate.Activities.CheckExpirationDateActivity;
@@ -43,12 +45,19 @@ import edu.ncc.nest.nestapp.ShelfLife;
  */
 public class DisplayTrueExpirationFragment extends Fragment {
 
-    private static final String TAG = DisplayTrueExpirationFragment.class.getSimpleName();
+    /////////////////////////////////////// Class Variables ////////////////////////////////////////
+
+    private static final String LOG_TAG = DisplayTrueExpirationFragment.class.getSimpleName();
+
+    private final Calendar printedExpDate = Calendar.getInstance();
 
     private NestDBDataSource dataSource;
-    private NestUPC foodItem = null;
+
     private ShelfLife shortestShelfLife;
-    private String exp;
+
+    private NestUPC foodItem;
+
+    /////////////////////////////////// Lifecycle Methods Start ////////////////////////////////////
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,39 +73,39 @@ public class DisplayTrueExpirationFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         // Set the FragmentResultListener
-        getParentFragmentManager().setFragmentResultListener("FOOD ITEM", this, (requestKey, data) -> {
+        getParentFragmentManager().setFragmentResultListener("FOOD ITEM",
+                this, (requestKey, data) -> {
 
-            // Get the foodItem from the bundle
+            //printedExpDate.setTime((Date) data.getSerializable("PRINTED_EXPIRATION_DATE"));
+
+            // Retrieve the NestUPC from the bundle
             foodItem = (NestUPC) data.getSerializable("foodItem");
 
-            // Get the printed expiration date
-            exp = data.getString("PRINTED EXPIRATION DATE");
+            Log.e(LOG_TAG, data.containsKey("printedExpDate") + "");
+
+            // Retrieve the printed expiration date from the bundle
+            printedExpDate.setTime((Date) data.getSerializable("printedExpDate"));
 
             if (foodItem != null) {
 
-                // Display item name , upc , category name on fragment_check_expiration_date_display_true_expiration.xml
+                // Display item name, upc, category name on fragment_check_expiration_date_display_true_expiration.xml
                 ((TextView) view.findViewById(R.id.item_display)).setText(foodItem.getProductName());
                 ((TextView) view.findViewById(R.id.upc_display)).setText(foodItem.getUpc());
                 ((TextView) view.findViewById(R.id.category_display)).setText(foodItem.getCatDesc());
 
-                // NOTE: The following code will throw an error when using the product from result,
-                // due to the productId not being properly set in SelectItemFragment.java.
-                // The productId is being set to -1. See SelectItemFragment.java, and issue #188.
-
-                // Instantiating database
+                // Retrieve a reference to the database from this fragment's activity
                 dataSource = CheckExpirationDateActivity.requireDataSource(this);
 
-                // Getting the product's shelf life from the database
-                List<ShelfLife> shelfLives = dataSource.getShelfLivesForProduct(foodItem.getProductId());
-
-                Log.d(TAG, "shelfLives: " + shelfLives.toString());
+                // Get the product's shelf lives from the database
+                List<ShelfLife> shelfLives = dataSource.getShelfLivesForProduct(
+                        foodItem.getProductId());
 
                 // Get the shortest shelf life from the list of shelf lives
                 shortestShelfLife = getShortestShelfLife(shelfLives);
 
             } else
 
-                Log.e(TAG, "'foodItem' is null.");
+                Log.e(LOG_TAG, "'foodItem' is null.");
 
             // Clear the FragmentResultListener so we can use this requestKey again.
             getParentFragmentManager().clearFragmentResultListener("FOOD ITEM");
@@ -106,18 +115,19 @@ public class DisplayTrueExpirationFragment extends Fragment {
         // Set the OnClickListener for button_display_date
         view.findViewById(R.id.button_display_date).setOnClickListener(view1 -> {
 
-            if (shortestShelfLife != null && exp != null)
+            if (shortestShelfLife != null)
 
-                // Display the food item's true expiration date to the user
-                ((TextView) view.findViewById(R.id.exp_date_display)).setText(trueExpDate(shortestShelfLife, exp));
+                // Calculate and display the food item's true expiration date to the user
+                ((TextView) view.findViewById(R.id.exp_date_display))
+                        .setText(calculateTrueExpDate(shortestShelfLife));
 
         });
 
     }
 
+    //////////////////////////////////// Custom Methods Start  /////////////////////////////////////
 
     /**
-     * getShortestShelfLife --
      * Finds and returns the shortest shelf life from a List of {@link ShelfLife} objects.
      *
      * @param shelfLives A list of {@link ShelfLife} objects.
@@ -167,7 +177,7 @@ public class DisplayTrueExpirationFragment extends Fragment {
                     break;
 
                 default:
-                    Log.d(TAG, "getShortestShelfLife: Error invalid option");
+                    Log.d(LOG_TAG, "getShortestShelfLife: Error invalid option");
                     break;
 
             }
@@ -178,15 +188,12 @@ public class DisplayTrueExpirationFragment extends Fragment {
 
     }
 
-
     /**
-     * trueExpDate --
      * Calculates the true expiration date of an item based on it's shelf life and printed expiration
      * date.
      * @param shelfLife The shelf life of the item.
-     * @param printedExpDate The printed expiration date of the item.
      */
-    public String trueExpDate(ShelfLife shelfLife, String printedExpDate) {
+    public String calculateTrueExpDate(ShelfLife shelfLife) {
 
         // metric dop_pantryLife
         String metric = shelfLife.getMetric();
@@ -196,16 +203,12 @@ public class DisplayTrueExpirationFragment extends Fragment {
         // max dop_pantryLife
         int max = shelfLife.getMax();
 
-        // separating month, day, and year
-        int slash = printedExpDate.indexOf("/");
+        // Get the month, day, and year from the printed expiration date
+        int month = printedExpDate.get(Calendar.MONTH) + 1;
 
-        int secondSlash = printedExpDate.indexOf("/", slash + 1);
+        int day = printedExpDate.get(Calendar.DAY_OF_MONTH);
 
-        int month = Integer.parseInt(printedExpDate.substring(0, slash));
-
-        int day = Integer.parseInt(printedExpDate.substring(slash + 1, secondSlash));
-
-        int year = Integer.parseInt(printedExpDate.substring(secondSlash + 1));
+        int year = printedExpDate.get(Calendar.YEAR);
 
         int finalExMonth = 0;
         int finalExDate = 0;

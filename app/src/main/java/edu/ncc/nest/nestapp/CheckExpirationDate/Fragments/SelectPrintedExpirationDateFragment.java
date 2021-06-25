@@ -20,17 +20,23 @@ package edu.ncc.nest.nestapp.CheckExpirationDate.Fragments;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.fragment.NavHostFragment;
+
+import java.text.DateFormatSymbols;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Objects;
 
 import edu.ncc.nest.nestapp.CheckExpirationDate.DatabaseClasses.NestUPC;
 import edu.ncc.nest.nestapp.R;
@@ -41,100 +47,132 @@ import edu.ncc.nest.nestapp.R;
  */
 public class SelectPrintedExpirationDateFragment extends Fragment {
 
-    // Number of days in the respective month. (Index 0)=Jan, (Index 1)=Feb, ...
-    private static final int[] daysInMonth = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+    /////////////////////////////////////// Class Variables ////////////////////////////////////////
 
-    private static final int STARTING_YEAR = 2020;
+    /** The tag to use when printing to the log from this class. */
+    public static final String LOG_TAG = SelectPrintedExpirationDateFragment.class.getSimpleName();
+
+    private static final String[] monthNames = new DateFormatSymbols().getMonths();
+
     private static final int ADDITIONAL_YEARS = 10;
 
+    private final Calendar printedExpDate = Calendar.getInstance();
+
+    private TextView monthTextView, dayTextView, yearTextView;
+
     private NestUPC foodItem;
-    private int monthNum, dayNum, yearNum;
-    private TextView monthText, dayText, yearText;
-    private String iUPC;
+
+    /////////////////////////////////// Lifecycle Methods Start ////////////////////////////////////
 
     @Override
     public View onCreateView (LayoutInflater inflater, ViewGroup container,
                               Bundle savedInstanceState) {
 
-        monthNum = dayNum = yearNum = -1;
-
-        return inflater.inflate(R.layout.fragment_check_expiration_date_select_printed_expiration_date,
+        return inflater.inflate(
+                R.layout.fragment_check_expiration_date_select_printed_expiration_date,
                 container, false);
 
     }
-
 
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         // Get a reference to each of the TextViews from the current View
-        monthText = view.findViewById(R.id.selected_print_month_text);
-        dayText = view.findViewById(R.id.selected_print_day_text);
-        yearText = view.findViewById(R.id.selected_print_year_text);
+        monthTextView = view.findViewById(R.id.selected_print_month_text);
+        dayTextView = view.findViewById(R.id.selected_print_day_text);
+        yearTextView = view.findViewById(R.id.selected_print_year_text);
 
-        // Get a reference to each of the Buttons from the current View and set their OnClick methods to call the respective method
+        // Update the printed expiration date to reflect the current date
+        setPrintedExpDate(printedExpDate.get(Calendar.YEAR), printedExpDate.get(Calendar.MONTH),
+                printedExpDate.get(Calendar.DAY_OF_MONTH));
+
+        /* Get a reference to each of the Buttons from the current View and set their OnClick
+           methods to call the respective method */
         view.findViewById(R.id.selected_print_month_button).setOnClickListener(this::pickMonth);
         view.findViewById(R.id.selected_print_day_button).setOnClickListener(this::pickDay);
         view.findViewById(R.id.selected_print_year_button).setOnClickListener(this::pickYear);
 
-        // GRAB THE UPC VALUES FROM THE BUNDLE SENT FROM SCAN FRAG OR CONFIRM UPC FRAG WHEN READY
-        getParentFragmentManager().setFragmentResultListener("FOOD ITEM", this, (key, bundle) -> {
+        // Listen for the foodItem from the bundle sent from the previous fragment
+        getParentFragmentManager().setFragmentResultListener("FOOD ITEM",
+                this, (key, bundle) -> {
 
             // Get the foodItem from the bundle
-            foodItem = (NestUPC) bundle.getSerializable("foodItem"); // TODO this probably won't work if there isn't a UPC to get
+            foodItem = (NestUPC) bundle.getSerializable("foodItem");
 
             if (foodItem != null)
-            {
-                iUPC = foodItem.getUpc();
-                ((TextView) view.findViewById(R.id.selected_print_headline)).setText( iUPC );
-            }
 
+                ((TextView) view.findViewById(R.id.selected_print_headline))
+                        .setText(foodItem.getUpc());
+
+            else
+
+                 Log.e(LOG_TAG, "foodItem is null.");
 
             // Make sure we clear the FragmentResultListener so we can use this requestKey again
             getParentFragmentManager().clearFragmentResultListener("FOOD ITEM");
 
+            // Make sure we clear the FragmentResult so we can re-use the requestKey
+            getParentFragmentManager().clearFragmentResult("FOOD ITEM");
+
         });
 
         // Set the OnClickListener for the "Accept" Button
-        view.findViewById(R.id.selected_print_accept).setOnClickListener( view1 -> {
+        view.findViewById(R.id.selected_print_accept).setOnClickListener(clickedView -> {
 
-            if (monthNum == -1 || dayNum == -1 || yearNum == -1)
+            Bundle bundle = new Bundle();
 
-                Toast.makeText(getContext(), "Please select a full date!", Toast.LENGTH_LONG).show();
+            bundle.putSerializable("foodItem", foodItem);
 
-            else {
+            bundle.putSerializable("printedExpDate", printedExpDate.getTime());
 
-                // Create a String containing the full date
-                String fullDate = (monthNum + "/" + dayNum + "/" + yearNum);
+            /* Need to clear the result with the same request key, before possibly using same
+               request key again. */
+            getParentFragmentManager().clearFragmentResult("FOOD ITEM");
 
-                Toast.makeText(getContext(), fullDate, Toast.LENGTH_LONG).show();
+            // Set the fragment result to the bundle
+            getParentFragmentManager().setFragmentResult("FOOD ITEM", bundle);
 
-                Bundle saved = new Bundle();
+            // Navigate to the proper fragment
+            NavHostFragment.findNavController(SelectPrintedExpirationDateFragment.this)
+                    .navigate(R.id.action_CED_SelectPrintedExpirationDateFragment_to_DisplayTrueExpirationFragment);
 
-                saved.putSerializable("foodItem", foodItem);
+        });
 
-                saved.putString("PRINTED EXPIRATION DATE", fullDate);
+        //////////////////////////////// On Back Button Pressed   //////////////////////////////////
 
-                // Make sure we clear the FragmentResult so we can re-use the requestKey
+        view.setFocusableInTouchMode(true);
+
+        view.requestFocus();
+
+        view.setOnKeyListener((v, keyCode, event) -> {
+
+            if (keyCode == KeyEvent.KEYCODE_BACK) {
+
+                Bundle bundle = new Bundle();
+
+                bundle.putSerializable("foodItem", foodItem);
+
+                bundle.putSerializable("printedExpDate", printedExpDate.getTime());
+
+            /* Need to clear the result with the same request key, before possibly using same
+               request key again. */
                 getParentFragmentManager().clearFragmentResult("FOOD ITEM");
 
-                // Set the fragment result to the bundle
-                getParentFragmentManager().setFragmentResult("FOOD ITEM", saved);
-
-                // Navigate to the proper fragment
-                NavHostFragment.findNavController(SelectPrintedExpirationDateFragment.this)
-                        .navigate(R.id.action_CED_SelectPrintedExpirationDateFragment_to_DisplayTrueExpirationFragment);
+                getParentFragmentManager().setFragmentResult("FOOD ITEM", bundle);
 
             }
+
+            // Always return false since we aren't handling the navigation here.
+            return false;
 
         });
 
     }
 
+    //////////////////////////////////// Custom Methods Start  /////////////////////////////////////
 
     /**
-     * pickMonth --
      * Creates and shows a PopupMenu that allows the user to select a specific month.
      * @param anchorView The view to anchor the PopupMenu to.
      **/
@@ -144,25 +182,15 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
 
         Menu menu = menuPop.getMenu();
 
-        String[] months = getResources().getStringArray(R.array.months);
-
         // Add each of the months to the menu
-        for (int i = 0; i < months.length; ++i)
+        for (int i = 0; i < monthNames.length; i++)
 
-            menu.add(daysInMonth[i], i + 1, i + 1, months[i]);
+            menu.add(Menu.NONE, i, Menu.NONE, monthNames[i]);
 
-        // THE ACTUAL ON CLICK CODE TO SET THE MONTH INDEX
         menuPop.setOnMenuItemClickListener(item -> {
 
-            // Set a the text of the TextView to the display the month the user selected
-            monthText.setText(item.toString());
-
-            monthNum = item.getItemId();
-
-            // Reset the selected day to unselected when the month changes
-            dayText.setText(R.string.fragment_ced_select_printed_expiration_date_day_lbl);
-
-            dayNum =  -1;
+            setPrintedExpDate(printedExpDate.get(Calendar.YEAR), item.getItemId(),
+                    printedExpDate.get(Calendar.DAY_OF_MONTH));
 
             return true;
 
@@ -174,7 +202,6 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
 
 
     /**
-     * pickDay --
      * Creates and shows a PopupMenu that allows the user to select a specific day.
      * @param anchorView The view to anchor the PopupMenu to.
      **/
@@ -184,20 +211,17 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
 
         Menu menu = menuPop.getMenu();
 
-        int daysInMonth = this.daysInMonth[monthNum - 1];
+        final int ACTUAL_MAX_DAYS = printedExpDate.getActualMaximum(Calendar.DAY_OF_MONTH);
 
-        // Add each day to the menu
-        for (int i = 1; i <= daysInMonth;  ++i )
+        // Add each day of the month to the menu
+        for (int i = 1; i <= ACTUAL_MAX_DAYS; i++)
 
-            menu.add(i, i, i, "" + i);
+            menu.add(Menu.NONE, i, Menu.NONE, String.valueOf(i));
 
-        // THE ACTUAL ON CLICK CODE TO SET THE DAY INDEX
         menuPop.setOnMenuItemClickListener(item -> {
 
-            // Set a the text of the TextView to the display the month the user selected
-            dayText.setText(item.toString());
-
-            dayNum = item.getItemId();
+            setPrintedExpDate(printedExpDate.get(Calendar.YEAR), printedExpDate.get(Calendar.MONTH),
+                    item.getItemId());
 
             return true;
 
@@ -209,8 +233,7 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
 
 
     /**
-     * pickYear --
-     * Creates and shows a PopupMenu that allows the user to select a specific day.
+     * Creates and shows a PopupMenu that allows the user to select a specific year.
      * @param anchorView The view to anchor the PopupMenu to.
      **/
     private void pickYear(View anchorView) {
@@ -219,42 +242,70 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
 
         Menu menu = menuPop.getMenu();
 
-        int endingYear = STARTING_YEAR + ADDITIONAL_YEARS;
+        final int CURRENT_YEAR = Calendar.getInstance().get(Calendar.YEAR);
 
-        // Add each year between the starting and end year inclusive
-        for (int i = STARTING_YEAR; i <= endingYear;  ++i)
+        // Add each year between the current and end year inclusive
+        for (int i = 0; i <= ADDITIONAL_YEARS; i++)
 
-            menu.add(i, i, i, "" + i);
+            menu.add(Menu.NONE, CURRENT_YEAR + i, Menu.NONE,
+                    String.valueOf(CURRENT_YEAR + i));
 
-        // THE ACTUAL ON CLICK CODE TO SET THE DAY INDEX
         menuPop.setOnMenuItemClickListener(item -> {
 
-            // Set a the text of the TextView to the display the year the user selected
-            yearText.setText(item.toString());
-
-            yearNum = item.getItemId();
+            setPrintedExpDate(item.getItemId(), printedExpDate.get(Calendar.MONTH),
+                    printedExpDate.get(Calendar.DAY_OF_MONTH));
 
             return true;
+
         });
 
         menuPop.show();
 
     }
 
-    @Override
-    public void onPause()
-    {
-        super.onPause();
-        Log.d("*****", "onSaveInstanceState");
+    /**
+     * Set the printed expiration date to the desired date.
+     * @param year The desired year
+     * @param month The desired month
+     * @param day The desired day
+     */
+    private void setPrintedExpDate(int year, int month, int day) {
 
-        Bundle bundle = new Bundle();
+        // Clamp and set the date
+        printedExpDate.setTime(clampDate(year, month, day));
 
-        bundle.putString("barcode", iUPC);
+        // Update TextViews to display the new date
+        monthTextView.setText(monthNames[printedExpDate.get(Calendar.MONTH)]);
 
-        // Need to clear the result with the same request key, before using possibly same request key again.
-        getParentFragmentManager().clearFragmentResult("BARCODE");
+        dayTextView.setText(String.valueOf(printedExpDate.get(Calendar.DAY_OF_MONTH)));
 
-        getParentFragmentManager().setFragmentResult("BARCODE", bundle);
+        yearTextView.setText(String.valueOf(printedExpDate.get(Calendar.YEAR)));
+
+    }
+
+    /**
+     * Clamps a date so that the days can't be greater than the actual maximum number of days in
+     * the month of the year.
+     * @param year The year
+     * @param month The month
+     * @param day The day
+     * @return A Date object
+     */
+    private Date clampDate(int year, int month, int day) {
+
+        Calendar temp = Calendar.getInstance();
+
+        // Clear all fields to make sure only the date fields get set
+        temp.clear();
+
+        // Make sure to set the year and month before calculating the actual maximum number of days
+        temp.set(year, month, 1);
+
+        // Set the clamp the days of the date to the actual maximum
+        temp.set(year, month, Math.min(day, temp.getActualMaximum(Calendar.DAY_OF_MONTH)));
+
+        return temp.getTime();
+
     }
 
 }
