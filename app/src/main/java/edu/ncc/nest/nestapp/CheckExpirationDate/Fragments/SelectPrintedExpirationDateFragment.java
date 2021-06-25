@@ -30,13 +30,11 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.navigation.fragment.NavHostFragment;
 
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Objects;
 
 import edu.ncc.nest.nestapp.CheckExpirationDate.DatabaseClasses.NestUPC;
 import edu.ncc.nest.nestapp.R;
