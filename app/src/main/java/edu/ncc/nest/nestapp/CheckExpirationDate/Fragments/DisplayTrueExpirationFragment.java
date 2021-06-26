@@ -28,9 +28,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import edu.ncc.nest.nestapp.CheckExpirationDate.Activities.CheckExpirationDateActivity;
 import edu.ncc.nest.nestapp.CheckExpirationDate.DatabaseClasses.NestDBDataSource;
@@ -185,112 +187,56 @@ public class DisplayTrueExpirationFragment extends Fragment {
     }
 
     /**
-     * Calculates the true expiration date of an item based on it's shelf life and printed expiration
-     * date.
+     * Calculates the true expiration date of an item based on it's shelf life and printed
+     * expiration date.
      * @param shelfLife The shelf life of the item.
      */
     public String calculateTrueExpDate(ShelfLife shelfLife) {
+        
+        Log.d("DisplayTrueExpirationFragment",
+                "Metric: " + shelfLife.getMetric() + ", Min: " + shelfLife.getMax() +
+                        ", Max: " + shelfLife.getMax());
 
-        // metric dop_pantryLife
-        String metric = shelfLife.getMetric();
+        // Get an instance of Calendar
+        Calendar c = Calendar.getInstance();
 
-        metric = metric.toLowerCase();
+        // Update the time to the printed expiration date
+        c.setTime(printedExpDate.getTime());
 
-        // max dop_pantryLife
-        int max = shelfLife.getMax();
+        switch (shelfLife.getMetric().toLowerCase()) {
 
-        // Get the month, day, and year from the printed expiration date
-        int month = printedExpDate.get(Calendar.MONTH) + 1;
+            case "days":
 
-        int day = printedExpDate.get(Calendar.DAY_OF_MONTH);
+                // Add max number of days to the printed expiration date
+                c.add(Calendar.DAY_OF_MONTH, shelfLife.getMax());
 
-        int year = printedExpDate.get(Calendar.YEAR);
+                break;
 
-        int finalExMonth = 0;
-        int finalExDate = 0;
-        int finalExYear = 0;
+            case "weeks":
 
-        // if metric is weeks
-        if (metric.equals("weeks")) {
-            metric = "days";
-            max = 7 * max;
-        }
+                // Add max number of weeks to the printed expiration date
+                c.add(Calendar.WEEK_OF_MONTH, shelfLife.getMax());
 
-        // if metric is months
-        if (metric.equals("months")) {
+                break;
 
-            finalExDate = day;
-            finalExYear = year;
-            finalExMonth = month + max;
+            case "months":
 
-            while (finalExMonth > 12) {
-                finalExMonth = finalExMonth - 12;
-                finalExYear = year + 1;
-                year = finalExYear;
-            }
+                // Add max number of months to the printed expiration date
+                c.add(Calendar.MONTH, shelfLife.getMax());
 
-        }
+                break;
 
-        // if metric is days
-        if (metric.equals("days")) {
-            finalExYear = year;
-            finalExMonth = month;
+            case "years":
 
-            finalExDate = day + max;
+                // Add max number of years to the printed expiration date
+                c.add(Calendar.YEAR, shelfLife.getMax());
 
-            // months that have 31 days
-            if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) {
-                if (finalExDate > 31) {
-                    finalExDate = finalExDate - 31;
-                    finalExMonth = finalExMonth + 1;
-                    if (finalExMonth > 12) {
-                        finalExMonth = finalExMonth - 12;
-                        finalExYear = year + 1;
-
-                    }
-                }
-
-            }
-
-            // months that have 30 days
-            if (month == 2 || month == 4 || month == 6 || month == 9 || month == 11) {
-                if (finalExDate > 30) {
-                    finalExDate = finalExDate - 30;
-                    finalExMonth = finalExMonth + 1;
-                    if (finalExMonth > 12) {
-                        finalExMonth = finalExMonth - 12;
-                        finalExYear = year + 1;
-
-                    }
-
-                }
-
-            }
-
-            // if the final date is greater than 31
-            while (finalExDate > 31) {
-                finalExDate = finalExDate - 31;
-                finalExMonth = finalExMonth + 1;
-
-                // if the final month is greater than 12
-                if (finalExMonth > 12) {
-                    finalExMonth = finalExMonth - 12;
-                    finalExYear = finalExYear + 1;
-
-                }
-            }
+                break;
 
         }
 
-        // if metric is years
-        if (metric.equals("years")) {
-            finalExMonth = month;
-            finalExDate = day;
-            finalExYear = year + max;
-        }
-
-
-        return finalExMonth + "/" + finalExDate + "/" + finalExYear;
+        // Format the date to the pattern of MM/dd/yyyy and return the result
+        return new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault()).format(c.getTime());
 
     }
 
