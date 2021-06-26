@@ -84,6 +84,10 @@ public class DisplayTrueExpirationFragment extends Fragment {
             // Retrieve the printed expiration date from the bundle
             printedExpDate.setTime((Date) data.getSerializable("printedExpDate"));
 
+            Log.d(LOG_TAG, "Printed Expiration Date: " +
+                    new SimpleDateFormat("MM/dd/yyyy",
+                            Locale.getDefault()).format(printedExpDate.getTime()));
+
             if (foodItem != null) {
 
                 // Display item name, upc, category name on fragment_check_expiration_date_display_true_expiration.xml
@@ -192,10 +196,9 @@ public class DisplayTrueExpirationFragment extends Fragment {
      * @param shelfLife The shelf life of the item.
      */
     public String calculateTrueExpDate(ShelfLife shelfLife) {
-        
-        Log.d("DisplayTrueExpirationFragment",
-                "Metric: " + shelfLife.getMetric() + ", Min: " + shelfLife.getMax() +
-                        ", Max: " + shelfLife.getMax());
+
+        Log.d(LOG_TAG, "Metric: " + shelfLife.getMetric() + ", Min: " + shelfLife.getMin() +
+                ", Max: " + shelfLife.getMax());
 
         // Get an instance of Calendar
         Calendar c = Calendar.getInstance();
