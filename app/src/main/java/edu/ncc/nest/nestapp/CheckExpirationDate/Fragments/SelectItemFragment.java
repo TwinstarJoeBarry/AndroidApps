@@ -20,6 +20,7 @@ package edu.ncc.nest.nestapp.CheckExpirationDate.Fragments;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -224,23 +225,34 @@ public class SelectItemFragment extends Fragment {
                 NavHostFragment.findNavController(SelectItemFragment.this)
                         .navigate(R.id.CED_StartFragment));
 
+        //////////////////////////////// On Back Button Pressed   //////////////////////////////////
+
+        view.setFocusableInTouchMode(true);
+
+        view.requestFocus();
+
+        view.setOnKeyListener((v, keyCode, event) -> {
+
+            if (keyCode == KeyEvent.KEYCODE_BACK) {
+
+                Bundle bundle = new Bundle();
+
+                bundle.putString("barcode", upcString);
+
+                /* Need to clear the result with the same request key, before possibly using same
+                   request key again. */
+                getParentFragmentManager().clearFragmentResult("BARCODE");
+
+                getParentFragmentManager().setFragmentResult("BARCODE", bundle);
+
+            }
+
+            // Always return false since we aren't handling the navigation here.
+            return false;
+
+        });
+
     }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-
-        Bundle bundle = new Bundle();
-
-        bundle.putString("barcode", upcString);
-
-        // Need to clear the result with the same request key, before using possibly same request key again.
-        getParentFragmentManager().clearFragmentResult("BARCODE");
-
-        getParentFragmentManager().setFragmentResult("BARCODE", bundle);
-
-    }
-
 
     /**
      * showCategories --
