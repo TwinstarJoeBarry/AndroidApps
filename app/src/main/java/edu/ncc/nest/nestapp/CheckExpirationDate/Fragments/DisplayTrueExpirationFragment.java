@@ -84,44 +84,30 @@ public class DisplayTrueExpirationFragment extends Fragment {
             // Retrieve the printed expiration date from the bundle
             printedExpDate.setTime((Date) data.getSerializable("printedExpDate"));
 
-            Log.d(LOG_TAG, "Printed Expiration Date: " +
+            // Display item name, upc, category name on fragment_check_expiration_date_display_true_expiration.xml
+            ((TextView) view.findViewById(R.id.item_display)).setText(foodItem.getProductName());
+            ((TextView) view.findViewById(R.id.upc_display)).setText(foodItem.getUpc());
+            ((TextView) view.findViewById(R.id.category_display)).setText(foodItem.getCatDesc());
+            ((TextView) view.findViewById(R.id.printed_exp_date)).setText(
                     new SimpleDateFormat("MM/dd/yyyy",
                             Locale.getDefault()).format(printedExpDate.getTime()));
 
-            if (foodItem != null) {
+            // Retrieve a reference to the database from this fragment's activity
+            dataSource = CheckExpirationDateActivity.requireDataSource(this);
 
-                // Display item name, upc, category name on fragment_check_expiration_date_display_true_expiration.xml
-                ((TextView) view.findViewById(R.id.item_display)).setText(foodItem.getProductName());
-                ((TextView) view.findViewById(R.id.upc_display)).setText(foodItem.getUpc());
-                ((TextView) view.findViewById(R.id.category_display)).setText(foodItem.getCatDesc());
+            // Get the product's shelf lives from the database and calculate the shortest shelf life
+            shortestShelfLife = getShortestShelfLife(
+                    dataSource.getShelfLivesForProduct(foodItem.getProductId()));
 
-                // Retrieve a reference to the database from this fragment's activity
-                dataSource = CheckExpirationDateActivity.requireDataSource(this);
+            // Calculate and display the food item's true expiration date to the user
+            ((TextView) view.findViewById(R.id.true_exp_date))
+                    .setText(calculateTrueExpDate(shortestShelfLife));
 
-                // Get the product's shelf lives from the database
-                List<ShelfLife> shelfLives = dataSource.getShelfLivesForProduct(
-                        foodItem.getProductId());
-
-                // Get the shortest shelf life from the list of shelf lives
-                shortestShelfLife = getShortestShelfLife(shelfLives);
-
-            } else
-
-                Log.e(LOG_TAG, "'foodItem' is null.");
+            ((TextView) view.findViewById(R.id.storage_tips)).setText(
+                    shortestShelfLife.getTips() != null ? shortestShelfLife.getTips() : "N/A");
 
             // Clear the FragmentResultListener so we can use this requestKey again.
             getParentFragmentManager().clearFragmentResultListener("FOOD ITEM");
-
-        });
-
-        // Set the OnClickListener for button_display_date
-        view.findViewById(R.id.button_display_date).setOnClickListener(view1 -> {
-
-            if (shortestShelfLife != null)
-
-                // Calculate and display the food item's true expiration date to the user
-                ((TextView) view.findViewById(R.id.exp_date_display))
-                        .setText(calculateTrueExpDate(shortestShelfLife));
 
         });
 
