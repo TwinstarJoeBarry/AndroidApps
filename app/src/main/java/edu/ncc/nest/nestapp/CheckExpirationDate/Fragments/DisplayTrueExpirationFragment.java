@@ -103,8 +103,12 @@ public class DisplayTrueExpirationFragment extends Fragment {
             ((TextView) view.findViewById(R.id.true_exp_date))
                     .setText(calculateTrueExpDate(shortestShelfLife));
 
+            ((TextView) view.findViewById(R.id.storage_type)).setText(
+                    formatString(shortestShelfLife.getDesc()));
+
             ((TextView) view.findViewById(R.id.storage_tips)).setText(
-                    shortestShelfLife.getTips() != null ? shortestShelfLife.getTips() : "N/A");
+                    shortestShelfLife.getTips() != null ?
+                            formatString(shortestShelfLife.getTips()) : "N/A");
 
             // Clear the FragmentResultListener so we can use this requestKey again.
             getParentFragmentManager().clearFragmentResultListener("FOOD ITEM");
@@ -114,6 +118,26 @@ public class DisplayTrueExpirationFragment extends Fragment {
     }
 
     //////////////////////////////////// Custom Methods Start  /////////////////////////////////////
+
+    /**
+     * Formats a String so that the first letter is capitalized and that it is ensured to end with a
+     * period.
+     * @param s The String to format
+     * @return The formatted String
+     */
+    private String formatString(String s) {
+
+        if (s != null && !s.isEmpty()) {
+
+            s =  String.valueOf(s.charAt(0)).toUpperCase() + s.substring(1).toLowerCase();
+
+            return !s.endsWith(".") ? s + "." : s;
+
+        } else
+
+            return s;
+
+    }
 
     /**
      * Finds and returns the shortest shelf life from a List of {@link ShelfLife} objects.
