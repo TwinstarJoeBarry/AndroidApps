@@ -101,7 +101,10 @@ public class DisplayTrueExpirationFragment extends Fragment {
 
             // Calculate and display the food item's true expiration date to the user
             ((TextView) view.findViewById(R.id.true_exp_date))
-                    .setText(calculateTrueExpDate(shortestShelfLife));
+                    .setText(calculateTrueExpDateRange(shortestShelfLife));
+
+            ((TextView) view.findViewById(R.id.shelf_life))
+                    .setText(getShelfLifeRange(shortestShelfLife));
 
             ((TextView) view.findViewById(R.id.storage_type)).setText(
                     formatString(shortestShelfLife.getDesc()));
@@ -201,55 +204,84 @@ public class DisplayTrueExpirationFragment extends Fragment {
     }
 
     /**
-     * Calculates the true expiration date of an item based on it's shelf life and printed
+     * Calculates the true expiration date range of an item based on it's shelf life and printed
      * expiration date.
-     * @param shelfLife The shelf life of the item.
+     * @param shelfLife The shelf life of a item.
      */
-    public String calculateTrueExpDate(ShelfLife shelfLife) {
+    public String calculateTrueExpDateRange(ShelfLife shelfLife) {
 
-        Log.d(LOG_TAG, "Metric: " + shelfLife.getMetric() + ", Min: " + shelfLife.getMin() +
-                ", Max: " + shelfLife.getMax());
+        // Get the printed expiration date as a Date object
+        Date printedExpDate = this.printedExpDate.getTime();
 
-        // Get an instance of Calendar
-        Calendar c = Calendar.getInstance();
+        // Get two instances of the Calendar class
+        Calendar min = Calendar.getInstance();
+        Calendar max = Calendar.getInstance();
 
-        // Update the time to the printed expiration date
-        c.setTime(printedExpDate.getTime());
+        // Update their times to the printed expiration date
+        min.setTime(printedExpDate);
+        max.setTime(printedExpDate);
 
         switch (shelfLife.getMetric().toLowerCase()) {
 
             case "days":
 
+                // Add min number of days to the printed expiration date
+                min.add(Calendar.DAY_OF_MONTH, shelfLife.getMin());
+
                 // Add max number of days to the printed expiration date
-                c.add(Calendar.DAY_OF_MONTH, shelfLife.getMax());
+                max.add(Calendar.DAY_OF_MONTH, shelfLife.getMax());
 
                 break;
 
             case "weeks":
 
+                // Add min number of weeks to the printed expiration date
+                min.add(Calendar.WEEK_OF_MONTH, shelfLife.getMin());
+
                 // Add max number of weeks to the printed expiration date
-                c.add(Calendar.WEEK_OF_MONTH, shelfLife.getMax());
+                max.add(Calendar.WEEK_OF_MONTH, shelfLife.getMax());
 
                 break;
 
             case "months":
 
+                // Add min number of months to the printed expiration date
+                min.add(Calendar.MONTH, shelfLife.getMin());
+
                 // Add max number of months to the printed expiration date
-                c.add(Calendar.MONTH, shelfLife.getMax());
+                max.add(Calendar.MONTH, shelfLife.getMax());
 
                 break;
 
             case "years":
 
+                // Add min number of years to the printed expiration date
+                min.add(Calendar.YEAR, shelfLife.getMin());
+
                 // Add max number of years to the printed expiration date
-                c.add(Calendar.YEAR, shelfLife.getMax());
+                max.add(Calendar.YEAR, shelfLife.getMax());
 
                 break;
 
         }
 
         // Format the date to the pattern of MM/dd/yyyy and return the result
-        return new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault()).format(c.getTime());
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
+
+        return sdf.format(min.getTime()) + " - " + sdf.format(max.getTime());
+
+    }
+
+    /**
+     * Returns a string containing the shelf life range of a {@code ShelfLife} object.
+     * @param shelfLife The shelf life of a item.
+     */
+    public String getShelfLifeRange(ShelfLife shelfLife) {
+
+        String metric = shelfLife.getMetric();
+
+        return shelfLife.getMin() + " - " + shelfLife.getMax() + " " +
+                (metric.equals("Indefinitely") ? "Indefinite" : metric);
 
     }
 
