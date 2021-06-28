@@ -28,9 +28,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import edu.ncc.nest.nestapp.CheckExpirationDate.Activities.CheckExpirationDateActivity;
 import edu.ncc.nest.nestapp.CheckExpirationDate.DatabaseClasses.NestDBDataSource;
@@ -82,46 +84,63 @@ public class DisplayTrueExpirationFragment extends Fragment {
             // Retrieve the printed expiration date from the bundle
             printedExpDate.setTime((Date) data.getSerializable("printedExpDate"));
 
-            if (foodItem != null) {
+            // Display item name, upc, category name on fragment_check_expiration_date_display_true_expiration.xml
+            ((TextView) view.findViewById(R.id.item)).setText(foodItem.getProductName());
+            ((TextView) view.findViewById(R.id.upc)).setText(foodItem.getUpc());
+            ((TextView) view.findViewById(R.id.category)).setText(foodItem.getCatDesc());
+            ((TextView) view.findViewById(R.id.printed_exp_date)).setText(
+                    new SimpleDateFormat("MM/dd/yyyy",
+                            Locale.getDefault()).format(printedExpDate.getTime()));
 
-                // Display item name, upc, category name on fragment_check_expiration_date_display_true_expiration.xml
-                ((TextView) view.findViewById(R.id.item_display)).setText(foodItem.getProductName());
-                ((TextView) view.findViewById(R.id.upc_display)).setText(foodItem.getUpc());
-                ((TextView) view.findViewById(R.id.category_display)).setText(foodItem.getCatDesc());
+            // Retrieve a reference to the database from this fragment's activity
+            dataSource = CheckExpirationDateActivity.requireDataSource(this);
 
-                // Retrieve a reference to the database from this fragment's activity
-                dataSource = CheckExpirationDateActivity.requireDataSource(this);
+            // Get the product's shelf lives from the database and calculate the shortest shelf life
+            shortestShelfLife = getShortestShelfLife(
+                    dataSource.getShelfLivesForProduct(foodItem.getProductId()));
 
-                // Get the product's shelf lives from the database
-                List<ShelfLife> shelfLives = dataSource.getShelfLivesForProduct(
-                        foodItem.getProductId());
+            // Calculate and display the food item's true expiration date to the user
+            ((TextView) view.findViewById(R.id.true_exp_date))
+                    .setText(calculateTrueExpDateRange(shortestShelfLife));
 
-                // Get the shortest shelf life from the list of shelf lives
-                shortestShelfLife = getShortestShelfLife(shelfLives);
+            ((TextView) view.findViewById(R.id.shelf_life))
+                    .setText(getShelfLifeRange(shortestShelfLife));
 
-            } else
+            ((TextView) view.findViewById(R.id.storage_type)).setText(
+                    formatString(shortestShelfLife.getDesc()));
 
-                Log.e(LOG_TAG, "'foodItem' is null.");
+            ((TextView) view.findViewById(R.id.storage_tips)).setText(
+                    shortestShelfLife.getTips() != null ?
+                            formatString(shortestShelfLife.getTips()) : "N/A");
 
             // Clear the FragmentResultListener so we can use this requestKey again.
             getParentFragmentManager().clearFragmentResultListener("FOOD ITEM");
 
         });
 
-        // Set the OnClickListener for button_display_date
-        view.findViewById(R.id.button_display_date).setOnClickListener(view1 -> {
-
-            if (shortestShelfLife != null)
-
-                // Calculate and display the food item's true expiration date to the user
-                ((TextView) view.findViewById(R.id.exp_date_display))
-                        .setText(calculateTrueExpDate(shortestShelfLife));
-
-        });
-
     }
 
     //////////////////////////////////// Custom Methods Start  /////////////////////////////////////
+
+    /**
+     * Formats a String so that the first letter is capitalized and that it is ensured to end with a
+     * period.
+     * @param s The String to format
+     * @return The formatted String
+     */
+    private String formatString(String s) {
+
+        if (s != null && !s.isEmpty()) {
+
+            s =  String.valueOf(s.charAt(0)).toUpperCase() + s.substring(1).toLowerCase();
+
+            return !s.endsWith(".") ? s + "." : s;
+
+        } else
+
+            return s;
+
+    }
 
     /**
      * Finds and returns the shortest shelf life from a List of {@link ShelfLife} objects.
@@ -185,112 +204,84 @@ public class DisplayTrueExpirationFragment extends Fragment {
     }
 
     /**
-     * Calculates the true expiration date of an item based on it's shelf life and printed expiration
-     * date.
-     * @param shelfLife The shelf life of the item.
+     * Calculates the true expiration date range of an item based on it's shelf life and printed
+     * expiration date.
+     * @param shelfLife The shelf life of a item.
      */
-    public String calculateTrueExpDate(ShelfLife shelfLife) {
+    public String calculateTrueExpDateRange(ShelfLife shelfLife) {
 
-        // metric dop_pantryLife
+        // Get the printed expiration date as a Date object
+        Date printedExpDate = this.printedExpDate.getTime();
+
+        // Get two instances of the Calendar class
+        Calendar min = Calendar.getInstance();
+        Calendar max = Calendar.getInstance();
+
+        // Update their times to the printed expiration date
+        min.setTime(printedExpDate);
+        max.setTime(printedExpDate);
+
+        switch (shelfLife.getMetric().toLowerCase()) {
+
+            case "days":
+
+                // Add min number of days to the printed expiration date
+                min.add(Calendar.DAY_OF_MONTH, shelfLife.getMin());
+
+                // Add max number of days to the printed expiration date
+                max.add(Calendar.DAY_OF_MONTH, shelfLife.getMax());
+
+                break;
+
+            case "weeks":
+
+                // Add min number of weeks to the printed expiration date
+                min.add(Calendar.WEEK_OF_MONTH, shelfLife.getMin());
+
+                // Add max number of weeks to the printed expiration date
+                max.add(Calendar.WEEK_OF_MONTH, shelfLife.getMax());
+
+                break;
+
+            case "months":
+
+                // Add min number of months to the printed expiration date
+                min.add(Calendar.MONTH, shelfLife.getMin());
+
+                // Add max number of months to the printed expiration date
+                max.add(Calendar.MONTH, shelfLife.getMax());
+
+                break;
+
+            case "years":
+
+                // Add min number of years to the printed expiration date
+                min.add(Calendar.YEAR, shelfLife.getMin());
+
+                // Add max number of years to the printed expiration date
+                max.add(Calendar.YEAR, shelfLife.getMax());
+
+                break;
+
+        }
+
+        // Format the date to the pattern of MM/dd/yyyy and return the result
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
+
+        return sdf.format(min.getTime()) + " - " + sdf.format(max.getTime());
+
+    }
+
+    /**
+     * Returns a string containing the shelf life range of a {@code ShelfLife} object.
+     * @param shelfLife The shelf life of a item.
+     */
+    public String getShelfLifeRange(ShelfLife shelfLife) {
+
         String metric = shelfLife.getMetric();
 
-        metric = metric.toLowerCase();
-
-        // max dop_pantryLife
-        int max = shelfLife.getMax();
-
-        // Get the month, day, and year from the printed expiration date
-        int month = printedExpDate.get(Calendar.MONTH) + 1;
-
-        int day = printedExpDate.get(Calendar.DAY_OF_MONTH);
-
-        int year = printedExpDate.get(Calendar.YEAR);
-
-        int finalExMonth = 0;
-        int finalExDate = 0;
-        int finalExYear = 0;
-
-        // if metric is weeks
-        if (metric.equals("weeks")) {
-            metric = "days";
-            max = 7 * max;
-        }
-
-        // if metric is months
-        if (metric.equals("months")) {
-
-            finalExDate = day;
-            finalExYear = year;
-            finalExMonth = month + max;
-
-            while (finalExMonth > 12) {
-                finalExMonth = finalExMonth - 12;
-                finalExYear = year + 1;
-                year = finalExYear;
-            }
-
-        }
-
-        // if metric is days
-        if (metric.equals("days")) {
-            finalExYear = year;
-            finalExMonth = month;
-
-            finalExDate = day + max;
-
-            // months that have 31 days
-            if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) {
-                if (finalExDate > 31) {
-                    finalExDate = finalExDate - 31;
-                    finalExMonth = finalExMonth + 1;
-                    if (finalExMonth > 12) {
-                        finalExMonth = finalExMonth - 12;
-                        finalExYear = year + 1;
-
-                    }
-                }
-
-            }
-
-            // months that have 30 days
-            if (month == 2 || month == 4 || month == 6 || month == 9 || month == 11) {
-                if (finalExDate > 30) {
-                    finalExDate = finalExDate - 30;
-                    finalExMonth = finalExMonth + 1;
-                    if (finalExMonth > 12) {
-                        finalExMonth = finalExMonth - 12;
-                        finalExYear = year + 1;
-
-                    }
-
-                }
-
-            }
-
-            // if the final date is greater than 31
-            while (finalExDate > 31) {
-                finalExDate = finalExDate - 31;
-                finalExMonth = finalExMonth + 1;
-
-                // if the final month is greater than 12
-                if (finalExMonth > 12) {
-                    finalExMonth = finalExMonth - 12;
-                    finalExYear = finalExYear + 1;
-
-                }
-            }
-
-        }
-
-        // if metric is years
-        if (metric.equals("years")) {
-            finalExMonth = month;
-            finalExDate = day;
-            finalExYear = year + max;
-        }
-
-
-        return finalExMonth + "/" + finalExDate + "/" + finalExYear;
+        return shelfLife.getMin() + " - " + shelfLife.getMax() + " " +
+                (metric.equals("Indefinitely") ? "Indefinite" : metric);
 
     }
 

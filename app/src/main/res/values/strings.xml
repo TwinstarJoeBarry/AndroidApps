@@ -237,7 +237,11 @@
     <string name="fragment_ced_display_true_expiration_item_lbl">Item:</string>
     <string name="fragment_ced_display_true_expiration_upc_lbl">UPC:</string>
     <string name="fragment_ced_display_true_expiration_category_lbl">Category:</string>
-    <string name="fragment_ced_display_true_expiration_expiration_date_lbl">Expiration date:</string>
+    <string name="fragment_ced_display_true_expiration_printed_expiration_date_lbl">Printed Expiration Date:</string>
+    <string name="fragment_ced_display_true_expiration_true_expiration_date_lbl">True Expiration Date:</string>
+    <string name="fragment_ced_display_true_expiration_shelf_life_lbl">Shelf Life:</string>
+    <string name="fragment_ced_display_true_expiration_storage_type_lbl">Storage Type:</string>
+    <string name="fragment_ced_display_true_expiration_storage_tips_lbl">Storage Tips:</string>
 
 <!-- GUEST DATABASE REGISTRATION STRINGS START ///////////////////////////////////////////////// -->
 
