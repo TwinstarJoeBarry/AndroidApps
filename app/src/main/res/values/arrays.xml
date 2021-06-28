@@ -58,20 +58,6 @@
         <item>Yes</item>
         <item>No</item>
     </string-array>
-    <string-array name="months">
-        <item>January</item>
-        <item>February</item>
-        <item>March</item>
-        <item>April</item>
-        <item>May</item>
-        <item>June</item>
-        <item>July</item>
-        <item>August</item>
-        <item>September</item>
-        <item>October</item>
-        <item>November</item>
-        <item>December</item>
-    </string-array>
 
     <!-- Arrays for activity_volunteer_form.xml -->
     <string-array name="activity_volunteer_form_preferred_contact_method">
