@@ -349,7 +349,7 @@ public class NestDBDataSource {
 
         private Future<NestDBDataSource> future = null;
 
-        private static final long LOAD_DELAY = 1250L;
+        private static final long LOAD_DELAY = 1000L;
 
         //////////////////////////////////// LIFECYCLE METHODS /////////////////////////////////////
 
