@@ -1,8 +1,6 @@
 package edu.ncc.nest.nestapp.CheckExpirationDate.Fragments;
 
-/**
- *
- * Copyright (C) 2020 The LibreFoodPantry Developers.
+/* Copyright (C) 2020-2021 The LibreFoodPantry Developers.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,7 +17,7 @@ package edu.ncc.nest.nestapp.CheckExpirationDate.Fragments;
  */
 
 import android.os.Bundle;
-import android.util.Log;
+import android.util.AndroidRuntimeException;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -71,41 +69,17 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Update the printed expiration date to reflect the current date
-        setPrintedExpDate(printedExpDate.get(Calendar.YEAR), printedExpDate.get(Calendar.MONTH),
-                printedExpDate.get(Calendar.DAY_OF_MONTH));
+        if (savedInstanceState != null)
 
-        // Initialize the date pickers
-        this.initMonthPicker(view);
-        this.initDayPicker(view);
-        this.initYearPicker(view);
+            onBundleReceived(view, null, savedInstanceState);
 
         // Listen for the foodItem from the bundle sent from the previous fragment
-        getParentFragmentManager().setFragmentResultListener("FOOD ITEM",
-                this, (key, bundle) -> {
+        getParentFragmentManager().setFragmentResultListener(
+                "FOOD ITEM", this,
+                (requestKey, result) -> onBundleReceived(view, requestKey, result));
 
-            if (bundle.containsKey("printedExpDate"))
+        //////////////////////////////// On Accept Button Pressed   ////////////////////////////////
 
-                // Retrieve the printed expiration date from the bundle
-                printedExpDate.setTime((Date) bundle.getSerializable("printedExpDate"));
-
-            // Get the foodItem from the bundle
-            foodItem = (NestUPC) bundle.getSerializable("foodItem");
-
-            if (foodItem != null)
-
-                ((TextView) view.findViewById(R.id.display_upc)).setText(foodItem.getUpc());
-
-            else
-
-                 Log.e(LOG_TAG, "foodItem is null.");
-
-            // Make sure we clear the FragmentResultListener so we can use this requestKey again
-            getParentFragmentManager().clearFragmentResultListener("FOOD ITEM");
-
-        });
-
-        // Set the OnClickListener for the "Accept" Button
         view.findViewById(R.id.selected_print_accept).setOnClickListener(clickedView -> {
 
             Bundle bundle = new Bundle();
@@ -127,7 +101,7 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
 
         });
 
-        //////////////////////////////// On Back Button Pressed   //////////////////////////////////
+        ///////////////////////////////// On Back Button Pressed   /////////////////////////////////
 
         view.setFocusableInTouchMode(true);
 
@@ -141,8 +115,8 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
 
                 bundle.putSerializable("foodItem", foodItem);
 
-                /* Need to clear the result with the same request key, before possibly using same
-                   request key again. */
+                /* Clear any result that was previously set with the given {@code requestKey} and
+                 * that hasn't yet been delivered to a FragmentResultListener. */
                 getParentFragmentManager().clearFragmentResult("FOOD ITEM");
 
                 getParentFragmentManager().setFragmentResult("FOOD ITEM", bundle);
@@ -153,6 +127,57 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
             return false;
 
         });
+
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+
+        outState.putSerializable("printedExpDate", printedExpDate.getTime());
+
+        outState.putSerializable("foodItem", foodItem);
+
+        super.onSaveInstanceState(outState);
+
+    }
+
+    /**
+     * Initializes this fragment based on the bundle received.
+     * @param view The View of this fragment's UI
+     * @param resultKey The {@code requestKey} of the fragment result if this bundle is a fragment
+     *                  result
+     * @param bundle The Bundle that was received
+     */
+    private void onBundleReceived(@NonNull View view, String resultKey, Bundle bundle) {
+
+        if (!bundle.containsKey("foodItem"))
+
+            throw new AndroidRuntimeException("Bundle is missing required requestKey.");
+
+        foodItem = (NestUPC) bundle.getSerializable("foodItem");
+
+        if (bundle.containsKey("printedExpDate"))
+
+            printedExpDate.setTime((Date) bundle.getSerializable("printedExpDate"));
+
+        else
+
+            // Update the printed expiration date to reflect the current date
+            setPrintedExpDate(printedExpDate.get(Calendar.YEAR), printedExpDate.get(Calendar.MONTH),
+                    printedExpDate.get(Calendar.DAY_OF_MONTH));
+
+        if (resultKey != null)
+
+            // Make sure we clear the FragmentResultListener so we can use this requestKey again
+            getParentFragmentManager().clearFragmentResultListener(resultKey);
+
+        ((TextView) view.findViewById(R.id.display_upc)).setText(foodItem.getUpc());
+
+        initializeMonthPicker(view);
+
+        initializeDayPicker(view);
+
+        initializeYearPicker(view);
 
     }
 
@@ -179,7 +204,12 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
 
     }
 
-    private void initMonthPicker(View view) {
+    /**
+     * Initializes a {@link NumberPicker} with the appropriate values for selecting a month, and
+     * sets its {@link NumberPicker.OnValueChangeListener}.
+     * @param view The {@link View} of this fragment's UI
+     */
+    private void initializeMonthPicker(@NonNull View view) {
 
         NumberPicker monthPicker = view.findViewById(R.id.number_picker_month);
 
@@ -197,7 +227,7 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
             setPrintedExpDate(printedExpDate.get(Calendar.YEAR), newVal,
                     printedExpDate.get(Calendar.DAY_OF_MONTH));
 
-            // Make sure we update the number of days in the month
+            // Make sure we update the number of days in the selected month
             dayPicker.setMaxValue(printedExpDate.getActualMaximum(Calendar.DAY_OF_MONTH));
 
             dayPicker.setValue(printedExpDate.get(Calendar.DAY_OF_MONTH));
@@ -206,7 +236,12 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
 
     }
 
-    private void initDayPicker(View view) {
+    /**
+     * Initializes a {@link NumberPicker} with the appropriate values for selecting a day of the
+     * selected month, and sets its {@link NumberPicker.OnValueChangeListener}.
+     * @param view The {@link View} of this fragment's UI
+     */
+    private void initializeDayPicker(@NonNull View view) {
 
         dayPicker = view.findViewById(R.id.number_picker_day);
 
@@ -217,16 +252,18 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
 
         dayPicker.setValue(printedExpDate.get(Calendar.DAY_OF_MONTH));
 
-        dayPicker.setOnValueChangedListener((picker, oldVal, newVal) -> {
-
-            setPrintedExpDate(printedExpDate.get(Calendar.YEAR),
-                    printedExpDate.get(Calendar.MONTH), newVal);
-
-        });
+        dayPicker.setOnValueChangedListener((picker, oldVal, newVal) ->
+                setPrintedExpDate(printedExpDate.get(Calendar.YEAR),
+                printedExpDate.get(Calendar.MONTH), newVal));
 
     }
 
-    private void initYearPicker(View view) {
+    /**
+     * Initializes a {@link NumberPicker} with the appropriate values for selecting a year, and sets
+     * its {@link NumberPicker.OnValueChangeListener}.
+     * @param view The {@link View} of this fragment's UI
+     */
+    private void initializeYearPicker(@NonNull View view) {
 
         NumberPicker yearPicker = view.findViewById(R.id.number_picker_year);
 
