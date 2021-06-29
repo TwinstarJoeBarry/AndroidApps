@@ -16,21 +16,37 @@
 * You should have received a copy of the GNU General Public License
 * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -->
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
     tools:context=".CheckExpirationDate.Fragments.SelectPrintedExpirationDateFragment" >
 
+    <TextView
+        android:id="@+id/select_printed_exp_date_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/fragment_ced_select_printed_expiration_date_title"
+        android:textSize="16sp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/display_upc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:textSize="14sp"/>
+
     <LinearLayout
-        android:id="@+id/date_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
+        android:layout_marginTop="24dp"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/selected_print_headline"
-        android:baselineAligned="false" >
+        android:baselineAligned="false">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -46,16 +62,14 @@
                 android:layout_marginVertical="8dp"
                 android:text="@string/fragment_ced_select_printed_expiration_date_month_lbl" />
 
-            <Button
-                android:id="@+id/selected_print_month_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/month" />
+            <NumberPicker
+                android:id="@+id/number_picker_month"
+                android:layout_width="match_parent"
+                android:layout_height="128dp"/>
 
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight=".33"
@@ -69,11 +83,10 @@
                 android:layout_marginVertical="8dp"
                 android:text="@string/fragment_ced_select_printed_expiration_date_day_lbl" />
 
-            <Button
-                android:id="@+id/selected_print_day_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/day" />
+            <NumberPicker
+                android:id="@+id/number_picker_day"
+                android:layout_width="match_parent"
+                android:layout_height="128dp" />
 
         </LinearLayout>
 
@@ -91,11 +104,10 @@
                 android:layout_marginVertical="8dp"
                 android:text="@string/fragment_ced_select_printed_expiration_date_year_lbl" />
 
-            <Button
-                android:id="@+id/selected_print_year_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/year" />
+            <NumberPicker
+                android:id="@+id/number_picker_year"
+                android:layout_width="match_parent"
+                android:layout_height="128dp" />
 
         </LinearLayout>
 
@@ -105,24 +117,8 @@
         android:id="@+id/selected_print_accept"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingHorizontal="32dp"
         android:layout_marginTop="24dp"
-        android:text="@string/accept"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/date_layout"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        android:text="@string/accept"/>
 
-    <TextView
-        android:id="@+id/selected_print_headline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:paddingBottom="16dp"
-        android:text="@string/fragment_ced_select_printed_expiration_date_title"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
