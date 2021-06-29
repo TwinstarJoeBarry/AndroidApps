@@ -69,14 +69,38 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        if (savedInstanceState != null)
-
-            onBundleReceived(view, null, savedInstanceState);
-
         // Listen for the foodItem from the bundle sent from the previous fragment
         getParentFragmentManager().setFragmentResultListener(
-                "FOOD ITEM", this,
-                (requestKey, result) -> onBundleReceived(view, requestKey, result));
+                "FOOD ITEM", this, (requestKey, result) -> {
+
+            if (!result.containsKey("foodItem"))
+
+                throw new AndroidRuntimeException("Bundle is missing required requestKey.");
+
+            foodItem = (NestUPC) result.getSerializable("foodItem");
+
+            if (result.containsKey("printedExpDate"))
+
+                printedExpDate.setTime((Date) result.getSerializable("printedExpDate"));
+
+            else
+
+                // Update the printed expiration date to reflect the current date
+                setPrintedExpDate(printedExpDate.get(Calendar.YEAR), printedExpDate.get(Calendar.MONTH),
+                        printedExpDate.get(Calendar.DAY_OF_MONTH));
+
+            // Make sure we clear the FragmentResultListener so we can use this requestKey again
+            getParentFragmentManager().clearFragmentResultListener(requestKey);
+
+            ((TextView) view.findViewById(R.id.display_upc)).setText(foodItem.getUpc());
+
+            initializeMonthPicker(view);
+
+            initializeDayPicker(view);
+
+            initializeYearPicker(view);
+
+        });
 
         //////////////////////////////// On Accept Button Pressed   ////////////////////////////////
 
@@ -127,57 +151,6 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
             return false;
 
         });
-
-    }
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-
-        outState.putSerializable("printedExpDate", printedExpDate.getTime());
-
-        outState.putSerializable("foodItem", foodItem);
-
-        super.onSaveInstanceState(outState);
-
-    }
-
-    /**
-     * Initializes this fragment based on the bundle received.
-     * @param view The View of this fragment's UI
-     * @param resultKey The {@code requestKey} of the fragment result if this bundle is a fragment
-     *                  result
-     * @param bundle The Bundle that was received
-     */
-    private void onBundleReceived(@NonNull View view, String resultKey, Bundle bundle) {
-
-        if (!bundle.containsKey("foodItem"))
-
-            throw new AndroidRuntimeException("Bundle is missing required requestKey.");
-
-        foodItem = (NestUPC) bundle.getSerializable("foodItem");
-
-        if (bundle.containsKey("printedExpDate"))
-
-            printedExpDate.setTime((Date) bundle.getSerializable("printedExpDate"));
-
-        else
-
-            // Update the printed expiration date to reflect the current date
-            setPrintedExpDate(printedExpDate.get(Calendar.YEAR), printedExpDate.get(Calendar.MONTH),
-                    printedExpDate.get(Calendar.DAY_OF_MONTH));
-
-        if (resultKey != null)
-
-            // Make sure we clear the FragmentResultListener so we can use this requestKey again
-            getParentFragmentManager().clearFragmentResultListener(resultKey);
-
-        ((TextView) view.findViewById(R.id.display_upc)).setText(foodItem.getUpc());
-
-        initializeMonthPicker(view);
-
-        initializeDayPicker(view);
-
-        initializeYearPicker(view);
 
     }
 
