@@ -69,7 +69,7 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Listen for the foodItem from the bundle sent from the previous fragment
+        // Listen for the FOOD ITEM result from the bundle sent from the previous fragment
         getParentFragmentManager().setFragmentResultListener(
                 "FOOD ITEM", this, (requestKey, result) -> {
 
