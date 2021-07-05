@@ -91,6 +91,19 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
         view.findViewById(R.id.selected_print_day_button).setOnClickListener(this::pickDay);
         view.findViewById(R.id.selected_print_year_button).setOnClickListener(this::pickYear);
 
+        //Listen for UPC being passed backwards from proceeding fragment
+        getParentFragmentManager().setFragmentResultListener("UPC",
+                this, (key, bundle) ->
+                {
+                    String upcTemp = bundle.getString("upcCode");
+
+                    Log.d("*****", "SelectPrintedExpirationDate - UPC: " + upcTemp);
+
+
+                    ((TextView) view.findViewById(R.id.selected_print_headline))
+                            .setText(upcTemp);
+                });
+
         // Listen for the foodItem from the bundle sent from the previous fragment
         getParentFragmentManager().setFragmentResultListener("FOOD ITEM",
                 this, (key, bundle) -> {
@@ -116,6 +129,7 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
             getParentFragmentManager().clearFragmentResultListener("FOOD ITEM");
 
         });
+
 
         // Set the OnClickListener for the "Accept" Button
         view.findViewById(R.id.selected_print_accept).setOnClickListener(clickedView -> {

@@ -59,6 +59,8 @@ public class DisplayTrueExpirationFragment extends Fragment {
 
     private NestUPC foodItem;
 
+    private String UPC;
+
     /////////////////////////////////// Lifecycle Methods Start ////////////////////////////////////
 
     @Override
@@ -92,6 +94,27 @@ public class DisplayTrueExpirationFragment extends Fragment {
                     new SimpleDateFormat("MM/dd/yyyy",
                             Locale.getDefault()).format(printedExpDate.getTime()));
 
+            UPC = foodItem.getUpc();
+
+            /* Need to clear the result with the same request key, before possibly using same
+               request key again.
+             */
+                    getParentFragmentManager().clearFragmentResult("UPC");
+
+            /*
+                Created a new bundle to store the value of the UPC to be able to
+                pass it backwards to previous fragments
+             */
+                    Bundle bundle = new Bundle();
+
+                    Log.d("*****", "DisplayTrueExpirationFragment - UPC: " + UPC);
+
+                    bundle.putString("upcCode", UPC);
+
+
+                    // Set the fragment result to the bundle
+                    getParentFragmentManager().setFragmentResult("UPC", bundle);
+
             // Retrieve a reference to the database from this fragment's activity
             dataSource = CheckExpirationDateActivity.requireDataSource(this);
 
@@ -117,6 +140,27 @@ public class DisplayTrueExpirationFragment extends Fragment {
             getParentFragmentManager().clearFragmentResultListener("FOOD ITEM");
 
         });
+
+
+       /* *//* Need to clear the result with the same request key, before possibly using same
+               request key again. *//*
+        getParentFragmentManager().clearFragmentResult("UPC");
+
+        *//*
+            Created a new bundle to store the value of the UPC to be able to
+            pass it backwards to previous fragments
+         *//*
+        Bundle bundle = new Bundle();
+
+        Log.d("*****", "DisplayTrueExpirationFragment - UPC: " + UPC);
+
+        bundle.putString("upcCode", UPC);
+
+
+        // Set the fragment result to the bundle
+        getParentFragmentManager().setFragmentResult("UPC", bundle);*/
+
+
 
     }
 
