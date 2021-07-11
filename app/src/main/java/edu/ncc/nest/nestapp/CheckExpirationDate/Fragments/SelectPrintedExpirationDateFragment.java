@@ -1,6 +1,6 @@
 package edu.ncc.nest.nestapp.CheckExpirationDate.Fragments;
 
-/* Copyright (C) 2020-2021 The LibreFoodPantry Developers.
+/* Copyright (C) 2020 The LibreFoodPantry Developers.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,7 +17,6 @@ package edu.ncc.nest.nestapp.CheckExpirationDate.Fragments;
  */
 
 import android.os.Bundle;
-import android.util.AndroidRuntimeException;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -69,28 +68,28 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Listen for the FOOD ITEM result from the bundle sent from the previous fragment
-        getParentFragmentManager().setFragmentResultListener(
-                "FOOD ITEM", this, (requestKey, result) -> {
+        // Listen for the foodItem from the bundle sent from the previous fragment
+        getParentFragmentManager().setFragmentResultListener("FOOD ITEM",
+                this, (key, result) -> {
 
-            if (!result.containsKey("foodItem"))
-
-                throw new AndroidRuntimeException("Bundle is missing required requestKey.");
-
-            foodItem = (NestUPC) result.getSerializable("foodItem");
-
-            if (result.containsKey("printedExpDate"))
-
-                printedExpDate.setTime((Date) result.getSerializable("printedExpDate"));
-
-            else
+            /* This request key is only required when navigating back from
+             * DisplayTrueExpirationFragment */
+            if (!result.containsKey("printedExpDate")) {
 
                 // Update the printed expiration date to reflect the current date
-                setPrintedExpDate(printedExpDate.get(Calendar.YEAR), printedExpDate.get(Calendar.MONTH),
+                setPrintedExpDate(printedExpDate.get(Calendar.YEAR),
+                        printedExpDate.get(Calendar.MONTH),
                         printedExpDate.get(Calendar.DAY_OF_MONTH));
 
-            // Make sure we clear the FragmentResultListener so we can use this requestKey again
-            getParentFragmentManager().clearFragmentResultListener(requestKey);
+            } else
+
+                // Retrieve the printed expiration date from the bundle
+                printedExpDate.setTime((Date) result.getSerializable("printedExpDate"));
+
+            // Get the foodItem from the bundle
+            foodItem = (NestUPC) result.getSerializable("foodItem");
+
+            assert foodItem != null : "Failed to retrieve required data";
 
             ((TextView) view.findViewById(R.id.display_upc)).setText(foodItem.getUpc());
 
@@ -100,24 +99,23 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
 
             initializeYearPicker(view);
 
+            // Clear the result listener since we successfully received the result
+            getParentFragmentManager().clearFragmentResultListener(key);
+
         });
 
         //////////////////////////////// On Accept Button Pressed   ////////////////////////////////
 
         view.findViewById(R.id.selected_print_accept).setOnClickListener(clickedView -> {
 
-            Bundle bundle = new Bundle();
+            Bundle result = new Bundle();
 
-            bundle.putSerializable("foodItem", foodItem);
+            result.putSerializable("foodItem", foodItem);
 
-            bundle.putSerializable("printedExpDate", printedExpDate.getTime());
-
-            /* Need to clear the result with the same request key, before possibly using same
-               request key again. */
-            getParentFragmentManager().clearFragmentResult("FOOD ITEM");
+            result.putSerializable("printedExpDate", printedExpDate.getTime());
 
             // Set the fragment result to the bundle
-            getParentFragmentManager().setFragmentResult("FOOD ITEM", bundle);
+            getParentFragmentManager().setFragmentResult("FOOD ITEM", result);
 
             // Navigate to the proper fragment
             NavHostFragment.findNavController(SelectPrintedExpirationDateFragment.this)
@@ -135,15 +133,11 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
 
             if (keyCode == KeyEvent.KEYCODE_BACK) {
 
-                Bundle bundle = new Bundle();
+                Bundle result = new Bundle();
 
-                bundle.putSerializable("foodItem", foodItem);
+                result.putSerializable("foodItem", foodItem);
 
-                /* Clear any result that was previously set with the given {@code requestKey} and
-                 * that hasn't yet been delivered to a FragmentResultListener. */
-                getParentFragmentManager().clearFragmentResult("FOOD ITEM");
-
-                getParentFragmentManager().setFragmentResult("FOOD ITEM", bundle);
+                getParentFragmentManager().setFragmentResult("FOOD ITEM", result);
 
             }
 
