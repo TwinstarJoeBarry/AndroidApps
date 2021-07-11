@@ -91,7 +91,7 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
 
             assert foodItem != null : "Failed to retrieve required data";
 
-            ((TextView) view.findViewById(R.id.display_upc)).setText(foodItem.getUpc());
+            ((TextView) view.findViewById(R.id.upc)).setText(foodItem.getUpc());
 
             initializeMonthPicker(view);
 
@@ -106,7 +106,7 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
 
         //////////////////////////////// On Accept Button Pressed   ////////////////////////////////
 
-        view.findViewById(R.id.selected_print_accept).setOnClickListener(clickedView -> {
+        view.findViewById(R.id.accept_btn).setOnClickListener(clickedView -> {
 
             Bundle result = new Bundle();
 

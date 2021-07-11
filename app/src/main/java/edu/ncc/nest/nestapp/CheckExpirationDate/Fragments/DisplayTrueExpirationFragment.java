@@ -85,7 +85,7 @@ public class DisplayTrueExpirationFragment extends Fragment {
             // Display item information
             ((TextView) view.findViewById(R.id.item)).setText(foodItem.getProductName());
 
-            ((TextView) view.findViewById(R.id.display_upc)).setText(foodItem.getUpc());
+            ((TextView) view.findViewById(R.id.upc)).setText(foodItem.getUpc());
 
             ((TextView) view.findViewById(R.id.category)).setText(foodItem.getCatDesc());
 

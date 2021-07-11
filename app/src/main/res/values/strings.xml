@@ -205,10 +205,11 @@
     <string name="fragment_ced_enter_upc_enter_upc_btn">Enter UPC</string>
 
     <!-- Strings used in fragment_check_expiration_date_confirm_item.xml -->
-    <string name="fragment_ced_confirm_item_confirm_item_lbl">Confirm Item</string>
+    <string name="fragment_ced_confirm_item_title_lbl">Confirm Item Information</string>
+    <string name="fragment_ced_confirm_item_message_lbl">Confirm that the information associated with the provided UPC barcode is correct.</string>
     <string name="fragment_ced_confirm_item_confirm_item_btn">Confirm Item</string>
     <string name="fragment_ced_confirm_item_incorrect_btn">Incorrect</string>
-    <string name="fragment_ced_confirm_item_item_lbl">Product:</string>
+    <string name="fragment_ced_confirm_item_product_lbl">Product:</string>
     <string name="fragment_ced_confirm_item_upc_lbl">UPC Barcode:</string>
     <string name="fragment_ced_confirm_item_category_lbl">Category:</string>
     <string name="fragment_ced_confirm_item_type_lbl">Type:</string>
@@ -230,7 +231,8 @@
     <string name="fragment_ced_select_item_select_subtitle_btn">Select Type</string>
 
     <!-- Strings used in fragment_check_expiration_date_select_printed_expiration_date.xml -->
-    <string name="fragment_ced_select_printed_expiration_date_title">Select the product\'s printed expiration date</string>
+    <string name="fragment_ced_select_printed_expiration_date_title_lbl">Select Printed Expiration Date</string>
+    <string name="fragment_ced_select_printed_expiration_date_message_lbl">Select the item\'s printed expiration date</string>
     <string name="fragment_ced_select_printed_expiration_date_month_lbl">Select a month</string>
     <string name="fragment_ced_select_printed_expiration_date_day_lbl">Select a day</string>
     <string name="fragment_ced_select_printed_expiration_date_year_lbl">Select a year</string>

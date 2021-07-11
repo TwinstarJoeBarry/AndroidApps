@@ -21,7 +21,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#BBBBBB"
-    android:padding="4dp"
+    android:padding="2dp"
     tools:context=".CheckExpirationDate.Fragments.ConfirmItemFragment">
 
     <TextView
@@ -30,7 +30,7 @@
         android:padding="12dp"
         android:layout_marginHorizontal="1dp"
         android:layout_marginTop="2dp"
-        android:text="@string/fragment_ced_confirm_item_confirm_item_lbl"
+        android:text="@string/fragment_ced_confirm_item_title_lbl"
         android:textSize="24sp"
         android:textStyle="bold"
         android:gravity="center"
@@ -51,11 +51,25 @@
             android:scrollbars="vertical"
             android:padding="24dp">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="@string/fragment_ced_confirm_item_message_lbl" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginBottom="24dp"
+                android:backgroundTint="@android:color/darker_gray"
+                android:foreground="@android:color/darker_gray"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="48dp">
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/upc_lbl"
@@ -66,7 +80,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/display_upc"
+                    android:id="@+id/upc"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
@@ -74,6 +88,13 @@
                     android:text="" />
 
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginVertical="24dp"
+                android:backgroundTint="@android:color/darker_gray"
+                android:foreground="@android:color/darker_gray"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -86,7 +107,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:text="@string/fragment_ced_confirm_item_item_lbl"
+                    android:text="@string/fragment_ced_confirm_item_product_lbl"
                     android:textStyle="bold" />
 
                 <TextView
