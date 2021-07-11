@@ -68,18 +68,13 @@ public class ConfirmItemFragment extends Fragment {
         getParentFragmentManager().setFragmentResultListener("FOOD ITEM",
                 this, (requestKey, result) -> {
 
-            if (!result.containsKey("foodItem")) {
+            if (result.containsKey("upcBarcode")) {
 
-                if (result.containsKey("upcBarcode")) {
+                NestDBDataSource dataSource = CheckExpirationDateActivity
+                        .requireDataSource(ConfirmItemFragment.this);
 
-                    NestDBDataSource dataSource = CheckExpirationDateActivity
-                            .requireDataSource(ConfirmItemFragment.this);
+                foodItem = dataSource.getNestUPC(result.getString("upcBarcode"));
 
-                    foodItem = dataSource.getNestUPC(result.getString("upcBarcode"));
-
-                } else
-
-                    throw new RuntimeException("Fragment result is missing the required request keys");
             } else
 
                 foodItem = (NestUPC) result.getSerializable("foodItem");

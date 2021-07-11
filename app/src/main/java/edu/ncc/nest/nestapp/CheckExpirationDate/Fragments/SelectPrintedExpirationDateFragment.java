@@ -90,15 +90,16 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
 
         // Listen for the foodItem from the bundle sent from the previous fragment
         getParentFragmentManager().setFragmentResultListener("FOOD ITEM",
-                this, (key, bundle) -> {
+                this, (key, result) -> {
 
-            if (bundle.containsKey("printedExpDate"))
+            // This request key is NOT required
+            if (result.containsKey("printedExpDate"))
 
                 // Retrieve the printed expiration date from the bundle
-                printedExpDate.setTime((Date) bundle.getSerializable("printedExpDate"));
+                printedExpDate.setTime((Date) result.getSerializable("printedExpDate"));
 
             // Get the foodItem from the bundle
-            foodItem = (NestUPC) bundle.getSerializable("foodItem");
+            foodItem = (NestUPC) result.getSerializable("foodItem");
 
             assert foodItem != null : "Failed to retrieve required data";
 

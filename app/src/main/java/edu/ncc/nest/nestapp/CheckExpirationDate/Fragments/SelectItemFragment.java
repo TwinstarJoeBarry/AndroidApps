@@ -116,15 +116,11 @@ public class SelectItemFragment extends Fragment {
         getParentFragmentManager().setFragmentResultListener("FOOD ITEM",
                 this, (key, result) -> {
 
-            if (!result.containsKey("foodItem")) {
-
-                if (!result.containsKey("upcBarcode"))
-
-                    throw new RuntimeException("Result is missing the required request keys");
+            if (result.containsKey("upcBarcode"))
 
                 upcBarcode = result.getString("upcBarcode");
 
-            } else
+            else
 
                 upcBarcode = ((NestUPC) result.getSerializable("foodItem")).getUpc();
 

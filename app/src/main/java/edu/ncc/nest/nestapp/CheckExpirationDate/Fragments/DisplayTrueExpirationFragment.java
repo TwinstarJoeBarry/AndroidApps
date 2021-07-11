@@ -74,12 +74,12 @@ public class DisplayTrueExpirationFragment extends Fragment {
 
         // Set the FragmentResultListener
         getParentFragmentManager().setFragmentResultListener("FOOD ITEM",
-                this, (requestKey, data) -> {
+                this, (key, result) -> {
 
             // Retrieve the NestUPC from the bundle
-            foodItem = (NestUPC) data.getSerializable("foodItem");
+            foodItem = (NestUPC) result.getSerializable("foodItem");
 
-            Date printedExpDate = (Date) data.getSerializable("printedExpDate");
+            Date printedExpDate = (Date) result.getSerializable("printedExpDate");
 
             assert foodItem != null && printedExpDate != null : "Failed to retrieve required data";
 
