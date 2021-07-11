@@ -20,6 +20,7 @@ package edu.ncc.nest.nestapp.CheckExpirationDate.Fragments;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,9 +68,11 @@ public class DisplayTrueExpirationFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_check_expiration_date_display_true_expiration,
                 container, false);
+
 
     }
 
@@ -94,17 +97,20 @@ public class DisplayTrueExpirationFragment extends Fragment {
                     new SimpleDateFormat("MM/dd/yyyy",
                             Locale.getDefault()).format(printedExpDate.getTime()));
 
-            UPC = foodItem.getUpc();
 
-            /* Need to clear the result with the same request key, before possibly using same
+            //  ORIGINAL CODE FOR BACKWARD MOVEMENT OF DATA
+
+/*            UPC = foodItem.getUpc();
+
+            *//* Need to clear the result with the same request key, before possibly using same
                request key again.
-             */
+             *//*
                     getParentFragmentManager().clearFragmentResult("UPC");
 
-            /*
+            *//*
                 Created a new bundle to store the value of the UPC to be able to
                 pass it backwards to previous fragments
-             */
+             *//*
                     Bundle bundle = new Bundle();
 
                     Log.d("*****", "DisplayTrueExpirationFragment - UPC: " + UPC);
@@ -113,7 +119,7 @@ public class DisplayTrueExpirationFragment extends Fragment {
 
 
                     // Set the fragment result to the bundle
-                    getParentFragmentManager().setFragmentResult("UPC", bundle);
+                    getParentFragmentManager().setFragmentResult("UPC", bundle);*/
 
             // Retrieve a reference to the database from this fragment's activity
             dataSource = CheckExpirationDateActivity.requireDataSource(this);
@@ -141,27 +147,34 @@ public class DisplayTrueExpirationFragment extends Fragment {
 
         });
 
+        //////////////////////////////// On Back Button Pressed   //////////////////////////////////
 
-       /* *//* Need to clear the result with the same request key, before possibly using same
-               request key again. *//*
-        getParentFragmentManager().clearFragmentResult("UPC");
+        view.setFocusableInTouchMode(true);
 
-        *//*
-            Created a new bundle to store the value of the UPC to be able to
-            pass it backwards to previous fragments
-         *//*
-        Bundle bundle = new Bundle();
+        view.requestFocus();
 
-        Log.d("*****", "DisplayTrueExpirationFragment - UPC: " + UPC);
+        view.setOnKeyListener((v, keyCode, event) -> {
 
-        bundle.putString("upcCode", UPC);
+            if (keyCode == KeyEvent.KEYCODE_BACK) {
 
+                Bundle bundle = new Bundle();
 
-        // Set the fragment result to the bundle
-        getParentFragmentManager().setFragmentResult("UPC", bundle);*/
+                bundle.putSerializable("foodItem", foodItem);
 
+                bundle.putSerializable("printedExpDate", printedExpDate.getTime());
 
+                /* Need to clear the result with the same request key, before possibly using same
+                   request key again. */
+                getParentFragmentManager().clearFragmentResult("FOOD ITEM");
 
+                getParentFragmentManager().setFragmentResult("FOOD ITEM", bundle);
+
+            }
+
+            // Always return false since we aren't handling the navigation here.
+            return false;
+
+        });
     }
 
     //////////////////////////////////// Custom Methods Start  /////////////////////////////////////
