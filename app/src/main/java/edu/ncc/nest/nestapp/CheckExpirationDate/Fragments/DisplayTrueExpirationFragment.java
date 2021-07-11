@@ -17,6 +17,7 @@ package edu.ncc.nest.nestapp.CheckExpirationDate.Fragments;
  */
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -138,6 +139,70 @@ public class DisplayTrueExpirationFragment extends Fragment {
     }
 
     //////////////////////////////////// Custom Methods Start  /////////////////////////////////////
+
+    /**
+     * Finds and returns the shortest shelf life from a List of {@link ShelfLife} objects.
+     *
+     * @param shelfLives A list of {@link ShelfLife} objects.
+     * @return The shortest shelf life from the list.
+     *
+     * @deprecated This method is deprecated since we are now displaying available shelf lives.
+     */
+    @Deprecated
+    public ShelfLife getShortestShelfLife(List<ShelfLife> shelfLives) {
+
+        int index = -1;
+
+        String metric = "";
+
+        ShelfLife shelfLife;
+
+        // loop through the list of shelf lives and compare its metric
+        for (int i = 0; i < shelfLives.size(); i++) {
+
+            shelfLife = shelfLives.get(i);
+
+            switch (shelfLife.getMetric()) {
+
+                case "Years":
+                    if (metric.isEmpty()) {
+                        metric = "Years";
+                        index = i;
+                    }
+                    break;
+
+                case "Months":
+                    if (metric.isEmpty() || metric.equals("Years")) {
+                        metric = "Months";
+                        index = i;
+                    }
+                    break;
+
+                case "Weeks":
+                    if (metric.isEmpty() || metric.equals("Years") || metric.equals("Months")) {
+                        metric = "Weeks";
+                        index = i;
+                    }
+                    break;
+
+                case "Days":
+                    if (metric.isEmpty() || metric.equals("Years") || metric.equals("Months") || metric.equals("Weeks")) {
+                        metric = "Days";
+                        index = i;
+                    }
+                    break;
+
+                default:
+                    Log.d(LOG_TAG, "getShortestShelfLife: Error invalid option");
+                    break;
+
+            }
+
+        }
+
+        return shelfLives.get(index);
+
+    }
 
     /**
      * Calculates the true expiration date range of an item based on it's shelf life and printed
