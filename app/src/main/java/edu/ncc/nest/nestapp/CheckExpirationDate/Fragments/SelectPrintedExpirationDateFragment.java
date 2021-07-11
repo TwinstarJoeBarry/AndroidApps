@@ -92,7 +92,8 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
         getParentFragmentManager().setFragmentResultListener("FOOD ITEM",
                 this, (key, result) -> {
 
-            // This request key is NOT required
+            /* This request key is only required when navigating back from
+             * DisplayTrueExpirationFragment */
             if (result.containsKey("printedExpDate"))
 
                 // Retrieve the printed expiration date from the bundle
