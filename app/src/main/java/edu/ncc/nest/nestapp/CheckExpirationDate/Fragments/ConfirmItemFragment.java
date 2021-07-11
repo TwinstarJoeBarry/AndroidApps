@@ -66,7 +66,7 @@ public class ConfirmItemFragment extends Fragment {
 
         // Retrieve fragment result
         getParentFragmentManager().setFragmentResultListener("FOOD ITEM",
-                this, (requestKey, result) -> {
+                this, (key, result) -> {
 
             if (result.containsKey("upcBarcode")) {
 
@@ -89,7 +89,7 @@ public class ConfirmItemFragment extends Fragment {
             ((TextView) view.findViewById(R.id.add_UPC)).setText(foodItem.getUpc());
 
             // Clear the result listener since we successfully received the result
-            getParentFragmentManager().clearFragmentResultListener("FOOD ITEM");
+            getParentFragmentManager().clearFragmentResultListener(key);
 
         });
 

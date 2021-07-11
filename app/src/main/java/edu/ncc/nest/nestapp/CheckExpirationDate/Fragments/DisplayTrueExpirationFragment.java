@@ -115,8 +115,8 @@ public class DisplayTrueExpirationFragment extends Fragment {
                     shortestShelfLife.getTips() != null ?
                             formatString(shortestShelfLife.getTips()) : "N/A");
 
-            // Clear the FragmentResultListener so we can use this requestKey again.
-            getParentFragmentManager().clearFragmentResultListener("FOOD ITEM");
+            // Clear the result listener since we successfully received the result
+            getParentFragmentManager().clearFragmentResultListener(key);
 
         });
 

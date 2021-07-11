@@ -130,8 +130,8 @@ public class SelectItemFragment extends Fragment {
 
             ((TextView) view.findViewById(R.id.fragment_select_item_headline)).setText(text);
 
-            // Clear the result listener since we have successfully retrieved the result
-            getParentFragmentManager().clearFragmentResultListener("FOOD ITEM");
+            // Clear the result listener since we successfully received the result
+            getParentFragmentManager().clearFragmentResultListener(key);
 
         });
 

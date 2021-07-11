@@ -107,8 +107,8 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
             ((TextView) view.findViewById(R.id.selected_print_headline))
                     .setText(foodItem.getUpc());
 
-            // Make sure we clear the FragmentResultListener so we can use this requestKey again
-            getParentFragmentManager().clearFragmentResultListener("FOOD ITEM");
+            // Clear the result listener since we successfully received the result
+            getParentFragmentManager().clearFragmentResultListener(key);
 
         });
 
