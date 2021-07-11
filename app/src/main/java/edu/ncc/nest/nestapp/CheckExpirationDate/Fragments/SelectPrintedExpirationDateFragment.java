@@ -140,11 +140,11 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
 
             if (keyCode == KeyEvent.KEYCODE_BACK) {
 
-                Bundle bundle = new Bundle();
+                Bundle result = new Bundle();
 
-                bundle.putSerializable("foodItem", foodItem);
+                result.putSerializable("foodItem", foodItem);
 
-                getParentFragmentManager().setFragmentResult("FOOD ITEM", bundle);
+                getParentFragmentManager().setFragmentResult("FOOD ITEM", result);
 
             }
 
