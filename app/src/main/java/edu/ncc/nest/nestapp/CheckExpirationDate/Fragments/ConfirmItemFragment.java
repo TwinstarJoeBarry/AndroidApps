@@ -1,8 +1,6 @@
 package edu.ncc.nest.nestapp.CheckExpirationDate.Fragments;
 
-/**
- *
- * Copyright (C) 2020 The LibreFoodPantry Developers.
+/* Copyright (C) 2020 The LibreFoodPantry Developers.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,7 +17,6 @@ package edu.ncc.nest.nestapp.CheckExpirationDate.Fragments;
  */
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,23 +42,17 @@ import edu.ncc.nest.nestapp.R;
  */
 public class ConfirmItemFragment extends Fragment {
 
+    /////////////////////////////////////// Class Variables ////////////////////////////////////////
+
     private static final String TAG = ConfirmItemFragment.class.getSimpleName();
 
-    private TextView itemName;
-    private TextView catName;
-    private TextView upc;
-
-    private String item_name;
-    private String cat_name;
-    private String upc_string;
-
     private NestUPC foodItem;
+
+    /////////////////////////////////// Lifecycle Methods Start ////////////////////////////////////
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        Log.d(TAG, "In ConfirmItemFragment onCreateView()");
 
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_check_expiration_date_confirm_item,
@@ -73,157 +64,76 @@ public class ConfirmItemFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Log.d(TAG, "In ConfirmItemFragment onViewCreated()");
+        // Retrieve fragment result
+        getParentFragmentManager().setFragmentResultListener("FOOD ITEM",
+                this, (requestKey, result) -> {
 
-        // Get respective views from layout
-        itemName = view.findViewById(R.id.add_item_name);
-        catName = view.findViewById(R.id.add_cat_name);
-        upc = view.findViewById(R.id.add_UPC);
+            if (!result.containsKey("foodItem")) {
 
-        if (savedInstanceState != null) {
+                if (result.containsKey("upcBarcode")) {
 
-            Log.d(TAG, "In ConfirmItemFragment onViewCreated() If savedInstanceSate != null");
+                    NestDBDataSource dataSource = CheckExpirationDateActivity
+                            .requireDataSource(ConfirmItemFragment.this);
 
-            // get Strings, assign to TextViews
-            // retrieve foodItem from Bundle
-            foodItem = (NestUPC) savedInstanceState.get("foodItem");
+                    foodItem = dataSource.getNestUPC(result.getString("upcBarcode"));
 
-            // TODO Add null pointer check
+                } else
 
-            // retrieve strings from food item
-            item_name = foodItem.getProductName();
-            Log.d(TAG, "Item Name: " + item_name);
+                    throw new RuntimeException("Fragment result is missing the required request keys");
+            } else
 
-            cat_name = foodItem.getCatDesc();
-            Log.d(TAG, "Cat Desc: " + cat_name);
-
-            upc_string = foodItem.getUpc();
-            Log.d(TAG, "UPC: " + upc_string);
-
-            // Send retrieved data to TextView
-            itemName.setText(item_name);
-            catName.setText(cat_name);
-            upc.setText(upc_string);
-
-        } else {
-
-            // Retrieve Bundle
-            getParentFragmentManager().setFragmentResultListener("FOOD ITEM", this, (requestKey, result) -> {
-
-                Log.d(TAG, "In ConfirmItemFragment onFragmentResult()");
-
-                // Retrieve foodItem from Bundle
                 foodItem = (NestUPC) result.getSerializable("foodItem");
 
-                onFragmentResult();
+            assert foodItem != null : "Failed to retrieve required data";
 
-                // Clear the result listener since we successfully received the result
-                getParentFragmentManager().clearFragmentResultListener("FOOD ITEM");
+            // Send retrieved data to TextView
+            ((TextView) view.findViewById(R.id.add_item_name)).setText(foodItem.getProductName());
 
-                // Clear the other result listener since we successfully received a result
-                getParentFragmentManager().clearFragmentResultListener("BARCODE");
+            ((TextView) view.findViewById(R.id.add_cat_name)).setText(foodItem.getCatDesc());
 
-            });
+            ((TextView) view.findViewById(R.id.add_UPC)).setText(foodItem.getUpc());
 
-            getParentFragmentManager().setFragmentResultListener("BARCODE", this, (requestKey, result) -> {
+            // Clear the result listener since we successfully received the result
+            getParentFragmentManager().clearFragmentResultListener("FOOD ITEM");
 
-                Log.d(TAG, "In ConfirmItemFragment onFragmentResult()");
+        });
 
-                NestDBDataSource dataSource = CheckExpirationDateActivity
-                        .requireDataSource(ConfirmItemFragment.this);
-
-                foodItem = dataSource.getNestUPC(result.getString("barcode"));
-
-                onFragmentResult();
-
-                // Clear the result listener since we successfully received the result
-                getParentFragmentManager().clearFragmentResultListener("BARCODE");
-
-                // Clear the other result listener since we successfully received a result
-                getParentFragmentManager().clearFragmentResultListener("FOOD ITEM");
-
-            });
-
-        }
-
-        ////////////// Navigation //////////////
-
-        // if confirm button clicked, nav to fragment_check_expiration_date_select_printed_expiration_date.xml
+        /* If the "Confirm" button was clicked, navigate to
+         * fragment_check_expiration_date_select_printed_expiration_date.xml */
         view.findViewById(R.id.button_confirm_item).setOnClickListener(view1 -> {
 
-            Log.d(TAG, "In ConfirmItemFragment onClick() for button_confirm_item");
+            assert foodItem != null : "foodItem is null";
 
-            // Send bundle received to SelectPrintedExpirationDateFragment
-            Bundle bundle = new Bundle();
+            Bundle result = new Bundle();
 
-            bundle.putSerializable("foodItem", foodItem);
+            result.putSerializable("foodItem", foodItem);
 
-            // Need to clear the result with the same request key, before using possibly same request key again.
-            getParentFragmentManager().clearFragmentResult("FOOD ITEM");
-
-            getParentFragmentManager().setFragmentResult("FOOD ITEM", bundle);
+            getParentFragmentManager().setFragmentResult("FOOD ITEM", result);
 
             NavHostFragment.findNavController(ConfirmItemFragment.this)
                     .navigate(R.id.action_CED_ConfirmItemFragment_to_SelectPrintedExpirationDateFragment);
 
         });
 
-        // if the item was incorrect, nav to fragment_check_expiration_date_select_item.xml
+        /* If the "Incorrect" button was clicked, navigate to
+         * fragment_check_expiration_date_select_item.xml */
         view.findViewById(R.id.button_incorrect_item).setOnClickListener(view12 -> {
 
-            Log.d(TAG, "In ConfirmItemFragment onClick() for button_incorrect_item");
+            assert foodItem != null : "foodItem is null";
 
             // Send UPC/barcode to SelectItemFragment
-            Bundle upcBundle = new Bundle();
+            Bundle result = new Bundle();
 
             // Using "barcode" KEY to stay consistent with ScannerFragment
-            upcBundle.putString("barcode", upc_string);
+            result.putString("upcBarcode", foodItem.getUpc());
 
-            // Need to clear the result with the same request key, before using possibly same request key again.
-            getParentFragmentManager().clearFragmentResult("BARCODE");
-
-            getParentFragmentManager().setFragmentResult("BARCODE", upcBundle);
+            getParentFragmentManager().setFragmentResult("FOOD ITEM", result);
 
             NavHostFragment.findNavController(ConfirmItemFragment.this)
                     .navigate(R.id.action_CED_ConfirmItemFragment_to_SelectItemFragment);
 
-
         });
 
     }
-
-    private void onFragmentResult() {
-
-        // Retrieve the foodItem's product name, category, and UPC, log the results
-        item_name = foodItem.getProductName();
-        Log.d(TAG, "Item Name: " + item_name);
-
-        cat_name = foodItem.getCatDesc();
-        Log.d(TAG, "Cat Desc: " + cat_name);
-
-        upc_string = foodItem.getUpc();
-        Log.d(TAG, "UPC: " + upc_string);
-
-        // Send retrieved data to TextView
-        itemName.setText(item_name);
-        catName.setText(cat_name);
-        upc.setText(upc_string);
-
-    }
-
-    /////////// LIFE CYCLE ////////////
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-
-        if (foodItem != null)
-
-            // save item + strings
-            outState.putSerializable("foodItem", foodItem);
-
-        super.onSaveInstanceState(outState);
-
-    }
-
 
 }
