@@ -1,8 +1,6 @@
 package edu.ncc.nest.nestapp.CheckExpirationDate.Fragments;
 
-/**
- *
- * Copyright (C) 2020 The LibreFoodPantry Developers.
+/* Copyright (C) 2020 The LibreFoodPantry Developers.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,6 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
@@ -39,6 +38,22 @@ import edu.ncc.nest.nestapp.R;
  */
 public class StartFragment extends Fragment {
 
+    /////////////////////////////////////// Class Variables ////////////////////////////////////////
+
+    public static final String LOG_TAG = StartFragment.class.getSimpleName();
+
+    /////////////////////////////////// Lifecycle Methods Start ////////////////////////////////////
+
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        // Clear any set fragment results since they are not needed in or prior to this fragment
+        getParentFragmentManager().clearFragmentResult("FOOD ITEM");
+
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -49,6 +64,7 @@ public class StartFragment extends Fragment {
 
     }
 
+    @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 

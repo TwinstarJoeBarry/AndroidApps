@@ -1,8 +1,6 @@
 package edu.ncc.nest.nestapp.CheckExpirationDate.Fragments;
 
-/**
- *
- * Copyright (C) 2020 The LibreFoodPantry Developers.
+/* Copyright (C) 2020 The LibreFoodPantry Developers.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -81,21 +79,25 @@ public class DisplayTrueExpirationFragment extends Fragment {
 
         // Set the FragmentResultListener
         getParentFragmentManager().setFragmentResultListener("FOOD ITEM",
-                this, (requestKey, data) -> {
+                this, (key, result) -> {
 
             // Retrieve the NestUPC from the bundle
-            foodItem = (NestUPC) data.getSerializable("foodItem");
+            foodItem = (NestUPC) result.getSerializable("foodItem");
 
-            // Retrieve the printed expiration date from the bundle
-            printedExpDate.setTime((Date) data.getSerializable("printedExpDate"));
+            Date printedExpDate = (Date) result.getSerializable("printedExpDate");
+
+            assert foodItem != null && printedExpDate != null : "Failed to retrieve required data";
+
+            // Update the printed expiration date to the retrieve date
+            this.printedExpDate.setTime(printedExpDate);
 
             // Display item name, upc, category name on fragment_check_expiration_date_display_true_expiration.xml
             ((TextView) view.findViewById(R.id.item)).setText(foodItem.getProductName());
-            ((TextView) view.findViewById(R.id.upc)).setText(foodItem.getUpc());
+            ((TextView) view.findViewById(R.id.display_upc)).setText(foodItem.getUpc());
             ((TextView) view.findViewById(R.id.category)).setText(foodItem.getCatDesc());
             ((TextView) view.findViewById(R.id.printed_exp_date)).setText(
                     new SimpleDateFormat("MM/dd/yyyy",
-                            Locale.getDefault()).format(printedExpDate.getTime()));
+                            Locale.getDefault()).format(printedExpDate));
 
 
             //  ORIGINAL CODE FOR BACKWARD MOVEMENT OF DATA
@@ -142,8 +144,8 @@ public class DisplayTrueExpirationFragment extends Fragment {
                     shortestShelfLife.getTips() != null ?
                             formatString(shortestShelfLife.getTips()) : "N/A");
 
-            // Clear the FragmentResultListener so we can use this requestKey again.
-            getParentFragmentManager().clearFragmentResultListener("FOOD ITEM");
+            // Clear the result listener since we successfully received the result
+            getParentFragmentManager().clearFragmentResultListener(key);
 
         });
 

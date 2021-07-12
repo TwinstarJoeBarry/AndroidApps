@@ -91,7 +91,7 @@
         tools:ignore="RtlHardcoded" />
 
     <TextView
-        android:id="@+id/selected_print_headline"
+        android:id="@+id/select_printed_exp_date_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/fragment_select_item_headline"
@@ -112,7 +112,7 @@
         android:layout_marginTop="24dp"
         android:text="@string/fragment_ced_select_item_category_lbl"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/selected_print_headline"
+        app:layout_constraintTop_toBottomOf="@id/select_printed_exp_date_title"
         tools:ignore="RtlHardcoded" />
 
 
