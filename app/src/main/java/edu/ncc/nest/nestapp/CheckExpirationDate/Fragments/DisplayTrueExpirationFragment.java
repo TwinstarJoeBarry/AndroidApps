@@ -291,8 +291,11 @@ public class DisplayTrueExpirationFragment extends Fragment {
 
         String metric = shelfLife.getMetric();
 
-        return shelfLife.getMin() + " - " + shelfLife.getMax() + " " +
-                (metric.equals("Indefinitely") ? "Indefinite" : metric);
+        if (metric.equals("Indefinitely"))
+
+            return "Indefinite";
+
+        return shelfLife.getMin() + " - " + shelfLife.getMax() + " " + metric;
 
     }
 
