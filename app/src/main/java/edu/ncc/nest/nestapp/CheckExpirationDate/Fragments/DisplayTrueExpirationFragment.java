@@ -88,7 +88,7 @@ public class DisplayTrueExpirationFragment extends Fragment {
 
             // Display item name, upc, category name on fragment_check_expiration_date_display_true_expiration.xml
             ((TextView) view.findViewById(R.id.item)).setText(foodItem.getProductName());
-            ((TextView) view.findViewById(R.id.upc)).setText(foodItem.getUpc());
+            ((TextView) view.findViewById(R.id.display_upc)).setText(foodItem.getUpc());
             ((TextView) view.findViewById(R.id.category)).setText(foodItem.getCatDesc());
             ((TextView) view.findViewById(R.id.printed_exp_date)).setText(
                     new SimpleDateFormat("MM/dd/yyyy",

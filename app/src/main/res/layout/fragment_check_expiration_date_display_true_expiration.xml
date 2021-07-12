@@ -39,7 +39,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/upc"
+            android:id="@+id/display_upc"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
