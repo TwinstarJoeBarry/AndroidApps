@@ -165,10 +165,6 @@ public class DisplayTrueExpirationFragment extends Fragment {
 
                 bundle.putSerializable("printedExpDate", printedExpDate.getTime());
 
-                /* Need to clear the result with the same request key, before possibly using same
-                   request key again. */
-                getParentFragmentManager().clearFragmentResult("FOOD ITEM");
-
                 getParentFragmentManager().setFragmentResult("FOOD ITEM", bundle);
 
             }
