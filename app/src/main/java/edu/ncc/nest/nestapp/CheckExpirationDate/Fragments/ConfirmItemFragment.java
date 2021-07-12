@@ -101,7 +101,7 @@ public class ConfirmItemFragment extends Fragment {
 
         /* If the "Confirm" button was clicked, navigate to
          * fragment_check_expiration_date_select_printed_expiration_date.xml */
-        view.findViewById(R.id.button_confirm_item).setOnClickListener(view1 -> {
+        view.findViewById(R.id.confirm_item_btn).setOnClickListener(view1 -> {
 
             assert foodItem != null : "foodItem is null";
 
@@ -118,7 +118,7 @@ public class ConfirmItemFragment extends Fragment {
 
         /* If the "Incorrect" button was clicked, navigate to
          * fragment_check_expiration_date_select_item.xml */
-        view.findViewById(R.id.button_incorrect_item).setOnClickListener(view12 -> {
+        view.findViewById(R.id.incorrect_btn).setOnClickListener(view12 -> {
 
             assert foodItem != null : "foodItem is null";
 

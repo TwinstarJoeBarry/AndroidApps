@@ -97,17 +97,17 @@ public class SelectItemFragment extends Fragment {
         dataSource = CheckExpirationDateActivity.requireDataSource(this);
 
         // INITIALIZE UI ELEMENTS THAT ARE INSTANCE VARIABLES
-        categoryHint = view.findViewById(R.id.fragment_select_item_category_hint);
-        categoryButton = view.findViewById(R.id.fragment_select_item_category_select);
+        categoryHint = view.findViewById(R.id.select_item_category);
+        categoryButton = view.findViewById(R.id.select_item_category_btn);
         categoryButton.setOnClickListener( v -> showCategories() );
 
-        productHint = view.findViewById(R.id.fragment_select_item_product_hint);
-        productButton = view.findViewById(R.id.fragment_select_item_product_select);
+        productHint = view.findViewById(R.id.select_item_product);
+        productButton = view.findViewById(R.id.select_item_product_btn);
         productButton.setOnClickListener( v -> showProducts() );
         productButton.setEnabled(false);
 
-        subtitleHint = view.findViewById(R.id.fragment_select_item_subtitle_hint);
-        subtitleButton = view.findViewById(R.id.fragment_select_item_subtitle_select);
+        subtitleHint = view.findViewById(R.id.select_item_type);
+        subtitleButton = view.findViewById(R.id.select_item_type_btn);
         subtitleButton.setOnClickListener( v -> showProductSubtitles(
                 productCategoryId, productName));
         subtitleButton.setEnabled(false);
@@ -126,9 +126,8 @@ public class SelectItemFragment extends Fragment {
 
             assert upcBarcode != null : "Failed to retrieve required data";
 
-            String text = "Adding New UPC: " + upcBarcode;
-
-            ((TextView) view.findViewById(R.id.fragment_select_item_headline)).setText(text);
+            // Display the upc barcode to the user
+            ((TextView) view.findViewById(R.id.upc)).setText(upcBarcode);
 
             // Clear the result listener since we successfully received the result
             getParentFragmentManager().clearFragmentResultListener(key);
@@ -136,14 +135,14 @@ public class SelectItemFragment extends Fragment {
         });
 
         // ACCEPT BUTTON CODE - PARSE VALUES FOR NEW UPC, PASS INFO TO PRINTED EXPIRATION DATE
-        view.findViewById(R.id.acceptButton).setOnClickListener( view1 -> {
+        view.findViewById(R.id.select_item_accept_btn).setOnClickListener(view1 -> {
 
             // Retrieve the String information from each view, casting as appropriate;
             String brand = ((EditText) (view.findViewById(
-                    R.id.fragment_select_item_brand_entry))).getText().toString();
+                    R.id.select_item_brand_entry))).getText().toString();
 
             String description = ((EditText) (view.findViewById(
-                    R.id.fragment_select_item_description_entry))).getText().toString();
+                    R.id.select_item_description_entry))).getText().toString();
 
             // Replace any fields from above with blank values;
             // TODO Make these next two fields required
@@ -215,9 +214,17 @@ public class SelectItemFragment extends Fragment {
         });
 
         // CANCEL BUTTON CODE - NAVIGATE BACK TO START FRAGMENT
-        view.findViewById(R.id.cancelButton).setOnClickListener( view12 ->
-                NavHostFragment.findNavController(SelectItemFragment.this)
-                        .navigate(R.id.CED_StartFragment));
+        view.findViewById(R.id.select_item_cancel_btn).setOnClickListener(clickedView -> {
+
+            Bundle result = new Bundle();
+
+            result.putString("upcBarcode", upcBarcode);
+
+            getParentFragmentManager().setFragmentResult("FOOD ITEM", result);
+
+            getParentFragmentManager().popBackStack();
+
+        });
 
         //////////////////////////////// On Back Button Pressed   //////////////////////////////////
 
