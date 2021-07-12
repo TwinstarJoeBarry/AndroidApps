@@ -163,29 +163,36 @@ public class DisplayTrueExpirationFragment extends Fragment {
 
             switch (shelfLife.getMetric()) {
 
-                case "Years":
+                case "Indefinitely":
                     if (metric.isEmpty()) {
+                        metric = "Indefinitely";
+                        index = i;
+                    }
+                    break;
+
+                case "Years":
+                    if (metric.isEmpty()  || metric.equals("Indefinitely")) {
                         metric = "Years";
                         index = i;
                     }
                     break;
 
                 case "Months":
-                    if (metric.isEmpty() || metric.equals("Years")) {
+                    if (metric.isEmpty() || metric.equals("Years") || metric.equals("Indefinitely")) {
                         metric = "Months";
                         index = i;
                     }
                     break;
 
                 case "Weeks":
-                    if (metric.isEmpty() || metric.equals("Years") || metric.equals("Months")) {
+                    if (metric.isEmpty() || metric.equals("Years") || metric.equals("Months") || metric.equals("Indefinitely")) {
                         metric = "Weeks";
                         index = i;
                     }
                     break;
 
                 case "Days":
-                    if (metric.isEmpty() || metric.equals("Years") || metric.equals("Months") || metric.equals("Weeks")) {
+                    if (metric.isEmpty() || metric.equals("Years") || metric.equals("Months") || metric.equals("Weeks") || metric.equals("Indefinitely")) {
                         metric = "Days";
                         index = i;
                     }
@@ -262,6 +269,10 @@ public class DisplayTrueExpirationFragment extends Fragment {
                 max.add(Calendar.YEAR, shelfLife.getMax());
 
                 break;
+
+            case "indefinitely":
+
+                return "Indefinite";
 
         }
 
