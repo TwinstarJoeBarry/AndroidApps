@@ -269,7 +269,7 @@ public class DisplayTrueExpirationFragment extends Fragment {
         // Format the date to the pattern of MM/dd/yyyy and return the result
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
 
-        if (min.compareTo(max) != 0)
+        if (min.compareTo(max) == 0)
 
             return sdf.format(max.getTime());
 
