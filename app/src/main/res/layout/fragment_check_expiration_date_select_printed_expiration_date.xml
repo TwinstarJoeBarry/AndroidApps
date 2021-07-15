@@ -56,7 +56,7 @@
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:layout_marginBottom="24dp"
-            android:layout_marginHorizontal="48dp"
+            android:layout_marginHorizontal="24dp"
             android:backgroundTint="@android:color/darker_gray"
             android:foreground="@android:color/darker_gray"/>
 
@@ -80,6 +80,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight=".33"
+                android:layout_marginHorizontal="8dp"
                 android:gravity="center"
                 android:textStyle="bold"
                 android:text="@string/fragment_ced_select_printed_expiration_date_day_lbl" />
@@ -102,23 +103,93 @@
             android:layout_margin="24dp"
             android:background="@android:color/white">
 
-            <NumberPicker
-                android:id="@+id/number_picker_month"
+            <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="128dp"
-                android:layout_weight=".33"/>
+                android:layout_height="wrap_content"
+                android:layout_weight="0.33"
+                android:orientation="vertical">
 
-            <NumberPicker
-                android:id="@+id/number_picker_day"
-                android:layout_width="0dp"
-                android:layout_height="128dp"
-                android:layout_weight=".33"/>
+                <ImageButton
+                    android:id="@+id/decrement_month_btn"
+                    android:layout_width="24dp"
+                    android:layout_height="8dp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/ic_arrow_up"
+                    style="@style/Widget.AppCompat.Button.Borderless"/>
 
-            <NumberPicker
-                android:id="@+id/number_picker_year"
+                <NumberPicker
+                    android:id="@+id/number_picker_month"
+                    android:layout_width="match_parent"
+                    android:layout_height="128dp"/>
+
+                <ImageButton
+                    android:id="@+id/increment_month_btn"
+                    android:layout_width="24dp"
+                    android:layout_height="8dp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/ic_arrow_down"
+                    style="@style/Widget.AppCompat.Button.Borderless"/>
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="128dp"
-                android:layout_weight=".33"/>
+                android:layout_height="wrap_content"
+                android:layout_weight="0.33"
+                android:layout_marginHorizontal="8dp"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/decrement_day_btn"
+                    android:layout_width="24dp"
+                    android:layout_height="8dp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/ic_arrow_up"
+                    style="@style/Widget.AppCompat.Button.Borderless"/>
+
+                <NumberPicker
+                    android:id="@+id/number_picker_day"
+                    android:layout_width="match_parent"
+                    android:layout_height="128dp"/>
+
+                <ImageButton
+                    android:id="@+id/increment_day_btn"
+                    android:layout_width="24dp"
+                    android:layout_height="8dp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/ic_arrow_down"
+                    style="@style/Widget.AppCompat.Button.Borderless"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.33"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/decrement_year_btn"
+                    android:layout_width="24dp"
+                    android:layout_height="8dp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/ic_arrow_up"
+                    style="@style/Widget.AppCompat.Button.Borderless"/>
+
+                <NumberPicker
+                    android:id="@+id/number_picker_year"
+                    android:layout_width="match_parent"
+                    android:layout_height="128dp"/>
+
+                <ImageButton
+                    android:id="@+id/increment_year_btn"
+                    android:layout_width="24dp"
+                    android:layout_height="8dp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/ic_arrow_down"
+                    style="@style/Widget.AppCompat.Button.Borderless"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 

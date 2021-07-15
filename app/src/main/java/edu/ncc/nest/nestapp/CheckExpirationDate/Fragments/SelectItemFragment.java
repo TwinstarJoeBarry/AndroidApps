@@ -31,6 +31,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.fragment.NavHostFragment;
 
 import java.util.ArrayList;
@@ -222,7 +223,7 @@ public class SelectItemFragment extends Fragment {
 
             getParentFragmentManager().setFragmentResult("FOOD ITEM", result);
 
-            getParentFragmentManager().popBackStack();
+            requireActivity().onBackPressed();
 
         });
 
