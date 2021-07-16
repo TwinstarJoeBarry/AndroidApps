@@ -113,15 +113,11 @@ public class StartFragment extends Fragment {
 
                         alertImg.setImageResource(R.drawable.ic_check_mark);
 
-                        alertImg.setVisibility(View.VISIBLE);
-
-                    } else {
+                    } else
 
                         alertImg.setImageResource(R.drawable.ic_error);
-
-                        alertImg.setVisibility(View.VISIBLE);
-
-                    }
+                    
+                    alertImg.setVisibility(View.VISIBLE);
 
                 } else
 
