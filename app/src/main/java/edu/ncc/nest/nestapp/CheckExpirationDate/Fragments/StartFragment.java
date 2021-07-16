@@ -18,11 +18,17 @@ package edu.ncc.nest.nestapp.CheckExpirationDate.Fragments;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -76,8 +82,67 @@ public class StartFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        ((EditText) view.findViewById(R.id.upc_entry)).addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                ImageView alertImg = view.findViewById(R.id.alert_image);
+
+                if (s.length() == 12) {
+
+                    if (s.toString().matches("[0-9]+")) {
+
+                        alertImg.setImageResource(R.drawable.ic_check_mark);
+
+                        alertImg.setVisibility(View.VISIBLE);
+
+                    } else {
+
+                        alertImg.setImageResource(R.drawable.ic_error);
+
+                        alertImg.setVisibility(View.VISIBLE);
+
+                    }
+
+                } else
+
+                    alertImg.setVisibility(View.GONE);
+
+            }
+
+        });
+
+        view.findViewById(R.id.upc_entry).setOnKeyListener((v, keyCode, event) -> {
+
+            if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+
+                // Hide the keyboard and clear focus from the EditText
+                hideSoftInputFromWindow();
+
+                return true;
+
+            } else
+
+                return false;
+
+        });
+
         // Set the OnClickListener for start_scan_btn
         view.findViewById(R.id.start_scan_btn).setOnClickListener(view1 -> {
+
+            // Hide the keyboard and clear focus from the EditText
+            hideSoftInputFromWindow();
 
             // Navigate to ScannerFragment
             NavHostFragment.findNavController(StartFragment.this)
@@ -88,24 +153,32 @@ public class StartFragment extends Fragment {
         // Set the OnClickListener for start_enter_btn
         view.findViewById(R.id.start_enter_btn).setOnClickListener(v -> {
 
-            // Hide the keyboard
-            ((InputMethodManager) requireActivity().getSystemService(Activity.INPUT_METHOD_SERVICE))
-            .hideSoftInputFromWindow(requireView().getRootView().getApplicationWindowToken(), 0);
+            // Hide the keyboard and clear focus from the EditText
+            hideSoftInputFromWindow();
 
             // Look in the EditText widget and retrieve the String the user passed in
-            EditText editText = requireView().findViewById(R.id.upc_entry);
+            EditText editText = view.findViewById(R.id.upc_entry);
 
             // Get the upc string from the EditText object
             String upcBarcode = editText.getText().toString();
 
             // Check validity of the UPC
-            if(upcBarcode.length() != 12) {
+            if (upcBarcode.length() != 12 || !upcBarcode.matches("[0-9]+")) {
 
-                Toast.makeText(this.getContext(),"UPC length is 12 numbers, please enter a 12-digit number", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(),
+                        "Entry invalid! Please enter a 12-digit number.",
+                        Toast.LENGTH_SHORT).show();
+
+                ImageView alertImg = view.findViewById(R.id.alert_image);
+
+                alertImg.setImageResource(R.drawable.ic_error);
+
+                alertImg.setVisibility(View.VISIBLE);
 
             } else {
 
-                NestDBDataSource dataSource = CheckExpirationDateActivity.requireDataSource(this);
+                NestDBDataSource dataSource =
+                        CheckExpirationDateActivity.requireDataSource(this);
 
                 FragmentManager fragmentManager = getParentFragmentManager();
 
@@ -142,6 +215,20 @@ public class StartFragment extends Fragment {
             }
 
         });
+
+    }
+
+    /**
+     * Request to hide the soft-input-window/keyboard from the context of the window that is
+     * currently accepting input.
+     */
+    private void hideSoftInputFromWindow() {
+
+        requireView().findViewById(R.id.upc_entry).clearFocus();
+
+        ((InputMethodManager) requireActivity().getSystemService(Activity.INPUT_METHOD_SERVICE))
+                .hideSoftInputFromWindow(requireView().getRootView().getApplicationWindowToken(),
+                        0);
 
     }
 

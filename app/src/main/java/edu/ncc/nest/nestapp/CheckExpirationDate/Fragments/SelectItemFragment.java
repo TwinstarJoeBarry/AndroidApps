@@ -16,7 +16,7 @@ package edu.ncc.nest.nestapp.CheckExpirationDate.Fragments;
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import android.Manifest;
+import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -24,6 +24,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.PopupMenu;
@@ -33,7 +34,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.navigation.fragment.NavHostFragment;
 
 import java.util.ArrayList;
@@ -99,22 +99,6 @@ public class SelectItemFragment extends Fragment {
         // Get a source object of the database to add the information;
         dataSource = CheckExpirationDateActivity.requireDataSource(this);
 
-        // INITIALIZE UI ELEMENTS THAT ARE INSTANCE VARIABLES
-        categoryHint = view.findViewById(R.id.select_item_category);
-        categoryButton = view.findViewById(R.id.select_item_category_btn);
-        categoryButton.setOnClickListener( v -> showCategories() );
-
-        productHint = view.findViewById(R.id.select_item_product);
-        productButton = view.findViewById(R.id.select_item_product_btn);
-        productButton.setOnClickListener( v -> showProducts() );
-        productButton.setEnabled(false);
-
-        subtitleHint = view.findViewById(R.id.select_item_type);
-        subtitleButton = view.findViewById(R.id.select_item_type_btn);
-        subtitleButton.setOnClickListener( v -> showProductSubtitles(
-                productCategoryId, productName));
-        subtitleButton.setEnabled(false);
-
         // Retrieve the upc barcode from the fragment result
         getParentFragmentManager().setFragmentResultListener("FOOD ITEM",
                 this, (key, result) -> {
@@ -137,8 +121,43 @@ public class SelectItemFragment extends Fragment {
 
         });
 
+        // INITIALIZE UI ELEMENTS THAT ARE INSTANCE VARIABLES
+        categoryHint = view.findViewById(R.id.select_item_category);
+        categoryButton = view.findViewById(R.id.select_item_category_btn);
+        categoryButton.setOnClickListener(v -> {
+
+            hideSoftInputFromWindow();
+
+            showCategories();
+
+        });
+
+        productHint = view.findViewById(R.id.select_item_product);
+        productButton = view.findViewById(R.id.select_item_product_btn);
+        productButton.setEnabled(false);
+        productButton.setOnClickListener(v -> {
+
+            hideSoftInputFromWindow();
+
+            showProducts();
+
+        });
+
+        subtitleHint = view.findViewById(R.id.select_item_type);
+        subtitleButton = view.findViewById(R.id.select_item_type_btn);
+        subtitleButton.setEnabled(false);
+        subtitleButton.setOnClickListener(v -> {
+
+            hideSoftInputFromWindow();
+
+            showProductSubtitles(productCategoryId, productName);
+
+        });
+
         // ACCEPT BUTTON CODE - PARSE VALUES FOR NEW UPC, PASS INFO TO PRINTED EXPIRATION DATE
         view.findViewById(R.id.select_item_accept_btn).setOnClickListener(view1 -> {
+
+            hideSoftInputFromWindow();
 
             // Retrieve the String information from each view, casting as appropriate;
             String brand = ((EditText) (view.findViewById(
@@ -229,8 +248,9 @@ public class SelectItemFragment extends Fragment {
 
         });
 
-        // CANCEL BUTTON CODE - NAVIGATE BACK TO START FRAGMENT
         view.findViewById(R.id.select_item_cancel_btn).setOnClickListener(clickedView -> {
+
+            hideSoftInputFromWindow();
 
             Bundle result = new Bundle();
 
@@ -284,7 +304,6 @@ public class SelectItemFragment extends Fragment {
 
             menu.add(i + 1, i, i, categories.get(i));
 
-        // THE ACTUAL ON CLICK CODE TO SET THE SUB CATEGORY INDEX AND POPULATE A TEXT VIEW WITH THE INFORMATION
         menuPop.setOnMenuItemClickListener(item -> {
 
             productCategoryId = item.getItemId() + 1;
@@ -330,8 +349,6 @@ public class SelectItemFragment extends Fragment {
 
                 menu.add(productCategoryId, i, i, products.get(i));
 
-
-            // THE ACTUAL ON CLICK CODE TO SET THE SUBCATEGORY AND POPULATE A TEXT VIEW WITH THE INFORMATION
             menuPop.setOnMenuItemClickListener(item -> {
 
                 productName = item.toString();
@@ -351,7 +368,9 @@ public class SelectItemFragment extends Fragment {
 
         } else
 
-            Toast.makeText(getContext(), "Please narrow the choices with a main category first!", Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(),
+                    "Please narrow the choices by selecting a main category first!",
+                    Toast.LENGTH_LONG).show();
 
     }
 
@@ -375,7 +394,6 @@ public class SelectItemFragment extends Fragment {
 
             menu.add(i, i, i, subtitles.get(i));
 
-        // THE ACTUAL ON CLICK CODE TO SET THE SUB CATEGORY INDEX AND POPULATE A TEXT VIEW WITH THE INFORMATION
         menuPop.setOnMenuItemClickListener(item -> {
 
             productSubtitle = item.toString();
@@ -399,6 +417,18 @@ public class SelectItemFragment extends Fragment {
         subtitleHint.setText("");
 
         productSubtitle = null;
+
+    }
+
+    /**
+     * Request to hide the soft-input-window/keyboard from the context of the window that is
+     * currently accepting input.
+     */
+    private void hideSoftInputFromWindow() {
+
+        ((InputMethodManager) requireActivity().getSystemService(Activity.INPUT_METHOD_SERVICE))
+                .hideSoftInputFromWindow(requireView().getRootView().getApplicationWindowToken(),
+                        0);
 
     }
 
