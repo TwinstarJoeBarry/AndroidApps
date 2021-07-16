@@ -213,16 +213,16 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:padding="4dp">
 
         <Button
             android:id="@+id/accept_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingHorizontal="32dp"
             android:layout_marginTop="24dp"
-            android:text="@string/accept"
-            android:layout_gravity="bottom"/>
+            android:layout_gravity="bottom"
+            android:text="@string/accept"/>
 
     </FrameLayout>
 

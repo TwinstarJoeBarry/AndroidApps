@@ -30,10 +30,10 @@
         android:padding="12dp"
         android:layout_marginHorizontal="1dp"
         android:layout_marginTop="2dp"
+        android:gravity="center"
         android:text="@string/fragment_ced_confirm_item_title_lbl"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:gravity="center"
         android:background="@drawable/background_dialog"/>
 
     <ScrollView
@@ -224,23 +224,25 @@
         android:layout_height="wrap_content"
         android:gravity="bottom"
         android:orientation="horizontal"
-        android:padding="2dp">
+        android:padding="4dp">
 
         <Button
             android:id="@+id/incorrect_btn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
+            android:layout_marginEnd="1dp"
             android:text="@string/fragment_ced_confirm_item_incorrect_btn"
-            tools:ignore="ButtonStyle" />
+            tools:ignore="ButtonStyle"/>
 
         <Button
             android:id="@+id/confirm_item_btn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
+            android:layout_marginStart="1dp"
             android:text="@string/fragment_ced_confirm_item_confirm_item_btn"
-            tools:ignore="ButtonStyle" />
+            tools:ignore="ButtonStyle"/>
 
     </LinearLayout>
 
