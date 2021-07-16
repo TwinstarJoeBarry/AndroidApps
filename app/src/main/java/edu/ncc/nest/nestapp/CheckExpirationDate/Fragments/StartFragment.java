@@ -16,10 +16,12 @@ package edu.ncc.nest.nestapp.CheckExpirationDate.Fragments;
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -85,6 +87,10 @@ public class StartFragment extends Fragment {
 
         // Set the OnClickListener for start_enter_btn
         view.findViewById(R.id.start_enter_btn).setOnClickListener(v -> {
+
+            // Hide the keyboard
+            ((InputMethodManager) requireActivity().getSystemService(Activity.INPUT_METHOD_SERVICE))
+            .hideSoftInputFromWindow(requireView().getRootView().getApplicationWindowToken(), 0);
 
             // Look in the EditText widget and retrieve the String the user passed in
             EditText editText = requireView().findViewById(R.id.upc_entry);
