@@ -46,9 +46,17 @@ import edu.ncc.nest.nestapp.R;
  * StartFragment: This is the starting fragment for the CheckExpirationDate feature. This fragment
  * should ask the user whether or not they want to scan or enter a UPC barcode.
  *
- * Navigates to {@link ScannerFragment} when "Scan UPC" is selected.
+ * Navigates to {@link ScannerFragment} when "Scan" button is pressed.
  *
- * Navigates to {@link EnterUpcFragment} when "Enter UPC Manually" is selected.
+ * Allows user to enter a upc barcode manually. When the user presses the "Enter"
+ * button, it should then validate the upc and check whether or not the upc exists in the local
+ * database.
+ *
+ * Navigates to {@link ConfirmItemFragment} with the item pulled from database, if the upc exists in
+ * the local database.
+ *
+ * Navigates to {@link SelectItemFragment} with the barcode, if the upc does not exist in the local
+ * database.
  */
 public class StartFragment extends Fragment {
 
