@@ -16,44 +16,121 @@
 * You should have received a copy of the GNU General Public License
 * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -->
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#BBBBBB"
+    android:padding="2dp"
     tools:context=".CheckExpirationDate.Fragments.StartFragment">
 
     <TextView
-        android:id="@+id/getUPCMessage"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/fragment_ced_start_description"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@id/button_scan"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginHorizontal="1dp"
+        android:layout_marginTop="2dp"
+        android:gravity="center"
+        android:padding="12dp"
+        android:text="Check Expiration Date"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:background="@drawable/background_dialog"/>
 
-    <Button
-        android:id="@+id/button_scan"
-        android:layout_width="wrap_content"
+    <ScrollView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/fragment_ced_start_scan_upc"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.25"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/getUPCMessage"/>
+        android:layout_marginHorizontal="1dp"
+        android:scrollbars="vertical">
 
-    <Button
-        android:id="@+id/button_enter"
-        android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="36dp"
+                android:background="@drawable/background_dialog">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textAlignment="center"
+                    android:text="Welcome to the 'Check Expiration Date' feature! This feature determines a product's true expiration date." />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginVertical="24dp"
+                    android:foreground="@android:color/darker_gray"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textAlignment="center"
+                    android:text="@string/fragment_ced_start_message" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="24dp"
+                android:background="@drawable/background_dialog">
+
+                <TextView
+                    android:id="@+id/select_item_description_lbl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="Enter UPC Barcode Number:"/>
+
+                <EditText
+                    android:id="@+id/upc_entry"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLength="12"
+                    android:inputType="number"
+                    android:hint="Enter UPC Barcode Number"
+                    android:importantForAutofill="no" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/fragment_ced_start_enter_upc"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.75"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/getUPCMessage" />
+        android:gravity="bottom"
+        android:orientation="horizontal"
+        android:padding="4dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:id="@+id/start_scan_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:layout_marginEnd="1dp"
+            android:text="@string/fragment_ced_start_scan_upc"
+            tools:ignore="ButtonStyle"/>
+
+        <Button
+            android:id="@+id/start_enter_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:layout_marginStart="1dp"
+            android:text="Enter"
+            tools:ignore="ButtonStyle"/>
+
+    </LinearLayout>
+
+</LinearLayout>

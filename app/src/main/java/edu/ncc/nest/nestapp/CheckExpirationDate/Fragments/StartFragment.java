@@ -20,12 +20,18 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.fragment.NavHostFragment;
 
+import edu.ncc.nest.nestapp.CheckExpirationDate.Activities.CheckExpirationDateActivity;
+import edu.ncc.nest.nestapp.CheckExpirationDate.DatabaseClasses.NestDBDataSource;
+import edu.ncc.nest.nestapp.CheckExpirationDate.DatabaseClasses.NestUPC;
 import edu.ncc.nest.nestapp.R;
 
 /**
@@ -68,8 +74,8 @@ public class StartFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Set the OnClickListener for button_scan
-        view.findViewById(R.id.button_scan).setOnClickListener(view1 -> {
+        // Set the OnClickListener for start_scan_btn
+        view.findViewById(R.id.start_scan_btn).setOnClickListener(view1 -> {
 
             // Navigate to ScannerFragment
             NavHostFragment.findNavController(StartFragment.this)
@@ -77,12 +83,57 @@ public class StartFragment extends Fragment {
 
         });
 
-        // Set the OnClickListener for button_enter
-        view.findViewById(R.id.button_enter).setOnClickListener(view12 -> {
+        // Set the OnClickListener for start_enter_btn
+        view.findViewById(R.id.start_enter_btn).setOnClickListener(v -> {
 
-            // Navigate to EnterUpcFragment
-            NavHostFragment.findNavController(StartFragment.this)
-                    .navigate(R.id.CED_EnterUpcFragment);
+            // Look in the EditText widget and retrieve the String the user passed in
+            EditText editText = requireView().findViewById(R.id.upc_entry);
+
+            // Get the upc string from the EditText object
+            String upcBarcode = editText.getText().toString();
+
+            // Check validity of the UPC
+            if(upcBarcode.length() != 12) {
+
+                Toast.makeText(this.getContext(),"UPC length is 12 numbers, please enter a 12-digit number", Toast.LENGTH_SHORT).show();
+
+            } else {
+
+                NestDBDataSource dataSource = CheckExpirationDateActivity.requireDataSource(this);
+
+                FragmentManager fragmentManager = getParentFragmentManager();
+
+                NestUPC foodItem = dataSource.getNestUPC(upcBarcode);
+
+                Bundle result = new Bundle();
+
+                if (foodItem != null) {
+
+                    // NOTE: If we get here, then the upc is already in the database.
+
+                    // Put the item in a bundle and pass it to ConfirmItemFragment
+                    result.putSerializable("foodItem", foodItem);
+
+                    fragmentManager.setFragmentResult("FOOD ITEM", result);
+
+                    NavHostFragment.findNavController(StartFragment.this)
+                            .navigate((R.id.CED_ConfirmItemFragment));
+
+                } else {
+
+                    // NOTE: If we get here, then the upc is does not exist in the database.
+
+                    // Put UPC into a bundle and pass it to SelectItemFragment (may not be necessary)
+                    result.putString("upcBarcode", upcBarcode);
+
+                    fragmentManager.setFragmentResult("FOOD ITEM", result);
+
+                    NavHostFragment.findNavController(StartFragment.this)
+                            .navigate((R.id.CED_SelectItemFragment));
+
+                }
+
+            }
 
         });
 
