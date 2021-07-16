@@ -87,7 +87,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="8dp"
                     android:scaleType="center"
-                    android:src="@drawable/ic_arrow_up"/>
+                    android:src="@drawable/ic_arrow_up"
+                    android:contentDescription="@string/arrow_up" />
 
                 <NumberPicker
                     android:id="@+id/number_picker_month"
@@ -99,7 +100,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="8dp"
                     android:scaleType="center"
-                    android:src="@drawable/ic_arrow_down"/>
+                    android:src="@drawable/ic_arrow_down"
+                    android:contentDescription="@string/arrow_down" />
 
             </LinearLayout>
 
@@ -124,7 +126,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="8dp"
                     android:scaleType="center"
-                    android:src="@drawable/ic_arrow_up"/>
+                    android:src="@drawable/ic_arrow_up"
+                    android:contentDescription="@string/arrow_up" />
 
                 <NumberPicker
                     android:id="@+id/number_picker_day"
@@ -136,7 +139,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="8dp"
                     android:scaleType="center"
-                    android:src="@drawable/ic_arrow_down"/>
+                    android:src="@drawable/ic_arrow_down"
+                    android:contentDescription="@string/arrow_down" />
 
             </LinearLayout>
 
@@ -160,7 +164,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="8dp"
                     android:scaleType="center"
-                    android:src="@drawable/ic_arrow_up"/>
+                    android:src="@drawable/ic_arrow_up"
+                    android:contentDescription="@string/arrow_up" />
 
                 <NumberPicker
                     android:id="@+id/number_picker_year"
@@ -172,7 +177,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="8dp"
                     android:scaleType="center"
-                    android:src="@drawable/ic_arrow_down"/>
+                    android:src="@drawable/ic_arrow_down"
+                    android:contentDescription="@string/arrow_down" />
 
             </LinearLayout>
 

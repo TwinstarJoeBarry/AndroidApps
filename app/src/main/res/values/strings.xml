@@ -29,6 +29,8 @@
     <string name="day">Day</string>
     <string name="year">Year</string>
     <string name="error">Error</string>
+    <string name="arrow_up">Arrow up</string>
+    <string name="arrow_down">Arrow down</string>
 
     <!-- Strings used in AndroidManifest.xml -->
     <string name="title_activity_sign_up">SignUp</string>
@@ -240,6 +242,8 @@
 
     <!-- Strings used in fragment_check_expiration_date_display_true_expiration.xml -->
     <string name="fragment_ced_display_true_expiration_display_date_btn">Display true expiration date</string>
+    <string name="fragment_ced_display_true_expiration_item_information_lbl">Item Information</string>
+    <string name="fragment_ced_display_true_expiration_shelf_life_information_lbl">Shelf Life Information</string>
     <string name="fragment_ced_display_true_expiration_item_lbl">Product:</string>
     <string name="fragment_ced_display_true_expiration_upc_lbl">UPC Barcode:</string>
     <string name="fragment_ced_display_true_expiration_category_lbl">Category:</string>
@@ -354,7 +358,5 @@
     <!-- This string is used only for the creation of new strings. -->
     <!-- When a new string is created it should appear below this string. -->
     <string name="STRINGS_BELOW_THIS_SHOULD_BE_MOVED_TO_AN_APPROPRIATE_LOCATION_ABOVE"/>
-    <string name="fragment_ced_display_true_expiration_item_information_lbl">Item Information</string>
-    <string name="fragment_ced_display_true_expiration_shelf_life_information_lbl">Shelf Life Information</string>
 
 </resources>
