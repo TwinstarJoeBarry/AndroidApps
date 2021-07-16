@@ -16,6 +16,7 @@ package edu.ncc.nest.nestapp.CheckExpirationDate.Fragments;
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+import android.Manifest;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -30,6 +31,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.navigation.fragment.NavHostFragment;
@@ -147,13 +149,9 @@ public class SelectItemFragment extends Fragment {
 
             // Replace any fields from above with blank values;
             // TODO Make these next two fields required
-            if (brand.isEmpty())
+            final String finalBrand = brand.isEmpty() ? DEFAULT_STRING : brand;
 
-                brand = DEFAULT_STRING;
-
-            if (description.isEmpty())
-
-                description = DEFAULT_STRING;
+            final String finalDescription = description.isEmpty() ? DEFAULT_STRING : description;
 
             // First assert that the required values have been entered
             if ((productCategoryId == -1) || (productButton.isEnabled() && productName == null) ||
@@ -164,51 +162,68 @@ public class SelectItemFragment extends Fragment {
 
             } else {
 
-                // NOTE: This will return -1 if the UPC has never been added before
-                if (dataSource.getProductIdFromUPC(upcBarcode) == -1) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
 
-                    // No productId associated with this upc in the database, add it to the database
-                    // with the appropriate product id
+                // Allow the user one more chance to check the information they entered
+                builder.setPositiveButton("Accept", (dialog, which) -> {
 
-                    Log.d(LOG_TAG, "Selected Product: " + productCategoryId +
-                            ", " + productName + ", " + productSubtitle);
+                    dialog.dismiss();
 
-                    int productId = dataSource.getProdIdfromProdInfo(
-                            productCategoryId, productName, productSubtitle);
+                    // NOTE: This will return -1 if the UPC has never been added before
+                    if (dataSource.getProductIdFromUPC(upcBarcode) == -1) {
 
-                    Log.d(LOG_TAG, "Product ID: " + productId);
+                        // No productId associated with this upc in the database, add it to the database
+                        // with the appropriate product id
 
-                    if (dataSource.insertNewUPC(upcBarcode, brand, description, productId) == -1)
+                        Log.d(LOG_TAG, "Selected Product: " + productCategoryId +
+                                ", " + productName + ", " + productSubtitle);
 
-                        throw new RuntimeException("Error inserting new UPC");
+                        int productId = dataSource.getProdIdfromProdInfo(
+                                productCategoryId, productName, productSubtitle);
 
-                } else {
+                        Log.d(LOG_TAG, "Product ID: " + productId);
 
-                    // A productId is already associated with this upc in the database. Update it
-                    // with the new values.
+                        if (dataSource.insertNewUPC(upcBarcode, finalBrand, finalDescription, productId) == -1)
 
-                    int productId = dataSource.getProdIdfromProdInfo(
-                            productCategoryId, productName, productSubtitle);
+                            throw new RuntimeException("Error inserting new UPC");
 
-                    // TODO Update the UPC stored in the database with the new brand, description,
-                    //  and productId
+                    } else {
 
-                    // Adding this exception for now to prevent hidden errors
-                    throw new RuntimeException("NestUPC exists. Need to update upc in database.");
+                        // A productId is already associated with this upc in the database. Update it
+                        // with the new values.
 
-                }
+                        int productId = dataSource.getProdIdfromProdInfo(
+                                productCategoryId, productName, productSubtitle);
 
-                Bundle result = new Bundle();
+                        // TODO Update the UPC stored in the database with the new brand, description,
+                        //  and productId
 
-                NestUPC foodItem = dataSource.getNestUPC(upcBarcode);
+                        // Adding this exception for now to prevent hidden errors
+                        throw new RuntimeException("NestUPC exists. Need to update upc in database.");
 
-                result.putSerializable("foodItem", foodItem);
+                    }
 
-                getParentFragmentManager().setFragmentResult("FOOD ITEM", result);
+                    Bundle result = new Bundle();
 
-                // Navigate over to SelectPrintedExpirationDateFragment;
-                NavHostFragment.findNavController(SelectItemFragment.this)
-                        .navigate(R.id.action_CED_SelectItemFragment_to_SelectPrintedExpirationDateFragment);
+                    NestUPC foodItem = dataSource.getNestUPC(upcBarcode);
+
+                    result.putSerializable("foodItem", foodItem);
+
+                    getParentFragmentManager().setFragmentResult("FOOD ITEM", result);
+
+                    // Navigate over to SelectPrintedExpirationDateFragment;
+                    NavHostFragment.findNavController(SelectItemFragment.this)
+                            .navigate(R.id.action_CED_SelectItemFragment_to_SelectPrintedExpirationDateFragment);
+
+                });
+
+                builder.setNeutralButton("Cancel", (dialog, which) -> dialog.dismiss());
+
+                builder.setMessage("Please be sure the information you selected is accurate.");
+
+                builder.setTitle("Are you sure?");
+
+                builder.create().show();
 
             }
 
