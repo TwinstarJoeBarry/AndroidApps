@@ -36,6 +36,7 @@ import edu.ncc.nest.nestapp.CheckExpirationDate.Activities.CheckExpirationDateAc
 import edu.ncc.nest.nestapp.CheckExpirationDate.DatabaseClasses.NestDBDataSource;
 import edu.ncc.nest.nestapp.CheckExpirationDate.DatabaseClasses.NestUPC;
 import edu.ncc.nest.nestapp.R;
+import edu.ncc.nest.nestapp.SoftInputFragment;
 
 /**
  * StartFragment: This is the starting fragment for the CheckExpirationDate feature. This fragment

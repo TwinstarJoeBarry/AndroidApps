@@ -1,4 +1,4 @@
-package edu.ncc.nest.nestapp.CheckExpirationDate.Fragments;
+package edu.ncc.nest.nestapp;
 
 import android.app.Activity;
 import android.view.View;

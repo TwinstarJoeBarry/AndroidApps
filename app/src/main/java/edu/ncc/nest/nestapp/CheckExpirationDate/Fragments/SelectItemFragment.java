@@ -41,6 +41,7 @@ import edu.ncc.nest.nestapp.CheckExpirationDate.Activities.CheckExpirationDateAc
 import edu.ncc.nest.nestapp.CheckExpirationDate.DatabaseClasses.NestDBDataSource;
 import edu.ncc.nest.nestapp.CheckExpirationDate.DatabaseClasses.NestUPC;
 import edu.ncc.nest.nestapp.R;
+import edu.ncc.nest.nestapp.SoftInputFragment;
 
 /**
  * SelectItemFragment: Allows user to select item options that will be used to determine a proper
