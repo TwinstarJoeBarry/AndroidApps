@@ -166,7 +166,7 @@ public class StartFragment extends SoftInputFragment {
      * Initializes the EditText with an OnEditorActionListener and TextChangedListener.
      * @param view The View returned by {@link #onViewCreated(View, Bundle)}
      */
-    private void initializeUPCEntry(final View view) {
+    private void initializeUPCEntry(@NonNull final View view) {
 
         EditText upcEntry = view.findViewById(R.id.upc_entry);
 
