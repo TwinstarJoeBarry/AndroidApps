@@ -124,8 +124,6 @@ public class StartFragment extends SoftInputFragment {
                 NestDBDataSource dataSource =
                         CheckExpirationDateActivity.requireDataSource(this);
 
-                FragmentManager fragmentManager = getParentFragmentManager();
-
                 NestUPC foodItem = dataSource.getNestUPC(upcBarcode);
 
                 Bundle result = new Bundle();
@@ -137,7 +135,7 @@ public class StartFragment extends SoftInputFragment {
                     // Put the item in a bundle and pass it to ConfirmItemFragment
                     result.putSerializable("foodItem", foodItem);
 
-                    fragmentManager.setFragmentResult("FOOD ITEM", result);
+                    getParentFragmentManager().setFragmentResult("FOOD ITEM", result);
 
                     NavHostFragment.findNavController(StartFragment.this)
                             .navigate((R.id.CED_ConfirmItemFragment));
@@ -149,7 +147,7 @@ public class StartFragment extends SoftInputFragment {
                     // Put UPC into a bundle and pass it to SelectItemFragment (may not be necessary)
                     result.putString("upcBarcode", upcBarcode);
 
-                    fragmentManager.setFragmentResult("FOOD ITEM", result);
+                    getParentFragmentManager().setFragmentResult("FOOD ITEM", result);
 
                     NavHostFragment.findNavController(StartFragment.this)
                             .navigate((R.id.CED_SelectItemFragment));
@@ -170,6 +168,8 @@ public class StartFragment extends SoftInputFragment {
 
         EditText upcEntry = view.findViewById(R.id.upc_entry);
 
+        /* This Listener ensures that the focus is cleared on the EditText object when the 'DONE'
+           action is performed */
         upcEntry.setOnEditorActionListener((v, actionId, event) -> {
 
             if (actionId == EditorInfo.IME_ACTION_DONE)
@@ -180,6 +180,7 @@ public class StartFragment extends SoftInputFragment {
 
         });
 
+        // Check the validity of the input whenever the text changes
         upcEntry.addTextChangedListener(new TextWatcher() {
 
             @Override
