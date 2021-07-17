@@ -170,7 +170,7 @@ public class SelectItemFragment extends SoftInputFragment {
                 AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
 
                 // Allow the user one more chance to check the information they entered
-                builder.setPositiveButton("Accept", (dialog, which) -> {
+                builder.setPositiveButton("Yes", (dialog, which) -> {
 
                     dialog.dismiss();
 
@@ -222,7 +222,7 @@ public class SelectItemFragment extends SoftInputFragment {
 
                 });
 
-                builder.setNeutralButton("Cancel", (dialog, which) -> dialog.dismiss());
+                builder.setNegativeButton("No", (dialog, which) -> dialog.dismiss());
 
                 builder.setMessage("Please be sure the information you selected is accurate.");
 

@@ -86,7 +86,7 @@ public class StartFragment extends SoftInputFragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        this.initUPCEntry(view);
+        this.initializeUPCEntry(view);
 
         view.findViewById(R.id.start_scan_btn).setOnClickListener(v -> {
 
@@ -112,6 +112,7 @@ public class StartFragment extends SoftInputFragment {
                         "Entry invalid! Please enter a 12-digit number.",
                         Toast.LENGTH_SHORT).show();
 
+                // Show an error icon next to the respective EditText
                 ImageView alertImg = view.findViewById(R.id.alert_image);
 
                 alertImg.setImageResource(R.drawable.ic_error);
@@ -162,10 +163,10 @@ public class StartFragment extends SoftInputFragment {
     }
 
     /**
-     *
+     * Initializes the EditText with an OnEditorActionListener and TextChangedListener.
      * @param view The View returned by {@link #onViewCreated(View, Bundle)}
      */
-    private void initUPCEntry(final View view) {
+    private void initializeUPCEntry(final View view) {
 
         EditText upcEntry = view.findViewById(R.id.upc_entry);
 
