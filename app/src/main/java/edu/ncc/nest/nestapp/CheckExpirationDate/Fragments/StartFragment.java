@@ -16,24 +16,19 @@ package edu.ncc.nest.nestapp.CheckExpirationDate.Fragments;
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.navigation.fragment.NavHostFragment;
 
@@ -58,7 +53,7 @@ import edu.ncc.nest.nestapp.R;
  * Navigates to {@link SelectItemFragment} with the barcode, if the upc does not exist in the local
  * database.
  */
-public class StartFragment extends Fragment {
+public class StartFragment extends SoftInputFragment {
 
     /////////////////////////////////////// Class Variables ////////////////////////////////////////
 
@@ -90,63 +85,9 @@ public class StartFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ((EditText) view.findViewById(R.id.upc_entry)).addTextChangedListener(new TextWatcher() {
+        this.initUPCEntry(view);
 
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-                ImageView alertImg = view.findViewById(R.id.alert_image);
-
-                if (s.length() == 12) {
-
-                    if (s.toString().matches("[0-9]+")) {
-
-                        alertImg.setImageResource(R.drawable.ic_check_mark);
-
-                    } else
-
-                        alertImg.setImageResource(R.drawable.ic_error);
-                    
-                    alertImg.setVisibility(View.VISIBLE);
-
-                } else
-
-                    alertImg.setVisibility(View.GONE);
-
-            }
-
-        });
-
-        view.findViewById(R.id.upc_entry).setOnKeyListener((v, keyCode, event) -> {
-
-            if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
-
-                // Hide the keyboard and clear focus from the EditText
-                hideSoftInputFromWindow();
-
-                return true;
-
-            } else
-
-                return false;
-
-        });
-
-        // Set the OnClickListener for start_scan_btn
-        view.findViewById(R.id.start_scan_btn).setOnClickListener(view1 -> {
-
-            // Hide the keyboard and clear focus from the EditText
-            hideSoftInputFromWindow();
+        view.findViewById(R.id.start_scan_btn).setOnClickListener(v -> {
 
             // Navigate to ScannerFragment
             NavHostFragment.findNavController(StartFragment.this)
@@ -154,11 +95,8 @@ public class StartFragment extends Fragment {
 
         });
 
-        // Set the OnClickListener for start_enter_btn
+        // Setup the OnClickListener and OnClickRunnable for start_enter_btn
         view.findViewById(R.id.start_enter_btn).setOnClickListener(v -> {
-
-            // Hide the keyboard and clear focus from the EditText
-            hideSoftInputFromWindow();
 
             // Look in the EditText widget and retrieve the String the user passed in
             EditText editText = view.findViewById(R.id.upc_entry);
@@ -223,17 +161,57 @@ public class StartFragment extends Fragment {
     }
 
     /**
-     * Request to hide the soft-input-window/keyboard from the context of the window that is
-     * currently accepting input.
+     *
+     * @param view The View returned by {@link #onViewCreated(View, Bundle)}
      */
-    private void hideSoftInputFromWindow() {
+    private void initUPCEntry(final View view) {
 
-        requireView().findViewById(R.id.upc_entry).clearFocus();
+        EditText upcEntry = view.findViewById(R.id.upc_entry);
 
-        ((InputMethodManager) requireActivity().getSystemService(Activity.INPUT_METHOD_SERVICE))
-                .hideSoftInputFromWindow(requireView().getRootView().getApplicationWindowToken(),
-                        0);
+        upcEntry.setOnEditorActionListener((v, actionId, event) -> {
+
+            if (actionId == EditorInfo.IME_ACTION_DONE)
+
+                v.clearFocus();
+
+            return false;
+
+        });
+
+        upcEntry.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                ImageView alertImg = view.findViewById(R.id.alert_image);
+
+                if (s.length() == 12) {
+
+                    if (s.toString().matches("[0-9]+")) {
+
+                        alertImg.setImageResource(R.drawable.ic_check_mark);
+
+                    } else
+
+                        alertImg.setImageResource(R.drawable.ic_error);
+
+                    alertImg.setVisibility(View.VISIBLE);
+
+                } else
+
+                    alertImg.setVisibility(View.GONE);
+
+            }
+
+        });
 
     }
+
 
 }

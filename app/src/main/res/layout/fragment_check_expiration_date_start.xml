@@ -22,6 +22,7 @@
     android:orientation="vertical"
     android:background="#BBBBBB"
     android:padding="2dp"
+    android:id="@+id/linear_layout"
     tools:context=".CheckExpirationDate.Fragments.StartFragment">
 
     <TextView
@@ -99,6 +100,7 @@
                         android:maxLength="12"
                         android:inputType="number"
                         android:digits="0123456789"
+                        android:imeOptions="actionDone"
                         android:hint="Enter UPC Barcode Number"
                         android:importantForAutofill="no" />
 

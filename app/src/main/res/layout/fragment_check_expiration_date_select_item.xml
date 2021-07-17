@@ -81,7 +81,8 @@
                 android:layout_marginBottom="24dp"
                 android:autofillHints="@string/fragment_ced_select_item_brand_hint"
                 android:hint="@string/fragment_ced_select_item_brand_hint"
-                android:inputType="textPersonName"/>
+                android:inputType="textPersonName"
+                android:imeOptions="actionNext"/>
 
             <TextView
                 android:id="@+id/select_item_description_lbl"
@@ -97,7 +98,8 @@
                 android:layout_marginBottom="24dp"
                 android:autofillHints="@string/fragment_ced_select_item_description_hint"
                 android:hint="@string/fragment_ced_select_item_description_hint"
-                android:inputType="textPersonName"/>
+                android:inputType="textPersonName"
+                android:imeOptions="actionDone"/>
 
             <LinearLayout
                 android:layout_width="match_parent"

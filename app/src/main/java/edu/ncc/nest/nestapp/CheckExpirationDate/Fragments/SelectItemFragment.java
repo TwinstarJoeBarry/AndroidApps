@@ -16,7 +16,6 @@ package edu.ncc.nest.nestapp.CheckExpirationDate.Fragments;
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -24,7 +23,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.PopupMenu;
@@ -33,7 +32,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import java.util.ArrayList;
@@ -52,7 +50,7 @@ import edu.ncc.nest.nestapp.R;
  * See {@link edu.ncc.nest.nestapp.NewNestUPC} and {@link edu.ncc.nest.nestapp.ItemInformation}
  * for reference.
  */
-public class SelectItemFragment extends Fragment {
+public class SelectItemFragment extends SoftInputFragment {
 
     /////////////////////////////////////// Class Variables ////////////////////////////////////////
 
@@ -124,40 +122,27 @@ public class SelectItemFragment extends Fragment {
         // INITIALIZE UI ELEMENTS THAT ARE INSTANCE VARIABLES
         categoryHint = view.findViewById(R.id.select_item_category);
         categoryButton = view.findViewById(R.id.select_item_category_btn);
-        categoryButton.setOnClickListener(v -> {
-
-            hideSoftInputFromWindow();
-
-            showCategories();
-
-        });
+        categoryButton.setOnClickListener(v -> showCategories());
 
         productHint = view.findViewById(R.id.select_item_product);
         productButton = view.findViewById(R.id.select_item_product_btn);
         productButton.setEnabled(false);
-        productButton.setOnClickListener(v -> {
-
-            hideSoftInputFromWindow();
-
-            showProducts();
-
-        });
+        productButton.setOnClickListener(v -> showProducts());
 
         subtitleHint = view.findViewById(R.id.select_item_type);
         subtitleButton = view.findViewById(R.id.select_item_type_btn);
         subtitleButton.setEnabled(false);
-        subtitleButton.setOnClickListener(v -> {
+        subtitleButton.setOnClickListener(v ->
+                showProductSubtitles(productCategoryId, productName));
 
-            hideSoftInputFromWindow();
+        ((EditText) view.findViewById(R.id.select_item_brand_entry))
+                .setOnEditorActionListener(this::onEditorAction);
 
-            showProductSubtitles(productCategoryId, productName);
-
-        });
+        ((EditText) view.findViewById(R.id.select_item_description_entry))
+                .setOnEditorActionListener(this::onEditorAction);
 
         // ACCEPT BUTTON CODE - PARSE VALUES FOR NEW UPC, PASS INFO TO PRINTED EXPIRATION DATE
-        view.findViewById(R.id.select_item_accept_btn).setOnClickListener(view1 -> {
-
-            hideSoftInputFromWindow();
+        view.findViewById(R.id.select_item_accept_btn).setOnClickListener(v -> {
 
             // Retrieve the String information from each view, casting as appropriate;
             String brand = ((EditText) (view.findViewById(
@@ -248,9 +233,7 @@ public class SelectItemFragment extends Fragment {
 
         });
 
-        view.findViewById(R.id.select_item_cancel_btn).setOnClickListener(clickedView -> {
-
-            hideSoftInputFromWindow();
+        view.findViewById(R.id.select_item_cancel_btn).setOnClickListener(v -> {
 
             Bundle result = new Bundle();
 
@@ -420,15 +403,13 @@ public class SelectItemFragment extends Fragment {
 
     }
 
-    /**
-     * Request to hide the soft-input-window/keyboard from the context of the window that is
-     * currently accepting input.
-     */
-    private void hideSoftInputFromWindow() {
+    public final boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
 
-        ((InputMethodManager) requireActivity().getSystemService(Activity.INPUT_METHOD_SERVICE))
-                .hideSoftInputFromWindow(requireView().getRootView().getApplicationWindowToken(),
-                        0);
+        if (actionId == EditorInfo.IME_ACTION_DONE)
+
+            v.clearFocus();
+
+        return false;
 
     }
 
