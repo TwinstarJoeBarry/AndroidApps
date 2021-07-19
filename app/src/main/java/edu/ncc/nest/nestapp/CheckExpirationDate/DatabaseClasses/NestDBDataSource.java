@@ -89,6 +89,33 @@ public class NestDBDataSource {
     }
 
     /**
+     * updateUPC method --
+     * adds a new record the Nest UPCs table
+     *
+     * @param upc         upc code
+     * @param brand       brand name
+     * @param description description
+     * @param productId   associated FoodKeeper product id
+     * @return The row ID of the newly inserted row, or -1 if an error occurred
+     **/
+    public long updateUPC(String upc, String brand, String description, int productId)
+    {
+        Log.d("NestDBDataSource", "Made it to line 103!");
+
+        db.delete("nestUPCs", "UPC = ?", new String[] {upc});
+
+        Log.d("NestDBDataSource", "Made it to line 107, ie line 105 works!");
+
+        ContentValues values = new ContentValues();
+        values.clear();
+        values.put("upc", upc);
+        values.put("brand", brand);
+        values.put("description", description);
+        values.put("productId", productId);
+        return db.insert("nestUPCs", null, values);
+    }
+
+    /**
      * getProductIdFromUPC method -
      * looks up the given UPC code in the Nest UPCs table and returns the associated
      * product ID
