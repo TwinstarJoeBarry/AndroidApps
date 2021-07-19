@@ -90,13 +90,17 @@ public class NestDBDataSource {
 
     /**
      * updateUPC method --
-     * adds a new record the Nest UPCs table
+     *
+     * This method deletes all information associated with an already existing
+     * UPC, and then re-inserts the UPC as a new database record with the information
+     * provided
      *
      * @param upc         upc code
      * @param brand       brand name
      * @param description description
      * @param productId   associated FoodKeeper product id
      * @return The row ID of the newly inserted row, or -1 if an error occurred
+     *
      **/
     public long updateUPC(String upc, String brand, String description, int productId)
     {
