@@ -109,32 +109,38 @@ public class DisplayTrueExpirationFragment extends Fragment {
             NestDBDataSource dataSource =
                     CheckExpirationDateActivity.requireDataSource(this);
 
-            List<ShelfLife> shelfLives =
-                    dataSource.getShelfLivesForProduct(foodItem.getProductId());
+            //List<ShelfLife> shelfLives =
+            //        dataSource.getShelfLivesForProduct(foodItem.getProductId());
+
+            ShelfLife pantryLife = dataSource.getDOPPantryLife(foodItem.getProductId());
 
             LinearLayout scrollLayout = view.findViewById(R.id.scroll_layout);
 
-            for (ShelfLife shelfLife : shelfLives) {
+            View shelfLifeView = getLayoutInflater()
+                    .inflate(R.layout.list_item_shelf_life, scrollLayout, false);
 
-                View shelfLifeView = getLayoutInflater()
-                        .inflate(R.layout.list_item_shelf_life, scrollLayout, false);
+            if (pantryLife != null) {
 
                 ((TextView) shelfLifeView.findViewById(R.id.shelf_life))
-                        .setText(getShelfLifeRange(shelfLife));
+                        .setText(getShelfLifeRange(pantryLife));
 
                 ((TextView) shelfLifeView.findViewById(R.id.storage_type))
-                        .setText(shelfLife.getDesc());
+                        .setText(pantryLife.getDesc());
 
                 ((TextView) shelfLifeView.findViewById(R.id.storage_tips)).setText(
-                        shelfLife.getTips() != null ? shelfLife.getTips() : "N/A");
+                        pantryLife.getTips() != null ? pantryLife.getTips() : "N/A");
 
                 // Calculate and display the food item's true expiration date to the user
                 ((TextView) shelfLifeView.findViewById(R.id.true_exp_date))
-                        .setText(calculateTrueExpDateRange(shelfLife));
+                        .setText(calculateTrueExpDateRange(pantryLife));
 
-                scrollLayout.addView(shelfLifeView);
+            } else {
+
+                
 
             }
+
+            scrollLayout.addView(shelfLifeView);
 
             // Clear the result listener since we successfully received the result
             getParentFragmentManager().clearFragmentResultListener(key);

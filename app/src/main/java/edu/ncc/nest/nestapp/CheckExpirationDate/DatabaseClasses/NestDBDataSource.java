@@ -330,6 +330,35 @@ public class NestDBDataSource {
         return result;
     }
 
+    public ShelfLife getDOPPantryLife(int productId) {
+
+        String qry = "SELECT * FROM view_shelf_lives_and_type_info_joined WHERE productId = ? AND typeIndex = 6";
+
+        Cursor c = db.rawQuery(qry, new String[] {String.valueOf(productId)});
+
+        ShelfLife pantryLife = null;
+
+        if (c.moveToFirst()) {
+
+            pantryLife = new ShelfLife(
+                    c.getInt(c.getColumnIndex("typeIndex")),
+                    c.getInt(c.getColumnIndex("min")),
+                    c.getInt(c.getColumnIndex("max")),
+                    c.getString(c.getColumnIndex("metric")),
+                    c.getString(c.getColumnIndex("tips")));
+
+            pantryLife.setCode(c.getString(c.getColumnIndex("typeCode")));
+
+            pantryLife.setDesc(c.getString(c.getColumnIndex("description")));
+
+        }
+
+        c.close();
+
+        return pantryLife;
+
+    }
+
     /**
      * Loads a {@link NestDBDataSource} object using a {@link BackgroundTask} when this Activity is
      * created ({@link NestDBActivity#onCreate}). Also has a method that returns the
