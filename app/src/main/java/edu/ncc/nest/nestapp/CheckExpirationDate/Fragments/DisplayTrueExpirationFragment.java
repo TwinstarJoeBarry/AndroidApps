@@ -54,11 +54,7 @@ public class DisplayTrueExpirationFragment extends Fragment {
 
     private NestDBDataSource dataSource;
 
-    private ShelfLife shortestShelfLife;
-
     private NestUPC foodItem;
-
-    private String UPC;
 
     /////////////////////////////////// Lifecycle Methods Start ////////////////////////////////////
 
@@ -103,22 +99,21 @@ public class DisplayTrueExpirationFragment extends Fragment {
             dataSource = CheckExpirationDateActivity.requireDataSource(this);
 
             // Get the product's shelf lives from the database and calculate the shortest shelf life
-            shortestShelfLife = getShortestShelfLife(
-                    dataSource.getShelfLivesForProduct(foodItem.getProductId()));
+            ShelfLife dop_pantryLife =
+                    dataSource.getItemShelfLife(foodItem.getProductId(), ShelfLife.DOP_PL);
 
             // Calculate and display the food item's true expiration date to the user
             ((TextView) view.findViewById(R.id.true_exp_date))
-                    .setText(calculateTrueExpDateRange(shortestShelfLife));
+                    .setText(calculateTrueExpDateRange(dop_pantryLife));
 
             ((TextView) view.findViewById(R.id.shelf_life))
-                    .setText(getShelfLifeRange(shortestShelfLife));
+                    .setText(getShelfLifeRange(dop_pantryLife));
 
-            ((TextView) view.findViewById(R.id.storage_type)).setText(
-                    formatString(shortestShelfLife.getDesc()));
+            ((TextView) view.findViewById(R.id.storage_type))
+                    .setText(dop_pantryLife.getDesc());
 
-            ((TextView) view.findViewById(R.id.storage_tips)).setText(
-                    shortestShelfLife.getTips() != null ?
-                            formatString(shortestShelfLife.getTips()) : "N/A");
+            ((TextView) view.findViewById(R.id.storage_tips))
+                    .setText(dop_pantryLife.getTips() != null ? dop_pantryLife.getTips() : "N/A");
 
             // Clear the result listener since we successfully received the result
             getParentFragmentManager().clearFragmentResultListener(key);
