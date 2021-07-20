@@ -330,11 +330,21 @@ public class NestDBDataSource {
         return result;
     }
 
-    public ShelfLife getDOPPantryLife(int productId) {
+    /**
+     * Looks up the shelf life records for the given productId, and returns the shelf life that
+     * matches the {@code typeIndex}.
+     *
+     * @param productId The FoodKeeper product id of the item
+     * @return The ShelfLife object that matches the {@code typeIndex} or {@code null} if nothing is
+     * found.
+     */
+    public ShelfLife getItemShelfLife(int productId, int typeIndex) {
 
-        String qry = "SELECT * FROM view_shelf_lives_and_type_info_joined WHERE productId = ? AND typeIndex = 6";
+        String qry = "SELECT * FROM view_shelf_lives_and_type_info_joined " +
+                "WHERE productId = ? AND typeIndex = ?";
 
-        Cursor c = db.rawQuery(qry, new String[] {String.valueOf(productId)});
+        Cursor c = db.rawQuery(qry, new String[]
+                {String.valueOf(productId), String.valueOf(typeIndex)});
 
         ShelfLife pantryLife = null;
 
