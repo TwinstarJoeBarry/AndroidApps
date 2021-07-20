@@ -173,7 +173,10 @@ public class DisplayTrueExpirationFragment extends Fragment {
      *
      * @param shelfLives A list of {@link ShelfLife} objects.
      * @return The shortest shelf life from the list.
+     *
+     * @deprecated This method is deprecated since we are now displaying available shelf lives.
      */
+    @Deprecated
     public ShelfLife getShortestShelfLife(List<ShelfLife> shelfLives) {
 
         int index = -1;
@@ -187,41 +190,43 @@ public class DisplayTrueExpirationFragment extends Fragment {
 
             shelfLife = shelfLives.get(i);
 
-            switch (shelfLife.getMetric()) {
+            if (shelfLife.getMetric() != null)
 
-                case "Years":
-                    if (metric.isEmpty()) {
-                        metric = "Years";
-                        index = i;
-                    }
-                    break;
+                switch (shelfLife.getMetric()) {
 
-                case "Months":
-                    if (metric.isEmpty() || metric.equals("Years")) {
-                        metric = "Months";
-                        index = i;
-                    }
-                    break;
+                    case "Years":
+                        if (metric.isEmpty()) {
+                            metric = "Years";
+                            index = i;
+                        }
+                        break;
 
-                case "Weeks":
-                    if (metric.isEmpty() || metric.equals("Years") || metric.equals("Months")) {
-                        metric = "Weeks";
-                        index = i;
-                    }
-                    break;
+                    case "Months":
+                        if (metric.isEmpty() || metric.equals("Years")) {
+                            metric = "Months";
+                            index = i;
+                        }
+                        break;
 
-                case "Days":
-                    if (metric.isEmpty() || metric.equals("Years") || metric.equals("Months") || metric.equals("Weeks")) {
-                        metric = "Days";
-                        index = i;
-                    }
-                    break;
+                    case "Weeks":
+                        if (metric.isEmpty() || metric.equals("Years") || metric.equals("Months")) {
+                            metric = "Weeks";
+                            index = i;
+                        }
+                        break;
 
-                default:
-                    Log.d(LOG_TAG, "getShortestShelfLife: Error invalid option");
-                    break;
+                    case "Days":
+                        if (metric.isEmpty() || metric.equals("Years") || metric.equals("Months") || metric.equals("Weeks")) {
+                            metric = "Days";
+                            index = i;
+                        }
+                        break;
 
-            }
+                    default:
+                        Log.d(LOG_TAG, "getShortestShelfLife: Error invalid option");
+                        break;
+
+                }
 
         }
 
@@ -236,6 +241,12 @@ public class DisplayTrueExpirationFragment extends Fragment {
      */
     public String calculateTrueExpDateRange(ShelfLife shelfLife) {
 
+        String shelfLifeMetric = shelfLife.getMetric();
+
+        if (shelfLifeMetric == null)
+
+            return "N/A";
+
         // Get the printed expiration date as a Date object
         Date printedExpDate = this.printedExpDate.getTime();
 
@@ -247,7 +258,7 @@ public class DisplayTrueExpirationFragment extends Fragment {
         min.setTime(printedExpDate);
         max.setTime(printedExpDate);
 
-        switch (shelfLife.getMetric().toLowerCase()) {
+        switch (shelfLifeMetric.toLowerCase()) {
 
             case "days":
 
@@ -294,6 +305,10 @@ public class DisplayTrueExpirationFragment extends Fragment {
         // Format the date to the pattern of MM/dd/yyyy and return the result
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
 
+        if (min.compareTo(max) == 0)
+
+            return sdf.format(max.getTime());
+
         return sdf.format(min.getTime()) + " - " + sdf.format(max.getTime());
 
     }
@@ -304,10 +319,27 @@ public class DisplayTrueExpirationFragment extends Fragment {
      */
     public String getShelfLifeRange(ShelfLife shelfLife) {
 
-        String metric = shelfLife.getMetric();
+        String shelfLifeMetric = shelfLife.getMetric();
 
-        return shelfLife.getMin() + " - " + shelfLife.getMax() + " " +
-                (metric.equals("Indefinitely") ? "Indefinite" : metric);
+        if (shelfLifeMetric != null) {
+
+            if (shelfLife.getMin() == shelfLife.getMax()) {
+
+                int max = shelfLife.getMax();
+
+                if (max == 1)
+
+                    return max + " " + shelfLifeMetric.substring(0, shelfLifeMetric.length() - 1);
+
+                return max + " " + shelfLifeMetric;
+
+            }
+
+            return shelfLife.getMin() + " - " + shelfLife.getMax() + " " + shelfLifeMetric;
+
+        } else
+
+            return "N/A";
 
     }
 
