@@ -323,9 +323,7 @@ public class DisplayTrueExpirationFragment extends Fragment {
 
         if (shelfLifeMetric != null) {
 
-            int min = shelfLife.getMin();
-
-            int max = shelfLife.getMax();
+            int min = shelfLife.getMin(), max = shelfLife.getMax();
 
             if (min == max) {
 
