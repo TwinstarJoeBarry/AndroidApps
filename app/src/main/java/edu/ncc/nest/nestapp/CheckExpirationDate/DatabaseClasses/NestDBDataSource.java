@@ -347,26 +347,26 @@ public class NestDBDataSource {
         Cursor c = db.rawQuery(qry, new String[]
                 {String.valueOf(productId), String.valueOf(typeIndex)});
 
-        ShelfLife pantryLife = null;
+        ShelfLife shelfLife = null;
 
         if (c.moveToFirst()) {
 
-            pantryLife = new ShelfLife(
+            shelfLife = new ShelfLife(
                     c.getInt(c.getColumnIndex("typeIndex")),
                     c.getInt(c.getColumnIndex("min")),
                     c.getInt(c.getColumnIndex("max")),
                     c.getString(c.getColumnIndex("metric")),
                     c.getString(c.getColumnIndex("tips")));
 
-            pantryLife.setCode(c.getString(c.getColumnIndex("typeCode")));
+            shelfLife.setCode(c.getString(c.getColumnIndex("typeCode")));
 
-            pantryLife.setDesc(c.getString(c.getColumnIndex("description")));
+            shelfLife.setDesc(c.getString(c.getColumnIndex("description")));
 
         }
 
         c.close();
 
-        return pantryLife;
+        return shelfLife;
 
     }
 
