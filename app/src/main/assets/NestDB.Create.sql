@@ -126,15 +126,15 @@ CREATE TABLE "shelfLifeTypes" (
 
 -- codes and indexes match ShelfLife.java
 INSERT INTO "shelfLifeTypes" ("code", "index", "json", "description") VALUES
- ('PL'	  , 0, 'pantryLife',                    'when stored in pantry'),
- ('PAOL'  , 1, 'pantryAfterOpeningLife',        'if pantry stored after opening'),
- ('RL'	  , 2, 'refrigeratorLife',              'when stored in refrigerator'),
- ('RAOL'  , 3, 'refrigerateAfterOpeningLife',   'if refrigerated after opening'),
- ('RATL'  , 4, 'refrigerateAfterThawingLife',   'if refrigerated after thawing'),
- ('FL'	  , 5, 'freezerLife',                   'if stored frozen'),
- ('DOP_PL', 6, 'dop_pantryLife',                'when stored in pantry'),
- ('DOP_RL', 7, 'dop_refrigeratorLife',          'when stored in refrigerator'),
- ('DOP_FL', 8, 'dop_freezerLife',               'if stored frozen');
+ ('PL'	  , 0, 'pantryLife',                    'When stored in pantry'),
+ ('PAOL'  , 1, 'pantryAfterOpeningLife',        'If pantry stored after opening'),
+ ('RL'	  , 2, 'refrigeratorLife',              'When stored in refrigerator'),
+ ('RAOL'  , 3, 'refrigerateAfterOpeningLife',   'If refrigerated after opening'),
+ ('RATL'  , 4, 'refrigerateAfterThawingLife',   'If refrigerated after thawing'),
+ ('FL'	  , 5, 'freezerLife',                   'If stored frozen'),
+ ('DOP_PL', 6, 'dop_pantryLife',                '(DOP) When stored in pantry'),
+ ('DOP_RL', 7, 'dop_refrigeratorLife',          '(DOP) When stored in refrigerator'),
+ ('DOP_FL', 8, 'dop_freezerLife',               '(DOP) If stored frozen');
 
 CREATE TABLE IF NOT EXISTS "nestUPCs" (
 	"UPC"		    TEXT NOT NULL UNIQUE,		-- allows for non-UPC codes like "pb" for peanut butter in general
