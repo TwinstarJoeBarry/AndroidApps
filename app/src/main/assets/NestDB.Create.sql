@@ -132,9 +132,9 @@ INSERT INTO "shelfLifeTypes" ("code", "index", "json", "description") VALUES
  ('RAOL'  , 3, 'refrigerateAfterOpeningLife',   'If refrigerated after opening'),
  ('RATL'  , 4, 'refrigerateAfterThawingLife',   'If refrigerated after thawing'),
  ('FL'	  , 5, 'freezerLife',                   'If stored frozen'),
- ('DOP_PL', 6, 'dop_pantryLife',                '(DOP) When stored in pantry'),
- ('DOP_RL', 7, 'dop_refrigeratorLife',          '(DOP) When stored in refrigerator'),
- ('DOP_FL', 8, 'dop_freezerLife',               '(DOP) If stored frozen');
+ ('DOP_PL', 6, 'dop_pantryLife',                'When stored in pantry from date of purchase'),
+ ('DOP_RL', 7, 'dop_refrigeratorLife',          'When stored in refrigerator from date of purchase'),
+ ('DOP_FL', 8, 'dop_freezerLife',               'If stored frozen from date of purchase');
 
 CREATE TABLE IF NOT EXISTS "nestUPCs" (
 	"UPC"		    TEXT NOT NULL UNIQUE,		-- allows for non-UPC codes like "pb" for peanut butter in general
