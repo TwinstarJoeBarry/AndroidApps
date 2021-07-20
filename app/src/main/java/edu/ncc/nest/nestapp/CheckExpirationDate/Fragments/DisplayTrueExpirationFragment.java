@@ -18,6 +18,7 @@ package edu.ncc.nest.nestapp.CheckExpirationDate.Fragments;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,15 +55,19 @@ public class DisplayTrueExpirationFragment extends Fragment {
 
     private NestUPC foodItem;
 
+    private String UPC;
+
     /////////////////////////////////// Lifecycle Methods Start ////////////////////////////////////
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_check_expiration_date_display_true_expiration,
                 container, false);
+
 
     }
 
@@ -133,6 +138,31 @@ public class DisplayTrueExpirationFragment extends Fragment {
 
             // Clear the result listener since we successfully received the result
             getParentFragmentManager().clearFragmentResultListener(key);
+
+        });
+
+        //////////////////////////////// On Back Button Pressed   //////////////////////////////////
+
+        view.setFocusableInTouchMode(true);
+
+        view.requestFocus();
+
+        view.setOnKeyListener((v, keyCode, event) -> {
+
+            if (keyCode == KeyEvent.KEYCODE_BACK) {
+
+                Bundle bundle = new Bundle();
+
+                bundle.putSerializable("foodItem", foodItem);
+
+                bundle.putSerializable("printedExpDate", printedExpDate.getTime());
+
+                getParentFragmentManager().setFragmentResult("FOOD ITEM", bundle);
+
+            }
+
+            // Always return false since we aren't handling the navigation here.
+            return false;
 
         });
 
