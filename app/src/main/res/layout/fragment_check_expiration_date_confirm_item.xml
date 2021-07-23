@@ -100,15 +100,15 @@
                 android:layout_marginBottom="48dp">
 
                 <TextView
-                    android:id="@+id/item_lbl"
+                    android:id="@+id/category_lbl"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:text="@string/fragment_ced_confirm_item_product_lbl"
+                    android:text="@string/fragment_ced_confirm_item_category_lbl"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/item"
+                    android:id="@+id/category"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
@@ -124,15 +124,15 @@
                 android:layout_marginBottom="48dp">
 
                 <TextView
-                    android:id="@+id/category_lbl"
+                    android:id="@+id/item_lbl"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:text="@string/fragment_ced_confirm_item_category_lbl"
+                    android:text="@string/fragment_ced_confirm_item_product_lbl"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/category"
+                    android:id="@+id/item"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
