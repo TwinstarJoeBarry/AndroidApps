@@ -112,25 +112,18 @@ public class DisplayTrueExpirationFragment extends Fragment {
             ShelfLife dop_pantryLife =
                     dataSource.getItemShelfLife(foodItem.getProductId(), ShelfLife.DOP_PL);
 
-            LinearLayout scrollLayout = view.findViewById(R.id.scroll_layout);
-
-            View shelfLifeView = getLayoutInflater()
-                    .inflate(R.layout.list_item_shelf_life, scrollLayout, false);
-
-            ((TextView) shelfLifeView.findViewById(R.id.shelf_life))
+            ((TextView) view.findViewById(R.id.shelf_life))
                     .setText(getShelfLifeRange(dop_pantryLife));
 
-            ((TextView) shelfLifeView.findViewById(R.id.storage_type))
+            ((TextView) view.findViewById(R.id.storage_type))
                     .setText(dop_pantryLife.getDesc());
 
-            ((TextView) shelfLifeView.findViewById(R.id.storage_tips)).setText(
+            ((TextView) view.findViewById(R.id.storage_tips)).setText(
                     dop_pantryLife.getTips() != null ? dop_pantryLife.getTips() : "N/A");
 
             // Calculate and display the food item's true expiration date to the user
-            ((TextView) shelfLifeView.findViewById(R.id.true_exp_date))
+            ((TextView) view.findViewById(R.id.true_exp_date))
                     .setText(calculateTrueExpDateRange(dop_pantryLife));
-
-            scrollLayout.addView(shelfLifeView);
 
             // Clear the result listener since we successfully received the result
             getParentFragmentManager().clearFragmentResultListener(key);
