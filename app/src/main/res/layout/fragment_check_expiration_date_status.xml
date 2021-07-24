@@ -61,7 +61,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
             android:orientation="horizontal">
 
             <TextView
@@ -85,6 +84,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
             android:orientation="horizontal">
 
             <TextView
@@ -112,31 +112,19 @@
             android:backgroundTint="@android:color/darker_gray"
             android:foreground="@android:color/darker_gray"/>
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="bottom"
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/back_btn"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:layout_marginEnd="1dp"
-                android:text="@string/back"
-                tools:ignore="ButtonStyle"/>
-
-            <Button
                 android:id="@+id/more_info_btn"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:layout_marginStart="1dp"
                 android:text="@string/more_info"
                 tools:ignore="ButtonStyle"/>
 
-        </LinearLayout>
+        </FrameLayout>
 
     </LinearLayout>
 

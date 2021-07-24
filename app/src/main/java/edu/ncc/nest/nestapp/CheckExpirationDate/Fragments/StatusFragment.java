@@ -109,16 +109,22 @@ public class StatusFragment extends Fragment {
             ShelfLife dop_pantryLife = dataSource.getItemShelfLife(
                     foodItem.getProductId(), ShelfLife.DOP_PL);
 
-            ((TextView) view.findViewById(R.id.storage_tips)).setText(
-                    dop_pantryLife.getTips() != null ? dop_pantryLife.getTips() : "N/A");
+            updateShelfLifeTips(view, dop_pantryLife);
 
-            trueExpDate = calculateTrueExpDate(foodItem, dop_pantryLife);
+            trueExpDate = calculateTrueExpDate(dop_pantryLife);
 
-            if (trueExpDate != null) {
+            if (trueExpDate == null) {
 
-                ((TextView) view.findViewById(R.id.true_exp_date)).setText(formatDate(trueExpDate));
+                ((TextView) view.findViewById(R.id.true_exp_date)).setText("Unknown");
 
-                if (trueExpDate.getTime() != 0L) {
+                statusMsg.setText("The shelf life of this item is unknown");
+
+                statusIcon.setImageResource(R.drawable.ic_help);
+
+            } else if (trueExpDate.getTime() != 0L) {
+
+                    ((TextView) view.findViewById(R.id.true_exp_date))
+                            .setText(formatDate(trueExpDate));
 
                     long numDays = daysUntilExpiration(trueExpDate);
 
@@ -142,21 +148,13 @@ public class StatusFragment extends Fragment {
 
                     }
 
-                } else {
-
-                    statusMsg.setText("The items expiration date is indefinite");
-
-                    statusIcon.setImageResource(R.drawable.ic_indefinite);
-
-                }
-
             } else {
 
-                ((TextView) view.findViewById(R.id.true_exp_date)).setText("Unknown");
+                ((TextView) view.findViewById(R.id.true_exp_date)).setText("Indefinite");
 
-                statusMsg.setText("The shelf life of this item is unknown");
+                statusMsg.setText("The items expiration date is indefinite");
 
-                statusIcon.setImageResource(R.drawable.ic_help);
+                statusIcon.setImageResource(R.drawable.ic_indefinite);
 
             }
 
@@ -171,6 +169,8 @@ public class StatusFragment extends Fragment {
             result.putSerializable("foodItem", foodItem);
 
             result.putSerializable("printedExpDate", printedExpDate);
+
+            result.putSerializable("trueExpDate", trueExpDate);
 
             // Set the fragment result to the bundle
             getParentFragmentManager().setFragmentResult("FOOD ITEM", result);
@@ -213,11 +213,10 @@ public class StatusFragment extends Fragment {
     /**
      * Calculates the true expiration date range of an item based on it's shelf life and printed
      * expiration date.
-     * @param foodItem The selected item.
      * @param shelfLife The index of the shelf life type, see ShelfLife.
      * @return The true expiration date of the given item.
      */
-    private Date calculateTrueExpDate(NestUPC foodItem, ShelfLife shelfLife) {
+    private Date calculateTrueExpDate(ShelfLife shelfLife) {
 
         if (shelfLife == null || shelfLife.getMetric() == null)
 
@@ -265,20 +264,18 @@ public class StatusFragment extends Fragment {
 
                 return max.getTime();
 
-            default:
-
-                return null;
-
         }
+
+        return null;
 
     }
 
     /**
-     *
+     * TODO
      * @param expDate
      * @return
      */
-    private long daysUntilExpiration(Date expDate) {
+    private long daysUntilExpiration(@NonNull Date expDate) {
 
         return TimeUnit.MILLISECONDS.toDays(
                 expDate.getTime() - System.currentTimeMillis());
@@ -286,23 +283,36 @@ public class StatusFragment extends Fragment {
     }
 
     /**
-     *
+     * TODO
      * @param date
      * @return
      */
-    private String formatDate(Date date) {
+    private String formatDate(@NonNull Date date) {
 
-        if (date != null) {
+        // Format the date to the pattern of MM/dd/yyyy and return the result
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
 
-            // Format the date to the pattern of MM/dd/yyyy and return the result
-            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
-
-            return sdf.format(date.getTime());
-
-        } else
-
-            return "Unknown";
+        return sdf.format(date.getTime());
 
     }
+
+    /**
+     * TODO
+     * @param shelfLife
+     * @return
+     */
+    private void updateShelfLifeTips(@NonNull View view, ShelfLife shelfLife) {
+
+        if (shelfLife != null && shelfLife.getTips() != null)
+
+            ((TextView) view.findViewById(R.id.storage_tips)).setText(shelfLife.getTips());
+
+        else
+
+            ((TextView) view.findViewById(R.id.storage_tips)).setText("N/A");
+
+    }
+
+
 
 }
