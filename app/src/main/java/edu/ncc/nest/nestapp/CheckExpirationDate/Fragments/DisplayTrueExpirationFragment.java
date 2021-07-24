@@ -22,10 +22,10 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import java.text.SimpleDateFormat;
@@ -53,11 +53,21 @@ public class DisplayTrueExpirationFragment extends Fragment {
 
     private final Calendar printedExpDate = Calendar.getInstance();
 
+    private NestDBDataSource dataSource;
+
     private NestUPC foodItem;
 
-    private String UPC;
-
     /////////////////////////////////// Lifecycle Methods Start ////////////////////////////////////
+
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        // Retrieve a reference to the database from this fragment's activity
+        dataSource = CheckExpirationDateActivity.requireDataSource(this);
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -105,10 +115,7 @@ public class DisplayTrueExpirationFragment extends Fragment {
                     new SimpleDateFormat("MM/dd/yyyy",
                             Locale.getDefault()).format(printedExpDate));
 
-            // Retrieve a reference to the database from this fragment's activity
-            NestDBDataSource dataSource =
-                    CheckExpirationDateActivity.requireDataSource(this);
-
+            // Get the product's shelf lives from the database and calculate the shortest shelf life
             ShelfLife dop_pantryLife =
                     dataSource.getItemShelfLife(foodItem.getProductId(), ShelfLife.DOP_PL);
 
@@ -118,8 +125,8 @@ public class DisplayTrueExpirationFragment extends Fragment {
             ((TextView) view.findViewById(R.id.storage_type))
                     .setText(dop_pantryLife.getDesc());
 
-            ((TextView) view.findViewById(R.id.storage_tips)).setText(
-                    dop_pantryLife.getTips() != null ? dop_pantryLife.getTips() : "N/A");
+            ((TextView) view.findViewById(R.id.storage_tips))
+                    .setText(dop_pantryLife.getTips() != null ? dop_pantryLife.getTips() : "N/A");
 
             // Calculate and display the food item's true expiration date to the user
             ((TextView) view.findViewById(R.id.true_exp_date))
@@ -314,9 +321,9 @@ public class DisplayTrueExpirationFragment extends Fragment {
 
         if (shelfLifeMetric != null) {
 
-            if (shelfLife.getMin() == shelfLife.getMax()) {
+            int min = shelfLife.getMin(), max = shelfLife.getMax();
 
-                int max = shelfLife.getMax();
+            if (min == max) {
 
                 if (max == 1)
 
@@ -326,7 +333,7 @@ public class DisplayTrueExpirationFragment extends Fragment {
 
             }
 
-            return shelfLife.getMin() + " - " + shelfLife.getMax() + " " + shelfLifeMetric;
+            return min + " - " + max + " " + shelfLifeMetric;
 
         } else
 
