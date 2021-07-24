@@ -55,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:textAlignment="center"
-                android:text="@string/information_about_selected_item" />
+                android:text="@string/fragment_ced_display_true_expiration_item_info_msg" />
 
             <View
                 android:layout_width="match_parent"
@@ -263,7 +263,7 @@
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:textAlignment="center"
-                android:text="@string/information_about_the_selected_item_s_shelf_life" />
+                android:text="@string/fragment_ced_display_true_expiration_shelf_life_info_msg" />
 
             <View
                 android:layout_width="match_parent"

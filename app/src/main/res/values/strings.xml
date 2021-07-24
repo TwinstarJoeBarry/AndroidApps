@@ -260,6 +260,8 @@
     <string name="fragment_ced_display_true_expiration_shelf_life_lbl">Shelf Life:</string>
     <string name="fragment_ced_display_true_expiration_storage_type_lbl">Storage Type:</string>
     <string name="fragment_ced_display_true_expiration_storage_tips_lbl">Storage Tips:</string>
+    <string name="fragment_ced_display_true_expiration_shelf_life_info_msg">Information about the selected item\'s shelf life</string>
+    <string name="fragment_ced_display_true_expiration_item_info_msg">Information about the selected item</string>
 
     <!-- GUEST DATABASE REGISTRATION STRINGS START ///////////////////////////////////////////////// -->
 
@@ -363,7 +365,5 @@
     <!-- This string is used only for the creation of new strings. -->
     <!-- When a new string is created it should appear below this string. -->
     <string name="STRINGS_BELOW_THIS_SHOULD_BE_MOVED_TO_AN_APPROPRIATE_LOCATION_ABOVE"/>
-    <string name="information_about_the_selected_item_s_shelf_life">Information about the selected item\'s shelf life</string>
-    <string name="information_about_selected_item">Information about selected item</string>
 
 </resources>
