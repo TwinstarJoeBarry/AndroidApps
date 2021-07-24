@@ -17,6 +17,7 @@ package edu.ncc.nest.nestapp.CheckExpirationDate.Fragments;
  */
 
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -156,7 +157,7 @@ public class StatusFragment extends Fragment {
                 statusMsg.setText("The shelf life of this item is unknown");
 
                 statusIcon.setImageResource(R.drawable.ic_help);
-                
+
             }
 
             getParentFragmentManager().clearFragmentResultListener("FOOD ITEM");
@@ -177,6 +178,31 @@ public class StatusFragment extends Fragment {
             // Navigate to the proper fragment
             NavHostFragment.findNavController(StatusFragment.this)
                     .navigate(R.id.action_CED_StatusFragment_to_DisplayTrueExpirationFragment);
+
+        });
+
+        //////////////////////////////// On Back Button Pressed   //////////////////////////////////
+
+        view.setFocusableInTouchMode(true);
+
+        view.requestFocus();
+
+        view.setOnKeyListener((v, keyCode, event) -> {
+
+            if (keyCode == KeyEvent.KEYCODE_BACK) {
+
+                Bundle bundle = new Bundle();
+
+                bundle.putSerializable("foodItem", foodItem);
+
+                bundle.putSerializable("printedExpDate", printedExpDate);
+
+                getParentFragmentManager().setFragmentResult("FOOD ITEM", bundle);
+
+            }
+
+            // Always return false since we aren't handling the navigation here.
+            return false;
 
         });
 
