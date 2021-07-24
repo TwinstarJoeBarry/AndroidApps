@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#BBBBBB"
+    android:padding="2dp"
+    tools:context=".CheckExpirationDate.Fragments.StatusFragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:layout_marginHorizontal="1dp"
+        android:layout_marginTop="2dp"
+        android:text="Item Status"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:background="@drawable/background_dialog"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:background="@drawable/background_dialog">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:text="This item does not expire for 30 days or more days." />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginBottom="24dp"
+            android:backgroundTint="@android:color/darker_gray"
+            android:foreground="@android:color/darker_gray"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="128dp"
+            android:src="@drawable/ic_check_mark_fill"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginVertical="24dp"
+            android:backgroundTint="@android:color/darker_gray"
+            android:foreground="@android:color/darker_gray"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="bottom"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/incorrect_btn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:layout_marginEnd="1dp"
+                android:text="Back"
+                tools:ignore="ButtonStyle"/>
+
+            <Button
+                android:id="@+id/confirm_item_btn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:layout_marginStart="1dp"
+                android:text="More Info"
+                tools:ignore="ButtonStyle"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
