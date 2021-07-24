@@ -119,6 +119,7 @@ public class DisplayTrueExpirationFragment extends Fragment {
             ShelfLife dop_pantryLife =
                     dataSource.getItemShelfLife(foodItem.getProductId(), ShelfLife.DOP_PL);
 
+            // Calculate and display shelf life data
             ((TextView) view.findViewById(R.id.shelf_life))
                     .setText(getShelfLifeRange(dop_pantryLife));
 
