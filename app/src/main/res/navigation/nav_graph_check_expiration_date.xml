@@ -107,7 +107,19 @@
         tools:layout="@layout/fragment_check_expiration_date_select_printed_expiration_date" >
 
         <action
-            android:id="@+id/action_CED_SelectPrintedExpirationDateFragment_to_DisplayTrueExpirationFragment"
+            android:id="@+id/action_CED_SelectPrintedExpirationDateFragment_to_StatusFragment"
+            app:destination="@id/CED_StatusFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/CED_StatusFragment"
+        android:name="edu.ncc.nest.nestapp.CheckExpirationDate.Fragments.StatusFragment"
+        android:label="@string/nav_graph_ced_status_fragment_lbl"
+        tools:layout="@layout/fragment_check_expiration_date_status">
+
+        <action
+            android:id="@+id/action_CED_StatusFragment_to_DisplayTrueExpirationFragment"
             app:destination="@id/CED_DisplayTrueExpirationFragment" />
 
     </fragment>

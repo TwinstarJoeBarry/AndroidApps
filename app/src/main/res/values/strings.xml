@@ -33,6 +33,8 @@
     <string name="arrow_down">Arrow down</string>
     <string name="enter">Enter</string>
     <string name="scan">Scan</string>
+    <string name="more_info">More Info</string>
+    <string name="back">Back</string>
 
     <!-- Strings used in AndroidManifest.xml -->
     <string name="title_activity_sign_up">SignUp</string>
@@ -342,6 +344,7 @@
     <string name="nav_graph_ced_confirm_item_fragment_lbl">Confirm Item Fragment</string>
     <string name="nav_graph_ced_select_item_fragment_lbl">Select Item Fragment</string>
     <string name="nav_graph_ced_select_printed_expiration_date_fragment_lbl">Select Printed Expiration Date Fragment</string>
+    <string name="nav_graph_ced_status_fragment_lbl">Status Fragment</string>
     <string name="nav_graph_ced_display_true_expiration_fragment_lbl">Display True Expiration Fragment</string>
 
     <!-- Strings used in nav_graph_database_registration.xml -->

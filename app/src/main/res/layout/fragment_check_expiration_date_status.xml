@@ -67,7 +67,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:layout_marginEnd="1dp"
-                android:text="Back"
+                android:text="@string/back"
                 tools:ignore="ButtonStyle"/>
 
             <Button
@@ -76,7 +76,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:layout_marginStart="1dp"
-                android:text="More Info"
+                android:text="@string/more_info"
                 tools:ignore="ButtonStyle"/>
 
         </LinearLayout>
