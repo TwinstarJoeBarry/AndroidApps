@@ -26,9 +26,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
+import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import edu.ncc.nest.nestapp.CheckExpirationDate.Activities.CheckExpirationDateActivity;
@@ -92,75 +96,104 @@ public class StatusFragment extends Fragment {
         getParentFragmentManager().setFragmentResultListener("FOOD ITEM",
                 this, (key, result) -> {
 
+            // Retrieve the food item from the bundle
+            foodItem = (NestUPC) result.getSerializable("foodItem");
+
             // Retrieve the printed expiration date from the bundle
             printedExpDate = (Date) result.getSerializable("printedExpDate");
 
-            // Get the foodItem from the bundle
-            foodItem = (NestUPC) result.getSerializable("foodItem");
-
             assert foodItem != null && printedExpDate != null : "Failed to retrieve required data";
 
-            trueExpDate = calculateTrueExpDate(foodItem, ShelfLife.DOP_PL);
+            // Get the product's dop_pantryLife shelf life from the database
+            ShelfLife dop_pantryLife = dataSource.getItemShelfLife(
+                    foodItem.getProductId(), ShelfLife.DOP_PL);
 
-            if (trueExpDate == null) {
+            ((TextView) view.findViewById(R.id.storage_tips)).setText(
+                    dop_pantryLife.getTips() != null ? dop_pantryLife.getTips() : "N/A");
 
-                statusMsg.setText("The shelf life of this item is unknown");
+            trueExpDate = calculateTrueExpDate(foodItem, dop_pantryLife);
 
-                statusIcon.setImageResource(R.drawable.ic_help);
+            if (trueExpDate != null) {
 
-            } else if (trueExpDate.getTime() != 0L) {
+                ((TextView) view.findViewById(R.id.true_exp_date)).setText(formatDate(trueExpDate));
 
-                long numDays = expirationDateDifference(trueExpDate, printedExpDate);
+                if (trueExpDate.getTime() != 0L) {
 
-                statusMsg.setText(numDays + "");
+                    long numDays = daysUntilExpiration(trueExpDate);
 
-                if (numDays <= 0) {
+                    if (numDays <= 0) {
 
-                    //statusMsg.setText("The item has expired and should be discarded");
+                        statusMsg.setText("The item has expired and should be discarded");
 
-                    statusIcon.setImageResource(R.drawable.ic_delete);
+                        statusIcon.setImageResource(R.drawable.ic_delete);
 
-                } else if (numDays < 30) {
+                    } else if (numDays < 30) {
 
-                    //statusMsg.setText("The item is within 30 days of expiration");
+                        statusMsg.setText("The item is within 30 days of expiration");
 
-                    statusIcon.setImageResource(R.drawable.ic_warning);
+                        statusIcon.setImageResource(R.drawable.ic_warning);
+
+                    } else {
+
+                        statusMsg.setText("The item does not expire for 30 days or more");
+
+                        statusIcon.setImageResource(R.drawable.ic_check_mark);
+
+                    }
 
                 } else {
 
-                    //statusMsg.setText("The item does not expire for 30 days or more");
+                    statusMsg.setText("The items expiration date is indefinite");
 
-                    statusIcon.setImageResource(R.drawable.ic_check_mark);
+                    statusIcon.setImageResource(R.drawable.ic_indefinite);
 
                 }
 
             } else {
 
-                //statusMsg.setText("The items expiration date is indefinite");
+                ((TextView) view.findViewById(R.id.true_exp_date)).setText("Unknown");
 
-                statusIcon.setImageResource(R.drawable.ic_indefinite);
+                statusMsg.setText("The shelf life of this item is unknown");
 
+                statusIcon.setImageResource(R.drawable.ic_help);
+                
             }
+
+            getParentFragmentManager().clearFragmentResultListener("FOOD ITEM");
+
+        });
+
+        view.findViewById(R.id.more_info_btn).setOnClickListener(more_info_btn -> {
+
+            Bundle result = new Bundle();
+
+            result.putSerializable("foodItem", foodItem);
+
+            result.putSerializable("printedExpDate", printedExpDate);
+
+            // Set the fragment result to the bundle
+            getParentFragmentManager().setFragmentResult("FOOD ITEM", result);
+
+            // Navigate to the proper fragment
+            NavHostFragment.findNavController(StatusFragment.this)
+                    .navigate(R.id.action_CED_StatusFragment_to_DisplayTrueExpirationFragment);
 
         });
 
     }
 
+    //////////////////////////////////// Custom Methods Start  /////////////////////////////////////
+
     /**
      * Calculates the true expiration date range of an item based on it's shelf life and printed
      * expiration date.
      * @param foodItem The selected item.
-     * @param typeIndex The index of the shelf life type, see ShelfLife.
+     * @param shelfLife The index of the shelf life type, see ShelfLife.
      * @return The true expiration date of the given item.
      */
-    private Date calculateTrueExpDate(NestUPC foodItem, int typeIndex) {
+    private Date calculateTrueExpDate(NestUPC foodItem, ShelfLife shelfLife) {
 
-        // Get the product's shelf lives from the database and calculate the shortest shelf life
-        ShelfLife shelfLife = dataSource.getItemShelfLife(foodItem.getProductId(), typeIndex);
-
-        String shelfLifeMetric = shelfLife.getMetric();
-
-        if (shelfLifeMetric == null)
+        if (shelfLife == null || shelfLife.getMetric() == null)
 
             return null;
 
@@ -170,7 +203,7 @@ public class StatusFragment extends Fragment {
         // Update the time to the selected item's printed expiration date
         max.setTime(printedExpDate);
 
-        switch (shelfLifeMetric.toLowerCase()) {
+        switch (shelfLife.getMetric().toLowerCase()) {
 
             case "indefinitely":
 
@@ -214,11 +247,35 @@ public class StatusFragment extends Fragment {
 
     }
 
-    private long expirationDateDifference(Date printedExpDate, Date trueExpDate) {
+    /**
+     *
+     * @param expDate
+     * @return
+     */
+    private long daysUntilExpiration(Date expDate) {
 
-        long millis = trueExpDate.getTime() - printedExpDate.getTime();
+        return TimeUnit.MILLISECONDS.toDays(
+                expDate.getTime() - System.currentTimeMillis());
 
-        return TimeUnit.MILLISECONDS.toDays(millis);
+    }
+
+    /**
+     *
+     * @param date
+     * @return
+     */
+    private String formatDate(Date date) {
+
+        if (date != null) {
+
+            // Format the date to the pattern of MM/dd/yyyy and return the result
+            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
+
+            return sdf.format(date.getTime());
+
+        } else
+
+            return "Unknown";
 
     }
 
