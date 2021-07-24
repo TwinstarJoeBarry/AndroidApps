@@ -260,6 +260,8 @@
     <string name="fragment_ced_display_true_expiration_shelf_life_lbl">Shelf Life:</string>
     <string name="fragment_ced_display_true_expiration_storage_type_lbl">Storage Type:</string>
     <string name="fragment_ced_display_true_expiration_storage_tips_lbl">Storage Tips:</string>
+    <string name="fragment_ced_display_true_expiration_shelf_life_info_msg">Information about the selected item\'s shelf life</string>
+    <string name="fragment_ced_display_true_expiration_item_info_msg">Information about the selected item</string>
 
     <!-- GUEST DATABASE REGISTRATION STRINGS START ///////////////////////////////////////////////// -->
 

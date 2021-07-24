@@ -38,192 +38,185 @@
         android:gravity="center"
         android:background="@drawable/background_dialog"/>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@drawable/background_dialog">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="24dp"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:text="@string/fragment_ced_select_printed_expiration_date_message_lbl" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginHorizontal="24dp"
-            android:backgroundTint="@android:color/darker_gray"
-            android:foreground="@android:color/darker_gray"/>
+        android:layout_marginHorizontal="1dp"
+        android:scrollbars="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:layout_margin="24dp"
-            android:background="@android:color/white"
-            android:baselineAligned="false">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.33"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="24dp"
+                android:background="@drawable/background_dialog">
 
                 <TextView
-                    android:id="@+id/selected_print_month_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="24dp"
                     android:gravity="center"
                     android:textStyle="bold"
-                    android:text="@string/fragment_ced_select_printed_expiration_date_month_lbl" />
+                    android:text="@string/fragment_ced_select_printed_expiration_date_message_lbl" />
 
-                <ImageView
-                    android:id="@+id/decrement_month_btn"
+                <View
                     android:layout_width="match_parent"
-                    android:layout_height="8dp"
-                    android:scaleType="center"
-                    android:src="@drawable/ic_arrow_up"
-                    android:contentDescription="@string/arrow_up" />
+                    android:layout_height="2dp"
+                    android:layout_marginVertical="24dp"
+                    android:backgroundTint="@android:color/darker_gray"
+                    android:foreground="@android:color/darker_gray"/>
 
-                <NumberPicker
-                    android:id="@+id/number_picker_month"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="128dp"/>
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:background="@android:color/white"
+                    android:baselineAligned="false">
 
-                <ImageView
-                    android:id="@+id/increment_month_btn"
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.33"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/selected_print_month_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="24dp"
+                            android:gravity="center"
+                            android:textStyle="bold"
+                            android:text="@string/fragment_ced_select_printed_expiration_date_month_lbl" />
+
+                        <ImageView
+                            android:id="@+id/decrement_month_btn"
+                            android:layout_width="match_parent"
+                            android:layout_height="8dp"
+                            android:scaleType="center"
+                            android:src="@drawable/ic_arrow_up"
+                            android:contentDescription="@string/arrow_up" />
+
+                        <NumberPicker
+                            android:id="@+id/number_picker_month"
+                            android:layout_width="match_parent"
+                            android:layout_height="128dp"/>
+
+                        <ImageView
+                            android:id="@+id/increment_month_btn"
+                            android:layout_width="match_parent"
+                            android:layout_height="8dp"
+                            android:scaleType="center"
+                            android:src="@drawable/ic_arrow_down"
+                            android:contentDescription="@string/arrow_down" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.33"
+                        android:layout_marginHorizontal="16dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/selected_print_day_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="24dp"
+                            android:gravity="center"
+                            android:textStyle="bold"
+                            android:text="@string/fragment_ced_select_printed_expiration_date_day_lbl" />
+
+                        <ImageView
+                            android:id="@+id/decrement_day_btn"
+                            android:layout_width="match_parent"
+                            android:layout_height="8dp"
+                            android:scaleType="center"
+                            android:src="@drawable/ic_arrow_up"
+                            android:contentDescription="@string/arrow_up" />
+
+                        <NumberPicker
+                            android:id="@+id/number_picker_day"
+                            android:layout_width="match_parent"
+                            android:layout_height="128dp"/>
+
+                        <ImageView
+                            android:id="@+id/increment_day_btn"
+                            android:layout_width="match_parent"
+                            android:layout_height="8dp"
+                            android:scaleType="center"
+                            android:src="@drawable/ic_arrow_down"
+                            android:contentDescription="@string/arrow_down" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.33"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/selected_print_year_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="24dp"
+                            android:gravity="center"
+                            android:textStyle="bold"
+                            android:text="@string/fragment_ced_select_printed_expiration_date_year_lbl" />
+
+                        <ImageView
+                            android:id="@+id/decrement_year_btn"
+                            android:layout_width="match_parent"
+                            android:layout_height="8dp"
+                            android:scaleType="center"
+                            android:src="@drawable/ic_arrow_up"
+                            android:contentDescription="@string/arrow_up" />
+
+                        <NumberPicker
+                            android:id="@+id/number_picker_year"
+                            android:layout_width="match_parent"
+                            android:layout_height="128dp"/>
+
+                        <ImageView
+                            android:id="@+id/increment_year_btn"
+                            android:layout_width="match_parent"
+                            android:layout_height="8dp"
+                            android:scaleType="center"
+                            android:src="@drawable/ic_arrow_down"
+                            android:contentDescription="@string/arrow_down" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <View
                     android:layout_width="match_parent"
-                    android:layout_height="8dp"
-                    android:scaleType="center"
-                    android:src="@drawable/ic_arrow_down"
-                    android:contentDescription="@string/arrow_down" />
+                    android:layout_height="2dp"
+                    android:layout_marginVertical="24dp"
+                    android:backgroundTint="@android:color/darker_gray"
+                    android:foreground="@android:color/darker_gray"/>
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.33"
-                android:layout_marginHorizontal="16dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/selected_print_day_text"
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="24dp"
-                    android:gravity="center"
-                    android:textStyle="bold"
-                    android:text="@string/fragment_ced_select_printed_expiration_date_day_lbl" />
+                    android:layout_height="match_parent">
 
-                <ImageView
-                    android:id="@+id/decrement_day_btn"
-                    android:layout_width="match_parent"
-                    android:layout_height="8dp"
-                    android:scaleType="center"
-                    android:src="@drawable/ic_arrow_up"
-                    android:contentDescription="@string/arrow_up" />
+                    <Button
+                        android:id="@+id/accept_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/accept"/>
 
-                <NumberPicker
-                    android:id="@+id/number_picker_day"
-                    android:layout_width="match_parent"
-                    android:layout_height="128dp"/>
-
-                <ImageView
-                    android:id="@+id/increment_day_btn"
-                    android:layout_width="match_parent"
-                    android:layout_height="8dp"
-                    android:scaleType="center"
-                    android:src="@drawable/ic_arrow_down"
-                    android:contentDescription="@string/arrow_down" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.33"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/selected_print_year_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="24dp"
-                    android:gravity="center"
-                    android:textStyle="bold"
-                    android:text="@string/fragment_ced_select_printed_expiration_date_year_lbl" />
-
-                <ImageView
-                    android:id="@+id/decrement_year_btn"
-                    android:layout_width="match_parent"
-                    android:layout_height="8dp"
-                    android:scaleType="center"
-                    android:src="@drawable/ic_arrow_up"
-                    android:contentDescription="@string/arrow_up" />
-
-                <NumberPicker
-                    android:id="@+id/number_picker_year"
-                    android:layout_width="match_parent"
-                    android:layout_height="128dp"/>
-
-                <ImageView
-                    android:id="@+id/increment_year_btn"
-                    android:layout_width="match_parent"
-                    android:layout_height="8dp"
-                    android:scaleType="center"
-                    android:src="@drawable/ic_arrow_down"
-                    android:contentDescription="@string/arrow_down" />
+                </FrameLayout>
 
             </LinearLayout>
 
         </LinearLayout>
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="24dp"
-        android:background="@drawable/background_dialog">
-
-        <TextView
-            android:id="@+id/upc_lbl"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:text="@string/fragment_ced_confirm_item_upc_lbl"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/upc"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:layout_marginStart="8dp"
-            android:text="" />
-
-    </LinearLayout>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="4dp">
-
-        <Button
-            android:id="@+id/accept_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_gravity="bottom"
-            android:text="@string/accept"/>
-
-    </FrameLayout>
+    </ScrollView>
 
 </LinearLayout>
