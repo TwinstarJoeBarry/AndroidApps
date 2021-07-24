@@ -28,6 +28,7 @@
         android:background="@drawable/background_dialog">
 
         <TextView
+            android:id="@+id/status_msg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
@@ -44,9 +45,11 @@
             android:foreground="@android:color/darker_gray"/>
 
         <ImageView
+            android:id="@+id/status_icon"
             android:layout_width="match_parent"
             android:layout_height="128dp"
-            android:src="@drawable/ic_check_mark_fill"/>
+            android:src="@drawable/ic_check_mark"
+            android:contentDescription="TODO" />
 
         <View
             android:layout_width="match_parent"

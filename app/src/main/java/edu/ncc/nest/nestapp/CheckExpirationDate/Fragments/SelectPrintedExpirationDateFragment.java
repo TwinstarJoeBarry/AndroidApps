@@ -37,7 +37,7 @@ import edu.ncc.nest.nestapp.R;
 
 /**
  * SelectPrintedExpirationDateFragment: Allows the user to select or enter the item's printed
- * expiration date, then sends the result to {@link DisplayTrueExpirationFragment}.
+ * expiration date, then sends the result to {@link StatusFragment}.
  */
 public class SelectPrintedExpirationDateFragment extends Fragment {
 
@@ -73,7 +73,7 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
                 this, (key, result) -> {
 
             /* This request key is only required when navigating back from
-             * DisplayTrueExpirationFragment */
+             * StatusFragment */
             if (!result.containsKey("printedExpDate")) {
 
                 // Update the printed expiration date to reflect the current date
@@ -117,7 +117,7 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
 
             // Navigate to the proper fragment
             NavHostFragment.findNavController(SelectPrintedExpirationDateFragment.this)
-                    .navigate(R.id.action_CED_SelectPrintedExpirationDateFragment_to_DisplayTrueExpirationFragment);
+                    .navigate(R.id.action_CED_SelectPrintedExpirationDateFragment_to_StatusFragment);
 
         });
 
