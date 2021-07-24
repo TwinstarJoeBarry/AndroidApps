@@ -91,8 +91,6 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
 
             assert foodItem != null : "Failed to retrieve required data";
 
-            ((TextView) view.findViewById(R.id.upc)).setText(foodItem.getUpc());
-
             initializeMonthPicker(view);
 
             initializeDayPicker(view);
