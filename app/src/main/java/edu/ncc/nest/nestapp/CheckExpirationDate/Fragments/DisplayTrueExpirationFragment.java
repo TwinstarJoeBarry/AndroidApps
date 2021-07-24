@@ -165,7 +165,7 @@ public class DisplayTrueExpirationFragment extends Fragment {
      * @param shelfLives A list of {@link ShelfLife} objects.
      * @return The shortest shelf life from the list.
      *
-     * @deprecated This method is deprecated since we are now displaying available shelf lives.
+     * @deprecated This method is deprecated since are now only displaying dop_pantryLife.
      */
     @Deprecated
     public ShelfLife getShortestShelfLife(List<ShelfLife> shelfLives) {
