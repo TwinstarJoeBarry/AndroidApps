@@ -107,10 +107,6 @@ public class DisplayTrueExpirationFragment extends Fragment {
 
             ((TextView) view.findViewById(R.id.type)).setText(foodItem.getProductSubtitle());
 
-            ((TextView) view.findViewById(R.id.brand)).setText(foodItem.getBrand());
-
-            ((TextView) view.findViewById(R.id.description)).setText(foodItem.getDescription());
-
             ((TextView) view.findViewById(R.id.printed_exp_date)).setText(
                     new SimpleDateFormat("MM/dd/yyyy",
                             Locale.getDefault()).format(printedExpDate));

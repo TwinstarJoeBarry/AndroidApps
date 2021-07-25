@@ -82,17 +82,13 @@ public class ConfirmItemFragment extends Fragment {
             assert foodItem != null : "Failed to retrieve required data";
 
             // Display item information
-            ((TextView) view.findViewById(R.id.item)).setText(foodItem.getProductName());
-
             ((TextView) view.findViewById(R.id.upc)).setText(foodItem.getUpc());
 
             ((TextView) view.findViewById(R.id.category)).setText(foodItem.getCatDesc());
 
+            ((TextView) view.findViewById(R.id.item)).setText(foodItem.getProductName());
+
             ((TextView) view.findViewById(R.id.type)).setText(foodItem.getProductSubtitle());
-
-            ((TextView) view.findViewById(R.id.brand)).setText(foodItem.getBrand());
-
-            ((TextView) view.findViewById(R.id.description)).setText(foodItem.getDescription());
 
             // Clear the result listener since we successfully received the result
             getParentFragmentManager().clearFragmentResultListener(key);

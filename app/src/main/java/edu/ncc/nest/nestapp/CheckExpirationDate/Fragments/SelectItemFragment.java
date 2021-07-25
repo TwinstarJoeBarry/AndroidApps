@@ -23,9 +23,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -58,8 +56,6 @@ public class SelectItemFragment extends SoftInputFragment {
     public static final String LOG_TAG = SelectItemFragment.class.getSimpleName();
 
     /** CONSTANT DEFAULTS **/
-    // FOR NON ESSENTIAL TEXT ENTRY VIEWS THAT WERE OPTIONAL AND INTENTIONALLY LEFT BLANK;
-    private final String DEFAULT_STRING = "[LEFT BLANK]";
     NestDBDataSource dataSource;
 
     /** INSTANCE VARS **/
@@ -136,27 +132,8 @@ public class SelectItemFragment extends SoftInputFragment {
         subtitleButton.setOnClickListener(v ->
                 showProductSubtitles(productCategoryId, productName));
 
-        ((EditText) view.findViewById(R.id.select_item_brand_entry))
-                .setOnEditorActionListener(this::onEditorAction);
-
-        ((EditText) view.findViewById(R.id.select_item_description_entry))
-                .setOnEditorActionListener(this::onEditorAction);
-
         // ACCEPT BUTTON CODE - PARSE VALUES FOR NEW UPC, PASS INFO TO PRINTED EXPIRATION DATE
         view.findViewById(R.id.select_item_accept_btn).setOnClickListener(v -> {
-
-            // Retrieve the String information from each view, casting as appropriate;
-            String brand = ((EditText) (view.findViewById(
-                    R.id.select_item_brand_entry))).getText().toString();
-
-            String description = ((EditText) (view.findViewById(
-                    R.id.select_item_description_entry))).getText().toString();
-
-            // Replace any fields from above with blank values;
-            // TODO Make these next two fields required
-            final String finalBrand = brand.isEmpty() ? DEFAULT_STRING : brand;
-
-            final String finalDescription = description.isEmpty() ? DEFAULT_STRING : description;
 
             // First assert that the required values have been entered
             if ((productCategoryId == -1) || (productButton.isEnabled() && productName == null) ||
@@ -188,7 +165,8 @@ public class SelectItemFragment extends SoftInputFragment {
 
                         Log.d(LOG_TAG, "Product ID: " + productId);
 
-                        if (dataSource.insertNewUPC(upcBarcode, finalBrand, finalDescription, productId) == -1)
+                        if (dataSource.insertNewUPC(upcBarcode, "not specified",
+                                "not specified", productId) == -1)
 
                             throw new RuntimeException("Error inserting new UPC");
 
@@ -200,8 +178,7 @@ public class SelectItemFragment extends SoftInputFragment {
                         int productId = dataSource.getProdIdfromProdInfo(
                                 productCategoryId, productName, productSubtitle);
 
-                        // TODO Update the UPC stored in the database with the new brand, description,
-                        //  and productId
+                        // TODO Update the UPC stored in the database with the new productId
 
                         // Adding this exception for now to prevent hidden errors
                         throw new RuntimeException("NestUPC exists. Need to update upc in database.");
@@ -401,16 +378,6 @@ public class SelectItemFragment extends SoftInputFragment {
         subtitleHint.setText("");
 
         productSubtitle = null;
-
-    }
-
-    public final boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-
-        if (actionId == EditorInfo.IME_ACTION_DONE)
-
-            v.clearFocus();
-
-        return false;
 
     }
 
