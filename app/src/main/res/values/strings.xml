@@ -249,15 +249,15 @@
     <string name="fragment_ced_select_printed_expiration_date_year_lbl">Select a year</string>
 
     <!-- Strings used in fragment_check_expiration_date_status.xml -->
-    <string name="fragment_ced_status_title">Item Status</string>
+    <string name="fragment_ced_status_title">Selected Item\'s Status</string>
     <string name="fragment_ced_status_icon_content_description">Selected item\'s status</string>
     <string name="fragment_ced_status_msg">Status message placeholder</string>
 
     <!-- Strings used in StatusFragment.java -->
-    <string name="status_fragment_discard_msg">The item has expired and should be discarded</string>
-    <string name="status_fragment_warning_msg">The item is within 30 days of expiration</string>
-    <string name="status_fragment_safe_msg">The item does not expire for 30 days or more</string>
-    <string name="status_fragment_indefinite_msg">The items expiration date is indefinite</string>
+    <string name="status_fragment_discard_msg">The item has expired and should be discarded.</string>
+    <string name="status_fragment_warning_msg">The item is within 30 days of expiration.</string>
+    <string name="status_fragment_safe_msg">The item does not expire for 30 days or more.</string>
+    <string name="status_fragment_indefinite_msg">The item\'s expiration date is indefinite.</string>
 
     <!-- Strings used in fragment_check_expiration_date_display_true_expiration.xml -->
     <string name="fragment_ced_display_true_expiration_display_date_btn">Display true expiration date</string>

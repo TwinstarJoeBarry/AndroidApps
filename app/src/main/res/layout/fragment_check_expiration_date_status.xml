@@ -14,7 +14,7 @@
         android:padding="12dp"
         android:layout_marginHorizontal="1dp"
         android:layout_marginTop="2dp"
-        android:text="@string/item_status"
+        android:text="@string/fragment_ced_status_title"
         android:textSize="24sp"
         android:textStyle="bold"
         android:gravity="center"
@@ -34,7 +34,7 @@
             android:layout_marginBottom="24dp"
             android:gravity="center"
             android:textStyle="bold"
-            android:text="@string/status_message_placeholder" />
+            android:text="@string/fragment_ced_status_msg" />
 
 
         <View
@@ -49,7 +49,7 @@
             android:layout_width="match_parent"
             android:layout_height="128dp"
             android:src="@drawable/ic_check_mark"
-            android:contentDescription="@string/content_description" />
+            android:contentDescription="@string/fragment_ced_status_icon_content_description" />
 
         <View
             android:layout_width="match_parent"
@@ -112,19 +112,12 @@
             android:backgroundTint="@android:color/darker_gray"
             android:foreground="@android:color/darker_gray"/>
 
-        <FrameLayout
+        <Button
+            android:id="@+id/more_info_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/more_info_btn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/more_info"
-                tools:ignore="ButtonStyle"/>
-
-        </FrameLayout>
+            android:text="@string/more_info"
+            tools:ignore="ButtonStyle"/>
 
     </LinearLayout>
 
