@@ -17,6 +17,7 @@ package edu.ncc.nest.nestapp.CheckExpirationDate.Fragments;
  */
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -114,7 +115,11 @@ public class StatusFragment extends Fragment {
 
             trueExpDate = calculateTrueExpDate(dop_pantryLife);
 
+            Log.d(LOG_TAG, "Printed Expiration Date: " + formatDate(printedExpDate));
+
             if (trueExpDate == null) {
+
+                Log.w(LOG_TAG, "True Expiration Date: Unknown");
 
                 ((TextView) view.findViewById(R.id.true_exp_date)).setText(R.string.unknown);
 
@@ -124,32 +129,36 @@ public class StatusFragment extends Fragment {
 
             } else if (trueExpDate.getTime() != 0L) {
 
-                    ((TextView) view.findViewById(R.id.true_exp_date))
-                            .setText(formatDate(trueExpDate));
+                Log.d(LOG_TAG, "True Expiration Date: " + formatDate(trueExpDate));
 
-                    long numDays = daysUntilExpiration(trueExpDate);
+                ((TextView) view.findViewById(R.id.true_exp_date))
+                        .setText(formatDate(trueExpDate));
 
-                    if (numDays <= 0) {
+                long numDays = daysUntilDate(trueExpDate);
 
-                        statusMsg.setText(R.string.status_fragment_discard_msg);
+                if (numDays <= 0) {
 
-                        statusIcon.setImageResource(R.drawable.ic_delete);
+                    statusMsg.setText(R.string.status_fragment_discard_msg);
 
-                    } else if (numDays < 30) {
+                    statusIcon.setImageResource(R.drawable.ic_delete);
 
-                        statusMsg.setText(R.string.status_fragment_warning_msg);
+                } else if (numDays < 30) {
 
-                        statusIcon.setImageResource(R.drawable.ic_warning);
+                    statusMsg.setText(R.string.status_fragment_warning_msg);
 
-                    } else {
+                    statusIcon.setImageResource(R.drawable.ic_warning);
 
-                        statusMsg.setText(R.string.status_fragment_safe_msg);
+                } else {
 
-                        statusIcon.setImageResource(R.drawable.ic_check_mark);
+                    statusMsg.setText(R.string.status_fragment_safe_msg);
 
-                    }
+                    statusIcon.setImageResource(R.drawable.ic_check_mark);
+
+                }
 
             } else {
+
+                Log.d(LOG_TAG, "True Expiration Date: Indefinite");
 
                 ((TextView) view.findViewById(R.id.true_exp_date)).setText(R.string.indefinite);
 
@@ -212,10 +221,10 @@ public class StatusFragment extends Fragment {
     //////////////////////////////////// Custom Methods Start  /////////////////////////////////////
 
     /**
-     * Calculates the true expiration date range of an item based on it's shelf life and printed
-     * expiration date.
-     * @param shelfLife The index of the shelf life type, see ShelfLife.
-     * @return The true expiration date of the given item.
+     * Calculates the true expiration date of an item based on it's shelf life and printed
+     * expiration date. ({@code printedExpDate} + {@link ShelfLife#getMax()} - 1 Month).
+     * @param shelfLife The {@link ShelfLife} to use when calculate the date.
+     * @return The true expiration {@link Date} of the given item.
      */
     private Date calculateTrueExpDate(ShelfLife shelfLife) {
 
@@ -233,12 +242,16 @@ public class StatusFragment extends Fragment {
 
             case "indefinitely":
 
+                Log.d(LOG_TAG, "Shelf Life Max: Indefinite");
+
                 return new Date(0L);
 
             case "days":
 
                 // Add max number of days to the printed expiration date
                 max.add(Calendar.DAY_OF_MONTH, shelfLife.getMax());
+
+                Log.d(LOG_TAG, "Shelf Life Max: " + shelfLife.getMax() + " Days");
 
                 return max.getTime();
 
@@ -247,6 +260,8 @@ public class StatusFragment extends Fragment {
                 // Add max number of weeks to the printed expiration date
                 max.add(Calendar.WEEK_OF_MONTH, shelfLife.getMax());
 
+                Log.d(LOG_TAG, "Shelf Life Max: " + shelfLife.getMax() + " Weeks");
+
                 return max.getTime();
 
             case "months":
@@ -254,12 +269,16 @@ public class StatusFragment extends Fragment {
                 // Add max number of months to the printed expiration date
                 max.add(Calendar.MONTH, shelfLife.getMax() - 1);
 
+                Log.d(LOG_TAG, "Shelf Life Max: " + shelfLife.getMax() + " Months");
+
                 return max.getTime();
 
             case "years":
 
                 // Add max number of years to the printed expiration date
                 max.add(Calendar.YEAR, shelfLife.getMax());
+
+                Log.d(LOG_TAG, "Shelf Life Max: " + shelfLife.getMax() + " Years");
 
                 max.add(Calendar.MONTH, -1);
 
@@ -272,21 +291,20 @@ public class StatusFragment extends Fragment {
     }
 
     /**
-     * TODO
-     * @param expDate
-     * @return
+     * Calculates and returns number of day from the current system date until the given date.
+     * @param date The {@link Date} to use when performing the calculation.
+     * @return The number of days until the given date.
      */
-    private long daysUntilExpiration(@NonNull Date expDate) {
+    private long daysUntilDate(@NonNull Date date) {
 
-        return TimeUnit.MILLISECONDS.toDays(
-                expDate.getTime() - System.currentTimeMillis());
+        return TimeUnit.MILLISECONDS.toDays(date.getTime() - System.currentTimeMillis());
 
     }
 
     /**
-     * TODO
-     * @param date
-     * @return
+     * Formats a date object's time as a date {@link String} in the format of "MM/dd/yyy"
+     * @param date The date to format
+     * @return The formatted date string.
      */
     private String formatDate(@NonNull Date date) {
 
@@ -298,9 +316,9 @@ public class StatusFragment extends Fragment {
     }
 
     /**
-     * TODO
-     * @param shelfLife
-     * @return
+     * Updates the storage tips {@link TextView} object in this fragment's layout to display any
+     * available storage tips.
+     * @param shelfLife The shelf life to get the tips from.
      */
     private void updateShelfLifeTips(@NonNull View view, ShelfLife shelfLife) {
 
@@ -313,7 +331,5 @@ public class StatusFragment extends Fragment {
             ((TextView) view.findViewById(R.id.storage_tips)).setText("N/A");
 
     }
-
-
 
 }
