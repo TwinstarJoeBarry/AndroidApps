@@ -130,8 +130,7 @@ public class StatusFragment extends Fragment {
 
                 Log.d(LOG_TAG, "True Expiration Date: " + formatDate(trueExpDate));
 
-                ((TextView) view.findViewById(R.id.true_exp_date))
-                        .setText(formatDate(trueExpDate));
+                ((TextView) view.findViewById(R.id.true_exp_date)).setText(formatDate(trueExpDate));
 
                 long numDays = daysUntilDate(trueExpDate);
 
@@ -167,6 +166,7 @@ public class StatusFragment extends Fragment {
 
             }
 
+            // Make sure to clear the listener so we can use the same request key in other fragments
             getParentFragmentManager().clearFragmentResultListener("FOOD ITEM");
 
         });
@@ -237,12 +237,14 @@ public class StatusFragment extends Fragment {
         // Update the time to the selected item's printed expiration date
         max.setTime(printedExpDate);
 
+        // Switch on the metric of the shelf life after converting it to a lowercase string
         switch (shelfLife.getMetric().toLowerCase()) {
 
             case "indefinitely":
 
                 Log.d(LOG_TAG, "Shelf Life Max: Indefinite");
 
+                // Return a date with the time set to zero to represent indefinite
                 return new Date(0L);
 
             case "days":
@@ -296,6 +298,7 @@ public class StatusFragment extends Fragment {
      */
     private long daysUntilDate(@NonNull Date date) {
 
+        // Convert dates to milliseconds, perform subtraction, then convert millis to days
         return TimeUnit.MILLISECONDS.toDays(date.getTime() - System.currentTimeMillis());
 
     }
