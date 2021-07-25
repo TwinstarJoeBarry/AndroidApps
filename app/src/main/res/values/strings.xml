@@ -247,6 +247,11 @@
     <string name="fragment_ced_select_printed_expiration_date_day_lbl">Select a day</string>
     <string name="fragment_ced_select_printed_expiration_date_year_lbl">Select a year</string>
 
+    <!-- Strings used in fragment_check_expiration_date_status.xml -->
+    <string name="fragment_ced_status_title">Item Status</string>
+    <string name="fragment_ced_status_icon_content_description">Selected item\'s status</string>
+    <string name="fragment_ced_status_msg">Status message placeholder</string>
+
     <!-- Strings used in fragment_check_expiration_date_display_true_expiration.xml -->
     <string name="fragment_ced_display_true_expiration_display_date_btn">Display true expiration date</string>
     <string name="fragment_ced_display_true_expiration_item_information_lbl">Item Information</string>
