@@ -331,18 +331,11 @@ public class NestDBDataSource {
     }
 
     /**
-<<<<<<< HEAD
-     * Looks up the shelf life records for the given productId, and returns the shelf life that
-     * matches the {@code typeIndex}.
-     *
-     * @param productId The FoodKeeper product id of the item
-=======
      * Looks up the shelf life records for the given {@code productId}, and returns the shelf life
      * that matches the {@code typeIndex}.
      *
      * @param productId The FoodKeeper product id of the item
      * @param typeIndex The index of the shelf life type, see {@link ShelfLife}.
->>>>>>> issue_226_null_pointer_exception
      * @return The ShelfLife object that matches the {@code typeIndex} or {@code null} if nothing is
      * found.
      */
