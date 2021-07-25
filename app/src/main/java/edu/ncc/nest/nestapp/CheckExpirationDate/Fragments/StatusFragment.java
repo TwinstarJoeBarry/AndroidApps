@@ -45,9 +45,11 @@ import edu.ncc.nest.nestapp.ShelfLife;
  * Displays the status of the selected item's expiration using a red, yellow, or green icon that
  * represents whether or not the item has truly expired.
  *
+ * - Grey means the items shelf life is unknown/{@code null}
  * - Red means the item has expired and should be discarded.
  * - Yellow means the item is within 30 days of expiration.
  * - Green means the item is good for 30 days or more.
+ * - Infinity means the item's shelf life is indefinite.
  */
 public class StatusFragment extends Fragment {
 
@@ -114,9 +116,9 @@ public class StatusFragment extends Fragment {
 
             if (trueExpDate == null) {
 
-                ((TextView) view.findViewById(R.id.true_exp_date)).setText("Unknown");
+                ((TextView) view.findViewById(R.id.true_exp_date)).setText(R.string.unknown);
 
-                statusMsg.setText("The shelf life of this item is unknown");
+                statusMsg.setText(R.string.status_fragment_unknown_msg);
 
                 statusIcon.setImageResource(R.drawable.ic_help);
 

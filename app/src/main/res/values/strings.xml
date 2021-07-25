@@ -36,6 +36,7 @@
     <string name="more_info">More Info</string>
     <string name="back">Back</string>
     <string name="indefinite">Indefinite</string>
+    <string name="unknown">Unknown</string>
 
     <!-- Strings used in AndroidManifest.xml -->
     <string name="title_activity_sign_up">SignUp</string>
@@ -258,6 +259,7 @@
     <string name="status_fragment_warning_msg">The item is within 30 days of expiration.</string>
     <string name="status_fragment_safe_msg">The item does not expire for 30 days or more.</string>
     <string name="status_fragment_indefinite_msg">The item\'s expiration date is indefinite.</string>
+    <string name="status_fragment_unknown_msg">The shelf life of this item is unknown.</string>
 
     <!-- Strings used in fragment_check_expiration_date_display_true_expiration.xml -->
     <string name="fragment_ced_display_true_expiration_display_date_btn">Display true expiration date</string>
