@@ -29,7 +29,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
-import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -130,19 +129,19 @@ public class StatusFragment extends Fragment {
 
                     if (numDays <= 0) {
 
-                        statusMsg.setText("The item has expired and should be discarded");
+                        statusMsg.setText(R.string.status_fragment_discard_msg);
 
                         statusIcon.setImageResource(R.drawable.ic_delete);
 
                     } else if (numDays < 30) {
 
-                        statusMsg.setText("The item is within 30 days of expiration");
+                        statusMsg.setText(R.string.status_fragment_warning_msg);
 
                         statusIcon.setImageResource(R.drawable.ic_warning);
 
                     } else {
 
-                        statusMsg.setText("The item does not expire for 30 days or more");
+                        statusMsg.setText(R.string.status_fragment_safe_msg);
 
                         statusIcon.setImageResource(R.drawable.ic_check_mark);
 
@@ -150,9 +149,9 @@ public class StatusFragment extends Fragment {
 
             } else {
 
-                ((TextView) view.findViewById(R.id.true_exp_date)).setText("Indefinite");
+                ((TextView) view.findViewById(R.id.true_exp_date)).setText(R.string.indefinite);
 
-                statusMsg.setText("The items expiration date is indefinite");
+                statusMsg.setText(R.string.status_fragment_indefinite_msg);
 
                 statusIcon.setImageResource(R.drawable.ic_indefinite);
 
