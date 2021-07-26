@@ -190,7 +190,7 @@ public class SelectItemFragment extends Fragment {
                     int productId = dataSource.getProdIdfromProdInfo(
                             productCategoryId, productName, productSubtitle);
 
-                    if (dataSource.updateUPC(upcString, brand, description, productId) == -1)
+                    if (dataSource.updateUPC(upcBarcode, brand, description, productId) == -1)
 
                         throw new RuntimeException("Error updating UPC");
 
