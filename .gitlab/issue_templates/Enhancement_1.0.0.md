@@ -45,4 +45,4 @@ By submitting this issue or commenting on this issue, or contributing any conten
 
 ## Labels
 
-(We have not finalized our list of labels, for now, include the labels you would like to include as a comment, for ex: `Label::Name`)
+(We have not finalized our list of labels, for now, include the labels you would like to include as a comment, for ex: `Label`)
