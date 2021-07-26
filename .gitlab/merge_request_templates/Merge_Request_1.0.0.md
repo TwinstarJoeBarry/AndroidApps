@@ -45,6 +45,6 @@ By submitting this issue or commenting on this issue, or contributing any conten
 - Note 2
 - Note 3
 
-## LABELS
+## Labels
 
 (We have not finalized our list of labels, for now, include the labels you would like to include as a comment, for ex: `LabelType::LabelName`)
