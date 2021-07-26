@@ -1,8 +1,6 @@
 package edu.ncc.nest.nestapp.CheckExpirationDate.Fragments;
 
-/**
- *
- * Copyright (C) 2020 The LibreFoodPantry Developers.
+/* Copyright (C) 2020 The LibreFoodPantry Developers.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -53,15 +51,17 @@ import edu.ncc.nest.nestapp.R;
  */
 public class SelectItemFragment extends Fragment {
 
+    /////////////////////////////////////// Class Variables ////////////////////////////////////////
+
+    public static final String LOG_TAG = SelectItemFragment.class.getSimpleName();
+
     /** CONSTANT DEFAULTS **/
     // FOR NON ESSENTIAL TEXT ENTRY VIEWS THAT WERE OPTIONAL AND INTENTIONALLY LEFT BLANK;
     private final String DEFAULT_STRING = "[LEFT BLANK]";
-    // FOR ESSENTIAL TEXT ENTRY VIEWS THAT SHOULD NEVER BE BLANK AND REPLACED IN CODE
-    private final String PLACEHOLDER_STRING = "[NOT RECEIVED]";
     NestDBDataSource dataSource;
 
     /** INSTANCE VARS **/
-    private String upcString; // UPC as passed from previous fragments (populated with saved bundle)
+    private String upcBarcode; // UPC as passed from previous fragments (populated with saved bundle)
 
     // To access UI elements; both directly and indirectly
     Button categoryButton, productButton, subtitleButton;
@@ -70,12 +70,15 @@ public class SelectItemFragment extends Fragment {
     private String productName, productSubtitle;
     private int productCategoryId;
 
+    /////////////////////////////////// Lifecycle Methods Start ////////////////////////////////////
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         // Initialize variables; placeholder values replaced later
-        upcString = PLACEHOLDER_STRING;
+        // FOR ESSENTIAL TEXT ENTRY VIEWS THAT SHOULD NEVER BE BLANK AND REPLACED IN CODE
+        upcBarcode = "[NOT RECEIVED]";
 
         productCategoryId = -1;
         productName = null;
@@ -109,29 +112,26 @@ public class SelectItemFragment extends Fragment {
                 productCategoryId, productName));
         subtitleButton.setEnabled(false);
 
+        // Retrieve the upc barcode from the fragment result
+        getParentFragmentManager().setFragmentResultListener("FOOD ITEM",
+                this, (key, result) -> {
 
-        // GRAB THE UPC VALUES FROM THE BUNDLE SENT FROM SCANNER FRAGMENT OR CONFIRM ITEM FRAGMENT
-        getParentFragmentManager().setFragmentResultListener("BARCODE", this, (key, bundle) -> {
+            if (result.containsKey("upcBarcode"))
 
-            upcString = bundle.getString("barcode");
+                upcBarcode = result.getString("upcBarcode");
 
-            if (upcString != null) {
+            else
 
-                String text = "Adding UPC: " + upcString;
+                upcBarcode = ((NestUPC) result.getSerializable("foodItem")).getUpc();
 
-                ((TextView) view.findViewById(R.id.fragment_select_item_headline)).setText(text);
+            assert upcBarcode != null : "Failed to retrieve required data";
 
-            } else {
+            String text = "Adding New UPC: " + upcBarcode;
 
-                // FIXME Nothing to get when navigating backward from next fragment
-                //  (select printed expiration date); not likely desirable behavior!
+            ((TextView) view.findViewById(R.id.fragment_select_item_headline)).setText(text);
 
-                throw new NullPointerException("Failed to retrieve UPC barcode.");
-
-            }
-
-            // Clear the result listener since we have successfully retrieved the result
-            getParentFragmentManager().clearFragmentResultListener("BARCODE");
+            // Clear the result listener since we successfully received the result
+            getParentFragmentManager().clearFragmentResultListener(key);
 
         });
 
@@ -146,13 +146,16 @@ public class SelectItemFragment extends Fragment {
                     R.id.fragment_select_item_description_entry))).getText().toString();
 
             // Replace any fields from above with blank values;
-            if ( brand.isEmpty() )
+            // TODO Make these next two fields required
+            if (brand.isEmpty())
+
                 brand = DEFAULT_STRING;
 
-            if ( description.isEmpty() )
+            if (description.isEmpty())
+
                 description = DEFAULT_STRING;
 
-            // and first assert that the values that CANNOT be blank, are not;
+            // First assert that the required values have been entered
             if ((productCategoryId == -1) || (productButton.isEnabled() && productName == null) ||
                     (subtitleButton.isEnabled() && productSubtitle == null)) {
 
@@ -162,20 +165,20 @@ public class SelectItemFragment extends Fragment {
             } else {
 
                 // NOTE: This will return -1 if the UPC has never been added before
-                if (dataSource.getProductIdFromUPC(upcString) == -1) {
+                if (dataSource.getProductIdFromUPC(upcBarcode) == -1) {
 
                     // No productId associated with this upc in the database, add it to the database
                     // with the appropriate product id
 
-                    Log.d("SelectItemFragment", "Selected Product: " + productCategoryId +
+                    Log.d(LOG_TAG, "Selected Product: " + productCategoryId +
                             ", " + productName + ", " + productSubtitle);
 
                     int productId = dataSource.getProdIdfromProdInfo(
                             productCategoryId, productName, productSubtitle);
 
-                    Log.d("SelectItemFragment", "Product ID: " + productId);
+                    Log.d(LOG_TAG, "Product ID: " + productId);
 
-                    if (dataSource.insertNewUPC(upcString, brand, description, productId) == -1)
+                    if (dataSource.insertNewUPC(upcBarcode, brand, description, productId) == -1)
 
                         throw new RuntimeException("Error inserting new UPC");
 
@@ -196,22 +199,13 @@ public class SelectItemFragment extends Fragment {
 
                 }
 
-                Bundle bundle = new Bundle();
+                Bundle result = new Bundle();
 
-                NestUPC foodItem = dataSource.getNestUPC(upcString);
+                NestUPC foodItem = dataSource.getNestUPC(upcBarcode);
 
-                if (foodItem == null)
+                result.putSerializable("foodItem", foodItem);
 
-                    throw new NullPointerException("Error retrieving NestUPC");
-
-                Log.d("SelectItemFragment", "foodItem.toString(): " + foodItem.toString());
-
-                bundle.putSerializable("foodItem", foodItem);
-
-                // Need to clear the result with the same request key, before using same request key again.
-                getParentFragmentManager().clearFragmentResult("FOOD ITEM");
-
-                getParentFragmentManager().setFragmentResult("FOOD ITEM", bundle);
+                getParentFragmentManager().setFragmentResult("FOOD ITEM", result);
 
                 // Navigate over to SelectPrintedExpirationDateFragment;
                 NavHostFragment.findNavController(SelectItemFragment.this)
@@ -236,15 +230,11 @@ public class SelectItemFragment extends Fragment {
 
             if (keyCode == KeyEvent.KEYCODE_BACK) {
 
-                Bundle bundle = new Bundle();
+                Bundle result = new Bundle();
 
-                bundle.putString("barcode", upcString);
+                result.putString("upcBarcode", upcBarcode);
 
-                /* Need to clear the result with the same request key, before possibly using same
-                   request key again. */
-                getParentFragmentManager().clearFragmentResult("BARCODE");
-
-                getParentFragmentManager().setFragmentResult("BARCODE", bundle);
+                getParentFragmentManager().setFragmentResult("FOOD ITEM", result);
 
             }
 
@@ -255,8 +245,9 @@ public class SelectItemFragment extends Fragment {
 
     }
 
+    //////////////////////////////////// Custom Methods Start //////////////////////////////////////
+
     /**
-     * showCategories --
      * Creates a PopupMenu to display a list of categories for the user to choose from.
      **/
     private void showCategories() {
@@ -300,7 +291,6 @@ public class SelectItemFragment extends Fragment {
 
 
     /**
-     * showProduct --
      * Creates a PopupMenu to display a list of products for the user to choose from, as long as a
      * category has been selected.
      **/
@@ -344,8 +334,6 @@ public class SelectItemFragment extends Fragment {
     }
 
     /**
-     * showProductSubtitles --
-     *
      * Creates a PopupMenu to display a list of subtitles for the user to choose from, as long as a
      * product has been selected.
      *

@@ -362,6 +362,46 @@ public class NestDBDataSource {
     }
 
     /**
+     * Looks up the shelf life records for the given {@code productId}, and returns the shelf life
+     * that matches the {@code typeIndex}.
+     *
+     * @param productId The FoodKeeper product id of the item
+     * @param typeIndex The index of the shelf life type, see {@link ShelfLife}.
+     * @return The ShelfLife object that matches the {@code typeIndex} or {@code null} if nothing is
+     * found.
+     */
+    public ShelfLife getItemShelfLife(int productId, int typeIndex) {
+
+        String qry = "SELECT * FROM view_shelf_lives_and_type_info_joined " +
+                "WHERE productId = ? AND typeIndex = ?";
+
+        Cursor c = db.rawQuery(qry, new String[]
+                {String.valueOf(productId), String.valueOf(typeIndex)});
+
+        ShelfLife shelfLife = null;
+
+        if (c.moveToFirst()) {
+
+            shelfLife = new ShelfLife(
+                    c.getInt(c.getColumnIndex("typeIndex")),
+                    c.getInt(c.getColumnIndex("min")),
+                    c.getInt(c.getColumnIndex("max")),
+                    c.getString(c.getColumnIndex("metric")),
+                    c.getString(c.getColumnIndex("tips")));
+
+            shelfLife.setCode(c.getString(c.getColumnIndex("typeCode")));
+
+            shelfLife.setDesc(c.getString(c.getColumnIndex("description")));
+
+        }
+
+        c.close();
+
+        return shelfLife;
+
+    }
+
+    /**
      * Loads a {@link NestDBDataSource} object using a {@link BackgroundTask} when this Activity is
      * created ({@link NestDBActivity#onCreate}). Also has a method that returns the
      * fully-loaded/non-{@code null} {@link NestDBDataSource} object.
