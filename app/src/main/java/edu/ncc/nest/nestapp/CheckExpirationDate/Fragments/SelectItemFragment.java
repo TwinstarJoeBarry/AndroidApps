@@ -144,68 +144,51 @@ public class SelectItemFragment extends SoftInputFragment {
 
             } else {
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+                // NOTE: This will return -1 if the UPC has never been added before
+                if (dataSource.getProductIdFromUPC(upcBarcode) == -1) {
 
-                // Allow the user one more chance to check the information they entered
-                builder.setPositiveButton("Yes", (dialog, which) -> {
+                    // No productId associated with this upc in the database, add it to the database
+                    // with the appropriate product id
 
-                    dialog.dismiss();
+                    Log.d(LOG_TAG, "Selected Product: " + productCategoryId +
+                            ", " + productName + ", " + productSubtitle);
 
-                    // NOTE: This will return -1 if the UPC has never been added before
-                    if (dataSource.getProductIdFromUPC(upcBarcode) == -1) {
+                    int productId = dataSource.getProdIdfromProdInfo(
+                            productCategoryId, productName, productSubtitle);
 
-                        // No productId associated with this upc in the database, add it to the database
-                        // with the appropriate product id
+                    Log.d(LOG_TAG, "Product ID: " + productId);
 
-                        Log.d(LOG_TAG, "Selected Product: " + productCategoryId +
-                                ", " + productName + ", " + productSubtitle);
+                    if (dataSource.insertNewUPC(upcBarcode, "not specified",
+                            "not specified", productId) == -1)
 
-                        int productId = dataSource.getProdIdfromProdInfo(
-                                productCategoryId, productName, productSubtitle);
+                        throw new RuntimeException("Error inserting new UPC");
 
-                        Log.d(LOG_TAG, "Product ID: " + productId);
+                } else {
 
-                        if (dataSource.insertNewUPC(upcBarcode, "not specified",
-                                "not specified", productId) == -1)
+                    // A productId is already associated with this upc in the database. Update it
+                    // with the new values.
 
-                            throw new RuntimeException("Error inserting new UPC");
+                    int productId = dataSource.getProdIdfromProdInfo(
+                            productCategoryId, productName, productSubtitle);
 
-                    } else {
+                    // TODO Update the UPC stored in the database with the new productId
 
-                        // A productId is already associated with this upc in the database. Update it
-                        // with the new values.
+                    // Adding this exception for now to prevent hidden errors
+                    throw new RuntimeException("NestUPC exists. Need to update upc in database.");
 
-                        int productId = dataSource.getProdIdfromProdInfo(
-                                productCategoryId, productName, productSubtitle);
+                }
 
-                        // TODO Update the UPC stored in the database with the new productId
+                Bundle result = new Bundle();
 
-                        // Adding this exception for now to prevent hidden errors
-                        throw new RuntimeException("NestUPC exists. Need to update upc in database.");
+                NestUPC foodItem = dataSource.getNestUPC(upcBarcode);
 
-                    }
+                result.putSerializable("foodItem", foodItem);
 
-                    Bundle result = new Bundle();
+                getParentFragmentManager().setFragmentResult("FOOD ITEM", result);
 
-                    NestUPC foodItem = dataSource.getNestUPC(upcBarcode);
-
-                    result.putSerializable("foodItem", foodItem);
-
-                    getParentFragmentManager().setFragmentResult("FOOD ITEM", result);
-
-                    // Navigate over to SelectPrintedExpirationDateFragment;
-                    NavHostFragment.findNavController(SelectItemFragment.this)
-                            .navigate(R.id.action_CED_SelectItemFragment_to_SelectPrintedExpirationDateFragment);
-
-                });
-
-                builder.setNegativeButton("No", (dialog, which) -> dialog.dismiss());
-
-                builder.setMessage("Please be sure the information you selected is accurate.");
-
-                builder.setTitle("Are you sure?");
-
-                builder.create().show();
+                // Navigate over to SelectPrintedExpirationDateFragment;
+                NavHostFragment.findNavController(SelectItemFragment.this).navigate(
+                        R.id.action_CED_SelectItemFragment_to_SelectPrintedExpirationDateFragment);
 
             }
 
