@@ -119,14 +119,14 @@
         tools:layout="@layout/fragment_check_expiration_date_status">
 
         <action
-            android:id="@+id/action_CED_StatusFragment_to_DisplayTrueExpirationFragment"
-            app:destination="@id/CED_DisplayTrueExpirationFragment" />
+            android:id="@+id/action_CED_StatusFragment_to_MoreInfoFragment"
+            app:destination="@id/CED_MoreInfoFragment" />
 
     </fragment>
 
     <fragment
-        android:id="@+id/CED_DisplayTrueExpirationFragment"
-        android:name="edu.ncc.nest.nestapp.CheckExpirationDate.Fragments.DisplayTrueExpirationFragment"
+        android:id="@+id/CED_MoreInfoFragment"
+        android:name="edu.ncc.nest.nestapp.CheckExpirationDate.Fragments.MoreInfoFragment"
         android:label="@string/nav_graph_ced_display_true_expiration_fragment_lbl"
         tools:layout="@layout/fragment_check_expiration_date_display_true_expiration" />
 

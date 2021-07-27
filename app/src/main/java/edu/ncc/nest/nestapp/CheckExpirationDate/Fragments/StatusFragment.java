@@ -186,7 +186,7 @@ public class StatusFragment extends Fragment {
 
             // Navigate to the proper fragment
             NavHostFragment.findNavController(StatusFragment.this)
-                    .navigate(R.id.action_CED_StatusFragment_to_DisplayTrueExpirationFragment);
+                    .navigate(R.id.action_CED_StatusFragment_to_MoreInfoFragment);
 
         });
 
