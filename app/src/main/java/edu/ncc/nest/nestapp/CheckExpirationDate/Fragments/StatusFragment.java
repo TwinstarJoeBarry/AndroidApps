@@ -268,7 +268,7 @@ public class StatusFragment extends Fragment {
             case "months":
 
                 // Add max number of months to the printed expiration date
-                max.add(Calendar.MONTH, shelfLife.getMax() - 1);
+                max.add(Calendar.MONTH, shelfLife.getMax());
 
                 Log.d(LOG_TAG, "Shelf Life Max: " + shelfLife.getMax() + " Months");
 
@@ -280,8 +280,6 @@ public class StatusFragment extends Fragment {
                 max.add(Calendar.YEAR, shelfLife.getMax());
 
                 Log.d(LOG_TAG, "Shelf Life Max: " + shelfLife.getMax() + " Years");
-
-                max.add(Calendar.MONTH, -1);
 
                 return max.getTime();
 
