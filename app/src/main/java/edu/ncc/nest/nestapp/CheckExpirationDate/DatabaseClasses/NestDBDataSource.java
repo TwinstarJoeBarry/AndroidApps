@@ -73,17 +73,13 @@ public class NestDBDataSource {
      * adds a new record the Nest UPCs table
      *
      * @param upc         upc code
-     * @param brand       brand name
-     * @param description description
      * @param productId   associated FoodKeeper product id
      * @return The row ID of the newly inserted row, or -1 if an error occurred
      */
-    public long insertNewUPC(String upc, String brand, String description, int productId) {
+    public long insertNewUPC(String upc, int productId) {
         ContentValues values = new ContentValues();
         values.clear();
         values.put("upc", upc);
-        values.put("brand", brand);
-        values.put("description", description);
         values.put("productId", productId);
         return db.insert("nestUPCs", null, values);
     }
@@ -123,8 +119,6 @@ public class NestDBDataSource {
         if (c.moveToFirst()) {
             result = new NestUPC(
                     c.getString(c.getColumnIndex("UPC")),
-                    c.getString(c.getColumnIndex("brand")),
-                    c.getString(c.getColumnIndex("description")),
                     c.getInt(c.getColumnIndex("productId")),
                     c.getString(c.getColumnIndex("name")),
                     c.getString(c.getColumnIndex("subtitle")),

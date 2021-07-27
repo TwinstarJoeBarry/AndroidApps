@@ -159,8 +159,7 @@ public class SelectItemFragment extends Fragment {
 
                     Log.d(LOG_TAG, "Product ID: " + productId);
 
-                    if (dataSource.insertNewUPC(upcBarcode, "not specified",
-                            "not specified", productId) == -1)
+                    if (dataSource.insertNewUPC(upcBarcode, productId) == -1)
 
                         throw new RuntimeException("Error inserting new UPC");
 
