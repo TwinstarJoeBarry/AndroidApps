@@ -159,6 +159,8 @@ public class StartFragment extends SoftInputFragment {
 
     }
 
+    //////////////////////////////////// Custom Methods Start //////////////////////////////////////
+
     /**
      * Initializes the EditText with an OnEditorActionListener and TextChangedListener.
      * @param view The View returned by {@link #onViewCreated(View, Bundle)}
