@@ -213,7 +213,6 @@
                     android:layout_weight="0.5"
                     android:layout_marginStart="1dp"
                     android:text="@string/accept"
-                    android:textStyle="bold"
                     tools:ignore="ButtonStyle"/>
 
             </LinearLayout>
