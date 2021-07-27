@@ -1,8 +1,6 @@
 package edu.ncc.nest.nestapp.CheckExpirationDate.Fragments;
 
-/**
- *
- * Copyright (C) 2020 The LibreFoodPantry Developers.
+/* Copyright (C) 2020 The LibreFoodPantry Developers.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,7 +24,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.fragment.NavHostFragment;
 
 import edu.ncc.nest.nestapp.CheckExpirationDate.Activities.CheckExpirationDateActivity;
@@ -47,6 +47,17 @@ import edu.ncc.nest.nestapp.R;
  */
 public class EnterUpcFragment extends Fragment {
 
+    /////////////////////////////////// Lifecycle Methods Start ////////////////////////////////////
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        // Clear any set fragment results since they are not needed in or prior to this fragment
+        getParentFragmentManager().clearFragmentResult("FOOD ITEM");
+
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -56,6 +67,7 @@ public class EnterUpcFragment extends Fragment {
 
     }
 
+    @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
@@ -64,10 +76,11 @@ public class EnterUpcFragment extends Fragment {
 
     }
 
+    //////////////////////////////////// Custom Methods Start //////////////////////////////////////
+
     /**
-     * retrieveUPC - (Taken from EnterUPC class)
-     * Gets the UPC from the EditText object the user entered the UPC into
-     * and navigates to the appropriate fragment with the entered UPC.
+     * Gets the UPC from the EditText object that the user entered the UPC into and navigates to the
+     * appropriate fragment with the entered UPC.
      */
     public void retrieveUPC() {
 
@@ -75,10 +88,10 @@ public class EnterUpcFragment extends Fragment {
         EditText editText = requireView().findViewById(R.id.edittext_enter_upc);
 
         // Get the upc string from the EditText object
-        String upc = editText.getText().toString();
+        String upcBarcode = editText.getText().toString();
 
         // Check validity of the UPC
-        if(upc.length() != 12) {
+        if(upcBarcode.length() != 12) {
 
             Toast.makeText(this.getContext(),"UPC length is 12 numbers, please enter a 12-digit number", Toast.LENGTH_SHORT).show();
 
@@ -86,38 +99,35 @@ public class EnterUpcFragment extends Fragment {
 
             NestDBDataSource dataSource = CheckExpirationDateActivity.requireDataSource(this);
 
-            NestUPC result = dataSource.getNestUPC(upc);
+            FragmentManager fragmentManager = getParentFragmentManager();
 
-            // If there is a result from the database
-            Bundle bundle = new Bundle();
+            NestUPC foodItem = dataSource.getNestUPC(upcBarcode);
 
-            if (result != null) {
+            Bundle result = new Bundle();
 
-                // If we get here, then the upc is already in the database.
+            if (foodItem != null) {
+
+                // NOTE: If we get here, then the upc is already in the database.
 
                 // Put the item in a bundle and pass it to ConfirmItemFragment
-                bundle.putSerializable("foodItem", result);
+                result.putSerializable("foodItem", foodItem);
 
-                // Make sure there is no result currently set for this request key
-                getParentFragmentManager().clearFragmentResult("FOOD ITEM");
+                fragmentManager.setFragmentResult("FOOD ITEM", result);
 
-                getParentFragmentManager().setFragmentResult("FOOD ITEM", bundle);
-
-                NavHostFragment.findNavController(EnterUpcFragment.this).navigate((R.id.CED_ConfirmItemFragment));
+                NavHostFragment.findNavController(EnterUpcFragment.this)
+                        .navigate((R.id.CED_ConfirmItemFragment));
 
             } else {
 
-                // If we get here, then the upc is does not exist in the database.
+                // NOTE: If we get here, then the upc is does not exist in the database.
 
                 // Put UPC into a bundle and pass it to SelectItemFragment (may not be necessary)
-                bundle.putString("barcode", upc);
+                result.putString("upcBarcode", upcBarcode);
 
-                // Make sure there is no result currently set for this request key
-                getParentFragmentManager().clearFragmentResult("BARCODE");
+                fragmentManager.setFragmentResult("FOOD ITEM", result);
 
-                getParentFragmentManager().setFragmentResult("BARCODE", bundle);
-
-                NavHostFragment.findNavController(EnterUpcFragment.this).navigate((R.id.CED_SelectItemFragment));
+                NavHostFragment.findNavController(EnterUpcFragment.this)
+                        .navigate((R.id.CED_SelectItemFragment));
 
             }
 

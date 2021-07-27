@@ -1,7 +1,6 @@
 package edu.ncc.nest.nestapp.CheckExpirationDate.Fragments;
 
-/**
- * Copyright (C) 2020 The LibreFoodPantry Developers.
+/* Copyright (C) 2020 The LibreFoodPantry Developers.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -36,6 +35,7 @@ import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentManager;
 import androidx.navigation.fragment.NavHostFragment;
 
@@ -59,7 +59,21 @@ import edu.ncc.nest.nestapp.R;
  */
 public class ScannerFragment extends AbstractScannerFragment {
 
+    /////////////////////////////////////// Class Variables ////////////////////////////////////////
+
     public static final String LOG_TAG = ScannerFragment.class.getSimpleName();
+
+    /////////////////////////////////// Lifecycle Methods Start ////////////////////////////////////
+
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        // Clear any set fragment results since they are not needed in or prior to this fragment
+        getParentFragmentManager().clearFragmentResult("FOOD ITEM");
+
+    }
 
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
@@ -78,26 +92,21 @@ public class ScannerFragment extends AbstractScannerFragment {
 
         NestDBDataSource dataSource = CheckExpirationDateActivity.requireDataSource(this);
 
+        FragmentManager fragmentManager = getParentFragmentManager();
+
         // Find the NestUPC object that matches the scanned barcode
-        NestUPC result = dataSource.getNestUPC(barcode);
+        NestUPC foodItem = dataSource.getNestUPC(barcode);
 
-        Bundle bundle = new Bundle();
+        Bundle result = new Bundle();
 
-        if (result != null) {
+        if (foodItem != null) {
 
-            // If we get here, then the upc is already in the database.
+            // NOTE: If we get here, then the upc is already in the database.
 
-            Log.d(ScannerFragment.LOG_TAG, "Result returned: " + result.getUpc() + " " + result.getProductName());
+            // Put the food item into the bundle and pass it to ConfirmItemFragment
+            result.putSerializable("foodItem", foodItem);
 
-            // Put the item in a bundle and pass it to ConfirmItemFragment
-            bundle.putSerializable("foodItem", result);
-
-            FragmentManager fragmentManager = getParentFragmentManager();
-
-            // Make sure there is no result currently set for this request key
-            fragmentManager.clearFragmentResult("FOOD ITEM");
-
-            fragmentManager.setFragmentResult("FOOD ITEM", bundle);
+            fragmentManager.setFragmentResult("FOOD ITEM", result);
 
             // Navigate to ConfirmItemFragment
             NavHostFragment.findNavController(ScannerFragment.this)
@@ -105,17 +114,12 @@ public class ScannerFragment extends AbstractScannerFragment {
 
         } else {
 
-            // If we get here, then the upc is does not exist in the database.
+            // NOTE: If we get here, then the upc is does not exist in the database.
 
-            // Put UPC into a bundle and pass it to SelectItemFragment (may not be necessary)
-            bundle.putString("barcode", barcode);
+            // Put UPC into the bundle
+            result.putString("upcBarcode", barcode);
 
-            FragmentManager fragmentManager = getParentFragmentManager();
-
-            // Make sure there is no result currently set for this request key
-            fragmentManager.clearFragmentResult("BARCODE");
-
-            fragmentManager.setFragmentResult("BARCODE", bundle);
+            fragmentManager.setFragmentResult("FOOD ITEM", result);
 
             // Navigate to SelectItemFragment
             NavHostFragment.findNavController(ScannerFragment.this)
