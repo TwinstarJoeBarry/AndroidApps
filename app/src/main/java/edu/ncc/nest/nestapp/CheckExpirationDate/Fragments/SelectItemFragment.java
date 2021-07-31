@@ -171,10 +171,10 @@ public class SelectItemFragment extends Fragment {
                     int productId = dataSource.getProdIdfromProdInfo(
                             productCategoryId, productName, productSubtitle);
 
-                    // TODO Update the UPC stored in the database with the new productId
+                    if (dataSource.updateUPC(upcBarcode, "not specified",
+                            "not specified", productId) == -1)
 
-                    // Adding this exception for now to prevent hidden errors
-                    throw new RuntimeException("NestUPC exists. Need to update upc in database.");
+                        throw new RuntimeException("Error updating UPC");
 
                 }
 

@@ -85,6 +85,37 @@ public class NestDBDataSource {
     }
 
     /**
+     * updateUPC method --
+     *
+     * This method deletes all information associated with an already existing
+     * UPC, and then re-inserts the UPC as a new database record with the information
+     * provided
+     *
+     * @param upc         upc code
+     * @param brand       brand name
+     * @param description description
+     * @param productId   associated FoodKeeper product id
+     * @return The row ID of the newly inserted row, or -1 if an error occurred
+     *
+     **/
+    public long updateUPC(String upc, String brand, String description, int productId)
+    {
+        Log.d("NestDBDataSource", "Made it to line 103!");
+
+        db.delete("nestUPCs", "UPC = ?", new String[] {upc});
+
+        Log.d("NestDBDataSource", "Made it to line 107, ie line 105 works!");
+
+        ContentValues values = new ContentValues();
+        values.clear();
+        values.put("upc", upc);
+        values.put("brand", brand);
+        values.put("description", description);
+        values.put("productId", productId);
+        return db.insert("nestUPCs", null, values);
+    }
+
+    /**
      * getProductIdFromUPC method -
      * looks up the given UPC code in the Nest UPCs table and returns the associated
      * product ID
@@ -322,6 +353,46 @@ public class NestDBDataSource {
         }
         c.close();
         return result;
+    }
+
+    /**
+     * Looks up the shelf life records for the given {@code productId}, and returns the shelf life
+     * that matches the {@code typeIndex}.
+     *
+     * @param productId The FoodKeeper product id of the item
+     * @param typeIndex The index of the shelf life type, see {@link ShelfLife}.
+     * @return The ShelfLife object that matches the {@code typeIndex} or {@code null} if nothing is
+     * found.
+     */
+    public ShelfLife getItemShelfLife(int productId, int typeIndex) {
+
+        String qry = "SELECT * FROM view_shelf_lives_and_type_info_joined " +
+                "WHERE productId = ? AND typeIndex = ?";
+
+        Cursor c = db.rawQuery(qry, new String[]
+                {String.valueOf(productId), String.valueOf(typeIndex)});
+
+        ShelfLife shelfLife = null;
+
+        if (c.moveToFirst()) {
+
+            shelfLife = new ShelfLife(
+                    c.getInt(c.getColumnIndex("typeIndex")),
+                    c.getInt(c.getColumnIndex("min")),
+                    c.getInt(c.getColumnIndex("max")),
+                    c.getString(c.getColumnIndex("metric")),
+                    c.getString(c.getColumnIndex("tips")));
+
+            shelfLife.setCode(c.getString(c.getColumnIndex("typeCode")));
+
+            shelfLife.setDesc(c.getString(c.getColumnIndex("description")));
+
+        }
+
+        c.close();
+
+        return shelfLife;
+
     }
 
     /**
