@@ -28,6 +28,10 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import java.text.DateFormatSymbols;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.time.ZonedDateTime;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -45,7 +49,7 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
     /** The tag to use when printing to the log from this class. */
     public static final String LOG_TAG = SelectPrintedExpirationDateFragment.class.getSimpleName();
 
-    private final Calendar printedExpDate = Calendar.getInstance();
+    private LocalDate printedExpDate = LocalDate.now();
 
     private NumberPicker dayPicker;
 
@@ -73,17 +77,9 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
 
             /* This request key is only required when navigating back from
              * StatusFragment */
-            if (!result.containsKey("printedExpDate")) {
+            if (result.containsKey("printedExpDate"))
 
-                // Clear and update the printed expiration date to reflect the current date
-                setPrintedExpDate(printedExpDate.get(Calendar.YEAR),
-                        printedExpDate.get(Calendar.MONTH),
-                        printedExpDate.get(Calendar.DAY_OF_MONTH));
-
-            } else
-
-                // Retrieve the printed expiration date from the bundle
-                printedExpDate.setTime((Date) result.getSerializable("printedExpDate"));
+                printedExpDate = (LocalDate) result.getSerializable("printedExpDate");
 
             // Get the foodItem from the bundle
             foodItem = (NestUPC) result.getSerializable("foodItem");
@@ -109,7 +105,7 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
 
             result.putSerializable("foodItem", foodItem);
 
-            result.putSerializable("printedExpDate", printedExpDate.getTime());
+            result.putSerializable("printedExpDate", printedExpDate);
 
             // Set the fragment result to the bundle
             getParentFragmentManager().setFragmentResult("FOOD ITEM", result);
@@ -148,27 +144,6 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
     //////////////////////////////////// Custom Methods Start  /////////////////////////////////////
 
     /**
-     * Clamps a date so that the days can't be greater than the actual maximum number of days in
-     * the month of the year then sets the printed expiration date to the clamped date.
-     * @param year The desired year
-     * @param month The desired month
-     * @param day The desired day
-     */
-    private void setPrintedExpDate(int year, int month, int day) {
-
-        // Clear all fields to make sure only the date fields get set
-        printedExpDate.clear();
-
-        // Make sure to set the year and month before calculating the actual maximum number of days
-        printedExpDate.set(year, month, 1);
-
-        // Set and clamp the date to the actual maximum number of days
-        printedExpDate.set(year, month,
-                Math.min(day, printedExpDate.getActualMaximum(Calendar.DAY_OF_MONTH)));
-
-    }
-
-    /**
      * Initializes a {@link NumberPicker} with the appropriate values for selecting a month, and
      * sets its {@link NumberPicker.OnValueChangeListener}.
      * @param view The {@link View} of this fragment's UI
@@ -178,23 +153,22 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
         NumberPicker monthPicker = view.findViewById(R.id.number_picker_month);
 
         // Set the min and max values to be 0-based
-        monthPicker.setMinValue(0);
-        monthPicker.setMaxValue(11);
+        monthPicker.setMinValue(1);
+        monthPicker.setMaxValue(12);
 
         // Get an array of the months as strings and set it as the displayed values
         monthPicker.setDisplayedValues(new DateFormatSymbols().getMonths());
 
-        monthPicker.setValue(printedExpDate.get(Calendar.MONTH));
+        monthPicker.setValue(printedExpDate.getMonthValue());
 
         monthPicker.setOnValueChangedListener((picker, oldVal, newVal) -> {
 
-            setPrintedExpDate(printedExpDate.get(Calendar.YEAR), newVal,
-                    printedExpDate.get(Calendar.DAY_OF_MONTH));
+            printedExpDate = printedExpDate.withMonth(newVal);
 
             // Make sure we update the number of days in the selected month
-            dayPicker.setMaxValue(printedExpDate.getActualMaximum(Calendar.DAY_OF_MONTH));
+            dayPicker.setMaxValue(printedExpDate.lengthOfMonth());
 
-            dayPicker.setValue(printedExpDate.get(Calendar.DAY_OF_MONTH));
+            dayPicker.setValue(printedExpDate.getDayOfMonth());
 
         });
 
@@ -212,13 +186,12 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
         dayPicker.setMinValue(1);
 
         // Set the max value to the actual number of days in the current month
-        dayPicker.setMaxValue(printedExpDate.getActualMaximum(Calendar.DAY_OF_MONTH));
+        dayPicker.setMaxValue(printedExpDate.lengthOfMonth());
 
-        dayPicker.setValue(printedExpDate.get(Calendar.DAY_OF_MONTH));
+        dayPicker.setValue(printedExpDate.getDayOfMonth());
 
         dayPicker.setOnValueChangedListener((picker, oldVal, newVal) ->
-                setPrintedExpDate(printedExpDate.get(Calendar.YEAR),
-                printedExpDate.get(Calendar.MONTH), newVal));
+                printedExpDate = printedExpDate.withDayOfMonth(newVal));
 
     }
 
@@ -236,17 +209,16 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
         yearPicker.setMinValue(CURRENT_YEAR - 10);
         yearPicker.setMaxValue(CURRENT_YEAR + 10);
 
-        yearPicker.setValue(printedExpDate.get(Calendar.YEAR));
+        yearPicker.setValue(printedExpDate.getYear());
 
         yearPicker.setOnValueChangedListener((picker, oldVal, newVal) -> {
 
-            setPrintedExpDate(newVal, printedExpDate.get(Calendar.MONTH),
-                    printedExpDate.get(Calendar.DAY_OF_MONTH));
+            printedExpDate = printedExpDate.withYear(newVal);
 
             // Make sure we update the number of days in the month, in case of leap years
-            dayPicker.setMaxValue(printedExpDate.getActualMaximum(Calendar.DAY_OF_MONTH));
+            dayPicker.setMaxValue(printedExpDate.lengthOfMonth());
 
-            dayPicker.setValue(printedExpDate.get(Calendar.DAY_OF_MONTH));
+            dayPicker.setValue(printedExpDate.getDayOfMonth());
 
         });
 

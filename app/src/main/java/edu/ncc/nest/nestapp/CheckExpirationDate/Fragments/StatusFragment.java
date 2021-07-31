@@ -31,6 +31,10 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -58,11 +62,14 @@ public class StatusFragment extends Fragment {
     /** The tag to use when printing to the log from this class. */
     public static final String LOG_TAG = StatusFragment.class.getSimpleName();
 
+    public static final DateTimeFormatter dateTimeFormatter =
+            DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT);
+
     private NestDBDataSource dataSource;
 
-    private Date printedExpDate;
+    private LocalDate printedExpDate;
 
-    private Date trueExpDate;
+    private LocalDate trueExpDate;
 
     private NestUPC foodItem;
 
@@ -102,7 +109,7 @@ public class StatusFragment extends Fragment {
             foodItem = (NestUPC) result.getSerializable("foodItem");
 
             // Retrieve the printed expiration date from the bundle
-            printedExpDate = (Date) result.getSerializable("printedExpDate");
+            printedExpDate = (LocalDate) result.getSerializable("printedExpDate");
 
             assert foodItem != null && printedExpDate != null : "Failed to retrieve required data";
 
@@ -114,7 +121,8 @@ public class StatusFragment extends Fragment {
 
             trueExpDate = calculateTrueExpDate(dop_pantryLife);
 
-            Log.d(LOG_TAG, "Printed Expiration Date: " + formatDate(printedExpDate));
+            Log.d(LOG_TAG, "Printed Expiration Date: " +
+                    dateTimeFormatter.format(printedExpDate));
 
             if (trueExpDate == null) {
 
@@ -126,13 +134,15 @@ public class StatusFragment extends Fragment {
 
                 statusIcon.setImageResource(R.drawable.ic_help);
 
-            } else if (trueExpDate.getTime() != 0L) {
+            } else if (!trueExpDate.equals(LocalDate.MAX)) {
 
-                Log.d(LOG_TAG, "True Expiration Date: " + formatDate(trueExpDate));
+                Log.d(LOG_TAG, "True Expiration Date: " +
+                        dateTimeFormatter.format(trueExpDate));
 
-                ((TextView) view.findViewById(R.id.true_exp_date)).setText(formatDate(trueExpDate));
+                ((TextView) view.findViewById(R.id.true_exp_date)).setText(
+                        dateTimeFormatter.format(trueExpDate));
 
-                long numDays = daysUntilDate(trueExpDate);
+                long numDays = LocalDate.now().until(trueExpDate, ChronoUnit.DAYS);
 
                 if (numDays <= 0) {
 
@@ -223,95 +233,38 @@ public class StatusFragment extends Fragment {
      * Calculates the true expiration date of an item based on it's shelf life and printed
      * expiration date. ({@code printedExpDate} + {@link ShelfLife#getMax()} - 1 Month).
      * @param shelfLife The {@link ShelfLife} to use when calculate the date.
-     * @return The true expiration {@link Date} of the given item.
+     * @return The true expiration date of the given item.
      */
-    private Date calculateTrueExpDate(ShelfLife shelfLife) {
+    private LocalDate calculateTrueExpDate(ShelfLife shelfLife) {
 
         if (shelfLife == null || shelfLife.getMetric() == null)
 
             return null;
 
-        // Get an instance of the Calendar class
-        Calendar max = Calendar.getInstance();
+        // Switch on the metric of the shelf life after converting it to a uppercase string
+        switch (shelfLife.getMetric().toUpperCase()) {
 
-        // Update the time to the selected item's printed expiration date
-        max.setTime(printedExpDate);
-
-        // Switch on the metric of the shelf life after converting it to a lowercase string
-        switch (shelfLife.getMetric().toLowerCase()) {
-
-            case "indefinitely":
+            case "INDEFINITELY":
 
                 Log.d(LOG_TAG, "Shelf Life Max: Indefinite");
 
-                // Return a date with the time set to zero to represent indefinite
-                return new Date(0L);
+                // Return the maximum supported LocalDate
+                return LocalDate.MAX;
 
-            case "days":
+            case "DAYS": case "WEEKS": case "MONTHS": case "YEARS":
 
-                // Add max number of days to the printed expiration date
-                max.add(Calendar.DAY_OF_MONTH, shelfLife.getMax());
+                Log.d(LOG_TAG, "Shelf Life Max: " + shelfLife.getMax() +
+                        " " + shelfLife.getMetric());
 
-                Log.d(LOG_TAG, "Shelf Life Max: " + shelfLife.getMax() + " Days");
+                return printedExpDate.plus(shelfLife.getMax(),
+                        ChronoUnit.valueOf(shelfLife.getMetric().toUpperCase()));
 
-                return max.getTime();
+            default:
 
-            case "weeks":
-
-                // Add max number of weeks to the printed expiration date
-                max.add(Calendar.WEEK_OF_MONTH, shelfLife.getMax());
-
-                Log.d(LOG_TAG, "Shelf Life Max: " + shelfLife.getMax() + " Weeks");
-
-                return max.getTime();
-
-            case "months":
-
-                // Add max number of months to the printed expiration date
-                max.add(Calendar.MONTH, shelfLife.getMax());
-
-                Log.d(LOG_TAG, "Shelf Life Max: " + shelfLife.getMax() + " Months");
-
-                return max.getTime();
-
-            case "years":
-
-                // Add max number of years to the printed expiration date
-                max.add(Calendar.YEAR, shelfLife.getMax());
-
-                Log.d(LOG_TAG, "Shelf Life Max: " + shelfLife.getMax() + " Years");
-
-                return max.getTime();
+                throw new RuntimeException("Missing case for shelf life metric: " +
+                        shelfLife.getMetric());
 
         }
-
-        return null;
-
-    }
-
-    /**
-     * Calculates and returns number of day from the current system date until the given date.
-     * @param date The {@link Date} to use when performing the calculation.
-     * @return The number of days until the given date.
-     */
-    private long daysUntilDate(@NonNull Date date) {
-
-        // Convert dates to milliseconds, perform subtraction, then convert millis to days
-        return TimeUnit.MILLISECONDS.toDays(date.getTime() - System.currentTimeMillis());
-
-    }
-
-    /**
-     * Formats a date object's time as a date {@link String} in the format of "MM/dd/yyy"
-     * @param date The date to format
-     * @return The formatted date string.
-     */
-    private String formatDate(@NonNull Date date) {
-
-        // Format the date to the pattern of MM/dd/yyyy and return the result
-        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
-
-        return sdf.format(date.getTime());
 
     }
 
