@@ -92,27 +92,21 @@ public class NestDBDataSource {
      * provided
      *
      * @param upc         upc code
-     * @param brand       brand name
-     * @param description description
      * @param productId   associated FoodKeeper product id
      * @return The row ID of the newly inserted row, or -1 if an error occurred
      *
      **/
-    public long updateUPC(String upc, String brand, String description, int productId)
-    {
-        Log.d("NestDBDataSource", "Made it to line 103!");
+    public long updateUPC(String upc, int productId) {
 
         db.delete("nestUPCs", "UPC = ?", new String[] {upc});
 
-        Log.d("NestDBDataSource", "Made it to line 107, ie line 105 works!");
-
         ContentValues values = new ContentValues();
-        values.clear();
+
         values.put("upc", upc);
-        values.put("brand", brand);
-        values.put("description", description);
         values.put("productId", productId);
+
         return db.insert("nestUPCs", null, values);
+
     }
 
     /**
