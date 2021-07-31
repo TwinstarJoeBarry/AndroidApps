@@ -29,11 +29,7 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import java.text.DateFormatSymbols;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.Month;
-import java.time.ZonedDateTime;
 import java.util.Calendar;
-import java.util.Date;
 
 import edu.ncc.nest.nestapp.CheckExpirationDate.DatabaseClasses.NestUPC;
 import edu.ncc.nest.nestapp.R;
