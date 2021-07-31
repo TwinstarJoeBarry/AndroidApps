@@ -117,7 +117,7 @@ public class StatusFragment extends Fragment {
             ShelfLife dop_pantryLife = dataSource.getItemShelfLife(
                     foodItem.getProductId(), ShelfLife.DOP_PL);
 
-            updateShelfLifeTips(view, dop_pantryLife);
+            ((TextView) view.findViewById(R.id.storage_tips)).setText(getTips(dop_pantryLife));
 
             trueExpDate = calculateTrueExpDate(dop_pantryLife);
 
@@ -284,19 +284,23 @@ public class StatusFragment extends Fragment {
     }
 
     /**
-     * Updates the storage tips {@link TextView} object in this fragment's layout to display any
-     * available storage tips.
+     * Return any available storage tips stored in the given {@link ShelfLife} object, or "N/A".
      * @param shelfLife The shelf life to get the tips from.
+     * @return The storage tips or "N/A" if there is none.
      */
-    private void updateShelfLifeTips(@NonNull View view, ShelfLife shelfLife) {
+    private String getTips(ShelfLife shelfLife) {
 
-        if (shelfLife != null && shelfLife.getTips() != null)
+        if (shelfLife != null) {
 
-            ((TextView) view.findViewById(R.id.storage_tips)).setText(shelfLife.getTips());
+            String shelfLifeTips = shelfLife.getTips();
 
-        else
+            if (shelfLifeTips != null)
 
-            ((TextView) view.findViewById(R.id.storage_tips)).setText("N/A");
+                return shelfLifeTips;
+
+        }
+
+        return "N/A";
 
     }
 
