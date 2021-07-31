@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-*
 * Copyright (C) 2020-2021 The LibreFoodPantry Developers.
 *
 * This program is free software: you can redistribute it and/or modify
@@ -16,204 +15,318 @@
 * You should have received a copy of the GNU General Public License
 * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="32dp"
-    tools:context=".CheckExpirationDate.Fragments.DisplayTrueExpirationFragment">
+    tools:context=".CheckExpirationDate.Fragments.MoreInfoFragment"
+    android:scrollbars="vertical"
+    android:background="#BBBBBB">
 
     <LinearLayout
+        android:id="@+id/scroll_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="48dp">
+        android:padding="2dp"
+        android:orientation="vertical">
 
         <TextView
-            android:id="@+id/upc_lbl"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:text="@string/fragment_ced_display_true_expiration_upc_lbl"
-            android:textStyle="bold" />
+            android:padding="12dp"
+            android:layout_marginHorizontal="1dp"
+            android:layout_marginTop="2dp"
+            android:text="@string/fragment_ced_display_true_expiration_item_information_lbl"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:background="@drawable/background_dialog"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp"
+            android:layout_marginHorizontal="1dp"
+            android:background="@drawable/background_dialog">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:text="@string/fragment_ced_display_true_expiration_item_info_msg" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginVertical="24dp"
+                android:backgroundTint="@android:color/darker_gray"
+                android:foreground="@android:color/darker_gray"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="48dp">
+
+                <TextView
+                    android:id="@+id/upc_lbl"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:text="@string/fragment_ced_display_true_expiration_upc_lbl"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/upc"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:layout_marginStart="8dp"
+                    android:text="" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="48dp">
+
+                <TextView
+                    android:id="@+id/category_lbl"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:text="@string/fragment_ced_display_true_expiration_category_lbl"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/category"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:layout_marginStart="8dp"
+                    android:text="" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="48dp">
+
+                <TextView
+                    android:id="@+id/item_lbl"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:text="@string/fragment_ced_display_true_expiration_item_lbl"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/item"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:layout_marginStart="8dp"
+                    android:text="" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/type_lbl"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:text="@string/fragment_ced_display_true_expiration_type_lbl"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/type"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:layout_marginStart="8dp"
+                    android:text="" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginVertical="24dp"
+                android:backgroundTint="@android:color/darker_gray"
+                android:foreground="@android:color/darker_gray"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/printed_exp_date_lbl"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:text="@string/fragment_ced_display_true_expiration_printed_expiration_date_lbl"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/printed_exp_date"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:layout_marginStart="8dp"
+                    android:text="" />
+
+            </LinearLayout>
+
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/display_upc"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:layout_marginStart="8dp"
-            android:text="" />
+            android:padding="12dp"
+            android:layout_marginHorizontal="1dp"
+            android:text="@string/fragment_ced_display_true_expiration_shelf_life_information_lbl"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:background="@drawable/background_dialog"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp"
+            android:layout_marginHorizontal="1dp"
+            android:background="@drawable/background_dialog">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:text="@string/fragment_ced_display_true_expiration_shelf_life_info_msg" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginVertical="24dp"
+                android:backgroundTint="@android:color/darker_gray"
+                android:foreground="@android:color/darker_gray"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="48dp">
+
+                <TextView
+                    android:id="@+id/shelf_life_lbl"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:text="@string/fragment_ced_display_true_expiration_shelf_life_lbl"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/shelf_life"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:layout_marginStart="8dp"
+                    android:text="" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="48dp">
+
+                <TextView
+                    android:id="@+id/storage_type_lbl"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:text="@string/fragment_ced_display_true_expiration_storage_type_lbl"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/storage_type"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:layout_marginStart="8dp"
+                    android:text="" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/storage_tips_lbl"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:text="@string/fragment_ced_display_true_expiration_storage_tips_lbl"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/storage_tips"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:layout_marginStart="8dp"
+                    android:text="" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginVertical="24dp"
+                android:backgroundTint="@android:color/darker_gray"
+                android:foreground="@android:color/darker_gray"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/true_exp_date_lbl"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:text="@string/fragment_ced_display_true_expiration_true_expiration_date_lbl"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/true_exp_date"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:layout_marginStart="8dp"
+                    android:text="" />
+
+            </LinearLayout>
+
+        </LinearLayout>
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="48dp">
-
-        <TextView
-            android:id="@+id/item_lbl"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:text="@string/fragment_ced_display_true_expiration_item_lbl"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/item"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:layout_marginStart="8dp"
-            android:text="" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="48dp">
-
-        <TextView
-            android:id="@+id/category_lbl"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:text="@string/fragment_ced_display_true_expiration_category_lbl"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/category"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:layout_marginStart="8dp"
-            android:text="" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="48dp">
-
-        <TextView
-            android:id="@+id/printed_exp_date_lbl"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight=".5"
-            android:text="@string/fragment_ced_display_true_expiration_printed_expiration_date_lbl"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/printed_exp_date"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:layout_marginStart="8dp"
-            android:text="" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="48dp">
-
-        <TextView
-            android:id="@+id/true_exp_date_lbl"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:text="@string/fragment_ced_display_true_expiration_true_expiration_date_lbl"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/true_exp_date"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:layout_marginStart="8dp"
-            android:text="" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="48dp">
-
-        <TextView
-            android:id="@+id/shelf_life_lbl"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:text="@string/fragment_ced_display_true_expiration_shelf_life_lbl"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/shelf_life"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:layout_marginStart="8dp"
-            android:text="" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="48dp">
-
-        <TextView
-            android:id="@+id/storage_type_lbl"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:text="@string/fragment_ced_display_true_expiration_storage_type_lbl"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/storage_type"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:layout_marginStart="8dp"
-            android:text="" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="48dp">
-
-        <TextView
-            android:id="@+id/storage_tips_lbl"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:text="@string/fragment_ced_display_true_expiration_storage_tips_lbl"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/storage_tips"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:layout_marginStart="8dp"
-            android:text="" />
-
-    </LinearLayout>
-
-</LinearLayout>
+</ScrollView>

@@ -24,13 +24,12 @@ import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AlertDialog;
 import androidx.navigation.fragment.NavHostFragment;
 
 import java.util.ArrayList;
@@ -40,6 +39,7 @@ import edu.ncc.nest.nestapp.CheckExpirationDate.Activities.CheckExpirationDateAc
 import edu.ncc.nest.nestapp.CheckExpirationDate.DatabaseClasses.NestDBDataSource;
 import edu.ncc.nest.nestapp.CheckExpirationDate.DatabaseClasses.NestUPC;
 import edu.ncc.nest.nestapp.R;
+import edu.ncc.nest.nestapp.SoftInputFragment;
 
 /**
  * SelectItemFragment: Allows user to select item options that will be used to determine a proper
@@ -49,15 +49,13 @@ import edu.ncc.nest.nestapp.R;
  * See {@link edu.ncc.nest.nestapp.NewNestUPC} and {@link edu.ncc.nest.nestapp.ItemInformation}
  * for reference.
  */
-public class SelectItemFragment extends Fragment {
+public class SelectItemFragment extends SoftInputFragment {
 
     /////////////////////////////////////// Class Variables ////////////////////////////////////////
 
     public static final String LOG_TAG = SelectItemFragment.class.getSimpleName();
 
     /** CONSTANT DEFAULTS **/
-    // FOR NON ESSENTIAL TEXT ENTRY VIEWS THAT WERE OPTIONAL AND INTENTIONALLY LEFT BLANK;
-    private final String DEFAULT_STRING = "[LEFT BLANK]";
     NestDBDataSource dataSource;
 
     /** INSTANCE VARS **/
@@ -96,22 +94,6 @@ public class SelectItemFragment extends Fragment {
         // Get a source object of the database to add the information;
         dataSource = CheckExpirationDateActivity.requireDataSource(this);
 
-        // INITIALIZE UI ELEMENTS THAT ARE INSTANCE VARIABLES
-        categoryHint = view.findViewById(R.id.fragment_select_item_category_hint);
-        categoryButton = view.findViewById(R.id.fragment_select_item_category_select);
-        categoryButton.setOnClickListener( v -> showCategories() );
-
-        productHint = view.findViewById(R.id.fragment_select_item_product_hint);
-        productButton = view.findViewById(R.id.fragment_select_item_product_select);
-        productButton.setOnClickListener( v -> showProducts() );
-        productButton.setEnabled(false);
-
-        subtitleHint = view.findViewById(R.id.fragment_select_item_subtitle_hint);
-        subtitleButton = view.findViewById(R.id.fragment_select_item_subtitle_select);
-        subtitleButton.setOnClickListener( v -> showProductSubtitles(
-                productCategoryId, productName));
-        subtitleButton.setEnabled(false);
-
         // Retrieve the upc barcode from the fragment result
         getParentFragmentManager().setFragmentResultListener("FOOD ITEM",
                 this, (key, result) -> {
@@ -126,34 +108,32 @@ public class SelectItemFragment extends Fragment {
 
             assert upcBarcode != null : "Failed to retrieve required data";
 
-            String text = "Adding New UPC: " + upcBarcode;
-
-            ((TextView) view.findViewById(R.id.fragment_select_item_headline)).setText(text);
+            // Display the upc barcode to the user
+            ((TextView) view.findViewById(R.id.upc)).setText(upcBarcode);
 
             // Clear the result listener since we successfully received the result
             getParentFragmentManager().clearFragmentResultListener(key);
 
         });
 
+        // INITIALIZE UI ELEMENTS THAT ARE INSTANCE VARIABLES
+        categoryHint = view.findViewById(R.id.select_item_category);
+        categoryButton = view.findViewById(R.id.select_item_category_btn);
+        categoryButton.setOnClickListener(v -> showCategories());
+
+        productHint = view.findViewById(R.id.select_item_product);
+        productButton = view.findViewById(R.id.select_item_product_btn);
+        productButton.setEnabled(false);
+        productButton.setOnClickListener(v -> showProducts());
+
+        subtitleHint = view.findViewById(R.id.select_item_type);
+        subtitleButton = view.findViewById(R.id.select_item_type_btn);
+        subtitleButton.setEnabled(false);
+        subtitleButton.setOnClickListener(v ->
+                showProductSubtitles(productCategoryId, productName));
+
         // ACCEPT BUTTON CODE - PARSE VALUES FOR NEW UPC, PASS INFO TO PRINTED EXPIRATION DATE
-        view.findViewById(R.id.acceptButton).setOnClickListener( view1 -> {
-
-            // Retrieve the String information from each view, casting as appropriate;
-            String brand = ((EditText) (view.findViewById(
-                    R.id.fragment_select_item_brand_entry))).getText().toString();
-
-            String description = ((EditText) (view.findViewById(
-                    R.id.fragment_select_item_description_entry))).getText().toString();
-
-            // Replace any fields from above with blank values;
-            // TODO Make these next two fields required
-            if (brand.isEmpty())
-
-                brand = DEFAULT_STRING;
-
-            if (description.isEmpty())
-
-                description = DEFAULT_STRING;
+        view.findViewById(R.id.select_item_accept_btn).setOnClickListener(v -> {
 
             // First assert that the required values have been entered
             if ((productCategoryId == -1) || (productButton.isEnabled() && productName == null) ||
@@ -178,7 +158,8 @@ public class SelectItemFragment extends Fragment {
 
                     Log.d(LOG_TAG, "Product ID: " + productId);
 
-                    if (dataSource.insertNewUPC(upcBarcode, brand, description, productId) == -1)
+                    if (dataSource.insertNewUPC(upcBarcode, "not specified",
+                            "not specified", productId) == -1)
 
                         throw new RuntimeException("Error inserting new UPC");
 
@@ -190,8 +171,7 @@ public class SelectItemFragment extends Fragment {
                     int productId = dataSource.getProdIdfromProdInfo(
                             productCategoryId, productName, productSubtitle);
 
-                    // TODO Update the UPC stored in the database with the new brand, description,
-                    //  and productId
+                    // TODO Update the UPC stored in the database with the new productId
 
                     // Adding this exception for now to prevent hidden errors
                     throw new RuntimeException("NestUPC exists. Need to update upc in database.");
@@ -207,17 +187,24 @@ public class SelectItemFragment extends Fragment {
                 getParentFragmentManager().setFragmentResult("FOOD ITEM", result);
 
                 // Navigate over to SelectPrintedExpirationDateFragment;
-                NavHostFragment.findNavController(SelectItemFragment.this)
-                        .navigate(R.id.action_CED_SelectItemFragment_to_SelectPrintedExpirationDateFragment);
+                NavHostFragment.findNavController(SelectItemFragment.this).navigate(
+                        R.id.action_CED_SelectItemFragment_to_SelectPrintedExpirationDateFragment);
 
             }
 
         });
 
-        // CANCEL BUTTON CODE - NAVIGATE BACK TO START FRAGMENT
-        view.findViewById(R.id.cancelButton).setOnClickListener( view12 ->
-                NavHostFragment.findNavController(SelectItemFragment.this)
-                        .navigate(R.id.CED_StartFragment));
+        view.findViewById(R.id.select_item_cancel_btn).setOnClickListener(v -> {
+
+            Bundle result = new Bundle();
+
+            result.putString("upcBarcode", upcBarcode);
+
+            getParentFragmentManager().setFragmentResult("FOOD ITEM", result);
+
+            requireActivity().onBackPressed();
+
+        });
 
         //////////////////////////////// On Back Button Pressed   //////////////////////////////////
 
@@ -261,7 +248,6 @@ public class SelectItemFragment extends Fragment {
 
             menu.add(i + 1, i, i, categories.get(i));
 
-        // THE ACTUAL ON CLICK CODE TO SET THE SUB CATEGORY INDEX AND POPULATE A TEXT VIEW WITH THE INFORMATION
         menuPop.setOnMenuItemClickListener(item -> {
 
             productCategoryId = item.getItemId() + 1;
@@ -307,8 +293,6 @@ public class SelectItemFragment extends Fragment {
 
                 menu.add(productCategoryId, i, i, products.get(i));
 
-
-            // THE ACTUAL ON CLICK CODE TO SET THE SUBCATEGORY AND POPULATE A TEXT VIEW WITH THE INFORMATION
             menuPop.setOnMenuItemClickListener(item -> {
 
                 productName = item.toString();
@@ -328,7 +312,9 @@ public class SelectItemFragment extends Fragment {
 
         } else
 
-            Toast.makeText(getContext(), "Please narrow the choices with a main category first!", Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(),
+                    "Please narrow the choices by selecting a main category first!",
+                    Toast.LENGTH_LONG).show();
 
     }
 
@@ -352,7 +338,6 @@ public class SelectItemFragment extends Fragment {
 
             menu.add(i, i, i, subtitles.get(i));
 
-        // THE ACTUAL ON CLICK CODE TO SET THE SUB CATEGORY INDEX AND POPULATE A TEXT VIEW WITH THE INFORMATION
         menuPop.setOnMenuItemClickListener(item -> {
 
             productSubtitle = item.toString();

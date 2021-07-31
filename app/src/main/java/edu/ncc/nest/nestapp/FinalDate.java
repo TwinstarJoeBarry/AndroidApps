@@ -36,10 +36,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import edu.ncc.nest.nestapp.CheckExpirationDate.Fragments.DisplayTrueExpirationFragment;
+import edu.ncc.nest.nestapp.CheckExpirationDate.Fragments.MoreInfoFragment;
 
 /**
- * @deprecated This Activity is being replaced by a Fragment. ({@link DisplayTrueExpirationFragment})
+ * @deprecated This Activity is being replaced by a Fragment. ({@link MoreInfoFragment})
  */
 @Deprecated
 public class FinalDate extends AppCompatActivity {

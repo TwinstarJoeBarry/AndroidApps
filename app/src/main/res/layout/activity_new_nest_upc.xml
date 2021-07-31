@@ -15,7 +15,7 @@
     tools:context=".NewNestUPC">
 
     <TextView
-        android:id="@+id/fragment_select_item_headline"
+        android:id="@+id/select_item_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -28,19 +28,19 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/fragment_select_item_brand_prompt"
+        android:id="@+id/select_item_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/fragment_select_item_headline"
+        android:layout_below="@id/select_item_title"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="32dp"
         android:text="@string/activity_new_nest_upc_brand_lbl"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fragment_select_item_headline"
+        app:layout_constraintTop_toBottomOf="@id/select_item_title"
         tools:ignore="RtlHardcoded" />
 
     <EditText
-        android:id="@+id/fragment_select_item_brand_entry"
+        android:id="@+id/select_item_brand_entry"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
@@ -50,23 +50,23 @@
         android:hint="@string/activity_new_nest_upc_brand_hint"
         android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_select_item_brand_prompt"
+        app:layout_constraintTop_toBottomOf="@+id/select_item_message"
         tools:ignore="RtlHardcoded" />
 
     <TextView
-        android:id="@+id/fragment_select_item_description_prompt"
+        android:id="@+id/select_item_description_lbl"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/fragment_select_item_headline"
+        android:layout_below="@id/select_item_title"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="24dp"
         android:text="@string/activity_new_nest_upc_description_lbl"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fragment_select_item_brand_entry"
+        app:layout_constraintTop_toBottomOf="@id/select_item_brand_entry"
         tools:ignore="RtlHardcoded" />
 
     <EditText
-        android:id="@+id/fragment_select_item_description_entry"
+        android:id="@+id/select_item_description_entry"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
@@ -76,27 +76,27 @@
         android:hint="@string/activity_new_nest_upc_description_hint"
         android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fragment_select_item_description_prompt"
+        app:layout_constraintTop_toBottomOf="@id/select_item_description_lbl"
         tools:ignore="RtlHardcoded" />
 
     <TextView
         android:id="@+id/fragment_select_item_subheadline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/fragment_select_item_headline"
+        android:layout_below="@id/select_item_title"
         android:layout_marginTop="24dp"
         android:text="@string/activity_new_nest_upc_subtitle"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fragment_select_item_description_entry"
+        app:layout_constraintTop_toBottomOf="@id/select_item_description_entry"
         tools:ignore="RtlHardcoded" />
 
     <TextView
         android:id="@+id/nest_new_upc_category_prompt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/fragment_select_item_headline"
+        android:layout_below="@id/select_item_title"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="24dp"
         android:text="@string/activity_new_nest_upc_category_lbl"
@@ -117,10 +117,10 @@
 
 
     <TextView
-        android:id="@+id/fragment_select_item_product_prompt"
+        android:id="@+id/select_item_product_lbl"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/fragment_select_item_headline"
+        android:layout_below="@id/select_item_title"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="24dp"
         android:text="@string/activity_new_nest_upc_product_lbl"
@@ -136,11 +136,11 @@
         android:layout_marginTop="4dp"
         android:layout_marginRight="16dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fragment_select_item_product_prompt"
+        app:layout_constraintTop_toBottomOf="@id/select_item_product_lbl"
         tools:ignore="RtlHardcoded" />
 
     <Button
-        android:id="@+id/acceptButton"
+        android:id="@+id/select_item_accept_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
@@ -149,13 +149,13 @@
         android:textAllCaps="false"
         android:onClick="acceptClicked"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/cancelButton"
+        app:layout_constraintEnd_toStartOf="@+id/select_item_cancel_btn"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/cancelButton"
+        android:id="@+id/select_item_cancel_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
@@ -165,6 +165,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/acceptButton" />
+        app:layout_constraintStart_toEndOf="@+id/select_item_accept_btn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
