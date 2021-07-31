@@ -248,16 +248,31 @@ public class StatusFragment extends Fragment {
 
                 Log.d(LOG_TAG, "Shelf Life Max: Indefinite");
 
-                // Return the maximum supported LocalDate
                 return LocalDate.MAX;
 
-            case "DAYS": case "WEEKS": case "MONTHS": case "YEARS":
+            case "DAYS":
 
-                Log.d(LOG_TAG, "Shelf Life Max: " + shelfLife.getMax() +
-                        " " + shelfLife.getMetric());
+                Log.d(LOG_TAG, "Shelf Life Max: " + shelfLife.getMax() + " Days");
 
-                return printedExpDate.plus(shelfLife.getMax(),
-                        ChronoUnit.valueOf(shelfLife.getMetric().toUpperCase()));
+                return printedExpDate.plusDays(shelfLife.getMax());
+
+            case "WEEKS":
+
+                Log.d(LOG_TAG, "Shelf Life Max: " + shelfLife.getMax() + " Weeks");
+
+                return printedExpDate.plusWeeks(shelfLife.getMax());
+
+            case "MONTHS":
+
+                Log.d(LOG_TAG, "Shelf Life Max: " + shelfLife.getMax() + " Months");
+
+                return printedExpDate.plusMonths(shelfLife.getMax());
+
+            case "YEARS":
+
+                Log.d(LOG_TAG, "Shelf Life Max: " + shelfLife.getMax() + " Years");
+
+                return printedExpDate.plusYears(shelfLife.getMax());
 
             default:
 
