@@ -56,8 +56,6 @@ public class SelectItemFragment extends Fragment {
     public static final String LOG_TAG = SelectItemFragment.class.getSimpleName();
 
     /** CONSTANT DEFAULTS **/
-    // FOR NON ESSENTIAL TEXT ENTRY VIEWS THAT WERE OPTIONAL AND INTENTIONALLY LEFT BLANK;
-    private final String DEFAULT_STRING = "[LEFT BLANK]";
     NestDBDataSource dataSource;
 
     /** INSTANCE VARS **/
@@ -138,23 +136,6 @@ public class SelectItemFragment extends Fragment {
         // ACCEPT BUTTON CODE - PARSE VALUES FOR NEW UPC, PASS INFO TO PRINTED EXPIRATION DATE
         view.findViewById(R.id.acceptButton).setOnClickListener( view1 -> {
 
-            // Retrieve the String information from each view, casting as appropriate;
-            String brand = ((EditText) (view.findViewById(
-                    R.id.fragment_select_item_brand_entry))).getText().toString();
-
-            String description = ((EditText) (view.findViewById(
-                    R.id.fragment_select_item_description_entry))).getText().toString();
-
-            // Replace any fields from above with blank values;
-            // TODO Make these next two fields required
-            if (brand.isEmpty())
-
-                brand = DEFAULT_STRING;
-
-            if (description.isEmpty())
-
-                description = DEFAULT_STRING;
-
             // First assert that the required values have been entered
             if ((productCategoryId == -1) || (productButton.isEnabled() && productName == null) ||
                     (subtitleButton.isEnabled() && productSubtitle == null)) {
@@ -178,7 +159,8 @@ public class SelectItemFragment extends Fragment {
 
                     Log.d(LOG_TAG, "Product ID: " + productId);
 
-                    if (dataSource.insertNewUPC(upcBarcode, brand, description, productId) == -1)
+                    if (dataSource.insertNewUPC(upcBarcode, "not specified",
+                            "not specified", productId) == -1)
 
                         throw new RuntimeException("Error inserting new UPC");
 
@@ -190,8 +172,7 @@ public class SelectItemFragment extends Fragment {
                     int productId = dataSource.getProdIdfromProdInfo(
                             productCategoryId, productName, productSubtitle);
 
-                    // TODO Update the UPC stored in the database with the new brand, description,
-                    //  and productId
+                    // TODO Update the UPC stored in the database with the new productId
 
                     // Adding this exception for now to prevent hidden errors
                     throw new RuntimeException("NestUPC exists. Need to update upc in database.");
