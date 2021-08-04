@@ -29,6 +29,10 @@
     <string name="day">Day</string>
     <string name="year">Year</string>
     <string name="error">Error</string>
+    <string name="arrow_up">Arrow up</string>
+    <string name="arrow_down">Arrow down</string>
+    <string name="enter">Enter</string>
+    <string name="scan">Scan</string>
 
     <!-- Strings used in AndroidManifest.xml -->
     <string name="title_activity_sign_up">SignUp</string>
@@ -176,13 +180,13 @@
     <string name="activity_new_nest_upc_category_lbl">Category:</string>
     <string name="activity_new_nest_upc_product_lbl">Product:</string>
 
-<!-- LOADING DIALOG START ////////////////////////////////////////////////////////////////////// -->
+    <!-- LOADING DIALOG START ////////////////////////////////////////////////////////////////////// -->
 
     <string name="dialog_loading_database_msg">Loading database. Please wait…</string>
     <string name="dialog_loading_database_success_msg">Database successfully loaded</string>
     <string name="dialog_loading_database_error_msg">Error! Failed to load database.</string>
 
-<!-- ABSTRACT SCANNER STRINGS START //////////////////////////////////////////////////////////// -->
+    <!-- ABSTRACT SCANNER STRINGS START //////////////////////////////////////////////////////////// -->
 
     <!-- Strings used in AbstractScanner.java -->
     <string name="abstract_scanner_fragment_waiting_for_scan">Waiting for scan …</string>
@@ -193,57 +197,73 @@
     <string name="fragment_abstract_scanner_rescan_btn">Re-Scan Barcode</string>
     <string name="fragment_abstract_scanner_confirm_button">Confirm Scan</string>
 
-<!-- CHECK EXPIRATION DATE STRINGS START /////////////////////////////////////////////////////// -->
+    <!-- CHECK EXPIRATION DATE STRINGS START /////////////////////////////////////////////////////// -->
 
     <!-- Strings used in fragment_check_expiration_date_start.xml -->
-    <string name="fragment_ced_start_description">Scan the food item\'s UPC\n that is printed on the barcode with a camera\nor enter the UPC code manually.</string>
-    <string name="fragment_ced_start_scan_upc">Scan UPC</string>
-    <string name="fragment_ced_start_enter_upc">Enter UPC</string>
+    <string name="fragment_ced_start_title">Check Expiration Date</string>
+    <string name="fragment_ced_start_welcome_msg">Welcome to the \'Check Expiration Date\' feature! This feature determines a food item\'s true expiration date.</string>
+    <string name="fragment_ced_start_enter_upc_msg">Manually enter a food item\'s \'UPC Barcode Number\' below or scan a \'UPC Barcode\' using your device\'s camera.</string>
+    <string name="fragment_ced_start_upc_barcode_number_lbl">UPC Barcode Number:</string>
+    <string name="fragment_ced_start_upc_barcode_number_hint">Enter UPC Barcode Number</string>
+    <string name="fragment_ced_start_icon_content_description">UPC barcode number validation icon</string>
 
     <!-- Strings used in fragment_check_expiration_date_enter_upc.xml -->
     <string name="fragment_ced_enter_upc_type_upc_hint">Type UPC here</string>
     <string name="fragment_ced_enter_upc_enter_upc_btn">Enter UPC</string>
 
     <!-- Strings used in fragment_check_expiration_date_confirm_item.xml -->
-    <string name="fragment_ced_confirm_item_notification">In Confirm Item Fragment</string>
+    <string name="fragment_ced_confirm_item_title_lbl">Confirm Item Information</string>
+    <string name="fragment_ced_confirm_item_message_lbl">Confirm that the information associated with the provided UPC barcode is correct.</string>
     <string name="fragment_ced_confirm_item_confirm_item_btn">Confirm Item</string>
     <string name="fragment_ced_confirm_item_incorrect_btn">Incorrect</string>
-    <string name="fragment_ced_confirm_item_item_lbl">Item:</string>
+    <string name="fragment_ced_confirm_item_product_lbl">Product:</string>
+    <string name="fragment_ced_confirm_item_upc_lbl">UPC Barcode:</string>
     <string name="fragment_ced_confirm_item_category_lbl">Category:</string>
-    <string name="fragment_ced_confirm_item_upc_lbl">UPC:</string>
+    <string name="fragment_ced_confirm_item_type_lbl">Type:</string>
+    <string name="fragment_ced_confirm_item_brand_lbl">Brand:</string>
+    <string name="fragment_ced_confirm_item_description_lbl">Description:</string>
 
     <!-- Strings used in fragment_check_expiration_date_select_item.xml -->
-    <string name="fragment_ced_select_item_title">Adding new UPC: %1$s</string>
-    <string name="fragment_ced_select_item_brand_lbl">Brand name:</string>
+    <string name="fragment_ced_select_item_title">Select Item Information</string>
+    <string name="fragment_ced_select_item_message">Select the appropriate information for this item.</string>
+    <string name="fragment_ced_select_item_brand_lbl">Item Brand Name:</string>
     <string name="fragment_ced_select_item_brand_hint">Enter brand name</string>
-    <string name="fragment_ced_select_item_description_lbl">Description:</string>
+    <string name="fragment_ced_select_item_description_lbl">Item Description:</string>
     <string name="fragment_ced_select_item_description_hint">Enter description</string>
     <string name="fragment_ced_select_item_subtitle">Choose corresponding food expiration category/product</string>
     <string name="fragment_ced_select_item_category_lbl">Category:</string>
     <string name="fragment_ced_select_item_select_category_btn">Select Category</string>
     <string name="fragment_ced_select_item_product_lbl">Product:</string>
     <string name="fragment_ced_select_item_select_product_btn">Select Product</string>
-    <string name="fragment_ced_select_item_subtitle_lbl">Type:</string>
-    <string name="fragment_ced_select_item_select_subtitle_btn">Select Type</string>
+    <string name="fragment_ced_select_item_type_lbl">Type:</string>
+    <string name="fragment_ced_select_item_select_type_btn">Select Type</string>
 
     <!-- Strings used in fragment_check_expiration_date_select_printed_expiration_date.xml -->
-    <string name="fragment_ced_select_printed_expiration_date_title">Select the product\'s printed expiration date</string>
+    <string name="fragment_ced_select_printed_expiration_date_title_lbl">Select Printed Expiration Date</string>
+    <string name="fragment_ced_select_printed_expiration_date_message_lbl">Select the item\'s printed expiration date</string>
     <string name="fragment_ced_select_printed_expiration_date_month_lbl">Select a month</string>
     <string name="fragment_ced_select_printed_expiration_date_day_lbl">Select a day</string>
     <string name="fragment_ced_select_printed_expiration_date_year_lbl">Select a year</string>
 
     <!-- Strings used in fragment_check_expiration_date_display_true_expiration.xml -->
     <string name="fragment_ced_display_true_expiration_display_date_btn">Display true expiration date</string>
-    <string name="fragment_ced_display_true_expiration_item_lbl">Item:</string>
-    <string name="fragment_ced_display_true_expiration_upc_lbl">UPC:</string>
+    <string name="fragment_ced_display_true_expiration_item_information_lbl">Item Information</string>
+    <string name="fragment_ced_display_true_expiration_shelf_life_information_lbl">Shelf Life Information</string>
+    <string name="fragment_ced_display_true_expiration_item_lbl">Product:</string>
+    <string name="fragment_ced_display_true_expiration_upc_lbl">UPC Barcode:</string>
     <string name="fragment_ced_display_true_expiration_category_lbl">Category:</string>
+    <string name="fragment_ced_display_true_expiration_type_lbl">Type:</string>
+    <string name="fragment_ced_display_true_expiration_brand_lbl">Brand:</string>
+    <string name="fragment_ced_display_true_expiration_description_lbl">Description:</string>
     <string name="fragment_ced_display_true_expiration_printed_expiration_date_lbl">Printed Expiration Date:</string>
-    <string name="fragment_ced_display_true_expiration_true_expiration_date_lbl">True Expiration Date:</string>
+    <string name="fragment_ced_display_true_expiration_true_expiration_date_lbl">Shelf Life Expiration Date:</string>
     <string name="fragment_ced_display_true_expiration_shelf_life_lbl">Shelf Life:</string>
     <string name="fragment_ced_display_true_expiration_storage_type_lbl">Storage Type:</string>
     <string name="fragment_ced_display_true_expiration_storage_tips_lbl">Storage Tips:</string>
+    <string name="fragment_ced_display_true_expiration_shelf_life_info_msg">Information about the selected item\'s shelf life</string>
+    <string name="fragment_ced_display_true_expiration_item_info_msg">Information about the selected item</string>
 
-<!-- GUEST DATABASE REGISTRATION STRINGS START ///////////////////////////////////////////////// -->
+    <!-- GUEST DATABASE REGISTRATION STRINGS START ///////////////////////////////////////////////// -->
 
     <!-- Strings used in fragment_guest_database_registration_start.xml -->
     <string name="fragment_dbr_start_title">GUEST FORM\nREGISTRATION</string>
@@ -259,7 +279,7 @@
     <!-- Strings used in fragment_guest_database_registration_summary.xml -->
     <string name="fragment_dbr_summary_description">Summary page of GuestGoogleSheetRegistration</string>
 
-<!-- GUEST GOOGLE SHEET REGISTRATION STRINGS START ///////////////////////////////////////////// -->
+    <!-- GUEST GOOGLE SHEET REGISTRATION STRINGS START ///////////////////////////////////////////// -->
 
     <!-- Strings used in fragment_guest_google_sheet_registration_first_form.xml -->
 
@@ -282,7 +302,7 @@
     <string name="fragment_gsr_second_form_question_16"><font size="14">What is the first name of the volunteer who helped you today?</font></string>
     <string name="fragment_gsr_second_form_question_17"><font size="14">What is the last name of the volunteer who helped you today?</font></string>
 
-<!-- GUEST VISIT STRINGS START ///////////////////////////////////////////////////////////////// -->
+    <!-- GUEST VISIT STRINGS START ///////////////////////////////////////////////////////////////// -->
 
     <!-- Strings used in fragment_guest_visit_confirmation_found.xml -->
     <string name="fragment_gv_confirmation_found_title">Welcome NEST Guest!</string>
@@ -313,7 +333,7 @@
     <string name="fragment_gv_questionnaire_hint_number">Enter a number</string>
     <string name="fragment_gv_questionnaire_hint_id">NEST Guest Id#</string>
 
-<!-- NAV GRAPH LABELS START //////////////////////////////////////////////////////////////////// -->
+    <!-- NAV GRAPH LABELS START //////////////////////////////////////////////////////////////////// -->
 
     <!-- Strings used in nav_graph_check_expiration_date.xml -->
     <string name="nav_graph_ced_start_fragment_lbl">Start Fragment</string>
@@ -340,7 +360,7 @@
     <string name="nav_graph_gv_confirmation_fragment_lbl">Confirmation Fragment</string>
     <string name="nav_graph_gv_questionnaire_fragment_lbl">Questionnaire Fragment</string>
 
-<!-- NEW STRINGS START ///////////////////////////////////////////////////////////////////////// -->
+    <!-- NEW STRINGS START ///////////////////////////////////////////////////////////////////////// -->
 
     <!-- This string is used only for the creation of new strings. -->
     <!-- When a new string is created it should appear below this string. -->
