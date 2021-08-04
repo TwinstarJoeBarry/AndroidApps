@@ -33,6 +33,10 @@
     <string name="arrow_down">Arrow down</string>
     <string name="enter">Enter</string>
     <string name="scan">Scan</string>
+    <string name="more_info">More Info</string>
+    <string name="back">Back</string>
+    <string name="indefinite">Indefinite</string>
+    <string name="unknown">Unknown</string>
 
     <!-- Strings used in AndroidManifest.xml -->
     <string name="title_activity_sign_up">SignUp</string>
@@ -201,7 +205,7 @@
 
     <!-- Strings used in fragment_check_expiration_date_start.xml -->
     <string name="fragment_ced_start_title">Check Expiration Date</string>
-    <string name="fragment_ced_start_welcome_msg">Welcome to the \'Check Expiration Date\' feature! This feature determines a food item\'s true expiration date.</string>
+    <string name="fragment_ced_start_welcome_msg">Welcome to the \'Check Expiration Date\' feature! This feature determines a food item\'s true expiration date when stored in pantry from date of purchase.</string>
     <string name="fragment_ced_start_enter_upc_msg">Manually enter a food item\'s \'UPC Barcode Number\' below or scan a \'UPC Barcode\' using your device\'s camera.</string>
     <string name="fragment_ced_start_upc_barcode_number_lbl">UPC Barcode Number:</string>
     <string name="fragment_ced_start_upc_barcode_number_hint">Enter UPC Barcode Number</string>
@@ -244,6 +248,18 @@
     <string name="fragment_ced_select_printed_expiration_date_month_lbl">Select a month</string>
     <string name="fragment_ced_select_printed_expiration_date_day_lbl">Select a day</string>
     <string name="fragment_ced_select_printed_expiration_date_year_lbl">Select a year</string>
+
+    <!-- Strings used in fragment_check_expiration_date_status.xml -->
+    <string name="fragment_ced_status_title">Selected Item\'s Status</string>
+    <string name="fragment_ced_status_icon_content_description">Selected item\'s status</string>
+    <string name="fragment_ced_status_msg">Status message placeholder</string>
+
+    <!-- Strings used in StatusFragment.java -->
+    <string name="status_fragment_discard_msg">The item has expired and should be discarded.</string>
+    <string name="status_fragment_warning_msg">The item is within 30 days of expiration.</string>
+    <string name="status_fragment_safe_msg">The item does not expire for 30 days or more.</string>
+    <string name="status_fragment_indefinite_msg">The item\'s expiration date is indefinite.</string>
+    <string name="status_fragment_unknown_msg">The shelf life of this item is unknown.</string>
 
     <!-- Strings used in fragment_check_expiration_date_display_true_expiration.xml -->
     <string name="fragment_ced_display_true_expiration_display_date_btn">Display true expiration date</string>
@@ -342,6 +358,7 @@
     <string name="nav_graph_ced_confirm_item_fragment_lbl">Confirm Item Fragment</string>
     <string name="nav_graph_ced_select_item_fragment_lbl">Select Item Fragment</string>
     <string name="nav_graph_ced_select_printed_expiration_date_fragment_lbl">Select Printed Expiration Date Fragment</string>
+    <string name="nav_graph_ced_status_fragment_lbl">Status Fragment</string>
     <string name="nav_graph_ced_display_true_expiration_fragment_lbl">Display True Expiration Fragment</string>
 
     <!-- Strings used in nav_graph_database_registration.xml -->
@@ -364,6 +381,6 @@
 
     <!-- This string is used only for the creation of new strings. -->
     <!-- When a new string is created it should appear below this string. -->
-    <string name="STRINGS_BELOW_THIS_SHOULD_BE_MOVED_TO_AN_APPROPRIATE_LOCATION_ABOVE"/>
+    <string name="STRINGS_BELOW_THIS_SHOULD_BE_MOVED_TO_AN_APPROPRIATE_LOCATION_ABOVE" />
 
 </resources>

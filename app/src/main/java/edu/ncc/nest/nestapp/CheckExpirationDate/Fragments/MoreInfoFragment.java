@@ -41,15 +41,15 @@ import edu.ncc.nest.nestapp.R;
 import edu.ncc.nest.nestapp.ShelfLife;
 
 /**
- * DisplayTrueExpirationFragment:  Calculates the true expiration date based upon the printed
+ * MoreInfoFragment:  Calculates the true expiration date based upon the printed
  * expiration date. Then displays the true expiration date for the item along with a synopsis of
  * the item including the UPC, category, item, and printed expiration date.
  */
-public class DisplayTrueExpirationFragment extends Fragment {
+public class MoreInfoFragment extends Fragment {
 
     /////////////////////////////////////// Class Variables ////////////////////////////////////////
 
-    private static final String LOG_TAG = DisplayTrueExpirationFragment.class.getSimpleName();
+    private static final String LOG_TAG = MoreInfoFragment.class.getSimpleName();
 
     private final Calendar printedExpDate = Calendar.getInstance();
 
@@ -314,11 +314,11 @@ public class DisplayTrueExpirationFragment extends Fragment {
      */
     public String getShelfLifeRange(ShelfLife shelfLife) {
 
-        String shelfLifeMetric = shelfLife.getMetric();
-
-        if (shelfLifeMetric != null) {
+        if (shelfLife != null && shelfLife.getMetric() != null) {
 
             int min = shelfLife.getMin(), max = shelfLife.getMax();
+
+            String shelfLifeMetric = shelfLife.getMetric();
 
             if (min == max) {
 
