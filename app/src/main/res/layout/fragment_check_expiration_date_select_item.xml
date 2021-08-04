@@ -39,58 +39,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/fragment_select_item_brand_prompt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/fragment_select_item_headline"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="32dp"
-        android:text="@string/fragment_ced_select_item_brand_lbl"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fragment_select_item_headline"
-        tools:ignore="RtlHardcoded" />
-
-    <EditText
-        android:id="@+id/fragment_select_item_brand_entry"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:autofillHints="@string/fragment_ced_select_item_brand_hint"
-        android:ems="10"
-        android:hint="@string/fragment_ced_select_item_brand_hint"
-        android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_select_item_brand_prompt"
-        tools:ignore="RtlHardcoded" />
-
-    <TextView
-        android:id="@+id/fragment_select_item_description_prompt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/fragment_select_item_headline"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="24dp"
-        android:text="@string/fragment_ced_select_item_description_lbl"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fragment_select_item_brand_entry"
-        tools:ignore="RtlHardcoded" />
-
-    <EditText
-        android:id="@+id/fragment_select_item_description_entry"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:autofillHints="@string/fragment_ced_select_item_description_hint"
-        android:ems="10"
-        android:hint="@string/fragment_ced_select_item_description_hint"
-        android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fragment_select_item_description_prompt"
-        tools:ignore="RtlHardcoded" />
-
-    <TextView
         android:id="@+id/select_printed_exp_date_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -100,7 +48,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fragment_select_item_description_entry"
+        app:layout_constraintTop_toBottomOf="@id/fragment_select_item_headline"
         tools:ignore="RtlHardcoded" />
 
     <TextView
