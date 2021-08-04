@@ -76,7 +76,7 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
              * DisplayTrueExpirationFragment */
             if (!result.containsKey("printedExpDate")) {
 
-                // Update the printed expiration date to reflect the current date
+                // Clear and update the printed expiration date to reflect the current date
                 setPrintedExpDate(printedExpDate.get(Calendar.YEAR),
                         printedExpDate.get(Calendar.MONTH),
                         printedExpDate.get(Calendar.DAY_OF_MONTH));
@@ -239,7 +239,7 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
         yearPicker.setMinValue(CURRENT_YEAR - 10);
         yearPicker.setMaxValue(CURRENT_YEAR + 10);
 
-        yearPicker.setValue(CURRENT_YEAR);
+        yearPicker.setValue(printedExpDate.get(Calendar.YEAR));
 
         yearPicker.setOnValueChangedListener((picker, oldVal, newVal) -> {
 
