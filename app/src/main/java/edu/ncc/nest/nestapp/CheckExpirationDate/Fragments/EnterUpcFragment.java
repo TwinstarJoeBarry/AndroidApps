@@ -44,7 +44,10 @@ import edu.ncc.nest.nestapp.R;
  *
  * Navigates to {@link SelectItemFragment} with the barcode, if the upc does not exist in the local
  * database.
+ *
+ *  @deprecated This Fragment is being combined with {@link StartFragment}.
  */
+@Deprecated
 public class EnterUpcFragment extends Fragment {
 
     /////////////////////////////////// Lifecycle Methods Start ////////////////////////////////////

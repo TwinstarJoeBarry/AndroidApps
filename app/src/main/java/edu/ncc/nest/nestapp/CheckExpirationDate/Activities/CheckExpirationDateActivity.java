@@ -23,8 +23,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import edu.ncc.nest.nestapp.R;
 import edu.ncc.nest.nestapp.CheckExpirationDate.DatabaseClasses.NestDBDataSource;
+import edu.ncc.nest.nestapp.R;
 
 /*
  * CheckExpirationDateActivity: This is the underlying activity for the fragments of the

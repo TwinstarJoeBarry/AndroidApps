@@ -25,6 +25,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import java.text.SimpleDateFormat;
@@ -40,27 +41,33 @@ import edu.ncc.nest.nestapp.R;
 import edu.ncc.nest.nestapp.ShelfLife;
 
 /**
- * DisplayTrueExpirationFragment:  Calculates the true expiration date based upon the printed
+ * MoreInfoFragment:  Calculates the true expiration date based upon the printed
  * expiration date. Then displays the true expiration date for the item along with a synopsis of
  * the item including the UPC, category, item, and printed expiration date.
  */
-public class DisplayTrueExpirationFragment extends Fragment {
+public class MoreInfoFragment extends Fragment {
 
     /////////////////////////////////////// Class Variables ////////////////////////////////////////
 
-    private static final String LOG_TAG = DisplayTrueExpirationFragment.class.getSimpleName();
+    private static final String LOG_TAG = MoreInfoFragment.class.getSimpleName();
 
     private final Calendar printedExpDate = Calendar.getInstance();
 
     private NestDBDataSource dataSource;
 
-    private ShelfLife shortestShelfLife;
-
     private NestUPC foodItem;
 
-    private String UPC;
-
     /////////////////////////////////// Lifecycle Methods Start ////////////////////////////////////
+
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        // Retrieve a reference to the database from this fragment's activity
+        dataSource = CheckExpirationDateActivity.requireDataSource(this);
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -91,34 +98,36 @@ public class DisplayTrueExpirationFragment extends Fragment {
             // Update the printed expiration date to the retrieve date
             this.printedExpDate.setTime(printedExpDate);
 
-            // Display item name, upc, category name on fragment_check_expiration_date_display_true_expiration.xml
+            // Display item information
             ((TextView) view.findViewById(R.id.item)).setText(foodItem.getProductName());
-            ((TextView) view.findViewById(R.id.display_upc)).setText(foodItem.getUpc());
+
+            ((TextView) view.findViewById(R.id.upc)).setText(foodItem.getUpc());
+
             ((TextView) view.findViewById(R.id.category)).setText(foodItem.getCatDesc());
+
+            ((TextView) view.findViewById(R.id.type)).setText(foodItem.getProductSubtitle());
+
             ((TextView) view.findViewById(R.id.printed_exp_date)).setText(
                     new SimpleDateFormat("MM/dd/yyyy",
                             Locale.getDefault()).format(printedExpDate));
 
-            // Retrieve a reference to the database from this fragment's activity
-            dataSource = CheckExpirationDateActivity.requireDataSource(this);
-
             // Get the product's shelf lives from the database and calculate the shortest shelf life
-            shortestShelfLife = getShortestShelfLife(
-                    dataSource.getShelfLivesForProduct(foodItem.getProductId()));
+            ShelfLife dop_pantryLife =
+                    dataSource.getItemShelfLife(foodItem.getProductId(), ShelfLife.DOP_PL);
+
+            // Calculate and display shelf life data
+            ((TextView) view.findViewById(R.id.shelf_life))
+                    .setText(getShelfLifeRange(dop_pantryLife));
+
+            ((TextView) view.findViewById(R.id.storage_type))
+                    .setText(dop_pantryLife.getDesc());
+
+            ((TextView) view.findViewById(R.id.storage_tips))
+                    .setText(dop_pantryLife.getTips() != null ? dop_pantryLife.getTips() : "N/A");
 
             // Calculate and display the food item's true expiration date to the user
             ((TextView) view.findViewById(R.id.true_exp_date))
-                    .setText(calculateTrueExpDateRange(shortestShelfLife));
-
-            ((TextView) view.findViewById(R.id.shelf_life))
-                    .setText(getShelfLifeRange(shortestShelfLife));
-
-            ((TextView) view.findViewById(R.id.storage_type)).setText(
-                    formatString(shortestShelfLife.getDesc()));
-
-            ((TextView) view.findViewById(R.id.storage_tips)).setText(
-                    shortestShelfLife.getTips() != null ?
-                            formatString(shortestShelfLife.getTips()) : "N/A");
+                    .setText(calculateTrueExpDateRange(dop_pantryLife));
 
             // Clear the result listener since we successfully received the result
             getParentFragmentManager().clearFragmentResultListener(key);
@@ -149,36 +158,20 @@ public class DisplayTrueExpirationFragment extends Fragment {
             return false;
 
         });
+
     }
 
     //////////////////////////////////// Custom Methods Start  /////////////////////////////////////
-
-    /**
-     * Formats a String so that the first letter is capitalized and that it is ensured to end with a
-     * period.
-     * @param s The String to format
-     * @return The formatted String
-     */
-    private String formatString(String s) {
-
-        if (s != null && !s.isEmpty()) {
-
-            s =  String.valueOf(s.charAt(0)).toUpperCase() + s.substring(1).toLowerCase();
-
-            return !s.endsWith(".") ? s + "." : s;
-
-        } else
-
-            return s;
-
-    }
 
     /**
      * Finds and returns the shortest shelf life from a List of {@link ShelfLife} objects.
      *
      * @param shelfLives A list of {@link ShelfLife} objects.
      * @return The shortest shelf life from the list.
+     *
+     * @deprecated This method is deprecated since are now only displaying dop_pantryLife.
      */
+    @Deprecated
     public ShelfLife getShortestShelfLife(List<ShelfLife> shelfLives) {
 
         int index = -1;
@@ -192,41 +185,43 @@ public class DisplayTrueExpirationFragment extends Fragment {
 
             shelfLife = shelfLives.get(i);
 
-            switch (shelfLife.getMetric()) {
+            if (shelfLife.getMetric() != null)
 
-                case "Years":
-                    if (metric.isEmpty()) {
-                        metric = "Years";
-                        index = i;
-                    }
-                    break;
+                switch (shelfLife.getMetric()) {
 
-                case "Months":
-                    if (metric.isEmpty() || metric.equals("Years")) {
-                        metric = "Months";
-                        index = i;
-                    }
-                    break;
+                    case "Years":
+                        if (metric.isEmpty()) {
+                            metric = "Years";
+                            index = i;
+                        }
+                        break;
 
-                case "Weeks":
-                    if (metric.isEmpty() || metric.equals("Years") || metric.equals("Months")) {
-                        metric = "Weeks";
-                        index = i;
-                    }
-                    break;
+                    case "Months":
+                        if (metric.isEmpty() || metric.equals("Years")) {
+                            metric = "Months";
+                            index = i;
+                        }
+                        break;
 
-                case "Days":
-                    if (metric.isEmpty() || metric.equals("Years") || metric.equals("Months") || metric.equals("Weeks")) {
-                        metric = "Days";
-                        index = i;
-                    }
-                    break;
+                    case "Weeks":
+                        if (metric.isEmpty() || metric.equals("Years") || metric.equals("Months")) {
+                            metric = "Weeks";
+                            index = i;
+                        }
+                        break;
 
-                default:
-                    Log.d(LOG_TAG, "getShortestShelfLife: Error invalid option");
-                    break;
+                    case "Days":
+                        if (metric.isEmpty() || metric.equals("Years") || metric.equals("Months") || metric.equals("Weeks")) {
+                            metric = "Days";
+                            index = i;
+                        }
+                        break;
 
-            }
+                    default:
+                        Log.d(LOG_TAG, "getShortestShelfLife: Error invalid option");
+                        break;
+
+                }
 
         }
 
@@ -241,6 +236,12 @@ public class DisplayTrueExpirationFragment extends Fragment {
      */
     public String calculateTrueExpDateRange(ShelfLife shelfLife) {
 
+        String shelfLifeMetric = shelfLife.getMetric();
+
+        if (shelfLifeMetric == null)
+
+            return "N/A";
+
         // Get the printed expiration date as a Date object
         Date printedExpDate = this.printedExpDate.getTime();
 
@@ -252,7 +253,7 @@ public class DisplayTrueExpirationFragment extends Fragment {
         min.setTime(printedExpDate);
         max.setTime(printedExpDate);
 
-        switch (shelfLife.getMetric().toLowerCase()) {
+        switch (shelfLifeMetric.toLowerCase()) {
 
             case "days":
 
@@ -299,6 +300,10 @@ public class DisplayTrueExpirationFragment extends Fragment {
         // Format the date to the pattern of MM/dd/yyyy and return the result
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
 
+        if (min.compareTo(max) == 0)
+
+            return sdf.format(max.getTime());
+
         return sdf.format(min.getTime()) + " - " + sdf.format(max.getTime());
 
     }
@@ -309,10 +314,27 @@ public class DisplayTrueExpirationFragment extends Fragment {
      */
     public String getShelfLifeRange(ShelfLife shelfLife) {
 
-        String metric = shelfLife.getMetric();
+        if (shelfLife != null && shelfLife.getMetric() != null) {
 
-        return shelfLife.getMin() + " - " + shelfLife.getMax() + " " +
-                (metric.equals("Indefinitely") ? "Indefinite" : metric);
+            int min = shelfLife.getMin(), max = shelfLife.getMax();
+
+            String shelfLifeMetric = shelfLife.getMetric();
+
+            if (min == max) {
+
+                if (max == 1)
+
+                    return max + " " + shelfLifeMetric.substring(0, shelfLifeMetric.length() - 1);
+
+                return max + " " + shelfLifeMetric;
+
+            }
+
+            return min + " - " + max + " " + shelfLifeMetric;
+
+        } else
+
+            return "N/A";
 
     }
 
