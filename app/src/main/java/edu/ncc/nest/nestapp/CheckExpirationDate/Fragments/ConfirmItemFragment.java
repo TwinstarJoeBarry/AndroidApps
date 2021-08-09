@@ -81,12 +81,14 @@ public class ConfirmItemFragment extends Fragment {
 
             assert foodItem != null : "Failed to retrieve required data";
 
-            // Send retrieved data to TextView
-            ((TextView) view.findViewById(R.id.add_item_name)).setText(foodItem.getProductName());
+            // Display item information
+            ((TextView) view.findViewById(R.id.upc)).setText(foodItem.getUpc());
 
-            ((TextView) view.findViewById(R.id.add_cat_name)).setText(foodItem.getCatDesc());
+            ((TextView) view.findViewById(R.id.category)).setText(foodItem.getCatDesc());
 
-            ((TextView) view.findViewById(R.id.add_UPC)).setText(foodItem.getUpc());
+            ((TextView) view.findViewById(R.id.item)).setText(foodItem.getProductName());
+
+            ((TextView) view.findViewById(R.id.type)).setText(foodItem.getProductSubtitle());
 
             // Clear the result listener since we successfully received the result
             getParentFragmentManager().clearFragmentResultListener(key);
@@ -95,7 +97,7 @@ public class ConfirmItemFragment extends Fragment {
 
         /* If the "Confirm" button was clicked, navigate to
          * fragment_check_expiration_date_select_printed_expiration_date.xml */
-        view.findViewById(R.id.button_confirm_item).setOnClickListener(view1 -> {
+        view.findViewById(R.id.confirm_item_btn).setOnClickListener(view1 -> {
 
             assert foodItem != null : "foodItem is null";
 
@@ -112,7 +114,7 @@ public class ConfirmItemFragment extends Fragment {
 
         /* If the "Incorrect" button was clicked, navigate to
          * fragment_check_expiration_date_select_item.xml */
-        view.findViewById(R.id.button_incorrect_item).setOnClickListener(view12 -> {
+        view.findViewById(R.id.incorrect_btn).setOnClickListener(view12 -> {
 
             assert foodItem != null : "foodItem is null";
 

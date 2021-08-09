@@ -43,12 +43,12 @@ public class NewNestUPC extends NestDBDataSource.NestDBActivity {
             // get the new UPC code and display it in addingLabel
             Intent intent = getIntent();
             upcBeingAdded = intent.getStringExtra("upc");
-            TextView addingLabel = findViewById(R.id.fragment_select_item_headline);
+            TextView addingLabel = findViewById(R.id.select_item_title);
             addingLabel.setText(String.format(Locale.getDefault(), addingLabel.getText().toString(), upcBeingAdded));
 
             // get view references
-            brandEdit = findViewById(R.id.fragment_select_item_brand_entry);
-            descriptionEdit = findViewById(R.id.fragment_select_item_description_entry);
+            brandEdit = findViewById(R.id.select_item_brand_entry);
+            descriptionEdit = findViewById(R.id.select_item_description_entry);
             categorySpinner = findViewById(R.id.categorySpinner);
             productSpinner = findViewById(R.id.productSpinner);
 
