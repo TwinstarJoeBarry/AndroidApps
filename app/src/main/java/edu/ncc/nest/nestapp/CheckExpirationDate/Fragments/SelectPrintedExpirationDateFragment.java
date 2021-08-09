@@ -22,7 +22,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.NumberPicker;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -37,7 +36,7 @@ import edu.ncc.nest.nestapp.R;
 
 /**
  * SelectPrintedExpirationDateFragment: Allows the user to select or enter the item's printed
- * expiration date, then sends the result to {@link DisplayTrueExpirationFragment}.
+ * expiration date, then sends the result to {@link StatusFragment}.
  */
 public class SelectPrintedExpirationDateFragment extends Fragment {
 
@@ -73,10 +72,10 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
                 this, (key, result) -> {
 
             /* This request key is only required when navigating back from
-             * DisplayTrueExpirationFragment */
+             * StatusFragment */
             if (!result.containsKey("printedExpDate")) {
 
-                // Update the printed expiration date to reflect the current date
+                // Clear and update the printed expiration date to reflect the current date
                 setPrintedExpDate(printedExpDate.get(Calendar.YEAR),
                         printedExpDate.get(Calendar.MONTH),
                         printedExpDate.get(Calendar.DAY_OF_MONTH));
@@ -91,8 +90,6 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
 
             assert foodItem != null : "Failed to retrieve required data";
 
-            ((TextView) view.findViewById(R.id.display_upc)).setText(foodItem.getUpc());
-
             initializeMonthPicker(view);
 
             initializeDayPicker(view);
@@ -106,7 +103,7 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
 
         //////////////////////////////// On Accept Button Pressed   ////////////////////////////////
 
-        view.findViewById(R.id.selected_print_accept).setOnClickListener(clickedView -> {
+        view.findViewById(R.id.accept_btn).setOnClickListener(clickedView -> {
 
             Bundle result = new Bundle();
 
@@ -119,7 +116,7 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
 
             // Navigate to the proper fragment
             NavHostFragment.findNavController(SelectPrintedExpirationDateFragment.this)
-                    .navigate(R.id.action_CED_SelectPrintedExpirationDateFragment_to_DisplayTrueExpirationFragment);
+                    .navigate(R.id.action_CED_SelectPrintedExpirationDateFragment_to_StatusFragment);
 
         });
 
@@ -239,7 +236,7 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
         yearPicker.setMinValue(CURRENT_YEAR - 10);
         yearPicker.setMaxValue(CURRENT_YEAR + 10);
 
-        yearPicker.setValue(CURRENT_YEAR);
+        yearPicker.setValue(printedExpDate.get(Calendar.YEAR));
 
         yearPicker.setOnValueChangedListener((picker, oldVal, newVal) -> {
 
