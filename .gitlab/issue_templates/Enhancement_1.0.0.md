@@ -16,15 +16,15 @@ By submitting this issue or commenting on this issue, or contributing any conten
 
 ## Current Behavior
 
-(Summarize how the feature that this would enahnce currently works)
+(Summarize how the feature that this would enhance currently works)
 
 ## Benefits (Why is it necessary?)
 
 (Summarize the benefits gained by this enhancement)
 
-## Relevent Screenshots
+## Relevant Screenshots
 
-(Post any relevent screenshots here, such as a enhancement prototype image, etc.)
+(Post any relevant screenshots here, such as a enhancement prototype image, etc.)
 
 ## Relevant Logs
 
@@ -34,10 +34,10 @@ By submitting this issue or commenting on this issue, or contributing any conten
 
 ## Dependencies
 
-(List any dependencies this enahncement may have using bullets, for ex:)
+(List any dependencies this enhancement may have using bullets, for ex:)
 
-- Issue #001
-- MR !001
+- (Issue) #001
+- (Merge Request) !001
 
 ## Weight Description
 
