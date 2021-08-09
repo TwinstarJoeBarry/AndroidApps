@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-*
 * Copyright (C) 2020 The LibreFoodPantry Developers.
 *
 * This program is free software: you can redistribute it and/or modify
@@ -15,6 +14,12 @@
 *
 * You should have received a copy of the GNU General Public License
 * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+-->
+<!--
+ * THIS LAYOUT IS DEPRECATED
+ *
+ * @deprecated This layout and related activity is being replaced
+ * by a new layout and fragment. (fragment_check_expiration_date_enter_upc.xml)
 -->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
