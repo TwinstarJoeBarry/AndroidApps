@@ -269,6 +269,12 @@ public class StatusFragment extends Fragment {
 
                 return printedExpDate.plusYears(shelfLife.getMax());
 
+            case "PACKAGE USE-BY DATE":
+
+                Log.d(LOG_TAG, "Shelf Life Max: Package use-by date");
+
+                return printedExpDate;
+
             default:
 
                 throw new RuntimeException("Missing case for shelf life metric: " +
