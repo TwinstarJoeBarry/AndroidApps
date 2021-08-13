@@ -122,6 +122,10 @@
             android:id="@+id/action_CED_StatusFragment_to_MoreInfoFragment"
             app:destination="@id/CED_MoreInfoFragment" />
 
+        <action
+            android:id="@+id/action_CED_StatusFragment_to_SelectPrintedExpirationDateFragment"
+            app:destination="@id/CED_SelectPrintedExpirationDateFragment" />
+
     </fragment>
 
     <fragment
