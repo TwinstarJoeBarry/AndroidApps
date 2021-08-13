@@ -83,7 +83,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:text="@string/fragment_ced_display_true_expiration_true_expiration_date_lbl"
+                android:text="@string/fragment_ced_more_info_true_expiration_date_lbl"
                 android:textStyle="bold" />
 
             <TextView
@@ -107,7 +107,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:text="@string/fragment_ced_display_true_expiration_storage_tips_lbl"
+                android:text="@string/fragment_ced_more_info_storage_tips_lbl"
                 android:textStyle="bold" />
 
             <TextView

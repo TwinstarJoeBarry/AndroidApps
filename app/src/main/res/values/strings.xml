@@ -261,23 +261,22 @@
     <string name="status_fragment_indefinite_msg">The item\'s expiration date is indefinite.</string>
     <string name="status_fragment_unknown_msg">The shelf life of this item is unknown.</string>
 
-    <!-- Strings used in fragment_check_expiration_date_display_true_expiration.xml -->
-    <string name="fragment_ced_display_true_expiration_display_date_btn">Display true expiration date</string>
-    <string name="fragment_ced_display_true_expiration_item_information_lbl">Item Information</string>
-    <string name="fragment_ced_display_true_expiration_shelf_life_information_lbl">Shelf Life Information</string>
-    <string name="fragment_ced_display_true_expiration_item_lbl">Product:</string>
-    <string name="fragment_ced_display_true_expiration_upc_lbl">UPC Barcode:</string>
-    <string name="fragment_ced_display_true_expiration_category_lbl">Category:</string>
-    <string name="fragment_ced_display_true_expiration_type_lbl">Type:</string>
-    <string name="fragment_ced_display_true_expiration_brand_lbl">Brand:</string>
-    <string name="fragment_ced_display_true_expiration_description_lbl">Description:</string>
-    <string name="fragment_ced_display_true_expiration_printed_expiration_date_lbl">Printed Expiration Date:</string>
-    <string name="fragment_ced_display_true_expiration_true_expiration_date_lbl">Shelf Life Expiration Date:</string>
-    <string name="fragment_ced_display_true_expiration_shelf_life_lbl">Shelf Life:</string>
-    <string name="fragment_ced_display_true_expiration_storage_type_lbl">Storage Type:</string>
-    <string name="fragment_ced_display_true_expiration_storage_tips_lbl">Storage Tips:</string>
-    <string name="fragment_ced_display_true_expiration_shelf_life_info_msg">Information about the selected item\'s shelf life</string>
-    <string name="fragment_ced_display_true_expiration_item_info_msg">Information about the selected item</string>
+    <!-- Strings used in fragment_check_expiration_date_more_info.xml -->
+    <string name="fragment_ced_more_info_item_information_lbl">Item Information</string>
+    <string name="fragment_ced_more_info_shelf_life_information_lbl">Shelf Life Information</string>
+    <string name="fragment_ced_more_info_item_lbl">Product:</string>
+    <string name="fragment_ced_more_info_upc_lbl">UPC Barcode:</string>
+    <string name="fragment_ced_more_info_category_lbl">Category:</string>
+    <string name="fragment_ced_more_info_type_lbl">Type:</string>
+    <string name="fragment_ced_more_info_brand_lbl">Brand:</string>
+    <string name="fragment_ced_more_info_description_lbl">Description:</string>
+    <string name="fragment_ced_more_info_printed_expiration_date_lbl">Printed Expiration Date:</string>
+    <string name="fragment_ced_more_info_true_expiration_date_lbl">Shelf Life Expiration Date:</string>
+    <string name="fragment_ced_more_info_shelf_life_lbl">Shelf Life:</string>
+    <string name="fragment_ced_more_info_storage_type_lbl">Storage Type:</string>
+    <string name="fragment_ced_more_info_storage_tips_lbl">Storage Tips:</string>
+    <string name="fragment_ced_more_info_shelf_life_info_msg">Information about the selected item\'s shelf life</string>
+    <string name="fragment_ced_more_info_item_info_msg">Information about the selected item</string>
 
     <!-- GUEST DATABASE REGISTRATION STRINGS START ///////////////////////////////////////////////// -->
 
@@ -359,7 +358,7 @@
     <string name="nav_graph_ced_select_item_fragment_lbl">Select Item Fragment</string>
     <string name="nav_graph_ced_select_printed_expiration_date_fragment_lbl">Select Printed Expiration Date Fragment</string>
     <string name="nav_graph_ced_status_fragment_lbl">Status Fragment</string>
-    <string name="nav_graph_ced_display_true_expiration_fragment_lbl">Display True Expiration Fragment</string>
+    <string name="nav_graph_ced_more_info_fragment_lbl">Display True Expiration Fragment</string>
 
     <!-- Strings used in nav_graph_database_registration.xml -->
     <string name="nav_graph_dbr_start_fragment_lbl">Start Fragment</string>
