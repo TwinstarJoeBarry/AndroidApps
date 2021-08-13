@@ -127,7 +127,7 @@
     <fragment
         android:id="@+id/CED_MoreInfoFragment"
         android:name="edu.ncc.nest.nestapp.CheckExpirationDate.Fragments.MoreInfoFragment"
-        android:label="@string/nav_graph_ced_display_true_expiration_fragment_lbl"
+        android:label="@string/nav_graph_ced_more_info_fragment_lbl"
         tools:layout="@layout/fragment_check_expiration_date_more_info" />
 
 </navigation>
