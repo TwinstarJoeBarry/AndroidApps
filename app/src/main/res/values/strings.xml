@@ -277,6 +277,7 @@
     <string name="fragment_ced_more_info_storage_tips_lbl">Storage Tips:</string>
     <string name="fragment_ced_more_info_shelf_life_info_msg">Information about the selected item\'s shelf life</string>
     <string name="fragment_ced_more_info_item_info_msg">Information about the selected item</string>
+    <string name="fragment_ced_more_info_select_new_date_btn">Select New Date</string>
 
     <!-- GUEST DATABASE REGISTRATION STRINGS START ///////////////////////////////////////////////// -->
 
