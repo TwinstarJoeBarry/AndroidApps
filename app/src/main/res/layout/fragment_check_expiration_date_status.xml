@@ -138,7 +138,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:layout_marginEnd="1dp"
-                android:text="@string/fragment_ced_more_info_select_new_date_btn"
+                android:text="@string/fragment_ced_status_select_new_date_btn"
                 tools:ignore="ButtonStyle"/>
 
             <Button
