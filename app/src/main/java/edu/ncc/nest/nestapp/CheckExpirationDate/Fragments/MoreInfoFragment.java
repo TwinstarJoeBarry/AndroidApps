@@ -88,51 +88,51 @@ public class MoreInfoFragment extends Fragment {
         getParentFragmentManager().setFragmentResultListener("FOOD ITEM",
                 this, (key, result) -> {
 
-            // Retrieve the NestUPC from the bundle
-            foodItem = (NestUPC) result.getSerializable("foodItem");
+                    // Retrieve the NestUPC from the bundle
+                    foodItem = (NestUPC) result.getSerializable("foodItem");
 
-            Date printedExpDate = (Date) result.getSerializable("printedExpDate");
+                    Date printedExpDate = (Date) result.getSerializable("printedExpDate");
 
-            assert foodItem != null && printedExpDate != null : "Failed to retrieve required data";
+                    assert foodItem != null && printedExpDate != null : "Failed to retrieve required data";
 
-            // Update the printed expiration date to the retrieve date
-            this.printedExpDate.setTime(printedExpDate);
+                    // Update the printed expiration date to the retrieve date
+                    this.printedExpDate.setTime(printedExpDate);
 
-            // Display item information
-            ((TextView) view.findViewById(R.id.item)).setText(foodItem.getProductName());
+                    // Display item information
+                    ((TextView) view.findViewById(R.id.item)).setText(foodItem.getProductName());
 
-            ((TextView) view.findViewById(R.id.upc)).setText(foodItem.getUpc());
+                    ((TextView) view.findViewById(R.id.upc)).setText(foodItem.getUpc());
 
-            ((TextView) view.findViewById(R.id.category)).setText(foodItem.getCatDesc());
+                    ((TextView) view.findViewById(R.id.category)).setText(foodItem.getCatDesc());
 
-            ((TextView) view.findViewById(R.id.type)).setText(foodItem.getProductSubtitle());
+                    ((TextView) view.findViewById(R.id.type)).setText(foodItem.getProductSubtitle());
 
-            ((TextView) view.findViewById(R.id.printed_exp_date)).setText(
-                    new SimpleDateFormat("MM/dd/yyyy",
-                            Locale.getDefault()).format(printedExpDate));
+                    ((TextView) view.findViewById(R.id.printed_exp_date)).setText(
+                            new SimpleDateFormat("MM/dd/yyyy",
+                                    Locale.getDefault()).format(printedExpDate));
 
-            // Get the product's shelf lives from the database and calculate the shortest shelf life
-            ShelfLife dop_pantryLife =
-                    dataSource.getItemShelfLife(foodItem.getProductId(), ShelfLife.DOP_PL);
+                    // Get the product's shelf lives from the database and calculate the shortest shelf life
+                    ShelfLife dop_pantryLife =
+                            dataSource.getItemShelfLife(foodItem.getProductId(), ShelfLife.DOP_PL);
 
-            // Calculate and display shelf life data
-            ((TextView) view.findViewById(R.id.shelf_life))
-                    .setText(getShelfLifeRange(dop_pantryLife));
+                    // Calculate and display shelf life data
+                    ((TextView) view.findViewById(R.id.shelf_life))
+                            .setText(getShelfLifeRange(dop_pantryLife));
 
-            ((TextView) view.findViewById(R.id.storage_type))
-                    .setText(dop_pantryLife.getDesc());
+                    ((TextView) view.findViewById(R.id.storage_type))
+                            .setText(dop_pantryLife.getDesc());
 
-            ((TextView) view.findViewById(R.id.storage_tips))
-                    .setText(dop_pantryLife.getTips() != null ? dop_pantryLife.getTips() : "N/A");
+                    ((TextView) view.findViewById(R.id.storage_tips))
+                            .setText(dop_pantryLife.getTips() != null ? dop_pantryLife.getTips() : "N/A");
 
-            // Calculate and display the food item's true expiration date to the user
-            ((TextView) view.findViewById(R.id.true_exp_date))
-                    .setText(calculateTrueExpDateRange(dop_pantryLife));
+                    // Calculate and display the food item's true expiration date to the user
+                    ((TextView) view.findViewById(R.id.true_exp_date))
+                            .setText(calculateTrueExpDateRange(dop_pantryLife));
 
-            // Clear the result listener since we successfully received the result
-            getParentFragmentManager().clearFragmentResultListener(key);
+                    // Clear the result listener since we successfully received the result
+                    getParentFragmentManager().clearFragmentResultListener(key);
 
-        });
+                });
 
         //////////////////////////////// On Back Button Pressed   //////////////////////////////////
 
@@ -189,29 +189,36 @@ public class MoreInfoFragment extends Fragment {
 
                 switch (shelfLife.getMetric()) {
 
-                    case "Years":
+                    case "Indefinitely":
                         if (metric.isEmpty()) {
+                            metric = "Indefinitely";
+                            index = i;
+                        }
+                        break;
+
+                    case "Years":
+                        if (metric.isEmpty() || metric.equals("Indefinitely")) {
                             metric = "Years";
                             index = i;
                         }
                         break;
 
                     case "Months":
-                        if (metric.isEmpty() || metric.equals("Years")) {
+                        if (metric.isEmpty() || metric.equals("Years") || metric.equals("Indefinitely")) {
                             metric = "Months";
                             index = i;
                         }
                         break;
 
                     case "Weeks":
-                        if (metric.isEmpty() || metric.equals("Years") || metric.equals("Months")) {
+                        if (metric.isEmpty() || metric.equals("Years") || metric.equals("Months") || metric.equals("Indefinitely")) {
                             metric = "Weeks";
                             index = i;
                         }
                         break;
 
                     case "Days":
-                        if (metric.isEmpty() || metric.equals("Years") || metric.equals("Months") || metric.equals("Weeks")) {
+                        if (metric.isEmpty() || metric.equals("Years") || metric.equals("Months") || metric.equals("Weeks") || metric.equals("Indefinitely")) {
                             metric = "Days";
                             index = i;
                         }
@@ -295,6 +302,10 @@ public class MoreInfoFragment extends Fragment {
 
                 break;
 
+            case "indefinitely":
+
+                return "Indefinite";
+
         }
 
         // Format the date to the pattern of MM/dd/yyyy and return the result
@@ -316,9 +327,13 @@ public class MoreInfoFragment extends Fragment {
 
         if (shelfLife != null && shelfLife.getMetric() != null) {
 
-            int min = shelfLife.getMin(), max = shelfLife.getMax();
-
             String shelfLifeMetric = shelfLife.getMetric();
+
+            if (shelfLifeMetric.equals("Indefinitely"))
+
+                return "Indefinite";
+
+            int min = shelfLife.getMin(), max = shelfLife.getMax();
 
             if (min == max) {
 
@@ -328,9 +343,9 @@ public class MoreInfoFragment extends Fragment {
 
                 return max + " " + shelfLifeMetric;
 
-            }
+            } else
 
-            return min + " - " + max + " " + shelfLifeMetric;
+                return min + " - " + max + " " + shelfLifeMetric;
 
         } else
 
