@@ -28,11 +28,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
-import java.util.Locale;
 
 import edu.ncc.nest.nestapp.CheckExpirationDate.Activities.CheckExpirationDateActivity;
 import edu.ncc.nest.nestapp.CheckExpirationDate.DatabaseClasses.NestDBDataSource;
@@ -51,7 +51,10 @@ public class MoreInfoFragment extends Fragment {
 
     private static final String LOG_TAG = MoreInfoFragment.class.getSimpleName();
 
-    private final Calendar printedExpDate = Calendar.getInstance();
+    public static final DateTimeFormatter dateTimeFormatter =
+            DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT);
+
+    private LocalDate printedExpDate = LocalDate.now();
 
     private NestDBDataSource dataSource;
 
@@ -88,51 +91,47 @@ public class MoreInfoFragment extends Fragment {
         getParentFragmentManager().setFragmentResultListener("FOOD ITEM",
                 this, (key, result) -> {
 
-                    // Retrieve the NestUPC from the bundle
-                    foodItem = (NestUPC) result.getSerializable("foodItem");
+            // Retrieve the NestUPC from the bundle
+            foodItem = (NestUPC) result.getSerializable("foodItem");
 
-                    Date printedExpDate = (Date) result.getSerializable("printedExpDate");
+            printedExpDate = (LocalDate) result.getSerializable("printedExpDate");
 
                     assert foodItem != null && printedExpDate != null : "Failed to retrieve required data";
 
-                    // Update the printed expiration date to the retrieve date
-                    this.printedExpDate.setTime(printedExpDate);
+            // Display item information
+            ((TextView) view.findViewById(R.id.item)).setText(foodItem.getProductName());
 
-                    // Display item information
-                    ((TextView) view.findViewById(R.id.item)).setText(foodItem.getProductName());
+            ((TextView) view.findViewById(R.id.upc)).setText(foodItem.getUpc());
 
-                    ((TextView) view.findViewById(R.id.upc)).setText(foodItem.getUpc());
+            ((TextView) view.findViewById(R.id.category)).setText(foodItem.getCatDesc());
 
-                    ((TextView) view.findViewById(R.id.category)).setText(foodItem.getCatDesc());
+            ((TextView) view.findViewById(R.id.type)).setText(foodItem.getProductSubtitle());
 
-                    ((TextView) view.findViewById(R.id.type)).setText(foodItem.getProductSubtitle());
+            ((TextView) view.findViewById(R.id.printed_exp_date)).setText(
+                    dateTimeFormatter.format(printedExpDate));
 
-                    ((TextView) view.findViewById(R.id.printed_exp_date)).setText(
-                            new SimpleDateFormat("MM/dd/yyyy",
-                                    Locale.getDefault()).format(printedExpDate));
+            // Get the product's shelf lives from the database and calculate the shortest shelf life
+            ShelfLife dop_pantryLife =
+                    dataSource.getItemShelfLife(foodItem.getProductId(), ShelfLife.DOP_PL);
 
-                    // Get the product's shelf lives from the database and calculate the shortest shelf life
-                    ShelfLife dop_pantryLife =
-                            dataSource.getItemShelfLife(foodItem.getProductId(), ShelfLife.DOP_PL);
+            // Calculate and display shelf life data
+            ((TextView) view.findViewById(R.id.shelf_life))
+                    .setText(getShelfLifeRange(dop_pantryLife));
 
-                    // Calculate and display shelf life data
-                    ((TextView) view.findViewById(R.id.shelf_life))
-                            .setText(getShelfLifeRange(dop_pantryLife));
+            ((TextView) view.findViewById(R.id.storage_type))
+                    .setText(dop_pantryLife.getDesc());
 
-                    ((TextView) view.findViewById(R.id.storage_type))
-                            .setText(dop_pantryLife.getDesc());
+            ((TextView) view.findViewById(R.id.storage_tips))
+                    .setText(dop_pantryLife.getTips() != null ? dop_pantryLife.getTips() : "N/A");
 
-                    ((TextView) view.findViewById(R.id.storage_tips))
-                            .setText(dop_pantryLife.getTips() != null ? dop_pantryLife.getTips() : "N/A");
+            // Calculate and display the food item's true expiration date to the user
+            ((TextView) view.findViewById(R.id.true_exp_date))
+                    .setText(calculateTrueExpDateRange(dop_pantryLife));
 
-                    // Calculate and display the food item's true expiration date to the user
-                    ((TextView) view.findViewById(R.id.true_exp_date))
-                            .setText(calculateTrueExpDateRange(dop_pantryLife));
+            // Clear the result listener since we successfully received the result
+            getParentFragmentManager().clearFragmentResultListener(key);
 
-                    // Clear the result listener since we successfully received the result
-                    getParentFragmentManager().clearFragmentResultListener(key);
-
-                });
+        });
 
         //////////////////////////////// On Back Button Pressed   //////////////////////////////////
 
@@ -148,7 +147,7 @@ public class MoreInfoFragment extends Fragment {
 
                 bundle.putSerializable("foodItem", foodItem);
 
-                bundle.putSerializable("printedExpDate", printedExpDate.getTime());
+                bundle.putSerializable("printedExpDate", printedExpDate);
 
                 getParentFragmentManager().setFragmentResult("FOOD ITEM", bundle);
 
@@ -249,73 +248,34 @@ public class MoreInfoFragment extends Fragment {
 
             return "N/A";
 
-        // Get the printed expiration date as a Date object
-        Date printedExpDate = this.printedExpDate.getTime();
+        shelfLifeMetric = shelfLifeMetric.toUpperCase();
 
-        // Get two instances of the Calendar class
-        Calendar min = Calendar.getInstance();
-        Calendar max = Calendar.getInstance();
+        switch (shelfLifeMetric) {
 
-        // Update their times to the printed expiration date
-        min.setTime(printedExpDate);
-        max.setTime(printedExpDate);
+            case "DAYS": case "WEEKS": case "MONTHS": case "YEARS":
 
-        switch (shelfLifeMetric.toLowerCase()) {
+                ChronoUnit chronoUnit = ChronoUnit.valueOf(shelfLifeMetric);
 
-            case "days":
+                // Get two instances of the Calendar class
+                LocalDate min = printedExpDate.plus(shelfLife.getMin(), chronoUnit);
+                LocalDate max = printedExpDate.plus(shelfLife.getMax(), chronoUnit);
 
-                // Add min number of days to the printed expiration date
-                min.add(Calendar.DAY_OF_MONTH, shelfLife.getMin());
+                if (min.compareTo(max) == 0)
 
-                // Add max number of days to the printed expiration date
-                max.add(Calendar.DAY_OF_MONTH, shelfLife.getMax());
+                    return dateTimeFormatter.format(max);
 
-                break;
+                return (dateTimeFormatter.format(min) + " - " + dateTimeFormatter.format(max));
 
-            case "weeks":
+            default:
 
-                // Add min number of weeks to the printed expiration date
-                min.add(Calendar.WEEK_OF_MONTH, shelfLife.getMin());
-
-                // Add max number of weeks to the printed expiration date
-                max.add(Calendar.WEEK_OF_MONTH, shelfLife.getMax());
-
-                break;
-
-            case "months":
-
-                // Add min number of months to the printed expiration date
-                min.add(Calendar.MONTH, shelfLife.getMin());
-
-                // Add max number of months to the printed expiration date
-                max.add(Calendar.MONTH, shelfLife.getMax());
-
-                break;
-
-            case "years":
-
-                // Add min number of years to the printed expiration date
-                min.add(Calendar.YEAR, shelfLife.getMin());
-
-                // Add max number of years to the printed expiration date
-                max.add(Calendar.YEAR, shelfLife.getMax());
-
-                break;
+                throw new RuntimeException("Missing case for shelf life metric: " +
+                        shelfLifeMetric);
 
             case "indefinitely":
 
                 return "Indefinite";
 
         }
-
-        // Format the date to the pattern of MM/dd/yyyy and return the result
-        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
-
-        if (min.compareTo(max) == 0)
-
-            return sdf.format(max.getTime());
-
-        return sdf.format(min.getTime()) + " - " + sdf.format(max.getTime());
 
     }
 
