@@ -96,7 +96,7 @@ public class MoreInfoFragment extends Fragment {
 
             printedExpDate = (LocalDate) result.getSerializable("printedExpDate");
 
-            assert foodItem != null && printedExpDate != null : "Failed to retrieve required data";
+                    assert foodItem != null && printedExpDate != null : "Failed to retrieve required data";
 
             // Display item information
             ((TextView) view.findViewById(R.id.item)).setText(foodItem.getProductName());
@@ -188,29 +188,36 @@ public class MoreInfoFragment extends Fragment {
 
                 switch (shelfLife.getMetric()) {
 
-                    case "Years":
+                    case "Indefinitely":
                         if (metric.isEmpty()) {
+                            metric = "Indefinitely";
+                            index = i;
+                        }
+                        break;
+
+                    case "Years":
+                        if (metric.isEmpty() || metric.equals("Indefinitely")) {
                             metric = "Years";
                             index = i;
                         }
                         break;
 
                     case "Months":
-                        if (metric.isEmpty() || metric.equals("Years")) {
+                        if (metric.isEmpty() || metric.equals("Years") || metric.equals("Indefinitely")) {
                             metric = "Months";
                             index = i;
                         }
                         break;
 
                     case "Weeks":
-                        if (metric.isEmpty() || metric.equals("Years") || metric.equals("Months")) {
+                        if (metric.isEmpty() || metric.equals("Years") || metric.equals("Months") || metric.equals("Indefinitely")) {
                             metric = "Weeks";
                             index = i;
                         }
                         break;
 
                     case "Days":
-                        if (metric.isEmpty() || metric.equals("Years") || metric.equals("Months") || metric.equals("Weeks")) {
+                        if (metric.isEmpty() || metric.equals("Years") || metric.equals("Months") || metric.equals("Weeks") || metric.equals("Indefinitely")) {
                             metric = "Days";
                             index = i;
                         }
@@ -264,6 +271,10 @@ public class MoreInfoFragment extends Fragment {
                 throw new RuntimeException("Missing case for shelf life metric: " +
                         shelfLifeMetric);
 
+            case "indefinitely":
+
+                return "Indefinite";
+
         }
 
     }
@@ -276,9 +287,13 @@ public class MoreInfoFragment extends Fragment {
 
         if (shelfLife != null && shelfLife.getMetric() != null) {
 
-            int min = shelfLife.getMin(), max = shelfLife.getMax();
-
             String shelfLifeMetric = shelfLife.getMetric();
+
+            if (shelfLifeMetric.equals("Indefinitely"))
+
+                return "Indefinite";
+
+            int min = shelfLife.getMin(), max = shelfLife.getMax();
 
             if (min == max) {
 
@@ -288,9 +303,9 @@ public class MoreInfoFragment extends Fragment {
 
                 return max + " " + shelfLifeMetric;
 
-            }
+            } else
 
-            return min + " - " + max + " " + shelfLifeMetric;
+                return min + " - " + max + " " + shelfLifeMetric;
 
         } else
 
