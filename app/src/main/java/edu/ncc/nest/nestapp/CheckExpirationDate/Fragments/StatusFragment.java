@@ -66,6 +66,8 @@ public class StatusFragment extends Fragment {
 
     private LocalDate trueExpDate;
 
+    private ShelfLife pantryLife;
+
     private NestUPC foodItem;
 
     /////////////////////////////////// Lifecycle Methods Start ////////////////////////////////////
@@ -106,15 +108,22 @@ public class StatusFragment extends Fragment {
             // Retrieve the printed expiration date from the bundle
             printedExpDate = (LocalDate) result.getSerializable("printedExpDate");
 
+            // Make sure we successfully retrieved the required data
             assert foodItem != null && printedExpDate != null : "Failed to retrieve required data";
 
+            int productId = foodItem.getProductId();
+
             // Get the product's dop_pantryLife shelf life from the database
-            ShelfLife dop_pantryLife = dataSource.getItemShelfLife(
-                    foodItem.getProductId(), ShelfLife.DOP_PL);
+            pantryLife = dataSource.getItemShelfLife(productId, ShelfLife.DOP_PL);
 
-            ((TextView) view.findViewById(R.id.storage_tips)).setText(getTips(dop_pantryLife));
+            if (pantryLife == null)
 
-            trueExpDate = calculateTrueExpDate(dop_pantryLife);
+                // Get the product's pantryLife shelf life from the database
+                pantryLife = dataSource.getItemShelfLife(productId, ShelfLife.PL);
+
+            ((TextView) view.findViewById(R.id.storage_tips)).setText(getTips(pantryLife));
+
+            trueExpDate = calculateTrueExpDate(pantryLife);
 
             Log.d(LOG_TAG, "Printed Expiration Date: " +
                     dateTimeFormatter.format(printedExpDate));
@@ -182,9 +191,11 @@ public class StatusFragment extends Fragment {
 
             result.putSerializable("foodItem", foodItem);
 
-            result.putSerializable("printedExpDate", printedExpDate);
+            result.putSerializable("pantryLife", pantryLife);
 
             result.putSerializable("trueExpDate", trueExpDate);
+
+            result.putSerializable("printedExpDate", printedExpDate);
 
             // Set the fragment result to the bundle
             getParentFragmentManager().setFragmentResult("FOOD ITEM", result);
@@ -230,9 +241,9 @@ public class StatusFragment extends Fragment {
      * @param shelfLife The {@link ShelfLife} to use when calculate the date.
      * @return The true expiration date of the given item.
      */
-    private LocalDate calculateTrueExpDate(ShelfLife shelfLife) {
+    private LocalDate calculateTrueExpDate(@NonNull ShelfLife shelfLife) {
 
-        if (shelfLife == null || shelfLife.getMetric() == null)
+        if (shelfLife.getMetric() == null)
 
             return null;
 
