@@ -34,6 +34,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.time.temporal.ChronoUnit;
+import java.util.Objects;
 
 import edu.ncc.nest.nestapp.CheckExpirationDate.Activities.CheckExpirationDateActivity;
 import edu.ncc.nest.nestapp.CheckExpirationDate.DatabaseClasses.NestDBDataSource;
@@ -111,6 +112,9 @@ public class StatusFragment extends Fragment {
             // Make sure we successfully retrieved the required data
             assert foodItem != null && printedExpDate != null : "Failed to retrieve required data";
 
+            Log.d(LOG_TAG,
+                    "Printed Expiration Date: " + dateTimeFormatter.format(printedExpDate));
+
             int productId = foodItem.getProductId();
 
             // Get the product's dop_pantryLife shelf life from the database
@@ -121,14 +125,57 @@ public class StatusFragment extends Fragment {
                 // Get the product's pantryLife shelf life from the database
                 pantryLife = dataSource.getItemShelfLife(productId, ShelfLife.PL);
 
-            ((TextView) view.findViewById(R.id.storage_tips)).setText(getTips(pantryLife));
+            // If pantryLife is non-null and has a valid metric
+            if (validatePantryLife(view.findViewById(R.id.storage_tips))) {
 
-            trueExpDate = calculateTrueExpDate(pantryLife);
+                ((TextView) view.findViewById(R.id.storage_tips)).setText(
+                        pantryLife.getTips() != null ? pantryLife.getTips() : "N/A");
 
-            Log.d(LOG_TAG, "Printed Expiration Date: " +
-                    dateTimeFormatter.format(printedExpDate));
+                trueExpDate = calculateTrueExpDate(pantryLife);
 
-            if (trueExpDate == null) {
+                if (trueExpDate.equals(LocalDate.MAX)) {
+
+                    Log.d(LOG_TAG, "True Expiration Date: Indefinite");
+
+                    ((TextView) view.findViewById(R.id.true_exp_date)).setText(R.string.indefinite);
+
+                    statusMsg.setText(R.string.status_fragment_indefinite_msg);
+
+                    statusIcon.setImageResource(R.drawable.ic_indefinite);
+
+                } else {
+
+                    Log.d(LOG_TAG, "True Expiration Date: " +
+                            dateTimeFormatter.format(trueExpDate));
+
+                    ((TextView) view.findViewById(R.id.true_exp_date)).setText(
+                            dateTimeFormatter.format(trueExpDate));
+
+                    long numDays = LocalDate.now().until(trueExpDate, ChronoUnit.DAYS);
+
+                    if (numDays <= 0) {
+
+                        statusMsg.setText(R.string.status_fragment_discard_msg);
+
+                        statusIcon.setImageResource(R.drawable.ic_delete);
+
+                    } else if (numDays < 30) {
+
+                        statusMsg.setText(R.string.status_fragment_warning_msg);
+
+                        statusIcon.setImageResource(R.drawable.ic_warning);
+
+                    } else {
+
+                        statusMsg.setText(R.string.status_fragment_safe_msg);
+
+                        statusIcon.setImageResource(R.drawable.ic_check_mark);
+
+                    }
+
+                }
+
+            } else {
 
                 Log.w(LOG_TAG, "True Expiration Date: Unknown");
 
@@ -137,46 +184,6 @@ public class StatusFragment extends Fragment {
                 statusMsg.setText(R.string.status_fragment_unknown_msg);
 
                 statusIcon.setImageResource(R.drawable.ic_help);
-
-            } else if (!trueExpDate.equals(LocalDate.MAX)) {
-
-                Log.d(LOG_TAG, "True Expiration Date: " +
-                        dateTimeFormatter.format(trueExpDate));
-
-                ((TextView) view.findViewById(R.id.true_exp_date)).setText(
-                        dateTimeFormatter.format(trueExpDate));
-
-                long numDays = LocalDate.now().until(trueExpDate, ChronoUnit.DAYS);
-
-                if (numDays <= 0) {
-
-                    statusMsg.setText(R.string.status_fragment_discard_msg);
-
-                    statusIcon.setImageResource(R.drawable.ic_delete);
-
-                } else if (numDays < 30) {
-
-                    statusMsg.setText(R.string.status_fragment_warning_msg);
-
-                    statusIcon.setImageResource(R.drawable.ic_warning);
-
-                } else {
-
-                    statusMsg.setText(R.string.status_fragment_safe_msg);
-
-                    statusIcon.setImageResource(R.drawable.ic_check_mark);
-
-                }
-
-            } else {
-
-                Log.d(LOG_TAG, "True Expiration Date: Indefinite");
-
-                ((TextView) view.findViewById(R.id.true_exp_date)).setText(R.string.indefinite);
-
-                statusMsg.setText(R.string.status_fragment_indefinite_msg);
-
-                statusIcon.setImageResource(R.drawable.ic_indefinite);
 
             }
 
@@ -236,16 +243,33 @@ public class StatusFragment extends Fragment {
     //////////////////////////////////// Custom Methods Start  /////////////////////////////////////
 
     /**
+     * Returns whether or not {@code pantryLife} is valid (Non-null, and has a non-null metric).
+     * Displays any available storage tips the pantry life has in the given {@link TextView}.
+     * @param storageTips The {@link TextView} to display any available storage tips in.
+     * @return True if {@code pantryLife} is non-null and has a non-null metric, false otherwise.
+     */
+    private boolean validatePantryLife(@NonNull TextView storageTips) {
+
+        if (pantryLife != null) {
+
+            // Display any available storage tips
+            storageTips.setText(pantryLife.getTips() != null ? pantryLife.getTips() : "N/A");
+
+            return pantryLife.getMetric() != null;
+
+        } else
+
+            return false;
+
+    }
+
+    /**
      * Calculates the true expiration date of an item based on it's shelf life and printed
      * expiration date. ({@code printedExpDate} + {@link ShelfLife#getMax()} - 1 Month).
      * @param shelfLife The {@link ShelfLife} to use when calculate the date.
      * @return The true expiration date of the given item.
      */
     private LocalDate calculateTrueExpDate(@NonNull ShelfLife shelfLife) {
-
-        if (shelfLife.getMetric() == null)
-
-            return null;
 
         // Switch on the metric of the shelf life after converting it to a uppercase string
         switch (shelfLife.getMetric().toUpperCase()) {
@@ -292,27 +316,6 @@ public class StatusFragment extends Fragment {
                         shelfLife.getMetric());
 
         }
-
-    }
-
-    /**
-     * Return any available storage tips stored in the given {@link ShelfLife} object, or "N/A".
-     * @param shelfLife The shelf life to get the tips from.
-     * @return The storage tips or "N/A" if there is none.
-     */
-    private String getTips(ShelfLife shelfLife) {
-
-        if (shelfLife != null) {
-
-            String shelfLifeTips = shelfLife.getTips();
-
-            if (shelfLifeTips != null)
-
-                return shelfLifeTips;
-
-        }
-
-        return "N/A";
 
     }
 
