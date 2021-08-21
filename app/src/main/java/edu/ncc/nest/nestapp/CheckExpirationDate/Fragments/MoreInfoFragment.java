@@ -56,28 +56,15 @@ public class MoreInfoFragment extends Fragment {
 
     private LocalDate printedExpDate, trueExpDate;
 
-    private NestDBDataSource dataSource;
-
     private ShelfLife pantryLife;
 
     private NestUPC foodItem;
 
     /////////////////////////////////// Lifecycle Methods Start ////////////////////////////////////
 
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        // Retrieve a reference to the database from this fragment's activity
-        dataSource = CheckExpirationDateActivity.requireDataSource(this);
-
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
 
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_check_expiration_date_display_true_expiration,
@@ -102,10 +89,10 @@ public class MoreInfoFragment extends Fragment {
 
             printedExpDate = (LocalDate) result.getSerializable("printedExpDate");
 
-            assert foodItem != null && pantryLife != null && trueExpDate != null &&
-                    printedExpDate != null : "Failed to retrieve required data";
+            assert foodItem != null && printedExpDate != null : "Failed to retrieve required data";
 
             // Display item information
+
             ((TextView) view.findViewById(R.id.item)).setText(foodItem.getProductName());
 
             ((TextView) view.findViewById(R.id.upc)).setText(foodItem.getUpc());
@@ -117,13 +104,25 @@ public class MoreInfoFragment extends Fragment {
             ((TextView) view.findViewById(R.id.printed_exp_date)).setText(
                     dateTimeFormatter.format(printedExpDate));
 
-            // Calculate and display shelf life data
-            ((TextView) view.findViewById(R.id.storage_type)).setText(pantryLife.getDesc());
+            // Display pantry life information
 
-            ((TextView) view.findViewById(R.id.storage_tips))
-                    .setText(pantryLife.getTips() != null ? pantryLife.getTips() : "N/A");
+            if (pantryLife != null) {
 
-            // Calculate and display the food item's true expiration date to the user
+                ((TextView) view.findViewById(R.id.storage_type)).setText(pantryLife.getDesc());
+
+                ((TextView) view.findViewById(R.id.storage_tips))
+                        .setText(pantryLife.getTips() != null ? pantryLife.getTips() : "N/A");
+
+            } else {
+
+                ((TextView) view.findViewById(R.id.storage_type)).setText("N/A");
+
+                ((TextView) view.findViewById(R.id.storage_tips))
+                        .setText("N/A");
+
+            }
+
+            // Display the food item's true expiration date to the user
             ((TextView) view.findViewById(R.id.true_exp_date)).setText(determineTrueExpDate());
 
             // Clear the result listener since we successfully received the result
@@ -160,6 +159,11 @@ public class MoreInfoFragment extends Fragment {
 
     //////////////////////////////////// Custom Methods Start  /////////////////////////////////////
 
+    /**
+     * Determines the correct text to display for the true expiration date label.
+     * @return {@code "Indefinite"}, {@code "Unknown}, or the true expiration date formatted using
+     * {@code dateTimeFormatter}.
+     */
     private String determineTrueExpDate() {
 
         if (trueExpDate != null) {
