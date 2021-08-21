@@ -260,6 +260,7 @@ public class StatusFragment extends Fragment {
     /**
      * Returns whether or not {@code pantryLife} is valid (Non-null, and has a non-null metric).
      * Displays any available storage tips the pantry life has in the given {@link TextView}.
+     * NOTE: Be sure to set {@code pantryLife} before calling this method.
      * @param storageTips The {@link TextView} to display any available storage tips in.
      * @return True if {@code pantryLife} is non-null and has a non-null metric, false otherwise.
      */
