@@ -205,7 +205,7 @@
 
     <!-- Strings used in fragment_check_expiration_date_start.xml -->
     <string name="fragment_ced_start_title">Check Expiration Date</string>
-    <string name="fragment_ced_start_welcome_msg">Welcome to the \'Check Expiration Date\' feature! This feature determines a food item\'s true expiration date when stored in pantry from date of purchase.</string>
+    <string name="fragment_ced_start_welcome_msg">Welcome to the \'Check Expiration Date\' feature! This feature determines a food item\'s true expiration date when stored in the pantry from date of purchase.</string>
     <string name="fragment_ced_start_enter_upc_msg">Manually enter a food item\'s \'UPC Barcode Number\' below or scan a \'UPC Barcode\' using your device\'s camera.</string>
     <string name="fragment_ced_start_upc_barcode_number_lbl">UPC Barcode Number:</string>
     <string name="fragment_ced_start_upc_barcode_number_hint">Enter UPC Barcode Number</string>
@@ -253,6 +253,7 @@
     <string name="fragment_ced_status_title">Selected Item\'s Status</string>
     <string name="fragment_ced_status_icon_content_description">Selected item\'s status</string>
     <string name="fragment_ced_status_msg">Status message placeholder</string>
+    <string name="fragment_ced_status_select_new_date_btn">Select New Date</string>
 
     <!-- Strings used in StatusFragment.java -->
     <string name="status_fragment_discard_msg">The item has expired and should be discarded.</string>
@@ -261,23 +262,21 @@
     <string name="status_fragment_indefinite_msg">The item\'s expiration date is indefinite.</string>
     <string name="status_fragment_unknown_msg">The shelf life of this item is unknown.</string>
 
-    <!-- Strings used in fragment_check_expiration_date_display_true_expiration.xml -->
-    <string name="fragment_ced_display_true_expiration_display_date_btn">Display true expiration date</string>
-    <string name="fragment_ced_display_true_expiration_item_information_lbl">Item Information</string>
-    <string name="fragment_ced_display_true_expiration_shelf_life_information_lbl">Shelf Life Information</string>
-    <string name="fragment_ced_display_true_expiration_item_lbl">Product:</string>
-    <string name="fragment_ced_display_true_expiration_upc_lbl">UPC Barcode:</string>
-    <string name="fragment_ced_display_true_expiration_category_lbl">Category:</string>
-    <string name="fragment_ced_display_true_expiration_type_lbl">Type:</string>
-    <string name="fragment_ced_display_true_expiration_brand_lbl">Brand:</string>
-    <string name="fragment_ced_display_true_expiration_description_lbl">Description:</string>
-    <string name="fragment_ced_display_true_expiration_printed_expiration_date_lbl">Printed Expiration Date:</string>
-    <string name="fragment_ced_display_true_expiration_true_expiration_date_lbl">Shelf Life Expiration Date:</string>
-    <string name="fragment_ced_display_true_expiration_shelf_life_lbl">Shelf Life:</string>
-    <string name="fragment_ced_display_true_expiration_storage_type_lbl">Storage Type:</string>
-    <string name="fragment_ced_display_true_expiration_storage_tips_lbl">Storage Tips:</string>
-    <string name="fragment_ced_display_true_expiration_shelf_life_info_msg">Information about the selected item\'s shelf life</string>
-    <string name="fragment_ced_display_true_expiration_item_info_msg">Information about the selected item</string>
+    <!-- Strings used in fragment_check_expiration_date_more_info.xml -->
+    <string name="fragment_ced_more_info_item_info_lbl">Item Information</string>
+    <string name="fragment_ced_more_info_info_msg">Information about the selected item</string>
+    <string name="fragment_ced_more_info_item_lbl">Product:</string>
+    <string name="fragment_ced_more_info_upc_lbl">UPC Barcode:</string>
+    <string name="fragment_ced_more_info_category_lbl">Category:</string>
+    <string name="fragment_ced_more_info_type_lbl">Type:</string>
+    <string name="fragment_ced_more_info_pantry_life_lbl">Pantry Life Information</string>
+    <string name="fragment_ced_more_info_shelf_life_info_msg">Information about the selected item\'s pantry life</string>
+    <string name="fragment_ced_more_info_shelf_life_lbl">Storage Life:</string>
+    <string name="fragment_ced_more_info_storage_type_lbl">Storage Type:</string>
+    <string name="fragment_ced_more_info_storage_tips_lbl">Storage Tips:</string>
+    <string name="fragment_ced_more_info_printed_expiration_date_lbl">Printed Expiration Date:</string>
+    <string name="fragment_ced_more_info_true_expiration_date_lbl">Pantry Expiration Date:</string>
+    <string name="fragment_ced_more_info_select_new_date_btn">Select New Date</string>
 
     <!-- GUEST DATABASE REGISTRATION STRINGS START ///////////////////////////////////////////////// -->
 
@@ -359,7 +358,7 @@
     <string name="nav_graph_ced_select_item_fragment_lbl">Select Item Fragment</string>
     <string name="nav_graph_ced_select_printed_expiration_date_fragment_lbl">Select Printed Expiration Date Fragment</string>
     <string name="nav_graph_ced_status_fragment_lbl">Status Fragment</string>
-    <string name="nav_graph_ced_display_true_expiration_fragment_lbl">Display True Expiration Fragment</string>
+    <string name="nav_graph_ced_more_info_fragment_lbl">Display True Expiration Fragment</string>
 
     <!-- Strings used in nav_graph_database_registration.xml -->
     <string name="nav_graph_dbr_start_fragment_lbl">Start Fragment</string>

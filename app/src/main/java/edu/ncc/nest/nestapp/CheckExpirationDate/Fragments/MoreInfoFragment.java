@@ -27,6 +27,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -67,7 +68,7 @@ public class MoreInfoFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_check_expiration_date_display_true_expiration,
+        return inflater.inflate(R.layout.fragment_check_expiration_date_more_info,
                 container, false);
 
 
@@ -117,8 +118,7 @@ public class MoreInfoFragment extends Fragment {
 
                 ((TextView) view.findViewById(R.id.storage_type)).setText("N/A");
 
-                ((TextView) view.findViewById(R.id.storage_tips))
-                        .setText("N/A");
+                ((TextView) view.findViewById(R.id.storage_tips)).setText("N/A");
 
             }
 
@@ -130,7 +130,24 @@ public class MoreInfoFragment extends Fragment {
 
         });
 
-        //////////////////////////////// On Back Button Pressed   //////////////////////////////////
+        ////////////////////////////////// On Back Button Pressed //////////////////////////////////
+
+        view.findViewById(R.id.back_btn).setOnClickListener(back_btn -> {
+
+            Bundle result = new Bundle();
+
+            result.putSerializable("foodItem", foodItem);
+
+            result.putSerializable("printedExpDate", printedExpDate);
+
+            getParentFragmentManager().setFragmentResult("FOOD ITEM", result);
+
+            NavHostFragment.findNavController(MoreInfoFragment.this)
+                    .navigate(R.id.action_CED_MoreInfoFragment_to_StatusFragment);
+
+        });
+
+        ///////////////////////////// On System Back Button Pressed   //////////////////////////////
 
         view.setFocusableInTouchMode(true);
 

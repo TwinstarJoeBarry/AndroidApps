@@ -83,7 +83,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:text="@string/fragment_ced_display_true_expiration_true_expiration_date_lbl"
+                android:text="@string/fragment_ced_more_info_true_expiration_date_lbl"
                 android:textStyle="bold" />
 
             <TextView
@@ -107,7 +107,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:text="@string/fragment_ced_display_true_expiration_storage_tips_lbl"
+                android:text="@string/fragment_ced_more_info_storage_tips_lbl"
                 android:textStyle="bold" />
 
             <TextView
@@ -127,12 +127,30 @@
             android:backgroundTint="@android:color/darker_gray"
             android:foreground="@android:color/darker_gray"/>
 
-        <Button
-            android:id="@+id/more_info_btn"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/more_info"
-            tools:ignore="ButtonStyle"/>
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/select_new_date_btn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:layout_marginEnd="1dp"
+                android:text="@string/fragment_ced_status_select_new_date_btn"
+                tools:ignore="ButtonStyle"/>
+
+            <Button
+                android:id="@+id/more_info_btn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:layout_marginStart="1dp"
+                android:text="@string/more_info"
+                tools:ignore="ButtonStyle"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 
