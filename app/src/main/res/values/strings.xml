@@ -263,17 +263,19 @@
     <string name="status_fragment_unknown_msg">The shelf life of this item is unknown.</string>
 
     <!-- Strings used in fragment_check_expiration_date_more_info.xml -->
-    <string name="fragment_ced_more_info_more_info_lbl">More Information</string>
+    <string name="fragment_ced_more_info_item_info_lbl">Item Information</string>
     <string name="fragment_ced_more_info_info_msg">Information about the selected item</string>
     <string name="fragment_ced_more_info_item_lbl">Product:</string>
     <string name="fragment_ced_more_info_upc_lbl">UPC Barcode:</string>
     <string name="fragment_ced_more_info_category_lbl">Category:</string>
     <string name="fragment_ced_more_info_type_lbl">Type:</string>
-    <string name="fragment_ced_more_info_shelf_life_lbl">Shelf Life:</string>
+    <string name="fragment_ced_more_info_pantry_life_lbl">Pantry Life Information</string>
+    <string name="fragment_ced_more_info_shelf_life_info_msg">Information about the selected item\'s pantry life</string>
+    <string name="fragment_ced_more_info_shelf_life_lbl">Storage Life:</string>
     <string name="fragment_ced_more_info_storage_type_lbl">Storage Type:</string>
     <string name="fragment_ced_more_info_storage_tips_lbl">Storage Tips:</string>
     <string name="fragment_ced_more_info_printed_expiration_date_lbl">Printed Expiration Date:</string>
-    <string name="fragment_ced_more_info_true_expiration_date_lbl">Actual Expiration Date:</string>
+    <string name="fragment_ced_more_info_true_expiration_date_lbl">Pantry Expiration Date:</string>
     <string name="fragment_ced_more_info_select_new_date_btn">Select New Date</string>
 
     <!-- GUEST DATABASE REGISTRATION STRINGS START ///////////////////////////////////////////////// -->
