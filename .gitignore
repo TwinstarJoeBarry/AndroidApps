@@ -88,6 +88,7 @@ obj/
 .idea/codeStyles/
 .idea/markdown-navigator.xml
 .idea/markdown-navigator-enh.xml
+.idea/inspectionProfiles/
 
 # OS-specific files
 .DS_Store
