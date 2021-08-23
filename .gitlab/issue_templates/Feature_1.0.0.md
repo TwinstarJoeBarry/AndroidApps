@@ -41,7 +41,7 @@ For each of the following sections, replace the text enclosed in parentheses wit
 <!--
 ## GitLab UI
 
-Be sure to include any of the following using gitlabs UI if applicable
+Be sure to include any of the following using GitLab's UI if applicable
 - Assignees
 - Weight (1-Easy/Quick, 2-Medium, 3-Hard/Involved)
 - Labels (Component, Type, Status...)
