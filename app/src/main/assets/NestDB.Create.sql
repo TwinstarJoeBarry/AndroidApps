@@ -139,8 +139,6 @@ INSERT INTO "shelfLifeTypes" ("code", "index", "json", "description") VALUES
 CREATE TABLE IF NOT EXISTS "nestUPCs" (
 	"UPC"		    TEXT NOT NULL UNIQUE,		-- allows for non-UPC codes like "pb" for peanut butter in general
 	"productId"	    INTEGER NOT NULL,			-- matching FoodKeeper product id (chosen by volunteer)
-	"brand"		    TEXT NOT NULL,				-- e.g. “Campbell’s” OR "Any" (or make field brandId and use nestBrands table to normalize)
-	"description"   TEXT NOT NULL,				-- e.g. “Chicken Noodle Soup”, OR just "Peanut Butter (jar)"
 	"_id"		    INTEGER PRIMARY KEY
 );
 
@@ -154,8 +152,8 @@ CREATE TABLE IF NOT EXISTS "nestBrands" (
 -- view_upc_product_category_joined
 -- called with a where clause on upc
 CREATE VIEW view_upc_product_category_joined as
-SELECT 		nestUPCs.UPC, nestUPCs.brand, nestUPCs.description,
-			nestUPCs.productId, products.name, products.subtitle,
+SELECT 		nestUPCs.UPC, nestUPCs.productId,
+            products.name, products.subtitle,
 			products.categoryId, categories.description as cat_desc
 FROM 		nestUPCs
 LEFT JOIN	products on nestUPCs.productId = products.id

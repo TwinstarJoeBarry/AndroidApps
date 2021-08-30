@@ -73,7 +73,7 @@ public class NewNestUPC extends NestDBDataSource.NestDBActivity {
             return;
         }
         // use dataSource to add the new upc to the Nest UPCs table
-        requireDataSource().insertNewUPC(upcBeingAdded, brand, description, selectedProductId);
+        requireDataSource().insertNewUPC(upcBeingAdded, selectedProductId);
 
         setResult(RESULT_OK);
         finish();

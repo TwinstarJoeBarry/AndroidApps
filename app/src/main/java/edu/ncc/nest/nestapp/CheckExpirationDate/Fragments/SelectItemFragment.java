@@ -157,8 +157,7 @@ public class SelectItemFragment extends SoftInputFragment {
 
                     Log.d(LOG_TAG, "Product ID: " + productId);
 
-                    if (dataSource.insertNewUPC(upcBarcode, "not specified",
-                            "not specified", productId) == -1)
+                    if (dataSource.insertNewUPC(upcBarcode, productId) == -1)
 
                         throw new RuntimeException("Error inserting new UPC");
 
@@ -170,8 +169,7 @@ public class SelectItemFragment extends SoftInputFragment {
                     int productId = dataSource.getProdIdfromProdInfo(
                             productCategoryId, productName, productSubtitle);
 
-                    if (dataSource.updateUPC(upcBarcode, "not specified",
-                            "not specified", productId) == -1)
+                    if (dataSource.updateUPC(upcBarcode, productId) == -1)
 
                         throw new RuntimeException("Error updating UPC");
 
