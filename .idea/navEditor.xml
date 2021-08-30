@@ -182,6 +182,11 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_CED_StatusFragment_to_SelectPrintedExpirationDateFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                           </map>
                         </option>
                       </LayoutPositions>

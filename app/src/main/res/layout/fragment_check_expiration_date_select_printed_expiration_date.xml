@@ -201,17 +201,11 @@
                     android:backgroundTint="@android:color/darker_gray"
                     android:foreground="@android:color/darker_gray"/>
 
-                <FrameLayout
+                <Button
+                    android:id="@+id/accept_btn"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <Button
-                        android:id="@+id/accept_btn"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/accept"/>
-
-                </FrameLayout>
+                    android:layout_height="wrap_content"
+                    android:text="@string/accept"/>
 
             </LinearLayout>
 
