@@ -78,7 +78,7 @@ public class MoreInfoFragment extends Fragment {
 
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_check_expiration_date_display_true_expiration,
+        return inflater.inflate(R.layout.fragment_check_expiration_date_more_info,
                 container, false);
 
 
