@@ -70,7 +70,7 @@ public class CheckExpirationDateActivity extends NestDBDataSource.NestDBActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
-        // Inflate the toolbar with the menu menu_check_expiration_date
+        // Inflate the toolbar with the menu menu_check_expiration_date.xml
         getMenuInflater().inflate(R.menu.menu_check_expiration_date, menu);
 
         return true;
