@@ -89,6 +89,7 @@ obj/
 .idea/markdown-navigator.xml
 .idea/markdown-navigator-enh.xml
 .idea/inspectionProfiles/
+.idea/deploymentTargetDropDown.xml
 
 # OS-specific files
 .DS_Store

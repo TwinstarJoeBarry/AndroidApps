@@ -122,12 +122,26 @@
             android:id="@+id/action_CED_StatusFragment_to_MoreInfoFragment"
             app:destination="@id/CED_MoreInfoFragment" />
 
+        <action
+            android:id="@+id/action_CED_StatusFragment_to_SelectPrintedExpirationDateFragment"
+            app:destination="@id/CED_SelectPrintedExpirationDateFragment"
+            app:popUpTo="@id/CED_SelectPrintedExpirationDateFragment"
+            app:popUpToInclusive="true" />
+
     </fragment>
 
     <fragment
         android:id="@+id/CED_MoreInfoFragment"
         android:name="edu.ncc.nest.nestapp.CheckExpirationDate.Fragments.MoreInfoFragment"
         android:label="@string/nav_graph_ced_more_info_fragment_lbl"
-        tools:layout="@layout/fragment_check_expiration_date_more_info" />
+        tools:layout="@layout/fragment_check_expiration_date_more_info">
+
+        <action
+            android:id="@+id/action_CED_MoreInfoFragment_to_StatusFragment"
+            app:destination="@id/CED_StatusFragment"
+            app:popUpTo="@id/CED_StatusFragment"
+            app:popUpToInclusive="true" />
+
+    </fragment>
 
 </navigation>

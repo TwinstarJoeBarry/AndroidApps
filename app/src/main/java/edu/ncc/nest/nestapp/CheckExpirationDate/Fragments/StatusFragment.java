@@ -176,6 +176,21 @@ public class StatusFragment extends Fragment {
 
         });
 
+        view.findViewById(R.id.select_new_date_btn).setOnClickListener(select_new_date_btn -> {
+
+            Bundle result = new Bundle();
+
+            result.putSerializable("foodItem", foodItem);
+
+            result.putSerializable("printedExpDate", printedExpDate);
+
+            getParentFragmentManager().setFragmentResult("FOOD ITEM", result);
+
+            NavHostFragment.findNavController(StatusFragment.this)
+                    .navigate(R.id.action_CED_StatusFragment_to_SelectPrintedExpirationDateFragment);
+
+        });
+
         view.findViewById(R.id.more_info_btn).setOnClickListener(more_info_btn -> {
 
             Bundle result = new Bundle();
