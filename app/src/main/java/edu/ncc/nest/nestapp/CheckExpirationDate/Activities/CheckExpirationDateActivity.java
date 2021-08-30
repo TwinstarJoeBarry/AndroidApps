@@ -87,9 +87,8 @@ public class CheckExpirationDateActivity extends NestDBDataSource.NestDBActivity
 
         if (itemId == R.id.new_upc_btn) {
 
-            FragmentManager fm = getSupportFragmentManager().getFragments().get(0).getChildFragmentManager();
-
-            Log.d(LOG_TAG, fm.getBackStackEntryCount() + "");
+            FragmentManager fm = getSupportFragmentManager()
+                    .getFragments().get(0).getChildFragmentManager();
 
             // Simulate pressing the back button until we get back to StartFragment
             while (fm.getBackStackEntryCount() > 0) {
