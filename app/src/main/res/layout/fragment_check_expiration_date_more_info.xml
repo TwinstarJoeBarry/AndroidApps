@@ -231,30 +231,6 @@
                 android:layout_marginBottom="48dp">
 
                 <TextView
-                    android:id="@+id/shelf_life_lbl"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.5"
-                    android:text="@string/fragment_ced_more_info_shelf_life_lbl"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/shelf_life"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.5"
-                    android:layout_marginStart="8dp"
-                    android:text="" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="48dp">
-
-                <TextView
                     android:id="@+id/storage_type_lbl"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"

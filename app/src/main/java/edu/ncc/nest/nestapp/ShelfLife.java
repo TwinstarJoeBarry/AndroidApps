@@ -17,13 +17,14 @@ package edu.ncc.nest.nestapp;
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * ShelfLife class --
  * models a ShelfLife from the FoodKeeper API
  */
-public class ShelfLife {
+public class ShelfLife implements Serializable {
     // constants for the different types of shelf life
     // todo make enum?
     public static final int PL     = 0;  // pantryLife

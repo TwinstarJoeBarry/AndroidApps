@@ -29,6 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import java.util.ArrayList;
@@ -38,7 +39,6 @@ import edu.ncc.nest.nestapp.CheckExpirationDate.Activities.CheckExpirationDateAc
 import edu.ncc.nest.nestapp.CheckExpirationDate.DatabaseClasses.NestDBDataSource;
 import edu.ncc.nest.nestapp.CheckExpirationDate.DatabaseClasses.NestUPC;
 import edu.ncc.nest.nestapp.R;
-import edu.ncc.nest.nestapp.SoftInputFragment;
 
 /**
  * SelectItemFragment: Allows user to select item options that will be used to determine a proper
@@ -48,7 +48,7 @@ import edu.ncc.nest.nestapp.SoftInputFragment;
  * See {@link edu.ncc.nest.nestapp.NewNestUPC} and {@link edu.ncc.nest.nestapp.ItemInformation}
  * for reference.
  */
-public class SelectItemFragment extends SoftInputFragment {
+public class SelectItemFragment extends Fragment {
 
     /////////////////////////////////////// Class Variables ////////////////////////////////////////
 
