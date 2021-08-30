@@ -157,16 +157,48 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
 
         monthPicker.setValue(printedExpDate.getMonthValue());
 
-        monthPicker.setOnValueChangedListener((picker, oldVal, newVal) -> {
+        monthPicker.setOnValueChangedListener(this::onMonthChanged);
 
-            printedExpDate = printedExpDate.withMonth(newVal);
+        view.findViewById(R.id.increment_month_btn).setOnClickListener(increment_month_btn -> {
 
-            // Make sure we update the number of days in the selected month
-            dayPicker.setMaxValue(printedExpDate.lengthOfMonth());
+            int oldVal = monthPicker.getValue();
 
-            dayPicker.setValue(printedExpDate.getDayOfMonth());
+            int newVal = oldVal < 12 ? oldVal + 1 : 1;
+
+            monthPicker.setValue(newVal);
+
+            onMonthChanged(monthPicker, oldVal, newVal);
 
         });
+
+        view.findViewById(R.id.decrement_month_btn).setOnClickListener(decrement_month_btn -> {
+
+            int oldVal = monthPicker.getValue();
+
+            int newVal = oldVal > 1 ? oldVal - 1 : 12;
+
+            monthPicker.setValue(newVal);
+
+            onMonthChanged(monthPicker, oldVal, newVal);
+
+        });
+
+    }
+
+    /**
+     * Called when the month is changed by the user.
+     * @param picker The {@link NumberPicker} that was changed.
+     * @param oldVal The old value.
+     * @param newVal The new value.
+     */
+    private void onMonthChanged(NumberPicker picker, int oldVal, int newVal) {
+
+        printedExpDate = printedExpDate.withMonth(newVal);
+
+        // Make sure we update the number of days in the selected month
+        dayPicker.setMaxValue(printedExpDate.lengthOfMonth());
+
+        dayPicker.setValue(printedExpDate.getDayOfMonth());
 
     }
 
@@ -186,8 +218,43 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
 
         dayPicker.setValue(printedExpDate.getDayOfMonth());
 
-        dayPicker.setOnValueChangedListener((picker, oldVal, newVal) ->
-                printedExpDate = printedExpDate.withDayOfMonth(newVal));
+        dayPicker.setOnValueChangedListener(this::onDayChanged);
+
+        view.findViewById(R.id.increment_day_btn).setOnClickListener(increment_day_btn -> {
+
+            int oldVal = dayPicker.getValue();
+
+            int newVal = oldVal < printedExpDate.lengthOfMonth() ? oldVal + 1 : 1;
+
+            dayPicker.setValue(newVal);
+
+            onDayChanged(dayPicker, oldVal, newVal);
+
+        });
+
+        view.findViewById(R.id.decrement_day_btn).setOnClickListener(decrement_day_btn -> {
+
+            int oldVal = dayPicker.getValue();
+
+            int newVal = oldVal > 1 ? oldVal - 1 : printedExpDate.lengthOfMonth();
+
+            dayPicker.setValue(newVal);
+
+            onDayChanged(dayPicker, oldVal, newVal);
+
+        });
+
+    }
+
+    /**
+     * Called when the day is changed by the user.
+     * @param picker The {@link NumberPicker} that was changed.
+     * @param oldVal The old value.
+     * @param newVal The new value.
+     */
+    private void onDayChanged(NumberPicker picker, int oldVal, int newVal) {
+
+        printedExpDate = printedExpDate.withDayOfMonth(newVal);
 
     }
 
@@ -201,22 +268,56 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
         NumberPicker yearPicker = view.findViewById(R.id.number_picker_year);
 
         final int CURRENT_YEAR = Calendar.getInstance().get(Calendar.YEAR);
+        final int MIN_YEAR = CURRENT_YEAR - 10;
+        final int MAX_YEAR = CURRENT_YEAR + 10;
 
-        yearPicker.setMinValue(CURRENT_YEAR - 10);
-        yearPicker.setMaxValue(CURRENT_YEAR + 10);
+        yearPicker.setMinValue(MIN_YEAR);
+        yearPicker.setMaxValue(MAX_YEAR);
 
         yearPicker.setValue(printedExpDate.getYear());
 
-        yearPicker.setOnValueChangedListener((picker, oldVal, newVal) -> {
+        yearPicker.setOnValueChangedListener(this::onYearChanged);
 
-            printedExpDate = printedExpDate.withYear(newVal);
+        view.findViewById(R.id.increment_year_btn).setOnClickListener(increment_year_btn -> {
 
-            // Make sure we update the number of days in the month, in case of leap years
-            dayPicker.setMaxValue(printedExpDate.lengthOfMonth());
+            int oldVal = yearPicker.getValue();
 
-            dayPicker.setValue(printedExpDate.getDayOfMonth());
+            int newVal = oldVal < MAX_YEAR ? oldVal + 1 : MIN_YEAR;
+
+            yearPicker.setValue(newVal);
+
+            onYearChanged(yearPicker, oldVal, newVal);
 
         });
+
+        view.findViewById(R.id.decrement_year_btn).setOnClickListener(decrement_year_btn -> {
+
+            int oldVal = yearPicker.getValue();
+
+            int newVal = oldVal > MIN_YEAR ? oldVal - 1 : MAX_YEAR;
+
+            yearPicker.setValue(newVal);
+
+            onYearChanged(yearPicker, oldVal, newVal);
+
+        });
+
+    }
+
+    /**
+     * Called when the year is changed by the user.
+     * @param picker The {@link NumberPicker} that was changed.
+     * @param oldVal The old value.
+     * @param newVal The new value.
+     */
+    private void onYearChanged(NumberPicker picker, int oldVal, int newVal) {
+
+        printedExpDate = printedExpDate.withYear(newVal);
+
+        // Make sure we update the number of days in the month, in case of leap years
+        dayPicker.setMaxValue(printedExpDate.lengthOfMonth());
+
+        dayPicker.setValue(printedExpDate.getDayOfMonth());
 
     }
 

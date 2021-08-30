@@ -244,7 +244,9 @@
 
     <!-- Strings used in fragment_check_expiration_date_select_printed_expiration_date.xml -->
     <string name="fragment_ced_select_printed_expiration_date_title_lbl">Select Printed Expiration Date</string>
-    <string name="fragment_ced_select_printed_expiration_date_message_lbl">Select the item\'s printed expiration date</string>
+    <string name="fragment_ced_select_printed_expiration_date_message_lbl">Select the item\'s
+        printed expiration date by either scrolling, tapping the arrows, or tapping on the selected
+        date to enter your own selection.</string>
     <string name="fragment_ced_select_printed_expiration_date_month_lbl">Select a month</string>
     <string name="fragment_ced_select_printed_expiration_date_day_lbl">Select a day</string>
     <string name="fragment_ced_select_printed_expiration_date_year_lbl">Select a year</string>
