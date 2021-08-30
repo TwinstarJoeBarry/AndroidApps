@@ -34,18 +34,6 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="CED_DisplayTrueExpirationFragment">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="12" />
-                            <option name="y" value="12" />
-                          </Point>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
                   <entry key="CED_EnterUpcFragment">
                     <value>
                       <LayoutPositions>
@@ -72,7 +60,7 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="CED_StatusFragment">
+                  <entry key="CED_MoreInfoFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
@@ -142,7 +130,7 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_CED_SelectPrintedExpirationDateFragment_to_DisplayTrueExpirationFragment">
+                            <entry key="action_CED_SelectPrintedExpirationDateFragment_to_StatusFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -169,6 +157,27 @@
                               </value>
                             </entry>
                             <entry key="action_CED_StartFragment_to_ScannerFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="CED_StatusFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="12" />
+                            <option name="y" value="12" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_CED_StatusFragment_to_MoreInfoFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
