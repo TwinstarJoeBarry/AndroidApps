@@ -19,14 +19,17 @@ package edu.ncc.nest.nestapp.CheckExpirationDate.Activities;
  */
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import edu.ncc.nest.nestapp.CheckExpirationDate.DatabaseClasses.NestDBDataSource;
+import edu.ncc.nest.nestapp.CheckExpirationDate.Fragments.StartFragment;
 import edu.ncc.nest.nestapp.R;
 
 /*
@@ -84,12 +87,24 @@ public class CheckExpirationDateActivity extends NestDBDataSource.NestDBActivity
 
         if (itemId == R.id.new_upc_btn) {
 
-            FragmentManager fm = getSupportFragmentManager();
+            FragmentManager fm = getSupportFragmentManager().getFragments().get(0).getChildFragmentManager();
+
+            Log.d(LOG_TAG, fm.getBackStackEntryCount() + "");
 
             // Simulate pressing the back button until we get back to StartFragment
-            while (fm.getBackStackEntryCount() > 0)
+            while (fm.getBackStackEntryCount() > 0) {
 
-                this.onBackPressed();
+                fm.popBackStackImmediate();
+
+                onBackPressed();
+
+            }
+
+            Fragment currentFragment = fm.getFragments().get(0);
+
+            if (currentFragment instanceof StartFragment)
+
+                ((StartFragment) currentFragment).clearUPCEntry();
 
         } else if (itemId == R.id.home_btn)
 
