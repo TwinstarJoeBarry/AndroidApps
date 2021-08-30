@@ -1,3 +1,11 @@
+<!--
+Please complete as much of this template as you can when you submit your issue.
+
+This description should be regularly edited to capture the current state
+and plan regarding this issue. Use comments to discuss and propose and/or
+document changes to this description, labels, etc.
+-->
+
 ## License and Copyright Notice
 
 By submitting this issue or commenting on this issue, or contributing any content to this issue, you certify under the [Developer Certificate of Origin](https://developercertificate.org/) that the content you post may be licensed under [GPLv3](https://www.gnu.org/licenses/gpl-3.0.en.html) (for code) or [CC-BY-SA 4.0 International](https://creativecommons.org/licenses/by-sa/4.0/) (for non-code content).
@@ -8,29 +16,21 @@ By submitting this issue or commenting on this issue, or contributing any conten
 For each of the following sections, replace the text enclosed in parentheses with the requested information 'below' the section title.
 -->
 
-## Branch Name
+## Summary
 
-(Paste the name of your branch here.)
+(Summarize what the feature is, concisely)
 
-## Related Issues
+## Current Behavior
 
-(List any related issues here or any issues this closes here.)
+(Summarize how the component that this would affect currently works)
 
-## Description
+## Benefits (Why is it necessary?)
 
-(Give a concise description of what this merge-request will accomplish.)
-
-## Steps to Test
-
-(List the steps needed to test this merge request here using bullets, for ex:)
-
-1. Step 1
-2. Step 2
-3. Step 3
+(Summarize the benefits gained by adding this feature)
 
 ## Relevant Screenshots
 
-(Post any relevant screenshots here.)
+(Post any relevant screenshots here, such as a feature prototype image, etc.)
 
 ## Relevant Logs
 
@@ -38,20 +38,11 @@ For each of the following sections, replace the text enclosed in parentheses wit
 (Paste any relevant logs here.)
 ```
 
-## Developer Notes
-
-(List any notes you have about what you did here using bullets, for ex:)
-
-- Note 1
-- Note 2
-- Note 3
-
 <!--
 ## GitLab UI
 
-Be sure to include any of the following using GitLab's UI (not description) if applicable:
+Be sure to include any of the following using GitLab's UI if applicable:
 - Assignees
-- Reviewers
+- Weight (1-Easy/Quick, 2-Medium, 3-Hard/Involved)
 - Labels (Component, Type, Status...)
-- Merge request dependencies (If applicable)
 -->
