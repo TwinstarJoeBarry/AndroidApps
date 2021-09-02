@@ -61,6 +61,7 @@ public class ScannerFragment extends AbstractScannerFragment {
 
     /////////////////////////////////////// Class Variables ////////////////////////////////////////
 
+    /** The tag to use when printing to the log from this class. */
     public static final String LOG_TAG = ScannerFragment.class.getSimpleName();
 
     /////////////////////////////////// Lifecycle Methods Start ////////////////////////////////////

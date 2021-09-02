@@ -159,6 +159,7 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
 
         monthPicker.setOnValueChangedListener(this::onMonthChanged);
 
+        // onClickListener for the 'down' arrow
         view.findViewById(R.id.increment_month_btn).setOnClickListener(increment_month_btn -> {
 
             int oldVal = monthPicker.getValue();
@@ -171,6 +172,7 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
 
         });
 
+        // onClickListener for the 'up' arrow
         view.findViewById(R.id.decrement_month_btn).setOnClickListener(decrement_month_btn -> {
 
             int oldVal = monthPicker.getValue();
@@ -220,6 +222,7 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
 
         dayPicker.setOnValueChangedListener(this::onDayChanged);
 
+        // onClickListener for the 'down' arrow
         view.findViewById(R.id.increment_day_btn).setOnClickListener(increment_day_btn -> {
 
             int oldVal = dayPicker.getValue();
@@ -232,6 +235,7 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
 
         });
 
+        // onClickListener for the 'up' arrow
         view.findViewById(R.id.decrement_day_btn).setOnClickListener(decrement_day_btn -> {
 
             int oldVal = dayPicker.getValue();
@@ -267,17 +271,20 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
 
         NumberPicker yearPicker = view.findViewById(R.id.number_picker_year);
 
-        final int CURRENT_YEAR = Calendar.getInstance().get(Calendar.YEAR);
+        final int CURRENT_YEAR = LocalDate.now().getYear();
+
+        // 10 Years is the current maximum shelf life in the database.
         final int MIN_YEAR = CURRENT_YEAR - 10;
         final int MAX_YEAR = CURRENT_YEAR + 10;
 
         yearPicker.setMinValue(MIN_YEAR);
         yearPicker.setMaxValue(MAX_YEAR);
 
-        yearPicker.setValue(printedExpDate.getYear());
+        yearPicker.setValue(CURRENT_YEAR);
 
         yearPicker.setOnValueChangedListener(this::onYearChanged);
 
+        // onClickListener for the 'down' arrow
         view.findViewById(R.id.increment_year_btn).setOnClickListener(increment_year_btn -> {
 
             int oldVal = yearPicker.getValue();
@@ -290,6 +297,7 @@ public class SelectPrintedExpirationDateFragment extends Fragment {
 
         });
 
+        // onClickListener for the 'up' arrow
         view.findViewById(R.id.decrement_year_btn).setOnClickListener(decrement_year_btn -> {
 
             int oldVal = yearPicker.getValue();

@@ -191,7 +191,10 @@ public class StatusFragment extends Fragment {
 
         });
 
+        // Set onClickListener for the select_new_date_btn
         view.findViewById(R.id.select_new_date_btn).setOnClickListener(select_new_date_btn -> {
+
+            // Create a bundle containing the required data for SelectPrintedExpirationDateFragment
 
             Bundle result = new Bundle();
 
@@ -206,7 +209,10 @@ public class StatusFragment extends Fragment {
 
         });
 
+        // Set the onClickListener for the more_info_btn
         view.findViewById(R.id.more_info_btn).setOnClickListener(more_info_btn -> {
+
+            // Create a bundle containing the required data for MoreInfoFragment
 
             Bundle result = new Bundle();
 
@@ -258,10 +264,10 @@ public class StatusFragment extends Fragment {
 
     /**
      * Returns whether or not {@code pantryLife} is valid (Non-null, and has a non-null metric).
-     * Displays any available storage tips the pantry life has in the given {@link TextView}.
+     * Also, displays any available storage tips the pantry life has in the given {@link TextView}.
      * NOTE: Be sure to set {@code pantryLife} before calling this method.
      * @param storageTips The {@link TextView} to display any available storage tips in.
-     * @return True if {@code pantryLife} is non-null and has a non-null metric, false otherwise.
+     * @return true if {@code pantryLife} is non-null and has a non-null metric, false otherwise.
      */
     private boolean validatePantryLife(@NonNull TextView storageTips) {
 
@@ -280,8 +286,8 @@ public class StatusFragment extends Fragment {
 
     /**
      * Calculates the true expiration date of an item based on it's shelf life and printed
-     * expiration date. ({@code printedExpDate} + {@link ShelfLife#getMax()} - 1 Month).
-     * @param shelfLife The {@link ShelfLife} to use when calculate the date.
+     * expiration date. ({@code printedExpDate} + {@link ShelfLife#getMax()}).
+     * @param shelfLife The {@link ShelfLife} to use when calculating the date.
      * @return The true expiration date of the given item.
      */
     private LocalDate calculateTrueExpDate(@NonNull ShelfLife shelfLife) {

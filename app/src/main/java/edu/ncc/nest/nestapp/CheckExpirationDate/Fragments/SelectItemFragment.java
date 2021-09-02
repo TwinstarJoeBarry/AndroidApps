@@ -29,6 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
@@ -52,34 +53,36 @@ public class SelectItemFragment extends Fragment {
 
     /////////////////////////////////////// Class Variables ////////////////////////////////////////
 
+    /** The tag to use when printing to the log from this class. */
     public static final String LOG_TAG = SelectItemFragment.class.getSimpleName();
 
-    /** CONSTANT DEFAULTS **/
-    NestDBDataSource dataSource;
+    private NestDBDataSource dataSource;
 
-    /** INSTANCE VARS **/
-    private String upcBarcode; // UPC as passed from previous fragments (populated with saved bundle)
+    private String upcBarcode; // UPC passed from previous fragments
 
-    // To access UI elements; both directly and indirectly
-    Button categoryButton, productButton, subtitleButton;
-    TextView categoryHint, productHint, subtitleHint;
+    private Button categoryButton, productButton, subtitleButton;
+
+    private TextView categoryHint, productHint, subtitleHint;
 
     private String productName, productSubtitle;
-    private int productCategoryId;
+
+    private int productCategoryId = -1;
 
     /////////////////////////////////// Lifecycle Methods Start ////////////////////////////////////
+
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        // Get a source object of the database to add the information
+        dataSource = CheckExpirationDateActivity.requireDataSource(this);
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        // Initialize variables; placeholder values replaced later
-        // FOR ESSENTIAL TEXT ENTRY VIEWS THAT SHOULD NEVER BE BLANK AND REPLACED IN CODE
-        upcBarcode = "[NOT RECEIVED]";
-
-        productCategoryId = -1;
-        productName = null;
-        productSubtitle = null;
 
         return inflater.inflate(R.layout.fragment_check_expiration_date_select_item,
                 container, false);
@@ -89,9 +92,6 @@ public class SelectItemFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        // Get a source object of the database to add the information;
-        dataSource = CheckExpirationDateActivity.requireDataSource(this);
 
         // Retrieve the upc barcode from the fragment result
         getParentFragmentManager().setFragmentResultListener("FOOD ITEM",
@@ -115,7 +115,7 @@ public class SelectItemFragment extends Fragment {
 
         });
 
-        // INITIALIZE UI ELEMENTS THAT ARE INSTANCE VARIABLES
+        // Initialize UI elements
         categoryHint = view.findViewById(R.id.select_item_category);
         categoryButton = view.findViewById(R.id.select_item_category_btn);
         categoryButton.setOnClickListener(v -> showCategories());
@@ -139,23 +139,23 @@ public class SelectItemFragment extends Fragment {
                     (subtitleButton.isEnabled() && productSubtitle == null)) {
 
                 Toast.makeText(getContext(), "Don't forget to select a category, name, and " +
-                        "subtitle-(if required)!", Toast.LENGTH_LONG).show();
+                        "subtitle!", Toast.LENGTH_LONG).show();
 
             } else {
+
+                Log.d(LOG_TAG, "Selected Product: " + productCategoryId +
+                        ", " + productName + ", " + productSubtitle);
 
                 // NOTE: This will return -1 if the UPC has never been added before
                 if (dataSource.getProductIdFromUPC(upcBarcode) == -1) {
 
-                    // No productId associated with this upc in the database, add it to the database
-                    // with the appropriate product id
-
-                    Log.d(LOG_TAG, "Selected Product: " + productCategoryId +
-                            ", " + productName + ", " + productSubtitle);
+                    /* No productId associated with this upc in the database, add it to the database
+                     * with the appropriate product id */
 
                     int productId = dataSource.getProdIdfromProdInfo(
                             productCategoryId, productName, productSubtitle);
 
-                    Log.d(LOG_TAG, "Product ID: " + productId);
+                    Log.d(LOG_TAG, "Selected product's id: " + productId);
 
                     if (dataSource.insertNewUPC(upcBarcode, productId) == -1)
 
@@ -168,6 +168,8 @@ public class SelectItemFragment extends Fragment {
 
                     int productId = dataSource.getProdIdfromProdInfo(
                             productCategoryId, productName, productSubtitle);
+
+                    Log.d(LOG_TAG, "Selected product's id: " + productId);
 
                     if (dataSource.updateUPC(upcBarcode, productId) == -1)
 
@@ -183,7 +185,7 @@ public class SelectItemFragment extends Fragment {
 
                 getParentFragmentManager().setFragmentResult("FOOD ITEM", result);
 
-                // Navigate over to SelectPrintedExpirationDateFragment;
+                // Navigate to SelectPrintedExpirationDateFragment
                 NavHostFragment.findNavController(SelectItemFragment.this).navigate(
                         R.id.action_CED_SelectItemFragment_to_SelectPrintedExpirationDateFragment);
 
@@ -191,6 +193,7 @@ public class SelectItemFragment extends Fragment {
 
         });
 
+        // Set the onClickListener for the cancel button
         view.findViewById(R.id.select_item_cancel_btn).setOnClickListener(v -> {
 
             Bundle result = new Bundle();
@@ -232,7 +235,7 @@ public class SelectItemFragment extends Fragment {
 
     /**
      * Creates a PopupMenu to display a list of categories for the user to choose from.
-     **/
+     */
     private void showCategories() {
 
         PopupMenu menuPop = new PopupMenu(getContext(), categoryButton);
@@ -275,7 +278,7 @@ public class SelectItemFragment extends Fragment {
     /**
      * Creates a PopupMenu to display a list of products for the user to choose from, as long as a
      * category has been selected.
-     **/
+     */
     private void showProducts() {
 
         if (productCategoryId != -1) {
@@ -319,8 +322,8 @@ public class SelectItemFragment extends Fragment {
      * Creates a PopupMenu to display a list of subtitles for the user to choose from, as long as a
      * product has been selected.
      *
-     * @param categoryId
-     * @param productName
+     * @param categoryId The id of the selected category
+     * @param productName The name of the selected product
      */
     private void showProductSubtitles(int categoryId, @NonNull String productName) {
 
