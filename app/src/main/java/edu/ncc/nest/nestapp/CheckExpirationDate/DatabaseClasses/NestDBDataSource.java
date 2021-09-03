@@ -363,8 +363,8 @@ public class NestDBDataSource {
         String qry = "SELECT * FROM view_shelf_lives_and_type_info_joined " +
                 "WHERE productId = ? AND typeIndex = ?";
 
-        Cursor c = db.rawQuery(qry, new String[]
-                {String.valueOf(productId), String.valueOf(typeIndex)});
+        Cursor c = db.rawQuery(qry,
+                new String[] {String.valueOf(productId), String.valueOf(typeIndex)});
 
         ShelfLife shelfLife = null;
 
