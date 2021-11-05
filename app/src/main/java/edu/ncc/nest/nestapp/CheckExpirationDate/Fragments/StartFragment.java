@@ -44,7 +44,7 @@ import edu.ncc.nest.nestapp.SoftInputFragment;
  *
  * Navigates to {@link ScannerFragment} when "Scan" button is pressed.
  *
- * Allows user to enter a upc barcode manually. When the user presses the "Enter"
+ * Also, allows user to enter a upc barcode manually. When the user presses the "Enter"
  * button, it should then validate the upc and check whether or not the upc exists in the local
  * database.
  *
@@ -58,6 +58,7 @@ public class StartFragment extends SoftInputFragment {
 
     /////////////////////////////////////// Class Variables ////////////////////////////////////////
 
+    /** The tag to use when printing to the log from this class. */
     public static final String LOG_TAG = StartFragment.class.getSimpleName();
 
     /////////////////////////////////// Lifecycle Methods Start ////////////////////////////////////
@@ -86,6 +87,7 @@ public class StartFragment extends SoftInputFragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // Set up listeners for the upc_entry TextView
         this.initializeUPCEntry(view);
 
         view.findViewById(R.id.start_scan_btn).setOnClickListener(v -> {
@@ -96,7 +98,7 @@ public class StartFragment extends SoftInputFragment {
 
         });
 
-        // Setup the OnClickListener and OnClickRunnable for start_enter_btn
+        // Setup the OnClickListener for start_enter_btn
         view.findViewById(R.id.start_enter_btn).setOnClickListener(v -> {
 
             // Look in the EditText widget and retrieve the String the user passed in

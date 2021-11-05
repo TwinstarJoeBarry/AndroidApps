@@ -44,6 +44,7 @@ public class ConfirmItemFragment extends Fragment {
 
     /////////////////////////////////////// Class Variables ////////////////////////////////////////
 
+    /** The tag to use when printing to the log from this class. */
     private static final String TAG = ConfirmItemFragment.class.getSimpleName();
 
     private NestUPC foodItem;

@@ -25,17 +25,18 @@ package edu.ncc.nest.nestapp.CheckExpirationDate.DatabaseClasses;
 import java.io.Serializable;
 
 /**
- * this POJO holds the related upc, product and category fields
- * needed for lookup and processing of a Nest UPC code
+ * This class holds information about a upc that is stored in the database.
  */
 public class NestUPC implements Serializable {
+
     private String upc;
     private int productId;
     private String productName, productSubtitle;
     private int categoryId;
     private String catDesc;
 
-    public NestUPC(String upc, int productId, String productName, String productSubtitle, int categoryId, String catDesc) {
+    public NestUPC(String upc, int productId, String productName, String productSubtitle,
+                   int categoryId, String catDesc) {
         this.upc = upc;
         this.productId = productId;
         this.productName = productName;

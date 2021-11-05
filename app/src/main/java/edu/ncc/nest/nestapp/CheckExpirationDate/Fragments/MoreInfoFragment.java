@@ -44,6 +44,7 @@ public class MoreInfoFragment extends Fragment {
 
     /////////////////////////////////////// Class Variables ////////////////////////////////////////
 
+    /** The tag to use when printing to the log from this class. */
     private static final String LOG_TAG = MoreInfoFragment.class.getSimpleName();
 
     public static final DateTimeFormatter dateTimeFormatter =
@@ -75,11 +76,12 @@ public class MoreInfoFragment extends Fragment {
         getParentFragmentManager().setFragmentResultListener("FOOD ITEM",
                 this, (key, result) -> {
 
-            // Retrieve the NestUPC from the bundle
+            // Retrieve the required data from the bundle
             foodItem = (NestUPC) result.getSerializable("foodItem");
 
             pantryLife = (ShelfLife) result.getSerializable("pantryLife");
 
+            // Retrieve the pre-calculated dates (Not required)
             trueExpDate = (LocalDate) result.getSerializable("trueExpDate");
 
             printedExpDate = (LocalDate) result.getSerializable("printedExpDate");

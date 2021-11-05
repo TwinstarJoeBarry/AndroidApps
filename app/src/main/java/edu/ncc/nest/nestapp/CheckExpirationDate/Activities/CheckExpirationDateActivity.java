@@ -31,9 +31,10 @@ import edu.ncc.nest.nestapp.CheckExpirationDate.DatabaseClasses.NestDBDataSource
 import edu.ncc.nest.nestapp.CheckExpirationDate.Fragments.StartFragment;
 import edu.ncc.nest.nestapp.R;
 
-/*
+/**
  * CheckExpirationDateActivity: This is the underlying activity for the fragments of the
- * CheckExpirationDate feature.
+ * CheckExpirationDate feature. This activity loads a {@link NestDBDataSource} that can be used
+ * throughout the 'Check Expiration Date' feature.
  */
 public class CheckExpirationDateActivity extends NestDBDataSource.NestDBActivity {
 
@@ -53,8 +54,8 @@ public class CheckExpirationDateActivity extends NestDBDataSource.NestDBActivity
         // Make sure the activity is not dead
         if (!this.isDestroyed()) {
 
-            /* Set the content view and support action toolbar here, so that fragments are NOT created
-             * until the database successfully loads. */
+            /* Set the content view and support action toolbar here, so that fragments are NOT
+             * created until the database successfully loads. */
             setContentView(R.layout.activity_check_expiration_date);
 
             setSupportActionBar(findViewById(R.id.check_expiration_date_toolbar));
@@ -89,7 +90,7 @@ public class CheckExpirationDateActivity extends NestDBDataSource.NestDBActivity
             FragmentManager fm = getSupportFragmentManager()
                     .getFragments().get(0).getChildFragmentManager();
 
-            // Simulate pressing the back button until we get back to StartFragment
+            // Simulate pressing the back button until we get back to StartFragment.
             while (fm.getBackStackEntryCount() > 0) {
 
                 fm.popBackStackImmediate();
