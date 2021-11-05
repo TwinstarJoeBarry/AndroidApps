@@ -205,7 +205,7 @@
 
     <!-- Strings used in fragment_check_expiration_date_start.xml -->
     <string name="fragment_ced_start_title">Check Expiration Date</string>
-    <string name="fragment_ced_start_welcome_msg">Welcome to the \'Check Expiration Date\' feature! This feature determines a food item\'s true expiration date when stored in pantry from date of purchase.</string>
+    <string name="fragment_ced_start_welcome_msg">Welcome to the \'Check Expiration Date\' feature! This feature determines a food item\'s true expiration date when stored in the pantry from date of purchase.</string>
     <string name="fragment_ced_start_enter_upc_msg">Manually enter a food item\'s \'UPC Barcode Number\' below or scan a \'UPC Barcode\' using your device\'s camera.</string>
     <string name="fragment_ced_start_upc_barcode_number_lbl">UPC Barcode Number:</string>
     <string name="fragment_ced_start_upc_barcode_number_hint">Enter UPC Barcode Number</string>
