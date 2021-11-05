@@ -19,11 +19,16 @@ package edu.ncc.nest.nestapp.CheckExpirationDate.Activities;
  */
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import edu.ncc.nest.nestapp.CheckExpirationDate.DatabaseClasses.NestDBDataSource;
+import edu.ncc.nest.nestapp.CheckExpirationDate.Fragments.StartFragment;
 import edu.ncc.nest.nestapp.R;
 
 /*
@@ -61,6 +66,51 @@ public class CheckExpirationDateActivity extends NestDBDataSource.NestDBActivity
     @Override
     protected void onLoadError(@NonNull Throwable throwable) {
         super.onLoadError(throwable);
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        // Inflate the toolbar with the menu menu_check_expiration_date.xml
+        getMenuInflater().inflate(R.menu.menu_check_expiration_date, menu);
+
+        return true;
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int itemId = item.getItemId();
+
+        if (itemId == R.id.new_upc_btn) {
+
+            FragmentManager fm = getSupportFragmentManager()
+                    .getFragments().get(0).getChildFragmentManager();
+
+            // Simulate pressing the back button until we get back to StartFragment
+            while (fm.getBackStackEntryCount() > 0) {
+
+                fm.popBackStackImmediate();
+
+                onBackPressed();
+
+            }
+
+            Fragment currentFragment = fm.getFragments().get(0);
+
+            if (currentFragment instanceof StartFragment)
+
+                ((StartFragment) currentFragment).clearUPCEntry();
+
+        } else if (itemId == R.id.home_btn)
+
+            /* Finish this activity and return to the previous activity since the previous activity
+             * is the home page. */
+            finish();
+
+        return super.onOptionsItemSelected(item);
 
     }
 

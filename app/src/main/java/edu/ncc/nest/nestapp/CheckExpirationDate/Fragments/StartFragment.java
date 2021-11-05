@@ -25,6 +25,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -217,5 +218,17 @@ public class StartFragment extends SoftInputFragment {
 
     }
 
+    /**
+     * Clears the text of the UPC entry {@link TextView}.
+     */
+    public void clearUPCEntry() {
+
+        TextView upcEntry = (TextView) requireView().findViewById(R.id.upc_entry);
+
+        if (upcEntry != null)
+
+            upcEntry.setText("");
+
+    }
 
 }
