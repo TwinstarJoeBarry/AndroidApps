@@ -74,7 +74,7 @@
             android:hint="@string/full_name"
             android:inputType="textPersonName"
             android:textColorHint="@color/White"
-            android:autofillHints="" />
+            android:autofillHints="name" />
 
     </TableRow>
 
@@ -94,7 +94,7 @@
             android:hint="@string/phone_number"
             android:inputType="phone"
             android:textColorHint="@color/White"
-            android:autofillHints="" />
+            android:autofillHints="phone" />
 
     </TableRow>
 
@@ -114,7 +114,7 @@
             android:hint="@string/email_address"
             android:inputType="textEmailAddress"
             android:textColorHint="@color/White"
-            android:autofillHints="" />
+            android:autofillHints="emailAddress" />
 
     </TableRow>
 
@@ -134,7 +134,7 @@
             android:hint="@string/ncc_id"
             android:inputType="number"
             android:textColorHint="@color/White"
-            android:autofillHints="" />
+            />
 
     </TableRow>
 
@@ -154,7 +154,7 @@
             android:hint="@string/postal_address"
             android:inputType="textPostalAddress"
             android:textColorHint="@color/White"
-            android:autofillHints="" />
+            android:autofillHints="postalAddress" />
 
     </TableRow>
 
@@ -166,6 +166,7 @@
         android:layout_marginTop="0dp"
         android:layout_marginStart="30dp" >
 
+        <!-- TODO couldn't find city autofill. removing for now -->
         <EditText
             android:id="@+id/editText6"
             android:layout_width="wrap_content"
@@ -174,7 +175,7 @@
             android:hint="@string/town_city"
             android:inputType="textPersonName"
             android:textColorHint="@color/White"
-            android:autofillHints="" />
+            />
 
     </TableRow>
 
@@ -194,7 +195,7 @@
             android:hint="@string/zip_code"
             android:inputType="number"
             android:textColorHint="@color/White"
-            android:autofillHints="" />
+            android:autofillHints="postalCode" />
 
         <Spinner
             android:id="@+id/states_spinner"
@@ -223,7 +224,7 @@
             android:hint="@string/birth_date"
             android:inputType="date"
             android:textColorHint="@color/White"
-            android:autofillHints="" />
+            android:autofillHints="4" />
 
     </TableRow>
 
