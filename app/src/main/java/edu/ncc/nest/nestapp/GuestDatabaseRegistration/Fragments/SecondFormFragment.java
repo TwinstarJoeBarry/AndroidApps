@@ -66,9 +66,9 @@ public class SecondFormFragment extends Fragment {
 
                 // For testing purposes
                 Log.d(TAG, "The name is: " + name);
-                Log.d(TAG, "The name is: " + phone);
-                Log.d(TAG, "The name is: " + id);
-                Log.d(TAG, "The name is: " + zip);
+                Log.d(TAG, "The phone number is: " + phone);
+                Log.d(TAG, "The id  is: " + id);
+                Log.d(TAG, "The zip is: " + zip);
             }
         });
     }
