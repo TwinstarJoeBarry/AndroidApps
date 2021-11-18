@@ -73,8 +73,7 @@
             android:backgroundTint="@color/White"
             android:hint="@string/full_name"
             android:inputType="textPersonName"
-            android:textColorHint="@color/White"
-            android:autofillHints="" />
+            android:textColorHint="@color/White" />
 
     </TableRow>
 
@@ -93,8 +92,7 @@
             android:backgroundTint="@color/White"
             android:hint="@string/phone_number"
             android:inputType="phone"
-            android:textColorHint="@color/White"
-            android:autofillHints="" />
+            android:textColorHint="@color/White" />
 
     </TableRow>
 
@@ -113,8 +111,7 @@
             android:backgroundTint="@color/White"
             android:hint="@string/email_address"
             android:inputType="textEmailAddress"
-            android:textColorHint="@color/White"
-            android:autofillHints="" />
+            android:textColorHint="@color/White" />
 
     </TableRow>
 
@@ -133,8 +130,7 @@
             android:backgroundTint="@color/White"
             android:hint="@string/ncc_id"
             android:inputType="number"
-            android:textColorHint="@color/White"
-            android:autofillHints="" />
+            android:textColorHint="@color/White" />
 
     </TableRow>
 
@@ -153,8 +149,7 @@
             android:backgroundTint="@color/White"
             android:hint="@string/postal_address"
             android:inputType="textPostalAddress"
-            android:textColorHint="@color/White"
-            android:autofillHints="" />
+            android:textColorHint="@color/White" />
 
     </TableRow>
 
@@ -173,8 +168,7 @@
             android:backgroundTint="@color/White"
             android:hint="@string/town_city"
             android:inputType="textPersonName"
-            android:textColorHint="@color/White"
-            android:autofillHints="" />
+            android:textColorHint="@color/White" />
 
     </TableRow>
 
@@ -193,8 +187,7 @@
             android:backgroundTint="@color/White"
             android:hint="@string/zip_code"
             android:inputType="number"
-            android:textColorHint="@color/White"
-            android:autofillHints="" />
+            android:textColorHint="@color/White" />
 
         <Spinner
             android:id="@+id/states_spinner"
@@ -222,8 +215,7 @@
             android:backgroundTint="@color/White"
             android:hint="@string/birth_date"
             android:inputType="date"
-            android:textColorHint="@color/White"
-            android:autofillHints="" />
+            android:textColorHint="@color/White" />
 
     </TableRow>
 

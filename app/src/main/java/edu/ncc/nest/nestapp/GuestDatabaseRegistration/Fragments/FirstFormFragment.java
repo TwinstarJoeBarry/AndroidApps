@@ -42,12 +42,11 @@ import edu.ncc.nest.nestapp.R;
  * and date-of-registration. The fragment should then bundle all of the user's inputs and sends them
  * to the next fragment {@link SecondFormFragment}.
  */
-public class FirstFormFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemSelectedListener {
+public class FirstFormFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
     public static final String TAG = FirstFormFragment.class.getSimpleName();
 
-    // Database where we will store user information
-    private GuestRegistrySource db;
+
 
     // Variables to store user information
     private EditText name, phone, email, address, city, zip, date, id;
@@ -66,8 +65,7 @@ public class FirstFormFragment extends Fragment implements View.OnClickListener,
     {
         super.onViewCreated(view, savedInstanceState);
 
-        // Creating the database and passing the correct context as the argument
-        db = new GuestRegistrySource(requireContext());
+
 
         view.findViewById(R.id.next_button_first_fragment_gRegistration).setOnClickListener(v ->
         {
@@ -105,7 +103,8 @@ public class FirstFormFragment extends Fragment implements View.OnClickListener,
             bundle.putString("ZIP", inputZip);
             bundle.putString("DATE", inputDate);
 
-            // TODO Set the bundle as the FragmentResult for the next fragment to retrieve
+            // Set the bundle as the FragmentResult for SecondFormFragment to retrieve
+            getParentFragmentManager().setFragmentResult("firstFormInfo", bundle);
 
             // Navigate to the SecondFormFragment
             NavHostFragment.findNavController(FirstFormFragment.this)
@@ -115,41 +114,7 @@ public class FirstFormFragment extends Fragment implements View.OnClickListener,
 
     }
 
-    /**
-     * onClick --
-     * Submits user-data when click is received.
-     * Notifies user in a toast if the adding is successful
-     *
-     * @param view The view that was clicked
-     */
-    @Override
-    public void onClick(View view) {
 
-        // TODO This method may be getting replaced by sending the data to the next fragment instead.
-        // If the data is being passed through fragments, you may need to move this method to the
-        // last fragment. See onViewCreated()
-
-        // Variable used for checks
-        boolean ins = false;
-
-        // Adding the values into the database if submit button is pressed
-        if (view.getId() == R.id.done_button) {
-
-            // NOTE: The parameter 'barcode' was recently added to this method
-            // TODO: Update parameter 'barcode' to the barcode representing this user
-            ins = db.insertData(name.getText().toString(), email.getText().toString(), phone.getText().toString(), date.getText().toString(), address.getText().toString(), city.getText().toString(), zip.getText().toString(), null);
-
-        }
-
-        // Notifying the user if the add was successful
-        if (ins) {
-
-            // For testing purposes, comment out if not needed.
-            Toast.makeText(requireContext(), "User Added", Toast.LENGTH_LONG).show();
-
-        }
-
-    }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id)

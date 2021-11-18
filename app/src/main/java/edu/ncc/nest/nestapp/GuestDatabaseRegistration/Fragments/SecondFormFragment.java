@@ -19,12 +19,14 @@ package edu.ncc.nest.nestapp.GuestDatabaseRegistration.Fragments;
  */
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentResultListener;
 
 import edu.ncc.nest.nestapp.R;
 
@@ -34,6 +36,8 @@ import edu.ncc.nest.nestapp.R;
  * {@link FirstFormFragment} and sends them to the next fragment {@link SummaryFragment}.
  */
 public class SecondFormFragment extends Fragment {
+
+    public static final String TAG = SecondFormFragment.class.getSimpleName();
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -46,6 +50,26 @@ public class SecondFormFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-    }
+        // listener to retrieve the bundle that's send from FirstFormFragment
+        getParentFragmentManager().setFragmentResultListener("firstFormInfo", this, new FragmentResultListener() {
+            @Override
+            public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
+                // the data sent from FirstFormFragment
+                String name = result.getString("NAME");
+                String phone = result.getString("PHONE");
+                String email = result.getString("EMAIL");
+                String id = result.getString("ID");
+                String address = result.getString("ADDRESS");
+                String city = result.getString("CITY");
+                String zip = result.getString("ZIP");
+                String date = result.getString("DATE");
 
+                // For testing purposes
+                Log.d(TAG, "The name is: " + name);
+                Log.d(TAG, "The name is: " + phone);
+                Log.d(TAG, "The name is: " + id);
+                Log.d(TAG, "The name is: " + zip);
+            }
+        });
+    }
 }

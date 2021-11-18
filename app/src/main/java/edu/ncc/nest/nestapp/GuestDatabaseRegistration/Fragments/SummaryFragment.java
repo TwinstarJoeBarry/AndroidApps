@@ -23,10 +23,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentResultListener;
 
+import edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses.GuestRegistrySource;
 import edu.ncc.nest.nestapp.R;
 
 /**
@@ -50,6 +54,10 @@ public class SummaryFragment extends Fragment  {
 
     public static final String TAG = SummaryFragment.class.getSimpleName();
 
+    // Database where we will store user information
+    private GuestRegistrySource db;
+
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
@@ -63,12 +71,46 @@ public class SummaryFragment extends Fragment  {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // Creating the database and passing the correct context as the argument
+        db = new GuestRegistrySource(requireContext());
+
         // OnClickListener for the "Done" button
         view.findViewById(R.id.button).setOnClickListener(clickedView -> {
 
 
 
         });
+
+    }
+
+    /**
+     * onClick --
+     * Submits user-data when click is received.
+     * Notifies user in a toast if the adding is successful
+     *
+     * @param view The view that was clicked
+     */
+    public void onClick(View view) {
+        // Variable used for checks
+        boolean ins = false;
+
+        // Adding the values into the database if submit button is pressed
+        if (view.getId() == R.id.done_button) {
+
+            // NOTE: The parameter 'barcode' was recently added to this method
+            // TODO: Update parameter 'barcode' to the barcode representing this user,
+            //  - when bundle passed to this SummaryFragment uncomment this statement to insert data.
+            // ins = db.insertData(name.getText().toString(), email.getText().toString(), phone.getText().toString(), date.getText().toString(), address.getText().toString(), city.getText().toString(), zip.getText().toString(), null);
+
+        }
+
+        // Notifying the user if the add was successful
+        if (ins) {
+
+            // For testing purposes, comment out if not needed.
+            Toast.makeText(requireContext(), "User Added", Toast.LENGTH_LONG).show();
+
+        }
 
     }
 
