@@ -105,7 +105,8 @@ public class FirstFormFragment extends Fragment implements View.OnClickListener,
             bundle.putString("ZIP", inputZip);
             bundle.putString("DATE", inputDate);
 
-            // TODO Set the bundle as the FragmentResult for the next fragment to retrieve
+            // Data sent to the next fragment
+            getParentFragmentManager().setFragmentResult("registration_form", bundle);
 
             // Navigate to the SecondFormFragment
             NavHostFragment.findNavController(FirstFormFragment.this)
@@ -117,6 +118,7 @@ public class FirstFormFragment extends Fragment implements View.OnClickListener,
 
     /**
      * onClick --
+     * This method is deprecated.
      * Submits user-data when click is received.
      * Notifies user in a toast if the adding is successful
      *
@@ -124,8 +126,8 @@ public class FirstFormFragment extends Fragment implements View.OnClickListener,
      */
     @Override
     public void onClick(View view) {
-
-        // TODO This method may be getting replaced by sending the data to the next fragment instead.
+/*
+        // This method has been replaced by sending the data to the next fragment instead.
         // If the data is being passed through fragments, you may need to move this method to the
         // last fragment. See onViewCreated()
 
@@ -136,7 +138,7 @@ public class FirstFormFragment extends Fragment implements View.OnClickListener,
         if (view.getId() == R.id.done_button) {
 
             // NOTE: The parameter 'barcode' was recently added to this method
-            // TODO: Update parameter 'barcode' to the barcode representing this user
+            // to do: Update parameter 'barcode' to the barcode representing this user
             ins = db.insertData(name.getText().toString(), email.getText().toString(), phone.getText().toString(), date.getText().toString(), address.getText().toString(), city.getText().toString(), zip.getText().toString(), null);
 
         }
@@ -148,7 +150,7 @@ public class FirstFormFragment extends Fragment implements View.OnClickListener,
             Toast.makeText(requireContext(), "User Added", Toast.LENGTH_LONG).show();
 
         }
-
+*/
     }
 
     @Override
