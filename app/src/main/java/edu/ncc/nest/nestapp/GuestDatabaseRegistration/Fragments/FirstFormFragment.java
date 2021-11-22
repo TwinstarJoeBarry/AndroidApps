@@ -36,6 +36,9 @@ import androidx.navigation.fragment.NavHostFragment;
 import edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses.GuestRegistrySource;
 import edu.ncc.nest.nestapp.R;
 
+// imports binding for the used layout
+import edu.ncc.nest.nestapp.databinding.FragmentGuestDatabaseRegistrationFirstFormBinding;
+
 /**
  * FirstFormFragment: Represents a form that a guest can fill in with their personal information
  * such as, name, phone-number, email-address, ncc-id, postal-address, city, zip-code, birth-date,
@@ -45,6 +48,9 @@ import edu.ncc.nest.nestapp.R;
 public class FirstFormFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
     public static final String TAG = FirstFormFragment.class.getSimpleName();
+
+    // declare the binding for the current fragment.
+    private FragmentGuestDatabaseRegistrationFirstFormBinding binding;
 
     // Database where we will store user information
     private GuestRegistrySource db;
@@ -56,9 +62,14 @@ public class FirstFormFragment extends Fragment implements View.OnClickListener,
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        // inflates the binding
+        binding = FragmentGuestDatabaseRegistrationFirstFormBinding.inflate(inflater, container, false);
+        return binding.getRoot();
+
+        /* for binding, change this commented code with the code currently being used
         return inflater.inflate(R.layout.fragment_guest_database_registration_first_form,
                 container, false);
-
+        */
     }
 
     @Override
@@ -73,18 +84,22 @@ public class FirstFormFragment extends Fragment implements View.OnClickListener,
         {
 
             // Getting a handle on info from the UI
-            name = view.findViewById(R.id.editText);
-            phone = view.findViewById(R.id.editText2);
-            email = view.findViewById(R.id.editText3);
+            // TODO: line #102
+            // name = view.findViewById(R.id.editText);
+            // phone = view.findViewById(R.id.editText2);
+            // email = view.findViewById(R.id.editText3);
             id = view.findViewById(R.id.editText4);
             address = view.findViewById(R.id.editText5);
             city = view.findViewById(R.id.editText6);
             zip = view.findViewById(R.id.editText7);
             date = view.findViewById(R.id.editText8);
 
-            String inputName = name.getText().toString();
-            String inputPhone = phone.getText().toString();
-            String inputEmail = email.getText().toString();
+            // examples of using binding to store name, phone and email.
+            String inputName = binding.editText.getText().toString();
+            String inputPhone = binding.editText2.getText().toString();
+            String inputEmail = binding.editText3.getText().toString();
+
+            // TODO: When fragments updated by the UI team use bindings to store the rest of the inputs
             String inputId = id.getText().toString();
             String inputAddress = address.getText().toString();
             String inputCity = city.getText().toString();
@@ -93,6 +108,8 @@ public class FirstFormFragment extends Fragment implements View.OnClickListener,
 
             // For testing purposes
             Log.d(TAG, "The name is: " + inputName);
+            Log.d(TAG, "The phone is: " + inputPhone);
+            Log.d(TAG, "The email is: " + inputEmail);
 
             Bundle bundle = new Bundle();
 
