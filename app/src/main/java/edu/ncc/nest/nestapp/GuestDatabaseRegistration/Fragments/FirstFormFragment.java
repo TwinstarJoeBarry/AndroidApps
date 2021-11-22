@@ -39,6 +39,7 @@ import edu.ncc.nest.nestapp.R;
 // imports binding for the used layout
 import edu.ncc.nest.nestapp.databinding.FragmentGuestDatabaseRegistrationFirstFormBinding;
 
+
 /**
  * FirstFormFragment: Represents a form that a guest can fill in with their personal information
  * such as, name, phone-number, email-address, ncc-id, postal-address, city, zip-code, birth-date,
@@ -62,7 +63,7 @@ public class FirstFormFragment extends Fragment implements View.OnClickListener,
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        // inflates the binding
+        // Inflate the layout for this fragment
         binding = FragmentGuestDatabaseRegistrationFirstFormBinding.inflate(inflater, container, false);
         return binding.getRoot();
 
@@ -84,7 +85,7 @@ public class FirstFormFragment extends Fragment implements View.OnClickListener,
         {
 
             // Getting a handle on info from the UI
-            // TODO: line #102
+            // TODO: line #108
             // name = view.findViewById(R.id.editText);
             // phone = view.findViewById(R.id.editText2);
             // email = view.findViewById(R.id.editText3);
@@ -99,17 +100,17 @@ public class FirstFormFragment extends Fragment implements View.OnClickListener,
             String inputPhone = binding.editText2.getText().toString();
             String inputEmail = binding.editText3.getText().toString();
 
-            // TODO: When fragments updated by the UI team use bindings to store the rest of the inputs
+            // For testing purposes
+            Log.d(TAG, "The name is: " + inputName);
+            Log.d(TAG, "The phone is: " + inputPhone);
+            Log.d(TAG, "The email is: " + inputEmail);
+
+            // TODO: When fragments updated by the UI team, use bindings to store the rest of the inputs
             String inputId = id.getText().toString();
             String inputAddress = address.getText().toString();
             String inputCity = city.getText().toString();
             String inputZip = zip.getText().toString();
             String inputDate = date.getText().toString();
-
-            // For testing purposes
-            Log.d(TAG, "The name is: " + inputName);
-            Log.d(TAG, "The phone is: " + inputPhone);
-            Log.d(TAG, "The email is: " + inputEmail);
 
             Bundle bundle = new Bundle();
 
