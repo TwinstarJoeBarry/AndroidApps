@@ -32,12 +32,14 @@
     android:layout_height="match_parent"
     tools:context=".Scanner">
 
-
+    <!--
+    * Causes package does not exist error in this layout's Binding class
     <me.dm7.barcodescanner.zxing.ZXingScannerView
         android:id="@+id/zxscan"
         android:layout_above="@id/layout_result"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+     -->
 
     <LinearLayout
         android:id="@+id/layout_result"
