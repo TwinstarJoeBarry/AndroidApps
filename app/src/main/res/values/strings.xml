@@ -1,0 +1,393 @@
+<resources>
+
+    <!-- Global Strings (Used globally throughout the app. Not file specific.) -->
+    <string name="app_name">NestApp</string>
+    <string name="empty_string" />
+    <string name="accept">Accept</string>
+    <string name="cancel">Cancel</string>
+    <string name="next">Next</string>
+    <string name="submit">Submit</string>
+    <string name="done">Done</string>
+    <string name="confirm">Confirm</string>
+    <string name="register">Register</string>
+    <string name="full_name">Full Name</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="email_address">Email Address</string>
+    <string name="ncc_affiliation">NCC Affiliation</string>
+    <string name="ncc_id">NCC ID</string>
+    <string name="postal_address">Postal Address</string>
+    <string name="town_city">Town / City</string>
+    <string name="zip_code">Zip Code</string>
+    <string name="state">State</string>
+    <string name="birth_date">Birth Date</string>
+    <string name="gender">Gender</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="month">Month</string>
+    <string name="day">Day</string>
+    <string name="year">Year</string>
+    <string name="error">Error</string>
+    <string name="arrow_up">Arrow up</string>
+    <string name="arrow_down">Arrow down</string>
+    <string name="enter">Enter</string>
+    <string name="scan">Scan</string>
+    <string name="more_info">More Info</string>
+    <string name="back">Back</string>
+    <string name="indefinite">Indefinite</string>
+    <string name="unknown">Unknown</string>
+
+    <!-- Strings used in AndroidManifest.xml -->
+    <string name="title_activity_sign_up">SignUp</string>
+    <string name="title_activity_choose">NEST Home</string>
+    <string name="title_activity_future_efforts">FutureEfforts</string>
+    <string name="title_activity_local_database">LocalDatabase</string>
+    <string name="title_activity_interface_tests">InterfaceTest</string>
+    <string name="title_activity_add_to_inventory">AddToInventory</string>
+    <string name="title_activity_check_expiration_date">CheckExpirationDate</string>
+    <string name="title_activity_guest_database_registration">GuestDatabaseRegistration</string>
+    <string name="title_activity_guest_google_sheet_registration">GuestGoogleSheetRegistration</string>
+    <string name="title_activity_guest_visit">GuestVisit</string>
+
+    <!-- Strings used in menu_main.xml -->
+    <string name="menu_main_home">HOME</string>
+
+    <!-- Strings used in activity_volunteer_form.xml -->
+    <string name="activity_volunteer_form_title">Volunteer Form</string>
+    <string name="activity_volunteer_form_contact_method">Preferred method of contact:</string>
+    <string name="activity_volunteer_form_push_notifications">Would you like to receive Push Notifications?</string>
+    <string name="activity_volunteer_form_yes_to_push">Yes, I would like to receive push notifications.</string>
+
+    <!-- Strings used in activity_main.xml -->
+    <string name="activity_main_title">Login</string>
+    <string name="activity_main_forgot_password">Forgot password?</string>
+    <string name="activity_main_sign_in">Sign in</string>
+    <string name="activity_main_make_account">Don\'t have an account? Sign up.</string>
+
+    <!-- Strings used in activity_sign_up.xml -->
+    <string name="activity_sign_up_title">Sign Up For NEST Volunteer!</string>
+    <string name="activity_sign_up_reenter_password">Re-enter Password</string>
+    <string name="activity_sign_up_sign_up_btn">Sign up</string>
+    <string name="activity_sign_up_background_image">Background Image</string>
+
+    <!-- Strings used in activity_inventory.xml -->
+    <string name="activity_inventory_title">NEST Inventory</string>
+    <string name="activity_inventory_popular">Most Popular</string>
+    <string name="activity_inventory_popular_1">Peanut Butter Natural</string>
+    <string name="activity_inventory_popular_2">Fresh Pasta</string>
+    <string name="activity_inventory_popular_3">Milk Plain or Flavored</string>
+    <string name="activity_inventory_popular_4">Whole Wheat Bread(Commercially Baked and Pre-Sliced)</string>
+    <string name="activity_inventory_popular_5">Cranberry Sauce Canned</string>
+    <string name="activity_inventory_popular_6">Canned Goods Low Acid(Soups, Beans, Carrots, Corn, Pasta, Peas, Potatoes, Spinach)</string>
+    <string name="activity_inventory_categories">Categories</string>
+    <string name="activity_inventory_category_1">Baby Food</string>
+    <string name="activity_inventory_category_2">Baked Goods</string>
+    <string name="activity_inventory_category_3">Beverages</string>
+    <string name="activity_inventory_category_4">Condiments, Sauces, and Canned Goods</string>
+    <string name="activity_inventory_category_5">Dairy Products, and Eggs</string>
+    <string name="activity_inventory_category_6">Deli and Prepared Foods</string>
+    <string name="activity_inventory_category_7">Food Purchased Frozen</string>
+    <string name="activity_inventory_category_8">Grains, Beans, and Pasta</string>
+    <string name="activity_inventory_category_9">Meat</string>
+    <string name="activity_inventory_category_10">Poultry</string>
+    <string name="activity_inventory_category_11">Produce</string>
+    <string name="activity_inventory_category_12">Seafood</string>
+    <string name="activity_inventory_category_13">Shelf Stable Foods</string>
+    <string name="activity_inventory_category_14">Vegetarian Proteins</string>
+
+    <!-- Strings used in activity_choose.xml -->
+    <string name="activity_choose_make_choice">Choose a NEST Activity:"</string>
+    <string name="activity_choose_choice_1">Check Expiration Date</string>
+    <string name="activity_choose_choice_2">Guest Forms</string>
+    <string name="activity_choose_choice_3">Future Efforts</string>
+    <string name="activity_choose_choice_4">Display True Date</string>
+
+    <!-- Strings used in activity_future_efforts.xml -->
+    <string name="activity_future_efforts_make_choice">Choose a NEST Activity:"</string>
+    <string name="activity_future_efforts_choice_1">Add To Inventory</string>
+    <string name="activity_future_efforts_choice_2">Create NEST account</string>
+    <string name="activity_future_efforts_choice_3">Schedule (Placeholder)</string>
+    <string name="activity_future_efforts_choice_4">Volunteer Form</string>
+
+    <!-- Strings used in activity_guest_form.xml (@Deprecated) -->
+    <string name="activity_guest_form_income">Household Income</string>
+    <string name="activity_guest_form_more_info"><font size="14">Is there anything else you would like us to know at this time?</font></string>
+    <string name="activity_guest_form_volunteer_first_name"><font size="14">What is the first name of the volunteer who helped you today?</font></string>
+    <string name="activity_guest_form_volunteer_last_name"><font size="14">What is the last name of the volunteer who helped you today?</font></string>
+
+    <!-- Strings used in activity_final_date.xml (@Deprecated) -->
+    <string name="activity_final_date_final_date">Final Date:</string>
+    <string name="activity_final_date_expiration">Expiration Date:</string>
+    <string name="activity_final_date_metric">Metric:</string>
+    <string name="activity_final_date_max_dop_pantry_life">Max dop_pantryLife:</string>
+
+    <!-- Strings used in activity_item_info.xml (@Deprecated) -->
+    <string name="activity_item_info_upc_lbl">Scan in or manually enter the UPC code then tap Lookup</string>
+    <string name="activity_item_info_scan_btn">Scan in</string>
+    <string name="activity_item_info_enter_upc">Enter UPC code here</string>
+    <string name="activity_item_info_lookup_btn">Lookup</string>
+    <string name="activity_item_info_select_cat_and_item">Select category and item:</string>
+    <string name="activity_item_info_select_category_btn">Select Category</string>
+    <string name="activity_item_info_select_item_btn">Select Item</string>
+    <string name="activity_item_info_category_lbl">Category:</string>
+    <string name="activity_item_info_item_lbl">Item:</string>
+    <string name="activity_item_info_select_expiration_lbl">Select expiration date:</string>
+    <string name="activity_item_info_select_expiration_btn">Select Expiration</string>
+    <string name="activity_item_info_expiration_lbl">Expiration:</string>
+    <string name="activity_item_info_tips_btn">TIP</string>
+    <string name="activity_item_info_calculate_btn">Calculate</string>
+    <string name="activity_item_info_result">[result will display here]</string>
+
+    <!-- Strings used in activity_donate.xml -->
+    <string name="activity_donate_form_title">Donation Form</string>
+    <string name="activity_donate_category_lbl">Select A Category:</string>
+    <string name="activity_donate_category_msg">Waiting For A Category To Be Selected…</string>
+    <string name="activity_donate_subcategory_lbl">Select A Subcategory:</string>
+    <string name="activity_donate_item_lbl">Select An Item:</string>
+    <string name="activity_donate_select_date_description">Press To Select The Expiration Date:</string>
+    <string name="activity_donate_select_date_btn">Select Date</string>
+    <string name="activity_donate_expiration_date_lbl">Expiration Date: </string>
+
+    <!-- Strings used in activity_ati_questionnaire.xml -->
+    <string name="activity_ati_questionnaire_title">ListView Of All Products</string>
+    <string name="activity_ati_questionnaire_ui_test">UITest4</string>
+    <string name="activity_ati_questionnaire_related_products_btn">Press to See Related Products</string>
+
+    <!-- Strings used in list_ati.xml -->
+    <string name="list_ati_product_lbl">Product: </string>
+
+    <!-- Strings used in UPCLookup.java Activity -->
+    <string name="upc_lookup_generating_table">Generating Lookup Table…</string>
+    <string name="upc_lookup_retrieving_json">Retrieving JSON…</string>
+    <string name="upc_lookup_match_found">Match found\nFDCID: %s</string>
+    <string name="upc_lookup_no_match_found">No match found</string>
+    <string name="upc_lookup_foodkeeper_category_match_found">FoodKeeperCategory %s, ID %s</string>
+    <string name="upc_lookup_no_foodkeeper_category_match_found">No Food Keeper category match found</string>
+    <string name="upc_lookup_bad_upc">Bad UPC</string>
+    <string name="upc_lookup_usda_null_response">NULL response from USDA API</string>
+    <string name="upc_lookup_usda_no_response">No response from USDA API</string>
+
+    <!-- Strings used in activity_upc_lookup.xml -->
+    <string name="activity_upc_lookup_title">UPC Lookup Tool</string>
+    <string name="activity_upc_lookup_enter_upc">Enter UPC</string>
+    <string name="activity_upc_lookup_scan_btn">Scan</string>
+    <string name="activity_upc_lookup_search_btn">Search</string>
+
+    <!-- Strings used in activity_new_nest_upc.xml -->
+    <string name="activity_new_nest_upc_title">Adding new UPC: %1$s</string>
+    <string name="activity_new_nest_upc_brand_lbl">Brand name:</string>
+    <string name="activity_new_nest_upc_brand_hint">Enter brand name</string>
+    <string name="activity_new_nest_upc_description_lbl">Description:</string>
+    <string name="activity_new_nest_upc_description_hint">Enter description</string>
+    <string name="activity_new_nest_upc_subtitle">Choose corresponding food expiration category/product</string>
+    <string name="activity_new_nest_upc_category_lbl">Category:</string>
+    <string name="activity_new_nest_upc_product_lbl">Product:</string>
+
+    <!-- LOADING DIALOG START ////////////////////////////////////////////////////////////////////// -->
+
+    <string name="dialog_loading_database_msg">Loading database. Please wait…</string>
+    <string name="dialog_loading_database_success_msg">Database successfully loaded</string>
+    <string name="dialog_loading_database_error_msg">Error! Failed to load database.</string>
+
+    <!-- ABSTRACT SCANNER STRINGS START //////////////////////////////////////////////////////////// -->
+
+    <!-- Strings used in AbstractScanner.java -->
+    <string name="abstract_scanner_fragment_waiting_for_scan">Waiting for scan …</string>
+    <string name="abstract_scanner_fragment_camera_permission_required">Camera permission required.</string>
+    <string name="abstract_scanner_fragment_confirm_msg">Please confirm that the barcode is correct.</string>
+
+    <!-- Strings used in fragment_abstract_scanner.xml -->
+    <string name="fragment_abstract_scanner_rescan_btn">Re-Scan Barcode</string>
+    <string name="fragment_abstract_scanner_confirm_button">Confirm Scan</string>
+
+    <!-- CHECK EXPIRATION DATE STRINGS START /////////////////////////////////////////////////////// -->
+
+    <!-- Strings used in menu_check_expiration_date.xml -->
+    <string name="menu_ced_new_upc_btn">New UPC</string>
+
+    <!-- Strings used in fragment_check_expiration_date_start.xml -->
+    <string name="fragment_ced_start_title">Check Expiration Date</string>
+    <string name="fragment_ced_start_welcome_msg">Welcome to the \'Check Expiration Date\' feature! This feature determines a food item\'s true expiration date when stored in the pantry from date of purchase.</string>
+    <string name="fragment_ced_start_enter_upc_msg">Manually enter a food item\'s \'UPC Barcode Number\' below or scan a \'UPC Barcode\' using your device\'s camera.</string>
+    <string name="fragment_ced_start_upc_barcode_number_lbl">UPC Barcode Number:</string>
+    <string name="fragment_ced_start_upc_barcode_number_hint">Enter UPC Barcode Number</string>
+    <string name="fragment_ced_start_icon_content_description">UPC barcode number validation icon</string>
+
+    <!-- Strings used in fragment_check_expiration_date_enter_upc.xml -->
+    <string name="fragment_ced_enter_upc_type_upc_hint">Type UPC here</string>
+    <string name="fragment_ced_enter_upc_enter_upc_btn">Enter UPC</string>
+
+    <!-- Strings used in fragment_check_expiration_date_confirm_item.xml -->
+    <string name="fragment_ced_confirm_item_title_lbl">Confirm Item Information</string>
+    <string name="fragment_ced_confirm_item_message_lbl">Confirm that the information associated with the provided UPC barcode is correct.</string>
+    <string name="fragment_ced_confirm_item_confirm_item_btn">Confirm Item</string>
+    <string name="fragment_ced_confirm_item_incorrect_btn">Incorrect</string>
+    <string name="fragment_ced_confirm_item_product_lbl">Product:</string>
+    <string name="fragment_ced_confirm_item_upc_lbl">UPC Barcode:</string>
+    <string name="fragment_ced_confirm_item_category_lbl">Category:</string>
+    <string name="fragment_ced_confirm_item_type_lbl">Type:</string>
+    <string name="fragment_ced_confirm_item_brand_lbl">Brand:</string>
+    <string name="fragment_ced_confirm_item_description_lbl">Description:</string>
+
+    <!-- Strings used in fragment_check_expiration_date_select_item.xml -->
+    <string name="fragment_ced_select_item_title">Select Item Information</string>
+    <string name="fragment_ced_select_item_message">Select the appropriate information for this item.</string>
+    <string name="fragment_ced_select_item_brand_lbl">Item Brand Name:</string>
+    <string name="fragment_ced_select_item_brand_hint">Enter brand name</string>
+    <string name="fragment_ced_select_item_description_lbl">Item Description:</string>
+    <string name="fragment_ced_select_item_description_hint">Enter description</string>
+    <string name="fragment_ced_select_item_subtitle">Choose corresponding food expiration category/product</string>
+    <string name="fragment_ced_select_item_category_lbl">Category:</string>
+    <string name="fragment_ced_select_item_select_category_btn">Select Category</string>
+    <string name="fragment_ced_select_item_product_lbl">Product:</string>
+    <string name="fragment_ced_select_item_select_product_btn">Select Product</string>
+    <string name="fragment_ced_select_item_type_lbl">Type:</string>
+    <string name="fragment_ced_select_item_select_type_btn">Select Type</string>
+
+    <!-- Strings used in fragment_check_expiration_date_select_printed_expiration_date.xml -->
+    <string name="fragment_ced_select_printed_expiration_date_title_lbl">Select Printed Expiration Date</string>
+    <string name="fragment_ced_select_printed_expiration_date_message_lbl">Select the item\'s
+        printed expiration date by either scrolling, tapping the arrows, or tapping on the selected
+        date to enter your own selection.</string>
+    <string name="fragment_ced_select_printed_expiration_date_month_lbl">Select a month</string>
+    <string name="fragment_ced_select_printed_expiration_date_day_lbl">Select a day</string>
+    <string name="fragment_ced_select_printed_expiration_date_year_lbl">Select a year</string>
+
+    <!-- Strings used in fragment_check_expiration_date_status.xml -->
+    <string name="fragment_ced_status_title">Selected Item\'s Status</string>
+    <string name="fragment_ced_status_icon_content_description">Selected item\'s status</string>
+    <string name="fragment_ced_status_msg">Status message placeholder</string>
+    <string name="fragment_ced_status_select_new_date_btn">Select New Date</string>
+
+    <!-- Strings used in StatusFragment.java -->
+    <string name="status_fragment_discard_msg">The item has expired and should be discarded.</string>
+    <string name="status_fragment_warning_msg">The item is within 30 days of expiration.</string>
+    <string name="status_fragment_safe_msg">The item does not expire for 30 days or more.</string>
+    <string name="status_fragment_indefinite_msg">The item\'s expiration date is indefinite.</string>
+    <string name="status_fragment_unknown_msg">The shelf life of this item is unknown.</string>
+
+    <!-- Strings used in fragment_check_expiration_date_more_info.xml -->
+    <string name="fragment_ced_more_info_item_info_lbl">Item Information</string>
+    <string name="fragment_ced_more_info_info_msg">Information about the selected item</string>
+    <string name="fragment_ced_more_info_item_lbl">Product:</string>
+    <string name="fragment_ced_more_info_upc_lbl">UPC Barcode:</string>
+    <string name="fragment_ced_more_info_category_lbl">Category:</string>
+    <string name="fragment_ced_more_info_type_lbl">Type:</string>
+    <string name="fragment_ced_more_info_pantry_life_lbl">Pantry Life Information</string>
+    <string name="fragment_ced_more_info_shelf_life_info_msg">Information about the selected item\'s pantry life</string>
+    <string name="fragment_ced_more_info_shelf_life_lbl">Storage Life:</string>
+    <string name="fragment_ced_more_info_storage_type_lbl">Storage Type:</string>
+    <string name="fragment_ced_more_info_storage_tips_lbl">Storage Tips:</string>
+    <string name="fragment_ced_more_info_printed_expiration_date_lbl">Printed Expiration Date:</string>
+    <string name="fragment_ced_more_info_true_expiration_date_lbl">Pantry Expiration Date:</string>
+    <string name="fragment_ced_more_info_select_new_date_btn">Select New Date</string>
+
+    <!-- GUEST DATABASE REGISTRATION STRINGS START ///////////////////////////////////////////////// -->
+
+    <!-- Strings used in fragment_guest_database_registration_start.xml -->
+    <string name="fragment_dbr_start_title">GUEST FORM\nREGISTRATION</string>
+    <string name="fragment_dbr_start_entry_form_btn">Entry Form</string>
+    <string name="fragment_dbr_start_scan_barcode_btn">Scan Barcode</string>
+
+    <!-- Strings used in fragment_guest_database_registration_first_form.xml -->
+    <string name="fragment_dbr_first_form_title">Guest Form Registration</string>
+
+    <!-- Strings used in fragment_guest_database_registration_second_form.xml -->
+    <string name="fragment_dbr_second_form_description">Household Information Fragment</string>
+
+    <!-- Strings used in fragment_guest_database_registration_summary.xml -->
+    <string name="fragment_dbr_summary_description">Summary page of GuestGoogleSheetRegistration</string>
+
+    <!-- GUEST GOOGLE SHEET REGISTRATION STRINGS START ///////////////////////////////////////////// -->
+
+    <!-- Strings used in fragment_guest_google_sheet_registration_first_form.xml -->
+
+    <!-- Strings used in fragment_guest_google_sheet_registration_second_form.xml -->
+    <string name="fragment_gsr_second_form_question_1">Number of People in Your Household</string>
+    <string name="fragment_gsr_second_form_question_2">What is your household income?</string>
+    <string name="fragment_gsr_second_form_question_3">Do you have SNAP/food stamps?</string>
+    <string name="fragment_gsr_second_form_question_4"><font size="14">Do you know of any other emergency food programs in the area?</font></string>
+    <string name="fragment_gsr_second_form_question_5">What is your employment status?</string>
+    <string name="fragment_gsr_second_form_question_6">What is your health status?</string>
+    <string name="fragment_gsr_second_form_question_7">What is your housing status?</string>
+    <string name="fragment_gsr_second_form_question_8">What is your childcare status?</string>
+    <string name="fragment_gsr_second_form_question_9"><font size="14">How many children are in your household under the age of 1 year?</font></string>
+    <string name="fragment_gsr_second_form_question_10"><font size="14">How many children are in your household between ages 1-5?</font></string>
+    <string name="fragment_gsr_second_form_question_11"><font size="14">How many children are in your household between ages 6-12?</font></string>
+    <string name="fragment_gsr_second_form_question_12"><font size="14">How many children are in your household between ages 13-18?</font></string>
+    <string name="fragment_gsr_second_form_question_13">What are your dietary needs and preferences?</string>
+    <string name="fragment_gsr_second_form_question_14">How did you find us?</string>
+    <string name="fragment_gsr_second_form_question_15"><font size="14">Is there anything else you would like us to know at this time?</font></string>
+    <string name="fragment_gsr_second_form_question_16"><font size="14">What is the first name of the volunteer who helped you today?</font></string>
+    <string name="fragment_gsr_second_form_question_17"><font size="14">What is the last name of the volunteer who helped you today?</font></string>
+
+    <!-- GUEST VISIT STRINGS START ///////////////////////////////////////////////////////////////// -->
+
+    <!-- Strings used in fragment_guest_visit_confirmation_found.xml -->
+    <string name="fragment_gv_confirmation_found_title">Welcome NEST Guest!</string>
+    <string name="fragment_gv_confirmation_found_msg">Please confirm that the following information is correct.</string>
+    <string name="fragment_gv_confirmation_found_guest_name_lbl">GUEST NAME</string>
+    <string name="fragment_gv_confirmation_found_guest_id_lbl">GUEST ID</string>
+    <string name="fragment_gv_confirmation_found_rescan_btn">Re-Scan Barcode</string>
+
+    <!-- Strings used in fragment_guest_visit_confirmation_not_found.xml -->
+    <string name="fragment_gv_confirmation_not_found_title">NEST GUEST NOT FOUND!</string>
+    <string name="fragment_gv_confirmation_not_found_msg">Sorry! We couldn\'t find a guest associated with the following barcode:</string>
+    <string name="fragment_gv_confirmation_not_found_register_msg">Please register to continue</string>
+    <string name="fragment_gv_confirmation_not_found_rescan_btn">Re-Scan Barcode</string>
+
+    <!-- Strings used in GuestVisit.Fragments.QuestionnaireFragment.java -->
+    <string name="questionnaire_fragment_alert_title">"SUBMISSION HAS MISSING FIELDS!"</string>
+    <string name="questionnaire_fragment_alert_msg">Please make sure to answer all of the questions before submitting the questionnaire.</string>
+
+    <!-- Strings used in fragment_guest_visit_questionnaire.xml -->
+    <string name="fragment_gv_questionnaire_welcome_message">Welcome NEST Guest!</string>
+    <string name="fragment_gv_questionnaire_description">Please answer and submit the following questions before proceeding.</string>
+    <string name="fragment_gv_questionnaire_question_1">Who visited the NEST today? (Guest ID)</string>
+    <string name="fragment_gv_questionnaire_question_2">How many adults (ages 19–64) are in your household?</string>
+    <string name="fragment_gv_questionnaire_question_3">How many adults (over the age of 64) are in your household?</string>
+    <string name="fragment_gv_questionnaire_question_4">How many children (ages 18 and under) are in your household?</string>
+    <string name="fragment_gv_questionnaire_question_5">Is this your first visit to the NEST?</string>
+    <string name="fragment_gv_questionnaire_spinner_prompt">Choose an answer</string>
+    <string name="fragment_gv_questionnaire_hint_number">Enter a number</string>
+    <string name="fragment_gv_questionnaire_hint_id">NEST Guest Id#</string>
+
+    <!-- NAV GRAPH LABELS START //////////////////////////////////////////////////////////////////// -->
+
+    <!-- Strings used in nav_graph_check_expiration_date.xml -->
+    <string name="nav_graph_ced_start_fragment_lbl">Start Fragment</string>
+    <string name="nav_graph_ced__scanner_fragment_lbl">Scanner Fragment</string>
+    <string name="nav_graph_ced_enter_upc_fragment_lbl">Enter UPC Fragment</string>
+    <string name="nav_graph_ced_confirm_item_fragment_lbl">Confirm Item Fragment</string>
+    <string name="nav_graph_ced_select_item_fragment_lbl">Select Item Fragment</string>
+    <string name="nav_graph_ced_select_printed_expiration_date_fragment_lbl">Select Printed Expiration Date Fragment</string>
+    <string name="nav_graph_ced_status_fragment_lbl">Status Fragment</string>
+    <string name="nav_graph_ced_more_info_fragment_lbl">Display True Expiration Fragment</string>
+
+    <!-- Strings used in nav_graph_database_registration.xml -->
+    <string name="nav_graph_dbr_start_fragment_lbl">Start Fragment</string>
+    <string name="nav_graph_dbr_scanner_fragment_lbl">Scanner Fragment</string>
+    <string name="nav_graph_dbr_first_form_fragment_lbl">First Form Fragment</string>
+    <string name="nav_graph_dbr_second_form_fragment_lbl">Second Form Fragment</string>
+    <string name="nav_graph_dbr_summary_fragment_lbl">Summary Fragment</string>
+
+    <!-- Strings used in nav_graph_google_sheet_registration.xml -->
+    <string name="nav_graph_gsr_first_form_fragment_lbl">First Form Fragment</string>
+    <string name="nav_graph_gsr_second_form_fragment_lbl">Second Form Fragment</string>
+
+    <!-- Strings used in nav_graph_guest_visit.xml -->
+    <string name="nav_graph_gv_scanner_fragment_lbl">Scanner Fragment</string>
+    <string name="nav_graph_gv_confirmation_fragment_lbl">Confirmation Fragment</string>
+    <string name="nav_graph_gv_questionnaire_fragment_lbl">Questionnaire Fragment</string>
+
+    <!-- NEW STRINGS START ///////////////////////////////////////////////////////////////////////// -->
+
+    <!-- This string is used only for the creation of new strings. -->
+    <!-- When a new string is created it should appear below this string. -->
+    <string name="STRINGS_BELOW_THIS_SHOULD_BE_MOVED_TO_AN_APPROPRIATE_LOCATION_ABOVE" />
+    <string name="n">N</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>

@@ -1,0 +1,10 @@
+stages:
+- test
+
+test:
+  stage: test
+  script:
+    - echo "fake test"
+  only:
+  - branches
+

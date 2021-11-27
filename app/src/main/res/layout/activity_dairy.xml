@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".UIFoods.Dairy">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/toolbar"
+            android:layout_centerHorizontal="true"
+            android:text="Dairy Products and Eggs"
+            android:textSize="21.5sp" />
+
+        <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textView2"
+            android:layout_centerHorizontal="true">
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/btn1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Almond milk" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Butter" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Buttermilk" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cheese hard as cheddar, swiss, block parmesan" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cheese parmesan; shredded or grated" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cheese processed slices" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cheese shredded; cheddar, mozzarella, etc." />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cheese soft as brie, bel paese" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Coconut milk" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Coffee creamer liquid refrigerated" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Coffee creamer powdered" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cottage cheese" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cream cheese" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cream half and half" />
+            </TableRow>
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cream heavy" />
+            </TableRow>
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn17"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cream light" />
+            </TableRow>
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn18"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cream whipped, sweetened" />
+            </TableRow>
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn19"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cream whipping, ultrapasteurized" />
+            </TableRow>
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn20"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Dips sour cream based" />
+            </TableRow>
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn21"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Egg dishes" />
+            </TableRow>
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn22"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Egg substitutes liquid" />
+            </TableRow>
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn23"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Eggnog commercial" />
+            </TableRow>
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Eggs hard boiled cooked" />
+            </TableRow>
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn25"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Eggs in shell" />
+            </TableRow>
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn26"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Eggs raw whites, yolks" />
+            </TableRow>
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn27"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Kefir fermented milk" />
+            </TableRow>
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn28"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Margarine" />
+            </TableRow>
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn29"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Milk lactose-free" />
+            </TableRow>
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn30"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Milk plain or flavored" />
+            </TableRow>
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn31"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nacho cheese store bought" />
+            </TableRow>
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn32"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Powdered milk" />
+            </TableRow>
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn33"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pudding" />
+            </TableRow>
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn34"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Quark fresh cheese" />
+            </TableRow>
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn35"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rice milk" />
+            </TableRow>
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn36"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ricotta" />
+            </TableRow>
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn37"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sour cream" />
+            </TableRow>
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn38"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Soy milk" />
+            </TableRow>
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn39"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="String cheese" />
+            </TableRow>
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn40"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Vegan Cheddar Cheese" />
+            </TableRow>
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn41"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Whipped cream aerosol can" />
+            </TableRow>
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn42"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Whipped topping aerosol can" />
+            </TableRow>
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn43"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Whipped topping tub" />
+            </TableRow>
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn44"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Yogurt" />
+            </TableRow>
+        </TableLayout>
+    </RelativeLayout>
+</ScrollView>

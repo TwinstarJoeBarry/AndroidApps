@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+* Copyright (C) 2020 The LibreFoodPantry Developers.
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program.  If not, see <https://www.gnu.org/licenses/>.
+-->
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_guest_visit"
+    app:startDestination="@id/GV_ScannerFragment" >
+
+    <!-- NOTE: GV stands for GuestVisit :NOTE -->
+
+    <fragment
+        android:id="@+id/GV_ScannerFragment"
+        android:name="edu.ncc.nest.nestapp.GuestVisit.Fragments.ScannerFragment"
+        android:label="@string/nav_graph_gv_scanner_fragment_lbl"
+        tools:layout="@layout/abstract_scanner" >
+
+        <action
+            android:id="@+id/action_GV_ScannerFragment_to_ConfirmationFragment"
+            app:destination="@id/GV_ConfirmationFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/GV_ConfirmationFragment"
+        android:name="edu.ncc.nest.nestapp.GuestVisit.Fragments.ConfirmationFragment"
+        android:label="@string/nav_graph_gv_confirmation_fragment_lbl"
+        tools:layout="@layout/fragment_guest_visit_confirmation_flipper">
+
+        <action
+            android:id="@+id/action_GV_ConfirmationFragment_to_QuestionnaireFragment"
+            app:destination="@id/GV_QuestionnaireFragment"
+            app:popUpTo="@id/GV_ConfirmationFragment"
+            app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/action_GV_ConfirmationFragment_to_ScannerFragment"
+            app:destination="@id/GV_ScannerFragment"
+            app:popUpTo="@id/GV_ScannerFragment"
+            app:popUpToInclusive="true" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/GV_QuestionnaireFragment"
+        android:name="edu.ncc.nest.nestapp.GuestVisit.Fragments.QuestionnaireFragment"
+        android:label="@string/nav_graph_gv_questionnaire_fragment_lbl"
+        tools:layout="@layout/fragment_guest_visit_questionnaire" >
+
+    </fragment>
+
+</navigation>

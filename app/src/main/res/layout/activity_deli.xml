@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".UIFoods.Deli">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/toolbar"
+            android:layout_centerHorizontal="true"
+            android:text="Deli and Prepared Foods"
+            android:textSize="21.5sp" />
+
+        <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textView2"
+            android:layout_centerHorizontal="true">
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/btn1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Canadian bacon sliced" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Canadian bacon whole" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Casseroles" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Chicken salad" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Chicken pre-packaged, luncheon/deli meat" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Commercial brand vacuum-packed dinners with USDA seal" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cooked pasta" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cooked rice" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Egg salad" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Fruit, cut" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Guacamole" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ham salad" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ham pre-packaged, luncheon/deli meat" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hummus commercial(pasteurized, with preservatives)" />
+            </TableRow>
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hummus traditional(no preservatives, not pasteurized)" />
+            </TableRow>
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn17"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Leftovers pizza" />
+            </TableRow>
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn18"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Leftovers with meat, fish, poultry, or egg" />
+            </TableRow>
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn19"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Leftovers without meat, fish, poultry, or egg(such as cooked vegetables, rice, or potatoes)" />
+            </TableRow>
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn20"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Luncheon meat or poultry pre-packaged" />
+            </TableRow>
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn21"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Luncheon meat or poultry store sliced" />
+            </TableRow>
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn22"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Main dishes or meals hot or refrigerated" />
+            </TableRow>
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn23"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Meats covered with gravy or broth" />
+            </TableRow>
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Olives from olive bar" />
+            </TableRow>
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn25"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pasta salad" />
+            </TableRow>
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn26"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pate" />
+            </TableRow>
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn27"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Potato salad" />
+            </TableRow>
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn28"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Poultry pieces covered with gravy or broth" />
+            </TableRow>
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn29"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Salami pre-packaged, luncheon/deli meat" />
+            </TableRow>
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn30"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Salsa fresh" />
+            </TableRow>
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn31"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Seafood salads(tuna salad, shrimp salad, salmon salad, mixed seafood salad, etc." />
+            </TableRow>
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn32"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Soup, stews" />
+            </TableRow>
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn33"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Turkey pre-packaged, luncheon/deli meat" />
+            </TableRow>
+        </TableLayout>
+    </RelativeLayout>
+</ScrollView>

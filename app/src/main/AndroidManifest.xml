@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="edu.ncc.nest.nestapp">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <uses-feature android:name="android.hardware.camera" android:required="false"/>
+    <uses-feature android:name="android.hardware.camera.front" android:required="false"/>
+    <uses-feature android:name="android.hardware.camera.autofocus" android:required="false"/>
+    <uses-feature android:name="android.hardware.camera.flash" android:required="false"/>
+
+    <application
+        android:allowBackup="true"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:hardwareAccelerated="true" >
+        <activity
+            android:name=".GuestVisit.Activities.GuestVisitActivity"
+            android:label="@string/title_activity_guest_visit"/>
+        <activity android:name=".GuestFormTesting" />
+        <activity
+            android:name=".CheckExpirationDate.Activities.CheckExpirationDateActivity"
+            android:label="@string/title_activity_check_expiration_date"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".FutureEfforts"
+            android:label="@string/title_activity_future_efforts"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".NewNestUPC" />
+        <activity
+            android:name=".LocalDatabase"
+            android:label="@string/title_activity_local_database"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Donate" />
+        <activity android:name=".InterfaceTests" />
+        <activity android:name=".UPCLookup" />
+        <activity android:name=".UPCScanner" />
+        <activity
+            android:name=".AddToInventory"
+            android:label="@string/title_activity_add_to_inventory"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".GuestDatabaseRegistration.Activities.GuestDatabaseRegistrationActivity"
+            android:label="@string/title_activity_guest_database_registration" />
+        <activity
+            android:name=".GuestGoogleSheetRegistration.Activities.GuestGoogleSheetRegistrationActivity"
+            android:label="@string/title_activity_guest_google_sheet_registration" />
+        <activity android:name=".Inventory" />
+        <activity android:name=".Schedule" />
+        <activity android:name=".VolunteerForm" />
+        <activity android:name=".UIFoods.BabyFood" />
+        <activity android:name=".UIFoods.BakedGoods" />
+        <activity android:name=".UIFoods.Beverages" />
+        <activity android:name=".UIFoods.Condiments" />
+        <activity android:name=".UIFoods.Dairy" />
+        <activity android:name=".UIFoods.Deli" />
+        <activity android:name=".UIFoods.FrozenFood" />
+        <activity android:name=".UIFoods.Grains" />
+        <activity android:name=".UIFoods.Meat" />
+        <activity android:name=".UIFoods.Poultry" />
+        <activity android:name=".UIFoods.Produce" />
+        <activity android:name=".UIFoods.Seafood" />
+        <activity android:name=".UIFoods.ShelfFoods" />
+        <activity android:name=".UIFoods.VegProteins" />
+        <activity
+            android:name=".SignUp"
+            android:label="@string/title_activity_sign_up" />
+        <activity
+            android:name=".Choose"
+            android:label="@string/title_activity_choose">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".MainActivity" />
+
+        <service android:name="services.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+    </application>
+
+</manifest>

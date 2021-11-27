@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ *
+ * Copyright (C) 2019 The LibreFoodPantry Developers.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+-->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#00EBE3E3"
+    tools:context=".VolunteerForm">
+
+
+    <TextView
+        android:id="@+id/title_txt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="56dp"
+        android:fontFamily="casual"
+        android:text="@string/activity_volunteer_form_title"
+        android:textAlignment="center"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/first_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="77dp"
+        android:hint="@string/first_name"
+        android:inputType="textPersonName"
+        android:text=""
+        android:autofillHints="" />
+
+    <EditText
+        android:id="@+id/last_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/first_name"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="-2dp"
+        android:layout_marginTop="16dp"
+        android:hint="@string/last_name"
+        android:inputType="textPersonName"
+        android:text=""
+        android:autofillHints="" />
+
+    <EditText
+        android:id="@+id/phone_number"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_below="@id/last_name"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="20dp"
+        android:hint="@string/phone_number"
+        android:inputType="phone"
+        android:text=""
+        android:autofillHints="" />
+
+    <EditText
+        android:id="@+id/email_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/phone_number"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="20dp"
+        android:hint="@string/email_address"
+        android:inputType="textEmailAddress"
+        android:text=""
+        android:autofillHints="" />
+
+    <EditText
+        android:id="@+id/city"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/email_address"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="21dp"
+        android:hint="@string/town_city"
+        android:inputType="textPersonName"
+        android:text=""
+        android:autofillHints="" />
+
+    <EditText
+        android:id="@+id/zip_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/city"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="19dp"
+        android:hint="@string/zip_code"
+        android:inputType="number"
+        android:text=""
+        android:autofillHints="" />
+
+    <EditText
+        android:id="@+id/postal_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/zip_code"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="23dp"
+        android:hint="@string/postal_address"
+        android:inputType="textPostalAddress"
+        android:text=""
+        android:autofillHints="" />
+
+    <TextView
+        android:id="@+id/preference"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/postal_address"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="18dp"
+        android:text="@string/activity_volunteer_form_contact_method"
+        android:textSize="18sp" />
+
+    <Spinner
+        android:id="@+id/contact_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/postal_address"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="-1dp"
+        android:layout_toEndOf="@id/preference"
+        android:entries="@array/activity_volunteer_form_preferred_contact_method" />
+
+    <TextView
+        android:id="@+id/push_question"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/preference"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="72dp"
+        android:layout_marginEnd="124dp"
+        android:layout_marginBottom="77dp"
+        android:paddingTop="10dp"
+        android:text="@string/activity_volunteer_form_push_notifications" />
+
+    <CheckBox
+        android:id="@+id/push_not"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="-5dp"
+        android:layout_marginTop="574dp"
+        android:text="@string/activity_volunteer_form_yes_to_push" />
+
+    <Button
+        android:id="@+id/submit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="1dp"
+        android:layout_marginBottom="10dp"
+        android:text="@string/submit" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="-1dp"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme" />
+
+    <!--android:onClick="onClick"-->
+
+</RelativeLayout>

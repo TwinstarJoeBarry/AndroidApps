@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1066543840900",
+    "firebase_url": "https://ncc-nest.firebaseio.com",
+    "project_id": "ncc-nest",
+    "storage_bucket": "ncc-nest.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1066543840900:android:8c17bf465f5d89c2",
+        "android_client_info": {
+          "package_name": "edu.ncc.nest.nestapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1066543840900-fuhskh4vad5t2itptnlvngdkiac4n3no.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBteJk_xdYak0NT0AxCedtkg0mNmswhJcs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1066543840900-fuhskh4vad5t2itptnlvngdkiac4n3no.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

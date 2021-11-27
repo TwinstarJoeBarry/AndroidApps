@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+ *
+ * Copyright (C) 2019 The LibreFoodPantry Developers.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+-->
+
+<!--
+ * THIS LAYOUT IS DEPRECATED
+ *
+ * @deprecated This layout and related activity is being replaced
+ * by fragments. ({@see edu.ncc.nest.nestapp.CheckExpirationDate})
+-->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/label1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp"
+            android:text="@string/activity_item_info_upc_lbl" />
+
+        <Button
+            android:id="@+id/open_camera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/label1"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginRight="10dp"
+            android:textAllCaps="false"
+            android:onClick="launchScanner"
+            android:text="@string/activity_item_info_scan_btn" />
+
+        <EditText
+            android:id="@+id/upc_entry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/label1"
+            android:layout_marginTop="2dp"
+            android:layout_toEndOf="@id/open_camera"
+            android:layout_marginStart="4dp"
+            android:hint="@string/activity_item_info_enter_upc"
+            android:ems="9"
+            android:importantForAutofill="no"
+            android:inputType="text" />
+
+        <Button
+            android:id="@+id/lookupUPC"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/label1"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="10dp"
+            android:layout_toEndOf="@id/upc_entry"
+            android:textAllCaps="false"
+            android:onClick="lookupUPC"
+            android:text="@string/activity_item_info_lookup_btn" />
+
+        <TextView
+            android:id="@+id/selection_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/open_camera"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="38dp"
+            android:text="@string/activity_item_info_select_cat_and_item" />
+
+        <Button
+            android:id="@+id/cat_select_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/selection_label"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="2dp"
+            android:onClick="showCatMenu"
+            android:text="@string/activity_item_info_select_category_btn" />
+        
+        <Button
+            android:id="@+id/item_select_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/selection_label"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="2dp"
+            android:layout_toEndOf="@id/cat_select_btn"
+            android:onClick="showItemMenu"
+            android:text="@string/activity_item_info_select_item_btn" />
+
+        <TextView
+            android:id="@+id/cat_result_lbl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/item_select_btn"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="2dp"
+            android:text="@string/activity_item_info_category_lbl" />
+
+        <TextView
+            android:id="@+id/cat_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/item_select_btn"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="2dp"
+            android:layout_toEndOf="@id/cat_result_lbl"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/item_result_lbl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/cat_result"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="2dp"
+            android:text="@string/activity_item_info_item_lbl" />
+
+        <TextView
+            android:id="@+id/item_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/cat_result"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="2dp"
+            android:layout_toEndOf="@id/item_result_lbl"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/expiration_select_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/item_result"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="38dp"
+            android:text="@string/activity_item_info_select_expiration_lbl" />
+
+        <Button
+            android:id="@+id/date_select_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/expiration_select_label"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="2dp"
+            android:onClick="showDatePickerDialog"
+            android:text="@string/activity_item_info_select_expiration_btn" />
+
+        <TextView
+            android:id="@+id/exp_result_lbl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/date_select_btn"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="2dp"
+            android:text="@string/activity_item_info_expiration_lbl" />
+
+        <TextView
+            android:id="@+id/exp_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/date_select_btn"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="2dp"
+            android:layout_toEndOf="@id/exp_result_lbl"
+            android:text="" />
+
+        <Button
+            android:id="@+id/tips_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/cat_select_btn"
+            android:layout_marginStart="200dp"
+            android:layout_marginTop="100dp"
+            android:layout_toEndOf="@id/exp_result"
+            android:onClick="tipFound"
+            android:text="@string/activity_item_info_tips_btn"
+            android:visibility="invisible" />
+
+        <Button
+            android:id="@+id/calculate_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/exp_result"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="45dp"
+            android:onClick="calculateResult"
+            android:text="@string/activity_item_info_calculate_btn" />
+
+        <ProgressBar
+            android:id="@+id/progressbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:layout_below="@id/calculate_button"
+            android:layout_centerInParent="true"/>
+
+        <TextView
+            android:id="@+id/tipDisplay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/calculate_button"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="@string/empty_string" />
+
+        <TextView
+            android:id="@+id/result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/calculate_button"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="60dp"
+            android:text="@string/activity_item_info_result" />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
