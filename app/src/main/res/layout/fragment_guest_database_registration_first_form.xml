@@ -96,7 +96,7 @@
         android:layout_marginStart="30dp" >
 
         <EditText
-            android:id="@+id/guestreg_fname"
+            android:id="@+id/grf_1_fName"
             android:layout_width="wrap_content"
             android:layout_height="45dp"
             android:backgroundTint="@color/White"
@@ -132,7 +132,7 @@
         android:layout_marginStart="30dp" >
 
         <EditText
-            android:id="@+id/guestreg_lname"
+            android:id="@+id/grf_1_lName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/White"
@@ -170,7 +170,7 @@
 
         <!-- TODO couldn't find city autofill. removing for now -->
         <EditText
-            android:id="@+id/guestreg_phone"
+            android:id="@+id/grf_1_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/White"
@@ -218,7 +218,7 @@
             android:textSize="20dp"/>
 
         <EditText
-            android:id="@+id/guestreg_nccid"
+            android:id="@+id/grf_1_nccId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/White"

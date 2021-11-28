@@ -18,6 +18,7 @@ package edu.ncc.nest.nestapp.GuestDatabaseRegistration.Fragments;
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -85,10 +86,10 @@ public class FirstFormFragment extends Fragment {
         binding.nextButtonFirstFragmentGRegistration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
-                inputFirstName = ((EditText) getView().findViewById(R.id.guestreg_fname)).getText().toString();
-                inputLastName = ((EditText) getView().findViewById(R.id.guestreg_lname)).getText().toString();
-                inputPhoneNumber = ((EditText) getView().findViewById(R.id.guestreg_phone)).getText().toString();
-                inputNCCID = ((EditText) getView().findViewById(R.id.guestreg_nccid)).getText().toString();
+                inputFirstName = ((EditText) getView().findViewById(R.id.grf_1_fName)).getText().toString();
+                inputLastName = ((EditText) getView().findViewById(R.id.grf_1_lName)).getText().toString();
+                inputPhoneNumber = ((EditText) getView().findViewById(R.id.grf_1_phone)).getText().toString();
+                inputNCCID = ((EditText) getView().findViewById(R.id.grf_1_nccId)).getText().toString();
 
                 Log.d("**first name", inputFirstName);
 
