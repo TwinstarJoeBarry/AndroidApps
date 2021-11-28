@@ -62,7 +62,8 @@ public class FirstFormFragment extends Fragment {
 
     private String inputFirstName, inputLastName, inputPhoneNumber, inputNCCID;
     private Bundle result = new Bundle();
-    private boolean validInput = true;
+
+    private boolean validFName, validLName, validPhone, validNID, validInput = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -93,53 +94,57 @@ public class FirstFormFragment extends Fragment {
 
                 Log.d("**first name", inputFirstName);
 
+                // leaving the '= false' in case user goes back and deletes.
                 if(inputFirstName.length() == 0){
                     binding.enterFirstName.setTextColor(Color.RED);
                     binding.enterFirstName.setText("You must enter a first name.");
-                    validInput = false;
+                    validFName = false;
                 }
                 else{
                     binding.enterFirstName.setTextColor(Color.WHITE);
                     binding.enterFirstName.setText("Enter your first name.");
                     result.putString("First Name", inputFirstName);
-                    validInput = true;
+                    validFName = true;
                 }
 
                 if(inputLastName.length() == 0){
                     binding.enterLastName.setTextColor(Color.RED);
                     binding.enterLastName.setText("You must enter a last name.");
-                    validInput = false;
+                    validLName = false;
                 }
                 else{
                     binding.enterLastName.setTextColor(Color.WHITE);
                     binding.enterLastName.setText("Enter your last name.");
                     result.putString("Last Name", inputLastName);
-                    validInput = true;
+                    validLName = true;
                 }
 
                 if(inputPhoneNumber.length() != 10){
                     binding.enterPhoneNumber.setTextColor(Color.RED);
                     binding.enterPhoneNumber.setText("You must enter a valid phone number.");
-                    validInput = false;
+                    validPhone = false;
                 }
                 else{
                     binding.enterPhoneNumber.setTextColor(Color.WHITE);
                     binding.enterPhoneNumber.setText("Enter your phone number.");
                     result.putString("Phone Number", inputPhoneNumber);
-                    validInput = true;
+                    validPhone = true;
                 }
 
                 if(inputNCCID.length() != 8){
                     binding.enterYourNccId.setTextColor(Color.RED);
                     binding.enterYourNccId.setText("You must enter a valid NCC ID,");
-                    validInput = false;
+                    validNID = false;
                 }
                 else{
                     binding.enterYourNccId.setTextColor(Color.WHITE);
                     binding.enterYourNccId.setText("Enter your NCC ID.");
                     result.putString("NCC ID", inputNCCID);
-                    validInput = true;
+                    validNID = true;
                 }
+
+                // check all the fields
+                validInput = validFName && validLName && validPhone && validNID;
 
                 if(validInput){
                     getParentFragmentManager().setFragmentResult("sending_first_form_fragment_info", result);
