@@ -58,6 +58,7 @@
         android:name="edu.ncc.nest.nestapp.GuestDatabaseRegistration.Fragments.FirstFormFragment"
         android:label="@string/nav_graph_dbr_first_form_fragment_lbl">
 
+
         <action
             android:id="@+id/action_DBR_FirstFormFragment_to_SecondFormFragment"
             app:destination="@id/DBR_SecondFormFragment" />
