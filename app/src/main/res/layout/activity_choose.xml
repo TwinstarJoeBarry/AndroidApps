@@ -29,14 +29,17 @@
 
     <TextView
         android:id="@+id/nestTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:text="@string/activity_choose_make_choice"
-        android:textSize="30sp"
-        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:layout_below="@id/toolbar"
+        android:layout_marginTop="9dp"
+        android:background="@drawable/veg_table"
         android:fontFamily="casual"
-        android:layout_below="@id/toolbar"/>
+        android:text="Welcome to NEST"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"
+        android:textAlignment="center"/>
 
     <TextView
         android:id="@+id/centerPoint"
