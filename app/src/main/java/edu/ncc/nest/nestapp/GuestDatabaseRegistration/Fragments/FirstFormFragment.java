@@ -18,7 +18,6 @@ package edu.ncc.nest.nestapp.GuestDatabaseRegistration.Fragments;
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
