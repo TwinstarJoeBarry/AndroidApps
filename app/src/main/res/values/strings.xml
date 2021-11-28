@@ -332,13 +332,13 @@
     <string name="fragment_gv_confirmation_found_rescan_btn">Re-Scan Barcode</string>
 
     <!-- Strings used in fragment_guest_visit_confirmation_not_found.xml -->
-    <string name="fragment_gv_confirmation_not_found_title">NEST GUEST NOT FOUND!</string>
+    <string name="fragment_gv_confirmation_not_found_title">NEST Guest Not Found!</string>
     <string name="fragment_gv_confirmation_not_found_msg">Sorry! We couldn\'t find a guest associated with the following barcode:</string>
     <string name="fragment_gv_confirmation_not_found_register_msg">Please register to continue</string>
     <string name="fragment_gv_confirmation_not_found_rescan_btn">Re-Scan Barcode</string>
 
     <!-- Strings used in GuestVisit.Fragments.QuestionnaireFragment.java -->
-    <string name="questionnaire_fragment_alert_title">"SUBMISSION HAS MISSING FIELDS!"</string>
+    <string name="questionnaire_fragment_alert_title">"Submission Has Missing Fields!"</string>
     <string name="questionnaire_fragment_alert_msg">Please make sure to answer all of the questions before submitting the questionnaire.</string>
 
     <!-- Strings used in fragment_guest_visit_questionnaire.xml -->
