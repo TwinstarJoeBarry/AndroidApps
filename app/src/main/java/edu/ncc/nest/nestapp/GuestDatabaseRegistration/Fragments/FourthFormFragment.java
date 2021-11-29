@@ -25,8 +25,10 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import edu.ncc.nest.nestapp.R;
+import edu.ncc.nest.nestapp.databinding.FragmentGuestDatabaseRegistrationFourthFormBinding;
 import edu.ncc.nest.nestapp.databinding.FragmentGuestDatabaseRegistrationSecondFormBinding;
 
 /**
@@ -36,17 +38,31 @@ import edu.ncc.nest.nestapp.databinding.FragmentGuestDatabaseRegistrationSecondF
  */
 public class FourthFormFragment extends Fragment {
 
+    private FragmentGuestDatabaseRegistrationFourthFormBinding binding;
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        // implement binding to inflate layout
+        binding = FragmentGuestDatabaseRegistrationFourthFormBinding.inflate(inflater, container, false);
+        return binding.getRoot();
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_guest_database_registration_fourth_form, container, false);
+        //return inflater.inflate(R.layout.fragment_guest_database_registration_fourth_form, container, false);
 
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // set up on click listener for the 'next' button
+        binding.nextButtonFourthFragmentGRegistration.setOnClickListener(v -> {
+
+            // navigate to the summary fragment when clicked
+            NavHostFragment.findNavController(FourthFormFragment.this)
+                    .navigate(R.id.action_DBR_FourthFormFragment_to_DBR_SummaryFragment);
+
+        });
     }
 
 }
