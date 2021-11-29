@@ -25,41 +25,28 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
 
 import edu.ncc.nest.nestapp.R;
-import edu.ncc.nest.nestapp.databinding.FragmentGuestDatabaseRegistrationThirdFormBinding;
+import edu.ncc.nest.nestapp.databinding.FragmentGuestDatabaseRegistrationSecondFormBinding;
 
 /**
  * ThirdFormFragment: Represents a form that a guest can fill in with more of their information.
  * The fragment then bundles all of the user's inputs (including info passed from
- * {@link SecondFormFragment} and sends them to the next fragment (will be Fourth Fragment).
+ * {@link ThirdFormFragment} and sends them to the next fragment {@link SummaryFragment}.
  */
-public class ThirdFormFragment extends Fragment {
-
-    private FragmentGuestDatabaseRegistrationThirdFormBinding binding;
+public class FourthFormFragment extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        binding = FragmentGuestDatabaseRegistrationThirdFormBinding.inflate(inflater, container, false);
-        return binding.getRoot();
-
         // Inflate the layout for this fragment
-        //return inflater.inflate(R.layout.fragment_guest_database_registration_third_form, container, false);
+        return inflater.inflate(R.layout.fragment_guest_database_registration_fourth_form, container, false);
 
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // adds the onClick listener to the 'next' button
-        binding.nextButtonThirdFragmentGRegistration.setOnClickListener(v -> {
-
-            // navigate to the fourth fragment when clicked
-            NavHostFragment.findNavController(ThirdFormFragment.this)
-                    .navigate(R.id.action_DBR_ThirdFormFragment_to_fourthFormFragment);
-        });
     }
 
 }

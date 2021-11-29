@@ -44,7 +44,6 @@ import edu.ncc.nest.nestapp.databinding.FragmentGuestDatabaseRegistrationSecondF
  */
 public class SecondFormFragment extends Fragment {
 
-    //dfdfdfdfdfdfdfdfdfd
     private FragmentGuestDatabaseRegistrationSecondFormBinding binding;
 
     private String inputStreetAddress1, inputStreetAddress2, inputCity, inputState, inputZip,
@@ -67,8 +66,6 @@ public class SecondFormFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
 
         getParentFragmentManager().setFragmentResultListener("sending_first_form_fragment_info", this, new FragmentResultListener() {
                     @Override

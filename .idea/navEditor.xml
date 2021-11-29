@@ -223,6 +223,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="DBR_FourthFormFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="1260" />
+                            <option name="y" value="363" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="DBR_ScannerFragment">
                     <value>
                       <LayoutPositions>
@@ -302,6 +314,15 @@
                             <option name="x" value="1024" />
                             <option name="y" value="367" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_DBR_ThirdFormFragment_to_fourthFormFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>
