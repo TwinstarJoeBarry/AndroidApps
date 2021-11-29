@@ -84,6 +84,8 @@ public class FirstFormFragment extends Fragment {
     {
         super.onViewCreated(view, savedInstanceState);
 
+
+
         binding.nextButtonFirstFragmentGRegistration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
@@ -97,24 +99,24 @@ public class FirstFormFragment extends Fragment {
                 // leaving the '= false' in case user goes back and deletes.
                 if(inputFirstName.length() == 0){
                     binding.enterFirstName.setTextColor(Color.RED);
-                    binding.enterFirstName.setText("You must enter a first name.");
+                    binding.enterFirstName.setText("You must enter a first name");
                     validFName = false;
                 }
                 else{
                     binding.enterFirstName.setTextColor(Color.WHITE);
-                    binding.enterFirstName.setText("Enter your first name.");
+                    binding.enterFirstName.setText("Enter your first name");
                     result.putString("First Name", inputFirstName);
                     validFName = true;
                 }
 
                 if(inputLastName.length() == 0){
                     binding.enterLastName.setTextColor(Color.RED);
-                    binding.enterLastName.setText("You must enter a last name.");
+                    binding.enterLastName.setText("You must enter a last name");
                     validLName = false;
                 }
                 else{
                     binding.enterLastName.setTextColor(Color.WHITE);
-                    binding.enterLastName.setText("Enter your last name.");
+                    binding.enterLastName.setText("Enter your last name");
                     result.putString("Last Name", inputLastName);
                     validLName = true;
                 }

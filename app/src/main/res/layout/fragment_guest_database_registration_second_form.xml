@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20sp"
-            android:text="Welcome,"
+            android:text="Welcome, "
             />
 
         <TextView
@@ -129,7 +129,7 @@
     </TableRow>
 
     <TableRow
-        android:id="@+id/state_edittext_row"
+        android:id="@+id/state_spinner_row"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/state_textview_row">
@@ -141,8 +141,7 @@
             android:backgroundTint="@color/White"
             android:entries="@array/states_array"
             android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:textColorHint="@color/White" />
+            android:paddingBottom="10dp" />
 
 <!--        <EditText-->
 <!--            android:id="@+id/state_edittext"-->
@@ -156,7 +155,7 @@
         android:id="@+id/zip_textview_row"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/state_edittext_row">
+        android:layout_below="@id/state_spinner_row">
 
         <TextView
             android:id="@+id/zip_textview"
@@ -177,6 +176,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="Zip Code"
+            android:inputType="number"
             android:maxLength="5"/>
 
     </TableRow>
@@ -192,27 +192,29 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15sp"
-            android:text="Enter your affiliation (optional)"/>
+            android:text="Enter your affiliation"/>
     </TableRow>
 
     <TableRow
-        android:id="@+id/affiliation_edittext_row"
+        android:id="@+id/affiliation_spinner_row"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/affiliation_textview_row">
 
-        <EditText
+        <Spinner
             android:id="@+id/grf_2_affiliation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Affiliation"/>
+            android:entries="@array/affiliation_array"
+            android:paddingTop="10sp"
+            android:paddingBottom="10sp"/>
     </TableRow>
 
     <TableRow
         android:id="@+id/age_textview_row"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/affiliation_edittext_row">
+        android:layout_below="@id/affiliation_spinner_row">
 
         <TextView
             android:id="@+id/age_textview"
@@ -223,17 +225,18 @@
     </TableRow>
 
     <TableRow
-        android:id="@+id/age_edittext_row"
+        android:id="@+id/age_spinner_row"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/age_textview_row">
 
-        <EditText
+        <Spinner
             android:id="@+id/grf_2_age"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Age"
-            android:maxLength="3"/>
+            android:entries="@array/age_array"
+            android:paddingTop="10sp"
+            android:paddingBottom="10sp"/>
 
     </TableRow>
 
@@ -242,7 +245,7 @@
         android:id="@+id/gender_textview_row"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/age_edittext_row">
+        android:layout_below="@id/age_spinner_row">
 
         <TextView
             android:id="@+id/gender_textview"
@@ -284,8 +287,8 @@
         android:id="@+id/next_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/next"
         android:layout_below="@id/gender_spinner_row"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:text="@string/next" />
 
 </RelativeLayout>
