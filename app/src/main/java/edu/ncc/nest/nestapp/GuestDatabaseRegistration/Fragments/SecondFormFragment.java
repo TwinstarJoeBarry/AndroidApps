@@ -22,11 +22,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentResultListener;
 
 import edu.ncc.nest.nestapp.R;
+import edu.ncc.nest.nestapp.databinding.FragmentGuestDatabaseRegistrationSecondFormBinding;
 
 /**
  * SecondFormFragment: Represents a form that a guest can fill in with their household information.
@@ -34,6 +37,11 @@ import edu.ncc.nest.nestapp.R;
  * {@link FirstFormFragment} and sends them to the next fragment {@link SummaryFragment}.
  */
 public class SecondFormFragment extends Fragment {
+
+    private FragmentGuestDatabaseRegistrationSecondFormBinding binding;
+
+    private String inputStreetAddress1, inputStreetAddress2, inputCity, inputState, inputZip,
+    inputAffiliation, inputAge, inputGender;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -46,6 +54,32 @@ public class SecondFormFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+//        getParentFragmentManager().setFragmentResultListener("sending_first_form_fragment_info", this,
+//                new FragmentResultListener() {
+//                    @Override
+//                    public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
+//
+//                        String firstName = result.getString("First Name");
+////                        binding.welcomeMessageName.setText(firstName);
+//                    }
+//                });
+
+//        binding.nextButton.setOnClickListener(new View.OnClickListener(){
+//            @Override
+//            public void onClick(View view){
+//
+//                inputStreetAddress1 = ((EditText) getView().findViewById(R.id.guestreg_address1)).getText().toString();
+//                inputStreetAddress2 = ((EditText) getView().findViewById(R.id.guestreg_address2)).getText().toString();
+//                inputCity = ((EditText) getView().findViewById(R.id.guestreg_city)).getText().toString();
+////                inputState = ((EditText) getView().findViewById(R.id.guestreg_state)).getText().toString();
+//                inputZip = ((EditText) getView().findViewById(R.id.guestreg_zip)).getText().toString();
+//                inputAffiliation = ((EditText) getView().findViewById(R.id.guestreg_affiliation)).getText().toString();
+//                inputAge = ((EditText) getView().findViewById(R.id.guestreg_age)).getText().toString();
+////                inputGender = ((EditText) getView().findViewById(R.id.guestreg_gender)).getText().toString();
+//
+//
+//            }
+//        });
     }
 
 }

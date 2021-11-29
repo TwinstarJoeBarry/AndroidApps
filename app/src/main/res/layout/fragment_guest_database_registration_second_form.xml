@@ -1,29 +1,291 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".GuestDatabaseRegistration.Activities.GuestDatabaseRegistrationActivity">
 
-    <TextView
-        android:id="@+id/textView4"
+    <TableRow
+        android:id="@+id/welcome_message_row"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/fragment_dbr_second_form_description"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:id="@+id/welcome_message_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="Welcome,"
+            />
+
+        <TextView
+            android:id="@+id/welcome_message_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text=" "
+            />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/street_address1_textview_row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/welcome_message_row">
+
+        <TextView
+            android:id="@+id/street_address1_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="Enter your street address"/>
+
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/street_address1_edittext_row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/street_address1_textview_row">
+
+        <EditText
+            android:id="@+id/grf_2_address1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Street Address"/>
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/street_address2_textview_row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/street_address1_edittext_row">
+
+        <TextView
+            android:id="@+id/street_address2_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="If you have a second address, please enter it (optional)"/>
+
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/street_address2_edittext_row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/street_address2_textview_row">
+
+         <EditText
+            android:id="@+id/grf_2_address2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Second Street Address" />
+
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/city_textview_row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/street_address2_edittext_row">
+
+        <TextView
+            android:id="@+id/city_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="Enter your city" />
+
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/city_edittext_row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/city_textview_row">
+
+        <EditText
+            android:id="@+id/grf_2_city"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="City"/>
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/state_textview_row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/city_edittext_row">
+
+        <TextView
+            android:id="@+id/state_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="Select the state that you live in"/>
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/state_edittext_row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/state_textview_row">
+
+        <Spinner
+            android:id="@+id/grf_2_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/White"
+            android:entries="@array/states_array"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textColorHint="@color/White" />
+
+<!--        <EditText-->
+<!--            android:id="@+id/state_edittext"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:hint="State (for example, 'NY')"-->
+<!--            android:maxLength="2"/>-->
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/zip_textview_row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/state_edittext_row">
+
+        <TextView
+            android:id="@+id/zip_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="Enter your zip code"/>
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/zip_edittext_row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/zip_textview_row">
+
+        <EditText
+            android:id="@+id/grf_2_zip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Zip Code"
+            android:maxLength="5"/>
+
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/affiliation_textview_row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/zip_edittext_row">
+
+        <TextView
+            android:id="@+id/affiliation_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="Enter your affiliation (optional)"/>
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/affiliation_edittext_row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/affiliation_textview_row">
+
+        <EditText
+            android:id="@+id/grf_2_affiliation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Affiliation"/>
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/age_textview_row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/affiliation_edittext_row">
+
+        <TextView
+            android:id="@+id/age_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="Enter your age"/>
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/age_edittext_row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/age_textview_row">
+
+        <EditText
+            android:id="@+id/grf_2_age"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Age"
+            android:maxLength="3"/>
+
+    </TableRow>
+
+
+    <TableRow
+        android:id="@+id/gender_textview_row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/age_edittext_row">
+
+        <TextView
+            android:id="@+id/gender_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="Select your gender"/>
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/gender_spinner_row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/gender_textview_row">
+
+        <Spinner
+            android:id="@+id/grf_2_gender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/gender_array"
+            android:paddingTop="10sp"
+            android:paddingBottom="10sp"/>
+    </TableRow>
+
+
+
+<!--    <TextView-->
+<!--        android:id="@+id/textView4"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="@string/fragment_dbr_second_form_description"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
+
 
     <Button
         android:id="@+id/next_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/next"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        android:layout_below="@id/gender_spinner_row"
+        android:layout_centerHorizontal="true" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>
