@@ -292,9 +292,13 @@
 
     <!-- Strings used in fragment_guest_database_registration_first_form.xml -->
     <string name="fragment_dbr_first_form_title">Guest Form Registration</string>
+    <string name="n">N</string>
 
     <!-- Strings used in fragment_guest_database_registration_second_form.xml -->
     <string name="fragment_dbr_second_form_description">Household Information Fragment</string>
+
+    <!-- Strings used in fragment_guest_database_registration_third_form.xml -->
+    <string name="household_income">Household Income</string>
 
     <!-- Strings used in fragment_guest_database_registration_summary.xml -->
     <string name="fragment_dbr_summary_description">Summary page of GuestGoogleSheetRegistration</string>
@@ -386,8 +390,5 @@
     <!-- This string is used only for the creation of new strings. -->
     <!-- When a new string is created it should appear below this string. -->
     <string name="STRINGS_BELOW_THIS_SHOULD_BE_MOVED_TO_AN_APPROPRIATE_LOCATION_ABOVE" />
-    <string name="n">N</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

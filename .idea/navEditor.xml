@@ -251,11 +251,6 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
-                            <entry key="action_DBR_SecondFormFragment_to_DBR_ThirdFormFragment2">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
                           </map>
                         </option>
                       </LayoutPositions>
@@ -292,8 +287,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="12" />
-                            <option name="y" value="12" />
+                            <option name="x" value="1540" />
+                            <option name="y" value="146" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -304,8 +299,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="12" />
-                            <option name="y" value="12" />
+                            <option name="x" value="1024" />
+                            <option name="y" value="367" />
                           </Point>
                         </option>
                       </LayoutPositions>

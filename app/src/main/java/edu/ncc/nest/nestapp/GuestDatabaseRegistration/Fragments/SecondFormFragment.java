@@ -40,7 +40,7 @@ import edu.ncc.nest.nestapp.databinding.FragmentGuestDatabaseRegistrationSecondF
 /**
  * SecondFormFragment: Represents a form that a guest can fill in with their household information.
  * The fragment then bundles all of the user's inputs (including info passed from
- * {@link FirstFormFragment} and sends them to the next fragment {@link SummaryFragment}.
+ * {@link FirstFormFragment} and sends them to the next fragment {@link SecondFormFragment}.
  */
 public class SecondFormFragment extends Fragment {
 
