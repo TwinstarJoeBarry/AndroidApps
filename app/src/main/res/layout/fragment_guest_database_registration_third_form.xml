@@ -1,14 +1,227 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ *
+ * Copyright (C) 2019 The LibreFoodPantry Developers.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+-->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".GuestDatabaseRegistration.Fragments.ThirdFormFragment">
+    android:background="@color/colorPrimaryShaded"
+    tools:context=".GuestDatabaseRegistration.Activities.GuestDatabaseRegistrationActivity">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <TableRow
+        android:id="@id/Row1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true">
 
-</FrameLayout>
+        <TextView
+            android:id="@id/title_txt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:textStyle="bold"
+            android:fontFamily="casual"
+            android:textAllCaps="true"
+            android:text="@string/fragment_dbr_first_form_title"
+            android:textAlignment="center"
+            android:textColor="@color/White"
+            android:textSize="20sp" />
+    </TableRow>
+
+    <TableRow
+        android:id="@id/Row1a"
+        android:layout_width="380dp"
+        android:layout_height="380dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="140dp"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="10dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:background="@drawable/background_dialog">
+    </TableRow>
+
+
+    <TableRow
+        android:id="@+id/grf_3_row1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Row1"
+        android:layout_marginTop="35dp"
+        android:layout_marginStart="30dp" >
+
+        <!-- TODO: Make a multi-select -->
+        <Spinner
+            android:id="@+id/grf_3_dietary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/White"
+            android:entries="@array/dietary_needs"
+            android:paddingTop="10dp"
+            android:textColorHint="@color/White"
+            android:hint="Do you have any dietary Needs / Preferences?"/>
+
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/grf_3_row2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/grf_3_row1"
+        android:layout_marginTop="0dp"
+        android:layout_marginStart="30dp" >
+
+
+        <Spinner
+            android:id="@+id/grf_3_snap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/White"
+            android:entries="@array/array_yes_no"
+            android:paddingTop="10dp"
+            android:textColorHint="@color/White" />
+
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/grf_3_row3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/grf_3_row2"
+        android:layout_marginTop="0dp"
+        android:layout_marginStart="30dp" >
+
+
+        <Spinner
+            android:id="@+id/grf_3_otherProgs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/White"
+            android:entries="@array/array_yes_no"
+            android:paddingTop="10dp"
+            android:textColorHint="@color/White" />
+
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/grf_3_row4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/grf_3_row3"
+        android:layout_marginTop="0dp"
+        android:layout_marginStart="30dp" >
+
+        <!-- TODO: Make a multi-select -->
+        <Spinner
+            android:id="@+id/grf_3_statusEmployment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/White"
+            android:entries="@array/employment_status"
+            android:paddingTop="10dp"
+            android:textColorHint="@color/White" />
+
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/grf_3_row5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/grf_3_row4"
+        android:layout_marginTop="0dp"
+        android:layout_marginStart="30dp" >
+
+        <!-- TODO: Make a multi-select -->
+        <Spinner
+            android:id="@+id/grf_3_statusHealth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/White"
+            android:entries="@array/health_status"
+            android:paddingTop="10dp"
+            android:textColorHint="@color/White" />
+
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/grf_3_row6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/grf_3_row5"
+        android:layout_marginTop="0dp"
+        android:layout_marginStart="30dp" >
+
+        <!-- TODO: Make a multi-select -->
+        <Spinner
+            android:id="@+id/grf_3_statusHousing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/White"
+            android:entries="@array/housing_status"
+            android:paddingTop="10dp"
+            android:textColorHint="@color/White" />
+
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/grf_3_row7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/grf_3_row6"
+        android:layout_marginTop="0dp"
+        android:layout_marginStart="30dp" >
+
+        <EditText
+            android:id="@+id/grf_3_income"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/White"
+            android:hint="@string/household_income"
+            android:inputType="number"
+            android:maxLength="10"
+            android:textColorHint="@color/White"
+            />
+
+    </TableRow>
+
+
+    <TableRow
+        android:id="@id/Row10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Row1a"
+        android:layout_marginTop="0dp"
+        android:layout_centerHorizontal="true">
+
+        <Button
+            android:id="@+id/next_button_third_fragment_gRegistration"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+
+            android:backgroundTint="@color/colorPrimary"
+            android:text="@string/next"
+            android:textColor="@color/White" />
+
+    </TableRow>
+
+</RelativeLayout>
+
+
