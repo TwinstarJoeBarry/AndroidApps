@@ -73,15 +73,15 @@
         tools:layout="@layout/fragment_guest_database_registration_second_form" >
 
         <action
-            android:id="@+id/action_DBR_SecondFormFragment_to_DBR_ThirdormFragment"
-            app:destination="@id/DBR_ThirdormFragment" />
+            android:id="@+id/action_DBR_SecondFormFragment_to_DBR_ThirdFormFragment"
+            app:destination="@id/DBR_ThirdFormFragment" />
         <action
-            android:id="@+id/action_DBR_SecondFormFragment_to_DBR_ThirdormFragment2"
-            app:destination="@id/DBR_ThirdormFragment" />
+            android:id="@+id/action_DBR_SecondFormFragment_to_DBR_ThirdFormFragment2"
+            app:destination="@id/DBR_ThirdFormFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/DBR_ThirdormFragment"
+        android:id="@+id/DBR_ThirdFormFragment"
         android:name="edu.ncc.nest.nestapp.GuestDatabaseRegistration.Fragments.ThirdFormFragment"
         android:label="Third Form Fragment">
     </fragment>

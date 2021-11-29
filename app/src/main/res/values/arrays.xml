@@ -7,9 +7,23 @@
         <item>Other</item>
         <item>Prefer not to say</item>
     </string-array>
+
+    <string-array name="age_array">
+        <item>Under 18</item>
+        <item>18-64</item>
+        <item>65 or older</item>
+    </string-array>
+
+    <string-array name="affiliation_array">
+        <item>Student</item>
+        <item>Staff</item>
+        <item>Faculty</item>
+        <item>Other</item>
+    </string-array>
     
     <!-- Global Arrays (Used globally throughout the app. Not file specific.) -->
     <string-array name="states_array">
+        <item>New York</item>
         <item>Alabama</item>
         <item>Alaska</item>
         <item>Arizona</item>
@@ -41,7 +55,6 @@
         <item>New Hampshire</item>
         <item>New Jersey</item>
         <item>New Mexico</item>
-        <item>New York</item>
         <item>North Carolina</item>
         <item>North Dakota</item>
         <item>Ohio</item>
