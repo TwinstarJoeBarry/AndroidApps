@@ -92,7 +92,10 @@ public class FirstFormFragment extends Fragment {
                 inputPhoneNumber = ((EditText) getView().findViewById(R.id.grf_1_phone)).getText().toString();
                 inputNCCID = ((EditText) getView().findViewById(R.id.grf_1_nccId)).getText().toString();
 
-                Log.d("**first name", inputFirstName);
+                Log.d(TAG, "first name: " + inputFirstName);
+                Log.d(TAG, "last name: " + inputLastName);
+                Log.d(TAG, "phone number: " + inputPhoneNumber);
+                Log.d(TAG, "NCC ID: " + inputNCCID);
 
                 // leaving the '= false' in case user goes back and deletes.
                 if(inputFirstName.length() == 0){
@@ -148,8 +151,33 @@ public class FirstFormFragment extends Fragment {
 
                 if(validInput){
                     getParentFragmentManager().setFragmentResult("sending_first_form_fragment_info", result);
+
+                    /*
+                    // To test the doesExist() method uncomment this,
+                    // and comment out the findNavController() that's currently being used
+
+                    // Creating the database and passing the correct context as the argument
+                    db = new GuestRegistrySource(requireContext());
+
+                    // if true, user already exist in the db, else user can register
+                    if (db.doesExist(inputPhoneNumber, inputNCCID)) {
+                        Log.d(TAG, "onClick: An user already registered with this phone number or NCC ID!");
+
+                        binding.enterYourNccId.setTextColor(Color.RED);
+                        binding.enterYourNccId.setText("This NCC ID or phone number already being used!");
+
+                        binding.enterPhoneNumber.setTextColor(Color.RED);
+                        binding.enterPhoneNumber.setText("This NCC ID or phone number already being used!");
+                    }
+                    else {
+                        db.insertData(inputFirstName + " " + inputLastName, null, inputPhoneNumber, inputNCCID, null, null, null, null, null);
+                        NavHostFragment.findNavController(FirstFormFragment.this)
+                                .navigate(R.id.action_DBR_FirstFormFragment_to_SecondFormFragment);
+                    }
+                     */
+
                     NavHostFragment.findNavController(FirstFormFragment.this)
-                        .navigate(R.id.action_DBR_FirstFormFragment_to_SecondFormFragment);
+                            .navigate(R.id.action_DBR_FirstFormFragment_to_SecondFormFragment);
                 }
             }
         });
