@@ -9,9 +9,9 @@
     </string-array>
 
     <string-array name="age_array">
-        <item>18 or younger</item>
-        <item>19 to 64</item>
-        <item>65 or older</item>
+        <item>Under 18</item>
+        <item>18-65</item>
+        <item>Over 65</item>
     </string-array>
 
     <string-array name="affiliation_array">

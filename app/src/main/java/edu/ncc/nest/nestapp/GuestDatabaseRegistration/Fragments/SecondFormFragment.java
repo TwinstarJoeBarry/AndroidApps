@@ -44,7 +44,7 @@ import edu.ncc.nest.nestapp.databinding.FragmentGuestDatabaseRegistrationSecondF
  */
 public class SecondFormFragment extends Fragment {
 
-    //dfdfdfdfdfdfdfdfdfdfdf
+    //dfdfdfdfdfdfdfdfdfdf
     private FragmentGuestDatabaseRegistrationSecondFormBinding binding;
 
     private String inputStreetAddress1, inputStreetAddress2, inputCity, inputState, inputZip,
