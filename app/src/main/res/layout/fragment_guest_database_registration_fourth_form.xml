@@ -26,6 +26,7 @@
     android:background="@color/colorPrimaryShaded"
     tools:context=".GuestDatabaseRegistration.Activities.GuestDatabaseRegistrationActivity">
 
+    <!-- Title Area -->
     <TableRow
         android:id="@id/Row1"
         android:layout_width="wrap_content"
@@ -46,6 +47,7 @@
             android:textSize="20sp" />
     </TableRow>
 
+    <!-- Background area -->
     <TableRow
         android:id="@id/Row1a"
         android:layout_width="380dp"
@@ -58,6 +60,128 @@
         android:background="@drawable/background_dialog">
     </TableRow>
 
+    <!-- Fields -->
+    <TableRow
+        android:id="@+id/grf_4_row1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Row1"
+        android:layout_marginTop="35dp"
+        android:layout_marginStart="30dp" >
+
+        <Spinner
+            android:id="@+id/grf_4_numPeople"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/White"
+            android:entries="@array/nums_0_20"
+            android:paddingTop="10dp"
+            android:textColorHint="@color/White"
+            android:hint="@string/num_people_household"/>
+
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/grf_4_row2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/grf_4_row1"
+        android:layout_marginTop="0dp"
+        android:layout_marginStart="30dp" >
+
+        <Spinner
+            android:id="@+id/grf_4_statusChildcare"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/White"
+            android:entries="@array/childcare_status"
+            android:paddingTop="10dp"
+            android:textColorHint="@color/White"
+            android:hint="@string/num_people_household"/>
+
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/grf_4_row3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/grf_4_row2"
+        android:layout_marginTop="0dp"
+        android:layout_marginStart="30dp" >
+
+        <Spinner
+            android:id="@+id/grf_4_children1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/White"
+            android:entries="@array/nums_0_20"
+            android:paddingTop="10dp"
+            android:textColorHint="@color/White"
+            android:hint="@string/num_children_under_1"/>
+
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/grf_4_row4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/grf_4_row3"
+        android:layout_marginTop="0dp"
+        android:layout_marginStart="30dp" >
+
+        <Spinner
+            android:id="@+id/grf_4_children5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/White"
+            android:entries="@array/nums_0_20"
+            android:paddingTop="10dp"
+            android:textColorHint="@color/White"
+            android:hint="@string/num_children_1_to_5"/>
+
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/grf_4_row5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/grf_4_row4"
+        android:layout_marginTop="0dp"
+        android:layout_marginStart="30dp" >
+
+        <Spinner
+            android:id="@+id/grf_4_children12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/White"
+            android:entries="@array/nums_0_20"
+            android:paddingTop="10dp"
+            android:textColorHint="@color/White"
+            android:hint="@string/num_children_6_to_12"/>
+
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/grf_4_row6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/grf_4_row5"
+        android:layout_marginTop="0dp"
+        android:layout_marginStart="30dp" >
+
+        <Spinner
+            android:id="@+id/grf_4_children18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/White"
+            android:entries="@array/nums_0_20"
+            android:paddingTop="10dp"
+            android:textColorHint="@color/White"
+            android:hint="@string/num_children_13_to_18"/>
+
+    </TableRow>
+
+    <!-- NEXT button -->
     <TableRow
         android:id="@id/Row10"
         android:layout_width="wrap_content"
