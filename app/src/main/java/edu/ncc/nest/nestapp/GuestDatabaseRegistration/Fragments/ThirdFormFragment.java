@@ -64,7 +64,10 @@ public class ThirdFormFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // set onItemSelectedListener for dropdowns. Hardcoded. Change to loop
+        // set onItemSelectedListener for dropdowns. Hardcoded. TODO Change to loop
+        // may need to update IDs .. thinking grf_3_input_dietary, etc. Then the textviews are
+        // grf_3_textview_dietary. This way inputs are grouped and textviews are grouped.
+        // hopefully then we can loop through them.
         binding.grf3Dietary.setOnItemSelectedListener(dropdownListener);
         binding.grf3OtherProgs.setOnItemSelectedListener(dropdownListener);
         binding.grf3Snap.setOnItemSelectedListener(dropdownListener);
@@ -83,17 +86,18 @@ public class ThirdFormFragment extends Fragment {
 
     // This dropdown listener currently changes the first item in the spinner to muted text.
     // When a user selects an item other than the first, text changes to standard color.
-    // Later, we can use this for verification. Can also attach a toast for selection.
+    // Later, we can use this same logic for verification.
     private AdapterView.OnItemSelectedListener dropdownListener = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            // if first item is selected, it's a placeholder. Treat as no input
             if(position == 0) {
+                // Makes it look visually 'muted'
                 ((TextView) view).setTextColor(Color.GRAY);
-                Log.d("**SELECTED**", "HINT");
             } else {
+                // else, an item is selected.
                 ((TextView) view).setTextColor(Color.BLACK);
-                Log.d("**SELECTED**", "OTHER");
-                // Notify the selected item text
+                // Adds a visual UI response when selecting an item.
                 Toast.makeText
                         (getContext(), "Selected : " + ((TextView) view).getText(), Toast.LENGTH_SHORT)
                         .show();
