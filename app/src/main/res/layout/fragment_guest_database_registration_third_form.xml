@@ -57,13 +57,12 @@
 
 
             <TextView
-                android:id="@+id/dietary_needs_textview"
-                android:layout_width="wrap_content"
+                android:id="@+id/grf_3_textview_dietary"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="bottom"
+                android:gravity="center_vertical"
                 android:minHeight="30dp"
-                android:text="@string/dietary_needs"
-                android:textSize="15sp">
+                android:text="@string/dietary_needs">
 
             </TextView>
 
@@ -75,23 +74,45 @@
                 style="?android:attr/spinnerDropDownItemStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/dietary_needs_textview"
+                android:layout_below="@id/grf_3_textview_dietary"
                 android:hint="@string/dietary_needs"
                 android:entries="@array/dietary_needs"
-                android:paddingVertical="10dp"
-                android:textColorHint="@color/White" />
+                android:paddingVertical="16dp"
+                android:paddingStart="0dp" />
 
+            <TextView
+                android:id="@+id/grf_3_textview_snap"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/grf_3_dietary"
+                android:gravity="center_vertical"
+                android:minHeight="30dp"
+                android:text="@string/snap">
+
+            </TextView>
 
             <Spinner
                 android:id="@+id/grf_3_snap"
                 style="?android:attr/spinnerDropDownItemStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/grf_3_dietary"
+                android:layout_below="@id/grf_3_textview_snap"
                 android:layout_marginTop="-1dp"
                 android:entries="@array/yes_no_select_one"
-                android:paddingVertical="10dp"
+                android:paddingVertical="16dp"
+                android:paddingStart="0dp"
                 android:textColorHint="@color/White" />
+
+            <TextView
+                android:id="@+id/grf_3_textview_otherProgs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/grf_3_snap"
+                android:gravity="center_vertical"
+                android:minHeight="30dp"
+                android:text="@string/other_programs">
+
+            </TextView>
 
 
             <Spinner
@@ -99,24 +120,43 @@
                 style="?android:attr/spinnerDropDownItemStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/grf_3_snap"
-                android:backgroundTint="@color/White"
+                android:layout_below="@+id/grf_3_textview_otherProgs"
                 android:entries="@array/yes_no_select_one"
-                android:paddingVertical="10dp"
-                android:textColorHint="@color/White" />
+                android:paddingVertical="16dp"
+                android:paddingStart="0dp" />
 
+            <TextView
+                android:id="@+id/grf_3_textview_statusEmployment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/grf_3_otherProgs"
+                android:gravity="center_vertical"
+                android:minHeight="30dp"
+                android:text="@string/employment_status">
 
-                <!-- TODO: Make a multi-select -->
+            </TextView>
+
+            <!-- TODO: Make a multi-select -->
             <Spinner
                 android:id="@+id/grf_3_statusEmployment"
                 style="?android:attr/spinnerDropDownItemStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/grf_3_otherProgs"
-                android:backgroundTint="@color/White"
+                android:layout_below="@id/grf_3_textview_statusEmployment"
                 android:entries="@array/employment_status"
-                android:paddingVertical="10dp"
-                android:textColorHint="@color/White" />
+                android:paddingVertical="16dp"
+                android:paddingStart="0dp" />
+
+            <TextView
+                android:id="@+id/grf_3_textview_statusHealth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/grf_3_statusEmployment"
+                android:gravity="center_vertical"
+                android:minHeight="30dp"
+                android:text="@string/health_status">
+
+            </TextView>
 
             <!-- TODO: Make a multi-select -->
             <Spinner
@@ -124,11 +164,22 @@
                 style="?android:attr/spinnerDropDownItemStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/grf_3_statusEmployment"
-                android:backgroundTint="@color/White"
+                android:layout_below="@id/grf_3_textview_statusHealth"
                 android:entries="@array/health_status"
-                android:paddingVertical="10dp"
+                android:paddingVertical="16dp"
+                android:paddingStart="0dp"
                 android:textColorHint="@color/White" />
+
+            <TextView
+                android:id="@+id/grf_3_textview_statusHousing"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/grf_3_statusHealth"
+                android:gravity="center_vertical"
+                android:minHeight="30dp"
+                android:text="@string/housing_status">
+
+            </TextView>
 
             <!-- TODO: Make a multi-select -->
             <Spinner
@@ -136,10 +187,11 @@
                 style="?android:attr/spinnerDropDownItemStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/grf_3_statusHealth"
+                android:layout_below="@id/grf_3_textview_statusHousing"
                 android:backgroundTint="@color/White"
                 android:entries="@array/housing_status"
-                android:paddingVertical="10dp"
+                android:paddingVertical="16dp"
+                android:paddingStart="0dp"
                 android:textColorHint="@color/White" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -153,6 +205,7 @@
                     android:id="@+id/grf_3_income"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingVertical="16dp"
                     android:inputType="number"
                     android:maxLength="10" />
             </com.google.android.material.textfield.TextInputLayout>

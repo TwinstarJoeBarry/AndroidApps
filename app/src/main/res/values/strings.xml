@@ -301,6 +301,11 @@
     <!-- Strings used in fragment_guest_database_registration_third_form.xml -->
     <string name="household_income">Household Income</string>
     <string name="dietary_needs">Do you have any dietary Needs / Preferences?</string>
+    <string name="snap">Do you have SNAP / food stamps?</string>
+    <string name="other_programs">Aside from the NEST, do you know of other emergency food programs in the area?</string>
+    <string name="employment_status">What is your employment status?</string>
+    <string name="health_status">What is your health status?</string>
+    <string name="housing_status">What is your housing status?</string>
 
     <!-- Strings used in fragment_guest_database_registration_fourth_form.xml -->
     <string name="num_people_household">How many people are in your household?</string>
