@@ -18,13 +18,14 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -->
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryShaded"
-    tools:context=".GuestDatabaseRegistration.Activities.GuestDatabaseRegistrationActivity">
+    tools:context=".GuestDatabaseRegistration.Activities.GuestDatabaseRegistrationActivity"
+    android:orientation="vertical">
 
 
     <TextView
@@ -45,10 +46,9 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:layout_marginHorizontal="1dp"
-        android:scrollbars="vertical"
-        android:layout_below="@id/title_txt">
+        android:scrollbars="vertical">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/background_dialog"
@@ -74,7 +74,6 @@
                 style="?android:attr/spinnerDropDownItemStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/grf_3_textview_dietary"
                 android:hint="@string/dietary_needs"
                 android:entries="@array/dietary_needs"
                 android:paddingVertical="16dp"
@@ -84,7 +83,6 @@
                 android:id="@+id/grf_3_textview_snap"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/grf_3_dietary"
                 android:gravity="center_vertical"
                 android:minHeight="30dp"
                 android:text="@string/snap">
@@ -96,7 +94,6 @@
                 style="?android:attr/spinnerDropDownItemStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/grf_3_textview_snap"
                 android:layout_marginTop="-1dp"
                 android:entries="@array/yes_no_select_one"
                 android:paddingVertical="16dp"
@@ -107,7 +104,6 @@
                 android:id="@+id/grf_3_textview_otherProgs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/grf_3_snap"
                 android:gravity="center_vertical"
                 android:minHeight="30dp"
                 android:text="@string/other_programs">
@@ -120,7 +116,6 @@
                 style="?android:attr/spinnerDropDownItemStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/grf_3_textview_otherProgs"
                 android:entries="@array/yes_no_select_one"
                 android:paddingVertical="16dp"
                 android:paddingStart="0dp" />
@@ -129,7 +124,6 @@
                 android:id="@+id/grf_3_textview_statusEmployment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/grf_3_otherProgs"
                 android:gravity="center_vertical"
                 android:minHeight="30dp"
                 android:text="@string/employment_status">
@@ -142,7 +136,6 @@
                 style="?android:attr/spinnerDropDownItemStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/grf_3_textview_statusEmployment"
                 android:entries="@array/employment_status"
                 android:paddingVertical="16dp"
                 android:paddingStart="0dp" />
@@ -151,7 +144,6 @@
                 android:id="@+id/grf_3_textview_statusHealth"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/grf_3_statusEmployment"
                 android:gravity="center_vertical"
                 android:minHeight="30dp"
                 android:text="@string/health_status">
@@ -164,17 +156,14 @@
                 style="?android:attr/spinnerDropDownItemStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/grf_3_textview_statusHealth"
                 android:entries="@array/health_status"
                 android:paddingVertical="16dp"
-                android:paddingStart="0dp"
-                android:textColorHint="@color/White" />
+                android:paddingStart="0dp"/>
 
             <TextView
                 android:id="@+id/grf_3_textview_statusHousing"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/grf_3_statusHealth"
                 android:gravity="center_vertical"
                 android:minHeight="30dp"
                 android:text="@string/housing_status">
@@ -187,18 +176,15 @@
                 style="?android:attr/spinnerDropDownItemStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/grf_3_textview_statusHousing"
                 android:backgroundTint="@color/White"
                 android:entries="@array/housing_status"
                 android:paddingVertical="16dp"
-                android:paddingStart="0dp"
-                android:textColorHint="@color/White" />
+                android:paddingStart="0dp"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/grf_3_income_wrapper"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/grf_3_statusHousing"
                 android:hint="@string/household_income">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -217,15 +203,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="50dp"
-                    android:layout_below="@id/grf_3_income_wrapper"
                     android:backgroundTint="@color/colorPrimary"
                     android:text="@string/next"
                     android:textColor="@color/White" />
 
-        </RelativeLayout>
+        </LinearLayout>
 
     </ScrollView>
 
-</RelativeLayout>
+</LinearLayout>
 
 
