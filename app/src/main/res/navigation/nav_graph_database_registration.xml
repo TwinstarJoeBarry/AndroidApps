@@ -27,8 +27,7 @@
     <fragment
         android:id="@+id/DBR_StartFragment"
         android:name="edu.ncc.nest.nestapp.GuestDatabaseRegistration.Fragments.StartFragment"
-        android:label="@string/nav_graph_dbr_start_fragment_lbl"
-        tools:layout="@layout/fragment_guest_database_registration_start">
+        android:label="@string/nav_graph_dbr_start_fragment_lbl">
 
         <!-- This action & destination should be named and assigned accordingly to the proper fragment once it is available -->
         <!-- This action & destination currently below are merely for example and do not reflect any accuracy
@@ -49,17 +48,16 @@
 
     <fragment
         android:id="@+id/DBR_ScannerFragment"
-        android:name="edu.ncc.nest.nestapp.GuestDatabaseRegistration.Fragments.ScannerFragment"
-        android:label="@string/nav_graph_dbr_scanner_fragment_lbl"
-        tools:layout="@layout/abstract_scanner" >
+        android:name="edu.ncc.nest.nestapp.GuestGoogleSheetRegistration.Fragments.SecondFormFragment"
+        android:label="@string/nav_graph_dbr_scanner_fragment_lbl">
 
     </fragment>
 
     <fragment
         android:id="@+id/DBR_FirstFormFragment"
         android:name="edu.ncc.nest.nestapp.GuestDatabaseRegistration.Fragments.FirstFormFragment"
-        android:label="@string/nav_graph_dbr_first_form_fragment_lbl"
-        tools:layout="@layout/fragment_guest_database_registration_first_form" >
+        android:label="@string/nav_graph_dbr_first_form_fragment_lbl">
+
 
         <action
             android:id="@+id/action_DBR_FirstFormFragment_to_SecondFormFragment"
@@ -74,6 +72,18 @@
         android:label="@string/nav_graph_dbr_second_form_fragment_lbl"
         tools:layout="@layout/fragment_guest_database_registration_second_form" >
 
+        <action
+            android:id="@+id/action_DBR_SecondFormFragment_to_DBR_ThirdFormFragment"
+            app:destination="@id/DBR_ThirdFormFragment" />
+        <action
+            android:id="@+id/action_DBR_SecondFormFragment_to_DBR_ThirdFormFragment2"
+            app:destination="@id/DBR_ThirdFormFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/DBR_ThirdFormFragment"
+        android:name="edu.ncc.nest.nestapp.GuestDatabaseRegistration.Fragments.ThirdFormFragment"
+        android:label="Third Form Fragment">
     </fragment>
 
     <fragment
@@ -83,5 +93,7 @@
         tools:layout="@layout/fragment_guest_database_registration_summary" >
 
     </fragment>
+
+
 
 </navigation>
