@@ -770,6 +770,7 @@
     </string-array>
 
     <string-array name="dietary_needs">
+        <item>Select All That Apply</item>
         <item>None</item>
         <item>Diabetic</item>
         <item>Low Salt</item>
@@ -781,15 +782,23 @@
 
     <!-- can we leave below out .. we have a universal yes/no. wont conflict if 2 on same page? -->
     <string-array name="SNAP">
+        <item>Select One</item>
         <item>Yes</item>
         <item>No</item>
     </string-array>
     <string-array name="other_programs">
+        <item>Select One</item>
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
+    <string-array name="yes_no_select_one">
+        <item>Select One</item>
         <item>Yes</item>
         <item>No</item>
     </string-array>
 
     <string-array name="employment_status">
+        <item>Select All That Apply</item>
         <item>I am currently working</item>
         <item>I am looking for employment</item>
         <item>I am not currently working</item>
@@ -800,6 +809,7 @@
     </string-array>
 
     <string-array name="health_status">
+        <item>Select All That Apply</item>
         <item>I have health insurance</item>
         <item>I do not have health insurance</item>
         <item>I do not know how to get health insurance</item>
@@ -810,6 +820,7 @@
     </string-array>
 
     <string-array name="housing_status">
+        <item>Select All That Apply</item>
         <item>I have a safe and comfortable place to live</item>
         <item>I am currently homeless or in danger of becoming homeless</item>
         <item>I need housing</item>
@@ -817,6 +828,7 @@
     </string-array>
 
     <string-array name="childcare_status">
+        <item>Select All That Apply</item>
         <item>I do not have children in my household</item>
         <item>I need diapers, baby food, and other baby supplies</item>
         <item>I am interested in parenting workshops</item>
@@ -826,6 +838,7 @@
     <!-- probably don't need. Waiting on response to a question. TODO remove after test -->
     <!-- if we end up keeping, move to the general section -->
     <string-array name="nums_0_20">
+        <item>Select One</item>
         <item>0</item>
         <item>1</item>
         <item>2</item>

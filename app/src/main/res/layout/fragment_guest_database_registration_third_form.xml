@@ -69,14 +69,15 @@
 
 
             <!-- TODO: Make a multi-select -->
+            <!-- TODO: put back entries attribute -->
             <Spinner
-                android:id="@+id/dietary_needs_multiselect"
+                android:id="@+id/grf_3_dietary"
                 style="?android:attr/spinnerDropDownItemStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/dietary_needs_textview"
-                android:entries="@array/dietary_needs"
                 android:hint="@string/dietary_needs"
+                android:entries="@array/dietary_needs"
                 android:paddingVertical="10dp"
                 android:textColorHint="@color/White" />
 
@@ -86,12 +87,11 @@
                 style="?android:attr/spinnerDropDownItemStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/dietary_needs_multiselect"
+                android:layout_below="@id/grf_3_dietary"
                 android:layout_marginTop="-1dp"
-                android:entries="@array/array_yes_no"
+                android:entries="@array/yes_no_select_one"
                 android:paddingVertical="10dp"
                 android:textColorHint="@color/White" />
-
 
 
             <Spinner
@@ -101,7 +101,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/grf_3_snap"
                 android:backgroundTint="@color/White"
-                android:entries="@array/array_yes_no"
+                android:entries="@array/yes_no_select_one"
                 android:paddingVertical="10dp"
                 android:textColorHint="@color/White" />
 
