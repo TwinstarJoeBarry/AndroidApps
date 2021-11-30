@@ -26,201 +26,152 @@
     android:background="@color/colorPrimaryShaded"
     tools:context=".GuestDatabaseRegistration.Activities.GuestDatabaseRegistrationActivity">
 
-    <TableRow
-        android:id="@id/Row1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true">
 
-        <TextView
-            android:id="@id/title_txt"
+    <TextView
+        android:id="@id/title_txt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:layout_marginHorizontal="1dp"
+        android:layout_marginTop="2dp"
+        android:textStyle="bold"
+        android:text="@string/fragment_dbr_first_form_title"
+        android:gravity="center"
+        android:textSize="24sp"
+        android:background="@drawable/background_dialog"
+        />
+
+    <ScrollView
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="1dp"
+        android:scrollbars="vertical"
+        android:layout_below="@id/title_txt">
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:textStyle="bold"
-            android:fontFamily="casual"
-            android:textAllCaps="true"
-            android:text="@string/fragment_dbr_first_form_title"
-            android:textAlignment="center"
-            android:textColor="@color/White"
-            android:textSize="20sp" />
-    </TableRow>
-
-    <TableRow
-        android:id="@id/Row1a"
-        android:layout_width="380dp"
-        android:layout_height="380dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="140dp"
-        android:paddingHorizontal="10dp"
-        android:paddingVertical="10dp"
-        android:backgroundTint="@color/colorPrimary"
-        android:background="@drawable/background_dialog">
-    </TableRow>
+            android:background="@drawable/background_dialog"
+            android:orientation="vertical"
+            android:padding="24dp">
 
 
-    <TableRow
-        android:id="@+id/grf_3_row1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/Row1"
-        android:layout_marginTop="35dp"
-        android:layout_marginStart="30dp" >
+            <TextView
+                android:id="@+id/dietary_needs_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="bottom"
+                android:minHeight="30dp"
+                android:text="@string/dietary_needs"
+                android:textSize="15sp">
 
-        <!-- TODO: Make a multi-select -->
-        <Spinner
-            android:id="@+id/grf_3_dietary"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/White"
-            android:entries="@array/dietary_needs"
-            android:paddingTop="10dp"
-            android:textColorHint="@color/White"
-            android:hint="Do you have any dietary Needs / Preferences?"/>
-
-    </TableRow>
-
-    <TableRow
-        android:id="@+id/grf_3_row2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/grf_3_row1"
-        android:layout_marginTop="0dp"
-        android:layout_marginStart="30dp" >
+            </TextView>
 
 
-        <Spinner
-            android:id="@+id/grf_3_snap"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/White"
-            android:entries="@array/array_yes_no"
-            android:paddingTop="10dp"
-            android:textColorHint="@color/White" />
-
-    </TableRow>
-
-    <TableRow
-        android:id="@+id/grf_3_row3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/grf_3_row2"
-        android:layout_marginTop="0dp"
-        android:layout_marginStart="30dp" >
+            <!-- TODO: Make a multi-select -->
+            <Spinner
+                android:id="@+id/dietary_needs_multiselect"
+                style="?android:attr/spinnerDropDownItemStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/dietary_needs_textview"
+                android:entries="@array/dietary_needs"
+                android:hint="@string/dietary_needs"
+                android:paddingVertical="10dp"
+                android:textColorHint="@color/White" />
 
 
-        <Spinner
-            android:id="@+id/grf_3_otherProgs"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/White"
-            android:entries="@array/array_yes_no"
-            android:paddingTop="10dp"
-            android:textColorHint="@color/White" />
-
-    </TableRow>
-
-    <TableRow
-        android:id="@+id/grf_3_row4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/grf_3_row3"
-        android:layout_marginTop="0dp"
-        android:layout_marginStart="30dp" >
-
-        <!-- TODO: Make a multi-select -->
-        <Spinner
-            android:id="@+id/grf_3_statusEmployment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/White"
-            android:entries="@array/employment_status"
-            android:paddingTop="10dp"
-            android:textColorHint="@color/White" />
-
-    </TableRow>
-
-    <TableRow
-        android:id="@+id/grf_3_row5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/grf_3_row4"
-        android:layout_marginTop="0dp"
-        android:layout_marginStart="30dp" >
-
-        <!-- TODO: Make a multi-select -->
-        <Spinner
-            android:id="@+id/grf_3_statusHealth"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/White"
-            android:entries="@array/health_status"
-            android:paddingTop="10dp"
-            android:textColorHint="@color/White" />
-
-    </TableRow>
-
-    <TableRow
-        android:id="@+id/grf_3_row6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/grf_3_row5"
-        android:layout_marginTop="0dp"
-        android:layout_marginStart="30dp" >
-
-        <!-- TODO: Make a multi-select -->
-        <Spinner
-            android:id="@+id/grf_3_statusHousing"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/White"
-            android:entries="@array/housing_status"
-            android:paddingTop="10dp"
-            android:textColorHint="@color/White" />
-
-    </TableRow>
-
-    <TableRow
-        android:id="@+id/grf_3_row7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/grf_3_row6"
-        android:layout_marginTop="0dp"
-        android:layout_marginStart="30dp" >
-
-        <EditText
-            android:id="@+id/grf_3_income"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/White"
-            android:hint="@string/household_income"
-            android:inputType="number"
-            android:maxLength="10"
-            android:textColorHint="@color/White"
-            />
-
-    </TableRow>
+            <Spinner
+                android:id="@+id/grf_3_snap"
+                style="?android:attr/spinnerDropDownItemStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/dietary_needs_multiselect"
+                android:layout_marginTop="-1dp"
+                android:entries="@array/array_yes_no"
+                android:paddingVertical="10dp"
+                android:textColorHint="@color/White" />
 
 
-    <TableRow
-        android:id="@id/Row10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/Row1a"
-        android:layout_marginTop="0dp"
-        android:layout_centerHorizontal="true">
 
-        <Button
-            android:id="@+id/next_button_third_fragment_gRegistration"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            <Spinner
+                android:id="@+id/grf_3_otherProgs"
+                style="?android:attr/spinnerDropDownItemStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/grf_3_snap"
+                android:backgroundTint="@color/White"
+                android:entries="@array/array_yes_no"
+                android:paddingVertical="10dp"
+                android:textColorHint="@color/White" />
 
-            android:backgroundTint="@color/colorPrimary"
-            android:text="@string/next"
-            android:textColor="@color/White" />
 
-    </TableRow>
+                <!-- TODO: Make a multi-select -->
+            <Spinner
+                android:id="@+id/grf_3_statusEmployment"
+                style="?android:attr/spinnerDropDownItemStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/grf_3_otherProgs"
+                android:backgroundTint="@color/White"
+                android:entries="@array/employment_status"
+                android:paddingVertical="10dp"
+                android:textColorHint="@color/White" />
+
+            <!-- TODO: Make a multi-select -->
+            <Spinner
+                android:id="@+id/grf_3_statusHealth"
+                style="?android:attr/spinnerDropDownItemStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/grf_3_statusEmployment"
+                android:backgroundTint="@color/White"
+                android:entries="@array/health_status"
+                android:paddingVertical="10dp"
+                android:textColorHint="@color/White" />
+
+            <!-- TODO: Make a multi-select -->
+            <Spinner
+                android:id="@+id/grf_3_statusHousing"
+                style="?android:attr/spinnerDropDownItemStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/grf_3_statusHealth"
+                android:backgroundTint="@color/White"
+                android:entries="@array/housing_status"
+                android:paddingVertical="10dp"
+                android:textColorHint="@color/White" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/grf_3_income_wrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/grf_3_statusHousing"
+                android:hint="@string/household_income">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/grf_3_income"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLength="10" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+
+                <Button
+                    android:id="@+id/next_button_third_fragment_gRegistration"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:layout_below="@id/grf_3_income_wrapper"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:text="@string/next"
+                    android:textColor="@color/White" />
+
+        </RelativeLayout>
+
+    </ScrollView>
 
 </RelativeLayout>
 

@@ -300,6 +300,7 @@
 
     <!-- Strings used in fragment_guest_database_registration_third_form.xml -->
     <string name="household_income">Household Income</string>
+    <string name="dietary_needs">Do you have any dietary Needs / Preferences?</string>
 
     <!-- Strings used in fragment_guest_database_registration_fourth_form.xml -->
     <string name="num_people_household">How many people are in your household?</string>
