@@ -53,7 +53,7 @@ public class SecondFormFragment extends Fragment {
     private boolean validStreetAddress1, validCity, validZip, validInput = false;
 
 
-
+    private String fname;
     private Bundle result = new Bundle();
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -67,15 +67,16 @@ public class SecondFormFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
-
+        Log.d("TAG", "Obtaining first name");
+        /*
         getParentFragmentManager().setFragmentResultListener("sending_first_form_fragment_info", this, new FragmentResultListener() {
                     @Override
                     public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
                         binding.welcomeMessageName.setText(result.getString("First Name"));
                     }
                 });
+
+         */
 
                 binding.nextButton.setOnClickListener(new View.OnClickListener() {
 
@@ -143,7 +144,7 @@ public class SecondFormFragment extends Fragment {
                         if(validInput){
                             getParentFragmentManager().setFragmentResult("sending_second_form_fragment_info", result);
                             NavHostFragment.findNavController(SecondFormFragment.this)
-                                    .navigate(R.id.action_DBR_SecondFormFragment_to_DBR_ThirdFormFragment);
+                                    .navigate(R.id.action_DBR_SecondFormFragment_to_DBR_SummaryFragment);
                         }
                     }
                 });
