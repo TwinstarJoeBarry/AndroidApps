@@ -18,6 +18,8 @@ package edu.ncc.nest.nestapp.GuestDatabaseRegistration.Fragments;
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+import android.content.res.ColorStateList;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,6 +32,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
@@ -95,8 +99,9 @@ public class ThirdFormFragment extends Fragment {
                 // Makes it look visually 'muted'
                 ((TextView) view).setTextColor(Color.GRAY);
             } else {
-                // else, an item is selected.
-                ((TextView) view).setTextColor(Color.BLACK);
+                // else, an item is selected. Below uses the "ColorPrimaryDark" variable. This will allow us to
+                // keep universal themes and styling across the app.
+                ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimaryDark, getContext().getTheme()));
                 // Adds a visual UI response when selecting an item.
                 Toast.makeText
                         (getContext(), "Selected : " + ((TextView) view).getText(), Toast.LENGTH_SHORT)

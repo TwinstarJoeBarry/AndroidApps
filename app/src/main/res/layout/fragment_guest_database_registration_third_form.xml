@@ -136,6 +136,7 @@
                 style="?android:attr/spinnerDropDownItemStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorPrimary"
                 android:entries="@array/employment_status"
                 android:paddingVertical="16dp"
                 android:paddingStart="0dp" />
@@ -156,6 +157,7 @@
                 style="?android:attr/spinnerDropDownItemStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorPrimaryDark"
                 android:entries="@array/health_status"
                 android:paddingVertical="16dp"
                 android:paddingStart="0dp"/>
@@ -176,7 +178,7 @@
                 style="?android:attr/spinnerDropDownItemStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/White"
+                android:backgroundTint="@color/colorPrimaryShaded"
                 android:entries="@array/housing_status"
                 android:paddingVertical="16dp"
                 android:paddingStart="0dp"/>
