@@ -27,7 +27,8 @@
     tools:context=".GuestDatabaseRegistration.Activities.GuestDatabaseRegistrationActivity"
     android:orientation="vertical">
 
-
+    <!-- Title section -->
+    <!-- Required attrs: padding and background:background-dialog to get card effect -->
     <TextView
         android:id="@id/title_txt"
         android:layout_width="match_parent"
@@ -42,12 +43,14 @@
         android:background="@drawable/background_dialog"
         />
 
+    <!-- ScrollView allows scrolling within this wrapped container -->
     <ScrollView
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:layout_marginHorizontal="1dp"
         android:scrollbars="vertical">
 
+        <!-- ScrollView MUST only have one direct child. That child can have as many children as it wants -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -55,7 +58,8 @@
             android:orientation="vertical"
             android:padding="24dp">
 
-
+            <!-- fields / elements in the scrollView go here. -->
+            <!-- Fields -->
             <TextView
                 android:id="@+id/grf_3_textview_dietary"
                 android:layout_width="match_parent"

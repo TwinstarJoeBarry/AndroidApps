@@ -60,7 +60,7 @@ public class ThirdFormFragment extends Fragment {
         binding = FragmentGuestDatabaseRegistrationThirdFormBinding.inflate(inflater, container, false);
         return binding.getRoot();
 
-        // Inflate the layout for this fragment
+        // Inflate the layout for this fragment (deprecated since bundle added 11.2021)
         //return inflater.inflate(R.layout.fragment_guest_database_registration_third_form, container, false);
 
     }
@@ -91,7 +91,8 @@ public class ThirdFormFragment extends Fragment {
     // This dropdown listener currently changes the first item in the spinner to muted text.
     // When a user selects an item other than the first, text changes to standard color.
     // Later, we can use this same logic for verification.
-    private AdapterView.OnItemSelectedListener dropdownListener = new AdapterView.OnItemSelectedListener() {
+    // TODO can this be moved to a separate file and then just called?
+    private final AdapterView.OnItemSelectedListener dropdownListener = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             // if first item is selected, it's a placeholder. Treat as no input

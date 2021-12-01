@@ -102,6 +102,9 @@
         android:label="@string/nav_graph_dbr_summary_fragment_lbl"
         tools:layout="@layout/fragment_guest_database_registration_summary" >
 
+        <action
+            android:id="@+id/action_DBR_SummaryFragment_to_DBR_StartFragment"
+            app:destination="@id/DBR_StartFragment" />
     </fragment>
 
 
