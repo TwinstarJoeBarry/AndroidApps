@@ -53,7 +53,7 @@ public class Choose extends AppCompatActivity implements OnClickListener {
     public boolean onCreateOptionsMenu(Menu menu) {
 
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_main, menu);
+        inflater.inflate(R.menu.choose_menu_main, menu);
         return true;
 
     }
@@ -102,7 +102,7 @@ public class Choose extends AppCompatActivity implements OnClickListener {
     }
 
     /**
-     * launchFutureEfforts - starts the Future Efforcts activity
+     * launchFutureEfforts - starts the Future Efforts activity
      */
     public void launchFutureEfforts() {
         Intent intent = new Intent(this, FutureEfforts.class);
