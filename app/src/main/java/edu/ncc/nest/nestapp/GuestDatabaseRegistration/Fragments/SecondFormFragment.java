@@ -40,11 +40,10 @@ import edu.ncc.nest.nestapp.databinding.FragmentGuestDatabaseRegistrationSecondF
 /**
  * SecondFormFragment: Represents a form that a guest can fill in with their household information.
  * The fragment then bundles all of the user's inputs (including info passed from
- * {@link FirstFormFragment} and sends them to the next fragment {@link SummaryFragment}.
+ * {@link FirstFormFragment} and sends them to the next fragment {@link SecondFormFragment}.
  */
 public class SecondFormFragment extends Fragment {
 
-    //dfdfdfdfdfdfdfdfdfd
     private FragmentGuestDatabaseRegistrationSecondFormBinding binding;
 
     private String inputStreetAddress1, inputStreetAddress2, inputCity, inputState, inputZip,
@@ -67,8 +66,6 @@ public class SecondFormFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
 
         getParentFragmentManager().setFragmentResultListener("sending_first_form_fragment_info", this, new FragmentResultListener() {
                     @Override
