@@ -143,7 +143,7 @@ public class SecondFormFragment extends Fragment {
                         if(validInput){
                             getParentFragmentManager().setFragmentResult("sending_second_form_fragment_info", result);
                             NavHostFragment.findNavController(SecondFormFragment.this)
-                                    .navigate(R.id.action_DBR_SecondFormFragment_to_DBR_SummaryFragment);
+                                    .navigate(R.id.action_DBR_SecondFormFragment_to_DBR_ThirdFormFragment);
                         }
                     }
                 });
