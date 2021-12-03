@@ -9,6 +9,7 @@
     <string name="submit">Submit</string>
     <string name="done">Done</string>
     <string name="confirm">Confirm</string>
+    <string name="review_and_submit">Review and Submit</string>
     <string name="register">Register</string>
     <string name="full_name">Full Name</string>
     <string name="first_name">First Name</string>
@@ -292,9 +293,27 @@
 
     <!-- Strings used in fragment_guest_database_registration_first_form.xml -->
     <string name="fragment_dbr_first_form_title">Guest Form Registration</string>
+    <string name="n">N</string>
 
     <!-- Strings used in fragment_guest_database_registration_second_form.xml -->
     <string name="fragment_dbr_second_form_description">Household Information Fragment</string>
+
+    <!-- Strings used in fragment_guest_database_registration_third_form.xml -->
+    <string name="household_income">Household Income</string>
+    <string name="dietary_needs">Do you have any dietary Needs / Preferences?</string>
+    <string name="snap">Do you have SNAP / food stamps?</string>
+    <string name="other_programs">Aside from the NEST, do you know of other emergency food programs in the area?</string>
+    <string name="employment_status">What is your employment status?</string>
+    <string name="health_status">What is your health status?</string>
+    <string name="housing_status">What is your housing status?</string>
+
+    <!-- Strings used in fragment_guest_database_registration_fourth_form.xml -->
+    <string name="num_people_household">How many people are in your household?</string>
+    <string name="childcare_status">What is your childcare status?</string>
+    <string name="num_children_under_1">How many children under the age of 1 year old are in your household?</string>
+    <string name="num_children_1_to_5">How many children between the ages of 13 months and 5 years old are in your household?</string>
+    <string name="num_children_6_to_12">How many children between the ages of 6 and 12 years old are in your household?</string>
+    <string name="num_children_13_to_18">How many children between the ages of 13 and 18 years old are in your household?</string>
 
     <!-- Strings used in fragment_guest_database_registration_summary.xml -->
     <string name="fragment_dbr_summary_description">Summary page of GuestGoogleSheetRegistration</string>
@@ -370,6 +389,8 @@
     <string name="nav_graph_dbr_scanner_fragment_lbl">Scanner Fragment</string>
     <string name="nav_graph_dbr_first_form_fragment_lbl">First Form Fragment</string>
     <string name="nav_graph_dbr_second_form_fragment_lbl">Second Form Fragment</string>
+    <string name="nav_graph_dbr_third_form_fragment_lbl">Third Form Fragment</string>
+    <string name="nav_graph_dbr_fourth_form_fragment_lbl">Fourth Form Fragment</string>
     <string name="nav_graph_dbr_summary_fragment_lbl">Summary Fragment</string>
 
     <!-- Strings used in nav_graph_google_sheet_registration.xml -->
@@ -386,8 +407,5 @@
     <!-- This string is used only for the creation of new strings. -->
     <!-- When a new string is created it should appear below this string. -->
     <string name="STRINGS_BELOW_THIS_SHOULD_BE_MOVED_TO_AN_APPROPRIATE_LOCATION_ABOVE" />
-    <string name="n">N</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

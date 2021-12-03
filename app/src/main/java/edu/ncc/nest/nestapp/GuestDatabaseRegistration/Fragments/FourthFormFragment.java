@@ -18,50 +18,41 @@ package edu.ncc.nest.nestapp.GuestDatabaseRegistration.Fragments;
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import android.content.res.ColorStateList;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
-import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import edu.ncc.nest.nestapp.R;
-import edu.ncc.nest.nestapp.databinding.FragmentGuestDatabaseRegistrationThirdFormBinding;
+import edu.ncc.nest.nestapp.databinding.FragmentGuestDatabaseRegistrationFourthFormBinding;
+import edu.ncc.nest.nestapp.databinding.FragmentGuestDatabaseRegistrationSecondFormBinding;
 
 /**
  * ThirdFormFragment: Represents a form that a guest can fill in with more of their information.
  * The fragment then bundles all of the user's inputs (including info passed from
- * {@link SecondFormFragment} and sends them to the next fragment (will be Fourth Fragment).
+ * {@link ThirdFormFragment} and sends them to the next fragment {@link SummaryFragment}.
  */
-public class ThirdFormFragment extends Fragment {
+public class FourthFormFragment extends Fragment {
 
-    private FragmentGuestDatabaseRegistrationThirdFormBinding binding;
+    private FragmentGuestDatabaseRegistrationFourthFormBinding binding;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        binding = FragmentGuestDatabaseRegistrationThirdFormBinding.inflate(inflater, container, false);
+        // implement binding to inflate layout
+        binding = FragmentGuestDatabaseRegistrationFourthFormBinding.inflate(inflater, container, false);
         return binding.getRoot();
 
         // Inflate the layout for this fragment (deprecated since bundle added 11.2021)
-        //return inflater.inflate(R.layout.fragment_guest_database_registration_third_form, container, false);
+        //return inflater.inflate(R.layout.fragment_guest_database_registration_fourth_form, container, false);
 
     }
 
@@ -69,22 +60,24 @@ public class ThirdFormFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         // set onItemSelectedListener for dropdowns. Hardcoded. TODO Change to loop
-        // may need to update IDs .. thinking grf_3_input_dietary, etc. Then the textviews are
-        // grf_3_textview_dietary. This way inputs are grouped and textviews are grouped.
-        // hopefully then we can loop through them.
-        binding.grf3Dietary.setOnItemSelectedListener(dropdownListener);
-        binding.grf3OtherProgs.setOnItemSelectedListener(dropdownListener);
-        binding.grf3Snap.setOnItemSelectedListener(dropdownListener);
-        binding.grf3StatusEmployment.setOnItemSelectedListener(dropdownListener);
-        binding.grf3StatusHealth.setOnItemSelectedListener(dropdownListener);
-        binding.grf3StatusHousing.setOnItemSelectedListener(dropdownListener);
+        // may need to update IDs .. thinking grf_4_input_dietary, etc. Then the textviews are
+        // grf_4_textview_dietary. This way inputs are grouped and textviews are grouped.
+        // hopefully then we can loop through them separately. Just need to know/determine how many
+        // there are and can find id of first, then loop.
+        binding.grf4Children1.setOnItemSelectedListener(dropdownListener);
+        binding.grf4Children5.setOnItemSelectedListener(dropdownListener);
+        binding.grf4Children12.setOnItemSelectedListener(dropdownListener);
+        binding.grf4Children18.setOnItemSelectedListener(dropdownListener);
+        binding.grf4NumPeople.setOnItemSelectedListener(dropdownListener);
+        binding.grf4StatusChildcare.setOnItemSelectedListener(dropdownListener);
 
-        // adds the onClick listener to the 'next' button
-        binding.nextButtonThirdFragmentGRegistration.setOnClickListener(v -> {
+        // set up on click listener for the 'next' button
+        binding.nextButtonFourthFragmentGRegistration.setOnClickListener(v -> {
 
-            // navigate to the fourth fragment when clicked
-            NavHostFragment.findNavController(ThirdFormFragment.this)
-                    .navigate(R.id.action_DBR_ThirdFormFragment_to_fourthFormFragment);
+            // navigate to the summary fragment when clicked
+            NavHostFragment.findNavController(FourthFormFragment.this)
+                    .navigate(R.id.action_DBR_FourthFormFragment_to_DBR_SummaryFragment);
+
         });
     }
 
