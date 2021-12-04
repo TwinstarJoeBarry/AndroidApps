@@ -109,6 +109,10 @@ public class GuestRegistrySource {
 
     }
 
+    public int removeData() {
+
+    }
+
     /**
      * isRegistered - Takes 1 parameter
      * Determines whether or not a guest is currently registered with the provided barcode
