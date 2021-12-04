@@ -93,6 +93,23 @@ public class GuestRegistrySource {
         ContentValues cValues = new ContentValues();
 
         //loading user information into the content value
+        //TODO Need:
+        // 1. Age
+        // 2. Gender
+        // 3. Dietary Needs & Pref
+        // 4. Has SNAP/food stamps
+        // 5. -maybe- Know other emergency food program
+        // 6. Employment Status
+        // 7. Health Status
+        // 8. Housing Status
+        // 9. Household Income
+        // 10. How many people in household
+        // 11. Childcare Status
+        // 12. #Child Age situation:
+            // a. Age < 1
+            // b. 13 <= Age <= 5
+            // c. 6 <= Age <= 12
+            // d. 13 <= Age <= 18
         cValues.put(GuestRegistryHelper.NAME, name);
         cValues.put(GuestRegistryHelper.EMAIL, email);
         cValues.put(GuestRegistryHelper.PHONE, phone);
