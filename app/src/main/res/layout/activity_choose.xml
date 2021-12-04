@@ -62,9 +62,11 @@
             <Button
                 android:id="@+id/getUPCBtn"
                 android:onClick="onClick"
+                android:layout_marginTop="9dp"
                 android:layout_width="200dp"
-                android:layout_height="200dp"
+                android:layout_height="120dp"
                 android:drawableBottom="@drawable/ic_food"
+                android:background="@drawable/top_line"
                 android:layout_centerHorizontal="true"
                 android:text="@string/activity_choose_choice_1" />
 
