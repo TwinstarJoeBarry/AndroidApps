@@ -114,8 +114,8 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="392dp"
+        android:layout_height="438dp"
         android:layout_marginHorizontal="6dp"
         android:layout_marginTop="4dp"
         android:layout_marginBottom="6dp"
@@ -131,7 +131,8 @@
             android:layout_marginEnd="1dp"
             android:layout_weight="0.5"
             android:backgroundTint="@color/colorNCCSecondary"
-            android:text="@string/fragment_gv_confirmation_found_rescan_btn" />
+            android:text="@string/fragment_gv_confirmation_found_rescan_btn"
+            android:textColor="#263238" />
 
         <Button
             android:id="@+id/name_confirmed"
@@ -142,7 +143,8 @@
             android:layout_marginStart="1dp"
             android:layout_weight="0.5"
             android:backgroundTint="@color/colorNCCSecondary"
-            android:text="@string/confirm" />
+            android:text="@string/confirm"
+            android:textColor="#263238" />
 
     </LinearLayout>
 
