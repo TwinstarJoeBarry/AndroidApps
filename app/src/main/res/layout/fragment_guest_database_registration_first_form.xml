@@ -66,15 +66,24 @@
         android:layout_marginTop="35dp"
         android:layout_marginStart="30dp" >
 
-        <EditText
-            android:id="@+id/editText"
+        <TextView
+            android:id="@+id/enter_first_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/White"
-            android:hint="@string/full_name"
-            android:inputType="textPersonName"
-            android:textColorHint="@color/White"
-            android:autofillHints="" />
+            android:text="Enter your first name"
+            android:textColor="@color/White"/>
+
+
+
+        <!--        <EditText-->
+<!--            android:id="@+id/guestreg_fname"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:backgroundTint="@color/White"-->
+<!--            android:hint="@string/full_name"-->
+<!--            android:inputType="textPersonName"-->
+<!--            android:textColorHint="@color/White"-->
+<!--            android:autofillHints="name" />-->
 
     </TableRow>
 
@@ -87,14 +96,13 @@
         android:layout_marginStart="30dp" >
 
         <EditText
-            android:id="@+id/editText2"
+            android:id="@+id/grf_1_fName"
             android:layout_width="wrap_content"
             android:layout_height="45dp"
             android:backgroundTint="@color/White"
-            android:hint="@string/phone_number"
-            android:inputType="phone"
+            android:hint="First Name"
             android:textColorHint="@color/White"
-            android:autofillHints="" />
+            android:autofillHints="phone" />
 
     </TableRow>
 
@@ -106,15 +114,12 @@
         android:layout_marginTop="0dp"
         android:layout_marginStart="30dp">
 
-        <EditText
-            android:id="@+id/editText3"
+        <TextView
+            android:id="@+id/enter_last_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/White"
-            android:hint="@string/email_address"
-            android:inputType="textEmailAddress"
-            android:textColorHint="@color/White"
-            android:autofillHints="" />
+            android:text="Enter your last name"
+            android:textColor="@color/White" />
 
     </TableRow>
 
@@ -127,14 +132,13 @@
         android:layout_marginStart="30dp" >
 
         <EditText
-            android:id="@+id/editText4"
+            android:id="@+id/grf_1_lName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/White"
-            android:hint="@string/ncc_id"
-            android:inputType="number"
+            android:hint="Last Name"
             android:textColorHint="@color/White"
-            android:autofillHints="" />
+            />
 
     </TableRow>
 
@@ -146,15 +150,13 @@
         android:layout_marginTop="0dp"
         android:layout_marginStart="30dp">
 
-        <EditText
-            android:id="@+id/editText5"
+        <TextView
+            android:id="@+id/enter_phone_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/White"
-            android:hint="@string/postal_address"
-            android:inputType="textPostalAddress"
-            android:textColorHint="@color/White"
-            android:autofillHints="" />
+            android:text="Enter your phone number"
+            android:textColor="@color/White"
+            />
 
     </TableRow>
 
@@ -166,15 +168,17 @@
         android:layout_marginTop="0dp"
         android:layout_marginStart="30dp" >
 
+        <!-- TODO couldn't find city autofill. removing for now -->
         <EditText
-            android:id="@+id/editText6"
+            android:id="@+id/grf_1_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/White"
-            android:hint="@string/town_city"
-            android:inputType="textPersonName"
+            android:hint="Phone Number"
+            android:inputType="phone"
             android:textColorHint="@color/White"
-            android:autofillHints="" />
+            android:maxLength="10"
+            />
 
     </TableRow>
 
@@ -186,24 +190,14 @@
         android:layout_marginTop="0dp"
         android:layout_marginStart="30dp"  >
 
-        <EditText
-            android:id="@+id/editText7"
+        <TextView
+            android:id="@+id/enter_your_ncc_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/White"
-            android:hint="@string/zip_code"
-            android:inputType="number"
-            android:textColorHint="@color/White"
-            android:autofillHints="" />
+            android:text="Enter your NCC ID"
+            android:textColor="@color/White" />
 
-        <Spinner
-            android:id="@+id/states_spinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/White"
-            android:entries="@array/states_array"
-            android:paddingTop="10dp"
-            android:textColorHint="@color/White" />
+
 
     </TableRow>
 
@@ -215,15 +209,24 @@
         android:layout_marginTop="0dp"
         android:layout_marginStart="30dp"  >
 
+        <TextView
+            android:id="@+id/N"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="N"
+            android:textColor="@color/White"
+            android:textSize="20dp"/>
+
         <EditText
-            android:id="@+id/editText8"
+            android:id="@+id/grf_1_nccId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/White"
-            android:hint="@string/birth_date"
-            android:inputType="date"
+            android:hint="NCC ID"
+            android:inputType="number"
             android:textColorHint="@color/White"
-            android:autofillHints="" />
+            android:autofillHints="4"
+            android:maxLength="8"/>
 
     </TableRow>
 
