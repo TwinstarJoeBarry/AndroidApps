@@ -51,11 +51,13 @@ import edu.ncc.nest.nestapp.R;
  */
 public class SummaryFragment extends Fragment  {
 
+    // first fragment information
     private String fname;
     private String lname;
     private String phoneNum;
     private String nccId;
 
+    // second fragment information
     private String streetAddress1;
     private String streetAddress2;
     private String city;
@@ -64,6 +66,16 @@ public class SummaryFragment extends Fragment  {
     private String affiliation;
     private String age;
     private String gender;
+
+    // third fragment information
+    private String dietary;
+    private String programs;
+    private String snap;
+    private String employment;
+    private String health;
+    private String housing;
+    private String income;
+
 
     public static final String TAG = SummaryFragment.class.getSimpleName();
 
@@ -113,6 +125,23 @@ public class SummaryFragment extends Fragment  {
                         gender = result.getString("Gender");
                         Log.d(TAG, "The city obtained is: " + city);
                         Log.d(TAG, "The age obtained is: " + age);
+                    }
+                });
+
+        // retrieving dietary, other programs, snap, employment, health, and housing info from ThirdFormFragment bundle.
+        getParentFragmentManager().setFragmentResultListener("sending_third_form_fragment_info",
+                this, new FragmentResultListener() {
+                    @Override
+                    public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
+                        dietary = result.getString("dietary");
+                        programs = result.getString("programs");
+                        snap = result.getString("snap");
+                        employment = result.getString("employment");
+                        health = result.getString("health");
+                        housing = result.getString("housing");
+                        income = result.getString("income");
+                        Log.d(TAG, "The dietary information obtained is: " + dietary);
+                        Log.d(TAG, "The employment obtained is: " + employment);
                     }
                 });
 
