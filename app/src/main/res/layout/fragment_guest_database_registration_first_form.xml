@@ -52,11 +52,10 @@
         android:layout_height="380dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="140dp"
-        android:paddingHorizontal="10dp"
-        android:paddingVertical="10dp"
+        android:background="@drawable/background_dialog"
         android:backgroundTint="@color/colorPrimary"
-        android:background="@drawable/background_dialog">
-    </TableRow>
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="10dp"></TableRow>
 
     <TableRow
         android:id="@+id/Row2"

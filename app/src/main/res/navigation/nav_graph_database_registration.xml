@@ -44,6 +44,7 @@
             app:destination="@id/DBR_FirstFormFragment" />
 
 
+
     </fragment>
 
     <fragment
@@ -75,6 +76,10 @@
         <action
             android:id="@+id/action_DBR_SecondFormFragment_to_DBR_ThirdFormFragment"
             app:destination="@id/DBR_ThirdFormFragment" />
+        <action
+            android:id="@+id/action_DBR_SecondFormFragment_to_DBR_ThirdFormFragment2"
+            app:destination="@id/DBR_ThirdFormFragment" />
+
 
     </fragment>
 
