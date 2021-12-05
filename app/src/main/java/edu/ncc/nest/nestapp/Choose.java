@@ -35,17 +35,22 @@ import android.widget.TextView;
 //******************************testing**************************************************************************
 import edu.ncc.nest.nestapp.CheckExpirationDate.Activities.CheckExpirationDateActivity;
 import edu.ncc.nest.nestapp.CheckExpirationDate.Fragments.MoreInfoFragment;
+import edu.ncc.nest.nestapp.databinding.ActivityChooseBinding;
 
 public class Choose extends AppCompatActivity implements OnClickListener {
     private static final String TAG = "testing";
+    private ActivityChooseBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_choose);
+        binding = ActivityChooseBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        setSupportActionBar(binding.toolbar.getRoot());
+        /*setContentView(R.layout.activity_choose);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setSupportActionBar(toolbar);*/
 
     }
 
@@ -79,10 +84,6 @@ public class Choose extends AppCompatActivity implements OnClickListener {
                 break;
             case R.id.futureEffortsBtn:
                 launchFutureEfforts();
-                break;
-                // testing **********************
-            case R.id.trueDate:
-                launchTrueDate();
                 break;
 
         }
@@ -129,24 +130,6 @@ public class Choose extends AppCompatActivity implements OnClickListener {
         return super.onOptionsItemSelected(item);
     }
 
-
-
-
-    //    ******************************************TESTING
-    /**
-     * launchTrueDate - starts the MoreInfoFragment fragment
-     */
-    public void launchTrueDate() {
-        ((Button)findViewById(R.id.getUPCBtn)).setVisibility(View.GONE);
-        ((Button)findViewById(R.id.guestFormBtn)).setVisibility(View.GONE);
-        ((Button)findViewById(R.id.futureEffortsBtn)).setVisibility(View.GONE);
-        ((Button)findViewById(R.id.trueDate)).setVisibility(View.GONE);
-        ((TextView)findViewById(R.id.nestTxt)).setVisibility(View.GONE);
-
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.RelativeLayoutMain, new MoreInfoFragment() ).commit();
-
-    }
 
 
 }

@@ -21,6 +21,7 @@ package edu.ncc.nest.nestapp.CheckExpirationDate.Activities;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -31,12 +32,17 @@ import edu.ncc.nest.nestapp.CheckExpirationDate.DatabaseClasses.NestDBDataSource
 import edu.ncc.nest.nestapp.CheckExpirationDate.Fragments.StartFragment;
 import edu.ncc.nest.nestapp.R;
 
+import edu.ncc.nest.nestapp.databinding.ActivityCheckExpirationDateBinding;
+import edu.ncc.nest.nestapp.databinding.ToolbarBinding;
 /**
  * CheckExpirationDateActivity: This is the underlying activity for the fragments of the
  * CheckExpirationDate feature. This activity loads a {@link NestDBDataSource} that can be used
  * throughout the 'Check Expiration Date' feature.
  */
 public class CheckExpirationDateActivity extends NestDBDataSource.NestDBActivity {
+
+    private ActivityCheckExpirationDateBinding binding;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,9 +62,13 @@ public class CheckExpirationDateActivity extends NestDBDataSource.NestDBActivity
 
             /* Set the content view and support action toolbar here, so that fragments are NOT
              * created until the database successfully loads. */
-            setContentView(R.layout.activity_check_expiration_date);
+            binding = ActivityCheckExpirationDateBinding.inflate(getLayoutInflater());
+            View view = binding.getRoot();
+            setContentView(view);
+            setSupportActionBar(binding.checkExpirationDateToolbar.getRoot());
+            /*setContentView(R.layout.activity_check_expiration_date);
 
-            setSupportActionBar(findViewById(R.id.check_expiration_date_toolbar));
+            setSupportActionBar(findViewById(R.id.check_expiration_date_toolbar));*/
 
         }
 
@@ -74,6 +84,8 @@ public class CheckExpirationDateActivity extends NestDBDataSource.NestDBActivity
     public boolean onCreateOptionsMenu(Menu menu) {
 
         // Inflate the toolbar with the menu menu_check_expiration_date.xml
+       // binding.checkExpirationDateToolbar.getRoot();
+        //binding.checkExpirationDateToolbar.inflateMenu(R.menu.menu_check_expiration_date);
         getMenuInflater().inflate(R.menu.menu_check_expiration_date, menu);
 
         return true;

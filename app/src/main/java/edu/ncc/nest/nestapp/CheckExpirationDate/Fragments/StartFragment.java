@@ -38,6 +38,8 @@ import edu.ncc.nest.nestapp.CheckExpirationDate.DatabaseClasses.NestUPC;
 import edu.ncc.nest.nestapp.R;
 import edu.ncc.nest.nestapp.SoftInputFragment;
 
+import edu.ncc.nest.nestapp.databinding.FragmentCheckExpirationDateStartBinding;
+
 /**
  * StartFragment: This is the starting fragment for the CheckExpirationDate feature. This fragment
  * should ask the user whether or not they want to scan or enter a UPC barcode.
@@ -60,7 +62,7 @@ public class StartFragment extends SoftInputFragment {
 
     /** The tag to use when printing to the log from this class. */
     public static final String LOG_TAG = StartFragment.class.getSimpleName();
-
+    private FragmentCheckExpirationDateStartBinding binding;
     /////////////////////////////////// Lifecycle Methods Start ////////////////////////////////////
 
 
@@ -78,8 +80,10 @@ public class StartFragment extends SoftInputFragment {
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_check_expiration_date_start,
-                container, false);
+        binding = FragmentCheckExpirationDateStartBinding.inflate(inflater, container, false);
+        return binding.getRoot();
+        /*return inflater.inflate(R.layout.fragment_check_expiration_date_start,
+                container, false);*/
 
     }
 
@@ -90,7 +94,7 @@ public class StartFragment extends SoftInputFragment {
         // Set up listeners for the upc_entry TextView
         this.initializeUPCEntry(view);
 
-        view.findViewById(R.id.start_scan_btn).setOnClickListener(v -> {
+        binding.startScanBtn.setOnClickListener(v -> {
 
             // Navigate to ScannerFragment
             NavHostFragment.findNavController(StartFragment.this)
@@ -99,10 +103,10 @@ public class StartFragment extends SoftInputFragment {
         });
 
         // Setup the OnClickListener for start_enter_btn
-        view.findViewById(R.id.start_enter_btn).setOnClickListener(v -> {
+        binding.startEnterBtn.setOnClickListener(v -> {
 
             // Look in the EditText widget and retrieve the String the user passed in
-            EditText editText = view.findViewById(R.id.upc_entry);
+            EditText editText = binding.upcEntry;
 
             // Get the upc string from the EditText object
             String upcBarcode = editText.getText().toString();
@@ -115,7 +119,7 @@ public class StartFragment extends SoftInputFragment {
                         Toast.LENGTH_SHORT).show();
 
                 // Show an error icon next to the respective EditText
-                ImageView alertImg = view.findViewById(R.id.alert_image);
+                ImageView alertImg = binding.alertImage;
 
                 alertImg.setImageResource(R.drawable.ic_error);
 
@@ -225,7 +229,7 @@ public class StartFragment extends SoftInputFragment {
      */
     public void clearUPCEntry() {
 
-        TextView upcEntry = (TextView) requireView().findViewById(R.id.upc_entry);
+        TextView upcEntry = binding.upcEntry;
 
         if (upcEntry != null)
 
