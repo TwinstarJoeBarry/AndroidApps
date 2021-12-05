@@ -54,6 +54,19 @@ public class GuestRegistryHelper extends SQLiteOpenHelper {
     public static final String NAME_OF_VOLUNTEER = "nameOfVolunteer";
     public static final String BARCODE = "barcode";
 
+    // Seperate Table for guest check in table Dsolash 12/5 12:05pm
+    public static final String TABLE_NAME_CI = "NESTCheckInDatabase";
+    public static final String DATE_CI = "Visit Date";
+    public static final String Counter_CI = "Num Visits";
+    public static final String SENIORS_CI = "Num Seniors";
+    public static final String ADULTS_CI = "Num Adults";
+    public static final String TOTAL_CI = "Total Household Size";
+    public static final String CHILDREN_CI = "Num Children";
+
+
+
+
+
     // Database version and name
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "GuestRegistry.db";
