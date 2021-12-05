@@ -38,7 +38,7 @@ import java.util.regex.Pattern;
 
 public class VolunteerForm extends AppCompatActivity implements View.OnClickListener {
     private Intent intent;
-//Test comment
+
     EditText firstName, lastName, email, phone, address, city, zip;
     Spinner contact_form;
     CheckBox push_not;
