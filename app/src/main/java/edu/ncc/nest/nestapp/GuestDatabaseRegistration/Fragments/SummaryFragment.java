@@ -76,6 +76,14 @@ public class SummaryFragment extends Fragment  {
     private String housing;
     private String income;
 
+    // fourth fragment information
+    private String householdNum;
+    private String childcareStatus;
+    private String children1;
+    private String children5;
+    private String children12;
+    private String children18;
+
 
     public static final String TAG = SummaryFragment.class.getSimpleName();
 
@@ -142,6 +150,23 @@ public class SummaryFragment extends Fragment  {
                         income = result.getString("income");
                         Log.d(TAG, "The dietary information obtained is: " + dietary);
                         Log.d(TAG, "The employment obtained is: " + employment);
+                    }
+                });
+
+        // retrieving household number, childcare status, and age info of children from FourthFormFragment bundle.
+        getParentFragmentManager().setFragmentResultListener("sending_fourth_form_fragment_info",
+                this, new FragmentResultListener() {
+                    @Override
+                    public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
+                       householdNum = result.getString("householdNum");
+                       childcareStatus = result.getString("childcareStatus");
+                        children1 = result.getString("children1");
+                        children5 = result.getString("children5");
+                        children12 = result.getString("children12");
+                        children18 = result.getString("children18");
+                        Log.d(TAG, "The childcare status obtained is: " + childcareStatus);
+                        Log.d(TAG, "The amount of children between 13m and 5 obtained is: " + children5);
+
                     }
                 });
 
