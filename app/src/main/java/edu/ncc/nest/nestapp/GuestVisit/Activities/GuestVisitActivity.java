@@ -44,13 +44,15 @@ public class GuestVisitActivity extends AppCompatActivity {
         // Set the support action bar to the respective toolbar from the layout file
         setSupportActionBar((Toolbar) findViewById(R.id.guest_visit_toolbar));
 
+        //Initializing and opening the datasource for the Guest Registry database
         datasource = new GuestRegistrySource(this);
 
+        //inserts fake guest if they aren't already in the database
         if(datasource.isRegistered("GHI-9012") == null) {
             datasource.insertData("John Doe", "johndoe@gmail.com", "123-456-7890",
-                    "N00123456", "01-01-9999", "123 Simple Ave", "Nothingtown", "12345", "GHI-9012");
+                    "N00123456", "01-01-9999", "123 Simple Ave", "Nothingtown", "12345",
+                    "NY", null, null, "GHI-9012");
         }
-
     }
 
     @Override

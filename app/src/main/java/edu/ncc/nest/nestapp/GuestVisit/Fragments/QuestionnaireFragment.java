@@ -51,6 +51,8 @@ public class QuestionnaireFragment extends Fragment implements View.OnClickListe
 
     private String guestID;
 
+    QuestionnaireSource datasource;
+
 
     ////////////// Lifecycle Methods Start //////////////
 
