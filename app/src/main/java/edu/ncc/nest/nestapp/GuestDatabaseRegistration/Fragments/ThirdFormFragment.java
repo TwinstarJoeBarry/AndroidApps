@@ -57,7 +57,7 @@ public class ThirdFormFragment extends Fragment {
     private FragmentGuestDatabaseRegistrationThirdFormBinding binding;
 
     // for testing TODO remove
-    MultiSelectSpinner testSpinner;
+    MultiSelectSpinner multiselectDietary, multiselectEmployment, multiselectHealth, multiselectHousing;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -73,11 +73,18 @@ public class ThirdFormFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Testing multi-select TODO remove
-        // Multi spinner
-        testSpinner = binding.testSpinner1;
-        testSpinner.setItems(getResources().getStringArray(R.array.dietary_needs));
+        // target multiselect spinners on the layout
+        multiselectDietary = binding.grf3Dietary;
+        multiselectEmployment = binding.grf3StatusEmployment;
+        multiselectHealth = binding.grf3StatusHealth;
+        multiselectHousing = binding.grf3StatusHousing;
+        // load them with items using the setItems() method in the MultiSelectSpinner class
+        multiselectDietary.setItems(getResources().getStringArray(R.array.dietary_needs));
+        multiselectEmployment.setItems(getResources().getStringArray(R.array.employment_status));
+        multiselectHealth.setItems(getResources().getStringArray(R.array.health_status));
+        multiselectHousing.setItems(getResources().getStringArray(R.array.housing_status));
 
+        /*
         Button bt = binding.getSelected;
         bt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,6 +93,8 @@ public class ThirdFormFragment extends Fragment {
                 Log.e("getSelected", s);
             }
         });
+
+         */
 
         // set onItemSelectedListener for dropdowns. Hardcoded. TODO Change to loop
         // may need to update IDs .. thinking grf_3_input_dietary, etc. Then the textviews are
