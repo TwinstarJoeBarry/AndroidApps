@@ -28,6 +28,8 @@ import androidx.annotation.NonNull;
 
 import static edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses.GuestRegistryHelper.BARCODE;
 import static edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses.GuestRegistryHelper.NAME;
+import static edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses.GuestRegistryHelper.NCC_ID;
+import static edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses.GuestRegistryHelper.PHONE;
 import static edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses.GuestRegistryHelper.TABLE_NAME;
 
 /**
@@ -76,6 +78,7 @@ public class GuestRegistrySource {
      * @param name - the name of the guest
      * @param email - the email of the guest
      * @param phone - the phone number of the guest
+     * @param nccId - the NCC ID of the guest
      * @param date - the date that the form has been filled out
      * @param address - the address of the guest
      * @param city - the city of the guests' address
@@ -84,7 +87,7 @@ public class GuestRegistrySource {
      * @return true if the data has been inserted without issue, false otherwise
      */
     // FIXME Needs to be updated to match all columns of the database
-    public boolean insertData(String name, String email, String phone, String date, String address, String city, String zip, String barcode) {
+    public boolean insertData(String name, String email, String phone, String nccId ,String date, String address, String city, String zip, String barcode) {
 
         //All info for a single user will be placed into the same ContentValue variable (Key & Value map-like variable)
         ContentValues cValues = new ContentValues();
@@ -93,6 +96,7 @@ public class GuestRegistrySource {
         cValues.put(GuestRegistryHelper.NAME, name);
         cValues.put(GuestRegistryHelper.EMAIL, email);
         cValues.put(GuestRegistryHelper.PHONE, phone);
+        cValues.put(GuestRegistryHelper.NCC_ID, nccId);
         cValues.put(GuestRegistryHelper.DATE, date);
         cValues.put(GuestRegistryHelper.ADDRESS, address);
         cValues.put(GuestRegistryHelper.CITY, city);
@@ -102,6 +106,10 @@ public class GuestRegistrySource {
 
         // Insert method will return a negative 1 if there was an error with the insert
         return database.insert(TABLE_NAME, null, cValues) != -1;
+
+    }
+
+    public int removeData() {
 
     }
 
@@ -140,6 +148,28 @@ public class GuestRegistrySource {
 
     }
 
+    /**
+     * doesExist method --
+     * Determines if the user is trying to register with an NCC ID or phone number
+     * that already used to register another account. Selects the phone and nccID columns from
+     * the database, and checks if phoneNum or nccId already exist in one of the rows.
+     *
+     * @param phoneNum - phone number that user trying to register with
+     * @param nccId - NCC ID that user trying to register with
+     * @return if phone number or NCC ID already exist in the database return true, otherwise false
+     */
+    public boolean doesExist(String phoneNum, String nccId) {
+        // Get phone and nccID columns from the table (TABLE_NAME) who's field name (PHONE) matches the field value (?).
+        String sqlQuery = "SELECT phone, nccID FROM " + TABLE_NAME + " WHERE " + PHONE + " = ? OR " + NCC_ID + " = ?";
+
+        Cursor cursor = database.rawQuery(sqlQuery, new String[]{phoneNum, nccId});
+
+        // Determine if there is at least 1 guest registered with the phone number or NCC ID
+        if (cursor.moveToFirst())
+            return true;
+
+        return false;
+    }
 
     @Override // Called by the garbage collector
     protected void finalize() throws Throwable {

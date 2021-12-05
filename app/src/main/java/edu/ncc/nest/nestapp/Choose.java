@@ -26,6 +26,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -51,10 +52,12 @@ public class Choose extends AppCompatActivity implements OnClickListener {
     //implements the menu options for the toolbar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_main, menu);
         return true;
+
+        //since the toolbar has 2 different button that goes to different places
+        //ask ho to make the button just show up in the launch UI
 
     }
 
@@ -108,6 +111,25 @@ public class Choose extends AppCompatActivity implements OnClickListener {
         Intent intent = new Intent(this, FutureEfforts.class);
         startActivity(intent);
     }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the FutureEffort button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.futureEffortsBtn) {
+            launchFutureEfforts();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
 
 
     //    ******************************************TESTING

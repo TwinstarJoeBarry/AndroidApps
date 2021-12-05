@@ -104,6 +104,13 @@ public class GuestForm extends AppCompatActivity {
 
             // NOTE: The parameter 'barcode' was recently added to this method
             // TODO: Update parameter 'barcode' to the barcode representing this user
+            // TODO: It should make it so that the user has the enter everything before pulling the information of the String pull it after the user enters everything and it is all valid
+            // TODO: Make the UI look better
+            // TODO: fix the xml layout bc it is not showing
+            // TODO: fix the camera for scanning
+            // TODO: send the data to the database group
+            // TODO: add a new java file or layout to manage everything?
+            // TODO: make a new guestform java file? that one is deprecated
             //ins = db.insertData(name.getText().toString(), email.getText().toString(), phone.getText().toString(), date.getText().toString(), address.getText().toString(), city.getText().toString(), zip.getText().toString(), null);
 
         }
