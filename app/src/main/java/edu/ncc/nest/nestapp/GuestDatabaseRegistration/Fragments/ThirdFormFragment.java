@@ -28,6 +28,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +43,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import edu.ncc.nest.nestapp.GuestDatabaseRegistration.UIClasses.MultiSelectSpinner;
 import edu.ncc.nest.nestapp.R;
 import edu.ncc.nest.nestapp.databinding.FragmentGuestDatabaseRegistrationThirdFormBinding;
 
@@ -53,6 +55,9 @@ import edu.ncc.nest.nestapp.databinding.FragmentGuestDatabaseRegistrationThirdFo
 public class ThirdFormFragment extends Fragment {
 
     private FragmentGuestDatabaseRegistrationThirdFormBinding binding;
+
+    // for testing TODO remove
+    MultiSelectSpinner testSpinner;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -67,6 +72,20 @@ public class ThirdFormFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        // Testing multi-select TODO remove
+        // Multi spinner
+        testSpinner = binding.testSpinner1;
+        testSpinner.setItems(getResources().getStringArray(R.array.dietary_needs));
+
+        Button bt = binding.getSelected;
+        bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String s = testSpinner.getSelectedItemsAsString();
+                Log.e("getSelected", s);
+            }
+        });
 
         // set onItemSelectedListener for dropdowns. Hardcoded. TODO Change to loop
         // may need to update IDs .. thinking grf_3_input_dietary, etc. Then the textviews are

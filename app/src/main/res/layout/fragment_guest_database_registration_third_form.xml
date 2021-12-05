@@ -134,6 +134,17 @@
 
             </TextView>
 
+            <edu.ncc.nest.nestapp.GuestDatabaseRegistration.UIClasses.MultiSelectSpinner
+                android:id="@+id/testSpinner1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/getSelected"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Check"/>
+
             <!-- TODO: Make a multi-select -->
             <Spinner
                 android:id="@+id/grf_3_statusEmployment"
