@@ -386,5 +386,18 @@
     <!-- This string is used only for the creation of new strings. -->
     <!-- When a new string is created it should appear below this string. -->
     <string name="STRINGS_BELOW_THIS_SHOULD_BE_MOVED_TO_AN_APPROPRIATE_LOCATION_ABOVE" />
+    <string name="fragment_gv_splitter_title">Select Sign-In Method</string>
+    <string name="fragment_gv_splitter_bcb">Barcode Sign-in</string>
+    <string name="fragment_gv_splitter_msb">Manual Sign-in</string>
+    <string name="nav_graph_gv_selection_fragment_lbl">Selection Fragment</string>
+    <string name="nav_graph_gv_manual_fragment_lbl">Manual Fragment</string>
+    <string name="fragment_gv_manual_title">Manual Sign-in</string>
+    <string name="fragment_gv_manual_bl">Please enter your barcode number</string>
+    <string name="fragment_gv_manual_bh">Barcode #</string>
+    <string name="fragment_gv_manual_m1">Field TBD</string>
+    <string name="fragment_gv_manual_or">OR</string>
+    <string name="fragment_gv_manual_e2">Field Info</string>
+    <string name="fragment_gv_manual_m2">Field TBD</string>
+    <string name="fragment_gv_manual_e1">Field Info</string>
 
 </resources>
