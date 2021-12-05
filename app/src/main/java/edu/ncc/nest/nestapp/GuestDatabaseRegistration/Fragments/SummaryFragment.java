@@ -26,6 +26,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import edu.ncc.nest.nestapp.R;
 
@@ -66,7 +67,10 @@ public class SummaryFragment extends Fragment  {
         // OnClickListener for the "Done" button
         view.findViewById(R.id.button).setOnClickListener(clickedView -> {
 
-
+            // Navigate back to splash screen.
+            // later, make if/else to go to scanner or login if scanner already in db
+            NavHostFragment.findNavController(SummaryFragment.this)
+                    .navigate(R.id.action_DBR_SummaryFragment_to_DBR_StartFragment);
 
         });
 
