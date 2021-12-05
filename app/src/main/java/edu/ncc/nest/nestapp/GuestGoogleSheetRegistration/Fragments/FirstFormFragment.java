@@ -32,6 +32,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses.GuestRegistryHelper;
 import edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses.GuestRegistrySource;
 import edu.ncc.nest.nestapp.GuestDatabaseRegistration.Fragments.SecondFormFragment;
+import edu.ncc.nest.nestapp.databinding.FragmentGuestGoogleSheetRegistrationFirstFormBinding;
 import edu.ncc.nest.nestapp.R;
 
 /**
@@ -42,6 +43,8 @@ import edu.ncc.nest.nestapp.R;
 public class FirstFormFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
     public static final String TAG = FirstFormFragment.class.getSimpleName();
+
+    private FragmentGuestGoogleSheetRegistrationFirstFormBinding binding;
 
     // Database where we will store user information
     private GuestRegistrySource db;
@@ -55,8 +58,10 @@ public class FirstFormFragment extends Fragment implements View.OnClickListener,
 
         Log.d(TAG,"In FirstFormFragment onCreateView()");
 
+        binding = FragmentGuestGoogleSheetRegistrationFirstFormBinding.inflate(inflater, container, false);
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_guest_google_sheet_registration_first_form, container, false);
+        return binding.getRoot();
 
     }
 
@@ -69,8 +74,10 @@ public class FirstFormFragment extends Fragment implements View.OnClickListener,
         //db = new GuestRegistrySource(this);
 
         // Getting a handle on info from the UI
-        lastName = (EditText)(view.findViewById(R.id.editText));
-        firstName = (EditText)(view.findViewById(R.id.editText2));
+        //lastName = (EditText)(view.findViewById(R.id.editText));
+        lastName = binding.editText;
+        //firstName = (EditText)(view.findViewById(R.id.editText2));
+        firstName = binding.editText2;
         ncc_affil = (EditText)(view.findViewById(R.id.editText3));
         birth_date = (EditText)(view.findViewById(R.id.editText4));
         gender = (EditText)(view.findViewById(R.id.editText5));
@@ -80,6 +87,11 @@ public class FirstFormFragment extends Fragment implements View.OnClickListener,
         city = (EditText)(view.findViewById(R.id.editText9));
         state = (EditText)(view.findViewById(R.id.editText10));
         zip = (EditText)(view.findViewById(R.id.editText11));
+
+        lastName.setText("Potato");
+        firstName.setText("Mr.");
+
+        Log.d(TAG,"First name: " + lastName + "\nLast name: " + firstName);
 
         view.findViewById(R.id.next_button).setOnClickListener(clickedView -> {
 
