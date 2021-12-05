@@ -46,10 +46,10 @@ public class GuestVisitActivity extends AppCompatActivity {
 
         datasource = new GuestRegistrySource(this);
 
-        //datasource.insertData("John Doe", "johndoe@gmail.com", "123-456-7890",
-               // "N00123456", "01-01-9999", "123 Simple Ave", "Nothingtown", "12345", "ABC-9012");
-
-        datasource.close();
+        if(datasource.isRegistered("GHI-9012") == null) {
+            datasource.insertData("John Doe", "johndoe@gmail.com", "123-456-7890",
+                    "N00123456", "01-01-9999", "123 Simple Ave", "Nothingtown", "12345", "GHI-9012");
+        }
 
     }
 

@@ -127,7 +127,7 @@ public class GuestRegistrySource {
     }
 
     public int removeData() {
-
+        return database.delete(TABLE_NAME, null, null);
     }
 
     /**
