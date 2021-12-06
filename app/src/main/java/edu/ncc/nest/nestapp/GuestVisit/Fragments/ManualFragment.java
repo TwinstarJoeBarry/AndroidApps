@@ -55,13 +55,13 @@ public class ManualFragment extends Fragment {
             field2 = String.valueOf(((EditText) view.findViewById(R.id.guest_visit_msie_pt2)).getText());
             Log.d("Saving", "Field2 : " + field2);
 
-            //Packaging the barcode in a neat little bundle
             Bundle entryResults = new Bundle();
-            entryResults.putString("barE", barcode);
 
             //If barcode is entered other information is irrelevant
             if (barcode != null) {
+                //Packaging the barcode in a neat little bundle
 
+                entryResults.putString("barE", barcode);
                 final String GUEST_NAME = db.isRegistered(barcode);
 
                 if (GUEST_NAME != null)
@@ -74,6 +74,7 @@ public class ManualFragment extends Fragment {
             }
         //TODO Create other sign in method
         else {
+
 
             }
 
