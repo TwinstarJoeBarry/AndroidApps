@@ -29,6 +29,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentResultListener;
 import androidx.navigation.fragment.NavHostFragment;
@@ -55,9 +56,55 @@ public class SecondFormFragment extends Fragment {
     private String fname;
     private Bundle result = new Bundle();
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+
+        if(savedInstanceState != null){
+            inputStreetAddress1 = savedInstanceState.getString("street address 1");
+            inputStreetAddress2 = savedInstanceState.getString("street address 2");
+            inputCity = savedInstanceState.getString("city");
+            inputState = savedInstanceState.getString("state");
+            inputZip = savedInstanceState.getString("zip");
+            inputAffiliation = savedInstanceState.getString("affiliation");
+            inputAge = savedInstanceState.getString("age");
+            inputGender = savedInstanceState.getString("gender");
+
+            binding.grf2Address1.setText(inputStreetAddress1);
+            binding.grf2Address2.setText(inputStreetAddress2);
+            binding.grf2City.setText(inputCity);
+            binding.grf2Zip.setText(inputZip);
+
+            binding.grf2State.getItemIdAtPosition(1);
+            binding.grf2Affiliation.getItemIdAtPosition(1);
+            binding.grf2Age.getItemIdAtPosition(1);
+            binding.grf2Gender.getItemIdAtPosition(1);
+        }
+    }
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        if(savedInstanceState != null){
+            inputStreetAddress1 = savedInstanceState.getString("street address 1");
+            inputStreetAddress2 = savedInstanceState.getString("street address 2");
+            inputCity = savedInstanceState.getString("city");
+            inputState = savedInstanceState.getString("state");
+            inputZip = savedInstanceState.getString("zip");
+            inputAffiliation = savedInstanceState.getString("affiliation");
+            inputAge = savedInstanceState.getString("age");
+            inputGender = savedInstanceState.getString("gender");
+
+            binding.grf2Address1.setText(inputStreetAddress1);
+            binding.grf2Address2.setText(inputStreetAddress2);
+            binding.grf2City.setText(inputCity);
+            binding.grf2Zip.setText(inputZip);
+
+            binding.grf2State.getItemIdAtPosition(1);
+            binding.grf2Affiliation.getItemIdAtPosition(1);
+            binding.grf2Age.getItemIdAtPosition(1);
+            binding.grf2Gender.getItemIdAtPosition(1);
+        }
         // Inflate the layout for this fragment
         binding = FragmentGuestDatabaseRegistrationSecondFormBinding.inflate(inflater, container, false);
         return binding.getRoot();
@@ -67,6 +114,8 @@ public class SecondFormFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Log.d("TAG", "Obtaining first name");
+
+
         /*
         getParentFragmentManager().setFragmentResultListener("sending_first_form_fragment_info", this, new FragmentResultListener() {
                     @Override
@@ -148,5 +197,19 @@ public class SecondFormFragment extends Fragment {
                     }
                 });
 
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState){
+        super.onSaveInstanceState(outState);
+
+        outState.putString("street address 1", inputStreetAddress1);
+        outState.putString("street address 2", inputStreetAddress2);
+        outState.putString("city", inputCity);
+        outState.putString("state", inputState);
+        outState.putString("zip", inputZip);
+        outState.putString("affiliation", inputAffiliation);
+        outState.putString("age", inputAge);
+        outState.putString("gender", inputGender);
     }
 }

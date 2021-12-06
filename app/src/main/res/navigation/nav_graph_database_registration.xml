@@ -88,7 +88,7 @@
         android:name="edu.ncc.nest.nestapp.GuestDatabaseRegistration.Fragments.ThirdFormFragment"
         android:label="@string/nav_graph_dbr_third_form_fragment_lbl">
         <action
-            android:id="@+id/action_DBR_ThirdFormFragment_to_fourthFormFragment"
+            android:id="@+id/action_DBR_ThirdFormFragment_to_FourthFormFragment"
             app:destination="@id/DBR_FourthFormFragment" />
     </fragment>
 

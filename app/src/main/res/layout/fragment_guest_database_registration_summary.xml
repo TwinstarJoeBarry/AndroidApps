@@ -1,29 +1,280 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".GuestDatabaseRegistration.Activities.GuestDatabaseRegistrationActivity">
 
-    <TextView
-        android:id="@+id/textView4"
+    <TableRow
+        android:id="@+id/first_name_row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/confirm_first_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="First name: "/>
+
+        <TextView
+            android:id="@id/grf_1_fName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="@string/blank"/>
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/last_name_row"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/fragment_dbr_summary_description"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_below="@id/first_name_row">
 
-    <Button
-        android:id="@+id/button"
+        <TextView
+            android:id="@+id/confirm_last_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="Last name: "/>
+
+        <TextView
+            android:id="@id/grf_1_lName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="@string/blank"/>
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/phone_number_row"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/done"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        android:layout_below="@id/last_name_row">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/confirm_phone_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="Phone Number: "/>
+
+        <TextView
+            android:id="@id/grf_1_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="@string/blank"/>
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/nccid_row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/phone_number_row">
+
+        <TextView
+            android:id="@+id/confirm_nccid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="NCC ID: "/>
+
+        <TextView
+            android:id="@id/grf_1_nccId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="@string/blank"/>
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/street_address1_row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/nccid_row">
+
+        <TextView
+            android:id="@+id/confirm_street_address1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="Street Address: "/>
+
+        <TextView
+            android:id="@id/grf_2_address1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="@string/blank"/>
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/street_address2_row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/street_address1_row">
+
+        <TextView
+            android:id="@+id/confirm_street_address2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="Second Street Address: "/>
+
+        <TextView
+            android:id="@id/grf_2_address2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="@string/n_a"/>
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/city_row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/street_address2_row">
+
+        <TextView
+            android:id="@+id/confirm_city"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="City: "/>
+
+        <TextView
+            android:id="@id/grf_2_city"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="@string/blank"/>
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/state_row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/city_row">
+
+        <TextView
+            android:id="@+id/confirm_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="State: "/>
+
+        <TextView
+            android:id="@id/grf_2_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="@string/blank"/>
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/zip_code_row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/state_row">
+
+        <TextView
+            android:id="@+id/confirm_zip_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="Zip code: "/>
+
+        <TextView
+            android:id="@id/grf_2_zip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="@string/blank"/>
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/affiliation_row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/zip_code_row">
+
+        <TextView
+            android:id="@+id/confirm_affiliation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="Affiliation: "/>
+
+        <TextView
+            android:id="@id/grf_2_affiliation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="@string/blank"/>
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/age_row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/affiliation_row">
+
+        <TextView
+            android:id="@+id/confirm_age"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="Age: "/>
+
+        <TextView
+            android:id="@id/grf_2_age"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="@string/blank"/>
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/gender_row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/age_row">
+
+        <TextView
+            android:id="@+id/confirm_gender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="Gender: "/>
+
+        <TextView
+            android:id="@id/grf_2_gender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="@string/blank"/>
+    </TableRow>
+
+<!--    <TextView-->
+<!--        android:id="@+id/textView4"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="@string/fragment_dbr_summary_description"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--    <Button-->
+<!--        android:id="@+id/button"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="@string/done"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textView4" />-->
+
+</RelativeLayout>

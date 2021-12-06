@@ -31,6 +31,8 @@ import androidx.navigation.fragment.NavHostFragment;
 
 
 import edu.ncc.nest.nestapp.R;
+import edu.ncc.nest.nestapp.databinding.FragmentGuestDatabaseRegistrationFourthFormBinding;
+import edu.ncc.nest.nestapp.databinding.FragmentGuestDatabaseRegistrationSummaryBinding;
 
 /**
  * SummaryFragment: This fragment represent a summary of the registration process. Displays messages
@@ -50,6 +52,8 @@ import edu.ncc.nest.nestapp.R;
  * TODO: ///////////////////////////////////////////////////////////////////////////////////////////
  */
 public class SummaryFragment extends Fragment  {
+
+    private FragmentGuestDatabaseRegistrationSummaryBinding binding;
 
     private String fname;
     private String lname;
@@ -72,8 +76,11 @@ public class SummaryFragment extends Fragment  {
 
         Log.d(TAG, "In SummaryFragment onCreateView()");
 
+        binding = FragmentGuestDatabaseRegistrationSummaryBinding.inflate(inflater, container, false);
+        return binding.getRoot();
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_guest_database_registration_summary, container, false);
+//        return inflater.inflate(R.layout.fragment_guest_database_registration_summary, container, false);
 
     }
     /*
@@ -95,6 +102,11 @@ public class SummaryFragment extends Fragment  {
                         nccId = result.getString("NCC ID");
                         Log.d(TAG, "The first name obtained is: " + fname);
                         Log.d(TAG, "The NCC ID is: " + nccId);
+
+                        binding.grf1FName.setText(fname);
+                        binding.grf1LName.setText(lname);
+                        binding.grf1Phone.setText("(" + phoneNum.substring(0, 3) + ") " + phoneNum.substring(3, 6) + "-" + phoneNum.substring(6));
+                        binding.grf1NccId.setText("N" + nccId);
                     }
                 });
 
@@ -113,20 +125,33 @@ public class SummaryFragment extends Fragment  {
                         gender = result.getString("Gender");
                         Log.d(TAG, "The city obtained is: " + city);
                         Log.d(TAG, "The age obtained is: " + age);
+
+                        binding.grf2Address1.setText(streetAddress1);
+
+                        if(streetAddress2 != null){
+                            binding.grf2Address2.setText(streetAddress2);
+                        }
+
+                        binding.grf2City.setText(city);
+                        binding.grf2State.setText(state);
+                        binding.grf2Zip.setText(zip);
+                        binding.grf2Affiliation.setText(affiliation);
+                        binding.grf2Age.setText(age);
+                        binding.grf2Gender.setText(gender);
                     }
                 });
 
 
         // OnClickListener for the "Done" button
         //TODO store in database when done button is clicked
-        view.findViewById(R.id.button).setOnClickListener(clickedView -> {
-
-            // Navigate back to splash screen.
-            // later, make if/else to go to scanner or login if scanner already in db
-            NavHostFragment.findNavController(SummaryFragment.this)
-                    .navigate(R.id.action_DBR_SummaryFragment_to_DBR_StartFragment);
-
-        });
+//        view.findViewById(R.id.button).setOnClickListener(clickedView -> {
+//
+//            // Navigate back to splash screen.
+//            // later, make if/else to go to scanner or login if scanner already in db
+//            NavHostFragment.findNavController(SummaryFragment.this)
+//                    .navigate(R.id.action_DBR_SummaryFragment_to_DBR_StartFragment);
+//
+//        });
 
     }
 

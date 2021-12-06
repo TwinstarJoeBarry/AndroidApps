@@ -91,7 +91,7 @@ public class FourthFormFragment extends Fragment {
             // if first item is selected, it's a placeholder. Treat as no input
             if(position == 0) {
                 // Makes it look visually 'muted'
-                ((TextView) view).setTextColor(Color.GRAY);
+//                ((TextView) view).setTextColor(Color.GRAY);
             } else {
                 // else, an item is selected. Below uses the "ColorPrimaryDark" variable. This will allow us to
                 // keep universal themes and styling across the app.

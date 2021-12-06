@@ -84,7 +84,17 @@ public class FirstFormFragment extends Fragment {
     {
         super.onViewCreated(view, savedInstanceState);
 
+        if(savedInstanceState != null){
+            inputFirstName = savedInstanceState.getString("first name");
+            inputLastName = savedInstanceState.getString("last name");
+            inputPhoneNumber = savedInstanceState.getString("phone number");
+            inputNCCID = savedInstanceState.getString("ncc id");
 
+            binding.grf1FName.setText(inputFirstName);
+            binding.grf1LName.setText(inputLastName);
+            binding.grf1Phone.setText(inputPhoneNumber);
+            binding.grf1NccId.setText(inputNCCID);
+        }
 
         binding.nextButtonFirstFragmentGRegistration.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -273,6 +283,16 @@ public class FirstFormFragment extends Fragment {
 
 //        });
 
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState){
+        super.onSaveInstanceState(outState);
+
+        outState.putString("first name", inputFirstName);
+        outState.putString("last name", inputLastName);
+        outState.putString("phone number", inputPhoneNumber);
+        outState.putString("ncc id", inputNCCID);
     }
 
 
