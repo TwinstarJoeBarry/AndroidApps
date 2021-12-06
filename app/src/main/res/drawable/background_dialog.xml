@@ -19,15 +19,15 @@
 
     <item
         android:bottom="4dp"
-        android:start="4dp"
-        android:end="4dp"
-        android:top="4dp" >
+        android:start="0dp"
+        android:end="0dp"
+        android:top="0dp" >
 
         <shape>
 
             <solid android:color="@android:color/white" />
 
-            <corners android:radius="4dp" />
+            <corners android:radius="0dp" />
 
         </shape>
 

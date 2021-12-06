@@ -20,7 +20,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#BBBBBB"
+    android:background="#FFFFFF"
     android:padding="2dp"
     android:id="@+id/linear_layout"
     tools:context=".CheckExpirationDate.Fragments.StartFragment">
@@ -28,13 +28,14 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="1dp"
-        android:layout_marginTop="2dp"
+        android:layout_marginHorizontal="0dp"
+        android:layout_marginTop="0dp"
         android:gravity="center"
         android:padding="12dp"
         android:text="@string/fragment_ced_start_title"
         android:textSize="24sp"
         android:textStyle="bold"
+        android:backgroundTint="#D8D8D8"
         android:background="@drawable/background_dialog"/>
 
     <ScrollView
@@ -51,31 +52,41 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/background_border"
                 android:padding="24dp"
-                android:textStyle="bold"
-                android:textAlignment="center"
                 android:text="@string/fragment_ced_start_welcome_msg"
-                android:background="@drawable/background_dialog"/>
+                android:textAlignment="center"
+                android:textStyle="bold" />
+
+
+            <ImageView
+                android:id="@+id/exp_img"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/expired_icon" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/background_dialog"
                 android:orientation="vertical"
-                android:padding="24dp"
-                android:background="@drawable/background_dialog">
+                android:padding="24dp">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
+                    android:text="@string/fragment_ced_start_enter_upc_msg"
                     android:textAlignment="center"
-                    android:text="@string/fragment_ced_start_enter_upc_msg" />
+                    android:textStyle="bold" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
                     android:layout_marginVertical="24dp"
-                    android:foreground="@android:color/darker_gray"/>
+                    android:foreground="@android:color/darker_gray" />
 
                 <TextView
                     android:id="@+id/select_item_description_lbl"
@@ -83,8 +94,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="5dp"
                     android:layout_marginBottom="8dp"
-                    android:textStyle="bold"
-                    android:text="@string/fragment_ced_start_upc_barcode_number_lbl"/>
+                    android:text="@string/fragment_ced_start_upc_barcode_number_lbl"
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -97,27 +108,27 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:maxLength="12"
-                        android:inputType="number"
+                        android:background="@drawable/background_dialog"
+                        android:backgroundTint="#DDDDDD"
                         android:digits="0123456789"
-                        android:imeOptions="actionDone"
                         android:hint="@string/fragment_ced_start_upc_barcode_number_hint"
+                        android:imeOptions="actionDone"
                         android:importantForAutofill="no"
+                        android:inputType="number"
+                        android:maxLength="12"
                         android:paddingHorizontal="12dp"
                         android:paddingVertical="8dp"
-                        android:backgroundTint="#DDDDDD"
-                        android:textColor="#777777"
-                        android:background="@drawable/background_dialog"/>
+                        android:textColor="#777777" />
 
                     <ImageView
                         android:id="@+id/alert_image"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_marginHorizontal="8dp"
+                        android:contentDescription="@string/fragment_ced_start_icon_content_description"
                         android:scaleType="center"
                         android:src="@drawable/ic_check_mark"
-                        android:visibility="gone"
-                        android:contentDescription="@string/fragment_ced_start_icon_content_description" />
+                        android:visibility="gone" />
 
                 </LinearLayout>
 
@@ -125,31 +136,31 @@
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
                     android:layout_marginVertical="24dp"
-                    android:foreground="@android:color/darker_gray"/>
+                    android:foreground="@android:color/darker_gray" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="bottom">
+                    android:gravity="bottom"
+                    android:orientation="horizontal">
 
                     <Button
                         android:id="@+id/start_scan_btn"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
                         android:layout_marginEnd="1dp"
+                        android:layout_weight="0.5"
                         android:text="@string/scan"
-                        tools:ignore="ButtonStyle"/>
+                        tools:ignore="ButtonStyle" />
 
                     <Button
                         android:id="@+id/start_enter_btn"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
                         android:layout_marginStart="1dp"
+                        android:layout_weight="0.5"
                         android:text="@string/enter"
-                        tools:ignore="ButtonStyle"/>
+                        tools:ignore="ButtonStyle" />
 
                 </LinearLayout>
 
