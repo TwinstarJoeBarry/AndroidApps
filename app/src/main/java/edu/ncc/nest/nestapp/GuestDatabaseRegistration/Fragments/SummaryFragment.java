@@ -26,6 +26,9 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentResultListener;
+import androidx.navigation.fragment.NavHostFragment;
+
 
 import edu.ncc.nest.nestapp.R;
 
@@ -48,6 +51,20 @@ import edu.ncc.nest.nestapp.R;
  */
 public class SummaryFragment extends Fragment  {
 
+    private String fname;
+    private String lname;
+    private String phoneNum;
+    private String nccId;
+
+    private String streetAddress1;
+    private String streetAddress2;
+    private String city;
+    private String state;
+    private String zip;
+    private String affiliation;
+    private String age;
+    private String gender;
+
     public static final String TAG = SummaryFragment.class.getSimpleName();
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -59,14 +76,55 @@ public class SummaryFragment extends Fragment  {
         return inflater.inflate(R.layout.fragment_guest_database_registration_summary, container, false);
 
     }
-
+    /*
+        Test work done from obtaining first and second form information.
+            * Tested the First Name(obtained from FirstFormFragment)
+            * Tested the City(obtained from SecondFormFragment)
+     */
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        //retrieving first name, last name, phone number and NCC ID from FirstFormFragment bundle.
+        getParentFragmentManager().setFragmentResultListener("sending_first_form_fragment_info",
+                this, new FragmentResultListener() {
+                    @Override
+                    public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
+                        fname = result.getString("First Name");
+                        lname = result.getString("Last Name");
+                        phoneNum = result.getString("Phone Number");
+                        nccId = result.getString("NCC ID");
+                        Log.d(TAG, "The first name obtained is: " + fname);
+                        Log.d(TAG, "The NCC ID is: " + nccId);
+                    }
+                });
+
+        //retrieving streetAddress1&2, city, state zip, affiliation, age, and gender from SecondFormFragment bundle.
+        getParentFragmentManager().setFragmentResultListener("sending_second_form_fragment_info",
+                this, new FragmentResultListener() {
+                    @Override
+                    public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
+                        streetAddress1 = result.getString("Street Address 1");
+                        streetAddress2 = result.getString("Street Address 2");  //optional
+                        city = result.getString("City");
+                        state = result.getString("State");
+                        zip = result.getString("Zip");
+                        affiliation = result.getString("Affiliation");
+                        age = result.getString("Age");
+                        gender = result.getString("Gender");
+                        Log.d(TAG, "The city obtained is: " + city);
+                        Log.d(TAG, "The age obtained is: " + age);
+                    }
+                });
+
+
         // OnClickListener for the "Done" button
+        //TODO store in database when done button is clicked
         view.findViewById(R.id.button).setOnClickListener(clickedView -> {
 
-
+            // Navigate back to splash screen.
+            // later, make if/else to go to scanner or login if scanner already in db
+            NavHostFragment.findNavController(SummaryFragment.this)
+                    .navigate(R.id.action_DBR_SummaryFragment_to_DBR_StartFragment);
 
         });
 
