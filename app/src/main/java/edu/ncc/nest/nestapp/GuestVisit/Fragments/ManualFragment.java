@@ -42,10 +42,20 @@ public class ManualFragment extends Fragment {
             // Create an instance of the database helper
             GuestRegistrySource db = new GuestRegistrySource(requireContext());
 
-            //Saving the information in the EditText views
-            barcode = ((EditText) view1.findViewById(R.id.guest_visit_barcode_entry)).getText().toString().trim();
 
-            //Packaging the values in a neat little bundle
+            //Saving the information in the EditText views
+            barcode = String.valueOf(((EditText) view.findViewById(R.id.guest_visit_barcode_entry)).getText());
+            Log.d("Saving", "Barcode : " + barcode);
+
+            //Will most likely make field 1 the guest's name
+            field1 = String.valueOf(((EditText) view.findViewById(R.id.guest_visit_msie_pt1)).getText());
+            Log.d("Saving", "Field1 : " + field1);
+
+            //Up for debate
+            field2 = String.valueOf(((EditText) view.findViewById(R.id.guest_visit_msie_pt2)).getText());
+            Log.d("Saving", "Field2 : " + field2);
+
+            //Packaging the barcode in a neat little bundle
             Bundle entryResults = new Bundle();
             entryResults.putString("barE", barcode);
 
@@ -60,7 +70,13 @@ public class ManualFragment extends Fragment {
                     // If the guest is registered, include the guest's name in the result
                     entryResults.putString("GUEST_NAME", GUEST_NAME);
 
+
             }
+        //TODO Create other sign in method
+        else {
+
+            }
+
 
             //Allowing the bundle to be accessed from other fragments
             //Using Scan_confirmed to stop conflicts

@@ -76,8 +76,8 @@
             app:popUpToInclusive="true" />
 
         <action
-            android:id="@+id/action_GV_ConfirmationFragment_to_ScannerFragment"
-            app:destination="@id/GV_ScannerFragment"
+            android:id="@+id/action_GV_ConfirmationFragment_to_SelectionFragment"
+            app:destination="@id/GV_SelectionFragment"
             app:popUpTo="@id/GV_ScannerFragment"
             app:popUpToInclusive="true" />
 
