@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ *
+ * Copyright (C) 2019 The LibreFoodPantry Developers.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+-->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryShaded"
+    tools:context=".GuestDatabaseRegistration.Activities.GuestDatabaseRegistrationActivity"
+    android:orientation="vertical">
+
+    <!-- Title section -->
+    <!-- Required attrs: padding and background:background-dialog to get card effect -->
+    <TextView
+        android:id="@id/title_txt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:layout_marginHorizontal="1dp"
+        android:layout_marginTop="2dp"
+        android:textStyle="bold"
+        android:text="@string/fragment_dbr_first_form_title"
+        android:gravity="center"
+        android:textSize="24sp"
+        android:background="@drawable/background_dialog"
+        />
+
+    <!-- ScrollView allows scrolling within this wrapped container -->
+    <ScrollView
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="1dp"
+        android:scrollbars="vertical">
+
+        <!-- ScrollView MUST only have one direct child. That child can have as many children as it wants -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_dialog"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <!-- fields / elements in the scrollView go here. -->
+            <!-- Fields -->
+            <TextView
+                android:id="@+id/grf_3_textview_dietary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:minHeight="30dp"
+                android:text="@string/dietary_needs">
+
+            </TextView>
+
+
+            <!-- TODO: Make a multi-select -->
+            <!-- TODO: put back entries attribute -->
+            <Spinner
+                android:id="@+id/grf_3_dietary"
+                style="?android:attr/spinnerDropDownItemStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/dietary_needs"
+                android:entries="@array/dietary_needs"
+                android:paddingVertical="16dp"
+                android:paddingStart="0dp" />
+
+            <TextView
+                android:id="@+id/grf_3_textview_snap"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:minHeight="30dp"
+                android:text="@string/snap">
+
+            </TextView>
+
+            <Spinner
+                android:id="@+id/grf_3_snap"
+                style="?android:attr/spinnerDropDownItemStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-1dp"
+                android:entries="@array/yes_no_select_one"
+                android:paddingVertical="16dp"
+                android:paddingStart="0dp"
+                android:textColorHint="@color/White" />
+
+            <TextView
+                android:id="@+id/grf_3_textview_otherProgs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:minHeight="30dp"
+                android:text="@string/other_programs">
+
+            </TextView>
+
+
+            <Spinner
+                android:id="@+id/grf_3_otherProgs"
+                style="?android:attr/spinnerDropDownItemStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/yes_no_select_one"
+                android:paddingVertical="16dp"
+                android:paddingStart="0dp" />
+
+            <TextView
+                android:id="@+id/grf_3_textview_statusEmployment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:minHeight="30dp"
+                android:text="@string/employment_status">
+
+            </TextView>
+
+            <!-- TODO: Make a multi-select -->
+            <Spinner
+                android:id="@+id/grf_3_statusEmployment"
+                style="?android:attr/spinnerDropDownItemStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorPrimary"
+                android:entries="@array/employment_status"
+                android:paddingVertical="16dp"
+                android:paddingStart="0dp" />
+
+            <TextView
+                android:id="@+id/grf_3_textview_statusHealth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:minHeight="30dp"
+                android:text="@string/health_status">
+
+            </TextView>
+
+            <!-- TODO: Make a multi-select -->
+            <Spinner
+                android:id="@+id/grf_3_statusHealth"
+                style="?android:attr/spinnerDropDownItemStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorPrimaryDark"
+                android:entries="@array/health_status"
+                android:paddingVertical="16dp"
+                android:paddingStart="0dp"/>
+
+            <TextView
+                android:id="@+id/grf_3_textview_statusHousing"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:minHeight="30dp"
+                android:text="@string/housing_status">
+
+            </TextView>
+
+            <!-- TODO: Make a multi-select -->
+            <Spinner
+                android:id="@+id/grf_3_statusHousing"
+                style="?android:attr/spinnerDropDownItemStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorPrimaryShaded"
+                android:entries="@array/housing_status"
+                android:paddingVertical="16dp"
+                android:paddingStart="0dp"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/grf_3_income_wrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/household_income">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/grf_3_income"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="number"
+                    android:maxLength="10"
+                    android:paddingVertical="16dp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+
+                <Button
+                    android:id="@+id/next_button_third_fragment_gRegistration"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:text="@string/next"
+                    android:textColor="@color/White" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
+
+
