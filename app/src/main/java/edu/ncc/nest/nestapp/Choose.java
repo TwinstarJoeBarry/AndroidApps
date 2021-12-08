@@ -140,25 +140,6 @@ public class Choose extends AppCompatActivity implements OnClickListener {
     }
 
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the FutureEffort button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.futureEffortsBtn) {
-            launchFutureEfforts();
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-
-
-
     //    ******************************************TESTING
     /**
      * launchTrueDate - starts the MoreInfoFragment fragment
