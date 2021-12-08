@@ -42,7 +42,6 @@ public class GuestRegistryHelper extends SQLiteOpenHelper {
     // Columns in the table
     public static final String _ID = "_id";
     public static final String NAME = "name";
-    public static final String EMAIL = "email";
     public static final String PHONE = "phone";
     public static final String DATE = "date";
     public static final String ADDRESS = "address";
@@ -67,7 +66,7 @@ public class GuestRegistryHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         db.execSQL("CREATE TABLE " + TABLE_NAME + " (" + _ID +
-                " INTEGER PRIMARY KEY AUTOINCREMENT, " + NAME + " TEXT, " + EMAIL + " TEXT, " +
+                " INTEGER PRIMARY KEY AUTOINCREMENT, " + NAME + " TEXT, " +
                 DATE + " TEXT, " + ADDRESS + " TEXT, " + CITY + " TEXT, " + ZIP + " TEXT, " +
                 STATE + " TEXT, " + ADDITIONAL_INFO + " TEXT, " + NAME_OF_VOLUNTEER + " TEXT, " +
                 NCC_ID + " TEXT, " + PHONE + " TEXT, " + BARCODE + " TEXT);");

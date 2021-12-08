@@ -76,7 +76,6 @@ public class GuestRegistrySource {
      * -1 will be returned and the method will return a boolean value of false.
      *
      * @param name - the name of the guest
-     * @param email - the email of the guest
      * @param phone - the phone number of the guest
      * @param nccId - the NCC ID of the guest
      * @param date - the date that the form has been filled out
@@ -87,7 +86,7 @@ public class GuestRegistrySource {
      * @return true if the data has been inserted without issue, false otherwise
      */
     // FIXME Needs to be updated to match all columns of the database
-    public boolean insertData(String name, String email, String phone, String nccId ,String date, String address, String city, String zip, String barcode) {
+    public boolean insertData(String name, String phone, String nccId ,String date, String address, String city, String zip, String barcode) {
 
         //All info for a single user will be placed into the same ContentValue variable (Key & Value map-like variable)
         ContentValues cValues = new ContentValues();
@@ -98,7 +97,7 @@ public class GuestRegistrySource {
         // 2. Gender
         // 3. Dietary Needs & Pref
         // 4. Has SNAP/food stamps
-        // 5. -maybe- Know other emergency food program
+        // 5. Know other emergency food program
         // 6. Employment Status
         // 7. Health Status
         // 8. Housing Status
@@ -111,7 +110,6 @@ public class GuestRegistrySource {
             // c. 6 <= Age <= 12
             // d. 13 <= Age <= 18
         cValues.put(GuestRegistryHelper.NAME, name);
-        cValues.put(GuestRegistryHelper.EMAIL, email);
         cValues.put(GuestRegistryHelper.PHONE, phone);
         cValues.put(GuestRegistryHelper.NCC_ID, nccId);
         cValues.put(GuestRegistryHelper.DATE, date);

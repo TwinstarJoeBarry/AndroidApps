@@ -26,23 +26,49 @@ import androidx.annotation.NonNull;
  */
 public class GuestRegistryEntry {
     private long id;
+
+    // first fragment information
     private String name;
-    private String email;
     private String phone;
-    private String date;
+    private String nccID;
+
+    private String date; // why are we collecting date?
+
+    // second fragment information
     private String address;
     private String city;
     private String zipcode;
     private String state;
+    private String affiliation;
+    private String age;
+    private String gender;
+
+    // third fragment information
+    private String diet;
+    private String programs;
+    private String snap;
+    private String employment;
+    private String health;
+    private String housing;
+    private String income;
+
+    // fourth fragment information
+    private String householdNum;
+    private String childcareStatus;
+    private String children1;
+    private String children5;
+    private String children12;
+    private String children18;
+
     private String additionalInfo;
     private String nameOfVolunteer;
-    private String nccID;
     private String barcode;
+
+
 
     public GuestRegistryEntry() {
 
         this.name = null;
-        this.email = null;
         this.phone = null;
         this.date = null;
         this.address = null;
@@ -57,11 +83,10 @@ public class GuestRegistryEntry {
     }
 
     // parameterized constructor
-    public GuestRegistryEntry(String name, String email, String phone, String date, String address, String city, String zipcode,
+    public GuestRegistryEntry(String name, String phone, String date, String address, String city, String zipcode,
                               String state, String additionalInfo, String nameOfVolunteer, String nccID, String barcode) {
 
         this.name = name;
-        this.email = email;
         this.phone = phone;
         this.date = date;
         this.address = address;
@@ -78,7 +103,6 @@ public class GuestRegistryEntry {
     // Getter Methods
     public long getId() { return id; }
     public String getName() { return name; }
-    public String getEmail() { return email; }
     public String getPhone() { return phone; }
     public String getDate() { return date; }
     public String getAddress() { return address; }
@@ -93,7 +117,6 @@ public class GuestRegistryEntry {
     // Setter Methods
     public void setId(long id) { this.id = id; }
     public void setName(String name) { this.name = name; }
-    public void setEmail(String email) { this.email = email; }
     public void setPhone(String phone) { this.phone = phone; }
     public void setDate(String date) { this.date = date; }
     public void setAddress(String address) { this.address = address; }
@@ -129,7 +152,7 @@ public class GuestRegistryEntry {
 
         // Will be used by the ArrayAdapter in the ListView
 
-        return id + ": " + name + " - " + email + " - " + phone + " - " + date + " - " + address +
+        return id + ": " + name  + " - " + phone + " - " + date + " - " + address +
                 " - " + city + " - " + zipcode + " - " + state + " - " + additionalInfo + " - "
                 + nameOfVolunteer + " - " + nccID;
 
