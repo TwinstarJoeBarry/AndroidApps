@@ -28,6 +28,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,6 +54,10 @@ import edu.ncc.nest.nestapp.databinding.FragmentGuestDatabaseRegistrationThirdFo
 public class ThirdFormFragment extends Fragment {
 
     private FragmentGuestDatabaseRegistrationThirdFormBinding binding;
+
+    // instance variables for summary fragment
+    private String dietary, programs, snap, employment, health, housing, income;
+    private Bundle result = new Bundle();
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -81,6 +86,28 @@ public class ThirdFormFragment extends Fragment {
 
         // adds the onClick listener to the 'next' button
         binding.nextButtonThirdFragmentGRegistration.setOnClickListener(v -> {
+
+            // store the selected items into the instance variables
+            dietary = binding.grf3Dietary.getSelectedItem().toString();
+            programs = binding.grf3OtherProgs.getSelectedItem().toString();
+            snap = binding.grf3Snap.getSelectedItem().toString();
+            employment = binding.grf3StatusEmployment.getSelectedItem().toString();
+            health = binding.grf3StatusHealth.getSelectedItem().toString();
+            housing = binding.grf3StatusHousing.getSelectedItem().toString();
+
+            income = binding.grf3Income.toString();
+
+            // storing all strings in bundle to send to summary fragment
+            result.putString("dietary", dietary);
+            result.putString("programs", programs);
+            result.putString("snap", snap);
+            result.putString("employment", employment);
+            result.putString("health", health);
+            result.putString("housing", housing);
+            result.putString("income", income);
+
+            // sending bundle
+            getParentFragmentManager().setFragmentResult("sending_third_form_fragment_info", result);
 
             // navigate to the fourth fragment when clicked
             NavHostFragment.findNavController(ThirdFormFragment.this)
