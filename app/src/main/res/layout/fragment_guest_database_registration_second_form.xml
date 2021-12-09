@@ -26,166 +26,207 @@
     tools:context=".GuestDatabaseRegistration.Activities.GuestDatabaseRegistrationActivity"
     android:orientation="vertical">
 
+    <!-- Title section -->
+    <!-- Required attrs: padding and background:background-dialog to get card effect -->
+    <TextView
+        android:id="@+id/title_txt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:layout_marginHorizontal="1dp"
+        android:layout_marginTop="2dp"
+        android:textStyle="bold"
+        android:text="@string/fragment_dbr_first_form_title"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:background="@drawable/background_dialog"
+        />
 
-        <TextView
-            android:id="@+id/welcome_message_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="Welcome, "
-            />
-
-        <TextView
-            android:id="@+id/welcome_message_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text=" "
-            />
-
-        <TextView
-            android:id="@+id/street_address1_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:text="Enter your street address"/>
-
-
-        <EditText
-            android:id="@+id/grf_2_address1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="Street Address"/>
-
-        <TextView
-            android:id="@+id/street_address2_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:text="If you have a second address, please enter it (optional)"/>
-
-
-         <EditText
-            android:id="@+id/grf_2_address2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="Second Street Address" />
-
-
-        <TextView
-            android:id="@+id/city_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:text="Enter your city" />
-
-
-        <EditText
-            android:id="@+id/grf_2_city"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="City"/>
-
-        <TextView
-            android:id="@+id/state_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:text="Select the state that you live in"/>
-
-        <Spinner
-            android:id="@+id/grf_2_state"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/White"
-            android:entries="@array/states_array"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp" />
-
-<!--        <EditText-->
-<!--            android:id="@+id/state_edittext"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:hint="State (for example, 'NY')"-->
-<!--            android:maxLength="2"/>-->
-
-        <TextView
-            android:id="@+id/zip_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:text="Enter your zip code"/>
-
-        <EditText
-            android:id="@+id/grf_2_zip"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="Zip Code"
-            android:inputType="number"
-            android:maxLength="5"/>
-
-        <TextView
-            android:id="@+id/affiliation_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:text="Enter your affiliation"/>
-
-        <Spinner
-            android:id="@+id/grf_2_affiliation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:entries="@array/affiliation_array"
-            android:paddingTop="10sp"
-            android:paddingBottom="10sp"/>
-
-        <TextView
-            android:id="@+id/age_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:text="Enter your age"/>
-
-        <Spinner
-            android:id="@+id/grf_2_age"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:entries="@array/age_array"
-            android:paddingTop="10sp"
-            android:paddingBottom="10sp"/>
-
-        <TextView
-            android:id="@+id/gender_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:text="Select your gender"/>
-
-        <Spinner
-            android:id="@+id/grf_2_gender"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:entries="@array/gender_array"
-            android:paddingTop="10sp"
-            android:paddingBottom="10sp"/>
-
-
-<!--    <TextView-->
-<!--        android:id="@+id/textView4"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="@string/fragment_dbr_second_form_description"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
-
-
-    <Button
-        android:id="@+id/next_button"
+    <!-- TextView below planned to pull the name from fragment 1 and use it in the UI. Removing for now
+    <TextView
+        android:id="@+id/welcome_message_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:text="@string/next" />
+        android:textSize="20sp"
+        android:text="Welcome, "
+        />
+     -->
+
+    <!-- ScrollView allows scrolling within this wrapped container -->
+    <ScrollView
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="1dp"
+        android:scrollbars="vertical">
+
+        <!-- ScrollView MUST only have one direct child. That child can have as many children as it wants -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_dialog"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <!-- fields / elements in the scrollView go here. This is the body of the 'card' -->
+            <!-- Fields -->
+
+            <!-- TextView below planned to pull the name from fragment 1 and use it in the UI. Removing for now
+           <TextView
+               android:id="@+id/welcome_message_name"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text=" "
+               android:textSize="20sp" />
+               -->
+
+           <TextView
+               android:id="@+id/street_address1_textview"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:textSize="15sp"
+               android:text="Enter your street address"/>
+
+
+           <EditText
+               android:id="@+id/grf_2_address1"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:hint="Street Address"/>
+
+            <!--
+           <TextView
+               android:id="@+id/street_address2_textview"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:textSize="15sp"
+               android:text="Address Line 2"/>
+           -->
+
+            <EditText
+               android:id="@+id/grf_2_address2"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:hint="Address Line 2 (optional)" />
+
+
+           <TextView
+               android:id="@+id/city_textview"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:textSize="15sp"
+               android:text="Enter your city" />
+
+
+           <EditText
+               android:id="@+id/grf_2_city"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:hint="City"/>
+
+           <TextView
+               android:id="@+id/state_textview"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:textSize="15sp"
+               android:text="Select the state that you live in"/>
+
+           <Spinner
+               android:id="@+id/grf_2_state"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:backgroundTint="@color/White"
+               android:entries="@array/states_array"
+               android:paddingTop="10dp"
+               android:paddingBottom="10dp" />
+
+   <!--        <EditText-->
+    <!--            android:id="@+id/state_edittext"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:hint="State (for example, 'NY')"-->
+    <!--            android:maxLength="2"/>-->
+
+            <TextView
+                android:id="@+id/zip_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:text="Enter your zip code"/>
+
+            <EditText
+                android:id="@+id/grf_2_zip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Zip Code"
+                android:inputType="number"
+                android:maxLength="5"/>
+
+            <TextView
+                android:id="@+id/affiliation_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:text="Enter your affiliation"/>
+
+            <Spinner
+                android:id="@+id/grf_2_affiliation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:entries="@array/affiliation_array"
+                android:paddingTop="10sp"
+                android:paddingBottom="10sp"/>
+
+            <TextView
+                android:id="@+id/age_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:text="Enter your age"/>
+
+            <Spinner
+                android:id="@+id/grf_2_age"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:entries="@array/age_array"
+                android:paddingTop="10sp"
+                android:paddingBottom="10sp"/>
+
+            <TextView
+                android:id="@+id/gender_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:text="Select your gender"/>
+
+            <Spinner
+                android:id="@+id/grf_2_gender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:entries="@array/gender_array"
+                android:paddingTop="10sp"
+                android:paddingBottom="10sp"/>
+
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/textView4"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:text="@string/fragment_dbr_second_form_description"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+
+            <Button
+                android:id="@+id/next_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="@string/next" />
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>
