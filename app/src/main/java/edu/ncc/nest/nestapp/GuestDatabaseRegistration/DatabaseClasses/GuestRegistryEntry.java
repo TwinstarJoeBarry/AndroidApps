@@ -64,38 +64,78 @@ public class GuestRegistryEntry {
     private String nameOfVolunteer;
     private String barcode;
 
-
-
     public GuestRegistryEntry() {
 
         this.name = null;
         this.phone = null;
+        this.nccID = null;
         this.date = null;
+
         this.address = null;
         this.city = null;
         this.zipcode = null;
         this.state = null;
+        this.affiliation = null;
+        this.age = null;
+        this.gender = null;
+
+        this.diet = null;
+        this.programs = null;
+        this.snap = null;
+        this.employment = null;
+        this.health = null;
+        this.housing = null;
+        this.income = null;
+
+        this.householdNum = null;
+        this.childcareStatus = null;
+        this.children1 = null;
+        this.children5 = null;
+        this.children12 = null;
+        this.children18 = null;
+
         this.additionalInfo = null;
         this.nameOfVolunteer = null;
-        this.nccID = null;
         this.barcode = null;
-
     }
 
     // parameterized constructor
-    public GuestRegistryEntry(String name, String phone, String date, String address, String city, String zipcode,
-                              String state, String additionalInfo, String nameOfVolunteer, String nccID, String barcode) {
+    public GuestRegistryEntry(String name, String phone, String nccID, String date, String address, String city, String zipcode,
+                              String state, String affiliation, String age, String gender, String diet, String programs,
+                              String snap, String employment, String health, String housing, String income, String householdNum,
+                              String childcareStatus, String children1, String children5, String children12, String children18,
+                              String additionalInfo, String nameOfVolunteer, String barcode) {
 
         this.name = name;
         this.phone = phone;
+        this.nccID = nccID;
         this.date = date;
+
         this.address = address;
         this.city = city;
         this.zipcode = zipcode;
         this.state = state;
+        this.affiliation = affiliation;
+        this.age = age;
+        this.gender = gender;
+
+        this.diet = diet;
+        this.programs = programs;
+        this.snap = snap;
+        this.employment = employment;
+        this.health = health;
+        this.housing = housing;
+        this.income = income;
+
+        this.householdNum = householdNum;
+        this.childcareStatus = childcareStatus;
+        this.children1 = children1;
+        this.children5 = children5;
+        this.children12 = children12;
+        this.children18 = children18;
+
         this.additionalInfo = additionalInfo;
         this.nameOfVolunteer = nameOfVolunteer;
-        this.nccID = nccID;
         this.barcode = barcode;
 
     }
@@ -104,28 +144,66 @@ public class GuestRegistryEntry {
     public long getId() { return id; }
     public String getName() { return name; }
     public String getPhone() { return phone; }
+    public String getNccID() { return nccID; }
     public String getDate() { return date; }
     public String getAddress() { return address; }
     public String getCity() { return city; }
     public String getZipcode() { return zipcode; }
     public String getState() { return state; }
+    public String getAffiliation() { return affiliation; }
+    public String getAge() { return age; }
+    public String getGender () { return gender; }
+
+    public String getDiet() { return diet; }
+    public String getPrograms() { return programs; }
+    public String getSnap() { return snap; }
+    public String getEmployment() { return employment; }
+    public String getHealth() { return health; }
+    public String getHousing() { return housing; }
+    public String getIncome() { return income; }
+
+    public String getHouseholdNum() { return householdNum; }
+    public String getChildcareStatus() { return childcareStatus; }
+    public String getChildren1() { return children1; }
+    public String getChildren5() { return children5; }
+    public String getChildren12() { return children12; }
+    public String getChildren18() { return children18; }
+
     public String getAdditionalInfo() { return additionalInfo; }
     public String getNameOfVolunteer() { return nameOfVolunteer; }
-    public String getNccID() { return nccID; }
     public String getBarcode() { return barcode; }
 
     // Setter Methods
     public void setId(long id) { this.id = id; }
     public void setName(String name) { this.name = name; }
     public void setPhone(String phone) { this.phone = phone; }
+    public void setNccID(String nccID) { this.nccID = nccID; }
     public void setDate(String date) { this.date = date; }
     public void setAddress(String address) { this.address = address; }
     public void setCity(String city) { this.city = city; }
     public void setZipcode(String zipcode) { this.zipcode = zipcode; }
     public void setState(String state) { this.state = state; }
+    public void setAffiliation(String affiliation) { this.affiliation = affiliation; }
+    public void setAge(String age) { this.age = age; }
+    public void setGender(String gender) { this.gender = gender; }
+
+    public void setDiet(String diet) { this.diet = diet; }
+    public void setPrograms(String programs) { this.programs = programs; }
+    public void setSnap(String snap) { this.snap = snap; }
+    public void setEmployment(String employment) { this.employment = employment; }
+    public void setHealth(String health) { this.health = health; }
+    public void setHousing(String housing) { this.housing = housing; }
+    public void setIncome(String income) { this.income = income; }
+
+    public void setHouseholdNum(String householdNum) { this.householdNum = householdNum; }
+    public void setChildcareStatus(String childcareStatus) { this.childcareStatus = childcareStatus; }
+    public void setChildren1(String children1) { this.children1 = children1; }
+    public void setChildren5(String children5) { this.children5 = children5; }
+    public void setChildren12(String children12) { this.children12 = children12; }
+    public void setChildren18(String children18) { this.children18 = children18; }
+
     public void setAdditionalInfo(String additionalInfo) { this.additionalInfo = additionalInfo; }
     public void setNameOfVolunteer(String nameOfVolunteer) { this.nameOfVolunteer = nameOfVolunteer; }
-    public void setNccID(String nccID) { this.nccID = nccID; }
     public void setBarcode(String barcode) { this.barcode = barcode; }
 
     /**
