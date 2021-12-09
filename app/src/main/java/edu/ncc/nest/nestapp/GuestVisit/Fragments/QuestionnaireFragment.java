@@ -221,7 +221,7 @@ public class QuestionnaireFragment extends Fragment implements View.OnClickListe
                 Log.e(TAG, "ERROR: Failed to submit questionnaire.");
 
             // Finally make sure we close the database since it is no longer needed
-            db.close();
+            //db.close();
 
         }
 

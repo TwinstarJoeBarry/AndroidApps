@@ -54,7 +54,8 @@ public class GuestRegistryHelper extends SQLiteOpenHelper {
     public static final String NAME_OF_VOLUNTEER = "nameOfVolunteer";
     public static final String BARCODE = "barcode";
 
-    // Seperate Table for guest check in table Dsolash 12/5 12:05pm
+    // Seperate Table for guest check in table Dsolash 12/5 12:05pm, Maybe not needed
+    /*
     public static final String TABLE_NAME_CI = "NESTCheckInDatabase";
     public static final String DATE_CI = "Visit Date";
     public static final String Counter_CI = "Num Visits";
@@ -62,7 +63,7 @@ public class GuestRegistryHelper extends SQLiteOpenHelper {
     public static final String ADULTS_CI = "Num Adults";
     public static final String TOTAL_CI = "Total Household Size";
     public static final String CHILDREN_CI = "Num Children";
-
+    */
 
 
 
