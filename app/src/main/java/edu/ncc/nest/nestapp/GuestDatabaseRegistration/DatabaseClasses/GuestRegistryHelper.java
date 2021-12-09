@@ -40,24 +40,6 @@ public class GuestRegistryHelper extends SQLiteOpenHelper {
     public static final String TABLE_NAME = "NESTGuestRegistry";
 
     // Columns in the table
-    //TODO Need:
-    // 1. Age
-    // 2. Gender
-    // 3. Dietary Needs & Pref
-    // 4. Has SNAP/food stamps
-    // 5. Know other emergency food program
-    // 6. Employment Status
-    // 7. Health Status
-    // 8. Housing Status
-    // 9. Household Income
-    // 10. How many people in household
-    // 11. Childcare Status
-    // 12. #Child Age situation:
-    // a. Age < 1year
-    // b. 13months <= Age <= 5year
-    // c. 6year <= Age <= 12year
-    // d. 13year <= Age <= 18year
-
     public static final String _ID = "_id";
 
     //first fragment information
@@ -65,7 +47,6 @@ public class GuestRegistryHelper extends SQLiteOpenHelper {
     public static final String PHONE = "phone";
     public static final String NCC_ID = "nccID";
     public static final String DATE = "date";
-
 
     //second fragment information
     public static final String ADDRESS = "address";
