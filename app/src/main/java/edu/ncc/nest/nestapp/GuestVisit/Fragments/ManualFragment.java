@@ -60,6 +60,15 @@ public class ManualFragment extends Fragment {
             //If barcode is entered other information is irrelevant
             if (barcode != null) {
                 //Packaging the barcode in a neat little bundle
+                if (db.isRegistered(barcode) == null) {
+
+//            db.open();
+
+                    // NOTE: This method may change over time, make sure it is up to date with GuestRegistrySource.
+                    if (!db.insertData("John Doe", "John.Doe@example.com", "555-555-5555", "01/23/45",
+                            "123 Test St", "Test", "12345", "11111", barcode))
+
+                    db.close();
 
                 entryResults.putString("BARCODE", barcode);
                 final String GUEST_NAME = db.isRegistered(barcode);
