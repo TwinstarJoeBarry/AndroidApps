@@ -62,7 +62,7 @@ public class ManualFragment extends Fragment {
                 //Packaging the barcode in a neat little bundle
                 if (db.isRegistered(barcode) == null) {
 
-//            db.open();
+//                      db.open();
 
                     // NOTE: This method may change over time, make sure it is up to date with GuestRegistrySource.
                     if (!db.insertData("John Doe", "John.Doe@example.com", "555-555-5555", "01/23/45",
@@ -70,32 +70,33 @@ public class ManualFragment extends Fragment {
                         Log.d("Oof: ", "Error");
 
                     db.close();
+                }
 
-                entryResults.putString("BARCODE", barcode);
-                final String GUEST_NAME = db.isRegistered(barcode);
+                    entryResults.putString("BARCODE", barcode);
+                    final String GUEST_NAME = db.isRegistered(barcode);
 
-                if (GUEST_NAME != null)
-
-
-                    // If the guest is registered, include the guest's name in the result
-                    entryResults.putString("GUEST_NAME", GUEST_NAME);
+                    if (GUEST_NAME != null)
 
 
-            }
-        //TODO Create other sign in method
-        else {
+                        // If the guest is registered, include the guest's name in the result
+                        entryResults.putString("GUEST_NAME", GUEST_NAME);
 
 
-            }
+                }
+                //TODO Create other sign in method
+                else {
 
 
-            //Allowing the bundle to be accessed from other fragments
-            //Using Scan_confirmed to stop conflicts
-            getParentFragmentManager().setFragmentResult("SCAN_CONFIRMED", entryResults);
+                }
 
 
-            NavHostFragment.findNavController(ManualFragment.this)
-                    .navigate(R.id.action_GV_ManualFragment_to_ConfirmationFragment);
+                //Allowing the bundle to be accessed from other fragments
+                //Using Scan_confirmed to stop conflicts
+                getParentFragmentManager().setFragmentResult("SCAN_CONFIRMED", entryResults);
+
+
+                NavHostFragment.findNavController(ManualFragment.this)
+                        .navigate(R.id.action_GV_ManualFragment_to_ConfirmationFragment);
 
 
         });
