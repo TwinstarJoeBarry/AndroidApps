@@ -321,6 +321,10 @@
     <!-- GUEST GOOGLE SHEET REGISTRATION STRINGS START ///////////////////////////////////////////// -->
 
     <!-- Strings used in fragment_guest_google_sheet_registration_first_form.xml -->
+    <string name="enter_your_first_name">Enter your first name</string>
+    <string name="enter_your_last_name">Enter your last name</string>
+    <string name="enter_your_phone_number">Enter your phone number</string>
+    <string name="enter_your_ncc_id">Enter your NCC ID</string>
 
     <!-- Strings used in fragment_guest_google_sheet_registration_second_form.xml -->
     <string name="fragment_gsr_second_form_question_1">Number of People in Your Household</string>
