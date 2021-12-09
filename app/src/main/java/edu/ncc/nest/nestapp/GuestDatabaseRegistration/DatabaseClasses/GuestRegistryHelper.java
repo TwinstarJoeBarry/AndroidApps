@@ -40,15 +40,61 @@ public class GuestRegistryHelper extends SQLiteOpenHelper {
     public static final String TABLE_NAME = "NESTGuestRegistry";
 
     // Columns in the table
+    //TODO Need:
+    // 1. Age
+    // 2. Gender
+    // 3. Dietary Needs & Pref
+    // 4. Has SNAP/food stamps
+    // 5. Know other emergency food program
+    // 6. Employment Status
+    // 7. Health Status
+    // 8. Housing Status
+    // 9. Household Income
+    // 10. How many people in household
+    // 11. Childcare Status
+    // 12. #Child Age situation:
+    // a. Age < 1
+    // b. 13 <= Age <= 5
+    // c. 6 <= Age <= 12
+    // d. 13 <= Age <= 18
+
     public static final String _ID = "_id";
+
+    //first fragment information
     public static final String NAME = "name";
     public static final String PHONE = "phone";
+    public static final String NCC_ID = "nccID";
     public static final String DATE = "date";
+
+
+    //second fragment information
     public static final String ADDRESS = "address";
     public static final String CITY = "city";
     public static final String ZIP = "zipcode";
     public static final String STATE = "state";
-    public static final String NCC_ID = "nccID";
+    public static final String AFFILIATION = "affiliation";
+    public static final String AGE = "age";
+    public static final String GENDER = "gender";
+
+    //third fragment information
+    private static String DIET = "diet";
+    private static String PROGRAMS = "programs";
+    private static String SNAP = "snap";
+    private static String EMPLOYMENT = "employment";
+    private static String HEALTH = "health";
+    private static String HOUSING = "housing";
+    private static String INCOME = "income";
+
+    //fourth fragment information
+    private static String HOUSEHOLD_NUM = "householdNum";
+    private static String CHILDCARE_STATUS = "childcareStatus";
+    private static String CHILDREN_1 = "children1";
+    private static String CHILDREN_5 = "children5";
+    private static String CHILDREN_12 = "children12";
+    private static String CHILDREN_18 = "children18";
+
+
+    //TODO: additional data to be added when the data when UI has it
     public static final String ADDITIONAL_INFO = "addInfo";
     public static final String NAME_OF_VOLUNTEER = "nameOfVolunteer";
     public static final String BARCODE = "barcode";
