@@ -81,17 +81,22 @@
 
            <TextView
                android:id="@+id/street_address1_textview"
-               android:layout_width="wrap_content"
+               android:layout_width="match_parent"
                android:layout_height="wrap_content"
-               android:textSize="15sp"
-               android:text="Enter your street address"/>
+               android:gravity="bottom"
+               android:minHeight="30dp"
+               android:text="@string/enter_your_street_address"/>
 
 
            <EditText
                android:id="@+id/grf_2_address1"
-               android:layout_width="wrap_content"
+               android:layout_width="match_parent"
                android:layout_height="wrap_content"
-               android:hint="Street Address"/>
+               android:layout_marginTop="-1dp"
+               android:paddingVertical="16dp"
+               android:hint="@string/street_address"
+               android:textColorHint="@color/backgroundGray"
+               android:autofillHints=".AUTOFILL_HINT_POSTAL_ADDRESS, postalAddress"/>
 
             <!--
            <TextView
@@ -103,108 +108,119 @@
            -->
 
             <EditText
-               android:id="@+id/grf_2_address2"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:hint="Address Line 2 (optional)" />
+                android:id="@+id/grf_2_address2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="16dp"
+                android:hint="@string/street_address_line_2"
+                android:textColorHint="@color/backgroundGray"
+                android:autofillHints=".AUTOFILL_HINT_POSTAL_ADDRESS_APT_NUMBER, aptNumber"/>
 
 
            <TextView
                android:id="@+id/city_textview"
-               android:layout_width="wrap_content"
+               android:layout_width="match_parent"
                android:layout_height="wrap_content"
-               android:textSize="15sp"
-               android:text="Enter your city" />
+               android:gravity="bottom"
+               android:minHeight="30dp"
+               android:text="@string/enter_your_city" />
 
 
            <EditText
                android:id="@+id/grf_2_city"
-               android:layout_width="wrap_content"
+               android:layout_width="match_parent"
                android:layout_height="wrap_content"
-               android:hint="City"/>
+               android:paddingVertical="16dp"
+               android:hint="@string/town_city"
+               android:textColorHint="@color/backgroundGray"
+               android:autofillHints=".AUTOFILL_HINT_POSTAL_ADDRESS_LOCALITY, addressLocality"/>
 
            <TextView
                android:id="@+id/state_textview"
-               android:layout_width="wrap_content"
+               android:layout_width="match_parent"
                android:layout_height="wrap_content"
-               android:textSize="15sp"
+               android:minHeight="30dp"
+               android:gravity="bottom"
                android:text="Select the state that you live in"/>
 
-           <Spinner
-               android:id="@+id/grf_2_state"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:backgroundTint="@color/White"
-               android:entries="@array/states_array"
-               android:paddingTop="10dp"
-               android:paddingBottom="10dp" />
-
-   <!--        <EditText-->
-    <!--            android:id="@+id/state_edittext"-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:hint="State (for example, 'NY')"-->
-    <!--            android:maxLength="2"/>-->
+            <Spinner
+                android:id="@+id/grf_2_state"
+                style="?android:attr/spinnerDropDownItemStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/states_array"
+                android:paddingVertical="16dp"
+                android:paddingStart="0dp" />
 
             <TextView
                 android:id="@+id/zip_textview"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:text="Enter your zip code"/>
+                android:minHeight="30dp"
+                android:gravity="bottom"
+                android:text="@string/enter_your_zip_code"/>
 
             <EditText
                 android:id="@+id/grf_2_zip"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Zip Code"
+                android:paddingVertical="16dp"
+                android:hint="@string/zip_code"
+                android:textColorHint="@color/backgroundGray"
                 android:inputType="number"
-                android:maxLength="5"/>
+                android:maxLength="5"
+                android:autofillHints=".AUTOFILL_HINT_POSTAL_CODE, postalCode"/>
 
             <TextView
                 android:id="@+id/affiliation_textview"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:text="Enter your affiliation"/>
+                android:minHeight="30dp"
+                android:gravity="bottom"
+                android:text="@string/enter_your_ncc_affiliation"/>
 
             <Spinner
                 android:id="@+id/grf_2_affiliation"
-                android:layout_width="wrap_content"
+                style="?android:attr/dropDownSpinnerStyle"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:entries="@array/affiliation_array"
-                android:paddingTop="10sp"
-                android:paddingBottom="10sp"/>
+                android:paddingVertical="16dp"
+                android:paddingStart="0dp"/>
 
             <TextView
                 android:id="@+id/age_textview"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:text="Enter your age"/>
+                android:gravity="center_vertical"
+                android:minHeight="30dp"
+                android:text="@string/select_your_age_range"/>
 
             <Spinner
                 android:id="@+id/grf_2_age"
-                android:layout_width="wrap_content"
+                style="?android:attr/dropDownSpinnerStyle"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:entries="@array/age_array"
-                android:paddingTop="10sp"
-                android:paddingBottom="10sp"/>
+                android:paddingVertical="16dp"
+                android:paddingStart="0dp"/>
 
             <TextView
                 android:id="@+id/gender_textview"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:text="Select your gender"/>
+                android:gravity="center_vertical"
+                android:minHeight="30dp"
+                android:text="@string/select_your_gender"/>
 
             <Spinner
                 android:id="@+id/grf_2_gender"
-                android:layout_width="wrap_content"
+                style="?android:attr/dropDownSpinnerStyle"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:entries="@array/gender_array"
-                android:paddingTop="10sp"
-                android:paddingBottom="10sp"/>
+                android:paddingVertical="16dp"
+                android:paddingStart="0dp"/>
 
 
     <!--    <TextView-->
@@ -220,10 +236,12 @@
 
             <Button
                 android:id="@+id/next_button"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:text="@string/next" />
+                android:layout_marginTop="50dp"
+                android:backgroundTint="@color/colorPrimary"
+                android:text="@string/next"
+                android:textColor="@color/White"/>
 
         </LinearLayout>
 

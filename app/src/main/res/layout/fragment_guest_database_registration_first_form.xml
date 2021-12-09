@@ -68,18 +68,6 @@
                 android:minHeight="30dp"
                 android:text="@string/enter_your_first_name" />
 
-            <!--        <EditText-->
-    <!--            android:id="@+id/guestreg_fname"-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:backgroundTint="@color/White"-->
-    <!--            android:hint="@string/full_name"-->
-    <!--            android:inputType="textPersonName"-->
-    <!--            android:textColorHint="@color/White"-->
-    <!--            android:autofillHints="name" />-->
-
-
-
             <!-- TODO explore backgroundTint -->
             <EditText
                 android:id="@+id/grf_1_fName"
@@ -91,7 +79,6 @@
                 android:textColorHint="@color/backgroundGray"
                 android:autofillHints=".AUTOFILL_HINT_PERSON_NAME_GIVEN, name" />
 
-
             <TextView
                 android:id="@+id/enter_last_name"
                 android:layout_width="match_parent"
@@ -99,8 +86,6 @@
                 android:gravity="center_vertical"
                 android:minHeight="30dp"
                 android:text="@string/enter_your_last_name" />
-
-
 
             <EditText
                 android:id="@+id/grf_1_lName"
