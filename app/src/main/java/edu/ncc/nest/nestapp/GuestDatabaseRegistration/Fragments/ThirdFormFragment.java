@@ -28,6 +28,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -58,10 +59,10 @@ public class ThirdFormFragment extends Fragment {
 
     // for testing TODO remove
     MultiSelectSpinner multiselectDietary, multiselectEmployment, multiselectHealth, multiselectHousing;
-
     // instance variables for summary fragment
     private String dietary, programs, snap, employment, health, housing, income;
     private Bundle result = new Bundle();
+
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
