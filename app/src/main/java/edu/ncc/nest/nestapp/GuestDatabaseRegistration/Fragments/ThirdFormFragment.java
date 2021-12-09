@@ -66,6 +66,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import edu.ncc.nest.nestapp.GuestDatabaseRegistration.UIClasses.MultiSelectSpinner;
 import edu.ncc.nest.nestapp.R;
 import edu.ncc.nest.nestapp.databinding.FragmentGuestDatabaseRegistrationThirdFormBinding;
 
@@ -126,12 +127,12 @@ public class ThirdFormFragment extends Fragment {
         // may need to update IDs .. thinking grf_3_input_dietary, etc. Then the textviews are
         // grf_3_textview_dietary. This way inputs are grouped and textviews are grouped.
         // hopefully then we can loop through them.
-        binding.grf3Dietary.setOnItemSelectedListener(dropdownListener);
+        //binding.grf3Dietary.setOnItemSelectedListener(dropdownListener);
         binding.grf3OtherProgs.setOnItemSelectedListener(dropdownListener);
         binding.grf3Snap.setOnItemSelectedListener(dropdownListener);
-        binding.grf3StatusEmployment.setOnItemSelectedListener(dropdownListener);
-        binding.grf3StatusHealth.setOnItemSelectedListener(dropdownListener);
-        binding.grf3StatusHousing.setOnItemSelectedListener(dropdownListener);
+        //binding.grf3StatusEmployment.setOnItemSelectedListener(dropdownListener);
+        //binding.grf3StatusHealth.setOnItemSelectedListener(dropdownListener);
+        //binding.grf3StatusHousing.setOnItemSelectedListener(dropdownListener);
 
         // adds the onClick listener to the 'next' button
         binding.nextButtonThirdFragmentGRegistration.setOnClickListener(v -> {
