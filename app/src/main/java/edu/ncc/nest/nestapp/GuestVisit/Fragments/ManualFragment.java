@@ -61,7 +61,7 @@ public class ManualFragment extends Fragment {
             if (barcode != null) {
                 //Packaging the barcode in a neat little bundle
 
-                entryResults.putString("barE", barcode);
+                entryResults.putString("BARCODE", barcode);
                 final String GUEST_NAME = db.isRegistered(barcode);
 
                 if (GUEST_NAME != null)

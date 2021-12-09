@@ -112,7 +112,7 @@ public class ScannerFragment extends AbstractScannerFragment {
 
             // NOTE: This method may change over time, make sure it is up to date with GuestRegistrySource.
             if (!db.insertData("John Doe", "John.Doe@example.com", "555-555-5555", "01/23/45",
-                    "123 Test St", "Test", "12345", barcode))
+                    "123 Test St", "Test", "12345", "11111", barcode))
 
                 Log.e(TAG, "Error adding \"testing\" guest to registry.");
 
