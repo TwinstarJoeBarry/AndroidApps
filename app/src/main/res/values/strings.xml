@@ -306,6 +306,7 @@
     <string name="street_address_line_2">Address Line 2 (optional)</string>
     <string name="enter_your_city">Enter your city</string>
     <string name="enter_your_zip_code">Enter your zip code</string>
+    <string name="select_your_state">Select your state</string>
     <string name="enter_your_ncc_affiliation">Enter your NCC affiliation</string>
     <string name="select_your_age_range">Select your age range</string>
     <string name="select_your_gender">Select your gender</string>
