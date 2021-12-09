@@ -18,19 +18,15 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -->
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryShaded"
-    tools:context=".GuestDatabaseRegistration.Activities.GuestDatabaseRegistrationActivity">
+    android:background="@color/backgroundGray"
+    tools:context=".GuestDatabaseRegistration.Activities.GuestDatabaseRegistrationActivity"
+    android:orientation="vertical">
 
-    <TableRow
-        android:id="@+id/Row1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true">
 
         <TextView
             android:id="@+id/title_txt"
@@ -44,26 +40,8 @@
             android:textAlignment="center"
             android:textColor="@color/White"
             android:textSize="20sp" />
-    </TableRow>
 
-    <TableRow
-        android:id="@+id/Row1a"
-        android:layout_width="380dp"
-        android:layout_height="380dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="140dp"
-        android:background="@drawable/background_dialog"
-        android:backgroundTint="@color/colorPrimary"
-        android:paddingHorizontal="10dp"
-        android:paddingVertical="10dp"></TableRow>
 
-    <TableRow
-        android:id="@+id/Row2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/Row1"
-        android:layout_marginTop="35dp"
-        android:layout_marginStart="30dp" >
 
         <TextView
             android:id="@+id/enter_first_name"
@@ -84,15 +62,8 @@
 <!--            android:textColorHint="@color/White"-->
 <!--            android:autofillHints="name" />-->
 
-    </TableRow>
 
-    <TableRow
-        android:id="@+id/Row3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/Row2"
-        android:layout_marginTop="0dp"
-        android:layout_marginStart="30dp" >
+
 
         <EditText
             android:id="@+id/grf_1_fName"
@@ -103,15 +74,7 @@
             android:textColorHint="@color/White"
             android:autofillHints="phone" />
 
-    </TableRow>
 
-    <TableRow
-        android:id="@+id/Row4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/Row3"
-        android:layout_marginTop="0dp"
-        android:layout_marginStart="30dp">
 
         <TextView
             android:id="@+id/enter_last_name"
@@ -120,15 +83,7 @@
             android:text="Enter your last name"
             android:textColor="@color/White" />
 
-    </TableRow>
 
-    <TableRow
-        android:id="@+id/Row5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/Row4"
-        android:layout_marginTop="0dp"
-        android:layout_marginStart="30dp" >
 
         <EditText
             android:id="@+id/grf_1_lName"
@@ -139,15 +94,7 @@
             android:textColorHint="@color/White"
             />
 
-    </TableRow>
 
-    <TableRow
-        android:id="@+id/Row6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/Row5"
-        android:layout_marginTop="0dp"
-        android:layout_marginStart="30dp">
 
         <TextView
             android:id="@+id/enter_phone_number"
@@ -157,15 +104,7 @@
             android:textColor="@color/White"
             />
 
-    </TableRow>
 
-    <TableRow
-        android:id="@+id/Row7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/Row6"
-        android:layout_marginTop="0dp"
-        android:layout_marginStart="30dp" >
 
         <!-- TODO couldn't find city autofill. removing for now -->
         <EditText
@@ -179,15 +118,7 @@
             android:maxLength="10"
             />
 
-    </TableRow>
 
-    <TableRow
-        android:id="@+id/Row8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/Row7"
-        android:layout_marginTop="0dp"
-        android:layout_marginStart="30dp"  >
 
         <TextView
             android:id="@+id/enter_your_ncc_id"
@@ -198,15 +129,6 @@
 
 
 
-    </TableRow>
-
-    <TableRow
-        android:id="@+id/Row9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/Row8"
-        android:layout_marginTop="0dp"
-        android:layout_marginStart="30dp"  >
 
         <TextView
             android:id="@+id/N"
@@ -227,15 +149,6 @@
             android:autofillHints="4"
             android:maxLength="8"/>
 
-    </TableRow>
-
-    <TableRow
-        android:id="@+id/Row10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/Row1a"
-        android:layout_marginTop="0dp"
-        android:layout_centerHorizontal="true">
 
         <Button
             android:id="@+id/next_button_first_fragment_gRegistration"
@@ -247,8 +160,7 @@
             android:text="@string/next"
             android:textColor="@color/White" />
 
-    </TableRow>
 
-</RelativeLayout>
+</LinearLayout>
 
 

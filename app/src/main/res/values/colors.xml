@@ -5,4 +5,5 @@
     <color name="colorPrimaryShaded">#006A5F</color>
     <color name="colorAccent">#D81B60</color>
     <color name="White">#FFFFFF</color>
+    <color name="backgroundGray">#BBBBBB</color>
 </resources>
