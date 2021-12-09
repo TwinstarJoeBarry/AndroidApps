@@ -53,10 +53,10 @@ public class GuestRegistryHelper extends SQLiteOpenHelper {
     // 10. How many people in household
     // 11. Childcare Status
     // 12. #Child Age situation:
-    // a. Age < 1
-    // b. 13 <= Age <= 5
-    // c. 6 <= Age <= 12
-    // d. 13 <= Age <= 18
+    // a. Age < 1year
+    // b. 13months <= Age <= 5year
+    // c. 6year <= Age <= 12year
+    // d. 13year <= Age <= 18year
 
     public static final String _ID = "_id";
 
@@ -110,12 +110,30 @@ public class GuestRegistryHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-
+        /*
+                For readability: Each fragment's data group is separated by the + in each new line in the arguments.
+                Refer back to the public static String declarations to see what each of the four fragment's data groups contains.
+                Here is the general syntax of what it looks like
+                db.execSQL(........
+                    +(first form fragment info)
+                    +(second form fragment info)
+                    more data for second form so its not all contained in a single line
+                    +(third form fragment info)
+                    more data for third form so its not all contained in a single line
+                    +(fourth form fragment info)
+                    more data for fourth form so its not all contained in a single line
+                    +(additional data)
+         */
         db.execSQL("CREATE TABLE " + TABLE_NAME + " (" + _ID +
-                " INTEGER PRIMARY KEY AUTOINCREMENT, " + NAME + " TEXT, " +
-                DATE + " TEXT, " + ADDRESS + " TEXT, " + CITY + " TEXT, " + ZIP + " TEXT, " +
-                STATE + " TEXT, " + ADDITIONAL_INFO + " TEXT, " + NAME_OF_VOLUNTEER + " TEXT, " +
-                NCC_ID + " TEXT, " + PHONE + " TEXT, " + BARCODE + " TEXT);");
+                " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + NAME + " TEXT, " + PHONE + " TEXT, " + NCC_ID + " TEXT, " + DATE + " TEXT, "
+                + ADDRESS + " TEXT, " + CITY + " TEXT, " + ZIP + " TEXT, " + STATE + " TEXT, " +
+                AFFILIATION + " TEXT, " + AGE + " TEXT, " + GENDER + " TEXT, "
+                + DIET + " TEXT, " + PROGRAMS + " TEXT, " + SNAP + " TEXT, " + EMPLOYMENT + " TEXT, " +
+                HEALTH + " TEXT, " + HOUSING + " TEXT, " + INCOME + " TEXT, "
+                + HOUSEHOLD_NUM + " TEXT, " + CHILDCARE_STATUS + " TEXT, " + CHILDREN_1 + " TEXT, " +
+                CHILDREN_5 + " TEXT, " + CHILDREN_12 + " TEXT, " + CHILDREN_18 + " TEXT, "
+                + ADDITIONAL_INFO + " TEXT, " + NAME_OF_VOLUNTEER + " TEXT, " + BARCODE + " TEXT);");
 
     }
 
