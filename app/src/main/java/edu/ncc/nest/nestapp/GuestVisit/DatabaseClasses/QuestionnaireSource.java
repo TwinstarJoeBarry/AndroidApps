@@ -41,25 +41,11 @@ public class QuestionnaireSource {
     private SQLiteDatabase writableDatabase;
     private SQLiteDatabase readableDatabase;
 
-    private final int NUM_QUESTIONS;
-
 
     /************ Constructor ************/
 
-    public QuestionnaireSource(Context context, int numQuestions) {
-
-        QUESTIONNAIRE_HELPER = new QuestionnaireHelper(context, numQuestions);
-
-        NUM_QUESTIONS = numQuestions;
-
-    }
-
     public QuestionnaireSource(Context context) {
-
         QUESTIONNAIRE_HELPER = new QuestionnaireHelper(context);
-
-        NUM_QUESTIONS = QUESTIONNAIRE_HELPER.getNumQuestions();
-
     }
 
     /************ Custom Methods Start ************/
@@ -91,24 +77,27 @@ public class QuestionnaireSource {
 
     }
 
+    public void clearData() {
+        writableDatabase.delete(QuestionnaireHelper.TABLE_NAME, null, null);
+    }
+
     /**
      * submitQuestionnaire --
      * Submits answers by guest (guestID) into the database
      * @param guestID The ID of the guest the submission belongs to
-     * @param guestAnswers The list of answers to submit
      * @return Whether or not there was an error submitting the questionnaire
      */
-    public long submitQuestionnaire(@NonNull String guestID, @NonNull List<String> guestAnswers) {
+    public long submitQuestionnaire(@NonNull String guestID, @NonNull String adultCount, @NonNull String seniorCount,
+                                    @NonNull String childCount, @NonNull String firstVisit) {
 
         ContentValues submissionValues = new ContentValues();
 
         // Put the guest's id into cValues
         submissionValues.put(QuestionnaireHelper.GUEST_ID, guestID);
-
-        // Put each answer into cValues
-        for (int i = 0; i < NUM_QUESTIONS; i++)
-
-            submissionValues.put(QuestionnaireHelper.QUESTION_PREFIX + (i + 1), guestAnswers.get(i));
+        submissionValues.put(QuestionnaireHelper.ADULT_COUNT, adultCount);
+        submissionValues.put(QuestionnaireHelper.SENIOR_COUNT, seniorCount);
+        submissionValues.put(QuestionnaireHelper.CHILD_COUNT, childCount);
+        submissionValues.put(QuestionnaireHelper.FIRST_VISIT, firstVisit);
 
         // Insert the submission in the database and return the row id it was stored at
         return (writableDatabase.insert(QuestionnaireHelper.TABLE_NAME, null, submissionValues));
@@ -171,10 +160,10 @@ public class QuestionnaireSource {
      */
     private QuestionnaireSubmission convertCursorToSubmission(Cursor c) {
 
-        ArrayList<String> guestAnswers = new ArrayList<>(NUM_QUESTIONS);
+        ArrayList<String> guestAnswers = new ArrayList<>(4);
 
         // Retrieve each answer from the Cursor
-        for (int i = 0; i < NUM_QUESTIONS; i++)
+        for (int i = 0; i < guestAnswers.size(); i++)
 
             guestAnswers.add(c.getString(2 + i));
 

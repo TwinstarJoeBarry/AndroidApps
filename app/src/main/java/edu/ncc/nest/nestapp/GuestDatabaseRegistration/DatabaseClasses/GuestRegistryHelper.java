@@ -74,7 +74,6 @@ public class GuestRegistryHelper extends SQLiteOpenHelper {
 
     public GuestRegistryHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-
     }
 
     @Override

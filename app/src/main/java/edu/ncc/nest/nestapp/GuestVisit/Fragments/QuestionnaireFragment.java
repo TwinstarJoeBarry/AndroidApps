@@ -183,7 +183,7 @@ public class QuestionnaireFragment extends Fragment implements View.OnClickListe
 
             }
 
-            // If we make it here than the questionnaire is OK to submit
+            // If we make it here then the questionnaire is OK to submit
 
             // Disable all the input fields and submit button so the guest can review their answers
 
@@ -196,10 +196,12 @@ public class QuestionnaireFragment extends Fragment implements View.OnClickListe
             // Store answers into the Questionnaire database
 
             // Open a database
-            QuestionnaireSource db = new QuestionnaireSource(requireContext(), inputFields.size()).open();
+
+            //region Database Code
+            QuestionnaireSource db = new QuestionnaireSource(requireContext()).open();
 
             // Submit the questionnaire into the database
-            long rowID = db.submitQuestionnaire(guestID, fieldTexts);
+            long rowID = db.submitQuestionnaire(guestID, fieldTexts.get(0), fieldTexts.get(1), fieldTexts.get(2), fieldTexts.get(3));
 
             // If there wasn't any errors submitting the database
             if (rowID != -1) {
@@ -222,7 +224,7 @@ public class QuestionnaireFragment extends Fragment implements View.OnClickListe
 
             // Finally make sure we close the database since it is no longer needed
             //db.close();
-
+            //endregion
         }
 
     }

@@ -29,7 +29,7 @@ import android.util.Log;
  * itself for the database to have items stored in.
  */
 public class QuestionnaireHelper extends SQLiteOpenHelper {
-//test commit
+
     public static final String TAG = QuestionnaireHelper.class.getSimpleName();
 
     // Database name and version
@@ -42,49 +42,14 @@ public class QuestionnaireHelper extends SQLiteOpenHelper {
     // Columns in the table
     public static final String ROW_ID = "row_id";
     public static final String GUEST_ID = "guest_id"; //Reference to the id num of the guest
-    public static final String QUESTION_PREFIX = "question_";
+    public static final String ADULT_COUNT = "adult_count"; //Reference to the number of non senior adults in the household
+    public static final String SENIOR_COUNT = "senior_count"; //Reference to the number of seniors in the household
+    public static final String CHILD_COUNT = "child_count"; //Reference to the number of children in the household
+    public static final String FIRST_VISIT = "first_visit"; //Reference to whether or not it is the user's first visit to the NEST
 
-    // Number of questions that the questionnaire ask
-    private static int numQuestions;
-
-    /**
-     * QuestionnaireHelper constructor method.
-     * This method is used in QuestionnaireFragment to validate numQuestions.
-     * @param context SQLite required param
-     * @param numQuestions Number of questions passed through
-     */
-    public QuestionnaireHelper(Context context, int numQuestions) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
-
-        // Make sure e update numQuestions before validating the column count
-        QuestionnaireHelper.numQuestions = numQuestions;
-
-        // Validate the table column count to make sure there is enough columns for the number of questions being asked
-        validateColumnCount();
-
-    }
-
-    // Used elsewhere if we need to access database outside of QuestionnaireFragment
-
-    /**
-     * QuestionnaireHelper secondary constructor method.
-     * This method is used elsewhere if we need to access database outside of QuestionnaireFragment.
-     * @param context SQLite required param
-     */
     public QuestionnaireHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-
-        //Create the SQLineDatabase
-        SQLiteDatabase db = getReadableDatabase();
-
-        //Update numQuestions to the getColumnCount of the database
-        numQuestions = getColumnCount(db);
-
-        //Close
-        db.close();
-
     }
-
 
     ////////////// Lifecycle Methods Start //////////////
 
@@ -95,20 +60,11 @@ public class QuestionnaireHelper extends SQLiteOpenHelper {
      */
     @Override
     @SuppressLint("DefaultLocale")
-    public void onCreate(SQLiteDatabase db) { // Creates the database table
-
-        // Build the sql
-        StringBuilder sqlBuilder = new StringBuilder(" CREATE TABLE " + TABLE_NAME + " (" +
-                ROW_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + GUEST_ID + " TEXT");
-
-        // For each question append the question prefix, question number, and the type
-        for (int i = 1; i <= numQuestions; i++)
-
-            sqlBuilder.append(String.format(", %s%d TEXT", QUESTION_PREFIX, i));
-
-        // Make sure we append ); to the end of the sql, Then exec it
-        db.execSQL(sqlBuilder.toString() + ");");
-
+    public void onCreate(SQLiteDatabase db) { // Creates the database table\
+        db.execSQL("CREATE TABLE " + TABLE_NAME + " (" + ROW_ID +
+                " INTEGER PRIMARY KEY AUTOINCREMENT, " + GUEST_ID +
+                " TEXT, " + ADULT_COUNT + " TEXT, " + SENIOR_COUNT + " TEXT, " +
+                CHILD_COUNT + " TEXT, " + FIRST_VISIT + " TEXT);");
     }
 
     /**
@@ -133,18 +89,11 @@ public class QuestionnaireHelper extends SQLiteOpenHelper {
     ////////////// Custom Methods Start //////////////
 
     /**
-     * getNumQuestions method
-     * Grabs the numQuestions and returns it to the user
-     * @return numQuestions integer
-     */
-    public int getNumQuestions() { return numQuestions; }
-
-    /**
      * validateColumnCount method
      * Confirms that the number of columns corresponds to the number of questions, if not, create
      * a new table with the correct number of columns.
      */
-    private void validateColumnCount() {
+    /*private void validateColumnCount() {
 
         //Create a new database
         SQLiteDatabase db = this.getReadableDatabase();
@@ -165,7 +114,7 @@ public class QuestionnaireHelper extends SQLiteOpenHelper {
         // Done reading from database so close the reference
         db.close();
 
-    }
+    }*/
 
     /**
      * getColumnCount method
