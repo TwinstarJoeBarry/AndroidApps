@@ -87,7 +87,7 @@ public class GuestRegistrySource {
      * @return true if the data has been inserted without issue, false otherwise
      */
     // FIXME Needs to be updated to match all columns of the database
-    public boolean insertData(String name, String email, String phone, String nccId ,String date, String address, String city, String zip, String barcode) {
+    public boolean insertData(String name, String email, String phone, String nccId ,String date, String address, String city, String zip, String state, String addInfo, String nameOfVolunteer, String barcode) {
 
         //All info for a single user will be placed into the same ContentValue variable (Key & Value map-like variable)
         ContentValues cValues = new ContentValues();
@@ -118,12 +118,19 @@ public class GuestRegistrySource {
         cValues.put(GuestRegistryHelper.ADDRESS, address);
         cValues.put(GuestRegistryHelper.CITY, city);
         cValues.put(GuestRegistryHelper.ZIP, zip);
+        cValues.put(GuestRegistryHelper.STATE, state);
+        cValues.put(GuestRegistryHelper.ADDITIONAL_INFO, addInfo);
+        cValues.put(GuestRegistryHelper.NAME_OF_VOLUNTEER, nameOfVolunteer);
         cValues.put(GuestRegistryHelper.BARCODE, barcode);
         // leaving out for now: cValues.put(STATE, state);
 
         // Insert method will return a negative 1 if there was an error with the insert
         return database.insert(TABLE_NAME, null, cValues) != -1;
 
+    }
+
+    public int removeData() {
+        return database.delete(TABLE_NAME, null, null);
     }
 
     /**
