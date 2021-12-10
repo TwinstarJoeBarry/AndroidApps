@@ -29,7 +29,7 @@ import android.util.Log;
  * itself for the database to have items stored in.
  */
 public class QuestionnaireHelper extends SQLiteOpenHelper {
-
+//test commit
     public static final String TAG = QuestionnaireHelper.class.getSimpleName();
 
     // Database name and version
