@@ -77,16 +77,20 @@ public class GuestRegistrySource {
      *
      * @param name - the name of the guest
      * @param phone - the phone number of the guest
-     * @param nccId - the NCC ID of the guest
+     * @param nccID - the NCC ID of the guest
      * @param date - the date that the form has been filled out
      * @param address - the address of the guest
      * @param city - the city of the guests' address
-     * @param zip - the zip-code of the guests' address
+     * @param zipcode - the zip-code of the guests' address
      * @param barcode - the barcode that belongs to the guest
      * @return true if the data has been inserted without issue, false otherwise
      */
     // FIXME Needs to be updated to match all columns of the database
-    public boolean insertData(String name, String phone, String nccId ,String date, String address, String city, String zip, String barcode) {
+    public boolean insertData(String name, String phone, String nccID, String date, String address, String city, String zipcode,
+                              String state, String affiliation, String age, String gender, String diet, String programs,
+                              String snap, String employment, String health, String housing, String income, String householdNum,
+                              String childcareStatus, String children1, String children5, String children12, String children18,
+                              String additionalInfo, String nameOfVolunteer, String barcode) {
 
         //All info for a single user will be placed into the same ContentValue variable (Key & Value map-like variable)
         ContentValues cValues = new ContentValues();
@@ -109,15 +113,28 @@ public class GuestRegistrySource {
             // b. 13 <= Age <= 5
             // c. 6 <= Age <= 12
             // d. 13 <= Age <= 18
+        // 13. Addit'l Info
+        // 14. Volunteer Name
+
+        // first fragment information
         cValues.put(GuestRegistryHelper.NAME, name);
         cValues.put(GuestRegistryHelper.PHONE, phone);
-        cValues.put(GuestRegistryHelper.NCC_ID, nccId);
+        cValues.put(GuestRegistryHelper.NCC_ID, nccID);
         cValues.put(GuestRegistryHelper.DATE, date);
+
+        // second fragment information
         cValues.put(GuestRegistryHelper.ADDRESS, address);
         cValues.put(GuestRegistryHelper.CITY, city);
-        cValues.put(GuestRegistryHelper.ZIP, zip);
-        cValues.put(GuestRegistryHelper.BARCODE, barcode);
+        cValues.put(GuestRegistryHelper.ZIP, zipcode);
         // leaving out for now: cValues.put(STATE, state);
+        cValues.put(GuestRegistryHelper.AFFILIATION, affiliation);
+        cValues.put(GuestRegistryHelper.AGE, age);
+        cValues.put(GuestRegistryHelper.GENDER, gender);
+
+        // third fragment information
+        // fourth fragment information
+
+        cValues.put(GuestRegistryHelper.BARCODE, barcode);
 
         // Insert method will return a negative 1 if there was an error with the insert
         return database.insert(TABLE_NAME, null, cValues) != -1;

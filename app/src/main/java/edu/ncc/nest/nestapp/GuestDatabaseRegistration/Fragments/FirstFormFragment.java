@@ -84,8 +84,6 @@ public class FirstFormFragment extends Fragment {
     {
         super.onViewCreated(view, savedInstanceState);
 
-
-
         binding.nextButtonFirstFragmentGRegistration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
@@ -117,7 +115,7 @@ public class FirstFormFragment extends Fragment {
                     binding.enterLastName.setText("You must enter a last name");
                     validLName = false;
                 }
-                else{
+                else {
                     binding.enterLastName.setTextColor(Color.WHITE);
                     binding.enterLastName.setText("Enter your last name");
                     result.putString("Last Name", inputLastName);
