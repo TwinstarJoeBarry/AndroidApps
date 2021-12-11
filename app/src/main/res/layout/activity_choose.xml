@@ -39,7 +39,7 @@
         android:text="Welcome to NEST!"
         android:textSize="40sp"
         android:textStyle="bold"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/White"
         android:textAlignment="center"/>
 
     <TextView
