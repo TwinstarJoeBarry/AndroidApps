@@ -104,7 +104,6 @@ public class GuestRegistrySource {
      * @param barcode - the barcode that belongs to the guest
      * @return true if the data has been inserted without issue, false otherwise
      */
-    // FIXME Needs to be updated to match all columns of the database
     public boolean insertData(String name, String phone, String nccID, String date, String address, String city, String zipcode,
                               String state, String affiliation, String age, String gender, String diet, String programs,
                               String snap, String employment, String health, String housing, String income, String householdNum,

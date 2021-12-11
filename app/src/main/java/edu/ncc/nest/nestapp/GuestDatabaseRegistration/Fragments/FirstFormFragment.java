@@ -84,6 +84,9 @@ public class FirstFormFragment extends Fragment {
     {
         super.onViewCreated(view, savedInstanceState);
 
+        // uncomment to open the database at the beginning of the form for testing.
+        // db = new GuestRegistrySource(requireContext());
+
         binding.nextButtonFirstFragmentGRegistration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
