@@ -58,21 +58,21 @@ public class GuestRegistryHelper extends SQLiteOpenHelper {
     public static final String GENDER = "gender";
 
     //third fragment information
-    private static String DIET = "diet";
-    private static String PROGRAMS = "programs";
-    private static String SNAP = "snap";
-    private static String EMPLOYMENT = "employment";
-    private static String HEALTH = "health";
-    private static String HOUSING = "housing";
-    private static String INCOME = "income";
+    public static final String DIET = "diet";
+    public static final String PROGRAMS = "programs";
+    public static final String SNAP = "snap";
+    public static final String EMPLOYMENT = "employment";
+    public static final String HEALTH = "health";
+    public static final String HOUSING = "housing";
+    public static final String INCOME = "income";
 
     //fourth fragment information
-    private static String HOUSEHOLD_NUM = "householdNum";
-    private static String CHILDCARE_STATUS = "childcareStatus";
-    private static String CHILDREN_1 = "children1";
-    private static String CHILDREN_5 = "children5";
-    private static String CHILDREN_12 = "children12";
-    private static String CHILDREN_18 = "children18";
+    public static final String HOUSEHOLD_NUM = "householdNum";
+    public static final String CHILDCARE_STATUS = "childcareStatus";
+    public static final String CHILDREN_1 = "children1";
+    public static final String CHILDREN_5 = "children5";
+    public static final String CHILDREN_12 = "children12";
+    public static final String CHILDREN_18 = "children18";
 
 
     //TODO: additional data to be added when the data when UI has it
