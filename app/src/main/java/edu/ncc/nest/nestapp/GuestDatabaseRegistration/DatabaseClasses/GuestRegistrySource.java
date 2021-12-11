@@ -156,6 +156,10 @@ public class GuestRegistrySource {
 
     }
 
+    public int removeData() {
+        return database.delete(TABLE_NAME, null, null);
+    }
+
     /**
      * isRegistered - Takes 1 parameter
      * Determines whether or not a guest is currently registered with the provided barcode
