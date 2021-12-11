@@ -81,11 +81,6 @@ public class Choose extends AppCompatActivity implements OnClickListener {
             case R.id.guestFormBtn:
                 launchGuestForm();
                 break;
-            // testing **********************
-            case R.id.trueDate:
-                launchTrueDate();
-                break;
-
         }
     }
 
@@ -129,8 +124,6 @@ public class Choose extends AppCompatActivity implements OnClickListener {
         return super.onOptionsItemSelected(item);
     }
 
-
-
     /**
      * launchFutureEfforts - starts the Future Efforts activity
      */
@@ -148,19 +141,10 @@ public class Choose extends AppCompatActivity implements OnClickListener {
         ((Button)findViewById(R.id.getUPCBtn)).setVisibility(View.GONE);
         ((Button)findViewById(R.id.guestFormBtn)).setVisibility(View.GONE);
         //((Button)findViewById(R.id.futureEffortsBtn)).setVisibility(View.GONE);
-        ((Button)findViewById(R.id.trueDate)).setVisibility(View.GONE);
         ((TextView)findViewById(R.id.nestTxt)).setVisibility(View.GONE);
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.RelativeLayoutMain, new MoreInfoFragment() ).commit();
 
     }
-
-
 }
-
-
-
-
-
-
