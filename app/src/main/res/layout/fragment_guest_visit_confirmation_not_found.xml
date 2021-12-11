@@ -91,13 +91,19 @@
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="396dp"
+        android:layout_height="481dp"
+        android:background="@drawable/guest_not_found_icon" />
+
     <LinearLayout
         android:layout_width="391dp"
-        android:layout_height="521dp"
+        android:layout_height="48dp"
         android:layout_marginHorizontal="6dp"
         android:layout_marginTop="4dp"
         android:layout_marginBottom="6dp"
-        android:background="@color/White"
+        android:background="@color/colorNCCPrimary"
         android:gravity="bottom"
         android:orientation="horizontal">
 
@@ -110,7 +116,7 @@
             android:layout_weight="0.5"
             android:backgroundTint="@color/colorNCCSecondary"
             android:text="@string/fragment_gv_confirmation_not_found_rescan_btn"
-            android:textColor="#263238" />
+            android:textColor="@color/White" />
 
         <Button
             android:id="@+id/confirmation_0_register_btn"
@@ -121,7 +127,7 @@
             android:layout_weight="0.5"
             android:backgroundTint="@color/colorNCCSecondary"
             android:text="@string/register"
-            android:textColor="#263238" />
+            android:textColor="@color/White" />
 
     </LinearLayout>
 

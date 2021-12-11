@@ -21,7 +21,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:hardwareAccelerated="true" >
+        android:hardwareAccelerated="true">
         <activity
             android:name=".GuestVisit.Activities.GuestVisitActivity"
             android:label="@string/title_activity_guest_visit"/>
