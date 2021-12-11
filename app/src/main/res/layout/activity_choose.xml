@@ -36,7 +36,7 @@
         android:layout_marginTop="9dp"
         android:background="@drawable/veg_table"
         android:fontFamily="casual"
-        android:text="Welcome to NEST!"
+        android:text="@string/welcome_to_nest"
         android:textSize="40sp"
         android:textStyle="bold"
         android:textColor="@color/White"
@@ -81,9 +81,10 @@
                 android:layout_marginTop="9dp"
                 android:background="@drawable/top_line"
                 android:drawableTop="@drawable/ic_guest"
-                android:paddingTop="25dp"
                 android:onClick="onClick"
-                android:text="@string/activity_choose_choice_2" />
+                android:paddingTop="25dp"
+                android:text="@string/activity_choose_choice_2"
+                android:textColor="#1976D2" />
 
             <!--Button
                 android:id="@+id/futureEffortsBtn"
