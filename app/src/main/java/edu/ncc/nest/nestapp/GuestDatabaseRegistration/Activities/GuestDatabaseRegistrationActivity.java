@@ -27,6 +27,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import edu.ncc.nest.nestapp.Choose;
+import edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses.GuestRegistrySource;
 import edu.ncc.nest.nestapp.R;
 
 /**
@@ -42,7 +43,6 @@ public class GuestDatabaseRegistrationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_guest_database_registration);
 
         setSupportActionBar(findViewById(R.id.database_registration_toolbar));
-
     }
 
     @Override
