@@ -203,6 +203,8 @@ public class QuestionnaireFragment extends Fragment implements View.OnClickListe
             // Submit the questionnaire into the database
             long rowID = db.submitQuestionnaire(guestID, fieldTexts.get(0), fieldTexts.get(1), fieldTexts.get(2), fieldTexts.get(3));
 
+            Log.d("**SUBMISSION CHECK**" ,fieldTexts.get(0) + fieldTexts.get(1) + fieldTexts.get(2) + fieldTexts.get(3));
+
             // If there wasn't any errors submitting the database
             if (rowID != -1) {
 

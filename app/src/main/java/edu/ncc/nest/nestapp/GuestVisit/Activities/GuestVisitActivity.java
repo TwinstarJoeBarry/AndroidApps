@@ -51,11 +51,11 @@ public class GuestVisitActivity extends AppCompatActivity {
 
         //inserts fake guest if they aren't already in the database
         if(datasource.isRegistered("GHI-9012") == null) {
-            datasource.insertData("John Doe", "johndoe@gmail.com", "123-456-7890",
-                    "N00123456", "01-01-9999", "123 Simple Ave", "Nothingtown", "12345",
-                    "NY", null, null, "GHI-9012", null, null,
+            datasource.insertData("John Doe", "123-456-7890", "N00123456",
+                    "01-01-9999", "123 Simple Ave", "Nothingtown", "1234", "NY",
+                    "NY", null, null, null, null, null,
                     null, null, null, null, null, null,
-                    null, null, null, null, null, null, null);
+                    null, null, null, null, null, null, "GHI-9012");
         }
     }
 

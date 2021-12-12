@@ -27,6 +27,8 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -93,12 +95,19 @@ public class QuestionnaireSource {
 
         ContentValues submissionValues = new ContentValues();
 
+        //Setup the data and time for when the Questionnaire was submitted
+        DateTimeFormatter frmt = DateTimeFormatter.ofPattern("MMddyyyy HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        String currentTime = frmt.format(now);
+
         // Put the guest's id into cValues
         submissionValues.put(QuestionnaireHelper.GUEST_ID, guestID);
         submissionValues.put(QuestionnaireHelper.ADULT_COUNT, adultCount);
         submissionValues.put(QuestionnaireHelper.SENIOR_COUNT, seniorCount);
         submissionValues.put(QuestionnaireHelper.CHILD_COUNT, childCount);
         submissionValues.put(QuestionnaireHelper.FIRST_VISIT, firstVisit);
+        submissionValues.put(QuestionnaireHelper.DATE, currentTime);
+        submissionValues.put(QuestionnaireHelper.VISIT_COUTNER, "0");
 
         // Insert the submission in the database and return the row id it was stored at
         return (writableDatabase.insert(QuestionnaireHelper.TABLE_NAME, null, submissionValues));
@@ -147,9 +156,6 @@ public class QuestionnaireSource {
         Log.i(TAG, "Printing all submissions by guest " + guestID + " from " + QuestionnaireHelper.DATABASE_NAME + ":");
 
         // Find each questionnaire submitted by the guest and print it to the log
-        for (QuestionnaireSubmission submission : findSubmissions(guestID))
-
-            Log.i(TAG, submission.toString());
 
     }
 
