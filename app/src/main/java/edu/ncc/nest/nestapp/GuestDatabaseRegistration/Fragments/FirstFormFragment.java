@@ -84,8 +84,8 @@ public class FirstFormFragment extends Fragment {
     {
         super.onViewCreated(view, savedInstanceState);
 
-        // uncomment to open the database at the beginning of the form for testing.
-        // db = new GuestRegistrySource(requireContext());
+        // Creating the database and passing the correct context as the argument
+        db = new GuestRegistrySource(requireContext());
 
         binding.nextButtonFirstFragmentGRegistration.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -155,13 +155,6 @@ public class FirstFormFragment extends Fragment {
                 if(validInput){
                     getParentFragmentManager().setFragmentResult("sending_first_form_fragment_info", result);
 
-                    /*
-                    // To test the doesExist() method uncomment this,
-                    // and comment out the findNavController() that's currently being used
-
-                    // Creating the database and passing the correct context as the argument
-                    db = new GuestRegistrySource(requireContext());
-
                     // if true, user already exist in the db, else user can register
                     if (db.doesExist(inputPhoneNumber, inputNCCID)) {
                         Log.d(TAG, "onClick: An user already registered with this phone number or NCC ID!");
@@ -173,14 +166,10 @@ public class FirstFormFragment extends Fragment {
                         binding.enterPhoneNumber.setText("This NCC ID or phone number already being used!");
                     }
                     else {
-                        db.insertData(inputFirstName + " " + inputLastName, null, inputPhoneNumber, inputNCCID, null, null, null, null, null);
                         NavHostFragment.findNavController(FirstFormFragment.this)
                                 .navigate(R.id.action_DBR_FirstFormFragment_to_SecondFormFragment);
                     }
-                     */
 
-                    NavHostFragment.findNavController(FirstFormFragment.this)
-                            .navigate(R.id.action_DBR_FirstFormFragment_to_SecondFormFragment);
                 }
             }
         });
