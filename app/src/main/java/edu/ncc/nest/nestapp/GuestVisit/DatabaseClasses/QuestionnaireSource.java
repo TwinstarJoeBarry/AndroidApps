@@ -42,7 +42,8 @@ public class QuestionnaireSource {
     private final QuestionnaireHelper QUESTIONNAIRE_HELPER;
     private SQLiteDatabase writableDatabase;
     private SQLiteDatabase readableDatabase;
-    private String[] counterStr = {QuestionnaireHelper.VISIT_COUTNER};
+    private String[] counterStr = {QuestionnaireHelper.ROW_ID, QuestionnaireHelper.GUEST_ID, QuestionnaireHelper.ADULT_COUNT,
+    QuestionnaireHelper.SENIOR_COUNT, QuestionnaireHelper.CHILD_COUNT, QuestionnaireHelper.FIRST_VISIT,QuestionnaireHelper.DATE, QuestionnaireHelper.VISIT_COUTNER};
 
 
     /************ Constructor ************/
@@ -92,7 +93,7 @@ public class QuestionnaireSource {
      * @return Whether or not there was an error submitting the questionnaire
      */
     public long submitQuestionnaire(@NonNull String guestID, @NonNull String adultCount, @NonNull String seniorCount,
-                                    @NonNull String childCount, @NonNull String firstVisit) {
+                                    @NonNull String childCount, @NonNull String firstVisit, @NonNull String visitCounter) {
 
         ContentValues submissionValues = new ContentValues();
 
@@ -108,7 +109,7 @@ public class QuestionnaireSource {
         submissionValues.put(QuestionnaireHelper.CHILD_COUNT, childCount);
         submissionValues.put(QuestionnaireHelper.FIRST_VISIT, firstVisit);
         submissionValues.put(QuestionnaireHelper.DATE, currentTime);
-        submissionValues.put(QuestionnaireHelper.VISIT_COUTNER, "0");
+        submissionValues.put(QuestionnaireHelper.VISIT_COUTNER, visitCounter);
 
         // Insert the submission in the database and return the row id it was stored at
         return (writableDatabase.insert(QuestionnaireHelper.TABLE_NAME, null, submissionValues));
@@ -199,8 +200,12 @@ public class QuestionnaireSource {
                 null,
                 QuestionnaireHelper.VISIT_COUTNER + " DESC ");
 
+        Log.d("**CURSOR CHECK**", cursor.toString());
+
         cursor.moveToFirst();
         entry = convertCursorToSubmission(cursor);
+
+        Log.d("**CURSOR CHECK**", entry.VISIT_COUTNER);
 
         return entry.VISIT_COUTNER;
 
