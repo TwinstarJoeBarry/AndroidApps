@@ -32,6 +32,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.google.android.material.textfield.TextInputLayout;
+
 import edu.ncc.nest.nestapp.CheckExpirationDate.Activities.CheckExpirationDateActivity;
 import edu.ncc.nest.nestapp.CheckExpirationDate.DatabaseClasses.NestDBDataSource;
 import edu.ncc.nest.nestapp.CheckExpirationDate.DatabaseClasses.NestUPC;
@@ -106,6 +108,7 @@ public class StartFragment extends SoftInputFragment {
         binding.startEnterBtn.setOnClickListener(v -> {
 
             // Look in the EditText widget and retrieve the String the user passed in
+            TextInputLayout upcLayout = binding.upcEntryLayout;
             EditText editText = binding.upcEntry;
 
             // Get the upc string from the EditText object

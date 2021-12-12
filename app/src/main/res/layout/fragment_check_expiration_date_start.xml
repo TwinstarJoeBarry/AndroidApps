@@ -19,6 +19,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="#FFFFFF"
     android:padding="2dp"
@@ -68,12 +69,14 @@
                 android:scaleType="fitXY"
                 android:src="@drawable/expired_icon" />
 
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/background_dialog"
                 android:orientation="vertical"
-                android:padding="24dp">
+                android:padding="24dp"
+                android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -97,6 +100,7 @@
                     android:text="@string/fragment_ced_start_upc_barcode_number_lbl"
                     android:textStyle="bold" />
 
+               <!--
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -111,7 +115,9 @@
                         android:background="@drawable/background_dialog"
                         android:backgroundTint="#DDDDDD"
                         android:digits="0123456789"
+
                         android:hint="@string/fragment_ced_start_upc_barcode_number_hint"
+
                         android:imeOptions="actionDone"
                         android:importantForAutofill="no"
                         android:inputType="number"
@@ -119,6 +125,7 @@
                         android:paddingHorizontal="12dp"
                         android:paddingVertical="8dp"
                         android:textColor="#777777" />
+                    -->
 
                     <ImageView
                         android:id="@+id/alert_image"
@@ -130,7 +137,42 @@
                         android:src="@drawable/ic_check_mark"
                         android:visibility="gone" />
 
-                </LinearLayout>
+                <!-- </LinearLayout> -->
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/upc_entry_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="8dp"
+                    android:layout_marginHorizontal="12dp"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                    app:boxBackgroundMode="filled"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="12"
+                    app:hintTextColor="@color/colorPrimaryDark"
+                    app:boxStrokeColor="@color/colorPrimaryDark">
+                   <!-- app:startIconDrawable="@id/barcode_image" -->
+<!--
+                    <ImageView
+                        android:id="@+id/barcode_image"
+                        android:layout_width="24dp"
+                        android:layout_height="match_parent"
+                        android:contentDescription="@string/fragment_ced_barcode_icon_content_description"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/ic_barcode" />
+-->
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/upc_entry"
+                        android:hint="@string/fragment_ced_enter_upc_type_upc_hint"
+                        android:imeOptions="actionDone"
+                        android:importantForAutofill="no"
+                        android:inputType="number"
+                        android:maxLength="12"
+                        android:textColor="#777777"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <View
                     android:layout_width="match_parent"

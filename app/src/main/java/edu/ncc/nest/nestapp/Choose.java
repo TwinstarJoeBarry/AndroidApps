@@ -47,6 +47,7 @@ public class Choose extends AppCompatActivity implements OnClickListener {
         binding = ActivityChooseBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setSupportActionBar(binding.toolbar.getRoot());
+
         /*setContentView(R.layout.activity_choose);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -159,7 +160,7 @@ public class Choose extends AppCompatActivity implements OnClickListener {
         ((Button)findViewById(R.id.getUPCBtn)).setVisibility(View.GONE);
         ((Button)findViewById(R.id.guestFormBtn)).setVisibility(View.GONE);
         //((Button)findViewById(R.id.futureEffortsBtn)).setVisibility(View.GONE);
-        ((Button)findViewById(R.id.trueDate)).setVisibility(View.GONE);
+        //((Button)findViewById(R.id.trueDate)).setVisibility(View.GONE);
         ((TextView)findViewById(R.id.nestTxt)).setVisibility(View.GONE);
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();

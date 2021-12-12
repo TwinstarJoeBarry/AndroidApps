@@ -87,7 +87,7 @@
                 android:text="@string/activity_choose_choice_3" /-->
 
 
-            <!--           Button for Testing-->
+            <!--           Button for Testing
             <Button
                 android:id="@+id/trueDate"
                 android:layout_width="138dp"
@@ -95,7 +95,7 @@
                 android:layout_below="@id/guestFormBtn"
                 android:layout_centerHorizontal="true"
                 android:onClick="onClick"/>
-
+            -->
 
 
 
