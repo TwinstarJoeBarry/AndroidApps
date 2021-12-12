@@ -60,35 +60,35 @@
 
             <Button
                 android:id="@+id/guestRegLocalDbase"
-                android:onClick="onClick"
                 android:layout_width="250dp"
                 android:layout_height="70dp"
                 android:layout_centerHorizontal="true"
+                android:onClick="onClick"
                 android:text="Guest Registration (local database)" />
 
 
-            <Button
+            <!--Button
                 android:id="@+id/guestRegGoogle"
                 android:layout_width="250dp"
                 android:layout_height="70dp"
                 android:layout_below="@id/guestRegLocalDbase"
                 android:layout_centerHorizontal="true"
                 android:onClick="onClick"
-                android:text="Guest Registration (google sheet)" />
+                android:text="Guest Registration (google sheet)" /-->
 
             <Button
                 android:id="@+id/guestVisitLocalDbase"
                 android:layout_width="250dp"
                 android:layout_height="70dp"
-                android:layout_below="@id/guestRegGoogle"
+                android:layout_below="@id/guestRegLocalDbase"
                 android:layout_centerHorizontal="true"
                 android:onClick="onClick"
                 android:text="Guest Visit Checkin (local database)" />
 
             <Button
-                android:id="@+id/guesVisitGoogle"
+                android:id="@+id/guestVisitGoogle"
                 android:layout_width="250dp"
-                android:layout_height="70dp"
+                android:layout_height="90dp"
                 android:layout_below="@id/guestVisitLocalDbase"
                 android:layout_centerHorizontal="true"
                 android:onClick="onClick"
