@@ -5,5 +5,7 @@
     <color name="colorPrimaryShaded">#006A5F</color>
     <color name="colorAccent">#D81B60</color>
     <color name="White">#FFFFFF</color>
-    <color name="Green">#7ae582</color>
+    <color name="Green">#009245</color>
+    <color name="Red">#9a031e</color>
+    <color name="Yellow">#fcf300</color>
 </resources>
