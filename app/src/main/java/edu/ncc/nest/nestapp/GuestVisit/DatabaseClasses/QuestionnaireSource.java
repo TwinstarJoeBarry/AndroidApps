@@ -79,6 +79,7 @@ public class QuestionnaireSource {
 
     public void clearData() {
         writableDatabase.delete(QuestionnaireHelper.TABLE_NAME, null, null);
+        readableDatabase.delete(QuestionnaireHelper.TABLE_NAME, null, null);
     }
 
     /**

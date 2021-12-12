@@ -59,7 +59,7 @@ public class QuestionnaireHelper extends SQLiteOpenHelper {
      * @param db the SQLiteDatabase
      */
     @Override
-    @SuppressLint("DefaultLocale")
+    //@SuppressLint("DefaultLocale")
     public void onCreate(SQLiteDatabase db) { // Creates the database table\
         db.execSQL("CREATE TABLE " + TABLE_NAME + " (" + ROW_ID +
                 " INTEGER PRIMARY KEY AUTOINCREMENT, " + GUEST_ID +

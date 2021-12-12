@@ -28,6 +28,8 @@ import android.view.MenuItem;
 
 import edu.ncc.nest.nestapp.Choose;
 import edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses.GuestRegistrySource;
+import edu.ncc.nest.nestapp.GuestVisit.DatabaseClasses.QuestionnaireHelper;
+import edu.ncc.nest.nestapp.GuestVisit.DatabaseClasses.QuestionnaireSource;
 import edu.ncc.nest.nestapp.R;
 
 /**
