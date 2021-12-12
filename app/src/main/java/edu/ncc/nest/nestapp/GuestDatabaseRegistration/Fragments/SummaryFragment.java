@@ -30,6 +30,7 @@ import androidx.fragment.app.FragmentResultListener;
 import androidx.navigation.fragment.NavHostFragment;
 
 
+import edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses.GuestRegistrySource;
 import edu.ncc.nest.nestapp.R;
 
 /**
@@ -84,6 +85,8 @@ public class SummaryFragment extends Fragment  {
     private String children12;
     private String children18;
 
+    // Database where we will store user information
+    private GuestRegistrySource db;
 
     public static final String TAG = SummaryFragment.class.getSimpleName();
 
@@ -103,6 +106,9 @@ public class SummaryFragment extends Fragment  {
      */
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        // Creating the database and passing the correct context as the argument
+        db = new GuestRegistrySource(requireContext());
 
         //retrieving first name, last name, phone number and NCC ID from FirstFormFragment bundle.
         getParentFragmentManager().setFragmentResultListener("sending_first_form_fragment_info",
@@ -172,8 +178,15 @@ public class SummaryFragment extends Fragment  {
 
 
         // OnClickListener for the "Done" button
-        //TODO store in database when done button is clicked
         view.findViewById(R.id.button).setOnClickListener(clickedView -> {
+
+            // registering the guest to the database
+            // TODO: null values needs to be retrieved and replaced.
+            db.insertData(fname + " " + lname, phoneNum, nccId, streetAddress1 + ", " + streetAddress2,
+                    city, zip, state, affiliation, age, gender, dietary, programs, snap, employment, health, housing,
+                    income, householdNum, childcareStatus, children1, children5, children12, children18,
+                    null, null, null);
+
 
             // Navigate back to splash screen.
             // later, make if/else to go to scanner or login if scanner already in db

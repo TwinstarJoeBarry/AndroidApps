@@ -76,53 +76,78 @@ public class GuestRegistrySource {
      * -1 will be returned and the method will return a boolean value of false.
      *
      * @param name - the name of the guest
-     * @param email - the email of the guest
      * @param phone - the phone number of the guest
-     * @param nccId - the NCC ID of the guest
-     * @param date - the date that the form has been filled out
+     * @param nccID - the NCC ID of the guest
      * @param address - the address of the guest
      * @param city - the city of the guests' address
-     * @param zip - the zip-code of the guests' address
+     * @param zipcode - the zip-code of the guests' address
+     * @param state - state that guest's address is belong to
+     * @param affiliation - affiliation of the guest
+     * @param age - age of the guest
+     * @param gender - gender of the guest
+     * @param diet - diet that guest follows
+     * @param programs - guest's programs
+     * @param snap - does the guest have SNAP / Food stamps
+     * @param employment - employment status of the guest
+     * @param health - what kind of insurance does the guest have
+     * @param housing - housing of the guest
+     * @param income - the income of the guest
+     * @param householdNum - the number of people in the guest's household
+     * @param childcareStatus - childcare status of the guest
+     * @param children1 - number of guest's children under the age of 1 year old
+     * @param children5 - number of guest's children between the age of 13 months and 5 years old
+     * @param children12 - number of guest's children between the age of 6 and 12 years old
+     * @param children18 - number of the guest's children between the age of 13 and 18 years old
+     * @param additionalInfo - additional information provided by the guest
+     * @param nameOfVolunteer - name of the volunteer
      * @param barcode - the barcode that belongs to the guest
      * @return true if the data has been inserted without issue, false otherwise
      */
-    // FIXME Needs to be updated to match all columns of the database
-    public boolean insertData(String name, String email, String phone, String nccId ,String date, String address, String city, String zip, String state, String addInfo, String nameOfVolunteer, String barcode) {
+    public boolean insertData(String name, String phone, String nccID, String address, String city, String zipcode,
+                              String state, String affiliation, String age, String gender, String diet, String programs,
+                              String snap, String employment, String health, String housing, String income, String householdNum,
+                              String childcareStatus, String children1, String children5, String children12, String children18,
+                              String additionalInfo, String nameOfVolunteer, String barcode) {
 
         //All info for a single user will be placed into the same ContentValue variable (Key & Value map-like variable)
         ContentValues cValues = new ContentValues();
 
         //loading user information into the content value
-        //TODO Need:
-        // 1. Age
-        // 2. Gender
-        // 3. Dietary Needs & Pref
-        // 4. Has SNAP/food stamps
-        // 5. -maybe- Know other emergency food program
-        // 6. Employment Status
-        // 7. Health Status
-        // 8. Housing Status
-        // 9. Household Income
-        // 10. How many people in household
-        // 11. Childcare Status
-        // 12. #Child Age situation:
-            // a. Age < 1
-            // b. 13 <= Age <= 5
-            // c. 6 <= Age <= 12
-            // d. 13 <= Age <= 18
+        // first fragment information
         cValues.put(GuestRegistryHelper.NAME, name);
-        cValues.put(GuestRegistryHelper.EMAIL, email);
         cValues.put(GuestRegistryHelper.PHONE, phone);
-        cValues.put(GuestRegistryHelper.NCC_ID, nccId);
-        cValues.put(GuestRegistryHelper.DATE, date);
+        cValues.put(GuestRegistryHelper.NCC_ID, nccID);
+
+        // second fragment information
         cValues.put(GuestRegistryHelper.ADDRESS, address);
         cValues.put(GuestRegistryHelper.CITY, city);
-        cValues.put(GuestRegistryHelper.ZIP, zip);
+        cValues.put(GuestRegistryHelper.ZIP, zipcode);
         cValues.put(GuestRegistryHelper.STATE, state);
-        cValues.put(GuestRegistryHelper.ADDITIONAL_INFO, addInfo);
+        cValues.put(GuestRegistryHelper.AFFILIATION, affiliation);
+        cValues.put(GuestRegistryHelper.AGE, age);
+        cValues.put(GuestRegistryHelper.GENDER, gender);
+
+        // third fragment information
+        cValues.put(GuestRegistryHelper.DIET, diet);
+        cValues.put(GuestRegistryHelper.PROGRAMS, programs);
+        cValues.put(GuestRegistryHelper.SNAP, snap);
+        cValues.put(GuestRegistryHelper.EMPLOYMENT, employment);
+        cValues.put(GuestRegistryHelper.HEALTH, health);
+        cValues.put(GuestRegistryHelper.HOUSING, housing);
+        cValues.put(GuestRegistryHelper.INCOME, income);
+
+        // fourth fragment information
+        cValues.put(GuestRegistryHelper.HOUSEHOLD_NUM, householdNum);
+        cValues.put(GuestRegistryHelper.CHILDCARE_STATUS, childcareStatus);
+        cValues.put(GuestRegistryHelper.CHILDREN_1, children1);
+        cValues.put(GuestRegistryHelper.CHILDREN_5, children5);
+        cValues.put(GuestRegistryHelper.CHILDREN_12, children12);
+        cValues.put(GuestRegistryHelper.CHILDREN_18, children18);
+
+        // additional data
+        cValues.put(GuestRegistryHelper.ADDITIONAL_INFO, additionalInfo);
         cValues.put(GuestRegistryHelper.NAME_OF_VOLUNTEER, nameOfVolunteer);
         cValues.put(GuestRegistryHelper.BARCODE, barcode);
-        // leaving out for now: cValues.put(STATE, state);
 
         // Insert method will return a negative 1 if there was an error with the insert
         return database.insert(TABLE_NAME, null, cValues) != -1;
