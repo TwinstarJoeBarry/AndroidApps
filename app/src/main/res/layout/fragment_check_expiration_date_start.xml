@@ -139,6 +139,7 @@
 
                 <!-- </LinearLayout> -->
 
+                <!-- upc number lookup -->
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/upc_entry_layout"
                     android:layout_width="match_parent"
@@ -150,7 +151,8 @@
                     app:counterEnabled="true"
                     app:counterMaxLength="12"
                     app:hintTextColor="@color/colorPrimaryDark"
-                    app:boxStrokeColor="@color/colorPrimaryDark">
+                    app:boxStrokeColor="@color/colorPrimaryDark"
+                    app:endIconMode="clear_text">
                    <!-- app:startIconDrawable="@id/barcode_image" -->
 <!--
                     <ImageView
