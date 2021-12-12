@@ -165,29 +165,24 @@ public class QuestionnaireSource {
         // Find each questionnaire submitted by the guest and print it to the log
 
     }
-    /*
     /**
      * convertCursorToSubmission --
      * Converts a Cursor object to a QuestionnaireSubmission object.
      * @param c The Cursor to convert
      * @return Returns the result of the conversion
      */
-
-    /*
     private QuestionnaireSubmission convertCursorToSubmission(Cursor c) {
-        ArrayList<String> guestAnswers = new ArrayList<>(4);
+        QuestionnaireSubmission entry = new QuestionnaireSubmission(c.getLong(0),
+                c.getString(1),
+                c.getString(2),
+                c.getString(3),
+                c.getString(4),
+                c.getString(5),
+                c.getString(6),
+                c.getString(7));
 
-        // Retrieve each answer from the Cursor
-        for (int i = 0; i < guestAnswers.size(); i++)
-
-            guestAnswers.add(c.getString(2 + i));
-
-        // 0 - ROW_ID, 1 - GUEST_ID
-        return new QuestionnaireSubmission(c.getLong(0),
-                c.getString(1), guestAnswers);
+        return entry;
     }
-
-     */
 
     public String getVisitCount(String barcode){
         QuestionnaireSubmission entry;
