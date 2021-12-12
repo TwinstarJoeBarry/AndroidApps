@@ -84,7 +84,8 @@ public class FirstFormFragment extends Fragment {
     {
         super.onViewCreated(view, savedInstanceState);
 
-
+        // uncomment to open the database at the beginning of the form for testing.
+        // db = new GuestRegistrySource(requireContext());
 
         binding.nextButtonFirstFragmentGRegistration.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,7 +118,7 @@ public class FirstFormFragment extends Fragment {
                     binding.enterLastName.setText("You must enter a last name");
                     validLName = false;
                 }
-                else{
+                else {
                     binding.enterLastName.setTextColor(Color.WHITE);
                     binding.enterLastName.setText("Enter your last name");
                     result.putString("Last Name", inputLastName);
