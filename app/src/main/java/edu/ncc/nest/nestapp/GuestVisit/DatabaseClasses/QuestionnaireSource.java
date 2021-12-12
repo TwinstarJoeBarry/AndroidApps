@@ -42,6 +42,7 @@ public class QuestionnaireSource {
     private final QuestionnaireHelper QUESTIONNAIRE_HELPER;
     private SQLiteDatabase writableDatabase;
     private SQLiteDatabase readableDatabase;
+    private String[] counterStr = {QuestionnaireHelper.VISIT_COUTNER};
 
 
     /************ Constructor ************/
@@ -114,6 +115,8 @@ public class QuestionnaireSource {
 
     }
 
+
+
     /**
      * findSubmissions --
      * Finds submissions by a guest ( guestID ) and adds
@@ -121,6 +124,7 @@ public class QuestionnaireSource {
      * @param guestID The ID to search for
      * @return The list of submissions
      */
+    /*
     public List<QuestionnaireSubmission> findSubmissions(@NonNull String guestID) {
 
         List<QuestionnaireSubmission> submissions = new ArrayList<>();
@@ -144,6 +148,9 @@ public class QuestionnaireSource {
 
     }
 
+    */
+
+    /*
     /**
      * printSubmissions --
      * Searches through the database for questionnaires
@@ -158,15 +165,16 @@ public class QuestionnaireSource {
         // Find each questionnaire submitted by the guest and print it to the log
 
     }
-
+    /*
     /**
      * convertCursorToSubmission --
      * Converts a Cursor object to a QuestionnaireSubmission object.
      * @param c The Cursor to convert
      * @return Returns the result of the conversion
      */
+
+    /*
     private QuestionnaireSubmission convertCursorToSubmission(Cursor c) {
-        //TODO: Make the database correctly input
         ArrayList<String> guestAnswers = new ArrayList<>(4);
 
         // Retrieve each answer from the Cursor
@@ -177,6 +185,25 @@ public class QuestionnaireSource {
         // 0 - ROW_ID, 1 - GUEST_ID
         return new QuestionnaireSubmission(c.getLong(0),
                 c.getString(1), guestAnswers);
+    }
+
+     */
+
+    public String getVisitCount(String barcode){
+        QuestionnaireSubmission entry;
+        Cursor cursor = readableDatabase.query(QuestionnaireHelper.TABLE_NAME,
+                counterStr,
+                QuestionnaireHelper.GUEST_ID + " = '" + barcode + "' ",
+                null,
+                null,
+                null,
+                QuestionnaireHelper.VISIT_COUTNER + " DESC ");
+
+        cursor.moveToFirst();
+
+
+        return "";
+
     }
 
 }

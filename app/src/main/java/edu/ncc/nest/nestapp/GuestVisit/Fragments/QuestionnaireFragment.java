@@ -34,6 +34,7 @@ import androidx.fragment.app.Fragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.ncc.nest.nestapp.GuestVisit.DatabaseClasses.QuestionnaireHelper;
 import edu.ncc.nest.nestapp.GuestVisit.DatabaseClasses.QuestionnaireSource;
 import edu.ncc.nest.nestapp.R;
 
@@ -200,8 +201,11 @@ public class QuestionnaireFragment extends Fragment implements View.OnClickListe
             //region Database Code
             QuestionnaireSource db = new QuestionnaireSource(requireContext()).open();
 
+            //Code to find current count of visits
+
+
             // Submit the questionnaire into the database
-            long rowID = db.submitQuestionnaire(guestID, fieldTexts.get(0), fieldTexts.get(1), fieldTexts.get(2), fieldTexts.get(3));
+            long rowID = db.submitQuestionnaire(fieldTexts.get(0), fieldTexts.get(1), fieldTexts.get(2), fieldTexts.get(3), fieldTexts.get(4));
 
             Log.d("**SUBMISSION CHECK**" ,fieldTexts.get(0) + fieldTexts.get(1) + fieldTexts.get(2) + fieldTexts.get(3));
 
