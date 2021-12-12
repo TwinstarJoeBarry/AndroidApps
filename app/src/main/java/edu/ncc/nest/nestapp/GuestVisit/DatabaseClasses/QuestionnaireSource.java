@@ -160,7 +160,7 @@ public class QuestionnaireSource {
      * @return Returns the result of the conversion
      */
     private QuestionnaireSubmission convertCursorToSubmission(Cursor c) {
-
+        //TODO: Make the database correctly input
         ArrayList<String> guestAnswers = new ArrayList<>(4);
 
         // Retrieve each answer from the Cursor
@@ -171,7 +171,6 @@ public class QuestionnaireSource {
         // 0 - ROW_ID, 1 - GUEST_ID
         return new QuestionnaireSubmission(c.getLong(0),
                 c.getString(1), guestAnswers);
-
     }
 
 }

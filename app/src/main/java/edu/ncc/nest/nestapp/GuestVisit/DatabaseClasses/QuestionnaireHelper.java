@@ -46,6 +46,8 @@ public class QuestionnaireHelper extends SQLiteOpenHelper {
     public static final String SENIOR_COUNT = "senior_count"; //Reference to the number of seniors in the household
     public static final String CHILD_COUNT = "child_count"; //Reference to the number of children in the household
     public static final String FIRST_VISIT = "first_visit"; //Reference to whether or not it is the user's first visit to the NEST
+    public static final String DATE = "date"; //Date
+    public static final String VISIT_COUTNER = "visit_counter"; //Reference to whether or not it is the user's first visit to the NEST
 
     public QuestionnaireHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -64,7 +66,7 @@ public class QuestionnaireHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE " + TABLE_NAME + " (" + ROW_ID +
                 " INTEGER PRIMARY KEY AUTOINCREMENT, " + GUEST_ID +
                 " TEXT, " + ADULT_COUNT + " TEXT, " + SENIOR_COUNT + " TEXT, " +
-                CHILD_COUNT + " TEXT, " + FIRST_VISIT + " TEXT);");
+                CHILD_COUNT + " TEXT, " + FIRST_VISIT + " TEXT, " + DATE + " TEXT, " + VISIT_COUTNER + " TEXT);");
     }
 
     /**
