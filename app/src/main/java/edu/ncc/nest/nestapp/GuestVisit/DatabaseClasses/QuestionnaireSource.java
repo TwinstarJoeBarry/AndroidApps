@@ -184,6 +184,11 @@ public class QuestionnaireSource {
         return entry;
     }
 
+    /**
+     * Finds the number of times the guest has visited
+     * @param barcode the guest to find
+     * @return the number of times this guest has visited as a string
+     */
     public String getVisitCount(String barcode){
         QuestionnaireSubmission entry;
         Cursor cursor = readableDatabase.query(QuestionnaireHelper.TABLE_NAME,
@@ -195,9 +200,9 @@ public class QuestionnaireSource {
                 QuestionnaireHelper.VISIT_COUTNER + " DESC ");
 
         cursor.moveToFirst();
+        entry = convertCursorToSubmission(cursor);
 
-
-        return "";
+        return entry.VISIT_COUTNER;
 
     }
 
