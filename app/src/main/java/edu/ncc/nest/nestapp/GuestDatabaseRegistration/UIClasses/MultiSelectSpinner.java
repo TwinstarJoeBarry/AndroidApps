@@ -98,6 +98,7 @@ public class MultiSelectSpinner extends androidx.appcompat.widget.AppCompatSpinn
     @Override
     public boolean performClick() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle(R.string.select_all_that_apply);
         builder.setMultiChoiceItems(_items, mSelection, this);
         builder.show();
         return true;
