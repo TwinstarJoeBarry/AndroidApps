@@ -124,8 +124,7 @@ public class ThirdFormFragment extends Fragment {
             health = binding.grf3StatusHealth.getSelectedItem().toString();
             housing = binding.grf3StatusHousing.getSelectedItem().toString();
 
-            //income = binding.grf3Income.toString();
-            income = ((EditText) getView().findViewById(R.id.grf_3_income)).getText().toString();
+            income = binding.grf3Income.getText().toString();
 
             // storing all strings in bundle to send to summary fragment
             result.putString("dietary", dietary);
