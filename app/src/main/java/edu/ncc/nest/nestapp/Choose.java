@@ -53,7 +53,11 @@ public class Choose extends AppCompatActivity implements OnClickListener {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_main, menu);
+
+        //instead of inflating menu_main, now this class inflates choose_menu_main.xml, this way
+        // allowing the future efforts button to only appear at the app bar of the launch UI
+        inflater.inflate(R.menu.choose_menu_main, menu);
+
         return true;
 
         //since the toolbar has 2 different button that goes to different places
@@ -77,13 +81,6 @@ public class Choose extends AppCompatActivity implements OnClickListener {
             case R.id.guestFormBtn:
                 launchGuestForm();
                 break;
-            case R.id.futureEffortsBtn:
-                launchFutureEfforts();
-                break;
-                // testing **********************
-            case R.id.trueDate:
-                launchTrueDate();
-                break;
 
         }
     }
@@ -105,23 +102,22 @@ public class Choose extends AppCompatActivity implements OnClickListener {
     }
 
     /**
-     * launchFutureEfforts - starts the Future Efforcts activity
+     * onOptionsItemSelected method --
+     *
+     * description: this method handle the action bar items that were clicked.
+     * When you click the future efforts button it launches the FutureEfforts class.
+     * @param item
+     * @return
      */
-    public void launchFutureEfforts() {
-        Intent intent = new Intent(this, FutureEfforts.class);
-        startActivity(intent);
-    }
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the FutureEffort button, so long
+        // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.futureEffortsBtn) {
+        if (id == R.id.futureEffortBtn) {
             launchFutureEfforts();
             return true;
         }
@@ -131,6 +127,14 @@ public class Choose extends AppCompatActivity implements OnClickListener {
 
 
 
+    /**
+     * launchFutureEfforts - starts the Future Efforts activity
+     */
+    public void launchFutureEfforts() {
+        Intent intent = new Intent(this, FutureEfforts.class);
+        startActivity(intent);
+    }
+
 
     //    ******************************************TESTING
     /**
@@ -139,8 +143,8 @@ public class Choose extends AppCompatActivity implements OnClickListener {
     public void launchTrueDate() {
         ((Button)findViewById(R.id.getUPCBtn)).setVisibility(View.GONE);
         ((Button)findViewById(R.id.guestFormBtn)).setVisibility(View.GONE);
-        ((Button)findViewById(R.id.futureEffortsBtn)).setVisibility(View.GONE);
-        ((Button)findViewById(R.id.trueDate)).setVisibility(View.GONE);
+        //((Button)findViewById(R.id.futureEffortsBtn)).setVisibility(View.GONE);
+        //((Button)findViewById(R.id.trueDate)).setVisibility(View.GONE);
         ((TextView)findViewById(R.id.nestTxt)).setVisibility(View.GONE);
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
