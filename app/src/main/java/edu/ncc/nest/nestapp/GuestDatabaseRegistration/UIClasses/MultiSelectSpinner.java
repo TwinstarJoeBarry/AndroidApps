@@ -13,6 +13,8 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+import edu.ncc.nest.nestapp.R;
+
 /**
  * <b>Title: </b> MultiSelectSpinner
  * <b>File: </b> MultiSelectSpinner.java
@@ -100,6 +102,15 @@ public class MultiSelectSpinner extends androidx.appcompat.widget.AppCompatSpinn
         builder.show();
         return true;
     }
+
+    // should i return true here to make sure it completes?
+    /**
+     * Closes the dialog box
+     */
+    public boolean closeDialog() {
+        return false;
+    }
+
 
     /**
      * Applies a SpinnerAdapter to the Spinner. Throws an exception if the adapter
