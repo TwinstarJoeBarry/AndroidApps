@@ -421,5 +421,6 @@
     <!-- This string is used only for the creation of new strings. -->
     <!-- When a new string is created it should appear below this string. -->
     <string name="STRINGS_BELOW_THIS_SHOULD_BE_MOVED_TO_AN_APPROPRIATE_LOCATION_ABOVE" />
+    <string name="welcome_to_nest">Welcome to NEST!</string>
 
 </resources>
