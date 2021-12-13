@@ -47,7 +47,7 @@ public class QuestionnaireHelper extends SQLiteOpenHelper {
     public static final String CHILD_COUNT = "child_count"; //Reference to the number of children in the household
     public static final String FIRST_VISIT = "first_visit"; //Reference to whether or not it is the user's first visit to the NEST
     public static final String DATE = "date"; //Date
-    public static final String VISIT_COUTNER = "visit_counter"; //Reference to whether or not it is the user's first visit to the NEST
+    public static final String VISIT_COUTNER = "visit_counter"; //Reference to how many times the user has visited the NEST post-registration
 
     public QuestionnaireHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -63,10 +63,15 @@ public class QuestionnaireHelper extends SQLiteOpenHelper {
     @Override
     //@SuppressLint("DefaultLocale")
     public void onCreate(SQLiteDatabase db) { // Creates the database table\
-        db.execSQL("CREATE TABLE " + TABLE_NAME + " (" + ROW_ID +
-                " INTEGER PRIMARY KEY AUTOINCREMENT, " + GUEST_ID +
-                " TEXT, " + ADULT_COUNT + " TEXT, " + SENIOR_COUNT + " TEXT, " +
-                CHILD_COUNT + " TEXT, " + FIRST_VISIT + " TEXT, " + DATE + " TEXT, " + VISIT_COUTNER + " TEXT);");
+        db.execSQL("CREATE TABLE " + TABLE_NAME + " (" +
+                ROW_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                GUEST_ID + " TEXT, " +
+                ADULT_COUNT + " TEXT, " +
+                SENIOR_COUNT + " TEXT, " +
+                CHILD_COUNT + " TEXT, " +
+                FIRST_VISIT + " TEXT, " +
+                DATE + " TEXT, " +
+                VISIT_COUTNER + " TEXT);");
     }
 
     /**
@@ -95,12 +100,12 @@ public class QuestionnaireHelper extends SQLiteOpenHelper {
      * Confirms that the number of columns corresponds to the number of questions, if not, create
      * a new table with the correct number of columns.
      */
-    /*private void validateColumnCount() {
+    private void validateColumnCount() {
 
         //Create a new database
         SQLiteDatabase db = this.getReadableDatabase();
 
-        if (getColumnCount(db) != (2 + numQuestions)) {
+        if (getColumnCount(db) != (8)) {
 
             // Print a warning, stating why we're dropping the table
             Log.w(TAG, "Dropping table due to question count change.");
@@ -116,7 +121,7 @@ public class QuestionnaireHelper extends SQLiteOpenHelper {
         // Done reading from database so close the reference
         db.close();
 
-    }*/
+    }
 
     /**
      * getColumnCount method

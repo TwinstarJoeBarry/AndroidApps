@@ -203,17 +203,26 @@ public class QuestionnaireFragment extends Fragment implements View.OnClickListe
             long rowID;
 
             // Submit the questionnaire into the database
-            //Check if this is the first visit
-            if (fieldTexts.get(4).equals("Yes")) {
-                rowID = db.submitQuestionnaire(fieldTexts.get(0), fieldTexts.get(1), fieldTexts.get(2), fieldTexts.get(3), fieldTexts.get(4), String.valueOf(1));
-            } else {
-                //Code to find current count of visits
-                int numVisits = Integer.parseInt(db.getVisitCount(guestID));
-                numVisits++;
-                Log.d("**NUMBER VISIT CHECK**", String.valueOf(numVisits));
-                rowID = db.submitQuestionnaire(fieldTexts.get(0), fieldTexts.get(1), fieldTexts.get(2), fieldTexts.get(3), fieldTexts.get(4), String.valueOf(numVisits));
-            }
 
+            //Reference for a string to be stored into the first visit column upon the submission call
+            String firstVisit = "";
+
+            //Stores a reference to the currently logged number of visits in the database then increments it by 1
+            int numVisits = 0;
+
+            Log.d("visit_count", db.getVisitCount(guestID));
+
+            if(db.getVisitCount(guestID) != null)
+                numVisits = Integer.parseInt(db.getVisitCount(guestID));
+
+            numVisits++;
+
+            //Determines if it is the user's first visit by checking the number of visits already logged
+            if (numVisits == 1)
+                firstVisit = "Yes";
+            else if(numVisits > 1)
+                firstVisit = "No";
+            rowID = db.submitQuestionnaire(fieldTexts.get(0), fieldTexts.get(1), fieldTexts.get(2), fieldTexts.get(3), firstVisit, String.valueOf(numVisits));
 
             Log.d("**SUBMISSION CHECK**" ,fieldTexts.get(0) + fieldTexts.get(1) + fieldTexts.get(2) + fieldTexts.get(3));
 
