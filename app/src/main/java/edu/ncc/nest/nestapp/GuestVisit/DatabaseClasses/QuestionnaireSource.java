@@ -20,6 +20,7 @@ package edu.ncc.nest.nestapp.GuestVisit.DatabaseClasses;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.CursorIndexOutOfBoundsException;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
@@ -191,23 +192,27 @@ public class QuestionnaireSource {
      * @return the number of times this guest has visited as a string
      */
     public String getVisitCount(String barcode){
-        QuestionnaireSubmission entry;
-        Cursor cursor = readableDatabase.query(QuestionnaireHelper.TABLE_NAME,
-                counterStr,
-                QuestionnaireHelper.GUEST_ID + " = '" + barcode + "' ",
-                null,
-                null,
-                null,
-                QuestionnaireHelper.VISIT_COUTNER + " DESC ");
+        try {
+            QuestionnaireSubmission entry;
+            Cursor cursor = readableDatabase.query(QuestionnaireHelper.TABLE_NAME,
+                    counterStr,
+                    QuestionnaireHelper.GUEST_ID + " = '" + barcode + "' ",
+                    null,
+                    null,
+                    null,
+                    QuestionnaireHelper.VISIT_COUTNER + " DESC ");
 
-        Log.d("**CURSOR CHECK**", cursor.toString());
+            Log.d("**CURSOR CHECK**", cursor.toString());
 
-        cursor.moveToFirst();
-        entry = convertCursorToSubmission(cursor);
+            cursor.moveToFirst();
+            entry = convertCursorToSubmission(cursor);
 
-        Log.d("**CURSOR CHECK**", entry.VISIT_COUTNER);
+            Log.d("**CURSOR CHECK**", entry.VISIT_COUTNER);
 
-        return entry.VISIT_COUTNER;
+            return entry.VISIT_COUTNER;
+        } catch(CursorIndexOutOfBoundsException e) {
+            return "0";
+        }
 
     }
 
