@@ -78,7 +78,6 @@ public class GuestRegistrySource {
      * @param name - the name of the guest
      * @param phone - the phone number of the guest
      * @param nccID - the NCC ID of the guest
-     * @param date - the date that the form has been filled out
      * @param address - the address of the guest
      * @param city - the city of the guests' address
      * @param zipcode - the zip-code of the guests' address
@@ -104,7 +103,7 @@ public class GuestRegistrySource {
      * @param barcode - the barcode that belongs to the guest
      * @return true if the data has been inserted without issue, false otherwise
      */
-    public boolean insertData(String name, String phone, String nccID, String date, String address, String city, String zipcode,
+    public boolean insertData(String name, String phone, String nccID, String address, String city, String zipcode,
                               String state, String affiliation, String age, String gender, String diet, String programs,
                               String snap, String employment, String health, String housing, String income, String householdNum,
                               String childcareStatus, String children1, String children5, String children12, String children18,
@@ -118,13 +117,12 @@ public class GuestRegistrySource {
         cValues.put(GuestRegistryHelper.NAME, name);
         cValues.put(GuestRegistryHelper.PHONE, phone);
         cValues.put(GuestRegistryHelper.NCC_ID, nccID);
-        cValues.put(GuestRegistryHelper.DATE, date);
 
         // second fragment information
         cValues.put(GuestRegistryHelper.ADDRESS, address);
         cValues.put(GuestRegistryHelper.CITY, city);
         cValues.put(GuestRegistryHelper.ZIP, zipcode);
-        // leaving out for now: cValues.put(STATE, state);
+        cValues.put(GuestRegistryHelper.STATE, state);
         cValues.put(GuestRegistryHelper.AFFILIATION, affiliation);
         cValues.put(GuestRegistryHelper.AGE, age);
         cValues.put(GuestRegistryHelper.GENDER, gender);
