@@ -71,20 +71,15 @@ public class SummaryFragment extends Fragment  {
     private String affiliation;
     private String age;
     private String gender;
-    private String dietary;
-    private String snap;
-    private String otherProg;
 
     // third fragment information
     private String dietary;
-    private String programs;
     private String snap;
+    private String otherProg;
     private String employment;
     private String health;
     private String housing;
     private String income;
-    private String numPeople;
-    private String childcare;
 
     // fourth fragment information
     private String householdNum;
@@ -187,13 +182,6 @@ public class SummaryFragment extends Fragment  {
                         housing = result.getString("Housing Status");
                         income = result.getString("Income");
 
-                        dietary = result.getString("dietary");
-                        programs = result.getString("programs");
-                        snap = result.getString("snap");
-                        employment = result.getString("employment");
-                        health = result.getString("health");
-                        housing = result.getString("housing");
-                        income = result.getString("income");
                         Log.d(TAG, "The dietary information obtained is: " + dietary);
                         Log.d(TAG, "The employment obtained is: " + employment);
 
@@ -212,8 +200,8 @@ public class SummaryFragment extends Fragment  {
                 this, new FragmentResultListener() {
                     @Override
                     public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
-                       householdNum = result.getString("householdNum");
-                       childcareStatus = result.getString("childcareStatus");
+                        householdNum = result.getString("householdNum");
+                        childcareStatus = result.getString("childcareStatus");
                         children1 = result.getString("children1");
                         children5 = result.getString("children5");
                         children12 = result.getString("children12");
