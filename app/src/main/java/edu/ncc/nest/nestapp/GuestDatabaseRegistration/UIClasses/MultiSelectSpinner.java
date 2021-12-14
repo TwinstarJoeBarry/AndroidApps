@@ -110,6 +110,15 @@ public class MultiSelectSpinner extends androidx.appcompat.widget.AppCompatSpinn
             }
         });
 
+        // clear All button
+        builder.setPositiveButton("Clear All", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                clearSelections();
+                builder.show();
+            }
+        });
+
         builder.show();
         return true;
     }
@@ -242,6 +251,13 @@ public class MultiSelectSpinner extends androidx.appcompat.widget.AppCompatSpinn
         }
         simple_adapter.clear();
         simple_adapter.add(buildSelectedItemString());
+    }
+
+    public void clearSelections() {
+        // clear the selection
+        for (int i = 0; i < mSelection.length; i++) {
+            mSelection[i] = false;
+        }
     }
 
     /**
