@@ -219,7 +219,7 @@ public class SummaryFragment extends Fragment  {
             // registering the guest to the database
             // TODO: null values needs to be retrieved and replaced.
             db.insertData(fname + " " + lname, phoneNum, nccId, streetAddress1 + ", " + streetAddress2,
-                    city, zip, state, affiliation, age, gender, dietary, programs, snap, employment, health, housing,
+                    city, zip, state, affiliation, age, gender, dietary, otherProg, snap, employment, health, housing,
                     income, householdNum, childcareStatus, children1, children5, children12, children18,
                     null, null, null);
 
