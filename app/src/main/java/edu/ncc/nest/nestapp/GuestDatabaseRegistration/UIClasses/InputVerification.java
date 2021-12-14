@@ -34,10 +34,20 @@ public class InputVerification {
         return true;
     }
 
-    public boolean validTextEdits(List<String> values) {
+    public boolean validTextEditStrings(List<String> values) {
         String[] arrVals = values.toArray(new String[values.size()]);
         for (int i = 0; i < arrVals.length; i++) {
             if(arrVals[i].length() <= 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean validTextEdits(List<EditText> values) {
+        EditText[] arrVals = values.toArray(new EditText[values.size()]);
+        for (int i = 0; i < arrVals.length; i++) {
+            if(arrVals[i].getText().length() <= 0 ) {
                 return false;
             }
         }
