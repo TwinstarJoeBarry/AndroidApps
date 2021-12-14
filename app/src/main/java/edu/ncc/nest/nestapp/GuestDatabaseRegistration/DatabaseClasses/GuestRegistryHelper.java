@@ -46,7 +46,7 @@ public class GuestRegistryHelper extends SQLiteOpenHelper {
     public static final String NAME = "name";
     public static final String PHONE = "phone";
     public static final String NCC_ID = "nccID";
-    public static final String DATE = "date";
+    // might not be needed: public static final String DATE = "date";
 
     //second fragment information
     public static final String ADDRESS = "address";
@@ -120,7 +120,7 @@ public class GuestRegistryHelper extends SQLiteOpenHelper {
          */
         db.execSQL("CREATE TABLE " + TABLE_NAME + " (" + _ID +
                 " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + NAME + " TEXT, " + PHONE + " TEXT, " + NCC_ID + " TEXT, " + DATE + " TEXT, "
+                + NAME + " TEXT, " + PHONE + " TEXT, " + NCC_ID + " TEXT, "
                 + ADDRESS + " TEXT, " + CITY + " TEXT, " + ZIP + " TEXT, " + STATE + " TEXT, " +
                 AFFILIATION + " TEXT, " + AGE + " TEXT, " + GENDER + " TEXT, "
                 + DIET + " TEXT, " + PROGRAMS + " TEXT, " + SNAP + " TEXT, " + EMPLOYMENT + " TEXT, " +
