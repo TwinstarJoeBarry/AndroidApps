@@ -254,10 +254,13 @@ public class MultiSelectSpinner extends androidx.appcompat.widget.AppCompatSpinn
     }
 
     public void clearSelections() {
-        // clear the selection
+        // clear the selections array
         for (int i = 0; i < mSelection.length; i++) {
             mSelection[i] = false;
         }
+        // reset the adapter to update UI
+        simple_adapter.clear();
+        simple_adapter.add(getResources().getString(R.string.select_all_that_apply));
     }
 
     /**
