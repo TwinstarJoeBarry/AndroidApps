@@ -57,9 +57,12 @@ public class ThirdFormFragment extends Fragment {
 
     private FragmentGuestDatabaseRegistrationThirdFormBinding binding;
 
+    // for testing TODO remove
+    MultiSelectSpinner multiselectDietary, multiselectEmployment, multiselectHealth, multiselectHousing;
     // instance variables for summary fragment
     private String dietary, programs, snap, employment, health, housing, income;
     private Bundle result = new Bundle();
+
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
