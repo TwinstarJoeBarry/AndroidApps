@@ -35,6 +35,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses.GuestRegistrySource;
+import edu.ncc.nest.nestapp.GuestDatabaseRegistration.UIClasses.InputVerification;
 import edu.ncc.nest.nestapp.R;
 
 // imports binding for the used layout
@@ -101,49 +102,54 @@ public class FirstFormFragment extends Fragment {
                 Log.d(TAG, "NCC ID: " + inputNCCID);
 
                 // leaving the '= false' in case user goes back and deletes.
-                if(inputFirstName.length() == 0){
+                //if(inputFirstName.length() == 0){
+                // NOTE -- These are backwards due to first implementation. Adding ! for easy refactor. Flip it for future implements.
+                if(!InputVerification.validTextEdit(inputFirstName)) {
                     binding.enterFirstName.setTextColor(Color.RED);
                     binding.enterFirstName.setText("You must enter a first name");
                     validFName = false;
                 }
                 else{
-                    binding.enterFirstName.setTextColor(Color.WHITE);
+                    binding.enterFirstName.setTextColor(Color.GRAY);
                     binding.enterFirstName.setText("Enter your first name");
                     result.putString("First Name", inputFirstName);
                     validFName = true;
                 }
 
-                if(inputLastName.length() == 0){
+                //if(inputLastName.length() == 0){
+                if(!InputVerification.validTextEdit(inputLastName)) {
                     binding.enterLastName.setTextColor(Color.RED);
                     binding.enterLastName.setText("You must enter a last name");
                     validLName = false;
                 }
                 else {
-                    binding.enterLastName.setTextColor(Color.WHITE);
+                    binding.enterLastName.setTextColor(Color.GRAY);
                     binding.enterLastName.setText("Enter your last name");
                     result.putString("Last Name", inputLastName);
                     validLName = true;
                 }
 
-                if(inputPhoneNumber.length() != 10){
+                //if(inputPhoneNumber.length() != 10){
+                if(!InputVerification.validLimitedTextEdit(inputPhoneNumber, 10)) {
                     binding.enterPhoneNumber.setTextColor(Color.RED);
                     binding.enterPhoneNumber.setText("You must enter a valid phone number.");
                     validPhone = false;
                 }
                 else{
-                    binding.enterPhoneNumber.setTextColor(Color.WHITE);
+                    binding.enterPhoneNumber.setTextColor(Color.GRAY);
                     binding.enterPhoneNumber.setText("Enter your phone number.");
                     result.putString("Phone Number", inputPhoneNumber);
                     validPhone = true;
                 }
 
-                if(inputNCCID.length() != 8){
+                //if(inputNCCID.length() != 8){
+                if(!InputVerification.validLimitedTextEdit(inputNCCID, 8)) {
                     binding.enterYourNccId.setTextColor(Color.RED);
                     binding.enterYourNccId.setText("You must enter a valid NCC ID,");
                     validNID = false;
                 }
                 else{
-                    binding.enterYourNccId.setTextColor(Color.WHITE);
+                    binding.enterYourNccId.setTextColor(Color.GRAY);
                     binding.enterYourNccId.setText("Enter your NCC ID.");
                     result.putString("NCC ID", inputNCCID);
                     validNID = true;
