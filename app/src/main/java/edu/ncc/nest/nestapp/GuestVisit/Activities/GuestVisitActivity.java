@@ -55,7 +55,7 @@ public class GuestVisitActivity extends AppCompatActivity {
                     "01-01-9999", "123 Simple Ave", "Nothingtown", "1234", "NY",
                     "NY", null, null, null, null, null,
                     null, null, null, null, null, null,
-                    null, null, null, null, null, null, "GHI-9012");
+                    null, null, null, null, null, "GHI-9012");
         }
     }
 
