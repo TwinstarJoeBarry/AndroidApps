@@ -54,6 +54,10 @@ public class ThirdFormFragment extends Fragment {
 
     private FragmentGuestDatabaseRegistrationThirdFormBinding binding;
 
+    private String dietary, snap, otherProg, employment, health, housing, income;
+
+    private Bundle result = new Bundle();
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
@@ -68,6 +72,8 @@ public class ThirdFormFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        Toast.makeText(getContext(), "WARNING: Pressing back will clear data. Please double check before continuing.", Toast.LENGTH_LONG).show();
+
         // set onItemSelectedListener for dropdowns. Hardcoded. TODO Change to loop
         // may need to update IDs .. thinking grf_3_input_dietary, etc. Then the textviews are
         // grf_3_textview_dietary. This way inputs are grouped and textviews are grouped.
@@ -80,11 +86,34 @@ public class ThirdFormFragment extends Fragment {
         binding.grf3StatusHousing.setOnItemSelectedListener(dropdownListener);
 
         // adds the onClick listener to the 'next' button
-        binding.nextButtonThirdFragmentGRegistration.setOnClickListener(v -> {
+        binding.nextButtonThirdFragmentGRegistration.setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View v){
+
+                dietary = binding.grf3Dietary.getTransitionName();
+                snap = binding.grf3Snap.toString();
+                otherProg = binding.grf3OtherProgs.toString();
+                employment = binding.grf3StatusEmployment.toString();
+                health = binding.grf3StatusHealth.toString();
+                housing = binding.grf3StatusHousing.toString();
+                income = binding.grf3Income.toString();
+
+                result.putString("Dietary", dietary);
+                result.putString("SNAP", snap);
+                result.putString("Other Programs", otherProg);
+                result.putString("Employment Status", employment);
+                result.putString("Health Status", health);
+                result.putString("Housing Status", housing);
+                result.putString("Income", income);
+
+                getParentFragmentManager().setFragmentResult("sending_third_form_fragment_info", result);
+
+                NavHostFragment.findNavController(ThirdFormFragment.this)
+                        .navigate(R.id.action_DBR_ThirdFormFragment_to_FourthFormFragment);
+            }
             // navigate to the fourth fragment when clicked
-            NavHostFragment.findNavController(ThirdFormFragment.this)
-                    .navigate(R.id.action_DBR_ThirdFormFragment_to_FourthFormFragment);
+
         });
     }
 

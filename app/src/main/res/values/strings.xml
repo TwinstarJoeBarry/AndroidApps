@@ -409,5 +409,8 @@
     <string name="STRINGS_BELOW_THIS_SHOULD_BE_MOVED_TO_AN_APPROPRIATE_LOCATION_ABOVE" />
     <string name="blank" />
     <string name="n_a">N/A</string>
+    <string name="nav_graph_dbr_fifth_form_fragment_lnl">Fifth Form Fragment</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

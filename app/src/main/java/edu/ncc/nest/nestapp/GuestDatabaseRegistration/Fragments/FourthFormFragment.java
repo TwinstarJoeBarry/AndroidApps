@@ -59,6 +59,8 @@ public class FourthFormFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        Toast.makeText(getContext(), "WARNING: Pressing back will clear data. Please double check before continuing.", Toast.LENGTH_LONG).show();
+
         // set onItemSelectedListener for dropdowns. Hardcoded. TODO Change to loop
         // may need to update IDs .. thinking grf_4_input_dietary, etc. Then the textviews are
         // grf_4_textview_dietary. This way inputs are grouped and textviews are grouped.
@@ -76,7 +78,7 @@ public class FourthFormFragment extends Fragment {
 
             // navigate to the summary fragment when clicked
             NavHostFragment.findNavController(FourthFormFragment.this)
-                    .navigate(R.id.action_DBR_FourthFormFragment_to_DBR_SummaryFragment);
+                    .navigate(R.id.action_DBR_FourthFormFragment_to_DBR_FifthFormFragment);
 
         });
     }

@@ -84,17 +84,25 @@ public class FirstFormFragment extends Fragment {
     {
         super.onViewCreated(view, savedInstanceState);
 
-        if(savedInstanceState != null){
-            inputFirstName = savedInstanceState.getString("first name");
-            inputLastName = savedInstanceState.getString("last name");
-            inputPhoneNumber = savedInstanceState.getString("phone number");
-            inputNCCID = savedInstanceState.getString("ncc id");
+        Toast.makeText(getContext(), "WARNING: Pressing back will clear data. Please double check before continuing.", Toast.LENGTH_LONG).show();
 
-            binding.grf1FName.setText(inputFirstName);
-            binding.grf1LName.setText(inputLastName);
-            binding.grf1Phone.setText(inputPhoneNumber);
-            binding.grf1NccId.setText(inputNCCID);
-        }
+//        if(savedInstanceState != null){
+//            inputFirstName = savedInstanceState.getString("first name");
+//            inputLastName = savedInstanceState.getString("last name");
+//            inputPhoneNumber = savedInstanceState.getString("phone number");
+//            inputNCCID = savedInstanceState.getString("ncc id");
+//
+//            binding.grf1FName.setText(inputFirstName);
+//            binding.grf1LName.setText(inputLastName);
+//            binding.grf1Phone.setText(inputPhoneNumber);
+//            binding.grf1NccId.setText(inputNCCID);
+//        }
+
+
+
+        Log.d("***", result.toString());
+
+
 
         binding.nextButtonFirstFragmentGRegistration.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -163,6 +171,7 @@ public class FirstFormFragment extends Fragment {
 
                 if(validInput){
                     getParentFragmentManager().setFragmentResult("sending_first_form_fragment_info", result);
+
 
                     /*
                     // To test the doesExist() method uncomment this,
@@ -285,15 +294,15 @@ public class FirstFormFragment extends Fragment {
 
     }
 
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState){
-        super.onSaveInstanceState(outState);
-
-        outState.putString("first name", inputFirstName);
-        outState.putString("last name", inputLastName);
-        outState.putString("phone number", inputPhoneNumber);
-        outState.putString("ncc id", inputNCCID);
-    }
+//    @Override
+//    public void onSaveInstanceState(@NonNull Bundle outState){
+//        super.onSaveInstanceState(outState);
+//
+//        outState.putString("first name", inputFirstName);
+//        outState.putString("last name", inputLastName);
+//        outState.putString("phone number", inputPhoneNumber);
+//        outState.putString("ncc id", inputNCCID);
+//    }
 
 
 //    /**

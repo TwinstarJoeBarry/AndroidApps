@@ -23,6 +23,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -69,6 +70,21 @@ public class SummaryFragment extends Fragment  {
     private String age;
     private String gender;
 
+    private String dietary;
+    private String snap;
+    private String otherProg;
+    private String employment;
+    private String health;
+    private String housing;
+    private String income;
+
+    private String numPeople;
+    private String childcare;
+    private String children1;
+    private String children5;
+    private String children12;
+    private String children18;
+
     public static final String TAG = SummaryFragment.class.getSimpleName();
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -90,6 +106,8 @@ public class SummaryFragment extends Fragment  {
      */
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        Toast.makeText(getContext(), "WARNING: Pressing back will clear data. Please double check before continuing.", Toast.LENGTH_LONG).show();
 
         //retrieving first name, last name, phone number and NCC ID from FirstFormFragment bundle.
         getParentFragmentManager().setFragmentResultListener("sending_first_form_fragment_info",
@@ -141,9 +159,31 @@ public class SummaryFragment extends Fragment  {
                     }
                 });
 
+        getParentFragmentManager().setFragmentResultListener("sending_third_form_fragment_info",
+                this, new FragmentResultListener() {
+                    @Override
+                    public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
+                        dietary = result.getString("Dietary");
+                        snap = result.getString("SNAP");
+                        otherProg = result.getString("Other Programs");
+                        employment = result.getString("Employment Status");
+                        health = result.getString("Health Status");
+                        housing = result.getString("Housing Status");
+                        income = result.getString("Income");
 
-        // OnClickListener for the "Done" button
-        //TODO store in database when done button is clicked
+                        binding.grf3Dietary.setText(dietary);
+                        binding.grf3Snap.setText(snap);
+                        binding.grf3OtherProgs.setText(otherProg);
+                        binding.grf3StatusEmployment.setText(employment);
+                        binding.grf3StatusHealth.setText(health);
+                        binding.grf3StatusHousing.setText(housing);
+                        binding.grf3Income.setText(income);
+                    }
+                });
+
+
+                // OnClickListener for the "Done" button
+                //TODO store in database when done button is clicked
 //        view.findViewById(R.id.button).setOnClickListener(clickedView -> {
 //
 //            // Navigate back to splash screen.
