@@ -174,7 +174,7 @@ public class FirstFormFragment extends Fragment {
 
                 if(validInput){
                     getParentFragmentManager().setFragmentResult("sending_first_form_fragment_info", result);
-                    
+
                     // To test the doesExist() method uncomment this,
                     // and comment out the findNavController() that's currently being used
 

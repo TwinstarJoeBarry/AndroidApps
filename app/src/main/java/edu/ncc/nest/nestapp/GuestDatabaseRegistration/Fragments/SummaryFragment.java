@@ -54,13 +54,9 @@ import edu.ncc.nest.nestapp.databinding.FragmentGuestDatabaseRegistrationSummary
  * TODO: ///////////////////////////////////////////////////////////////////////////////////////////
  */
 public class SummaryFragment extends Fragment  {
-
-<<<<<<< HEAD
     private FragmentGuestDatabaseRegistrationSummaryBinding binding;
 
-=======
     // first fragment information
->>>>>>> main
     private String fname;
     private String lname;
     private String phoneNum;
@@ -75,41 +71,32 @@ public class SummaryFragment extends Fragment  {
     private String affiliation;
     private String age;
     private String gender;
-
-<<<<<<< HEAD
     private String dietary;
     private String snap;
     private String otherProg;
-=======
+
     // third fragment information
     private String dietary;
     private String programs;
     private String snap;
->>>>>>> main
     private String employment;
     private String health;
     private String housing;
     private String income;
-
-<<<<<<< HEAD
     private String numPeople;
     private String childcare;
-=======
+
     // fourth fragment information
     private String householdNum;
     private String childcareStatus;
->>>>>>> main
     private String children1;
     private String children5;
     private String children12;
     private String children18;
 
-<<<<<<< HEAD
-=======
     // Database where we will store user information
     private GuestRegistrySource db;
 
->>>>>>> main
     public static final String TAG = SummaryFragment.class.getSimpleName();
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -132,12 +119,9 @@ public class SummaryFragment extends Fragment  {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-<<<<<<< HEAD
         Toast.makeText(getContext(), "WARNING: Pressing back will clear data. Please double check before continuing.", Toast.LENGTH_LONG).show();
-=======
         // Creating the database and passing the correct context as the argument
         db = new GuestRegistrySource(requireContext());
->>>>>>> main
 
         //retrieving first name, last name, phone number and NCC ID from FirstFormFragment bundle.
         getParentFragmentManager().setFragmentResultListener("sending_first_form_fragment_info",
@@ -189,15 +173,12 @@ public class SummaryFragment extends Fragment  {
                     }
                 });
 
-<<<<<<< HEAD
-=======
+
         // retrieving dietary, other programs, snap, employment, health, and housing info from ThirdFormFragment bundle.
->>>>>>> main
         getParentFragmentManager().setFragmentResultListener("sending_third_form_fragment_info",
                 this, new FragmentResultListener() {
                     @Override
                     public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
-<<<<<<< HEAD
                         dietary = result.getString("Dietary");
                         snap = result.getString("SNAP");
                         otherProg = result.getString("Other Programs");
@@ -206,17 +187,6 @@ public class SummaryFragment extends Fragment  {
                         housing = result.getString("Housing Status");
                         income = result.getString("Income");
 
-                        binding.grf3Dietary.setText(dietary);
-                        binding.grf3Snap.setText(snap);
-                        binding.grf3OtherProgs.setText(otherProg);
-                        binding.grf3StatusEmployment.setText(employment);
-                        binding.grf3StatusHealth.setText(health);
-                        binding.grf3StatusHousing.setText(housing);
-                        binding.grf3Income.setText(income);
-                    }
-                });
-
-=======
                         dietary = result.getString("dietary");
                         programs = result.getString("programs");
                         snap = result.getString("snap");
@@ -226,6 +196,14 @@ public class SummaryFragment extends Fragment  {
                         income = result.getString("income");
                         Log.d(TAG, "The dietary information obtained is: " + dietary);
                         Log.d(TAG, "The employment obtained is: " + employment);
+                        
+                        binding.grf3Dietary.setText(dietary);
+                        binding.grf3Snap.setText(snap);
+                        binding.grf3OtherProgs.setText(otherProg);
+                        binding.grf3StatusEmployment.setText(employment);
+                        binding.grf3StatusHealth.setText(health);
+                        binding.grf3StatusHousing.setText(housing);
+                        binding.grf3Income.setText(income);
                     }
                 });
 
@@ -262,7 +240,6 @@ public class SummaryFragment extends Fragment  {
             // later, make if/else to go to scanner or login if scanner already in db
             NavHostFragment.findNavController(SummaryFragment.this)
                     .navigate(R.id.action_DBR_SummaryFragment_to_DBR_StartFragment);
->>>>>>> main
 
                 // OnClickListener for the "Done" button
                 //TODO store in database when done button is clicked
