@@ -196,7 +196,7 @@ public class SummaryFragment extends Fragment  {
                         income = result.getString("income");
                         Log.d(TAG, "The dietary information obtained is: " + dietary);
                         Log.d(TAG, "The employment obtained is: " + employment);
-                        
+
                         binding.grf3Dietary.setText(dietary);
                         binding.grf3Snap.setText(snap);
                         binding.grf3OtherProgs.setText(otherProg);

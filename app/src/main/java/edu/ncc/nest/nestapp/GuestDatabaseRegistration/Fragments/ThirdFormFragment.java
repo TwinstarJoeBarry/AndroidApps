@@ -57,20 +57,13 @@ public class ThirdFormFragment extends Fragment {
 
     private FragmentGuestDatabaseRegistrationThirdFormBinding binding;
 
-<<<<<<< HEAD
-    private String dietary, snap, otherProg, employment, health, housing, income;
-
-    private Bundle result = new Bundle();
-
-=======
     // for testing TODO remove
     MultiSelectSpinner multiselectDietary, multiselectEmployment, multiselectHealth, multiselectHousing;
     // instance variables for summary fragment
-    private String dietary, programs, snap, employment, health, housing, income;
+    private String dietary, snap ,programs, employment, health, housing, income, otherProg;
     private Bundle result = new Bundle();
 
 
->>>>>>> main
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
@@ -85,9 +78,8 @@ public class ThirdFormFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-<<<<<<< HEAD
         Toast.makeText(getContext(), "WARNING: Pressing back will clear data. Please double check before continuing.", Toast.LENGTH_LONG).show();
-=======
+
         // target multiselect spinners on the layout
         multiselectDietary = binding.grf3Dietary;
         multiselectEmployment = binding.grf3StatusEmployment;
@@ -110,7 +102,7 @@ public class ThirdFormFragment extends Fragment {
         });
 
          */
->>>>>>> main
+
 
         // set onItemSelectedListener for dropdowns. Hardcoded. TODO Change to loop
         // may need to update IDs .. thinking grf_3_input_dietary, etc. Then the textviews are
@@ -124,7 +116,7 @@ public class ThirdFormFragment extends Fragment {
         //binding.grf3StatusHousing.setOnItemSelectedListener(dropdownListener);
 
         // adds the onClick listener to the 'next' button
-<<<<<<< HEAD
+
         binding.nextButtonThirdFragmentGRegistration.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -151,7 +143,7 @@ public class ThirdFormFragment extends Fragment {
                 NavHostFragment.findNavController(ThirdFormFragment.this)
                         .navigate(R.id.action_DBR_ThirdFormFragment_to_FourthFormFragment);
             }
-=======
+
         binding.nextButtonThirdFragmentGRegistration.setOnClickListener(v -> {
 
             // store the selected items into the instance variables
@@ -176,7 +168,6 @@ public class ThirdFormFragment extends Fragment {
             // sending bundle
             getParentFragmentManager().setFragmentResult("sending_third_form_fragment_info", result);
 
->>>>>>> main
             // navigate to the fourth fragment when clicked
 
         });
