@@ -101,21 +101,21 @@ public class MultiSelectSpinner extends androidx.appcompat.widget.AppCompatSpinn
         builder.setTitle(R.string.select_all_that_apply);
         builder.setMultiChoiceItems(_items, mSelection, this);
 
-        // close button
-        builder.setNegativeButton("Close", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                // just close the dialog
-                dialog.cancel();
-            }
-        });
-
         // clear All button
-        builder.setPositiveButton("Clear All", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("Clear All", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 clearSelections();
                 builder.show();
+            }
+        });
+
+        // close button
+        builder.setPositiveButton("Close", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // just close the dialog
+                dialog.dismiss();
             }
         });
 
