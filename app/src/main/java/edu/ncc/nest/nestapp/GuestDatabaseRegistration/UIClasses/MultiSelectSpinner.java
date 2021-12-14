@@ -100,16 +100,27 @@ public class MultiSelectSpinner extends androidx.appcompat.widget.AppCompatSpinn
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle(R.string.select_all_that_apply);
         builder.setMultiChoiceItems(_items, mSelection, this);
+
+        // close button
+        builder.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // just close the dialog
+                dialog.cancel();
+            }
+        });
+
         builder.show();
         return true;
     }
 
     // should i return true here to make sure it completes?
     /**
-     * Closes the dialog box
+     * Can be used to close the dialog box. May not be a necessary method.
      */
-    public boolean closeDialog() {
-        return false;
+    public boolean closeDialog(DialogInterface dialog) {
+        dialog.cancel();
+        return true;
     }
 
 
