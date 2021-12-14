@@ -87,16 +87,6 @@ public class Choose extends AppCompatActivity implements OnClickListener {
             case R.id.guestFormBtn:
                 launchGuestForm();
                 break;
-
-           /* case R.id.futureEffortsBtn:
-                launchFutureEfforts();
-
-            // testing **********************
-            case R.id.trueDate:
-                launchTrueDate();
-
-                break;*/
-
         }
     }
 
