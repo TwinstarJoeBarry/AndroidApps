@@ -84,7 +84,7 @@ public class FirstFormFragment extends Fragment {
     {
         super.onViewCreated(view, savedInstanceState);
 
-<<<<<<< HEAD
+
         Toast.makeText(getContext(), "WARNING: Pressing back will clear data. Please double check before continuing.", Toast.LENGTH_LONG).show();
 
 //        if(savedInstanceState != null){
@@ -104,10 +104,8 @@ public class FirstFormFragment extends Fragment {
         Log.d("***", result.toString());
 
 
-=======
         // Creating the database and passing the correct context as the argument
         db = new GuestRegistrySource(requireContext());
->>>>>>> main
 
         binding.nextButtonFirstFragmentGRegistration.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -176,18 +174,13 @@ public class FirstFormFragment extends Fragment {
 
                 if(validInput){
                     getParentFragmentManager().setFragmentResult("sending_first_form_fragment_info", result);
-
-<<<<<<< HEAD
-
-                    /*
+                    
                     // To test the doesExist() method uncomment this,
                     // and comment out the findNavController() that's currently being used
 
                     // Creating the database and passing the correct context as the argument
                     db = new GuestRegistrySource(requireContext());
 
-=======
->>>>>>> main
                     // if true, user already exist in the db, else user can register
                     if (db.doesExist(inputPhoneNumber, inputNCCID)) {
                         Log.d(TAG, "onClick: An user already registered with this phone number or NCC ID!");
