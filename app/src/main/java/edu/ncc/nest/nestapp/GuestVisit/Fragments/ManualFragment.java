@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -43,13 +44,14 @@ public class ManualFragment extends Fragment {
         // Create an instance of the database helper
         GuestRegistrySource db = new GuestRegistrySource(requireContext());
 
-        //Test barcode value AAA-22545
-        db.insertData("John Doe", "John.Doe@example.com", "555-555-5555", "01/23/45",
+        //Test barcode value AAA-22545 (Does not function)
+        //To test enter ABC-1234 in barcode value
+        /*db.insertData("John Doe", "John.Doe@example.com", "555-555-5555", "01/23/45",
                 "123 Test St", "Test", "12345", "11111", null, null,
                 null,null,null,null,null,null,null,null,
                 null,null,null,null,null,null,null,
                 "AAA-22545");
-                Log.d(TAG, "Testing barcode created");
+                Log.d(TAG, "Testing barcode created");*/
 
 
         ( view.findViewById(R.id.manual_submit_btn)).setOnClickListener(view1 -> {
@@ -69,7 +71,7 @@ public class ManualFragment extends Fragment {
             Bundle entryResults = new Bundle();
 
             //If barcode is entered other information is irrelevant
-            if (barcode != null) {
+            if (!barcode.equals("")) {
 
                 //Packaging the barcode in a neat little bundle
                     entryResults.putString("BARCODE", barcode);
@@ -83,15 +85,6 @@ public class ManualFragment extends Fragment {
                         // If the guest is registered, include the guest's name in the result
                         entryResults.putString("GUEST_NAME", GUEST_NAME);
 
-
-                }
-                //TODO Create other sign in method
-                else {
-
-
-                }
-
-
                 //Allowing the bundle to be accessed from other fragments
                 //Using Scan_confirmed to stop conflicts
                 getParentFragmentManager().setFragmentResult("SCAN_CONFIRMED", entryResults);
@@ -100,6 +93,15 @@ public class ManualFragment extends Fragment {
                 NavHostFragment.findNavController(ManualFragment.this)
                         .navigate(R.id.action_GV_ManualFragment_to_ConfirmationFragment);
 
+
+                }
+                //TODO Create other sign in method
+                else if(!field1.equals("") && !field2.equals("")) {
+
+
+                }
+                else
+                Toast.makeText(ManualFragment.this.getContext(), "Please enter data", Toast.LENGTH_SHORT).show();
 
         });
     }
