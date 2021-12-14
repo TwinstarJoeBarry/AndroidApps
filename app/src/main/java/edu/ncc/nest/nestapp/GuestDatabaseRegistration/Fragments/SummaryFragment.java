@@ -156,6 +156,7 @@ public class SummaryFragment extends Fragment  {
                         income = result.getString("income");
                         Log.d(TAG, "The dietary information obtained is: " + dietary);
                         Log.d(TAG, "The employment obtained is: " + employment);
+                        Log.d(TAG, "The income is: " + income);
                     }
                 });
 
