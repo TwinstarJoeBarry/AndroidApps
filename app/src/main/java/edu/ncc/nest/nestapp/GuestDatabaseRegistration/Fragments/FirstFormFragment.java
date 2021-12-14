@@ -84,6 +84,7 @@ public class FirstFormFragment extends Fragment {
     {
         super.onViewCreated(view, savedInstanceState);
 
+<<<<<<< HEAD
         Toast.makeText(getContext(), "WARNING: Pressing back will clear data. Please double check before continuing.", Toast.LENGTH_LONG).show();
 
 //        if(savedInstanceState != null){
@@ -103,6 +104,10 @@ public class FirstFormFragment extends Fragment {
         Log.d("***", result.toString());
 
 
+=======
+        // Creating the database and passing the correct context as the argument
+        db = new GuestRegistrySource(requireContext());
+>>>>>>> main
 
         binding.nextButtonFirstFragmentGRegistration.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,7 +140,7 @@ public class FirstFormFragment extends Fragment {
                     binding.enterLastName.setText("You must enter a last name");
                     validLName = false;
                 }
-                else{
+                else {
                     binding.enterLastName.setTextColor(Color.WHITE);
                     binding.enterLastName.setText("Enter your last name");
                     result.putString("Last Name", inputLastName);
@@ -172,6 +177,7 @@ public class FirstFormFragment extends Fragment {
                 if(validInput){
                     getParentFragmentManager().setFragmentResult("sending_first_form_fragment_info", result);
 
+<<<<<<< HEAD
 
                     /*
                     // To test the doesExist() method uncomment this,
@@ -180,6 +186,8 @@ public class FirstFormFragment extends Fragment {
                     // Creating the database and passing the correct context as the argument
                     db = new GuestRegistrySource(requireContext());
 
+=======
+>>>>>>> main
                     // if true, user already exist in the db, else user can register
                     if (db.doesExist(inputPhoneNumber, inputNCCID)) {
                         Log.d(TAG, "onClick: An user already registered with this phone number or NCC ID!");
@@ -191,14 +199,10 @@ public class FirstFormFragment extends Fragment {
                         binding.enterPhoneNumber.setText("This NCC ID or phone number already being used!");
                     }
                     else {
-                        db.insertData(inputFirstName + " " + inputLastName, null, inputPhoneNumber, inputNCCID, null, null, null, null, null);
                         NavHostFragment.findNavController(FirstFormFragment.this)
                                 .navigate(R.id.action_DBR_FirstFormFragment_to_SecondFormFragment);
                     }
-                     */
 
-                    NavHostFragment.findNavController(FirstFormFragment.this)
-                            .navigate(R.id.action_DBR_FirstFormFragment_to_SecondFormFragment);
                 }
             }
         });

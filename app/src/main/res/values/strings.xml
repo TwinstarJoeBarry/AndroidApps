@@ -412,5 +412,6 @@
     <string name="nav_graph_dbr_fifth_form_fragment_lnl">Fifth Form Fragment</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="welcome_to_nest">Welcome to NEST!</string>
 
 </resources>

@@ -31,6 +31,7 @@ import androidx.fragment.app.FragmentResultListener;
 import androidx.navigation.fragment.NavHostFragment;
 
 
+import edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses.GuestRegistrySource;
 import edu.ncc.nest.nestapp.R;
 import edu.ncc.nest.nestapp.databinding.FragmentGuestDatabaseRegistrationFourthFormBinding;
 import edu.ncc.nest.nestapp.databinding.FragmentGuestDatabaseRegistrationSummaryBinding;
@@ -54,13 +55,18 @@ import edu.ncc.nest.nestapp.databinding.FragmentGuestDatabaseRegistrationSummary
  */
 public class SummaryFragment extends Fragment  {
 
+<<<<<<< HEAD
     private FragmentGuestDatabaseRegistrationSummaryBinding binding;
 
+=======
+    // first fragment information
+>>>>>>> main
     private String fname;
     private String lname;
     private String phoneNum;
     private String nccId;
 
+    // second fragment information
     private String streetAddress1;
     private String streetAddress2;
     private String city;
@@ -70,21 +76,40 @@ public class SummaryFragment extends Fragment  {
     private String age;
     private String gender;
 
+<<<<<<< HEAD
     private String dietary;
     private String snap;
     private String otherProg;
+=======
+    // third fragment information
+    private String dietary;
+    private String programs;
+    private String snap;
+>>>>>>> main
     private String employment;
     private String health;
     private String housing;
     private String income;
 
+<<<<<<< HEAD
     private String numPeople;
     private String childcare;
+=======
+    // fourth fragment information
+    private String householdNum;
+    private String childcareStatus;
+>>>>>>> main
     private String children1;
     private String children5;
     private String children12;
     private String children18;
 
+<<<<<<< HEAD
+=======
+    // Database where we will store user information
+    private GuestRegistrySource db;
+
+>>>>>>> main
     public static final String TAG = SummaryFragment.class.getSimpleName();
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -107,7 +132,12 @@ public class SummaryFragment extends Fragment  {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+<<<<<<< HEAD
         Toast.makeText(getContext(), "WARNING: Pressing back will clear data. Please double check before continuing.", Toast.LENGTH_LONG).show();
+=======
+        // Creating the database and passing the correct context as the argument
+        db = new GuestRegistrySource(requireContext());
+>>>>>>> main
 
         //retrieving first name, last name, phone number and NCC ID from FirstFormFragment bundle.
         getParentFragmentManager().setFragmentResultListener("sending_first_form_fragment_info",
@@ -159,10 +189,15 @@ public class SummaryFragment extends Fragment  {
                     }
                 });
 
+<<<<<<< HEAD
+=======
+        // retrieving dietary, other programs, snap, employment, health, and housing info from ThirdFormFragment bundle.
+>>>>>>> main
         getParentFragmentManager().setFragmentResultListener("sending_third_form_fragment_info",
                 this, new FragmentResultListener() {
                     @Override
                     public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
+<<<<<<< HEAD
                         dietary = result.getString("Dietary");
                         snap = result.getString("SNAP");
                         otherProg = result.getString("Other Programs");
@@ -181,6 +216,53 @@ public class SummaryFragment extends Fragment  {
                     }
                 });
 
+=======
+                        dietary = result.getString("dietary");
+                        programs = result.getString("programs");
+                        snap = result.getString("snap");
+                        employment = result.getString("employment");
+                        health = result.getString("health");
+                        housing = result.getString("housing");
+                        income = result.getString("income");
+                        Log.d(TAG, "The dietary information obtained is: " + dietary);
+                        Log.d(TAG, "The employment obtained is: " + employment);
+                    }
+                });
+
+        // retrieving household number, childcare status, and age info of children from FourthFormFragment bundle.
+        getParentFragmentManager().setFragmentResultListener("sending_fourth_form_fragment_info",
+                this, new FragmentResultListener() {
+                    @Override
+                    public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
+                       householdNum = result.getString("householdNum");
+                       childcareStatus = result.getString("childcareStatus");
+                        children1 = result.getString("children1");
+                        children5 = result.getString("children5");
+                        children12 = result.getString("children12");
+                        children18 = result.getString("children18");
+                        Log.d(TAG, "The childcare status obtained is: " + childcareStatus);
+                        Log.d(TAG, "The amount of children between 13m and 5 obtained is: " + children5);
+
+                    }
+                });
+
+
+        // OnClickListener for the "Done" button
+        view.findViewById(R.id.button).setOnClickListener(clickedView -> {
+
+            // registering the guest to the database
+            // TODO: null values needs to be retrieved and replaced.
+            db.insertData(fname + " " + lname, phoneNum, nccId, streetAddress1 + ", " + streetAddress2,
+                    city, zip, state, affiliation, age, gender, dietary, programs, snap, employment, health, housing,
+                    income, householdNum, childcareStatus, children1, children5, children12, children18,
+                    null, null, null);
+
+
+            // Navigate back to splash screen.
+            // later, make if/else to go to scanner or login if scanner already in db
+            NavHostFragment.findNavController(SummaryFragment.this)
+                    .navigate(R.id.action_DBR_SummaryFragment_to_DBR_StartFragment);
+>>>>>>> main
 
                 // OnClickListener for the "Done" button
                 //TODO store in database when done button is clicked

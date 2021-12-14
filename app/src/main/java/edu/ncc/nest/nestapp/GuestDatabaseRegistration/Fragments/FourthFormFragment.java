@@ -44,6 +44,12 @@ public class FourthFormFragment extends Fragment {
 
     private FragmentGuestDatabaseRegistrationFourthFormBinding binding;
 
+    private String householdNum, childcareStatus, children1, children5,
+        children12, children18;
+
+    private Bundle result = new Bundle();
+
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
@@ -75,6 +81,25 @@ public class FourthFormFragment extends Fragment {
 
         // set up on click listener for the 'next' button
         binding.nextButtonFourthFragmentGRegistration.setOnClickListener(v -> {
+
+            // store the selected items into the instance variables
+            householdNum = binding.grf4NumPeople.getSelectedItem().toString();
+            childcareStatus = binding.grf4StatusChildcare.getSelectedItem().toString();
+            children1 = binding.grf4Children1.getSelectedItem().toString();
+            children5 = binding.grf4Children5.getSelectedItem().toString();
+            children12 = binding.grf4Children12.getSelectedItem().toString();
+            children18 = binding.grf4Children18.getSelectedItem().toString();
+
+            // storing all strings in bundle to send to summary fragment
+            result.putString("householdNum", householdNum);
+            result.putString("childcareStatus", childcareStatus);
+            result.putString("children1", children1);
+            result.putString("children5", children5);
+            result.putString("children12", children12);
+            result.putString("children18", children18);
+
+            // sending bundle
+            getParentFragmentManager().setFragmentResult("sending_fourth_form_fragment_info", result);
 
             // navigate to the summary fragment when clicked
             NavHostFragment.findNavController(FourthFormFragment.this)
