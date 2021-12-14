@@ -143,6 +143,7 @@ public class ThirdFormFragment extends Fragment {
                 NavHostFragment.findNavController(ThirdFormFragment.this)
                         .navigate(R.id.action_DBR_ThirdFormFragment_to_FourthFormFragment);
             }
+        });
 
         binding.nextButtonThirdFragmentGRegistration.setOnClickListener(v -> {
 

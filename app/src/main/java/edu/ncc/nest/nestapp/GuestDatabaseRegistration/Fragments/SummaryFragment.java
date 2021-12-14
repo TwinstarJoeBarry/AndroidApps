@@ -240,7 +240,7 @@ public class SummaryFragment extends Fragment  {
             // later, make if/else to go to scanner or login if scanner already in db
             NavHostFragment.findNavController(SummaryFragment.this)
                     .navigate(R.id.action_DBR_SummaryFragment_to_DBR_StartFragment);
-
+        });
                 // OnClickListener for the "Done" button
                 //TODO store in database when done button is clicked
 //        view.findViewById(R.id.button).setOnClickListener(clickedView -> {
