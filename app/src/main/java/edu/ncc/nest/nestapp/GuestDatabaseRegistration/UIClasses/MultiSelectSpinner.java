@@ -134,7 +134,9 @@ public class MultiSelectSpinner extends androidx.appcompat.widget.AppCompatSpinn
         _items = items;
         mSelection = new boolean[_items.length];
         simple_adapter.clear();
-        simple_adapter.add(_items[0]);
+        //simple_adapter.add(_items[0]);
+        // below injects the 'select all that apply' placeholder if nothing is selected yet
+        simple_adapter.add(getResources().getString(R.string.select_all_that_apply));
         Arrays.fill(mSelection, false);
     }
 
@@ -146,7 +148,9 @@ public class MultiSelectSpinner extends androidx.appcompat.widget.AppCompatSpinn
         _items = items.toArray(new String[items.size()]);
         mSelection = new boolean[_items.length];
         simple_adapter.clear();
-        simple_adapter.add(_items[0]);
+        //simple_adapter.add(_items[0]);
+        // below injects the 'select all that apply' placeholder if nothing is selected yet
+        simple_adapter.add(getResources().getString(R.string.select_all_that_apply));
         Arrays.fill(mSelection, false);
     }
 
