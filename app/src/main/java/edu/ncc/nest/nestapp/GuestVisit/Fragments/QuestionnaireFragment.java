@@ -88,7 +88,9 @@ public class QuestionnaireFragment extends Fragment implements View.OnClickListe
 
             if (isEnabled != null) {
 
-                for (int i = isEnabled.length; i-- > 0; )
+                //Last view is not enabled because it is outdated - the program should know if it's the
+                //guests first visit or not so legnth -1
+                for (int i = isEnabled.length - 1; i-- > 0; )
 
                     inputFields.get(i).setEnabled(isEnabled[i]);
 
@@ -223,6 +225,8 @@ public class QuestionnaireFragment extends Fragment implements View.OnClickListe
             else if(numVisits > 1)
                 firstVisit = "No";
             rowID = db.submitQuestionnaire(fieldTexts.get(0), fieldTexts.get(1), fieldTexts.get(2), fieldTexts.get(3), firstVisit, String.valueOf(numVisits));
+
+
 
             Log.d("**SUBMISSION CHECK**" ,fieldTexts.get(0) + fieldTexts.get(1) + fieldTexts.get(2) + fieldTexts.get(3));
 
