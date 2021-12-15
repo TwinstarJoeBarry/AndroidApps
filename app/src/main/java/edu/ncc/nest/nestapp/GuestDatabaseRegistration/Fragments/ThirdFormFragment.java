@@ -68,7 +68,7 @@ public class ThirdFormFragment extends Fragment {
     private Bundle result = new Bundle();
 
     // initialize backButtonCallback
-    OnBackPressedCallback backbuttonCallback;
+    private OnBackPressedCallback backbuttonCallback;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -112,14 +112,12 @@ public class ThirdFormFragment extends Fragment {
                 });
                 AlertDialog alert = builder.create();
                 alert.show();
-                
+
             }
         };
         // need to add the callback to the activities backpresseddispatcher stack.
         // if enabled, it will run this first. If disabled, it will run the default (next item in stack)
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), backbuttonCallback);
-
-
 
         // target multiselect spinners on the layout
         multiselectDietary = binding.grf3Dietary;

@@ -114,7 +114,8 @@ public class SummaryFragment extends Fragment  {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Toast.makeText(getContext(), "WARNING: Pressing back will clear data. Please double check before continuing.", Toast.LENGTH_LONG).show();
+        // TODO do we need a back verification here? prob not if fields are not editable. otherwise copy/paste from previous fragments
+        //Toast.makeText(getContext(), "WARNING: Pressing back will clear data. Please double check before continuing.", Toast.LENGTH_LONG).show();
         // Creating the database and passing the correct context as the argument
         db = new GuestRegistrySource(requireContext());
 
