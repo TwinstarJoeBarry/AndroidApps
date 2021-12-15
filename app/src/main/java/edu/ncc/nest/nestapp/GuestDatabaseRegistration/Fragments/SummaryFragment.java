@@ -208,6 +208,13 @@ public class SummaryFragment extends Fragment  {
                         children5 = result.getString("children5");
                         children12 = result.getString("children12");
                         children18 = result.getString("children18");
+
+                        binding.grf4NumPeople.setText(householdNum);
+                        binding.grf4StatusChildcare.setText(childcareStatus);
+                        binding.grf4Children1.setText(children1);
+                        binding.grf4Children5.setText(children5);
+                        binding.grf4Children12.setText(children12);
+                        binding.grf4Children18.setText(children18);
                         Log.d(TAG, "The childcare status obtained is: " + childcareStatus);
                         Log.d(TAG, "The amount of children between 13m and 5 obtained is: " + children5);
 
@@ -234,8 +241,8 @@ public class SummaryFragment extends Fragment  {
             NavHostFragment.findNavController(SummaryFragment.this)
                     .navigate(R.id.action_DBR_SummaryFragment_to_DBR_StartFragment);
         });
-                // OnClickListener for the "Done" button
-                //TODO store in database when done button is clicked
+        // OnClickListener for the "Done" button
+        //TODO store in database when done button is clicked
 //        view.findViewById(R.id.button).setOnClickListener(clickedView -> {
 //
 //            // Navigate back to splash screen.
