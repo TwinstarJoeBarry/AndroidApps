@@ -1,20 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".GuestDatabaseRegistration.Fragments.FifthFormFragment">
+    tools:context=".GuestDatabaseRegistration.Activities.GuestDatabaseRegistrationActivity">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/referral_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="How did you find us?"/>
+
+    <Spinner
+        android:id="@+id/grf_5_referrer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:entries="@array/referrer_array"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:layout_below="@id/referral_text"/>
+
+    <TextView
+        android:id="@+id/additional_comment_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Is there anything else you would like us to know at this time?"
+        android:layout_below="@id/grf_5_referrer"/>
+
+    <EditText
+        android:id="@+id/grf_5_comments"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/additional_comment_text"
+        android:hint="Additional Comments"/>
+
+    <TextView
+        android:id="@+id/volunteer_first_name_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="What is the arst name of the volunteer who helped you today?"
+        android:layout_below="@id/grf_5_comments"/>
+
+    <EditText
+        android:id="@+id/grf_5_volunteerFName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Volunteer First Name"
+        android:layout_below="@id/volunteer_first_name_text"/>
+
+    <TextView
+        android:id="@+id/volunteer_last_name_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="What is the last name of the volunteer who helped you today?"
+        android:layout_below="@id/grf_5_volunteerFName"/>
+
+    <EditText
+        android:id="@+id/grf_5_volunteerLName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Volunteer Last Name"
+        android:layout_below="@id/volunteer_last_name_text"/>
+
+
 
     <Button
         android:id="@+id/fifth_to_summary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/next"/>
+        android:text="@string/next"
+        android:layout_below="@id/grf_5_volunteerLName"/>
 
-</FrameLayout>
+</RelativeLayout>
