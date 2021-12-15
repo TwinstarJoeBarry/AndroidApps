@@ -99,12 +99,12 @@
         android:gravity="bottom" >
 
         <Button
-            android:id="@+id/confirmation_0_rescan_btn"
+            android:id="@+id/confirmation_0_return_btn"
             android:layout_width="0dp"
             android:layout_weight="0.5"
             android:layout_height="wrap_content"
             android:layout_marginEnd="1dp"
-            android:text="@string/fragment_gv_confirmation_not_found_rescan_btn"
+            android:text="@string/fragment_gv_confirmation_not_found_return_btn"
             style="@style/Widget.AppCompat.Button.Colored"
             android:backgroundTint="@color/colorPrimary"/>
 
