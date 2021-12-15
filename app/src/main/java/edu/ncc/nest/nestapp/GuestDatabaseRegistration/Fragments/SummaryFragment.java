@@ -184,7 +184,6 @@ public class SummaryFragment extends Fragment  {
 
                         Log.d(TAG, "The dietary information obtained is: " + dietary);
                         Log.d(TAG, "The employment obtained is: " + employment);
-
                         binding.grf3Dietary.setText(dietary);
                         binding.grf3Snap.setText(snap);
                         binding.grf3OtherProgs.setText(otherProg);
@@ -192,6 +191,8 @@ public class SummaryFragment extends Fragment  {
                         binding.grf3StatusHealth.setText(health);
                         binding.grf3StatusHousing.setText(housing);
                         binding.grf3Income.setText(income);
+                        Log.d(TAG, "The income is: " + income);
+
                     }
                 });
 
