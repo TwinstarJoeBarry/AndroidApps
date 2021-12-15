@@ -117,35 +117,6 @@ public class ThirdFormFragment extends Fragment {
         //binding.grf3StatusHousing.setOnItemSelectedListener(dropdownListener);
 
         // adds the onClick listener to the 'next' button
-
-        binding.nextButtonThirdFragmentGRegistration.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v){
-
-                dietary = binding.grf3Dietary.getTransitionName();
-                snap = binding.grf3Snap.toString();
-                otherProg = binding.grf3OtherProgs.toString();
-                employment = binding.grf3StatusEmployment.toString();
-                health = binding.grf3StatusHealth.toString();
-                housing = binding.grf3StatusHousing.toString();
-                income = binding.grf3Income.toString();
-
-                result.putString("Dietary", dietary);
-                result.putString("SNAP", snap);
-                result.putString("Other Programs", otherProg);
-                result.putString("Employment Status", employment);
-                result.putString("Health Status", health);
-                result.putString("Housing Status", housing);
-                result.putString("Income", income);
-
-                getParentFragmentManager().setFragmentResult("sending_third_form_fragment_info", result);
-
-                NavHostFragment.findNavController(ThirdFormFragment.this)
-                        .navigate(R.id.action_DBR_ThirdFormFragment_to_FourthFormFragment);
-            }
-        });
-
         binding.nextButtonThirdFragmentGRegistration.setOnClickListener(v -> {
 
             // store the selected items into the instance variables
@@ -171,8 +142,10 @@ public class ThirdFormFragment extends Fragment {
             getParentFragmentManager().setFragmentResult("sending_third_form_fragment_info", result);
 
             // navigate to the fourth fragment when clicked
-
+            NavHostFragment.findNavController(ThirdFormFragment.this)
+                    .navigate(R.id.action_DBR_ThirdFormFragment_to_FourthFormFragment);
         });
+
     }
 
     // This dropdown listener currently changes the first item in the spinner to muted text.
