@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
+import android.os.ResultReceiver;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +33,9 @@ public class FifthFormFragment extends Fragment {
     private String mParam2;
 
     private FragmentGuestDatabaseRegistrationFifthFormBinding binding;
+
+    private String referrer, comments, volunteerFName, volunteerLName;
+    private Bundle result = new Bundle();
 
     public FifthFormFragment() {
         // Required empty public constructor
@@ -85,8 +89,18 @@ public class FifthFormFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                Log.d("***", "clicke");
-                Toast.makeText(getContext(), "fdffdsafasdf", Toast.LENGTH_LONG).show();
+                referrer = binding.grf5Referrer.getSelectedItem().toString();
+                comments = binding.grf5Comments.toString();
+                volunteerFName = binding.grf5VolunteerFName.toString();
+                volunteerLName = binding.grf5VolunteerLName.toString();
+
+                result.putString("Referrer", referrer);
+                result.putString("Comments", comments);
+                result.putString("Volunteer First Name", volunteerFName);
+                result.putString("Volunteer Last Name", volunteerLName);
+
+                getParentFragmentManager().setFragmentResult("sending_fifth_form_fragment_info", result);
+
                 NavHostFragment.findNavController(FifthFormFragment.this)
                         .navigate(R.id.action_DBR_FifthFormFragment_to_DBR_SummaryFragment);
             }
