@@ -93,6 +93,12 @@ public class SummaryFragment extends Fragment  {
     private String children12;
     private String children18;
 
+    // fifth fragment information
+    private String referrer;
+    private String comments;
+    private String volunteerFName;
+    private String volunteerLName;
+
     // Database where we will store user information
     private GuestRegistrySource db;
 
@@ -257,6 +263,22 @@ public class SummaryFragment extends Fragment  {
                         Log.d(TAG, "The childcare status obtained is: " + childcareStatus);
                         Log.d(TAG, "The amount of children between 13m and 5 obtained is: " + children5);
 
+                    }
+                });
+
+        getParentFragmentManager().setFragmentResultListener("sending_fifth_form_fragment_info",
+                this, new FragmentResultListener() {
+                    @Override
+                    public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
+                        referrer = result.getString("Referrer");
+                        comments = result.getString("Comments");
+                        volunteerFName = result.getString("Volunteer First Name");
+                        volunteerLName = result.getString("Volunteer Last Name");
+
+                        binding.grf5Referrer.setText(referrer);
+                        binding.grf5Comments.setText(comments);
+                        binding.grf5VolunteerFName.setText(volunteerFName);
+                        binding.grf5VolunteerLName.setText(volunteerLName);
                     }
                 });
 

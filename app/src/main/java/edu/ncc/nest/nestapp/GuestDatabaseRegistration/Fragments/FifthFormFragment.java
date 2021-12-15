@@ -14,6 +14,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import edu.ncc.nest.nestapp.R;
@@ -128,10 +130,12 @@ public class FifthFormFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
+
                 referrer = binding.grf5Referrer.getSelectedItem().toString();
-                comments = binding.grf5Comments.toString();
-                volunteerFName = binding.grf5VolunteerFName.toString();
-                volunteerLName = binding.grf5VolunteerLName.toString();
+                comments = binding.grf5Comments.getText().toString();
+                volunteerFName = binding.grf5VolunteerFName.getText().toString();
+                volunteerLName = binding.grf5VolunteerLName.getText().toString();
+                
 
                 result.putString("Referrer", referrer);
                 result.putString("Comments", comments);
