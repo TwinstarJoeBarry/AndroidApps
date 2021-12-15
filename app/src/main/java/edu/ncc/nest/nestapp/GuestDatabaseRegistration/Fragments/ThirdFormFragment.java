@@ -61,21 +61,20 @@ public class ThirdFormFragment extends Fragment {
 
     private FragmentGuestDatabaseRegistrationThirdFormBinding binding;
 
-    // for testing TODO remove
+    // for testing
     MultiSelectSpinner multiselectDietary, multiselectEmployment, multiselectHealth, multiselectHousing;
     // instance variables for summary fragment
     private String dietary, employment, health, housing, snap, programs, income, otherProg;
     private Bundle result = new Bundle();
 
+    // initialize backButtonCallback
+    OnBackPressedCallback backbuttonCallback;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         binding = FragmentGuestDatabaseRegistrationThirdFormBinding.inflate(inflater, container, false);
         return binding.getRoot();
-
-        // The callback can be enabled or disabled here or in handleOnBackPressed()
-
 
         // Inflate the layout for this fragment (deprecated since bundle added 11.2021)
         //return inflater.inflate(R.layout.fragment_guest_database_registration_third_form, container, false);
@@ -86,32 +85,40 @@ public class ThirdFormFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         // override back button to give a warning
-        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+        backbuttonCallback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
                 // show dialog prompting user
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setCancelable(true);
+                builder.setCancelable(false);
                 builder.setTitle("Are you sure?");
                 builder.setMessage("Data entered on this page may not be saved.");
+                // used to handle the 'confirm' button
                 builder.setPositiveButton("Yes, I'm Sure", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        // continue
+                        // continue by disabling this callback then calling the backpressedispatcher again
+                        // when this was enabled, it was at top of backpressed stack. When we disable, the next item is default back behavior
+                        backbuttonCallback.setEnabled(false);
+                        requireActivity().getOnBackPressedDispatcher().onBackPressed();
                     }
                 });
+                // handles the 'cancel' button
                 builder.setNegativeButton("Stay On This Page", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
+                        dialog.cancel(); // tells android we 'canceled', not dismiss. more appropriate
                     }
                 });
-                builder.show();
-
-                //Toast.makeText(getContext(), "WARNING: Pressing back will clear data. Please double check before continuing.", Toast.LENGTH_LONG).show();
+                AlertDialog alert = builder.create();
+                alert.show();
+                
             }
         };
-        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
+        // need to add the callback to the activities backpresseddispatcher stack.
+        // if enabled, it will run this first. If disabled, it will run the default (next item in stack)
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), backbuttonCallback);
+
 
 
         // target multiselect spinners on the layout
