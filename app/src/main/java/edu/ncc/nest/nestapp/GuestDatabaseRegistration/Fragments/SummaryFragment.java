@@ -174,22 +174,22 @@ public class SummaryFragment extends Fragment  {
                 this, new FragmentResultListener() {
                     @Override
                     public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
-                        dietary = result.getString("Dietary");
-                        snap = result.getString("SNAP");
-                        otherProg = result.getString("Other Programs");
-                        employment = result.getString("Employment Status");
-                        health = result.getString("Health Status");
-                        housing = result.getString("Housing Status");
-                        income = result.getString("Income");
+                        dietary = result.getString("dietary");
+                        snap = result.getString("snap");
+                        otherProg = result.getString("programs");
+                        employment = result.getString("employment");
+                        health = result.getString("health");
+                        housing = result.getString("housing");
+                        income = result.getString("income");
 
                         Log.d(TAG, "The dietary information obtained is: " + dietary);
                         Log.d(TAG, "The employment obtained is: " + employment);
-                        binding.grf3Dietary.setText(dietary);
+                        binding.grf3Dietary.setText(dietary.toString());
                         binding.grf3Snap.setText(snap);
                         binding.grf3OtherProgs.setText(otherProg);
-                        binding.grf3StatusEmployment.setText(employment);
-                        binding.grf3StatusHealth.setText(health);
-                        binding.grf3StatusHousing.setText(housing);
+                        binding.grf3StatusEmployment.setText(employment.toString());
+                        binding.grf3StatusHealth.setText(health.toString());
+                        binding.grf3StatusHousing.setText(housing.toString());
                         binding.grf3Income.setText(income);
                         Log.d(TAG, "The income is: " + income);
 
@@ -219,10 +219,13 @@ public class SummaryFragment extends Fragment  {
 
             // registering the guest to the database
             // TODO: null values needs to be retrieved and replaced.
+
             db.insertData(fname + " " + lname, phoneNum, nccId, streetAddress1 + ", " + streetAddress2,
                     city, zip, state, affiliation, age, gender, dietary, otherProg, snap, employment, health, housing,
                     income, householdNum, childcareStatus, children1, children5, children12, children18,
                     null, null, null);
+
+
 
 
             // Navigate back to splash screen.

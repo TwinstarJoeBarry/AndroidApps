@@ -61,7 +61,7 @@ public class ThirdFormFragment extends Fragment {
     // for testing TODO remove
     MultiSelectSpinner multiselectDietary, multiselectEmployment, multiselectHealth, multiselectHousing;
     // instance variables for summary fragment
-    private String dietary, snap ,programs, employment, health, housing, income, otherProg;
+    private String dietary, employment, health, housing, snap, programs, income, otherProg;
     private Bundle result = new Bundle();
 
 
@@ -105,7 +105,7 @@ public class ThirdFormFragment extends Fragment {
          */
 
 
-        // set onItemSelectedListener for dropdowns. Hardcoded. TODO Change to loop
+        // set onItemSelectedListener for dropdowns. Hardcoded. TODO Change to loop?
         // may need to update IDs .. thinking grf_3_input_dietary, etc. Then the textviews are
         // grf_3_textview_dietary. This way inputs are grouped and textviews are grouped.
         // hopefully then we can loop through them.
@@ -120,16 +120,16 @@ public class ThirdFormFragment extends Fragment {
         binding.nextButtonThirdFragmentGRegistration.setOnClickListener(v -> {
 
             // store the selected items into the instance variables
-            dietary = binding.grf3Dietary.getSelectedItem().toString();
+            dietary = multiselectDietary.getSelectedItemsAsString();
             programs = binding.grf3OtherProgs.getSelectedItem().toString();
             snap = binding.grf3Snap.getSelectedItem().toString();
-            employment = binding.grf3StatusEmployment.getSelectedItem().toString();
-            health = binding.grf3StatusHealth.getSelectedItem().toString();
-            housing = binding.grf3StatusHousing.getSelectedItem().toString();
+            employment = multiselectEmployment.getSelectedItemsAsString();
+            health = multiselectHealth.getSelectedItemsAsString();
+            housing = multiselectHousing.getSelectedItemsAsString();
 
             income = binding.grf3Income.getText().toString();
 
-            // storing all strings in bundle to send to summary fragment
+            // storing all values in bundle to send to summary fragment
             result.putString("dietary", dietary);
             result.putString("programs", programs);
             result.putString("snap", snap);
