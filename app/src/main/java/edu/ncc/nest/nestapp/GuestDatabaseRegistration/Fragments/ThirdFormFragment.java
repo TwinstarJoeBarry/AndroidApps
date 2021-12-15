@@ -18,6 +18,8 @@ package edu.ncc.nest.nestapp.GuestDatabaseRegistration.Fragments;
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -34,6 +36,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
@@ -71,6 +74,9 @@ public class ThirdFormFragment extends Fragment {
         binding = FragmentGuestDatabaseRegistrationThirdFormBinding.inflate(inflater, container, false);
         return binding.getRoot();
 
+        // The callback can be enabled or disabled here or in handleOnBackPressed()
+
+
         // Inflate the layout for this fragment (deprecated since bundle added 11.2021)
         //return inflater.inflate(R.layout.fragment_guest_database_registration_third_form, container, false);
 
@@ -79,7 +85,34 @@ public class ThirdFormFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Toast.makeText(getContext(), "WARNING: Pressing back will clear data. Please double check before continuing.", Toast.LENGTH_LONG).show();
+        // override back button to give a warning
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                // show dialog prompting user
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setCancelable(true);
+                builder.setTitle("Are you sure?");
+                builder.setMessage("Data entered on this page may not be saved.");
+                builder.setPositiveButton("Yes, I'm Sure", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // continue
+                    }
+                });
+                builder.setNegativeButton("Stay On This Page", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                builder.show();
+
+                //Toast.makeText(getContext(), "WARNING: Pressing back will clear data. Please double check before continuing.", Toast.LENGTH_LONG).show();
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
+
 
         // target multiselect spinners on the layout
         multiselectDietary = binding.grf3Dietary;
@@ -175,5 +208,7 @@ public class ThirdFormFragment extends Fragment {
 
         }
     };
+
+
 
 }
