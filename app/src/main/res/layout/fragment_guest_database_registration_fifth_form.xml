@@ -40,8 +40,8 @@
         android:id="@+id/volunteer_first_name_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="What is the arst name of the volunteer who helped you today?"
-        android:layout_below="@id/grf_5_comments"/>
+        android:layout_below="@id/grf_5_comments"
+        android:text="What is the first name of the volunteer who helped you today?" />
 
     <EditText
         android:id="@+id/grf_5_volunteerFName"

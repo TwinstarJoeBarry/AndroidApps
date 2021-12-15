@@ -323,7 +323,7 @@
     <!-- Strings used in fragment_guest_database_registration_fourth_form.xml -->
     <string name="num_people_household">How many people are in your household?</string>
     <string name="childcare_status">What is your childcare status?</string>
-    <string name="num_children_under_1">How many children under the age of 1 year old are in your household?</string>
+    <string name="num_children_under_1">How many children that are 12 months or under are in your household?</string>
     <string name="num_children_1_to_5">How many children between the ages of 13 months and 5 years old are in your household?</string>
     <string name="num_children_6_to_12">How many children between the ages of 6 and 12 years old are in your household?</string>
     <string name="num_children_13_to_18">How many children between the ages of 13 and 18 years old are in your household?</string>
