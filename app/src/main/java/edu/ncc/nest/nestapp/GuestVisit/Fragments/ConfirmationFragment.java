@@ -104,11 +104,11 @@ public class ConfirmationFragment extends Fragment implements View.OnClickListen
 
         int id = view.getId();
 
-        if (id == R.id.rescan_code_button || id == R.id.confirmation_0_rescan_btn) {
+        if (id == R.id.return_btn|| id == R.id.confirmation_0_return_btn) {
 
             // Navigate back to the scanner to rescan the barcode
             NavHostFragment.findNavController(ConfirmationFragment.this )
-                    .navigate( R.id.action_GV_ConfirmationFragment_to_ScannerFragment);
+                    .navigate( R.id.action_GV_ConfirmationFragment_to_SelectionFragment);
 
         } else if (id == R.id.name_confirmed) {
 
@@ -175,7 +175,7 @@ public class ConfirmationFragment extends Fragment implements View.OnClickListen
     public void onCreateConfirmationView(@NonNull View view) {
 
         // Set the onclick listener for the buttons
-        view.findViewById( R.id.rescan_code_button ).setOnClickListener(this);
+        view.findViewById( R.id.return_btn ).setOnClickListener(this);
         view.findViewById( R.id.name_confirmed ).setOnClickListener(this);
 
         // Display the guest's name and id
@@ -192,7 +192,7 @@ public class ConfirmationFragment extends Fragment implements View.OnClickListen
     public void onCreateRegistrationView(@NonNull View view) {
 
         // Set the onclick listener for the buttons
-        view.findViewById( R.id.confirmation_0_rescan_btn ).setOnClickListener(this);
+        view.findViewById( R.id.confirmation_0_return_btn ).setOnClickListener(this);
         view.findViewById( R.id.confirmation_0_register_btn ).setOnClickListener(this);
 
         // Display the barcode

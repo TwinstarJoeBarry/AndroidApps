@@ -88,7 +88,7 @@
         android:name="edu.ncc.nest.nestapp.GuestDatabaseRegistration.Fragments.ThirdFormFragment"
         android:label="@string/nav_graph_dbr_third_form_fragment_lbl">
         <action
-            android:id="@+id/action_DBR_ThirdFormFragment_to_fourthFormFragment"
+            android:id="@+id/action_DBR_ThirdFormFragment_to_FourthFormFragment"
             app:destination="@id/DBR_FourthFormFragment" />
     </fragment>
 
@@ -97,8 +97,18 @@
         android:name="edu.ncc.nest.nestapp.GuestDatabaseRegistration.Fragments.FourthFormFragment"
         android:label="@string/nav_graph_dbr_fourth_form_fragment_lbl" >
         <action
-            android:id="@+id/action_DBR_FourthFormFragment_to_DBR_SummaryFragment"
-            app:destination="@id/DBR_SummaryFragment" />
+            android:id="@+id/action_DBR_FourthFormFragment_to_DBR_FifthFormFragment"
+            app:destination="@id/DBR_FifthFormFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/DBR_FifthFormFragment"
+        android:name="edu.ncc.nest.nestapp.GuestDatabaseRegistration.Fragments.FifthFormFragment"
+        android:label="@string/nav_graph_dbr_fifth_form_fragment_lnl">
+
+        <action
+            android:id="@+id/action_DBR_FifthFormFragment_to_DBR_SummaryFragment"
+            app:destination="@id/DBR_SummaryFragment"/>
     </fragment>
 
     <fragment
