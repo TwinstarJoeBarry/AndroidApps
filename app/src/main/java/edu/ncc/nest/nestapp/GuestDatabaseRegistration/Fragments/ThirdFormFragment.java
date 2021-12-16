@@ -18,6 +18,8 @@ package edu.ncc.nest.nestapp.GuestDatabaseRegistration.Fragments;
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -29,10 +31,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
@@ -57,12 +61,14 @@ public class ThirdFormFragment extends Fragment {
 
     private FragmentGuestDatabaseRegistrationThirdFormBinding binding;
 
-    // for testing TODO remove
+    // for testing
     MultiSelectSpinner multiselectDietary, multiselectEmployment, multiselectHealth, multiselectHousing;
     // instance variables for summary fragment
-    private String dietary, programs, snap, employment, health, housing, income;
+    private String dietary, employment, health, housing, snap, programs, income, otherProg;
     private Bundle result = new Bundle();
 
+    // initialize backButtonCallback
+    private OnBackPressedCallback backbuttonCallback;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -77,6 +83,41 @@ public class ThirdFormFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        // override back button to give a warning
+        backbuttonCallback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                // show dialog prompting user
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setCancelable(false);
+                builder.setTitle("Are you sure?");
+                builder.setMessage("Data entered on this page may not be saved.");
+                // used to handle the 'confirm' button
+                builder.setPositiveButton("Yes, I'm Sure", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // continue by disabling this callback then calling the backpressedispatcher again
+                        // when this was enabled, it was at top of backpressed stack. When we disable, the next item is default back behavior
+                        backbuttonCallback.setEnabled(false);
+                        requireActivity().getOnBackPressedDispatcher().onBackPressed();
+                    }
+                });
+                // handles the 'cancel' button
+                builder.setNegativeButton("Stay On This Page", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel(); // tells android we 'canceled', not dismiss. more appropriate
+                    }
+                });
+                AlertDialog alert = builder.create();
+                alert.show();
+
+            }
+        };
+        // need to add the callback to the activities backpresseddispatcher stack.
+        // if enabled, it will run this first. If disabled, it will run the default (next item in stack)
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), backbuttonCallback);
 
         // target multiselect spinners on the layout
         multiselectDietary = binding.grf3Dietary;
@@ -101,7 +142,8 @@ public class ThirdFormFragment extends Fragment {
 
          */
 
-        // set onItemSelectedListener for dropdowns. Hardcoded. TODO Change to loop
+
+        // set onItemSelectedListener for dropdowns. Hardcoded. TODO Change to loop?
         // may need to update IDs .. thinking grf_3_input_dietary, etc. Then the textviews are
         // grf_3_textview_dietary. This way inputs are grouped and textviews are grouped.
         // hopefully then we can loop through them.
@@ -116,16 +158,16 @@ public class ThirdFormFragment extends Fragment {
         binding.nextButtonThirdFragmentGRegistration.setOnClickListener(v -> {
 
             // store the selected items into the instance variables
-            dietary = binding.grf3Dietary.getSelectedItem().toString();
+            dietary = multiselectDietary.getSelectedItemsAsString();
             programs = binding.grf3OtherProgs.getSelectedItem().toString();
             snap = binding.grf3Snap.getSelectedItem().toString();
-            employment = binding.grf3StatusEmployment.getSelectedItem().toString();
-            health = binding.grf3StatusHealth.getSelectedItem().toString();
-            housing = binding.grf3StatusHousing.getSelectedItem().toString();
+            employment = multiselectEmployment.getSelectedItemsAsString();
+            health = multiselectHealth.getSelectedItemsAsString();
+            housing = multiselectHousing.getSelectedItemsAsString();
 
-            income = binding.grf3Income.toString();
+            income = binding.grf3Income.getText().toString();
 
-            // storing all strings in bundle to send to summary fragment
+            // storing all values in bundle to send to summary fragment
             result.putString("dietary", dietary);
             result.putString("programs", programs);
             result.putString("snap", snap);
@@ -139,8 +181,9 @@ public class ThirdFormFragment extends Fragment {
 
             // navigate to the fourth fragment when clicked
             NavHostFragment.findNavController(ThirdFormFragment.this)
-                    .navigate(R.id.action_DBR_ThirdFormFragment_to_fourthFormFragment);
+                    .navigate(R.id.action_DBR_ThirdFormFragment_to_FourthFormFragment);
         });
+
     }
 
     // This dropdown listener currently changes the first item in the spinner to muted text.
@@ -170,5 +213,7 @@ public class ThirdFormFragment extends Fragment {
 
         }
     };
+
+
 
 }

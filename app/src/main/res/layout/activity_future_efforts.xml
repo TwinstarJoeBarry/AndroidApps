@@ -76,11 +76,29 @@
                 android:layout_centerHorizontal="true" />
 
             <Button
+                android:id="@+id/guestRegGoogle"
+                android:layout_width="250dp"
+                android:layout_height="70dp"
+                android:layout_below="@id/signUpBtn"
+                android:layout_centerHorizontal="true"
+                android:onClick="onClick"
+                android:text="Guest Registration (google sheet)" />
+
+            <Button
+                android:id="@+id/guesVisitGoogle"
+                android:layout_width="250dp"
+                android:layout_height="70dp"
+                android:layout_below="@id/guestRegGoogle"
+                android:layout_centerHorizontal="true"
+                android:onClick="onClick"
+                android:text="Guest Visit Checkin (Google Sheet)" />
+
+            <Button
                 android:id="@+id/scheduleBtn"
                 android:layout_width="138dp"
                 android:layout_height="70dp"
                 android:layout_centerHorizontal="true"
-                android:layout_below="@id/signUpBtn"
+                android:layout_below="@id/guesVisitGoogle"
                 android:onClick="onClick"
                 android:text="@string/activity_future_efforts_choice_3" />
 

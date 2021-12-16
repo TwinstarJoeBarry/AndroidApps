@@ -358,6 +358,8 @@
     <string name="fragment_gsr_second_form_question_16"><font size="14">What is the first name of the volunteer who helped you today?</font></string>
     <string name="fragment_gsr_second_form_question_17"><font size="14">What is the last name of the volunteer who helped you today?</font></string>
 
+
+
     <!-- GUEST VISIT STRINGS START ///////////////////////////////////////////////////////////////// -->
 
     <!-- Strings used in fragment_guest_visit_confirmation_found.xml -->
@@ -372,6 +374,17 @@
     <string name="fragment_gv_confirmation_not_found_msg">Sorry! We couldn\'t find a guest associated with the following barcode:</string>
     <string name="fragment_gv_confirmation_not_found_register_msg">Please register to continue</string>
     <string name="fragment_gv_confirmation_not_found_rescan_btn">Re-Scan Barcode</string>
+    <string name="fragment_gv_confirmation_not_found_return_btn">Back to menu</string>
+
+    <!-- Strings used in fragment_guest_visit_manual_entry.xml-->
+    <string name="fragment_gv_manual_title">Manual Sign-in</string>
+    <string name="fragment_gv_manual_bl">Please enter your barcode number</string>
+    <string name="fragment_gv_manual_bh">Barcode #</string>
+    <string name="fragment_gv_manual_m1">Field TBD</string>
+    <string name="fragment_gv_manual_or">OR</string>
+    <string name="fragment_gv_manual_e2">Field Info</string>
+    <string name="fragment_gv_manual_m2">Field TBD</string>
+    <string name="fragment_gv_manual_e1">Field Info</string>
 
     <!-- Strings used in GuestVisit.Fragments.QuestionnaireFragment.java -->
     <string name="questionnaire_fragment_alert_title">"SUBMISSION HAS MISSING FIELDS!"</string>
@@ -388,6 +401,11 @@
     <string name="fragment_gv_questionnaire_spinner_prompt">Choose an answer</string>
     <string name="fragment_gv_questionnaire_hint_number">Enter a number</string>
     <string name="fragment_gv_questionnaire_hint_id">NEST Guest Id#</string>
+
+    <!-- Strings used in fragment_guest_visit_splitter.xml-->
+    <string name="fragment_gv_splitter_title">Select Sign-In Method</string>
+    <string name="fragment_gv_splitter_bcb">Barcode Sign-in</string>
+    <string name="fragment_gv_splitter_msb">Manual Sign-in</string>
 
     <!-- NAV GRAPH LABELS START //////////////////////////////////////////////////////////////////// -->
 
@@ -418,12 +436,20 @@
     <string name="nav_graph_gv_scanner_fragment_lbl">Scanner Fragment</string>
     <string name="nav_graph_gv_confirmation_fragment_lbl">Confirmation Fragment</string>
     <string name="nav_graph_gv_questionnaire_fragment_lbl">Questionnaire Fragment</string>
+    <string name="nav_graph_gv_selection_fragment_lbl">Selection Fragment</string>
+    <string name="nav_graph_gv_manual_fragment_lbl">Manual Fragment</string>
+
 
     <!-- NEW STRINGS START ///////////////////////////////////////////////////////////////////////// -->
 
     <!-- This string is used only for the creation of new strings. -->
     <!-- When a new string is created it should appear below this string. -->
     <string name="STRINGS_BELOW_THIS_SHOULD_BE_MOVED_TO_AN_APPROPRIATE_LOCATION_ABOVE" />
+    <string name="blank" />
+    <string name="n_a">N/A</string>
+    <string name="nav_graph_dbr_fifth_form_fragment_lnl">Fifth Form Fragment</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="welcome_to_nest">Welcome to NEST!</string>
 
 </resources>

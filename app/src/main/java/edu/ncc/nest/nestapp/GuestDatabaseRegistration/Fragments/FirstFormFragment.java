@@ -18,6 +18,8 @@ package edu.ncc.nest.nestapp.GuestDatabaseRegistration.Fragments;
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,6 +32,7 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
@@ -65,6 +68,9 @@ public class FirstFormFragment extends Fragment {
 
     private boolean validFName, validLName, validPhone, validNID, validInput = false;
 
+    // handles the backbutton override warning
+    private OnBackPressedCallback backbuttonCallback;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -83,6 +89,60 @@ public class FirstFormFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState)
     {
         super.onViewCreated(view, savedInstanceState);
+
+        // override back button to give a warning
+        backbuttonCallback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                // show dialog prompting user
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setCancelable(false);
+                builder.setTitle("Are you sure?");
+                builder.setMessage("Data entered on this page may not be saved.");
+                // used to handle the 'confirm' button
+                builder.setPositiveButton("Yes, I'm Sure", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // continue by disabling this callback then calling the backpressedispatcher again
+                        // when this was enabled, it was at top of backpressed stack. When we disable, the next item is default back behavior
+                        backbuttonCallback.setEnabled(false);
+                        requireActivity().getOnBackPressedDispatcher().onBackPressed();
+                    }
+                });
+                // handles the 'cancel' button
+                builder.setNegativeButton("Stay On This Page", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel(); // tells android we 'canceled', not dismiss. more appropriate
+                    }
+                });
+                AlertDialog alert = builder.create();
+                alert.show();
+
+            }
+        };
+        // need to add the callback to the activities backpresseddispatcher stack.
+        // if enabled, it will run this first. If disabled, it will run the default (next item in stack)
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), backbuttonCallback);
+
+        //Toast.makeText(getContext(), "WARNING: Pressing back will clear data. Please double check before continuing.", Toast.LENGTH_LONG).show();
+
+//        if(savedInstanceState != null){
+//            inputFirstName = savedInstanceState.getString("first name");
+//            inputLastName = savedInstanceState.getString("last name");
+//            inputPhoneNumber = savedInstanceState.getString("phone number");
+//            inputNCCID = savedInstanceState.getString("ncc id");
+//
+//            binding.grf1FName.setText(inputFirstName);
+//            binding.grf1LName.setText(inputLastName);
+//            binding.grf1Phone.setText(inputPhoneNumber);
+//            binding.grf1NccId.setText(inputNCCID);
+//        }
+
+
+
+        Log.d("***", result.toString());
+
 
         // Creating the database and passing the correct context as the argument
         db = new GuestRegistrySource(requireContext());
@@ -154,6 +214,12 @@ public class FirstFormFragment extends Fragment {
 
                 if(validInput){
                     getParentFragmentManager().setFragmentResult("sending_first_form_fragment_info", result);
+
+                    // To test the doesExist() method uncomment this,
+                    // and comment out the findNavController() that's currently being used
+
+                    // Creating the database and passing the correct context as the argument
+                    db = new GuestRegistrySource(requireContext());
 
                     // if true, user already exist in the db, else user can register
                     if (db.doesExist(inputPhoneNumber, inputNCCID)) {
@@ -264,6 +330,16 @@ public class FirstFormFragment extends Fragment {
 //        });
 
     }
+
+//    @Override
+//    public void onSaveInstanceState(@NonNull Bundle outState){
+//        super.onSaveInstanceState(outState);
+//
+//        outState.putString("first name", inputFirstName);
+//        outState.putString("last name", inputLastName);
+//        outState.putString("phone number", inputPhoneNumber);
+//        outState.putString("ncc id", inputNCCID);
+//    }
 
 
 //    /**

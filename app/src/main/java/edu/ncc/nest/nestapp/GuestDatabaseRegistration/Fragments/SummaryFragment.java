@@ -23,6 +23,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -32,6 +33,8 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses.GuestRegistrySource;
 import edu.ncc.nest.nestapp.R;
+import edu.ncc.nest.nestapp.databinding.FragmentGuestDatabaseRegistrationFourthFormBinding;
+import edu.ncc.nest.nestapp.databinding.FragmentGuestDatabaseRegistrationSummaryBinding;
 
 /**
  * SummaryFragment: This fragment represent a summary of the registration process. Displays messages
@@ -51,6 +54,7 @@ import edu.ncc.nest.nestapp.R;
  * TODO: ///////////////////////////////////////////////////////////////////////////////////////////
  */
 public class SummaryFragment extends Fragment  {
+    private FragmentGuestDatabaseRegistrationSummaryBinding binding;
 
     // first fragment information
     private String fname;
@@ -70,8 +74,8 @@ public class SummaryFragment extends Fragment  {
 
     // third fragment information
     private String dietary;
-    private String programs;
     private String snap;
+    private String otherProg;
     private String employment;
     private String health;
     private String housing;
@@ -95,8 +99,11 @@ public class SummaryFragment extends Fragment  {
 
         Log.d(TAG, "In SummaryFragment onCreateView()");
 
+        binding = FragmentGuestDatabaseRegistrationSummaryBinding.inflate(inflater, container, false);
+        return binding.getRoot();
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_guest_database_registration_summary, container, false);
+//        return inflater.inflate(R.layout.fragment_guest_database_registration_summary, container, false);
 
     }
     /*
@@ -107,6 +114,8 @@ public class SummaryFragment extends Fragment  {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // TODO do we need a back verification here? prob not if fields are not editable. otherwise copy/paste from previous fragments
+        //Toast.makeText(getContext(), "WARNING: Pressing back will clear data. Please double check before continuing.", Toast.LENGTH_LONG).show();
         // Creating the database and passing the correct context as the argument
         db = new GuestRegistrySource(requireContext());
 
@@ -121,6 +130,11 @@ public class SummaryFragment extends Fragment  {
                         nccId = result.getString("NCC ID");
                         Log.d(TAG, "The first name obtained is: " + fname);
                         Log.d(TAG, "The NCC ID is: " + nccId);
+
+                        binding.grf1FName.setText(fname);
+                        binding.grf1LName.setText(lname);
+                        binding.grf1Phone.setText("(" + phoneNum.substring(0, 3) + ") " + phoneNum.substring(3, 6) + "-" + phoneNum.substring(6));
+                        binding.grf1NccId.setText("N" + nccId);
                     }
                 });
 
@@ -139,8 +153,22 @@ public class SummaryFragment extends Fragment  {
                         gender = result.getString("Gender");
                         Log.d(TAG, "The city obtained is: " + city);
                         Log.d(TAG, "The age obtained is: " + age);
+
+                        binding.grf2Address1.setText(streetAddress1);
+
+                        if(streetAddress2 != null){
+                            binding.grf2Address2.setText(streetAddress2);
+                        }
+
+                        binding.grf2City.setText(city);
+                        binding.grf2State.setText(state);
+                        binding.grf2Zip.setText(zip);
+                        binding.grf2Affiliation.setText(affiliation);
+                        binding.grf2Age.setText(age);
+                        binding.grf2Gender.setText(gender);
                     }
                 });
+
 
         // retrieving dietary, other programs, snap, employment, health, and housing info from ThirdFormFragment bundle.
         getParentFragmentManager().setFragmentResultListener("sending_third_form_fragment_info",
@@ -148,14 +176,24 @@ public class SummaryFragment extends Fragment  {
                     @Override
                     public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
                         dietary = result.getString("dietary");
-                        programs = result.getString("programs");
                         snap = result.getString("snap");
+                        otherProg = result.getString("programs");
                         employment = result.getString("employment");
                         health = result.getString("health");
                         housing = result.getString("housing");
                         income = result.getString("income");
+
                         Log.d(TAG, "The dietary information obtained is: " + dietary);
                         Log.d(TAG, "The employment obtained is: " + employment);
+                        binding.grf3Dietary.setText(dietary.toString());
+                        binding.grf3Snap.setText(snap);
+                        binding.grf3OtherProgs.setText(otherProg);
+                        binding.grf3StatusEmployment.setText(employment.toString());
+                        binding.grf3StatusHealth.setText(health.toString());
+                        binding.grf3StatusHousing.setText(housing.toString());
+                        binding.grf3Income.setText(income);
+                        Log.d(TAG, "The income is: " + income);
+
                     }
                 });
 
@@ -164,12 +202,19 @@ public class SummaryFragment extends Fragment  {
                 this, new FragmentResultListener() {
                     @Override
                     public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
-                       householdNum = result.getString("householdNum");
-                       childcareStatus = result.getString("childcareStatus");
+                        householdNum = result.getString("householdNum");
+                        childcareStatus = result.getString("childcareStatus");
                         children1 = result.getString("children1");
                         children5 = result.getString("children5");
                         children12 = result.getString("children12");
                         children18 = result.getString("children18");
+
+                        binding.grf4NumPeople.setText(householdNum);
+                        binding.grf4StatusChildcare.setText(childcareStatus);
+                        binding.grf4Children1.setText(children1);
+                        binding.grf4Children5.setText(children5);
+                        binding.grf4Children12.setText(children12);
+                        binding.grf4Children18.setText(children18);
                         Log.d(TAG, "The childcare status obtained is: " + childcareStatus);
                         Log.d(TAG, "The amount of children between 13m and 5 obtained is: " + children5);
 
@@ -182,18 +227,30 @@ public class SummaryFragment extends Fragment  {
 
             // registering the guest to the database
             // TODO: null values needs to be retrieved and replaced.
+
             db.insertData(fname + " " + lname, phoneNum, nccId, streetAddress1 + ", " + streetAddress2,
-                    city, zip, state, affiliation, age, gender, dietary, programs, snap, employment, health, housing,
+                    city, zip, state, affiliation, age, gender, dietary, otherProg, snap, employment, health, housing,
                     income, householdNum, childcareStatus, children1, children5, children12, children18,
                     null, null, null);
+
+
 
 
             // Navigate back to splash screen.
             // later, make if/else to go to scanner or login if scanner already in db
             NavHostFragment.findNavController(SummaryFragment.this)
                     .navigate(R.id.action_DBR_SummaryFragment_to_DBR_StartFragment);
-
         });
+        // OnClickListener for the "Done" button
+        //TODO store in database when done button is clicked
+//        view.findViewById(R.id.button).setOnClickListener(clickedView -> {
+//
+//            // Navigate back to splash screen.
+//            // later, make if/else to go to scanner or login if scanner already in db
+//            NavHostFragment.findNavController(SummaryFragment.this)
+//                    .navigate(R.id.action_DBR_SummaryFragment_to_DBR_StartFragment);
+//
+//        });
 
     }
 

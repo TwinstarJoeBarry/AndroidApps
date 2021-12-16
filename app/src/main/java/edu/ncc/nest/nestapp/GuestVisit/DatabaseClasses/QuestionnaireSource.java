@@ -20,6 +20,7 @@ package edu.ncc.nest.nestapp.GuestVisit.DatabaseClasses;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.CursorIndexOutOfBoundsException;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
@@ -27,6 +28,8 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -40,26 +43,14 @@ public class QuestionnaireSource {
     private final QuestionnaireHelper QUESTIONNAIRE_HELPER;
     private SQLiteDatabase writableDatabase;
     private SQLiteDatabase readableDatabase;
-
-    private final int NUM_QUESTIONS;
+    private String[] counterStr = {QuestionnaireHelper.ROW_ID, QuestionnaireHelper.GUEST_ID, QuestionnaireHelper.ADULT_COUNT,
+    QuestionnaireHelper.SENIOR_COUNT, QuestionnaireHelper.CHILD_COUNT, QuestionnaireHelper.FIRST_VISIT,QuestionnaireHelper.DATE, QuestionnaireHelper.VISIT_COUTNER};
 
 
     /************ Constructor ************/
 
-    public QuestionnaireSource(Context context, int numQuestions) {
-
-        QUESTIONNAIRE_HELPER = new QuestionnaireHelper(context, numQuestions);
-
-        NUM_QUESTIONS = numQuestions;
-
-    }
-
     public QuestionnaireSource(Context context) {
-
         QUESTIONNAIRE_HELPER = new QuestionnaireHelper(context);
-
-        NUM_QUESTIONS = QUESTIONNAIRE_HELPER.getNumQuestions();
-
     }
 
     /************ Custom Methods Start ************/
@@ -91,29 +82,42 @@ public class QuestionnaireSource {
 
     }
 
+    public void clearData() {
+        writableDatabase.delete(QuestionnaireHelper.TABLE_NAME, null, null);
+        readableDatabase.delete(QuestionnaireHelper.TABLE_NAME, null, null);
+    }
+
     /**
      * submitQuestionnaire --
      * Submits answers by guest (guestID) into the database
      * @param guestID The ID of the guest the submission belongs to
-     * @param guestAnswers The list of answers to submit
      * @return Whether or not there was an error submitting the questionnaire
      */
-    public long submitQuestionnaire(@NonNull String guestID, @NonNull List<String> guestAnswers) {
+    public long submitQuestionnaire(@NonNull String guestID, @NonNull String adultCount, @NonNull String seniorCount,
+                                    @NonNull String childCount, @NonNull String firstVisit, @NonNull String visitCounter) {
 
         ContentValues submissionValues = new ContentValues();
 
+        //Setup the data and time for when the Questionnaire was submitted
+        DateTimeFormatter frmt = DateTimeFormatter.ofPattern("MMddyyyy HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        String currentTime = frmt.format(now);
+
         // Put the guest's id into cValues
         submissionValues.put(QuestionnaireHelper.GUEST_ID, guestID);
-
-        // Put each answer into cValues
-        for (int i = 0; i < NUM_QUESTIONS; i++)
-
-            submissionValues.put(QuestionnaireHelper.QUESTION_PREFIX + (i + 1), guestAnswers.get(i));
+        submissionValues.put(QuestionnaireHelper.ADULT_COUNT, adultCount);
+        submissionValues.put(QuestionnaireHelper.SENIOR_COUNT, seniorCount);
+        submissionValues.put(QuestionnaireHelper.CHILD_COUNT, childCount);
+        submissionValues.put(QuestionnaireHelper.FIRST_VISIT, firstVisit);
+        submissionValues.put(QuestionnaireHelper.DATE, currentTime);
+        submissionValues.put(QuestionnaireHelper.VISIT_COUTNER, visitCounter);
 
         // Insert the submission in the database and return the row id it was stored at
         return (writableDatabase.insert(QuestionnaireHelper.TABLE_NAME, null, submissionValues));
 
     }
+
+
 
     /**
      * findSubmissions --
@@ -122,6 +126,7 @@ public class QuestionnaireSource {
      * @param guestID The ID to search for
      * @return The list of submissions
      */
+    /*
     public List<QuestionnaireSubmission> findSubmissions(@NonNull String guestID) {
 
         List<QuestionnaireSubmission> submissions = new ArrayList<>();
@@ -145,6 +150,9 @@ public class QuestionnaireSource {
 
     }
 
+    */
+
+    /*
     /**
      * printSubmissions --
      * Searches through the database for questionnaires
@@ -157,12 +165,8 @@ public class QuestionnaireSource {
         Log.i(TAG, "Printing all submissions by guest " + guestID + " from " + QuestionnaireHelper.DATABASE_NAME + ":");
 
         // Find each questionnaire submitted by the guest and print it to the log
-        for (QuestionnaireSubmission submission : findSubmissions(guestID))
-
-            Log.i(TAG, submission.toString());
 
     }
-
     /**
      * convertCursorToSubmission --
      * Converts a Cursor object to a QuestionnaireSubmission object.
@@ -170,17 +174,45 @@ public class QuestionnaireSource {
      * @return Returns the result of the conversion
      */
     private QuestionnaireSubmission convertCursorToSubmission(Cursor c) {
+        QuestionnaireSubmission entry = new QuestionnaireSubmission(c.getLong(0),
+                c.getString(1),
+                c.getString(2),
+                c.getString(3),
+                c.getString(4),
+                c.getString(5),
+                c.getString(6),
+                c.getString(7));
 
-        ArrayList<String> guestAnswers = new ArrayList<>(NUM_QUESTIONS);
+        return entry;
+    }
 
-        // Retrieve each answer from the Cursor
-        for (int i = 0; i < NUM_QUESTIONS; i++)
+    /**
+     * Finds the number of times the guest has visited
+     * @param barcode the guest to find
+     * @return the number of times this guest has visited as a string
+     */
+    public String getVisitCount(String barcode){
+        try {
+            QuestionnaireSubmission entry;
+            Cursor cursor = readableDatabase.query(QuestionnaireHelper.TABLE_NAME,
+                    counterStr,
+                    QuestionnaireHelper.GUEST_ID + " = '" + barcode + "' ",
+                    null,
+                    null,
+                    null,
+                    QuestionnaireHelper.VISIT_COUTNER + " DESC ");
 
-            guestAnswers.add(c.getString(2 + i));
+            Log.d("**CURSOR CHECK**", cursor.toString());
 
-        // 0 - ROW_ID, 1 - GUEST_ID
-        return new QuestionnaireSubmission(c.getLong(0),
-                c.getString(1), guestAnswers);
+            cursor.moveToFirst();
+            entry = convertCursorToSubmission(cursor);
+
+            Log.d("**CURSOR CHECK**", entry.VISIT_COUTNER);
+
+            return entry.VISIT_COUTNER;
+        } catch(CursorIndexOutOfBoundsException e) {
+            return "0";
+        }
 
     }
 

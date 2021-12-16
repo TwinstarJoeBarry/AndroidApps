@@ -202,6 +202,27 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
+                  <entry key="DBR_FifthFormFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="1498" />
+                            <option name="y" value="351" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_DBR_FifthFormFragment_to_DBR_SummaryFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="DBR_FirstFormFragment">
                     <value>
                       <LayoutPositions>
@@ -228,13 +249,13 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="1260" />
+                            <option name="x" value="1249" />
                             <option name="y" value="363" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_DBR_FourthFormFragment_to_DBR_SummaryFragment">
+                            <entry key="action_DBR_FourthFormFragment_to_DBR_FifthFormFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -272,6 +293,11 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_DBR_SecondFormFragment_to_DBR_ThirdFormFragment2">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                           </map>
                         </option>
                       </LayoutPositions>
@@ -282,8 +308,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="256" />
-                            <option name="y" value="54" />
+                            <option name="x" value="165" />
+                            <option name="y" value="79" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -308,8 +334,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="1752" />
-                            <option name="y" value="2" />
+                            <option name="x" value="1812" />
+                            <option name="y" value="-45" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -335,7 +361,7 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_DBR_ThirdFormFragment_to_fourthFormFragment">
+                            <entry key="action_DBR_ThirdFormFragment_to_FourthFormFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -412,8 +438,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="12" />
-                            <option name="y" value="33" />
+                            <option name="x" value="424" />
+                            <option name="y" value="62" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -424,6 +450,27 @@
                               </value>
                             </entry>
                             <entry key="action_GV_ConfirmationFragment_to_ScannerFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="GV_ManualFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-66" />
+                            <option name="y" value="-339" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_GV_ManualFragment_to_ConfirmationFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -450,13 +497,39 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="256" />
-                            <option name="y" value="12" />
+                            <option name="x" value="883" />
+                            <option name="y" value="-397" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
                             <entry key="action_GV_ScannerFragment_to_ConfirmationFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="GV_SelectionFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="370" />
+                            <option name="y" value="-898" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_GV_SelectionFragment_to_ManualFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_GV_SelectionFragment_to_ScannerFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
