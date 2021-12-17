@@ -20,6 +20,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -54,6 +55,30 @@ public class GuestFormTesting extends AppCompatActivity {
 
         return true;
 
+    }
+
+    /**
+     * onOptionsSelected method --
+     * description: this method makes you comeback to the launch UI when the home button is clicked
+     * @param item
+     * @return
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.home_btn) {
+            home();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * home method --
+     * description: this method goes to the nest home screen
+     */
+    public void home() {
+        Intent intent = new Intent(this, Choose.class);
+        startActivity(intent);
     }
 
     public void onClick(View v) {

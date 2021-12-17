@@ -28,6 +28,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 
@@ -52,6 +53,30 @@ public class FutureEfforts extends AppCompatActivity implements OnClickListener 
         inflater.inflate(R.menu.menu_main, menu);
         return true;
 
+    }
+
+    /**
+     * onOptionsSelected method --
+     * description: this method makes you comeback to the launch UI when the home button is clicked
+     * @param item
+     * @return
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.home_btn) {
+            home();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * home method --
+     * description: this method goes to the nest home screen
+     */
+    public void home() {
+        Intent intent = new Intent(this, Choose.class);
+        startActivity(intent);
     }
 
     /**
