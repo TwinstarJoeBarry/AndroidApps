@@ -54,7 +54,9 @@ public class FourthFormFragment extends Fragment {
 
     private Spinner numPeopleSpinner, childcareSpinner, children1Spinner,
             children5Spinner, children12Spinner, children18Spinner;
-    
+
+    private TextView textview_numPeople, textview_childcare, textview_children1,
+        textview_children5, textview_children12, textview_children18;
 
     // flags for hiding/showing views
     private boolean openView1, openView2, openView3, openView4, openView5 = false;
@@ -114,19 +116,31 @@ public class FourthFormFragment extends Fragment {
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), backbuttonCallback);
 
         // store the bindings so its cleaner
-        numPeopleSpinner  = binding.grf4NumPeople;
-        childcareSpinner  = binding.grf4StatusChildcare;
-        children1Spinner  = binding.grf4Children1;
-        children5Spinner  = binding.grf4Children5;
-        children12Spinner = binding.grf4Children12;
-        children18Spinner = binding.grf4Children18;
+        numPeopleSpinner    = binding.grf4NumPeople;
+        childcareSpinner    = binding.grf4StatusChildcare;
+        children1Spinner    = binding.grf4Children1;
+        children5Spinner    = binding.grf4Children5;
+        children12Spinner   = binding.grf4Children12;
+        children18Spinner   = binding.grf4Children18;
+        textview_numPeople  = binding.grf4TextviewNumPeople;
+        textview_childcare  = binding.grf4TextviewStatusChildcare;
+        textview_children1  = binding.grf4TextviewChildren1;
+        textview_children5  = binding.grf4TextviewChildren5;
+        textview_children12 = binding.grf4TextviewChildren12;
+        textview_children18 = binding.grf4TextviewChildren18;
 
         // hide views until we need them
-        childcareSpinner.setVisibility(View.INVISIBLE);
-        children1Spinner.setVisibility(View.INVISIBLE);
-        children5Spinner.setVisibility(View.INVISIBLE);
-        children12Spinner.setVisibility(View.INVISIBLE);
-        children18Spinner.setVisibility(View.INVISIBLE);
+        childcareSpinner.setVisibility(View.GONE);
+        children1Spinner.setVisibility(View.GONE);
+        children5Spinner.setVisibility(View.GONE);
+        children12Spinner.setVisibility(View.GONE);
+        children18Spinner.setVisibility(View.GONE);
+        textview_childcare.setVisibility(View.GONE);
+        textview_children1.setVisibility(View.GONE);
+        textview_children5.setVisibility(View.GONE);
+        textview_children12.setVisibility(View.GONE);
+        textview_children18.setVisibility(View.GONE);
+
 
         // set onItemSelectedListener for dropdowns. Hardcoded. TODO Change to loop
         // may need to update IDs .. thinking grf_4_input_dietary, etc. Then the textviews are
@@ -206,8 +220,10 @@ public class FourthFormFragment extends Fragment {
             // pos 0 is placeholder, pos 1 = 1.
             if(position > 1) {
                 childcareSpinner.setVisibility(View.VISIBLE);
+                textview_childcare.setVisibility(View.VISIBLE);
             } else {
-                childcareSpinner.setVisibility(View.INVISIBLE);
+                childcareSpinner.setVisibility(View.GONE);
+                textview_childcare.setVisibility(View.GONE);
             }
         }
 
