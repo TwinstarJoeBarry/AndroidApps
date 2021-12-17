@@ -25,7 +25,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,10 +52,16 @@ public class FourthFormFragment extends Fragment {
     private String householdNum, childcareStatus, children1, children5,
         children12, children18;
 
+    private Spinner numPeopleSpinner, childcareSpinner, children1Spinner,
+            children5Spinner, children12Spinner, children18Spinner;
+    
+
+    // flags for hiding/showing views
+    private boolean openView1, openView2, openView3, openView4, openView5 = false;
+
     private Bundle result = new Bundle();
 
     private OnBackPressedCallback backbuttonCallback;
-
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -105,18 +113,33 @@ public class FourthFormFragment extends Fragment {
         // if enabled, it will run this first. If disabled, it will run the default (next item in stack)
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), backbuttonCallback);
 
+        // store the bindings so its cleaner
+        numPeopleSpinner  = binding.grf4NumPeople;
+        childcareSpinner  = binding.grf4StatusChildcare;
+        children1Spinner  = binding.grf4Children1;
+        children5Spinner  = binding.grf4Children5;
+        children12Spinner = binding.grf4Children12;
+        children18Spinner = binding.grf4Children18;
+
+        // hide views until we need them
+        childcareSpinner.setVisibility(View.INVISIBLE);
+        children1Spinner.setVisibility(View.INVISIBLE);
+        children5Spinner.setVisibility(View.INVISIBLE);
+        children12Spinner.setVisibility(View.INVISIBLE);
+        children18Spinner.setVisibility(View.INVISIBLE);
 
         // set onItemSelectedListener for dropdowns. Hardcoded. TODO Change to loop
         // may need to update IDs .. thinking grf_4_input_dietary, etc. Then the textviews are
         // grf_4_textview_dietary. This way inputs are grouped and textviews are grouped.
         // hopefully then we can loop through them separately. Just need to know/determine how many
         // there are and can find id of first, then loop.
-        binding.grf4Children1.setOnItemSelectedListener(dropdownListener);
-        binding.grf4Children5.setOnItemSelectedListener(dropdownListener);
-        binding.grf4Children12.setOnItemSelectedListener(dropdownListener);
-        binding.grf4Children18.setOnItemSelectedListener(dropdownListener);
-        binding.grf4NumPeople.setOnItemSelectedListener(dropdownListener);
-        binding.grf4StatusChildcare.setOnItemSelectedListener(dropdownListener);
+        children1Spinner.setOnItemSelectedListener(dropdownListener);
+        children5Spinner.setOnItemSelectedListener(dropdownListener);
+        children12Spinner.setOnItemSelectedListener(dropdownListener);
+        children18Spinner.setOnItemSelectedListener(dropdownListener);
+        numPeopleSpinner.setOnItemSelectedListener(numPeopleListener);
+        childcareSpinner.setOnItemSelectedListener(dropdownListener);
+
 
         // set up on click listener for the 'next' button
         binding.nextButtonFourthFragmentGRegistration.setOnClickListener(v -> {
@@ -174,5 +197,26 @@ public class FourthFormFragment extends Fragment {
 
         }
     };
+
+
+    private final AdapterView.OnItemSelectedListener numPeopleListener = new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            // if only one person, don't need to ask about other people in the household
+            // pos 0 is placeholder, pos 1 = 1.
+            if(position > 1) {
+                childcareSpinner.setVisibility(View.VISIBLE);
+            } else {
+                childcareSpinner.setVisibility(View.INVISIBLE);
+            }
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+
+        }
+    };
+
+
 
 }
