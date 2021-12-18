@@ -53,7 +53,7 @@ public class FourthFormFragment extends Fragment {
     private FragmentGuestDatabaseRegistrationFourthFormBinding binding;
 
     private String householdNum, childcareStatus, children1, children5,
-        children12, children18;
+            children12, children18;
 
     private Spinner numPeopleSpinner, childcareSpinner, children1Spinner,
             children5Spinner, children12Spinner, children18Spinner;
@@ -61,10 +61,13 @@ public class FourthFormFragment extends Fragment {
     private MultiSelectSpinner childcareMultiSelect;
 
     private TextView textview_numPeople, textview_childcare, textview_children1,
-        textview_children5, textview_children12, textview_children18;
+            textview_children5, textview_children12, textview_children18;
 
     // flags for hiding/showing views
     private boolean openView1, openView2, openView3, openView4, openView5 = false;
+
+    // store numPeople selections to validate the number of total people vs children
+    private int numPeople, numChildren1, numChildren5, numChildren12, numChildren18 = 0;
 
     private Bundle result = new Bundle();
 
@@ -155,13 +158,9 @@ public class FourthFormFragment extends Fragment {
         textview_children18.setVisibility(View.GONE);
 
 
-        // set onItemSelectedListener for dropdowns. Hardcoded. TODO Change to loop
-        // may need to update IDs .. thinking grf_4_input_dietary, etc. Then the textviews are
-        // grf_4_textview_dietary. This way inputs are grouped and textviews are grouped.
-        // hopefully then we can loop through them separately. Just need to know/determine how many
-        // there are and can find id of first, then loop.
-        children1Spinner.setOnItemSelectedListener(dropdownListener);
-        children5Spinner.setOnItemSelectedListener(dropdownListener);
+        // set onItemSelectedListener for dropdowns.
+        children1Spinner.setOnItemSelectedListener(children1Listener);
+        children5Spinner.setOnItemSelectedListener(children5Listener);
         children12Spinner.setOnItemSelectedListener(dropdownListener);
         children18Spinner.setOnItemSelectedListener(dropdownListener);
         numPeopleSpinner.setOnItemSelectedListener(numPeopleListener);
@@ -246,6 +245,8 @@ public class FourthFormFragment extends Fragment {
                 // set the selection to "i dont have children" to trigger the other ones
                 childcareSpinner.setSelection(1, true);
             }
+            // starts at 1 = 1, so position = people.
+            numPeople = position;
         }
 
         @Override
@@ -273,6 +274,84 @@ public class FourthFormFragment extends Fragment {
 
         }
     };
+
+    private final AdapterView.OnItemSelectedListener children1Listener = new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            // 0 = placeholder, 1 = 0. Therefore, num = pos - 1
+            numChildren1 = position - 1;            //update numChildren1
+            int otherPeople = numPeople - 1;        //remove self from total people
+            int childrenNum = getNumChildren();     //calculate numChildren (total)
+
+            if (position == 0) {
+                children5Spinner.setVisibility(View.GONE);
+                textview_children5.setVisibility(View.GONE);
+            } else {
+                children5Spinner.setVisibility(View.VISIBLE);
+                textview_children5.setVisibility(View.VISIBLE);
+            }
+
+            // check if we exceeded
+            if (childrenNum > otherPeople) {
+                // error, too many people
+                children5Spinner.setVisibility(View.GONE);
+                textview_children5.setVisibility(View.GONE);
+                Toast toast = Toast.makeText(getContext(), "Can not have more children than " +
+                        "people in household, please check again.", Toast.LENGTH_SHORT);
+                toast.show();
+            } else if (childrenNum == otherPeople) {
+                // valid, but need to disable other options
+                children5Spinner.setVisibility(View.GONE);
+                textview_children5.setVisibility(View.GONE);
+            }
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+
+        }
+    };
+
+    private final AdapterView.OnItemSelectedListener children5Listener = new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            // 0 = placeholder, 1 = 0. Therefore, num = pos - 1
+            numChildren5 = position - 1;            //update numChildren1
+            int otherPeople = numPeople - 1;        //remove self from total people
+            int childrenNum = getNumChildren();     //calculate numChildren (total)
+
+            if (position == 0) {
+                children12Spinner.setVisibility(View.GONE);
+                textview_children12.setVisibility(View.GONE);
+            } else {
+                children12Spinner.setVisibility(View.VISIBLE);
+                textview_children12.setVisibility(View.VISIBLE);
+            }
+
+            // check if we exceeded
+            if (childrenNum > otherPeople) {
+                // error, too many people
+                children12Spinner.setVisibility(View.GONE);
+                textview_children12.setVisibility(View.GONE);
+                Toast toast = Toast.makeText(getContext(), "Can not have more children than " +
+                        "people in household, please check again.", Toast.LENGTH_SHORT);
+                toast.show();
+            } else if (childrenNum == otherPeople) {
+                // valid, but need to disable other options
+                children12Spinner.setVisibility(View.GONE);
+                textview_children12.setVisibility(View.GONE);
+            }
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+
+        }
+    };
+
+    private int getNumChildren() {
+        return numChildren1 + numChildren5 + numChildren12 + numChildren18;
+    }
 
     // NEED TO WAIT UNTIL DIALOG BRANCH IS MERGED FOR THIS. THAT OR TRY TO MERGE THESE TWO
     /*
