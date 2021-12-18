@@ -29,6 +29,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -65,10 +66,14 @@ public class FourthFormFragment extends Fragment {
     private TextView textview_numPeople, textview_childcare, textview_children1,
             textview_children5, textview_children12, textview_children18;
 
+    private Button nextBtn;
+
     private final String TAG = "**NumChildren Test**";
 
     // flags for hiding/showing views
     private boolean openView1, openView2, openView3, openView4, openView5 = false;
+    // flag for disabling nextButton
+    private boolean isDisabled = false;
 
     // store numPeople selections to validate the number of total people vs children
     private int numChildren1, numChildren5, numChildren12, numChildren18 = 0;
@@ -143,6 +148,8 @@ public class FourthFormFragment extends Fragment {
         textview_children5   = binding.grf4TextviewChildren5;
         textview_children12  = binding.grf4TextviewChildren12;
         textview_children18  = binding.grf4TextviewChildren18;
+
+        nextBtn = binding.nextButtonFourthFragmentGRegistration;
 
         // load the multiselect using the class method
         // TODO put back after multiselect merge
@@ -255,6 +262,11 @@ public class FourthFormFragment extends Fragment {
                 textview_childcare.setVisibility(View.GONE);
                 // set the selection to "i dont have children" to trigger the other ones
                 childcareSpinner.setSelection(1, true);
+
+                // TODO add if disabled, enable code
+                if (isDisabled) {
+                    setEnabled(nextBtn);
+                }
             }
             // starts at 1 = 1, so position = people.
             // already initialized to 1, so if position is 0 do nothing, else update numPeople to position.
@@ -284,6 +296,11 @@ public class FourthFormFragment extends Fragment {
                 // hide others
                 children1Spinner.setVisibility(View.GONE);
                 textview_children1.setVisibility(View.GONE);
+
+                // TODO add if disabled, enable code
+                if (isDisabled) {
+                    setEnabled(nextBtn);
+                }
             }
 
             // reset next
@@ -311,15 +328,20 @@ public class FourthFormFragment extends Fragment {
             int otherPeople = numPeople - 1;        //remove self from total people
             int childrenNum = getNumChildren();     //calculate numChildren (total)
 
+            // simple if else, hide next field if we are on the placeholder
             if (position == 0) {
                 children5Spinner.setVisibility(View.GONE);
                 textview_children5.setVisibility(View.GONE);
             } else {
                 children5Spinner.setVisibility(View.VISIBLE);
                 textview_children5.setVisibility(View.VISIBLE);
+                // TODO add if disabled, enable code
+                if (isDisabled) {
+                    setEnabled(nextBtn);
+                }
             }
 
-            // check if we exceeded
+            // check if we exceeded. will override the simple if/else if there is a conflict
             if (childrenNum > otherPeople) {
                 // error, too many people
                 children5Spinner.setVisibility(View.GONE);
@@ -327,9 +349,17 @@ public class FourthFormFragment extends Fragment {
                 Toast toast = Toast.makeText(getContext(), "Can not have more children than " +
                         "people in household, please check again.", Toast.LENGTH_SHORT);
                 toast.show();
+                // TODO disable next button
+                if (!isDisabled) {
+                    setDisabled(nextBtn);
+                }
+
             } else if (childrenNum == otherPeople) {
                 // valid, but need to disable other options
-                // TODO enable next button
+                // TODO add if disabled, enable code
+                if (isDisabled) {
+                    setEnabled(nextBtn);
+                }
                 children5Spinner.setVisibility(View.GONE);
                 textview_children5.setVisibility(View.GONE);
             }
@@ -359,15 +389,20 @@ public class FourthFormFragment extends Fragment {
             int otherPeople = numPeople - 1;        //remove self from total people
             int childrenNum = getNumChildren();     //calculate numChildren (total)
 
+            // simple if/else. Hide next if on placeholder
             if (position == 0) {
                 children12Spinner.setVisibility(View.GONE);
                 textview_children12.setVisibility(View.GONE);
             } else {
                 children12Spinner.setVisibility(View.VISIBLE);
                 textview_children12.setVisibility(View.VISIBLE);
+                // TODO add if disabled, enable code
+                if (isDisabled) {
+                    setEnabled(nextBtn);
+                }
             }
 
-            // check if we exceeded
+            // check if we exceeded. will override simple if/else if conflict
             if (childrenNum > otherPeople) {
                 // error, too many people
                 children12Spinner.setVisibility(View.GONE);
@@ -375,9 +410,17 @@ public class FourthFormFragment extends Fragment {
                 Toast toast = Toast.makeText(getContext(), "Can not have more children than " +
                         "people in household, please check again.", Toast.LENGTH_SHORT);
                 toast.show();
+                // TODO add disable next button
+                if (!isDisabled) {
+                    setDisabled(nextBtn);
+                }
+
             } else if (childrenNum == otherPeople) {
                 // valid, but need to disable other options
-                // TODO enable next button
+                // TODO add if disabled, enable code
+                if (isDisabled) {
+                    setEnabled(nextBtn);
+                }
                 children12Spinner.setVisibility(View.GONE);
                 textview_children12.setVisibility(View.GONE);
             }
@@ -407,15 +450,20 @@ public class FourthFormFragment extends Fragment {
             int otherPeople = numPeople - 1;        //remove self from total people
             int childrenNum = getNumChildren();     //calculate numChildren (total)
 
+            // simple if/else. Hide next if on placeholder
             if (position == 0) {
                 children18Spinner.setVisibility(View.GONE);
                 textview_children18.setVisibility(View.GONE);
             } else {
                 children18Spinner.setVisibility(View.VISIBLE);
                 textview_children18.setVisibility(View.VISIBLE);
+                // TODO add if disabled, enable code
+                if (isDisabled) {
+                    setEnabled(nextBtn);
+                }
             }
 
-            // check if we exceeded
+            // check if we exceeded. will override simple if/else if conflict
             if (childrenNum > otherPeople) {
                 // error, too many people
                 children18Spinner.setVisibility(View.GONE);
@@ -423,9 +471,18 @@ public class FourthFormFragment extends Fragment {
                 Toast toast = Toast.makeText(getContext(), "Can not have more children than " +
                         "people in household, please check again.", Toast.LENGTH_SHORT);
                 toast.show();
+
+                // TODO disable next button
+                if (!isDisabled) {
+                    setDisabled(nextBtn);
+                }
+
             } else if (childrenNum == otherPeople) {
                 // valid, but need to disable other options
-                // TODO enable next button
+                // TODO add if disabled, enable code
+                if (isDisabled) {
+                    setEnabled(nextBtn);
+                }
                 children18Spinner.setVisibility(View.GONE);
                 textview_children18.setVisibility(View.GONE);
             }
@@ -468,12 +525,24 @@ public class FourthFormFragment extends Fragment {
             if (childrenNum > otherPeople) {
                 // error, too many people
                 // TODO disable next button
+                if (!isDisabled) {
+                    setDisabled(nextBtn);
+                }
+
                 Toast toast = Toast.makeText(getContext(), "Can not have more children than " +
                         "people in household, please check again.", Toast.LENGTH_SHORT);
                 toast.show();
             } else if (childrenNum == otherPeople) {
                 // valid
-                // TODO enable next button
+                // TODO add if disabled, enable code
+                if (isDisabled) {
+                    setEnabled(nextBtn);
+                }
+            } else {
+                // TODO add if disabled, enable code
+                if (isDisabled) {
+                    setEnabled(nextBtn);
+                }
             }
 
             // TODO Remove Test Log
@@ -500,6 +569,18 @@ public class FourthFormFragment extends Fragment {
         str.append(numChildren18 + "\n");
 
         return str.toString();
+    }
+
+    private void setEnabled(View v) {
+        v.setEnabled(true);
+        isDisabled = false;
+        v.setBackgroundColor(getResources().getColor(R.color.colorPrimary, requireActivity().getTheme()));
+    }
+
+    private void setDisabled(View v) {
+        v.setEnabled(false);
+        isDisabled = true;
+        v.setBackgroundColor(Color.GRAY);
     }
 
     // NEED TO WAIT UNTIL DIALOG BRANCH IS MERGED FOR THIS. THAT OR TRY TO MERGE THESE TWO
