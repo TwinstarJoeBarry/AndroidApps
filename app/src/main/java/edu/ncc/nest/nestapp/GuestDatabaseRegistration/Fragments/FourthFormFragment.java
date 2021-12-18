@@ -161,8 +161,8 @@ public class FourthFormFragment extends Fragment {
         // set onItemSelectedListener for dropdowns.
         children1Spinner.setOnItemSelectedListener(children1Listener);
         children5Spinner.setOnItemSelectedListener(children5Listener);
-        children12Spinner.setOnItemSelectedListener(dropdownListener);
-        children18Spinner.setOnItemSelectedListener(dropdownListener);
+        children12Spinner.setOnItemSelectedListener(children12Listener);
+        children18Spinner.setOnItemSelectedListener(children18Listener);
         numPeopleSpinner.setOnItemSelectedListener(numPeopleListener);
         childcareSpinner.setOnItemSelectedListener(childcareListener);
 
@@ -301,6 +301,7 @@ public class FourthFormFragment extends Fragment {
                 toast.show();
             } else if (childrenNum == otherPeople) {
                 // valid, but need to disable other options
+                // TODO enable next button
                 children5Spinner.setVisibility(View.GONE);
                 textview_children5.setVisibility(View.GONE);
             }
@@ -338,8 +339,84 @@ public class FourthFormFragment extends Fragment {
                 toast.show();
             } else if (childrenNum == otherPeople) {
                 // valid, but need to disable other options
+                // TODO enable next button
                 children12Spinner.setVisibility(View.GONE);
                 textview_children12.setVisibility(View.GONE);
+            }
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+
+        }
+    };
+
+    private final AdapterView.OnItemSelectedListener children12Listener = new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            // 0 = placeholder, 1 = 0. Therefore, num = pos - 1
+            numChildren12 = position - 1;            //update numChildren1
+            int otherPeople = numPeople - 1;        //remove self from total people
+            int childrenNum = getNumChildren();     //calculate numChildren (total)
+
+            if (position == 0) {
+                children18Spinner.setVisibility(View.GONE);
+                textview_children18.setVisibility(View.GONE);
+            } else {
+                children18Spinner.setVisibility(View.VISIBLE);
+                textview_children18.setVisibility(View.VISIBLE);
+            }
+
+            // check if we exceeded
+            if (childrenNum > otherPeople) {
+                // error, too many people
+                children18Spinner.setVisibility(View.GONE);
+                textview_children18.setVisibility(View.GONE);
+                Toast toast = Toast.makeText(getContext(), "Can not have more children than " +
+                        "people in household, please check again.", Toast.LENGTH_SHORT);
+                toast.show();
+            } else if (childrenNum == otherPeople) {
+                // valid, but need to disable other options
+                // TODO enable next button
+                children18Spinner.setVisibility(View.GONE);
+                textview_children18.setVisibility(View.GONE);
+            }
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+
+        }
+    };
+
+    private final AdapterView.OnItemSelectedListener children18Listener = new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            // 0 = placeholder, 1 = 0. Therefore, num = pos - 1
+            numChildren18 = position - 1;            //update numChildren1
+            int otherPeople = numPeople - 1;        //remove self from total people
+            int childrenNum = getNumChildren();     //calculate numChildren (total)
+
+            /*
+            if (position == 0) {
+                children18Spinner.setVisibility(View.GONE);
+                textview_children18.setVisibility(View.GONE);
+            } else {
+                children18Spinner.setVisibility(View.VISIBLE);
+                textview_children18.setVisibility(View.VISIBLE);
+            }
+             */
+
+            // check if we exceeded
+            if (childrenNum > otherPeople) {
+                // error, too many people
+                // TODO disable next button
+                Toast toast = Toast.makeText(getContext(), "Can not have more children than " +
+                        "people in household, please check again.", Toast.LENGTH_SHORT);
+                toast.show();
+            } else if (childrenNum == otherPeople) {
+                // valid
+                // TODO enable next button
             }
         }
 
