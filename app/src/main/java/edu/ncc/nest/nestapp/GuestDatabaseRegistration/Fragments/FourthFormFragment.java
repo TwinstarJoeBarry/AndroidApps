@@ -262,13 +262,14 @@ public class FourthFormFragment extends Fragment {
                 // show others
                 children1Spinner.setVisibility(View.VISIBLE);
                 textview_children1.setVisibility(View.VISIBLE);
-                children1Spinner.setSelection(1, true); // set to placeholder
             } else {
                 // hide others
                 children1Spinner.setVisibility(View.GONE);
                 textview_children1.setVisibility(View.GONE);
-                children1Spinner.setSelection(0, true); // set to 0
             }
+
+            // reset next
+            children1Spinner.setSelection(0, true); // set to placeholder
         }
 
         @Override
@@ -288,11 +289,9 @@ public class FourthFormFragment extends Fragment {
             if (position == 0) {
                 children5Spinner.setVisibility(View.GONE);
                 textview_children5.setVisibility(View.GONE);
-                children5Spinner.setSelection(0, true);
             } else {
                 children5Spinner.setVisibility(View.VISIBLE);
                 textview_children5.setVisibility(View.VISIBLE);
-                children5Spinner.setSelection(1, true); // set to 0
             }
 
             // check if we exceeded
@@ -300,17 +299,18 @@ public class FourthFormFragment extends Fragment {
                 // error, too many people
                 children5Spinner.setVisibility(View.GONE);
                 textview_children5.setVisibility(View.GONE);
-                children5Spinner.setSelection(0, true); // set to placeholder
                 Toast toast = Toast.makeText(getContext(), "Can not have more children than " +
                         "people in household, please check again.", Toast.LENGTH_SHORT);
                 toast.show();
             } else if (childrenNum == otherPeople) {
                 // valid, but need to disable other options
                 // TODO enable next button
-                children5Spinner.setSelection(0, true);
                 children5Spinner.setVisibility(View.GONE);
                 textview_children5.setVisibility(View.GONE);
             }
+
+            // reset next
+            children5Spinner.setSelection(0, true);
         }
 
         @Override
@@ -330,11 +330,9 @@ public class FourthFormFragment extends Fragment {
             if (position == 0) {
                 children12Spinner.setVisibility(View.GONE);
                 textview_children12.setVisibility(View.GONE);
-                children12Spinner.setSelection(0, true);
             } else {
                 children12Spinner.setVisibility(View.VISIBLE);
                 textview_children12.setVisibility(View.VISIBLE);
-                children12Spinner.setSelection(1, true);
             }
 
             // check if we exceeded
@@ -342,7 +340,6 @@ public class FourthFormFragment extends Fragment {
                 // error, too many people
                 children12Spinner.setVisibility(View.GONE);
                 textview_children12.setVisibility(View.GONE);
-                children12Spinner.setSelection(0, true);
                 Toast toast = Toast.makeText(getContext(), "Can not have more children than " +
                         "people in household, please check again.", Toast.LENGTH_SHORT);
                 toast.show();
@@ -351,8 +348,10 @@ public class FourthFormFragment extends Fragment {
                 // TODO enable next button
                 children12Spinner.setVisibility(View.GONE);
                 textview_children12.setVisibility(View.GONE);
-                children12Spinner.setSelection(0, true);
             }
+
+            // reset next
+            children12Spinner.setSelection(0, true);
         }
 
         @Override
@@ -372,11 +371,9 @@ public class FourthFormFragment extends Fragment {
             if (position == 0) {
                 children18Spinner.setVisibility(View.GONE);
                 textview_children18.setVisibility(View.GONE);
-                children18Spinner.setSelection(1, true);
             } else {
                 children18Spinner.setVisibility(View.VISIBLE);
                 textview_children18.setVisibility(View.VISIBLE);
-                children18Spinner.setSelection(0, true);
             }
 
             // check if we exceeded
@@ -384,17 +381,17 @@ public class FourthFormFragment extends Fragment {
                 // error, too many people
                 children18Spinner.setVisibility(View.GONE);
                 textview_children18.setVisibility(View.GONE);
-                children18Spinner.setSelection(1, true);
                 Toast toast = Toast.makeText(getContext(), "Can not have more children than " +
                         "people in household, please check again.", Toast.LENGTH_SHORT);
                 toast.show();
             } else if (childrenNum == otherPeople) {
                 // valid, but need to disable other options
                 // TODO enable next button
-                children18Spinner.setSelection(1, true);
                 children18Spinner.setVisibility(View.GONE);
                 textview_children18.setVisibility(View.GONE);
             }
+            // reset next
+            children18Spinner.setSelection(0, true);
         }
 
         @Override
