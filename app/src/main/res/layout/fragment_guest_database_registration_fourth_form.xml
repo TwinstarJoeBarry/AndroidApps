@@ -92,14 +92,11 @@
 
             <Spinner
                 android:id="@+id/grf_4_statusChildcare"
-                style="?android:attr/dropDownSpinnerStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:entries="@array/childcare_status"
                 android:paddingVertical="16dp"
+                android:entries="@array/childcare_status"
                 android:paddingStart="0dp"
-                android:paddingEnd="0dp"
-                android:textColorHint="@color/White"
                 android:hint="@string/childcare_status"/>
 
             <!-- May not need to show fields below if above answers indicate they live alone or have no children -->

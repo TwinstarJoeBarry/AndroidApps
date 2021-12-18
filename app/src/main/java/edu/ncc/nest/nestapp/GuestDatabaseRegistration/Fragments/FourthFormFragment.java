@@ -36,6 +36,9 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
+import java.util.List;
+
+import edu.ncc.nest.nestapp.GuestDatabaseRegistration.UIClasses.MultiSelectSpinner;
 import edu.ncc.nest.nestapp.R;
 import edu.ncc.nest.nestapp.databinding.FragmentGuestDatabaseRegistrationFourthFormBinding;
 //import edu.ncc.nest.nestapp.databinding.FragmentGuestDatabaseRegistrationSecondFormBinding;
@@ -54,6 +57,8 @@ public class FourthFormFragment extends Fragment {
 
     private Spinner numPeopleSpinner, childcareSpinner, children1Spinner,
             children5Spinner, children12Spinner, children18Spinner;
+
+    private MultiSelectSpinner childcareMultiSelect;
 
     private TextView textview_numPeople, textview_childcare, textview_children1,
         textview_children5, textview_children12, textview_children18;
@@ -116,20 +121,28 @@ public class FourthFormFragment extends Fragment {
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), backbuttonCallback);
 
         // store the bindings so its cleaner
-        numPeopleSpinner    = binding.grf4NumPeople;
-        childcareSpinner    = binding.grf4StatusChildcare;
-        children1Spinner    = binding.grf4Children1;
-        children5Spinner    = binding.grf4Children5;
-        children12Spinner   = binding.grf4Children12;
-        children18Spinner   = binding.grf4Children18;
-        textview_numPeople  = binding.grf4TextviewNumPeople;
-        textview_childcare  = binding.grf4TextviewStatusChildcare;
-        textview_children1  = binding.grf4TextviewChildren1;
-        textview_children5  = binding.grf4TextviewChildren5;
-        textview_children12 = binding.grf4TextviewChildren12;
-        textview_children18 = binding.grf4TextviewChildren18;
+        numPeopleSpinner     = binding.grf4NumPeople;
+        // TODO put back after multiselect merge
+        //childcareMultiSelect = binding.grf4StatusChildcare;
+        childcareSpinner     = binding.grf4StatusChildcare;
+        children1Spinner     = binding.grf4Children1;
+        children5Spinner     = binding.grf4Children5;
+        children12Spinner    = binding.grf4Children12;
+        children18Spinner    = binding.grf4Children18;
+        textview_numPeople   = binding.grf4TextviewNumPeople;
+        textview_childcare   = binding.grf4TextviewStatusChildcare;
+        textview_children1   = binding.grf4TextviewChildren1;
+        textview_children5   = binding.grf4TextviewChildren5;
+        textview_children12  = binding.grf4TextviewChildren12;
+        textview_children18  = binding.grf4TextviewChildren18;
+
+        // load the multiselect using the class method
+        // TODO put back after multiselect merge
+        //childcareMultiSelect.setItems(getResources().getStringArray(R.array.childcare_status));
 
         // hide views until we need them
+        // TODO put back after multiselect merge
+        //childcareMultiSelect.setVisibility(View.GONE);
         childcareSpinner.setVisibility(View.GONE);
         children1Spinner.setVisibility(View.GONE);
         children5Spinner.setVisibility(View.GONE);
@@ -152,7 +165,7 @@ public class FourthFormFragment extends Fragment {
         children12Spinner.setOnItemSelectedListener(dropdownListener);
         children18Spinner.setOnItemSelectedListener(dropdownListener);
         numPeopleSpinner.setOnItemSelectedListener(numPeopleListener);
-        childcareSpinner.setOnItemSelectedListener(dropdownListener);
+        childcareSpinner.setOnItemSelectedListener(childcareListener);
 
 
         // set up on click listener for the 'next' button
@@ -219,11 +232,19 @@ public class FourthFormFragment extends Fragment {
             // if only one person, don't need to ask about other people in the household
             // pos 0 is placeholder, pos 1 = 1.
             if(position > 1) {
+                // TODO put back after multiselect merge
+                //childcareMultiSelect.setVisibility(View.VISIBLE);
                 childcareSpinner.setVisibility(View.VISIBLE);
                 textview_childcare.setVisibility(View.VISIBLE);
+                // reset selection to placeholder NOTE - Need animate:true to trigger the onItemSelectedListener
+                childcareSpinner.setSelection(0, true);
             } else {
+                // TODO put back after multiselect merge
+                //childcareMultiSelect.setVisibility(View.GONE);
                 childcareSpinner.setVisibility(View.GONE);
                 textview_childcare.setVisibility(View.GONE);
+                // set the selection to "i dont have children" to trigger the other ones
+                childcareSpinner.setSelection(1, true);
             }
         }
 
@@ -233,6 +254,46 @@ public class FourthFormFragment extends Fragment {
         }
     };
 
+    private final AdapterView.OnItemSelectedListener childcareListener = new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            if(position > 1) {
+                // show others
+                children1Spinner.setVisibility(View.VISIBLE);
+                textview_children1.setVisibility(View.VISIBLE);
+            } else {
+                // hide others
+                children1Spinner.setVisibility(View.GONE);
+                textview_children1.setVisibility(View.GONE);
+            }
+        }
 
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
 
+        }
+    };
+
+    // NEED TO WAIT UNTIL DIALOG BRANCH IS MERGED FOR THIS. THAT OR TRY TO MERGE THESE TWO
+    /*
+    private final AdapterView.OnItemClickListener childcareClickListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            List<Integer> selections = ((MultiSelectSpinner) view).getSelectedIndices();
+
+                for (int i = 0; i < selections.size(); i++) {
+                    // if any selection other than first option (no children) is selected
+                    if(selections.get(i) > 0) {
+                        // show others
+                        children1Spinner.setVisibility(View.VISIBLE);
+                        textview_children1.setVisibility(View.VISIBLE);
+                    } else {
+                        // hide others
+                        children1Spinner.setVisibility(View.GONE);
+                        textview_children1.setVisibility(View.GONE);
+                    }
+                }
+            }
+    };
+     */
 }
