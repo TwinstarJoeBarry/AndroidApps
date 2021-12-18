@@ -21,7 +21,9 @@ package edu.ncc.nest.nestapp.GuestDatabaseRegistration.Fragments;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.nfc.Tag;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,6 +64,8 @@ public class FourthFormFragment extends Fragment {
 
     private TextView textview_numPeople, textview_childcare, textview_children1,
             textview_children5, textview_children12, textview_children18;
+
+    private final String TAG = "**NumChildren Test**";
 
     // flags for hiding/showing views
     private boolean openView1, openView2, openView3, openView4, openView5 = false;
@@ -181,10 +185,16 @@ public class FourthFormFragment extends Fragment {
             // storing all strings in bundle to send to summary fragment
             result.putString("householdNum", householdNum);
             result.putString("childcareStatus", childcareStatus);
-            result.putString("children1", children1);
+            result.putString("children1", Integer.toString(numChildren1));
+            result.putString("children5", Integer.toString(numChildren5));
+            result.putString("children12", Integer.toString(numChildren12));
+            result.putString("children18", Integer.toString(numChildren18));
+            /*
+            result.putString("children1", numChildren1);
             result.putString("children5", children5);
             result.putString("children12", children12);
             result.putString("children18", children18);
+             */
 
             // sending bundle
             getParentFragmentManager().setFragmentResult("sending_fourth_form_fragment_info", result);
@@ -247,6 +257,10 @@ public class FourthFormFragment extends Fragment {
             }
             // starts at 1 = 1, so position = people.
             numPeople = position;
+
+            // TODO Remove Test Log
+            Log.d(TAG, displayChildrenNums());
+
         }
 
         @Override
@@ -270,6 +284,9 @@ public class FourthFormFragment extends Fragment {
 
             // reset next
             children1Spinner.setSelection(0, true); // set to placeholder
+
+            // TODO Remove Test Log
+            Log.d(TAG, displayChildrenNums());
         }
 
         @Override
@@ -283,6 +300,10 @@ public class FourthFormFragment extends Fragment {
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             // 0 = placeholder, 1 = 0. Therefore, num = pos - 1
             numChildren1 = position - 1;            //update numChildren1
+            // reset it to 0 so it doesn't become -1
+            if (numChildren1 < 0) {
+                numChildren1 = 0;
+            }
             int otherPeople = numPeople - 1;        //remove self from total people
             int childrenNum = getNumChildren();     //calculate numChildren (total)
 
@@ -311,6 +332,9 @@ public class FourthFormFragment extends Fragment {
 
             // reset next
             children5Spinner.setSelection(0, true);
+
+            // TODO Remove Test Log
+            Log.d(TAG, displayChildrenNums());
         }
 
         @Override
@@ -323,7 +347,11 @@ public class FourthFormFragment extends Fragment {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             // 0 = placeholder, 1 = 0. Therefore, num = pos - 1
-            numChildren5 = position - 1;            //update numChildren1
+            numChildren5 = position - 1;            //update numChildren5
+            // reset it to 0 so it doesn't become -1
+            if (numChildren5 < 0) {
+                numChildren5 = 0;
+            }
             int otherPeople = numPeople - 1;        //remove self from total people
             int childrenNum = getNumChildren();     //calculate numChildren (total)
 
@@ -352,6 +380,9 @@ public class FourthFormFragment extends Fragment {
 
             // reset next
             children12Spinner.setSelection(0, true);
+
+            // TODO Remove Test Log
+            Log.d(TAG, displayChildrenNums());
         }
 
         @Override
@@ -364,7 +395,11 @@ public class FourthFormFragment extends Fragment {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             // 0 = placeholder, 1 = 0. Therefore, num = pos - 1
-            numChildren12 = position - 1;            //update numChildren1
+            numChildren12 = position - 1;            //update numChildren12
+            // reset it to 0 so it doesn't become -1
+            if (numChildren12 < 0) {
+                numChildren12 = 0;
+            }
             int otherPeople = numPeople - 1;        //remove self from total people
             int childrenNum = getNumChildren();     //calculate numChildren (total)
 
@@ -392,6 +427,9 @@ public class FourthFormFragment extends Fragment {
             }
             // reset next
             children18Spinner.setSelection(0, true);
+
+            // TODO Remove Test Log
+            Log.d(TAG, displayChildrenNums());
         }
 
         @Override
@@ -405,6 +443,10 @@ public class FourthFormFragment extends Fragment {
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             // 0 = placeholder, 1 = 0. Therefore, num = pos - 1
             numChildren18 = position - 1;            //update numChildren1
+            // reset it to 0 so it doesn't become -1
+            if (numChildren18 < 0) {
+                numChildren18 = 0;
+            }
             int otherPeople = numPeople - 1;        //remove self from total people
             int childrenNum = getNumChildren();     //calculate numChildren (total)
 
@@ -429,6 +471,10 @@ public class FourthFormFragment extends Fragment {
                 // valid
                 // TODO enable next button
             }
+
+            // TODO Remove Test Log
+            Log.d(TAG, displayChildrenNums());
+
         }
 
         @Override
@@ -439,6 +485,17 @@ public class FourthFormFragment extends Fragment {
 
     private int getNumChildren() {
         return numChildren1 + numChildren5 + numChildren12 + numChildren18;
+    }
+
+    private String displayChildrenNums() {
+        StringBuilder str = new StringBuilder();
+        str.append("CHILDREN STORED:\n");
+        str.append(numChildren1 + "\n");
+        str.append(numChildren5 + "\n");
+        str.append(numChildren12 + "\n");
+        str.append(numChildren18 + "\n");
+
+        return str.toString();
     }
 
     // NEED TO WAIT UNTIL DIALOG BRANCH IS MERGED FOR THIS. THAT OR TRY TO MERGE THESE TWO
