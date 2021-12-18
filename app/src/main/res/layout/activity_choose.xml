@@ -65,8 +65,8 @@
                 android:layout_width="200dp"
                 android:layout_height="120dp"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="9dp"
-                android:background="@drawable/top_line"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/top_line_btn1"
                 android:drawableTop="@drawable/ic_clock"
                 android:paddingTop="25dp"
                 android:onClick="onClick"
@@ -78,13 +78,13 @@
                 android:layout_height="120dp"
                 android:layout_below="@id/getUPCBtn"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="9dp"
-                android:background="@drawable/top_line"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/top_line_btn2"
                 android:drawableTop="@drawable/ic_guest"
                 android:onClick="onClick"
                 android:paddingTop="25dp"
                 android:text="@string/activity_choose_choice_2"
-                android:textColor="#1976D2" />
+                 />
 
             <!--Button
                 android:id="@+id/futureEffortsBtn"
@@ -95,7 +95,7 @@
                 android:onClick="onClick"
                 android:text="@string/activity_choose_choice_3" /-->
 
-            <!--           Button for Testing-->
+            <!--           Button for Testing>
             <Button
                 android:id="@+id/trueDate"
                 android:layout_width="138dp"
@@ -103,7 +103,7 @@
                 android:layout_below="@id/guestFormBtn"
                 android:layout_centerHorizontal="true"
                 android:onClick="onClick"
-                android:text="@string/activity_choose_choice_4" />
+                android:text="@string/activity_choose_choice_4" /-->
 
 
 

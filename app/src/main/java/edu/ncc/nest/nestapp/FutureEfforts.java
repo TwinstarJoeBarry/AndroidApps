@@ -32,6 +32,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+import edu.ncc.nest.nestapp.GuestGoogleSheetRegistration.Activities.GuestGoogleSheetRegistrationActivity;
+
 public class FutureEfforts extends AppCompatActivity implements OnClickListener {
     private static final String TAG = "testing";
 
@@ -88,12 +90,22 @@ public class FutureEfforts extends AppCompatActivity implements OnClickListener 
      * @param v - The activity that was clicked by the user.
      */
     public void onClick(View v) {
-        switch (v.getId()) {
+          switch (v.getId()) {
             case R.id.addToInventoryBtn:
                 launchAddToInventory();
                 break;
             case R.id.scheduleBtn:
                 launchSchedule();
+                break;
+            //code for the two buttons that were added
+            case R.id.guestRegGoogle:
+               launchGuestRegGoogle();
+                break;
+            case R.id.guesVisitGoogle:
+                /*
+                intent = new Intent(this, );
+                startActivity(intent);
+                 */
                 break;
             case R.id.volunteerFormBtn:
                 launchVolForm();
@@ -152,6 +164,16 @@ public class FutureEfforts extends AppCompatActivity implements OnClickListener 
         Intent intent = new Intent(this, SignUp.class);
         startActivity(intent);
     }
+
+    /**
+     * launchGuestRegGoogle --
+     * description: this method starts the
+     * Guest GoogleSheet Registration Activity
+     */
+    public void launchGuestRegGoogle() {
+        Intent intent = new Intent(this, GuestGoogleSheetRegistrationActivity.class);
+        startActivity(intent);
+            }
 
     /**
      * launchVolForm - starts the Volunteer activity

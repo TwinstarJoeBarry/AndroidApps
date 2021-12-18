@@ -28,27 +28,40 @@ public class QuestionnaireSubmission {
 
     public static final String TAG = QuestionnaireSubmission.class.getSimpleName();
 
-    private final ArrayList<String> GUEST_ANSWERS;
-    public final String GUEST_ID;
     public final long ROW_ID;
+    public final String GUEST_ID;
+    public final String ADULT_COUNT;
+    public final String SENIOR_COUNT;
+    public final String CHILD_COUNT;
+    public final String FIRST_VISIT;
+    public final String DATE;
+    public final String VISIT_COUTNER;
 
 
     ////////////// Constructor //////////////
 
     /**
-     * QuestionnaireSubmission --
-     * Constructor for QuestionnaireSubmission class
-     * @param rowID The ID of the row this submission is located at in the database
-     * @param guestID The ID of the guest related to this submission
-     * @param guestAnswers The answers stored related to this submission
+     * Paramertized contruction for Question Submission Class
+     * @param rowID
+     * @param guestID
+     * @param adults
+     * @param seniors
+     * @param children
+     * @param firstVisit
+     * @param date
+     * @param visitCounter
      */
-    public QuestionnaireSubmission(long rowID, String guestID, ArrayList<String> guestAnswers) {
-
-        GUEST_ANSWERS = guestAnswers;
-
-        GUEST_ID = guestID;
+    public QuestionnaireSubmission(long rowID, String guestID, String adults, String seniors,
+                                   String children, String firstVisit, String date, String visitCounter) {
 
         ROW_ID = rowID;
+        GUEST_ID = guestID;
+        ADULT_COUNT = adults;
+        SENIOR_COUNT = seniors;
+        CHILD_COUNT = children;
+        FIRST_VISIT = firstVisit;
+        DATE = date;
+        VISIT_COUTNER = visitCounter;
 
     }
 
@@ -80,7 +93,7 @@ public class QuestionnaireSubmission {
     @Override
     public String toString() {
 
-        return ("{Row ID: [" + ROW_ID + "], Guest ID: [" + GUEST_ID + "], Submission: " + GUEST_ANSWERS.toString() + "}");
+        return ("{Row ID: [" + ROW_ID + "], Guest ID: [" + GUEST_ID + "]");
 
     }
 

@@ -18,6 +18,8 @@ package edu.ncc.nest.nestapp.GuestDatabaseRegistration.Fragments;
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,8 +29,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentResultListener;
 import androidx.navigation.fragment.NavHostFragment;
@@ -51,13 +56,40 @@ public class SecondFormFragment extends Fragment {
 
     private boolean validStreetAddress1, validCity, validZip, validInput = false;
 
+    // back button override warning callback
+    private OnBackPressedCallback backbuttonCallback;
 
     private String fname;
     private Bundle result = new Bundle();
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+    }
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+//        if(savedInstanceState != null){
+//            inputStreetAddress1 = savedInstanceState.getString("street address 1");
+//            inputStreetAddress2 = savedInstanceState.getString("street address 2");
+//            inputCity = savedInstanceState.getString("city");
+//            inputState = savedInstanceState.getString("state");
+//            inputZip = savedInstanceState.getString("zip");
+//            inputAffiliation = savedInstanceState.getString("affiliation");
+//            inputAge = savedInstanceState.getString("age");
+//            inputGender = savedInstanceState.getString("gender");
+//
+//            binding.grf2Address1.setText(inputStreetAddress1);
+//            binding.grf2Address2.setText(inputStreetAddress2);
+//            binding.grf2City.setText(inputCity);
+//            binding.grf2Zip.setText(inputZip);
+//
+//            binding.grf2State.getItemIdAtPosition(1);
+//            binding.grf2Affiliation.getItemIdAtPosition(1);
+//            binding.grf2Age.getItemIdAtPosition(1);
+//            binding.grf2Gender.getItemIdAtPosition(1);
+//        }
         // Inflate the layout for this fragment
         binding = FragmentGuestDatabaseRegistrationSecondFormBinding.inflate(inflater, container, false);
         return binding.getRoot();
@@ -67,6 +99,44 @@ public class SecondFormFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Log.d("TAG", "Obtaining first name");
+
+        // override back button to give a warning
+        backbuttonCallback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                // show dialog prompting user
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setCancelable(false);
+                builder.setTitle("Are you sure?");
+                builder.setMessage("Data entered on this page may not be saved.");
+                // used to handle the 'confirm' button
+                builder.setPositiveButton("Yes, I'm Sure", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // continue by disabling this callback then calling the backpressedispatcher again
+                        // when this was enabled, it was at top of backpressed stack. When we disable, the next item is default back behavior
+                        backbuttonCallback.setEnabled(false);
+                        requireActivity().getOnBackPressedDispatcher().onBackPressed();
+                    }
+                });
+                // handles the 'cancel' button
+                builder.setNegativeButton("Stay On This Page", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel(); // tells android we 'canceled', not dismiss. more appropriate
+                    }
+                });
+                AlertDialog alert = builder.create();
+                alert.show();
+
+            }
+        };
+        // need to add the callback to the activities backpresseddispatcher stack.
+        // if enabled, it will run this first. If disabled, it will run the default (next item in stack)
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), backbuttonCallback);
+
+        //Toast.makeText(getContext(), "WARNING: Pressing back will clear data. Please double check before continuing.", Toast.LENGTH_LONG).show();
+
         /*
         getParentFragmentManager().setFragmentResultListener("sending_first_form_fragment_info", this, new FragmentResultListener() {
                     @Override
@@ -149,4 +219,18 @@ public class SecondFormFragment extends Fragment {
                 });
 
     }
+
+//    @Override
+//    public void onSaveInstanceState(@NonNull Bundle outState){
+//        super.onSaveInstanceState(outState);
+//
+//        outState.putString("street address 1", inputStreetAddress1);
+//        outState.putString("street address 2", inputStreetAddress2);
+//        outState.putString("city", inputCity);
+//        outState.putString("state", inputState);
+//        outState.putString("zip", inputZip);
+//        outState.putString("affiliation", inputAffiliation);
+//        outState.putString("age", inputAge);
+//        outState.putString("gender", inputGender);
+//    }
 }
