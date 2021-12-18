@@ -75,7 +75,7 @@
                 style="?android:attr/dropDownSpinnerStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:entries="@array/nums_0_20"
+                android:entries="@array/nums_1_20"
                 android:paddingVertical="16dp"
                 android:paddingStart="0dp"
                 android:hint="@string/num_people_household"/>
