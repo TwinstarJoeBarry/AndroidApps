@@ -71,7 +71,8 @@ public class FourthFormFragment extends Fragment {
     private boolean openView1, openView2, openView3, openView4, openView5 = false;
 
     // store numPeople selections to validate the number of total people vs children
-    private int numPeople, numChildren1, numChildren5, numChildren12, numChildren18 = 0;
+    private int numChildren1, numChildren5, numChildren12, numChildren18 = 0;
+    private int numPeople = 1;  // default to 1 person (user)
 
     private Bundle result = new Bundle();
 
@@ -256,7 +257,10 @@ public class FourthFormFragment extends Fragment {
                 childcareSpinner.setSelection(1, true);
             }
             // starts at 1 = 1, so position = people.
-            numPeople = position;
+            // already initialized to 1, so if position is 0 do nothing, else update numPeople to position.
+            if (position > 0) {
+                numPeople = position;
+            }
 
             // TODO Remove Test Log
             Log.d(TAG, displayChildrenNums());
