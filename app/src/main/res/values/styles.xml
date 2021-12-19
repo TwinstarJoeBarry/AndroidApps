@@ -14,6 +14,14 @@
 
     </style>
 
+    <style name="NCCTestTheme" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="colorPrimary">@color/colorNCCPrimary</item>
+        <item name="colorPrimaryDark">@color/colorNCCSecondary</item>
+        <item name="colorAccent">@color/colorNCCAccent</item>
+        <item name="android:textColor">#FFFFFF</item>
+
+    </style>
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.DayNight.ActionBar" />
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
