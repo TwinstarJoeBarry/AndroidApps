@@ -13,6 +13,8 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+import edu.ncc.nest.nestapp.R;
+
 /**
  * <b>Title: </b> MultiSelectSpinner
  * <b>File: </b> MultiSelectSpinner.java
@@ -96,10 +98,41 @@ public class MultiSelectSpinner extends androidx.appcompat.widget.AppCompatSpinn
     @Override
     public boolean performClick() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle(R.string.select_all_that_apply);
         builder.setMultiChoiceItems(_items, mSelection, this);
+
+        // clear All button
+        builder.setNegativeButton(getResources().getString(R.string.clear_all), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // clear all selections, then reshow the dialog
+                clearSelections();
+                builder.show();  // android automatically closes a dialog when *any* button is pressed
+            }
+        });
+
+        // close button
+        builder.setPositiveButton(getResources().getString(R.string.close), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // just close the dialog
+                dialog.dismiss();
+            }
+        });
+
         builder.show();
         return true;
     }
+
+    // should i return true here to make sure it completes?
+    /**
+     * Can be used to close the dialog box. May not be a necessary method.
+     */
+    public boolean closeDialog(DialogInterface dialog) {
+        dialog.cancel();
+        return true;
+    }
+
 
     /**
      * Applies a SpinnerAdapter to the Spinner. Throws an exception if the adapter
@@ -122,7 +155,9 @@ public class MultiSelectSpinner extends androidx.appcompat.widget.AppCompatSpinn
         _items = items;
         mSelection = new boolean[_items.length];
         simple_adapter.clear();
-        simple_adapter.add(_items[0]);
+        //simple_adapter.add(_items[0]);
+        // below injects the 'select all that apply' placeholder if nothing is selected yet
+        simple_adapter.add(getResources().getString(R.string.select_all_that_apply));
         Arrays.fill(mSelection, false);
     }
 
@@ -134,7 +169,9 @@ public class MultiSelectSpinner extends androidx.appcompat.widget.AppCompatSpinn
         _items = items.toArray(new String[items.size()]);
         mSelection = new boolean[_items.length];
         simple_adapter.clear();
-        simple_adapter.add(_items[0]);
+        //simple_adapter.add(_items[0]);
+        // below injects the 'select all that apply' placeholder if nothing is selected yet
+        simple_adapter.add(getResources().getString(R.string.select_all_that_apply));
         Arrays.fill(mSelection, false);
     }
 
@@ -215,6 +252,16 @@ public class MultiSelectSpinner extends androidx.appcompat.widget.AppCompatSpinn
         }
         simple_adapter.clear();
         simple_adapter.add(buildSelectedItemString());
+    }
+
+    public void clearSelections() {
+        // clear the selections array
+        for (int i = 0; i < mSelection.length; i++) {
+            mSelection[i] = false;
+        }
+        // reset the adapter to update UI
+        simple_adapter.clear();
+        simple_adapter.add(getResources().getString(R.string.select_all_that_apply));
     }
 
     /**
