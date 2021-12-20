@@ -452,5 +452,6 @@
     <string name="welcome_to_nest">Welcome to NEST!</string>
     <string name="login">Login</string>
     <string name="email">Email</string>
+    <string name="forgot_password">Forgot Password?</string>
 
 </resources>
