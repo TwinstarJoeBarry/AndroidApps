@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -47,14 +47,45 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <TextView
+                android:text="@string/login"
+                android:textSize="55dp"
+                android:textAllCaps="false"
+                android:textColor="#C9000000"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
         </LinearLayout>
 
         <LinearLayout
-        android:weightSum="0.6"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+            android:weightSum="0.6"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/login_email"
+                    android:textColor="#E6000000"
+                    android:textStyle="bold"
+                    android:textAllCaps="false"
+                    android:textSize="20sp"
+                    android:drawableEnd="@drawable/ic_mail"
+                    android:layout_margin="20dp"
+                    android:drawablePadding="10dp"
+                    android:padding="15dp"
+                    android:background="@drawable/edittext_1"
+                    android:hint="Email"
+                    android:layout_width="320dp"
+                    android:layout_height="70dp"/>
+
+
+            </RelativeLayout>
+
 
         </LinearLayout>
     </LinearLayout>
 
-</androidx.appcompat.widget.LinearLayoutCompat>
+</LinearLayout>

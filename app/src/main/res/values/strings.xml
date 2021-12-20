@@ -451,5 +451,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="welcome_to_nest">Welcome to NEST!</string>
     <string name="login">Login</string>
+    <string name="email">Email</string>
 
 </resources>
