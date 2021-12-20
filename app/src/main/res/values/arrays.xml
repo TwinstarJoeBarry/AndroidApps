@@ -770,7 +770,6 @@
     </string-array>
 
     <string-array name="dietary_needs">
-        <item>Select All That Apply</item>
         <item>None</item>
         <item>Diabetic</item>
         <item>Low Salt</item>
@@ -798,7 +797,6 @@
     </string-array>
 
     <string-array name="employment_status">
-        <item>Select All That Apply</item>
         <item>I am currently working</item>
         <item>I am looking for employment</item>
         <item>I am not currently working</item>
@@ -809,7 +807,6 @@
     </string-array>
 
     <string-array name="health_status">
-        <item>Select All That Apply</item>
         <item>I have health insurance</item>
         <item>I do not have health insurance</item>
         <item>I do not know how to get health insurance</item>
@@ -820,7 +817,6 @@
     </string-array>
 
     <string-array name="housing_status">
-        <item>Select All That Apply</item>
         <item>I have a safe and comfortable place to live</item>
         <item>I am currently homeless or in danger of becoming homeless</item>
         <item>I need housing</item>
@@ -828,7 +824,6 @@
     </string-array>
 
     <string-array name="childcare_status">
-        <item>Select All That Apply</item>
         <item>I do not have children in my household</item>
         <item>I need diapers, baby food, and other baby supplies</item>
         <item>I am interested in parenting workshops</item>
