@@ -42,6 +42,7 @@
         android:layout_height="340dp">
 
         <LinearLayout
+            android:gravity="center"
             android:weightSum="1.4"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
