@@ -35,4 +35,25 @@
 
     </RelativeLayout>
 
+    <LinearLayout
+        android:weightSum="2"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="340dp">
+
+        <LinearLayout
+            android:weightSum="1.4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </LinearLayout>
+
+        <LinearLayout
+        android:weightSum="0.6"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        </LinearLayout>
+    </LinearLayout>
+
 </androidx.appcompat.widget.LinearLayoutCompat>
