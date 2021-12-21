@@ -121,6 +121,10 @@ public class Choose extends AppCompatActivity implements OnClickListener {
             launchFutureEfforts();
             return true;
         }
+        if(item.getItemId() == R.id.login_btn){
+            launchLoginActivity();
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -132,6 +136,14 @@ public class Choose extends AppCompatActivity implements OnClickListener {
      */
     public void launchFutureEfforts() {
         Intent intent = new Intent(this, FutureEfforts.class);
+        startActivity(intent);
+    }
+
+    /**
+     * launchLoginActivity - starts the Login Activity
+     */
+    public void launchLoginActivity() {
+        Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
 

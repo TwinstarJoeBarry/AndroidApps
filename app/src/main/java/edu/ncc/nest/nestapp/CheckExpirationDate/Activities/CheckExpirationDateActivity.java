@@ -18,6 +18,7 @@ package edu.ncc.nest.nestapp.CheckExpirationDate.Activities;
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,6 +30,7 @@ import androidx.fragment.app.FragmentManager;
 
 import edu.ncc.nest.nestapp.CheckExpirationDate.DatabaseClasses.NestDBDataSource;
 import edu.ncc.nest.nestapp.CheckExpirationDate.Fragments.StartFragment;
+import edu.ncc.nest.nestapp.LoginActivity;
 import edu.ncc.nest.nestapp.R;
 
 /**
@@ -105,14 +107,28 @@ public class CheckExpirationDateActivity extends NestDBDataSource.NestDBActivity
 
                 ((StartFragment) currentFragment).clearUPCEntry();
 
-        } else if (itemId == R.id.home_btn)
+        }
+        if (itemId == R.id.home_btn) {
 
             /* Finish this activity and return to the previous activity since the previous activity
              * is the home page. */
             finish();
+        }
+        if(item.getItemId() == R.id.login_btn){
+            launchLoginActivity();
+            }
 
         return super.onOptionsItemSelected(item);
 
     }
+
+    /**
+     * launchLoginActivity - starts the Login Activity
+     */
+    public void launchLoginActivity() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+    }
+
 
 }
