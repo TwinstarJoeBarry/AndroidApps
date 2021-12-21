@@ -16,7 +16,7 @@
 
     <style name="NCCTestTheme" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="colorPrimary">@color/colorNCCPrimary</item>
-        <item name="colorPrimaryDark">@color/colorNCCSecondary</item>
+        <item name="colorSecondary">@color/colorNCCSecondary</item>
         <item name="colorAccent">@color/colorNCCAccent</item>
         <item name="android:textColor">#FFFFFF</item>
 

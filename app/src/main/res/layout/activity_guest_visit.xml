@@ -22,11 +22,17 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".GuestVisit.Activities.GuestVisitActivity" >
+    tools:context=".GuestVisit.Activities.GuestVisitActivity"
+    android:theme="@style/NCCTestTheme">
 
     <include
         android:id="@+id/guest_visit_toolbar"
-        layout="@layout/toolbar" />
+        layout="@layout/guest_testing_toolbar" />
+    <!--
+    Note: guest_testing_toolbar was made to be a temporary fix to not being able
+    to have the toolbar color be localized to guest_visit fragments. Will be obsolete
+    once final design is made.
+    -->
 
     <fragment
         android:id="@+id/guest_visit_nav_host_fragment"
