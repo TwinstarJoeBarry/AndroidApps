@@ -7,5 +7,4 @@
     android:elevation="4dp"
     android:theme="@style/NCCTestTheme">
 
-
 </androidx.appcompat.widget.Toolbar>
