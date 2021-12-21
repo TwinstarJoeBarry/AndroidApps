@@ -276,6 +276,9 @@ public class FourthFormFragment extends Fragment {
                 numPeople = position;
             }
 
+            // force multiselect verification after changing selection.
+            verifyMultiselect.run();
+
             // TODO Remove Test Log
             Log.d(TAG, displayChildrenNums());
 
@@ -330,6 +333,8 @@ public class FourthFormFragment extends Fragment {
                     children1Spinner.setVisibility(View.VISIBLE);
                     textview_children1.setVisibility(View.VISIBLE);
                 }
+                // reset next field
+                children1Spinner.setSelection(0, true);
                 /*
                 if (selections.get(i) > 0) {
                     // show others
