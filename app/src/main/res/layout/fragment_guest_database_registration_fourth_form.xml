@@ -190,7 +190,7 @@
 
                 android:backgroundTint="@color/colorPrimary"
                 android:text="@string/next"
-                
+
                 android:textColor="@color/White" />
 
         </LinearLayout>

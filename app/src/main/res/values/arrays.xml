@@ -857,7 +857,7 @@
         <item>20</item>
     </string-array>
 
-<<<<<<< HEAD
+
     <string-array name="referrer_array">
         <item>Campus Employee (Professor, Staff Member, etc.)</item>
         <item>Friend</item>
@@ -867,7 +867,8 @@
         <item>Instagram</item>
         <item>Internet Search</item>
         <item>Other</item>
-=======
+    </string-array>
+
     <string-array name="nums_1_20">
         <item>Select One</item>
         <item>1</item>
@@ -890,7 +891,7 @@
         <item>18</item>
         <item>19</item>
         <item>20</item>
->>>>>>> adf9f9763400666c62b438875e89e69417a8f7f0
+
     </string-array>
 <!-- GUEST REGISTRATION FORM ITEMS END //////////////////////////////////////// -->
 
