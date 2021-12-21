@@ -60,6 +60,7 @@ public class GuestRegistryEntry {
     private String children12;
     private String children18;
 
+    private String referralInfo;
     private String additionalInfo;
     private String nameOfVolunteer;
     private String barcode;
@@ -94,6 +95,7 @@ public class GuestRegistryEntry {
         this.children12 = null;
         this.children18 = null;
 
+        this.referralInfo = null;
         this.additionalInfo = null;
         this.nameOfVolunteer = null;
         this.barcode = null;
@@ -104,7 +106,7 @@ public class GuestRegistryEntry {
                               String state, String affiliation, String age, String gender, String diet, String programs,
                               String snap, String employment, String health, String housing, String income, String householdNum,
                               String childcareStatus, String children1, String children5, String children12, String children18,
-                              String additionalInfo, String nameOfVolunteer, String barcode) {
+                              String referralInfo, String additionalInfo, String nameOfVolunteer, String barcode) {
 
         this.name = name;
         this.phone = phone;
@@ -134,6 +136,7 @@ public class GuestRegistryEntry {
         this.children12 = children12;
         this.children18 = children18;
 
+        this.referralInfo = referralInfo;
         this.additionalInfo = additionalInfo;
         this.nameOfVolunteer = nameOfVolunteer;
         this.barcode = barcode;
@@ -169,6 +172,7 @@ public class GuestRegistryEntry {
     public String getChildren12() { return children12; }
     public String getChildren18() { return children18; }
 
+    public String getReferralInfo() { return referralInfo; }
     public String getAdditionalInfo() { return additionalInfo; }
     public String getNameOfVolunteer() { return nameOfVolunteer; }
     public String getBarcode() { return barcode; }
@@ -202,6 +206,7 @@ public class GuestRegistryEntry {
     public void setChildren12(String children12) { this.children12 = children12; }
     public void setChildren18(String children18) { this.children18 = children18; }
 
+    public void setReferralInfo(String referralInfo) { this.referralInfo = referralInfo; }
     public void setAdditionalInfo(String additionalInfo) { this.additionalInfo = additionalInfo; }
     public void setNameOfVolunteer(String nameOfVolunteer) { this.nameOfVolunteer = nameOfVolunteer; }
     public void setBarcode(String barcode) { this.barcode = barcode; }

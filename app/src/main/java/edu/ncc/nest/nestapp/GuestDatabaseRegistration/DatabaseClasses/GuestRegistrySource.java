@@ -107,7 +107,7 @@ public class GuestRegistrySource {
                               String state, String affiliation, String age, String gender, String diet, String programs,
                               String snap, String employment, String health, String housing, String income, String householdNum,
                               String childcareStatus, String children1, String children5, String children12, String children18,
-                              String additionalInfo, String nameOfVolunteer, String barcode) {
+                              String referralInfo, String additionalInfo, String nameOfVolunteer, String barcode) {
 
         //All info for a single user will be placed into the same ContentValue variable (Key & Value map-like variable)
         ContentValues cValues = new ContentValues();
@@ -145,6 +145,7 @@ public class GuestRegistrySource {
         cValues.put(GuestRegistryHelper.CHILDREN_18, children18);
 
         // additional data
+        cValues.put(GuestRegistryHelper.REFERRAL_INFO, referralInfo);
         cValues.put(GuestRegistryHelper.ADDITIONAL_INFO, additionalInfo);
         cValues.put(GuestRegistryHelper.NAME_OF_VOLUNTEER, nameOfVolunteer);
         cValues.put(GuestRegistryHelper.BARCODE, barcode);
