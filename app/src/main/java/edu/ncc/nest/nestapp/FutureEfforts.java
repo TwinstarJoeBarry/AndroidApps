@@ -60,6 +60,7 @@ public class FutureEfforts extends AppCompatActivity implements OnClickListener 
     /**
      * onOptionsSelected method --
      * description: this method makes you comeback to the launch UI when the home button is clicked
+     * or launch the Login UI when the login button is clicked
      * @param item
      * @return
      */
@@ -67,6 +68,10 @@ public class FutureEfforts extends AppCompatActivity implements OnClickListener 
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.home_btn) {
             home();
+        }
+        if(item.getItemId() == R.id.login_btn){
+            launchLoginActivity();
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -78,6 +83,14 @@ public class FutureEfforts extends AppCompatActivity implements OnClickListener 
      */
     public void home() {
         Intent intent = new Intent(this, Choose.class);
+        startActivity(intent);
+    }
+
+    /**
+     * launchLoginActivity - starts the Login Activity
+     */
+    public void launchLoginActivity() {
+        Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
 

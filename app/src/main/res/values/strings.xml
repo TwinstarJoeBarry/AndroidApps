@@ -10,7 +10,6 @@
     <string name="done">Done</string>
     <string name="confirm">Confirm</string>
     <string name="review_and_submit">Review and Submit</string>
-    <string name="register">Register</string>
     <string name="full_name">Full Name</string>
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
@@ -359,7 +358,6 @@
     <string name="fragment_gsr_second_form_question_17"><font size="14">What is the last name of the volunteer who helped you today?</font></string>
 
 
-
     <!-- GUEST VISIT STRINGS START ///////////////////////////////////////////////////////////////// -->
 
     <!-- Strings used in fragment_guest_visit_confirmation_found.xml -->
@@ -451,6 +449,11 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="welcome_to_nest">Welcome to NEST!</string>
+    <string name="login">Login</string>
+    <string name="guest_login">Guest Login</string>
+    <string name="email">Email</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="register">Register</string>
     <string name="summary">Summary</string>
 
 </resources>
