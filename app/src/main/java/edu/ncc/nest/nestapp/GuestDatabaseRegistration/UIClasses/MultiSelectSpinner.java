@@ -96,6 +96,50 @@ public class MultiSelectSpinner extends androidx.appcompat.widget.AppCompatSpinn
         }
     }
 
+    public boolean performClickCallback(final Runnable callback) {
+        builder = new AlertDialog.Builder(getContext());
+        builder.setTitle(R.string.select_all_that_apply);
+        builder.setMultiChoiceItems(_items, mSelection, this);
+        // so they have to press close button.
+        builder.setCancelable(false);
+
+        // clear All button
+        builder.setNegativeButton(getResources().getString(R.string.clear_all), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // clear all selections, then reshow the dialog
+                clearSelections();
+                builder.show();  // android automatically closes a dialog when *any* button is pressed
+            }
+        });
+
+        // close button
+        builder.setPositiveButton(getResources().getString(R.string.close), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // just close the dialog
+                dialog.dismiss();
+            }
+        });
+
+        builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                // update lastSelectedIndexes in case we need to use later.
+                lastSelectedIndexes = getSelectedIndices();
+                Log.d("**MULTICLASS**", "In on dismiss method");
+                // call the callback function. used to attach logic to dismiss
+                callback.run();
+            }
+        });
+
+
+        theDialog = builder.create();
+        builder.show();
+
+        return true;
+    }
+
     /**
      * Displays the list of multiselect items to the user in an AlertDialog.
      * Called when the user clicks on the multiselect input.

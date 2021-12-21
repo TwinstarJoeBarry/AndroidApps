@@ -350,64 +350,39 @@ public class FourthFormFragment extends Fragment {
             Log.d("**ONTOUCH**", "In On Touch EVENT");
 
             if (event.getAction() == MotionEvent.ACTION_UP) {
-                // basically like calling the super method
-                boolean done = ((MultiSelectSpinner) v).performClick();
-                if (done) {
-                    Log.d("**ONTOUCH**", "In 'done'");
-
-                    Log.d("**DIALOG**", ((MultiSelectSpinner) v).getTheDialog().toString());
-
-                    FragmentManager fm = getParentFragmentManager();
-                    fm.executePendingTransactions();
-                    // why does this not happen?
-                    ((MultiSelectSpinner) v).getTheDialog().setOnDismissListener(dialog -> {
-                        Log.d("**ONTOUCH**", "In 'on dismiss block'");
-                        List<Integer> selections = ((MultiSelectSpinner) v).getSelectedIndices();
-
-                        for (int i = 0; i < selections.size(); i++) {
-                            // if any selection other than first option (no children) appears
-                            //Log.d(TAG, "SELECTIONS: " + selections.get(i).toString());
-                            if (selections.get(i) > 0) {
-                                // show others
-                                children1Spinner.setVisibility(View.VISIBLE);
-                                textview_children1.setVisibility(View.VISIBLE);
-                            } else {
-                                // hide others
-                                children1Spinner.setVisibility(View.GONE);
-                                textview_children1.setVisibility(View.GONE);
-
-                                // TODO add if disabled, enable code
-                                if (isDisabled) {
-                                    setEnabled(nextBtn);
-                                }
-                            }
-                        }
-                    });
-                    //if (done) {
-                    // get a list of selection indexes.
-
-                    //}
-                    //}
-                }
+                // call the perform click function using a callback. Callback will be run after dismiss() is pressed.
+                boolean done = ((MultiSelectSpinner) v).performClickCallback(verifyMultiselect);
             }
             return true;
         }
     };
 
-    private final View.OnClickListener childcareClickListener = new View.OnClickListener() {
-
+    // runnable task that runs after called. Used as a callback to the multiselect dialog
+    private Runnable verifyMultiselect = new Runnable() {
         @Override
-        public void onClick(View v) {
-            // basically like calling the super method
-        boolean done = ((MultiSelectSpinner) v).performClick();
-        // returns true at the end of function, so hopefully this waits until done?
-        if (done) {
-            // get a list of selection indexes.
+        public void run() {
+            Log.d("**ONTOUCH**", "In 'runnabl task'");
+            MultiSelectSpinner v = childcareMultiSelect;
             List<Integer> selections = ((MultiSelectSpinner) v).getSelectedIndices();
 
             for (int i = 0; i < selections.size(); i++) {
                 // if any selection other than first option (no children) appears
                 //Log.d(TAG, "SELECTIONS: " + selections.get(i).toString());
+                if (selections.get(i) == 0) {
+                    // hide others
+                    children1Spinner.setVisibility(View.GONE);
+                    textview_children1.setVisibility(View.GONE);
+                    childcareMultiSelect.setSelection(0, true);
+                    // TODO add if disabled, enable code
+                    if (isDisabled) {
+                        setEnabled(nextBtn);
+                    }
+                } else {
+                    // show others
+                    children1Spinner.setVisibility(View.VISIBLE);
+                    textview_children1.setVisibility(View.VISIBLE);
+                }
+                /*
                 if (selections.get(i) > 0) {
                     // show others
                     children1Spinner.setVisibility(View.VISIBLE);
@@ -422,140 +397,12 @@ public class FourthFormFragment extends Fragment {
                         setEnabled(nextBtn);
                     }
                 }
-            }
-        }
-        }
-    };
 
-    private final AdapterView.OnItemClickListener childcareItemClickListener = new AdapterView.OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            // basically like calling the super method
-            boolean done = ((MultiSelectSpinner) view).performClick();
-            // returns true at the end of function, so hopefully this waits until done?
-            if (done) {
-                // get a list of selection indexes.
-                List<Integer> selections = ((MultiSelectSpinner) view).getSelectedIndices();
-
-                for (int i = 0; i < selections.size(); i++) {
-                    // if any selection other than first option (no children) appears
-                    //Log.d(TAG, "SELECTIONS: " + selections.get(i).toString());
-                    if (selections.get(i) > 0) {
-                        // show others
-                        children1Spinner.setVisibility(View.VISIBLE);
-                        textview_children1.setVisibility(View.VISIBLE);
-                    } else {
-                        // hide others
-                        children1Spinner.setVisibility(View.GONE);
-                        textview_children1.setVisibility(View.GONE);
-
-                        // TODO add if disabled, enable code
-                        if (isDisabled) {
-                            setEnabled(nextBtn);
-                        }
-                    }
-                }
+                 */
             }
         }
     };
 
-        private final AdapterView.OnItemSelectedListener childcareListener = new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(position > 1) {
-                    // show others
-                    children1Spinner.setVisibility(View.VISIBLE);
-                    textview_children1.setVisibility(View.VISIBLE);
-                } else {
-                    // hide others
-                    children1Spinner.setVisibility(View.GONE);
-                    textview_children1.setVisibility(View.GONE);
-
-                    // TODO add if disabled, enable code
-                    if (isDisabled) {
-                        setEnabled(nextBtn);
-                    }
-                }
-
-                // reset next
-                children1Spinner.setSelection(0, true); // set to placeholder
-
-                // TODO Remove Test Log
-                Log.d(TAG, displayChildrenNums());
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        };
-
-        private final DialogInterface.OnClickListener childcareMultiselectListener = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if (which > 1) {
-                    // show others
-                    children1Spinner.setVisibility(View.VISIBLE);
-                    textview_children1.setVisibility(View.VISIBLE);
-                } else {
-                    // hide others
-                    children1Spinner.setVisibility(View.GONE);
-                    textview_children1.setVisibility(View.GONE);
-
-                    // TODO add if disabled, enable code
-                    if (isDisabled) {
-                        setEnabled(nextBtn);
-                    }
-                }
-
-                // reset next
-                children1Spinner.setSelection(0, true); // set to placeholder
-
-                // TODO Remove Test Log
-                Log.d(TAG, displayChildrenNums());
-            }
-        };
-
-        /*
-        private final AdapterView.OnItemSelectedListener childcareClickListener = new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                // basically like calling the super method
-                //boolean done = ((MultiSelectSpinner) parent).performClick();
-                // returns true at the end of function, so hopefully this waits until done?
-                //if (done) {
-                // get a list of selection indexes.
-                List<Integer> selections = ((MultiSelectSpinner) parent).getSelectedIndices();
-
-                for (int i = 0; i < selections.size(); i++) {
-                    // if any selection other than first option (no children) appears
-                    Log.d(TAG, "SELECTIONS: " + selections.get(i).toString());
-                    if(selections.get(i) > 0) {
-                        // show others
-                        children1Spinner.setVisibility(View.VISIBLE);
-                        textview_children1.setVisibility(View.VISIBLE);
-                    } else {
-                        // hide others
-                        children1Spinner.setVisibility(View.GONE);
-                        textview_children1.setVisibility(View.GONE);
-
-                        // TODO add if disabled, enable code
-                        if (isDisabled) {
-                            setEnabled(nextBtn);
-                        }
-                    }
-                }
-                // }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-
-        };
-
-         */
 
         private final AdapterView.OnItemSelectedListener children1Listener = new AdapterView.OnItemSelectedListener() {
             @Override
