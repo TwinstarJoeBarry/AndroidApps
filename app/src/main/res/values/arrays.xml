@@ -856,6 +856,17 @@
         <item>19</item>
         <item>20</item>
     </string-array>
+
+    <string-array name="referrer_array">
+        <item>Campus Employee (Professor, Staff Member, etc.)</item>
+        <item>Friend</item>
+        <item>Website</item>
+        <item>Facebook</item>
+        <item>Twitter</item>
+        <item>Instagram</item>
+        <item>Internet Search</item>
+        <item>Other</item>
+    </string-array>
 <!-- GUEST REGISTRATION FORM ITEMS END //////////////////////////////////////// -->
 
 </resources>
