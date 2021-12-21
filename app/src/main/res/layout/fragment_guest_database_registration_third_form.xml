@@ -23,7 +23,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryShaded"
+    android:background="@color/backgroundGray"
     tools:context=".GuestDatabaseRegistration.Activities.GuestDatabaseRegistrationActivity"
     android:orientation="vertical">
 
@@ -70,16 +70,11 @@
 
             </TextView>
 
-
-            <!-- TODO: Make a multi-select -->
-            <!-- TODO: put back entries attribute -->
-            <Spinner
+            <edu.ncc.nest.nestapp.GuestDatabaseRegistration.UIClasses.MultiSelectSpinner
                 android:id="@+id/grf_3_dietary"
-                style="?android:attr/spinnerDropDownItemStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/dietary_needs"
-                android:entries="@array/dietary_needs"
                 android:paddingVertical="16dp"
                 android:paddingStart="0dp" />
 
@@ -134,14 +129,11 @@
 
             </TextView>
 
-            <!-- TODO: Make a multi-select -->
-            <Spinner
+            <edu.ncc.nest.nestapp.GuestDatabaseRegistration.UIClasses.MultiSelectSpinner
                 android:id="@+id/grf_3_statusEmployment"
-                style="?android:attr/spinnerDropDownItemStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/colorPrimary"
-                android:entries="@array/employment_status"
                 android:paddingVertical="16dp"
                 android:paddingStart="0dp" />
 
@@ -155,14 +147,11 @@
 
             </TextView>
 
-            <!-- TODO: Make a multi-select -->
-            <Spinner
+            <edu.ncc.nest.nestapp.GuestDatabaseRegistration.UIClasses.MultiSelectSpinner
                 android:id="@+id/grf_3_statusHealth"
-                style="?android:attr/spinnerDropDownItemStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/colorPrimaryDark"
-                android:entries="@array/health_status"
                 android:paddingVertical="16dp"
                 android:paddingStart="0dp"/>
 
@@ -176,14 +165,11 @@
 
             </TextView>
 
-            <!-- TODO: Make a multi-select -->
-            <Spinner
+            <edu.ncc.nest.nestapp.GuestDatabaseRegistration.UIClasses.MultiSelectSpinner
                 android:id="@+id/grf_3_statusHousing"
-                style="?android:attr/spinnerDropDownItemStyle"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/colorPrimaryShaded"
-                android:entries="@array/housing_status"
                 android:paddingVertical="16dp"
                 android:paddingStart="0dp"/>
 
@@ -208,7 +194,7 @@
                     android:id="@+id/next_button_third_fragment_gRegistration"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="50dp"
+                    android:layout_marginTop="15dp"
                     android:backgroundTint="@color/colorPrimary"
                     android:text="@string/next"
                     android:textColor="@color/White" />

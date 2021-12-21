@@ -18,6 +18,8 @@ package edu.ncc.nest.nestapp.GuestDatabaseRegistration.Fragments;
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -27,13 +29,14 @@ import android.widget.AdapterView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import edu.ncc.nest.nestapp.R;
 import edu.ncc.nest.nestapp.databinding.FragmentGuestDatabaseRegistrationFourthFormBinding;
-import edu.ncc.nest.nestapp.databinding.FragmentGuestDatabaseRegistrationSecondFormBinding;
+//import edu.ncc.nest.nestapp.databinding.FragmentGuestDatabaseRegistrationSecondFormBinding;
 
 /**
  * ThirdFormFragment: Represents a form that a guest can fill in with more of their information.
@@ -48,6 +51,8 @@ public class FourthFormFragment extends Fragment {
         children12, children18;
 
     private Bundle result = new Bundle();
+
+    private OnBackPressedCallback backbuttonCallback;
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,6 +69,42 @@ public class FourthFormFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        // override back button to give a warning
+        backbuttonCallback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                // show dialog prompting user
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setCancelable(false);
+                builder.setTitle("Are you sure?");
+                builder.setMessage("Data entered on this page may not be saved.");
+                // used to handle the 'confirm' button
+                builder.setPositiveButton("Yes, I'm Sure", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // continue by disabling this callback then calling the backpressedispatcher again
+                        // when this was enabled, it was at top of backpressed stack. When we disable, the next item is default back behavior
+                        backbuttonCallback.setEnabled(false);
+                        requireActivity().getOnBackPressedDispatcher().onBackPressed();
+                    }
+                });
+                // handles the 'cancel' button
+                builder.setNegativeButton("Stay On This Page", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel(); // tells android we 'canceled', not dismiss. more appropriate
+                    }
+                });
+                AlertDialog alert = builder.create();
+                alert.show();
+
+            }
+        };
+        // need to add the callback to the activities backpresseddispatcher stack.
+        // if enabled, it will run this first. If disabled, it will run the default (next item in stack)
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), backbuttonCallback);
+
 
         // set onItemSelectedListener for dropdowns. Hardcoded. TODO Change to loop
         // may need to update IDs .. thinking grf_4_input_dietary, etc. Then the textviews are
@@ -101,7 +142,7 @@ public class FourthFormFragment extends Fragment {
 
             // navigate to the summary fragment when clicked
             NavHostFragment.findNavController(FourthFormFragment.this)
-                    .navigate(R.id.action_DBR_FourthFormFragment_to_DBR_SummaryFragment);
+                    .navigate(R.id.action_DBR_FourthFormFragment_to_DBR_FifthFormFragment);
 
         });
     }
@@ -116,7 +157,7 @@ public class FourthFormFragment extends Fragment {
             // if first item is selected, it's a placeholder. Treat as no input
             if(position == 0) {
                 // Makes it look visually 'muted'
-                ((TextView) view).setTextColor(Color.GRAY);
+//                ((TextView) view).setTextColor(Color.GRAY);
             } else {
                 // else, an item is selected. Below uses the "ColorPrimaryDark" variable. This will allow us to
                 // keep universal themes and styling across the app.

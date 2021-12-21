@@ -188,10 +188,10 @@
                 android:id="@+id/next_button_fourth_fragment_gRegistration"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="15dp"
 
                 android:backgroundTint="@color/colorPrimary"
-                android:text="@string/review_and_submit"
+                android:text="@string/next"
                 android:textColor="@color/White" />
 
         </LinearLayout>

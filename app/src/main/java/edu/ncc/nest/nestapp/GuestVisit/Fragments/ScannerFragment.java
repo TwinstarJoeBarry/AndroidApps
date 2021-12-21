@@ -106,13 +106,15 @@ public class ScannerFragment extends AbstractScannerFragment {
          */
 
         // If a guest associated with the currently scanned barcode does not exist in the database
-        /*if (db.isRegistered(barcode) == null) {
+        /* if (db.isRegistered(barcode) == null) {
 
-            db.open();
+//            db.open();
 
             // NOTE: This method may change over time, make sure it is up to date with GuestRegistrySource.
-            if (!db.insertData("John Doe", "John.Doe@example.com", "555-555-5555", "01/23/45",
-                    "123 Test St", "Test", "12345", barcode))
+         if (!db.insertData("John Doe", "John.Doe@example.com", "555-555-5555", "01/23/45",
+                            "123 Test St", "Test", "12345", "11111", "1", "1", "1", "1", "1",
+                            "1", "1", "1", "1", "1", "1", "1", "1", "1",
+                            "1", "1", "1",barcode))
 
                 Log.e(TAG, "Error adding \"testing\" guest to registry.");
 
@@ -120,9 +122,7 @@ public class ScannerFragment extends AbstractScannerFragment {
 
         } else
 
-            Log.w(TAG, "Did not add new guest because a guest already exists with that barcode");
-         */
-
+            Log.w(TAG, "Did not add new guest because a guest already exists with that barcode");*/
         ///////////////////////////////////// TESTING CODE END /////////////////////////////////////
 
         // TODO 'GuestDatabaseRegistration' feature is not finished yet so this might always be null

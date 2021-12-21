@@ -34,6 +34,7 @@ import androidx.fragment.app.Fragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.ncc.nest.nestapp.GuestVisit.DatabaseClasses.QuestionnaireHelper;
 import edu.ncc.nest.nestapp.GuestVisit.DatabaseClasses.QuestionnaireSource;
 import edu.ncc.nest.nestapp.R;
 
@@ -50,6 +51,8 @@ public class QuestionnaireFragment extends Fragment implements View.OnClickListe
     private Button submitButton;
 
     private String guestID;
+
+    QuestionnaireSource datasource;
 
 
     ////////////// Lifecycle Methods Start //////////////
@@ -85,7 +88,9 @@ public class QuestionnaireFragment extends Fragment implements View.OnClickListe
 
             if (isEnabled != null) {
 
-                for (int i = isEnabled.length; i-- > 0; )
+                //Last view is not enabled because it is outdated - the program should know if it's the
+                //guests first visit or not so legnth -1
+                for (int i = isEnabled.length - 1; i-- > 0; )
 
                     inputFields.get(i).setEnabled(isEnabled[i]);
 
@@ -181,7 +186,7 @@ public class QuestionnaireFragment extends Fragment implements View.OnClickListe
 
             }
 
-            // If we make it here than the questionnaire is OK to submit
+            // If we make it here then the questionnaire is OK to submit
 
             // Disable all the input fields and submit button so the guest can review their answers
 
@@ -194,10 +199,36 @@ public class QuestionnaireFragment extends Fragment implements View.OnClickListe
             // Store answers into the Questionnaire database
 
             // Open a database
-            QuestionnaireSource db = new QuestionnaireSource(requireContext(), inputFields.size()).open();
+
+            //region Database Code
+            QuestionnaireSource db = new QuestionnaireSource(requireContext()).open();
+            long rowID;
 
             // Submit the questionnaire into the database
-            long rowID = db.submitQuestionnaire(guestID, fieldTexts);
+
+            //Reference for a string to be stored into the first visit column upon the submission call
+            String firstVisit = "";
+
+            //Stores a reference to the currently logged number of visits in the database then increments it by 1
+            int numVisits = 0;
+
+            Log.d("visit_count", db.getVisitCount(guestID));
+
+            if(db.getVisitCount(guestID) != null)
+                numVisits = Integer.parseInt(db.getVisitCount(guestID));
+
+            numVisits++;
+
+            //Determines if it is the user's first visit by checking the number of visits already logged
+            if (numVisits == 1)
+                firstVisit = "Yes";
+            else if(numVisits > 1)
+                firstVisit = "No";
+            rowID = db.submitQuestionnaire(fieldTexts.get(0), fieldTexts.get(1), fieldTexts.get(2), fieldTexts.get(3), firstVisit, String.valueOf(numVisits));
+
+
+
+            Log.d("**SUBMISSION CHECK**" ,fieldTexts.get(0) + fieldTexts.get(1) + fieldTexts.get(2) + fieldTexts.get(3));
 
             // If there wasn't any errors submitting the database
             if (rowID != -1) {
@@ -219,8 +250,8 @@ public class QuestionnaireFragment extends Fragment implements View.OnClickListe
                 Log.e(TAG, "ERROR: Failed to submit questionnaire.");
 
             // Finally make sure we close the database since it is no longer needed
-            db.close();
-
+            //db.close();
+            //endregion
         }
 
     }

@@ -41,18 +41,58 @@ public class GuestRegistryHelper extends SQLiteOpenHelper {
 
     // Columns in the table
     public static final String _ID = "_id";
+
+    //first fragment information
     public static final String NAME = "name";
-    public static final String EMAIL = "email";
     public static final String PHONE = "phone";
-    public static final String DATE = "date";
+    public static final String NCC_ID = "nccID";
+    // might not be needed: public static final String DATE = "date";
+
+    //second fragment information
     public static final String ADDRESS = "address";
     public static final String CITY = "city";
     public static final String ZIP = "zipcode";
     public static final String STATE = "state";
-    public static final String NCC_ID = "nccID";
+    public static final String AFFILIATION = "affiliation";
+    public static final String AGE = "age";
+    public static final String GENDER = "gender";
+
+    //third fragment information
+    public static final String DIET = "diet";
+    public static final String PROGRAMS = "programs";
+    public static final String SNAP = "snap";
+    public static final String EMPLOYMENT = "employment";
+    public static final String HEALTH = "health";
+    public static final String HOUSING = "housing";
+    public static final String INCOME = "income";
+
+    //fourth fragment information
+    public static final String HOUSEHOLD_NUM = "householdNum";
+    public static final String CHILDCARE_STATUS = "childcareStatus";
+    public static final String CHILDREN_1 = "children1";
+    public static final String CHILDREN_5 = "children5";
+    public static final String CHILDREN_12 = "children12";
+    public static final String CHILDREN_18 = "children18";
+
+
+    //TODO: additional data to be added when the data when UI has it
     public static final String ADDITIONAL_INFO = "addInfo";
     public static final String NAME_OF_VOLUNTEER = "nameOfVolunteer";
     public static final String BARCODE = "barcode";
+
+    // Seperate Table for guest check in table Dsolash 12/5 12:05pm, Maybe not needed
+    /*
+    public static final String TABLE_NAME_CI = "NESTCheckInDatabase";
+    public static final String DATE_CI = "Visit Date";
+    public static final String Counter_CI = "Num Visits";
+    public static final String SENIORS_CI = "Num Seniors";
+    public static final String ADULTS_CI = "Num Adults";
+    public static final String TOTAL_CI = "Total Household Size";
+    public static final String CHILDREN_CI = "Num Children";
+    */
+
+
+
 
     // Database version and name
     private static final int DATABASE_VERSION = 1;
@@ -60,17 +100,34 @@ public class GuestRegistryHelper extends SQLiteOpenHelper {
 
     public GuestRegistryHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-
+        /*
+                For readability: Each fragment's data group is separated by the + in each new line in the arguments.
+                Refer back to the public static String declarations to see what each of the four fragment's data groups contains.
+                Here is the general syntax of what it looks like
+                db.execSQL(........
+                    +(first form fragment info)
+                    +(second form fragment info)
+                    more data for second form so its not all contained in a single line
+                    +(third form fragment info)
+                    more data for third form so its not all contained in a single line
+                    +(fourth form fragment info)
+                    more data for fourth form so its not all contained in a single line
+                    +(additional data)
+         */
         db.execSQL("CREATE TABLE " + TABLE_NAME + " (" + _ID +
-                " INTEGER PRIMARY KEY AUTOINCREMENT, " + NAME + " TEXT, " + EMAIL + " TEXT, " +
-                DATE + " TEXT, " + ADDRESS + " TEXT, " + CITY + " TEXT, " + ZIP + " TEXT, " +
-                STATE + " TEXT, " + ADDITIONAL_INFO + " TEXT, " + NAME_OF_VOLUNTEER + " TEXT, " +
-                NCC_ID + " TEXT, " + PHONE + " TEXT, " + BARCODE + " TEXT);");
+                " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + NAME + " TEXT, " + PHONE + " TEXT, " + NCC_ID + " TEXT, "
+                + ADDRESS + " TEXT, " + CITY + " TEXT, " + ZIP + " TEXT, " + STATE + " TEXT, " +
+                AFFILIATION + " TEXT, " + AGE + " TEXT, " + GENDER + " TEXT, "
+                + DIET + " TEXT, " + PROGRAMS + " TEXT, " + SNAP + " TEXT, " + EMPLOYMENT + " TEXT, " +
+                HEALTH + " TEXT, " + HOUSING + " TEXT, " + INCOME + " TEXT, "
+                + HOUSEHOLD_NUM + " TEXT, " + CHILDCARE_STATUS + " TEXT, " + CHILDREN_1 + " TEXT, " +
+                CHILDREN_5 + " TEXT, " + CHILDREN_12 + " TEXT, " + CHILDREN_18 + " TEXT, "
+                + ADDITIONAL_INFO + " TEXT, " + NAME_OF_VOLUNTEER + " TEXT, " + BARCODE + " TEXT);");
 
     }
 

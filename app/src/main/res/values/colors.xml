@@ -11,4 +11,8 @@
     <color name="colorNCCSecondary">#ED7F1E</color>
     <color name="colorNCCAccent">#6D8CA0</color>
 
+    <color name="Green">#009245</color>
+    <color name="Red">#9a031e</color>
+    <color name="Yellow">#fcf300</color>
+    <color name="backgroundGray">#BBBBBB</color>
 </resources>

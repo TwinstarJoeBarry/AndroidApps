@@ -81,10 +81,6 @@ public class Choose extends AppCompatActivity implements OnClickListener {
             case R.id.guestFormBtn:
                 launchGuestForm();
                 break;
-            // testing **********************
-            case R.id.trueDate:
-                launchTrueDate();
-                break;
 
         }
     }
@@ -125,6 +121,10 @@ public class Choose extends AppCompatActivity implements OnClickListener {
             launchFutureEfforts();
             return true;
         }
+        if(item.getItemId() == R.id.login_btn){
+            launchLoginActivity();
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -139,6 +139,14 @@ public class Choose extends AppCompatActivity implements OnClickListener {
         startActivity(intent);
     }
 
+    /**
+     * launchLoginActivity - starts the Login Activity
+     */
+    public void launchLoginActivity() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+    }
+
 
     //    ******************************************TESTING
     /**
@@ -148,7 +156,7 @@ public class Choose extends AppCompatActivity implements OnClickListener {
         ((Button)findViewById(R.id.getUPCBtn)).setVisibility(View.GONE);
         ((Button)findViewById(R.id.guestFormBtn)).setVisibility(View.GONE);
         //((Button)findViewById(R.id.futureEffortsBtn)).setVisibility(View.GONE);
-        ((Button)findViewById(R.id.trueDate)).setVisibility(View.GONE);
+        //((Button)findViewById(R.id.trueDate)).setVisibility(View.GONE);
         ((TextView)findViewById(R.id.nestTxt)).setVisibility(View.GONE);
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();

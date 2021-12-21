@@ -28,8 +28,11 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+
+import edu.ncc.nest.nestapp.GuestGoogleSheetRegistration.Activities.GuestGoogleSheetRegistrationActivity;
 
 public class FutureEfforts extends AppCompatActivity implements OnClickListener {
     private static final String TAG = "testing";
@@ -55,6 +58,43 @@ public class FutureEfforts extends AppCompatActivity implements OnClickListener 
     }
 
     /**
+     * onOptionsSelected method --
+     * description: this method makes you comeback to the launch UI when the home button is clicked
+     * or launch the Login UI when the login button is clicked
+     * @param item
+     * @return
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.home_btn) {
+            home();
+        }
+        if(item.getItemId() == R.id.login_btn){
+            launchLoginActivity();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * home method --
+     * description: this method goes to the nest home screen
+     */
+    public void home() {
+        Intent intent = new Intent(this, Choose.class);
+        startActivity(intent);
+    }
+
+    /**
+     * launchLoginActivity - starts the Login Activity
+     */
+    public void launchLoginActivity() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+    }
+
+    /**
      *
      * Title : onClick Method -- Whenever a certain button is clicked it would
      * call the method and inside that method would launch an activity and display to the user
@@ -63,12 +103,22 @@ public class FutureEfforts extends AppCompatActivity implements OnClickListener 
      * @param v - The activity that was clicked by the user.
      */
     public void onClick(View v) {
-        switch (v.getId()) {
+          switch (v.getId()) {
             case R.id.addToInventoryBtn:
                 launchAddToInventory();
                 break;
             case R.id.scheduleBtn:
                 launchSchedule();
+                break;
+            //code for the two buttons that were added
+            case R.id.guestRegGoogle:
+               launchGuestRegGoogle();
+                break;
+            case R.id.guesVisitGoogle:
+                /*
+                intent = new Intent(this, );
+                startActivity(intent);
+                 */
                 break;
             case R.id.volunteerFormBtn:
                 launchVolForm();
@@ -127,6 +177,16 @@ public class FutureEfforts extends AppCompatActivity implements OnClickListener 
         Intent intent = new Intent(this, SignUp.class);
         startActivity(intent);
     }
+
+    /**
+     * launchGuestRegGoogle --
+     * description: this method starts the
+     * Guest GoogleSheet Registration Activity
+     */
+    public void launchGuestRegGoogle() {
+        Intent intent = new Intent(this, GuestGoogleSheetRegistrationActivity.class);
+        startActivity(intent);
+            }
 
     /**
      * launchVolForm - starts the Volunteer activity

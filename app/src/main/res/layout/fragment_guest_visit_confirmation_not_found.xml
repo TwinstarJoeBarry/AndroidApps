@@ -22,7 +22,6 @@
     android:background="@color/colorNCCPrimary"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:paddingTop="5dp"
     android:theme="@style/NCCTestTheme"
     tools:context=".GuestVisit.Fragments.ConfirmationFragment">
 
@@ -38,7 +37,6 @@
         android:shadowColor="@android:color/darker_gray"
         android:shadowDx="-4"
         android:shadowDy="4"
-        android:shadowRadius="1"
         android:text="@string/fragment_gv_confirmation_not_found_title"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
@@ -109,8 +107,8 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/confirmation_0_rescan_btn"
             style="@style/Widget.AppCompat.Button.Colored"
+            android:id="@+id/confirmation_0_return_btn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="1dp"
