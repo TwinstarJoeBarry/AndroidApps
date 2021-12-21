@@ -13,6 +13,10 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity {
+
+    //This UI was created in a video on YouTube https://www.youtube.com/watch?v=BNBICA80tko&t=1349s.
+    // I followed his tutorial and did some tweaks.
+    
     private static final String TAG = "**Login**";
     EditText emailLogin, passwordLogin;
     ImageView btnSubmit;
