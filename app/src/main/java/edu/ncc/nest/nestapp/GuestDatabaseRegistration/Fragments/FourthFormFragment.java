@@ -19,12 +19,14 @@ package edu.ncc.nest.nestapp.GuestDatabaseRegistration.Fragments;
  */
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.TranslateAnimation;
@@ -37,6 +39,7 @@ import android.widget.Toast;
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.fragment.NavHostFragment;
 
 import java.util.List;
@@ -135,9 +138,8 @@ public class FourthFormFragment extends Fragment {
 
         // store the bindings so its cleaner
         numPeopleSpinner     = binding.grf4NumPeople;
-        // TODO put back after multiselect merge
-        //childcareMultiSelect = binding.grf4StatusChildcare;
-        childcareSpinner     = binding.grf4StatusChildcare;
+        childcareMultiSelect = binding.grf4StatusChildcare;
+        //childcareSpinner     = binding.grf4StatusChildcare;
         children1Spinner     = binding.grf4Children1;
         children5Spinner     = binding.grf4Children5;
         children12Spinner    = binding.grf4Children12;
@@ -152,13 +154,11 @@ public class FourthFormFragment extends Fragment {
         nextBtn = binding.nextButtonFourthFragmentGRegistration;
 
         // load the multiselect using the class method
-        // TODO put back after multiselect merge
-        //childcareMultiSelect.setItems(getResources().getStringArray(R.array.childcare_status));
+        childcareMultiSelect.setItems(getResources().getStringArray(R.array.childcare_status));
 
         // hide views until we need them
-        // TODO put back after multiselect merge
-        //childcareMultiSelect.setVisibility(View.GONE);
-        childcareSpinner.setVisibility(View.GONE);
+        childcareMultiSelect.setVisibility(View.GONE);
+        //childcareSpinner.setVisibility(View.GONE);
         children1Spinner.setVisibility(View.GONE);
         children5Spinner.setVisibility(View.GONE);
         children12Spinner.setVisibility(View.GONE);
@@ -176,7 +176,9 @@ public class FourthFormFragment extends Fragment {
         children12Spinner.setOnItemSelectedListener(children12Listener);
         children18Spinner.setOnItemSelectedListener(children18Listener);
         numPeopleSpinner.setOnItemSelectedListener(numPeopleListener);
-        childcareSpinner.setOnItemSelectedListener(childcareListener);
+        //childcareSpinner.setOnItemSelectedListener(childcareListener);
+        (childcareMultiSelect).setOnTouchListener(childcareTouchListener);
+        // TODO I can define a custom onclick listener in the MultiSelect class!
 
 
         // set up on click listener for the 'next' button
@@ -250,18 +252,19 @@ public class FourthFormFragment extends Fragment {
             // pos 0 is placeholder, pos 1 = 1.
             if(position > 1) {
                 // TODO put back after multiselect merge
-                //childcareMultiSelect.setVisibility(View.VISIBLE);
-                childcareSpinner.setVisibility(View.VISIBLE);
+                childcareMultiSelect.setVisibility(View.VISIBLE);
+                //childcareSpinner.setVisibility(View.VISIBLE);
                 textview_childcare.setVisibility(View.VISIBLE);
                 // reset selection to placeholder NOTE - Need animate:true to trigger the onItemSelectedListener
-                childcareSpinner.setSelection(0, true);
+                childcareMultiSelect.clearSelections();
+                //childcareSpinner.setSelection(0, true);
             } else {
                 // TODO put back after multiselect merge
-                //childcareMultiSelect.setVisibility(View.GONE);
-                childcareSpinner.setVisibility(View.GONE);
+                childcareMultiSelect.setVisibility(View.GONE);
+                //childcareSpinner.setVisibility(View.GONE);
                 textview_childcare.setVisibility(View.GONE);
                 // set the selection to "i dont have children" to trigger the other ones
-                childcareSpinner.setSelection(1, true);
+                childcareMultiSelect.setSelection(0);
 
                 // TODO add if disabled, enable code
                 if (isDisabled) {
@@ -285,231 +288,469 @@ public class FourthFormFragment extends Fragment {
         }
     };
 
-    private final AdapterView.OnItemSelectedListener childcareListener = new AdapterView.OnItemSelectedListener() {
-        @Override
-        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            if(position > 1) {
-                // show others
-                children1Spinner.setVisibility(View.VISIBLE);
-                textview_children1.setVisibility(View.VISIBLE);
-            } else {
-                // hide others
-                children1Spinner.setVisibility(View.GONE);
-                textview_children1.setVisibility(View.GONE);
+    public void childcareClickOverride(View view) {
+        // basically like calling the super method
+        boolean done = ((MultiSelectSpinner) view).performClick();
+        // returns true at the end of function, so hopefully this waits until done?
+        if (done) {
+            // get a list of selection indexes.
+            List<Integer> selections = ((MultiSelectSpinner) view).getSelectedIndices();
 
-                // TODO add if disabled, enable code
-                if (isDisabled) {
-                    setEnabled(nextBtn);
+            for (int i = 0; i < selections.size(); i++) {
+                // if any selection other than first option (no children) appears
+                //Log.d(TAG, "SELECTIONS: " + selections.get(i).toString());
+                if (selections.get(i) > 0) {
+                    // show others
+                    children1Spinner.setVisibility(View.VISIBLE);
+                    textview_children1.setVisibility(View.VISIBLE);
+                } else {
+                    // hide others
+                    children1Spinner.setVisibility(View.GONE);
+                    textview_children1.setVisibility(View.GONE);
+
+                    // TODO add if disabled, enable code
+                    if (isDisabled) {
+                        setEnabled(nextBtn);
+                    }
                 }
             }
-
-            // reset next
-            children1Spinner.setSelection(0, true); // set to placeholder
-
-            // TODO Remove Test Log
-            Log.d(TAG, displayChildrenNums());
-        }
-
-        @Override
-        public void onNothingSelected(AdapterView<?> parent) {
-
         }
     };
 
-    private final AdapterView.OnItemSelectedListener children1Listener = new AdapterView.OnItemSelectedListener() {
+    private View.OnFocusChangeListener childcareFocusChangeListener = new View.OnFocusChangeListener() {
         @Override
-        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            // 0 = placeholder, 1 = 0. Therefore, num = pos - 1
-            numChildren1 = position - 1;            //update numChildren1
-            // reset it to 0 so it doesn't become -1
-            if (numChildren1 < 0) {
-                numChildren1 = 0;
-            }
-            int otherPeople = numPeople - 1;        //remove self from total people
-            int childrenNum = getNumChildren();     //calculate numChildren (total)
+        public void onFocusChange(View v, boolean hasFocus) {
+            // get a list of selection indexes.
+            Log.d("**ONTOUCH**", "In 'focus change'");
+            List<Integer> selections = ((MultiSelectSpinner) v).getSelectedIndices();
 
-            // simple if else, hide next field if we are on the placeholder
-            if (position == 0) {
-                children5Spinner.setVisibility(View.GONE);
-                textview_children5.setVisibility(View.GONE);
-            } else {
-                children5Spinner.setVisibility(View.VISIBLE);
-                textview_children5.setVisibility(View.VISIBLE);
-                // TODO add if disabled, enable code
-                if (isDisabled) {
-                    setEnabled(nextBtn);
+            for (int i = 0; i < selections.size(); i++) {
+                // if any selection other than first option (no children) appears
+                //Log.d(TAG, "SELECTIONS: " + selections.get(i).toString());
+                if (selections.get(i) > 0) {
+                    // show others
+                    children1Spinner.setVisibility(View.VISIBLE);
+                    textview_children1.setVisibility(View.VISIBLE);
+                } else {
+                    // hide others
+                    children1Spinner.setVisibility(View.GONE);
+                    textview_children1.setVisibility(View.GONE);
+
+                    // TODO add if disabled, enable code
+                    if (isDisabled) {
+                        setEnabled(nextBtn);
+                    }
                 }
             }
-
-            // check if we exceeded. will override the simple if/else if there is a conflict
-            if (childrenNum > otherPeople) {
-                // error, too many people
-                children5Spinner.setVisibility(View.GONE);
-                textview_children5.setVisibility(View.GONE);
-                Toast toast = Toast.makeText(getContext(), "Can not have more children than " +
-                        "people in household, please check again.", Toast.LENGTH_SHORT);
-                toast.show();
-                // TODO disable next button
-                if (!isDisabled) {
-                    setDisabled(nextBtn);
-                }
-
-            } else if (childrenNum == otherPeople) {
-                // valid, but need to disable other options
-                // TODO add if disabled, enable code
-                if (isDisabled) {
-                    setEnabled(nextBtn);
-                }
-                children5Spinner.setVisibility(View.GONE);
-                textview_children5.setVisibility(View.GONE);
-            }
-
-            // reset next
-            children5Spinner.setSelection(0, true);
-
-            // TODO Remove Test Log
-            Log.d(TAG, displayChildrenNums());
-        }
-
-        @Override
-        public void onNothingSelected(AdapterView<?> parent) {
-
         }
     };
 
-    private final AdapterView.OnItemSelectedListener children5Listener = new AdapterView.OnItemSelectedListener() {
-        @Override
-        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            // 0 = placeholder, 1 = 0. Therefore, num = pos - 1
-            numChildren5 = position - 1;            //update numChildren5
-            // reset it to 0 so it doesn't become -1
-            if (numChildren5 < 0) {
-                numChildren5 = 0;
-            }
-            int otherPeople = numPeople - 1;        //remove self from total people
-            int childrenNum = getNumChildren();     //calculate numChildren (total)
+    private View.OnTouchListener childcareTouchListener = new View.OnTouchListener() {
+        public boolean onTouch(View v, MotionEvent event) {
+            Log.d("**ONTOUCH**", "In On Touch EVENT");
 
-            // simple if/else. Hide next if on placeholder
-            if (position == 0) {
-                children12Spinner.setVisibility(View.GONE);
-                textview_children12.setVisibility(View.GONE);
-            } else {
-                children12Spinner.setVisibility(View.VISIBLE);
-                textview_children12.setVisibility(View.VISIBLE);
-                // TODO add if disabled, enable code
-                if (isDisabled) {
-                    setEnabled(nextBtn);
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                // basically like calling the super method
+                boolean done = ((MultiSelectSpinner) v).performClick();
+                if (done) {
+                    Log.d("**ONTOUCH**", "In 'done'");
+
+                    Log.d("**DIALOG**", ((MultiSelectSpinner) v).getTheDialog().toString());
+
+                    FragmentManager fm = getParentFragmentManager();
+                    fm.executePendingTransactions();
+                    // why does this not happen?
+                    ((MultiSelectSpinner) v).getTheDialog().setOnDismissListener(dialog -> {
+                        Log.d("**ONTOUCH**", "In 'on dismiss block'");
+                        List<Integer> selections = ((MultiSelectSpinner) v).getSelectedIndices();
+
+                        for (int i = 0; i < selections.size(); i++) {
+                            // if any selection other than first option (no children) appears
+                            //Log.d(TAG, "SELECTIONS: " + selections.get(i).toString());
+                            if (selections.get(i) > 0) {
+                                // show others
+                                children1Spinner.setVisibility(View.VISIBLE);
+                                textview_children1.setVisibility(View.VISIBLE);
+                            } else {
+                                // hide others
+                                children1Spinner.setVisibility(View.GONE);
+                                textview_children1.setVisibility(View.GONE);
+
+                                // TODO add if disabled, enable code
+                                if (isDisabled) {
+                                    setEnabled(nextBtn);
+                                }
+                            }
+                        }
+                    });
+                    //if (done) {
+                    // get a list of selection indexes.
+
+                    //}
+                    //}
                 }
             }
-
-            // check if we exceeded. will override simple if/else if conflict
-            if (childrenNum > otherPeople) {
-                // error, too many people
-                children12Spinner.setVisibility(View.GONE);
-                textview_children12.setVisibility(View.GONE);
-                Toast toast = Toast.makeText(getContext(), "Can not have more children than " +
-                        "people in household, please check again.", Toast.LENGTH_SHORT);
-                toast.show();
-                // TODO add disable next button
-                if (!isDisabled) {
-                    setDisabled(nextBtn);
-                }
-
-            } else if (childrenNum == otherPeople) {
-                // valid, but need to disable other options
-                // TODO add if disabled, enable code
-                if (isDisabled) {
-                    setEnabled(nextBtn);
-                }
-                children12Spinner.setVisibility(View.GONE);
-                textview_children12.setVisibility(View.GONE);
-            }
-
-            // reset next
-            children12Spinner.setSelection(0, true);
-
-            // TODO Remove Test Log
-            Log.d(TAG, displayChildrenNums());
-        }
-
-        @Override
-        public void onNothingSelected(AdapterView<?> parent) {
-
+            return true;
         }
     };
 
-    private final AdapterView.OnItemSelectedListener children12Listener = new AdapterView.OnItemSelectedListener() {
+    private final View.OnClickListener childcareClickListener = new View.OnClickListener() {
+
         @Override
-        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            // 0 = placeholder, 1 = 0. Therefore, num = pos - 1
-            numChildren12 = position - 1;            //update numChildren12
-            // reset it to 0 so it doesn't become -1
-            if (numChildren12 < 0) {
-                numChildren12 = 0;
-            }
-            int otherPeople = numPeople - 1;        //remove self from total people
-            int childrenNum = getNumChildren();     //calculate numChildren (total)
+        public void onClick(View v) {
+            // basically like calling the super method
+        boolean done = ((MultiSelectSpinner) v).performClick();
+        // returns true at the end of function, so hopefully this waits until done?
+        if (done) {
+            // get a list of selection indexes.
+            List<Integer> selections = ((MultiSelectSpinner) v).getSelectedIndices();
 
-            // simple if/else. Hide next if on placeholder
-            if (position == 0) {
-                children18Spinner.setVisibility(View.GONE);
-                textview_children18.setVisibility(View.GONE);
-            } else {
-                children18Spinner.setVisibility(View.VISIBLE);
-                textview_children18.setVisibility(View.VISIBLE);
-                // TODO add if disabled, enable code
-                if (isDisabled) {
-                    setEnabled(nextBtn);
+            for (int i = 0; i < selections.size(); i++) {
+                // if any selection other than first option (no children) appears
+                //Log.d(TAG, "SELECTIONS: " + selections.get(i).toString());
+                if (selections.get(i) > 0) {
+                    // show others
+                    children1Spinner.setVisibility(View.VISIBLE);
+                    textview_children1.setVisibility(View.VISIBLE);
+                } else {
+                    // hide others
+                    children1Spinner.setVisibility(View.GONE);
+                    textview_children1.setVisibility(View.GONE);
+
+                    // TODO add if disabled, enable code
+                    if (isDisabled) {
+                        setEnabled(nextBtn);
+                    }
                 }
             }
-
-            // check if we exceeded. will override simple if/else if conflict
-            if (childrenNum > otherPeople) {
-                // error, too many people
-                children18Spinner.setVisibility(View.GONE);
-                textview_children18.setVisibility(View.GONE);
-                Toast toast = Toast.makeText(getContext(), "Can not have more children than " +
-                        "people in household, please check again.", Toast.LENGTH_SHORT);
-                toast.show();
-
-                // TODO disable next button
-                if (!isDisabled) {
-                    setDisabled(nextBtn);
-                }
-
-            } else if (childrenNum == otherPeople) {
-                // valid, but need to disable other options
-                // TODO add if disabled, enable code
-                if (isDisabled) {
-                    setEnabled(nextBtn);
-                }
-                children18Spinner.setVisibility(View.GONE);
-                textview_children18.setVisibility(View.GONE);
-            }
-            // reset next
-            children18Spinner.setSelection(0, true);
-
-            // TODO Remove Test Log
-            Log.d(TAG, displayChildrenNums());
         }
-
-        @Override
-        public void onNothingSelected(AdapterView<?> parent) {
-
         }
     };
 
-    private final AdapterView.OnItemSelectedListener children18Listener = new AdapterView.OnItemSelectedListener() {
+    private final AdapterView.OnItemClickListener childcareItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
-        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            // 0 = placeholder, 1 = 0. Therefore, num = pos - 1
-            numChildren18 = position - 1;            //update numChildren1
-            // reset it to 0 so it doesn't become -1
-            if (numChildren18 < 0) {
-                numChildren18 = 0;
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            // basically like calling the super method
+            boolean done = ((MultiSelectSpinner) view).performClick();
+            // returns true at the end of function, so hopefully this waits until done?
+            if (done) {
+                // get a list of selection indexes.
+                List<Integer> selections = ((MultiSelectSpinner) view).getSelectedIndices();
+
+                for (int i = 0; i < selections.size(); i++) {
+                    // if any selection other than first option (no children) appears
+                    //Log.d(TAG, "SELECTIONS: " + selections.get(i).toString());
+                    if (selections.get(i) > 0) {
+                        // show others
+                        children1Spinner.setVisibility(View.VISIBLE);
+                        textview_children1.setVisibility(View.VISIBLE);
+                    } else {
+                        // hide others
+                        children1Spinner.setVisibility(View.GONE);
+                        textview_children1.setVisibility(View.GONE);
+
+                        // TODO add if disabled, enable code
+                        if (isDisabled) {
+                            setEnabled(nextBtn);
+                        }
+                    }
+                }
             }
-            int otherPeople = numPeople - 1;        //remove self from total people
-            int childrenNum = getNumChildren();     //calculate numChildren (total)
+        }
+    };
+
+        private final AdapterView.OnItemSelectedListener childcareListener = new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(position > 1) {
+                    // show others
+                    children1Spinner.setVisibility(View.VISIBLE);
+                    textview_children1.setVisibility(View.VISIBLE);
+                } else {
+                    // hide others
+                    children1Spinner.setVisibility(View.GONE);
+                    textview_children1.setVisibility(View.GONE);
+
+                    // TODO add if disabled, enable code
+                    if (isDisabled) {
+                        setEnabled(nextBtn);
+                    }
+                }
+
+                // reset next
+                children1Spinner.setSelection(0, true); // set to placeholder
+
+                // TODO Remove Test Log
+                Log.d(TAG, displayChildrenNums());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        };
+
+        private final DialogInterface.OnClickListener childcareMultiselectListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (which > 1) {
+                    // show others
+                    children1Spinner.setVisibility(View.VISIBLE);
+                    textview_children1.setVisibility(View.VISIBLE);
+                } else {
+                    // hide others
+                    children1Spinner.setVisibility(View.GONE);
+                    textview_children1.setVisibility(View.GONE);
+
+                    // TODO add if disabled, enable code
+                    if (isDisabled) {
+                        setEnabled(nextBtn);
+                    }
+                }
+
+                // reset next
+                children1Spinner.setSelection(0, true); // set to placeholder
+
+                // TODO Remove Test Log
+                Log.d(TAG, displayChildrenNums());
+            }
+        };
+
+        /*
+        private final AdapterView.OnItemSelectedListener childcareClickListener = new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                // basically like calling the super method
+                //boolean done = ((MultiSelectSpinner) parent).performClick();
+                // returns true at the end of function, so hopefully this waits until done?
+                //if (done) {
+                // get a list of selection indexes.
+                List<Integer> selections = ((MultiSelectSpinner) parent).getSelectedIndices();
+
+                for (int i = 0; i < selections.size(); i++) {
+                    // if any selection other than first option (no children) appears
+                    Log.d(TAG, "SELECTIONS: " + selections.get(i).toString());
+                    if(selections.get(i) > 0) {
+                        // show others
+                        children1Spinner.setVisibility(View.VISIBLE);
+                        textview_children1.setVisibility(View.VISIBLE);
+                    } else {
+                        // hide others
+                        children1Spinner.setVisibility(View.GONE);
+                        textview_children1.setVisibility(View.GONE);
+
+                        // TODO add if disabled, enable code
+                        if (isDisabled) {
+                            setEnabled(nextBtn);
+                        }
+                    }
+                }
+                // }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+
+        };
+
+         */
+
+        private final AdapterView.OnItemSelectedListener children1Listener = new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                // 0 = placeholder, 1 = 0. Therefore, num = pos - 1
+                numChildren1 = position - 1;            //update numChildren1
+                // reset it to 0 so it doesn't become -1
+                if (numChildren1 < 0) {
+                    numChildren1 = 0;
+                }
+                int otherPeople = numPeople - 1;        //remove self from total people
+                int childrenNum = getNumChildren();     //calculate numChildren (total)
+
+                // simple if else, hide next field if we are on the placeholder
+                if (position == 0) {
+                    children5Spinner.setVisibility(View.GONE);
+                    textview_children5.setVisibility(View.GONE);
+                } else {
+                    children5Spinner.setVisibility(View.VISIBLE);
+                    textview_children5.setVisibility(View.VISIBLE);
+                    // TODO add if disabled, enable code
+                    if (isDisabled) {
+                        setEnabled(nextBtn);
+                    }
+                }
+
+                // check if we exceeded. will override the simple if/else if there is a conflict
+                if (childrenNum > otherPeople) {
+                    // error, too many people
+                    children5Spinner.setVisibility(View.GONE);
+                    textview_children5.setVisibility(View.GONE);
+                    Toast toast = Toast.makeText(getContext(), "Can not have more children than " +
+                            "people in household, please check again.", Toast.LENGTH_SHORT);
+                    toast.show();
+                    // TODO disable next button
+                    if (!isDisabled) {
+                        setDisabled(nextBtn);
+                    }
+
+                } else if (childrenNum == otherPeople) {
+                    // valid, but need to disable other options
+                    // TODO add if disabled, enable code
+                    if (isDisabled) {
+                        setEnabled(nextBtn);
+                    }
+                    children5Spinner.setVisibility(View.GONE);
+                    textview_children5.setVisibility(View.GONE);
+                }
+
+                // reset next
+                children5Spinner.setSelection(0, true);
+
+                // TODO Remove Test Log
+                Log.d(TAG, displayChildrenNums());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        };
+
+        private final AdapterView.OnItemSelectedListener children5Listener = new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                // 0 = placeholder, 1 = 0. Therefore, num = pos - 1
+                numChildren5 = position - 1;            //update numChildren5
+                // reset it to 0 so it doesn't become -1
+                if (numChildren5 < 0) {
+                    numChildren5 = 0;
+                }
+                int otherPeople = numPeople - 1;        //remove self from total people
+                int childrenNum = getNumChildren();     //calculate numChildren (total)
+
+                // simple if/else. Hide next if on placeholder
+                if (position == 0) {
+                    children12Spinner.setVisibility(View.GONE);
+                    textview_children12.setVisibility(View.GONE);
+                } else {
+                    children12Spinner.setVisibility(View.VISIBLE);
+                    textview_children12.setVisibility(View.VISIBLE);
+                    // TODO add if disabled, enable code
+                    if (isDisabled) {
+                        setEnabled(nextBtn);
+                    }
+                }
+
+                // check if we exceeded. will override simple if/else if conflict
+                if (childrenNum > otherPeople) {
+                    // error, too many people
+                    children12Spinner.setVisibility(View.GONE);
+                    textview_children12.setVisibility(View.GONE);
+                    Toast toast = Toast.makeText(getContext(), "Can not have more children than " +
+                            "people in household, please check again.", Toast.LENGTH_SHORT);
+                    toast.show();
+                    // TODO add disable next button
+                    if (!isDisabled) {
+                        setDisabled(nextBtn);
+                    }
+
+                } else if (childrenNum == otherPeople) {
+                    // valid, but need to disable other options
+                    // TODO add if disabled, enable code
+                    if (isDisabled) {
+                        setEnabled(nextBtn);
+                    }
+                    children12Spinner.setVisibility(View.GONE);
+                    textview_children12.setVisibility(View.GONE);
+                }
+
+                // reset next
+                children12Spinner.setSelection(0, true);
+
+                // TODO Remove Test Log
+                Log.d(TAG, displayChildrenNums());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        };
+
+        private final AdapterView.OnItemSelectedListener children12Listener = new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                // 0 = placeholder, 1 = 0. Therefore, num = pos - 1
+                numChildren12 = position - 1;            //update numChildren12
+                // reset it to 0 so it doesn't become -1
+                if (numChildren12 < 0) {
+                    numChildren12 = 0;
+                }
+                int otherPeople = numPeople - 1;        //remove self from total people
+                int childrenNum = getNumChildren();     //calculate numChildren (total)
+
+                // simple if/else. Hide next if on placeholder
+                if (position == 0) {
+                    children18Spinner.setVisibility(View.GONE);
+                    textview_children18.setVisibility(View.GONE);
+                } else {
+                    children18Spinner.setVisibility(View.VISIBLE);
+                    textview_children18.setVisibility(View.VISIBLE);
+                    // TODO add if disabled, enable code
+                    if (isDisabled) {
+                        setEnabled(nextBtn);
+                    }
+                }
+
+                // check if we exceeded. will override simple if/else if conflict
+                if (childrenNum > otherPeople) {
+                    // error, too many people
+                    children18Spinner.setVisibility(View.GONE);
+                    textview_children18.setVisibility(View.GONE);
+                    Toast toast = Toast.makeText(getContext(), "Can not have more children than " +
+                            "people in household, please check again.", Toast.LENGTH_SHORT);
+                    toast.show();
+
+                    // TODO disable next button
+                    if (!isDisabled) {
+                        setDisabled(nextBtn);
+                    }
+
+                } else if (childrenNum == otherPeople) {
+                    // valid, but need to disable other options
+                    // TODO add if disabled, enable code
+                    if (isDisabled) {
+                        setEnabled(nextBtn);
+                    }
+                    children18Spinner.setVisibility(View.GONE);
+                    textview_children18.setVisibility(View.GONE);
+                }
+                // reset next
+                children18Spinner.setSelection(0, true);
+
+                // TODO Remove Test Log
+                Log.d(TAG, displayChildrenNums());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        };
+
+        private final AdapterView.OnItemSelectedListener children18Listener = new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                // 0 = placeholder, 1 = 0. Therefore, num = pos - 1
+                numChildren18 = position - 1;            //update numChildren1
+                // reset it to 0 so it doesn't become -1
+                if (numChildren18 < 0) {
+                    numChildren18 = 0;
+                }
+                int otherPeople = numPeople - 1;        //remove self from total people
+                int childrenNum = getNumChildren();     //calculate numChildren (total)
 
             /*
             if (position == 0) {
@@ -521,88 +762,66 @@ public class FourthFormFragment extends Fragment {
             }
              */
 
-            // check if we exceeded
-            if (childrenNum > otherPeople) {
-                // error, too many people
-                // TODO disable next button
-                if (!isDisabled) {
-                    setDisabled(nextBtn);
-                }
+                // check if we exceeded
+                if (childrenNum > otherPeople) {
+                    // error, too many people
+                    // TODO disable next button
+                    if (!isDisabled) {
+                        setDisabled(nextBtn);
+                    }
 
-                Toast toast = Toast.makeText(getContext(), "Can not have more children than " +
-                        "people in household, please check again.", Toast.LENGTH_SHORT);
-                toast.show();
-            } else if (childrenNum == otherPeople) {
-                // valid
-                // TODO add if disabled, enable code
-                if (isDisabled) {
-                    setEnabled(nextBtn);
-                }
-            } else {
-                // TODO add if disabled, enable code
-                if (isDisabled) {
-                    setEnabled(nextBtn);
-                }
-            }
-
-            // TODO Remove Test Log
-            Log.d(TAG, displayChildrenNums());
-
-        }
-
-        @Override
-        public void onNothingSelected(AdapterView<?> parent) {
-
-        }
-    };
-
-    private int getNumChildren() {
-        return numChildren1 + numChildren5 + numChildren12 + numChildren18;
-    }
-
-    private String displayChildrenNums() {
-        StringBuilder str = new StringBuilder();
-        str.append("CHILDREN STORED:\n");
-        str.append(numChildren1 + "\n");
-        str.append(numChildren5 + "\n");
-        str.append(numChildren12 + "\n");
-        str.append(numChildren18 + "\n");
-
-        return str.toString();
-    }
-
-    private void setEnabled(View v) {
-        v.setEnabled(true);
-        isDisabled = false;
-        v.setBackgroundColor(getResources().getColor(R.color.colorPrimary, requireActivity().getTheme()));
-    }
-
-    private void setDisabled(View v) {
-        v.setEnabled(false);
-        isDisabled = true;
-        v.setBackgroundColor(Color.GRAY);
-    }
-
-    // NEED TO WAIT UNTIL DIALOG BRANCH IS MERGED FOR THIS. THAT OR TRY TO MERGE THESE TWO
-    /*
-    private final AdapterView.OnItemClickListener childcareClickListener = new AdapterView.OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            List<Integer> selections = ((MultiSelectSpinner) view).getSelectedIndices();
-
-                for (int i = 0; i < selections.size(); i++) {
-                    // if any selection other than first option (no children) is selected
-                    if(selections.get(i) > 0) {
-                        // show others
-                        children1Spinner.setVisibility(View.VISIBLE);
-                        textview_children1.setVisibility(View.VISIBLE);
-                    } else {
-                        // hide others
-                        children1Spinner.setVisibility(View.GONE);
-                        textview_children1.setVisibility(View.GONE);
+                    Toast toast = Toast.makeText(getContext(), "Can not have more children than " +
+                            "people in household, please check again.", Toast.LENGTH_SHORT);
+                    toast.show();
+                } else if (childrenNum == otherPeople) {
+                    // valid
+                    // TODO add if disabled, enable code
+                    if (isDisabled) {
+                        setEnabled(nextBtn);
+                    }
+                } else {
+                    // TODO add if disabled, enable code
+                    if (isDisabled) {
+                        setEnabled(nextBtn);
                     }
                 }
+
+                // TODO Remove Test Log
+                Log.d(TAG, displayChildrenNums());
+
             }
-    };
-     */
-}
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        };
+
+        private int getNumChildren() {
+            return numChildren1 + numChildren5 + numChildren12 + numChildren18;
+        }
+
+        private String displayChildrenNums() {
+            StringBuilder str = new StringBuilder();
+            str.append("CHILDREN STORED:\n");
+            str.append(numChildren1 + "\n");
+            str.append(numChildren5 + "\n");
+            str.append(numChildren12 + "\n");
+            str.append(numChildren18 + "\n");
+
+            return str.toString();
+        }
+
+        private void setEnabled(View v) {
+            v.setEnabled(true);
+            isDisabled = false;
+            v.setBackgroundColor(getResources().getColor(R.color.colorPrimary, requireActivity().getTheme()));
+        }
+
+        private void setDisabled(View v) {
+            v.setEnabled(false);
+            isDisabled = true;
+            v.setBackgroundColor(Color.GRAY);
+        }
+
+    }

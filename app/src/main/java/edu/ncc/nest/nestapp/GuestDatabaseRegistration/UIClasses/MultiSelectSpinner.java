@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnMultiChoiceClickListener;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
@@ -40,6 +41,11 @@ public class MultiSelectSpinner extends androidx.appcompat.widget.AppCompatSpinn
         OnMultiChoiceClickListener {
     String[] _items = null;
     boolean[] mSelection = null;
+    // holds the index of the last selections before dismiss. Used for verifying data on dismiss
+    List<Integer> lastSelectedIndexes;
+
+    AlertDialog.Builder builder;
+    AlertDialog theDialog;
 
     ArrayAdapter<String> simple_adapter;
 
@@ -97,9 +103,11 @@ public class MultiSelectSpinner extends androidx.appcompat.widget.AppCompatSpinn
      */
     @Override
     public boolean performClick() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder = new AlertDialog.Builder(getContext());
         builder.setTitle(R.string.select_all_that_apply);
         builder.setMultiChoiceItems(_items, mSelection, this);
+        // so they have to press close button.
+        builder.setCancelable(false);
 
         // clear All button
         builder.setNegativeButton(getResources().getString(R.string.clear_all), new DialogInterface.OnClickListener() {
@@ -120,6 +128,17 @@ public class MultiSelectSpinner extends androidx.appcompat.widget.AppCompatSpinn
             }
         });
 
+        builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                // update lastSelectedIndexes in case we need to use later.
+                lastSelectedIndexes = getSelectedIndices();
+                Log.d("**MULTICLASS**", "In on dismiss method");
+            }
+        });
+
+
+        theDialog = builder.create();
         builder.show();
         return true;
     }
@@ -133,6 +152,9 @@ public class MultiSelectSpinner extends androidx.appcompat.widget.AppCompatSpinn
         return true;
     }
 
+    public AlertDialog getTheDialog() {
+        return theDialog;
+    }
 
     /**
      * Applies a SpinnerAdapter to the Spinner. Throws an exception if the adapter
@@ -293,6 +315,10 @@ public class MultiSelectSpinner extends androidx.appcompat.widget.AppCompatSpinn
         return selection;
     }
 
+    public List<Integer> getLastSelectedIndexes() {
+        return lastSelectedIndexes;
+    }
+
     /**
      * builds a string of selected items. This is called internally by other methods
      * and is not intended for public use. See getSelectedItemsAsStrings method
@@ -335,4 +361,5 @@ public class MultiSelectSpinner extends androidx.appcompat.widget.AppCompatSpinn
         }
         return sb.toString();
     }
+
 }
