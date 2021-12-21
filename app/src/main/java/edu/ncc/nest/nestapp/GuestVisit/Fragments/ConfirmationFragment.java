@@ -55,7 +55,6 @@ public class ConfirmationFragment extends Fragment implements View.OnClickListen
         binding = FragmentGuestVisitConfirmationFlipperBinding.inflate(inflater,container,false);
         // Inflate the layout for this fragment
 
-
         return binding.getRoot();
     }
 
@@ -185,6 +184,7 @@ public class ConfirmationFragment extends Fragment implements View.OnClickListen
         // Display the guest's name and id
         ((TextView) view.findViewById(R.id.guest_name_lable)).setText(guestName);
         ((TextView) view.findViewById(R.id.guest_id_lable)).setText(guestId);
+
 
     }
 

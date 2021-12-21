@@ -371,7 +371,7 @@
     <string name="fragment_gv_confirmation_not_found_title">NEST Guest Not Found!</string>
     <string name="fragment_gv_confirmation_not_found_msg">Sorry! We couldn\'t find a guest associated with the following barcode:</string>
     <string name="fragment_gv_confirmation_not_found_register_msg">Please register to continue</string>
-    <string name="fragment_gv_confirmation_not_found_rescan_btn">Re-Scan Barcode</string>
+    <string name="fragment_gv_confirmation_not_found_rescan_btn">Back to menu</string>
     <string name="fragment_gv_confirmation_not_found_return_btn">Back to menu</string>
 
     <!-- Strings used in fragment_guest_visit_manual_entry.xml-->
