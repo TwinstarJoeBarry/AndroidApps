@@ -307,14 +307,20 @@ public class FourthFormFragment extends Fragment {
             MultiSelectSpinner v = childcareMultiSelect;
             List<Integer> selections = ((MultiSelectSpinner) v).getSelectedIndices();
 
+            int count = selections.size();
+            int iterator = 0;
+            boolean looping = true;
+
             for (int i = 0; i < selections.size(); i++) {
+            //while (count > iterator && looping) {
                 // if any selection other than first option (no children) appears
                 //Log.d(TAG, "SELECTIONS: " + selections.get(i).toString());
-                if (selections.get(i) == 0) {
+                if (selections.get(iterator) == 0) {
                     // hide others
                     children1Spinner.setVisibility(View.GONE);
                     textview_children1.setVisibility(View.GONE);
                     childcareMultiSelect.setSelection(0);
+                    looping = false;
                     // TODO add if disabled, enable code
                     if (isDisabled) {
                         setEnabled(nextBtn);
