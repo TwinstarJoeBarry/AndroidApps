@@ -161,26 +161,6 @@
                 android:hint="@string/fragment_gv_questionnaire_hint_number"
                 android:autofillHints="" />
 
-            <TextView
-                android:id="@+id/questionnaire_q5_label"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:gravity="start"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="@android:color/black"
-                android:text="@string/fragment_gv_questionnaire_question_5" />
-
-            <Spinner
-                android:id="@+id/questionnaire_q5_spinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:saveEnabled="true"
-                android:entries="@array/array_yes_no"
-                android:spinnerMode="dialog"
-                android:prompt="@string/fragment_gv_questionnaire_spinner_prompt" />
-
         </LinearLayout>
 
     </ScrollView>
