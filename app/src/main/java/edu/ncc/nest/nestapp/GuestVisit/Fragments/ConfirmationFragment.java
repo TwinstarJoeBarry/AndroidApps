@@ -54,6 +54,8 @@ public class ConfirmationFragment extends Fragment implements View.OnClickListen
                              Bundle savedInstanceState ) {
         binding = FragmentGuestVisitConfirmationFlipperBinding.inflate(inflater,container,false);
         // Inflate the layout for this fragment
+
+
         return binding.getRoot();
     }
 

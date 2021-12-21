@@ -137,10 +137,8 @@
             android:layout_marginEnd="1dp"
             android:text="@string/fragment_gv_confirmation_not_found_return_btn"
             style="@style/Widget.AppCompat.Button.Colored"
-            android:backgroundTint="@color/colorPrimary"/>
             android:layout_weight="0.5"
             android:backgroundTint="@color/colorNCCSecondary"
-            android:text="@string/fragment_gv_confirmation_found_rescan_btn"
             android:textColor="@color/White" />
 
         <Button
