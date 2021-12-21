@@ -76,7 +76,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_marginBottom="20dp"
-
+                android:autofillHints=""
                 android:gravity="center"
                 android:hint="@string/fragment_gv_manual_bh"
                 android:inputType="text"
@@ -112,7 +112,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_marginBottom="20dp"
-
+                android:autofillHints=""
                 android:gravity="center"
                 android:hint="@string/fragment_gv_manual_e1"
                 android:inputType="text"
@@ -137,7 +137,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_marginBottom="20dp"
-
+                android:autofillHints=""
                 android:gravity="center"
                 android:hint="@string/fragment_gv_manual_e2"
                 android:inputType="textPassword"
