@@ -244,7 +244,6 @@ public class FourthFormFragment extends Fragment {
         }
     };
 
-
     private final AdapterView.OnItemSelectedListener numPeopleListener = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -288,63 +287,6 @@ public class FourthFormFragment extends Fragment {
         }
     };
 
-    public void childcareClickOverride(View view) {
-        // basically like calling the super method
-        boolean done = ((MultiSelectSpinner) view).performClick();
-        // returns true at the end of function, so hopefully this waits until done?
-        if (done) {
-            // get a list of selection indexes.
-            List<Integer> selections = ((MultiSelectSpinner) view).getSelectedIndices();
-
-            for (int i = 0; i < selections.size(); i++) {
-                // if any selection other than first option (no children) appears
-                //Log.d(TAG, "SELECTIONS: " + selections.get(i).toString());
-                if (selections.get(i) > 0) {
-                    // show others
-                    children1Spinner.setVisibility(View.VISIBLE);
-                    textview_children1.setVisibility(View.VISIBLE);
-                } else {
-                    // hide others
-                    children1Spinner.setVisibility(View.GONE);
-                    textview_children1.setVisibility(View.GONE);
-
-                    // TODO add if disabled, enable code
-                    if (isDisabled) {
-                        setEnabled(nextBtn);
-                    }
-                }
-            }
-        }
-    };
-
-    private View.OnFocusChangeListener childcareFocusChangeListener = new View.OnFocusChangeListener() {
-        @Override
-        public void onFocusChange(View v, boolean hasFocus) {
-            // get a list of selection indexes.
-            Log.d("**ONTOUCH**", "In 'focus change'");
-            List<Integer> selections = ((MultiSelectSpinner) v).getSelectedIndices();
-
-            for (int i = 0; i < selections.size(); i++) {
-                // if any selection other than first option (no children) appears
-                //Log.d(TAG, "SELECTIONS: " + selections.get(i).toString());
-                if (selections.get(i) > 0) {
-                    // show others
-                    children1Spinner.setVisibility(View.VISIBLE);
-                    textview_children1.setVisibility(View.VISIBLE);
-                } else {
-                    // hide others
-                    children1Spinner.setVisibility(View.GONE);
-                    textview_children1.setVisibility(View.GONE);
-
-                    // TODO add if disabled, enable code
-                    if (isDisabled) {
-                        setEnabled(nextBtn);
-                    }
-                }
-            }
-        }
-    };
-
     private View.OnTouchListener childcareTouchListener = new View.OnTouchListener() {
         public boolean onTouch(View v, MotionEvent event) {
             Log.d("**ONTOUCH**", "In On Touch EVENT");
@@ -372,7 +314,7 @@ public class FourthFormFragment extends Fragment {
                     // hide others
                     children1Spinner.setVisibility(View.GONE);
                     textview_children1.setVisibility(View.GONE);
-                    childcareMultiSelect.setSelection(0, true);
+                    childcareMultiSelect.setSelection(0);
                     // TODO add if disabled, enable code
                     if (isDisabled) {
                         setEnabled(nextBtn);
