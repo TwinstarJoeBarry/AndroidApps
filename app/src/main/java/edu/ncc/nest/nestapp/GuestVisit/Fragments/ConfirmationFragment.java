@@ -31,6 +31,7 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import edu.ncc.nest.nestapp.GuestDatabaseRegistration.Activities.GuestDatabaseRegistrationActivity;
 import edu.ncc.nest.nestapp.R;
+import edu.ncc.nest.nestapp.databinding.FragmentGuestVisitConfirmationFlipperBinding;
 
 /**
  * ConfirmationFragment: Ask the user to confirm whether or not the information pulled from the
@@ -44,14 +45,16 @@ public class ConfirmationFragment extends Fragment implements View.OnClickListen
 
     private String guestId = null;
 
+    private FragmentGuestVisitConfirmationFlipperBinding binding;
+
     ////////////// Lifecycle Methods Start //////////////
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState ) {
-
+        binding = FragmentGuestVisitConfirmationFlipperBinding.inflate(inflater,container,false);
         // Inflate the layout for this fragment
-        return inflater.inflate( R.layout.fragment_guest_visit_confirmation_flipper, container, false );
+        return binding.getRoot();
     }
 
     public void onViewCreated( @NonNull View view, Bundle savedInstanceState ) {
@@ -80,6 +83,7 @@ public class ConfirmationFragment extends Fragment implements View.OnClickListen
                     selectDisplayedView(view.findViewById(R.id.confirmation_view_flipper));
 
                 });
+
 
     }
 

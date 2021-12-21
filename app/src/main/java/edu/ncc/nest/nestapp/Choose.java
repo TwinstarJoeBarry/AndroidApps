@@ -26,6 +26,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -51,10 +52,16 @@ public class Choose extends AppCompatActivity implements OnClickListener {
     //implements the menu options for the toolbar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_main, menu);
+
+        //instead of inflating menu_main, now this class inflates choose_menu_main.xml, this way
+        // allowing the future efforts button to only appear at the app bar of the launch UI
+        inflater.inflate(R.menu.choose_menu_main, menu);
+
         return true;
+
+        //since the toolbar has 2 different button that goes to different places
+        //ask ho to make the button just show up in the launch UI
 
     }
 
@@ -74,10 +81,7 @@ public class Choose extends AppCompatActivity implements OnClickListener {
             case R.id.guestFormBtn:
                 launchGuestForm();
                 break;
-            case R.id.futureEffortsBtn:
-                launchFutureEfforts();
-                break;
-                // testing **********************
+            // testing **********************
             case R.id.trueDate:
                 launchTrueDate();
                 break;
@@ -102,7 +106,33 @@ public class Choose extends AppCompatActivity implements OnClickListener {
     }
 
     /**
-     * launchFutureEfforts - starts the Future Efforcts activity
+     * onOptionsItemSelected method --
+     *
+     * description: this method handle the action bar items that were clicked.
+     * When you click the future efforts button it launches the FutureEfforts class.
+     * @param item
+     * @return
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.futureEffortBtn) {
+            launchFutureEfforts();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
+
+    /**
+     * launchFutureEfforts - starts the Future Efforts activity
      */
     public void launchFutureEfforts() {
         Intent intent = new Intent(this, FutureEfforts.class);
@@ -117,7 +147,7 @@ public class Choose extends AppCompatActivity implements OnClickListener {
     public void launchTrueDate() {
         ((Button)findViewById(R.id.getUPCBtn)).setVisibility(View.GONE);
         ((Button)findViewById(R.id.guestFormBtn)).setVisibility(View.GONE);
-        ((Button)findViewById(R.id.futureEffortsBtn)).setVisibility(View.GONE);
+        //((Button)findViewById(R.id.futureEffortsBtn)).setVisibility(View.GONE);
         ((Button)findViewById(R.id.trueDate)).setVisibility(View.GONE);
         ((TextView)findViewById(R.id.nestTxt)).setVisibility(View.GONE);
 

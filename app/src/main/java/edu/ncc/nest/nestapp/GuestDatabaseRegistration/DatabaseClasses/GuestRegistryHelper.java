@@ -36,8 +36,8 @@ public class GuestRegistryHelper extends SQLiteOpenHelper {
 
     public static final Uri CONTENT_URI = Uri.parse(SCHEME + "://" + AUTHORITY);
 
-    // Table name FIXME May want to change this to NESTGuestRegistry to match class naming
-    public static final String TABLE_NAME = "NESTGuestForm";
+    // Table name
+    public static final String TABLE_NAME = "NESTGuestRegistry";
 
     // Columns in the table
     public static final String _ID = "_id";
@@ -56,8 +56,7 @@ public class GuestRegistryHelper extends SQLiteOpenHelper {
 
     // Database version and name
     private static final int DATABASE_VERSION = 1;
-    // FIXME May want to change this to GuestRegistry to match class naming
-    private static final String DATABASE_NAME = "GuestFormInformation.db";
+    private static final String DATABASE_NAME = "GuestRegistry.db";
 
     public GuestRegistryHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
