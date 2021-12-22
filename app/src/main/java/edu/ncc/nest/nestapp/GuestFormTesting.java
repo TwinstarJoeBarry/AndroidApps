@@ -18,10 +18,15 @@ package edu.ncc.nest.nestapp;
  */
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
+import androidx.navigation.fragment.NavHostFragment;
 
 import edu.ncc.nest.nestapp.GuestDatabaseRegistration.Fragments.StartFragment;
 import edu.ncc.nest.nestapp.GuestDatabaseRegistration.Activities.GuestDatabaseRegistrationActivity;
@@ -33,6 +38,60 @@ public class GuestFormTesting extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guest_form_testing);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+    }
+
+    //implements the menu options for the toolbar
+    //this method display the Home button in the toolbar
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+
+        //instead of inflating menu_main, now this class inflates choose_menu_main.xml, this way
+        // allowing the future efforts button to only appear at the app bar of the launch UI
+        inflater.inflate(R.menu.menu_main, menu);
+
+        return true;
+
+    }
+
+    /**
+     * onOptionsSelected method --
+     * description: this method makes you comeback to the launch UI when the home button is clicked
+     * @param item
+     * @return
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.home_btn) {
+            home();
+            return true;
+        }
+        if(item.getItemId() == R.id.login_btn){
+            launchLoginActivity();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * home method --
+     * description: this method goes to the nest home screen
+     */
+    public void home() {
+        Intent intent = new Intent(this, Choose.class);
+        startActivity(intent);
+    }
+
+    /**
+     * launchLoginActivity - starts the Login Activity
+     */
+    public void launchLoginActivity() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
     }
 
     public void onClick(View v) {
@@ -46,6 +105,15 @@ public class GuestFormTesting extends AppCompatActivity {
                 intent = new Intent(this, GuestVisitActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.guesVisitGoogle:
+                /*
+                intent = new Intent(this, );
+                startActivity(intent);
+                 */
+                break;
+            case R.id.home_btn:
+                //need help
+                 break;
         }
     }
 

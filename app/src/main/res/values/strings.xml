@@ -10,7 +10,6 @@
     <string name="done">Done</string>
     <string name="confirm">Confirm</string>
     <string name="review_and_submit">Review and Submit</string>
-    <string name="register">Register</string>
     <string name="full_name">Full Name</string>
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
@@ -38,6 +37,9 @@
     <string name="back">Back</string>
     <string name="indefinite">Indefinite</string>
     <string name="unknown">Unknown</string>
+    <string name="select_all_that_apply">Select all that apply</string>
+    <string name="close">Close</string>
+    <string name="clear_all">Clear All</string>
 
     <!-- Strings used in AndroidManifest.xml -->
     <string name="title_activity_sign_up">SignUp</string>
@@ -323,7 +325,7 @@
     <!-- Strings used in fragment_guest_database_registration_fourth_form.xml -->
     <string name="num_people_household">How many people are in your household?</string>
     <string name="childcare_status">What is your childcare status?</string>
-    <string name="num_children_under_1">How many children under the age of 1 year old are in your household?</string>
+    <string name="num_children_under_1">How many children that are 12 months or under are in your household?</string>
     <string name="num_children_1_to_5">How many children between the ages of 13 months and 5 years old are in your household?</string>
     <string name="num_children_6_to_12">How many children between the ages of 6 and 12 years old are in your household?</string>
     <string name="num_children_13_to_18">How many children between the ages of 13 and 18 years old are in your household?</string>
@@ -354,7 +356,6 @@
     <string name="fragment_gsr_second_form_question_15"><font size="14">Is there anything else you would like us to know at this time?</font></string>
     <string name="fragment_gsr_second_form_question_16"><font size="14">What is the first name of the volunteer who helped you today?</font></string>
     <string name="fragment_gsr_second_form_question_17"><font size="14">What is the last name of the volunteer who helped you today?</font></string>
-
 
 
     <!-- GUEST VISIT STRINGS START ///////////////////////////////////////////////////////////////// -->
@@ -448,5 +449,11 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="welcome_to_nest">Welcome to NEST!</string>
+    <string name="login">Login</string>
+    <string name="guest_login">Guest Login</string>
+    <string name="email">Email</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="register">Register</string>
+    <string name="summary">Summary</string>
 
 </resources>

@@ -18,6 +18,8 @@ package edu.ncc.nest.nestapp.GuestDatabaseRegistration.Fragments;
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,6 +27,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentResultListener;
@@ -55,6 +58,7 @@ import edu.ncc.nest.nestapp.databinding.FragmentGuestDatabaseRegistrationSummary
  */
 public class SummaryFragment extends Fragment  {
     private FragmentGuestDatabaseRegistrationSummaryBinding binding;
+    private OnBackPressedCallback backbuttonCallback;
 
     // first fragment information
     private String fname;
@@ -89,6 +93,12 @@ public class SummaryFragment extends Fragment  {
     private String children12;
     private String children18;
 
+    // fifth fragment information
+    private String referrer;
+    private String comments;
+    private String volunteerFName;
+    private String volunteerLName;
+
     // Database where we will store user information
     private GuestRegistrySource db;
 
@@ -113,6 +123,41 @@ public class SummaryFragment extends Fragment  {
      */
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        // override back button to give a warning
+        backbuttonCallback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                // show dialog prompting user
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setCancelable(false);
+                builder.setTitle("Are you sure?");
+                builder.setMessage("Data entered on this page may not be saved.");
+                // used to handle the 'confirm' button
+                builder.setPositiveButton("Yes, I'm Sure", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // continue by disabling this callback then calling the backpressedispatcher again
+                        // when this was enabled, it was at top of backpressed stack. When we disable, the next item is default back behavior
+                        backbuttonCallback.setEnabled(false);
+                        requireActivity().getOnBackPressedDispatcher().onBackPressed();
+                    }
+                });
+                // handles the 'cancel' button
+                builder.setNegativeButton("Stay On This Page", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel(); // tells android we 'canceled', not dismiss. more appropriate
+                    }
+                });
+                AlertDialog alert = builder.create();
+                alert.show();
+
+            }
+        };
+        // need to add the callback to the activities backpresseddispatcher stack.
+        // if enabled, it will run this first. If disabled, it will run the default (next item in stack)
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), backbuttonCallback);
 
         // TODO do we need a back verification here? prob not if fields are not editable. otherwise copy/paste from previous fragments
         //Toast.makeText(getContext(), "WARNING: Pressing back will clear data. Please double check before continuing.", Toast.LENGTH_LONG).show();
@@ -221,6 +266,22 @@ public class SummaryFragment extends Fragment  {
                     }
                 });
 
+        getParentFragmentManager().setFragmentResultListener("sending_fifth_form_fragment_info",
+                this, new FragmentResultListener() {
+                    @Override
+                    public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
+                        referrer = result.getString("Referrer");
+                        comments = result.getString("Comments");
+                        volunteerFName = result.getString("Volunteer First Name");
+                        volunteerLName = result.getString("Volunteer Last Name");
+
+                        binding.grf5Referrer.setText(referrer);
+                        binding.grf5Comments.setText(comments);
+                        binding.grf5VolunteerFName.setText(volunteerFName);
+                        binding.grf5VolunteerLName.setText(volunteerLName);
+                    }
+                });
+
 
         // OnClickListener for the "Done" button
         view.findViewById(R.id.button).setOnClickListener(clickedView -> {
@@ -231,7 +292,7 @@ public class SummaryFragment extends Fragment  {
             db.insertData(fname + " " + lname, phoneNum, nccId, streetAddress1 + ", " + streetAddress2,
                     city, zip, state, affiliation, age, gender, dietary, otherProg, snap, employment, health, housing,
                     income, householdNum, childcareStatus, children1, children5, children12, children18,
-                    null, null, null);
+                    referrer, comments, volunteerFName + " " + volunteerLName, null);
 
 
 
