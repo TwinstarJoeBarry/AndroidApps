@@ -348,6 +348,8 @@ public class SummaryFragment extends Fragment  {
 
     public boolean createConfirmedDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        // if they don't press close, it wont trigger home(). Better to just not allow it so it ends properly
+        builder.setCancelable(false);
         builder.setTitle("Thank you!");
         builder.setMessage("Your registration has been confirmed. You will now be taken back to the guest forms page. You can now log in and start your first visit!");
 
