@@ -185,7 +185,7 @@ public class FourthFormFragment extends Fragment {
 
             // store the selected items into the instance variables
             householdNum = binding.grf4NumPeople.getSelectedItem().toString();
-            childcareStatus = binding.grf4StatusChildcare.getSelectedItem().toString();
+            childcareStatus = childcareMultiSelect.getSelectedItemsAsString(); // updated to multiselect call
             children1 = binding.grf4Children1.getSelectedItem().toString();
             children5 = binding.grf4Children5.getSelectedItem().toString();
             children12 = binding.grf4Children12.getSelectedItem().toString();
