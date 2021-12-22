@@ -95,6 +95,7 @@
                 android:minHeight="48dp"
                 android:saveEnabled="true"
                 android:textSize="16sp"
+                android:textColor="@android:color/darker_gray"
                 tools:ignore="TextContrastCheck,TextContrastCheck"
                 android:importantForAutofill="no" />
 
@@ -119,6 +120,7 @@
                 android:minHeight="48dp"
                 android:saveEnabled="true"
                 android:textSize="16sp"
+                android:textColor="@android:color/darker_gray"
                 tools:ignore="DuplicateSpeakableTextCheck"
                 android:importantForAutofill="no" />
 
@@ -143,6 +145,7 @@
                 android:minHeight="48dp"
                 android:saveEnabled="true"
                 android:textSize="16sp"
+                android:textColor="@android:color/darker_gray"
                 android:importantForAutofill="no" />
 
             <TextView
@@ -166,6 +169,7 @@
                 android:minHeight="48dp"
                 android:saveEnabled="true"
                 android:textSize="16sp"
+                android:textColor="@android:color/darker_gray"
                 android:importantForAutofill="no" />
 
         </LinearLayout>
