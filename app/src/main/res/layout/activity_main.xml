@@ -71,7 +71,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/username"
                 android:inputType="text"
-                android:autofillHints="" />
+                />
 
             <EditText
                 android:id="@+id/password"
@@ -80,7 +80,7 @@
                 android:layout_marginTop="16dp"
                 android:hint="@string/password"
                 android:inputType="textPassword"
-                android:autofillHints="" />
+                />
 
             <TextView
                 android:id="@+id/forgotPass"

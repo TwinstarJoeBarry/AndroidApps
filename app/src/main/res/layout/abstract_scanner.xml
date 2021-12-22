@@ -19,7 +19,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:theme="@style/NCCTestTheme">
 
     <com.journeyapps.barcodescanner.DecoratedBarcodeView
         android:id="@+id/scanner_decorated_barcode_view"
@@ -32,39 +33,39 @@
         android:id="@+id/scanner_result_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorNCCPrimary"
         android:gravity="center"
         android:padding="8dp"
-        android:textSize="18sp"
-        android:textStyle="bold"
         android:textColor="@android:color/white"
-        android:background="@color/colorPrimaryDark" />
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="6dp"
-        android:background="@color/colorPrimaryShaded"
-        android:orientation="horizontal" >
+        android:background="@color/colorNCCPrimary"
+        android:orientation="horizontal"
+        android:padding="6dp">
 
         <Button
             android:id="@+id/scanner_rescan_button"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="0dp"
-            android:layout_weight="0.5"
             android:layout_height="wrap_content"
             android:layout_marginEnd="1dp"
-            android:text="@string/fragment_abstract_scanner_rescan_btn"
-            style="@style/Widget.AppCompat.Button.Colored"
-            android:backgroundTint="@color/colorPrimary" />
+            android:layout_weight="0.5"
+            android:backgroundTint="@color/colorNCCSecondary"
+            android:text="@string/fragment_abstract_scanner_rescan_btn" />
 
         <Button
             android:id="@+id/scanner_confirm_button"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="0dp"
-            android:layout_weight="0.5"
             android:layout_height="wrap_content"
             android:layout_marginStart="1dp"
-            android:text="@string/fragment_abstract_scanner_confirm_button"
-            style="@style/Widget.AppCompat.Button.Colored"
-            android:backgroundTint="@color/colorPrimary" />
+            android:layout_weight="0.5"
+            android:backgroundTint="@color/colorNCCSecondary"
+            android:text="@string/fragment_abstract_scanner_confirm_button" />
 
     </LinearLayout>
 

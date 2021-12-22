@@ -32,6 +32,8 @@ import static edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses.Gue
 import static edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses.GuestRegistryHelper.PHONE;
 import static edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses.GuestRegistryHelper.TABLE_NAME;
 
+import edu.ncc.nest.nestapp.GuestVisit.DatabaseClasses.QuestionnaireHelper;
+
 /**
  * GuestRegistrySource: Handles the insertion and removal of data into the GuestRegistry database
  * (See {@link GuestRegistryHelper}). Also has methods that allow for searching the database.
@@ -60,7 +62,7 @@ public class GuestRegistrySource {
      * close --
      * Closes the database.
      */
-    public void close( ) {
+    public void close() {
 
         database.close();
 
