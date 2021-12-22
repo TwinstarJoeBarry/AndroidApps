@@ -33,12 +33,17 @@ package edu.ncc.nest.nestapp.GuestDatabaseRegistration.Fragments;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentManager;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.google.zxing.BarcodeFormat;
 
 import edu.ncc.nest.nestapp.AbstractScanner.AbstractScannerFragment;
+import edu.ncc.nest.nestapp.R;
 
 /**
  * ScannerFragment: Scans in a barcode provided by the guest using the camera. It then checks
@@ -50,18 +55,54 @@ import edu.ncc.nest.nestapp.AbstractScanner.AbstractScannerFragment;
  */
 public class ScannerFragment extends AbstractScannerFragment {
 
+    /////////////////////////////////////// Class Variables ////////////////////////////////////////
+
+    /** The tag to use when printing to the log from this class. */
+    public static final String LOG_TAG = edu.ncc.nest.nestapp.CheckExpirationDate.Fragments.ScannerFragment.class.getSimpleName();
+
+    /////////////////////////////////// Lifecycle Methods Start ////////////////////////////////////
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        // Clear any set fragment results since they are not needed in or prior to this fragment
+        //getParentFragmentManager().clearFragmentResult("FOOD ITEM");
+
+    }
+
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         // Make sure we don't set formats until our super has a handle on the DecoratedBarcodeView
-        super.setDecoderFormats(BarcodeFormat.CODE_39);
+        // super.setDecoderFormats(BarcodeFormat.CODE_39); // why this?
+        super.setDecoderFormats(BarcodeFormat.UPC_A);
 
     }
 
     @Override
     protected void onBarcodeConfirmed(@NonNull String barcode, @NonNull BarcodeFormat format) {
 
+        // leaving below code about FragmentManager. probably a way to make a global bundle.
+        // FragmentManager fragmentManager = getParentFragmentManager();
+        // just take it and pass it. doesn't check if in database already.
+        Bundle result = new Bundle();
+
+        // Put UPC into the bundle
+        result.putString("registrationBarcode", barcode);
+
+        // i think this is sending to a global bundle?
+        // fragmentManager.setFragmentResult("FOOD ITEM", result);
+
+        Toast toast = Toast.makeText(getContext(), "Confirmed! Barcode is: " + barcode, Toast.LENGTH_SHORT);
+        toast.show();
+        // Navigate to NextFragment
+        /*
+        NavHostFragment.findNavController(edu.ncc.nest.nestapp.GuestDatabaseRegistration.Fragments.ScannerFragment.this)
+                .navigate((R.id.CED_SelectItemFragment));
+
+         */
     }
 
 }
