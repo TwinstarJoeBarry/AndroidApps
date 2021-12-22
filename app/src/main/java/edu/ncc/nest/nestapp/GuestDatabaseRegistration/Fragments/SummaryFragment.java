@@ -93,6 +93,9 @@ public class SummaryFragment extends Fragment  {
     private String children12;
     private String children18;
 
+    // barcode info
+    private String barcode;
+
     // fifth fragment information
     private String referrer;
     private String comments;
@@ -266,6 +269,16 @@ public class SummaryFragment extends Fragment  {
                     }
                 });
 
+        getParentFragmentManager().setFragmentResultListener("sending_barcode_info",
+                this,
+                new FragmentResultListener() {
+                    @Override
+                    public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
+                        barcode = result.getString("registrationBarcode");
+                        Log.d("**BARCODE**", "BARCODE: " + barcode);
+                    }
+        });
+
         getParentFragmentManager().setFragmentResultListener("sending_fifth_form_fragment_info",
                 this, new FragmentResultListener() {
                     @Override
@@ -288,11 +301,12 @@ public class SummaryFragment extends Fragment  {
 
             // registering the guest to the database
             // TODO: null values needs to be retrieved and replaced.
+            String nameOfVolunteer = volunteerFName + " " + volunteerLName;
 
             db.insertData(fname + " " + lname, phoneNum, nccId, streetAddress1 + ", " + streetAddress2,
                     city, zip, state, affiliation, age, gender, dietary, otherProg, snap, employment, health, housing,
                     income, householdNum, childcareStatus, children1, children5, children12, children18,
-                    null, null, null);
+                    comments, nameOfVolunteer, barcode);
 
 
 

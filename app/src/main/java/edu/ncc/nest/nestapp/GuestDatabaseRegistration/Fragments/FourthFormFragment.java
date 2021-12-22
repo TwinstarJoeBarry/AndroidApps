@@ -209,7 +209,7 @@ public class FourthFormFragment extends Fragment {
 
             // navigate to the summary fragment when clicked
             NavHostFragment.findNavController(FourthFormFragment.this)
-                    .navigate(R.id.action_DBR_FourthFormFragment_to_DBR_FifthFormFragment);
+                    .navigate(R.id.action_DBR_FourthFormFragment_to_DBR_ScannerFragment);
 
         });
     }

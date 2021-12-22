@@ -207,8 +207,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="1498" />
-                            <option name="y" value="351" />
+                            <option name="x" value="1740" />
+                            <option name="y" value="372" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -253,15 +253,6 @@
                             <option name="y" value="363" />
                           </Point>
                         </option>
-                        <option name="myPositions">
-                          <map>
-                            <entry key="action_DBR_FourthFormFragment_to_DBR_FifthFormFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                          </map>
-                        </option>
                       </LayoutPositions>
                     </value>
                   </entry>
@@ -270,7 +261,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="730" />
+                            <option name="x" value="1473" />
+                            <option name="y" value="358" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -314,11 +306,6 @@
                         <option name="myPositions">
                           <map>
                             <entry key="action_DBR_StartFragment_to_FirstFormFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                            <entry key="action_DBR_StartFragment_to_ScannerFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
