@@ -18,10 +18,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryShaded"
+    android:background="@color/colorNCCPrimary"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:paddingTop="5dp"
+    android:theme="@style/NCCTestTheme"
     tools:context=".GuestVisit.Fragments.ManualFragment">
 
     <TextView
@@ -30,13 +31,13 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="8dp"
-        android:fontFamily="casual"
+        android:fontFamily="sans-serif-thin"
         android:shadowColor="@android:color/darker_gray"
         android:shadowDx="-4"
         android:shadowDy="4"
         android:shadowRadius="1"
         android:text="@string/fragment_gv_manual_title"
-        android:textAllCaps="true"
+        android:textAllCaps="false"
         android:textColor="@android:color/white"
         android:textSize="26sp"
         android:textStyle="bold" />
@@ -49,100 +50,100 @@
         android:layout_marginVertical="4dp"
         android:layout_weight="1"
         android:background="@drawable/background_dialog"
-        android:backgroundTint="@color/colorPrimary">
+        android:backgroundTint="@color/colorNCCAccent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:paddingHorizontal="24dp"
-            android:paddingVertical="18dp"
-            android:orientation="vertical" >
+            android:paddingVertical="18dp">
 
-        <TextView
-            android:id="@+id/guest_visit_barcode_entry_label"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:gravity="center"
-            android:text="@string/fragment_gv_manual_bl"
-            android:textColor="@android:color/black"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            <TextView
+                android:id="@+id/guest_visit_barcode_entry_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:gravity="center"
+                android:text="@string/fragment_gv_manual_bl"
+                android:textColor="@android:color/background_light"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/guest_visit_barcode_entry"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_marginBottom="20dp"
-            android:autofillHints=""
-            android:gravity="center"
-            android:hint="@string/fragment_gv_manual_bh"
-            android:inputType="text"
-            android:maxLength="16"
-            android:saveEnabled="true"
-            android:textSize="16sp" />
+            <EditText
+                android:id="@+id/guest_visit_barcode_entry"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_marginBottom="20dp"
+                android:autofillHints=""
+                android:gravity="center"
+                android:hint="@string/fragment_gv_manual_bh"
+                android:inputType="text"
+                android:maxLength="16"
+                android:saveEnabled="true"
+                android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/guest_visit_msi_or"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:gravity="center"
-            android:text="@string/fragment_gv_manual_or"
-            android:textColor="@android:color/black"
-            android:textSize="30sp"
-            android:textStyle="bold" />
+            <TextView
+                android:id="@+id/guest_visit_msi_or"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:gravity="center"
+                android:text="@string/fragment_gv_manual_or"
+                android:textColor="@android:color/background_light"
+                android:textSize="30sp"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/guest_visit_msi_pt1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:gravity="center"
-            android:text="@string/fragment_gv_manual_m1"
-            android:textColor="@android:color/black"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            <TextView
+                android:id="@+id/guest_visit_msi_pt1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:gravity="center"
+                android:text="@string/fragment_gv_manual_m1"
+                android:textColor="@android:color/background_light"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/guest_visit_msie_pt1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_marginBottom="20dp"
-            android:autofillHints=""
-            android:gravity="center"
-            android:hint="@string/fragment_gv_manual_e1"
-            android:inputType="text"
-            android:maxLength="16"
-            android:saveEnabled="true"
-            android:textSize="16sp" />
+            <EditText
+                android:id="@+id/guest_visit_msie_pt1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_marginBottom="20dp"
+                android:autofillHints=""
+                android:gravity="center"
+                android:hint="@string/fragment_gv_manual_e1"
+                android:inputType="text"
+                android:maxLength="16"
+                android:saveEnabled="true"
+                android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/guest_visit_msi_pt2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:gravity="center"
-            android:text="@string/fragment_gv_manual_m2"
-            android:textColor="@android:color/black"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            <TextView
+                android:id="@+id/guest_visit_msi_pt2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:gravity="center"
+                android:text="@string/fragment_gv_manual_m2"
+                android:textColor="@android:color/background_light"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/guest_visit_msie_pt2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_marginBottom="20dp"
-            android:autofillHints=""
-            android:gravity="center"
-            android:hint="@string/fragment_gv_manual_e2"
-            android:inputType="textPassword"
-            android:maxLength="16"
-            android:saveEnabled="true"
-            android:textSize="16sp" />
-
+            <EditText
+                android:id="@+id/guest_visit_msie_pt2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_marginBottom="20dp"
+                android:autofillHints=""
+                android:gravity="center"
+                android:hint="@string/fragment_gv_manual_e2"
+                android:inputType="textPassword"
+                android:maxLength="16"
+                android:saveEnabled="true"
+                android:textSize="16sp" />
         </LinearLayout>
     </ScrollView>
 
@@ -154,7 +155,7 @@
         android:layout_marginHorizontal="6dp"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="6dp"
-        android:backgroundTint="@color/colorPrimary"
+        android:backgroundTint="@color/colorNCCSecondary"
         android:text="@string/submit" />
 
 </LinearLayout>

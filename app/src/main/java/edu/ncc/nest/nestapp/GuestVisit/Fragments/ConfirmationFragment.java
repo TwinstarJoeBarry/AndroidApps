@@ -54,6 +54,7 @@ public class ConfirmationFragment extends Fragment implements View.OnClickListen
                              Bundle savedInstanceState ) {
         binding = FragmentGuestVisitConfirmationFlipperBinding.inflate(inflater,container,false);
         // Inflate the layout for this fragment
+
         return binding.getRoot();
     }
 
@@ -69,7 +70,9 @@ public class ConfirmationFragment extends Fragment implements View.OnClickListen
 
             selectDisplayedView(view.findViewById(R.id.confirmation_view_flipper));
 
-        } else
+        }
+
+        else
 
             getParentFragmentManager().setFragmentResultListener("SCAN_CONFIRMED",
                 this, (requestKey, result) -> {
@@ -169,7 +172,7 @@ public class ConfirmationFragment extends Fragment implements View.OnClickListen
 
     /**
      * onCreateConfirmationView --
-     * sets the onClickListener for the buttons in the fragment_guest_scan_confirmation layout
+     * sets the onClickListener for the buttons in the fragment_guest_visit_confirmation_found layout
      * Fills in the text views that display the guest's name and id
      */
     public void onCreateConfirmationView(@NonNull View view) {
@@ -182,11 +185,12 @@ public class ConfirmationFragment extends Fragment implements View.OnClickListen
         ((TextView) view.findViewById(R.id.guest_name_lable)).setText(guestName);
         ((TextView) view.findViewById(R.id.guest_id_lable)).setText(guestId);
 
+
     }
 
     /**
      * onCreateRegistrationView --
-     * sets the onClickListener for the buttons in the fragment_guest_scan_confirmation_reg layout
+     * sets the onClickListener for the buttons in the fragment_guest_visit_confirmation_not_found layout
      * Fills in the text view that displays the barcode
      */
     public void onCreateRegistrationView(@NonNull View view) {
