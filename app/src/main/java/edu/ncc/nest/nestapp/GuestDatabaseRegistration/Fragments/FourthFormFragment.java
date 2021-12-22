@@ -158,7 +158,6 @@ public class FourthFormFragment extends Fragment {
 
         // hide views until we need them
         childcareMultiSelect.setVisibility(View.GONE);
-        //childcareSpinner.setVisibility(View.GONE);
         children1Spinner.setVisibility(View.GONE);
         children5Spinner.setVisibility(View.GONE);
         children12Spinner.setVisibility(View.GONE);
@@ -195,16 +194,11 @@ public class FourthFormFragment extends Fragment {
             // storing all strings in bundle to send to summary fragment
             result.putString("householdNum", householdNum);
             result.putString("childcareStatus", childcareStatus);
+            // pulling from instance variables as these will always be accurate
             result.putString("children1", Integer.toString(numChildren1));
             result.putString("children5", Integer.toString(numChildren5));
             result.putString("children12", Integer.toString(numChildren12));
             result.putString("children18", Integer.toString(numChildren18));
-            /*
-            result.putString("children1", numChildren1);
-            result.putString("children5", children5);
-            result.putString("children12", children12);
-            result.putString("children18", children18);
-             */
 
             // sending bundle
             getParentFragmentManager().setFragmentResult("sending_fourth_form_fragment_info", result);
@@ -215,34 +209,6 @@ public class FourthFormFragment extends Fragment {
 
         });
     }
-
-    // This dropdown listener currently changes the first item in the spinner to muted text.
-    // When a user selects an item other than the first, text changes to standard color.
-    // Later, we can use this same logic for verification.
-    // TODO can this be moved to a separate file and then just called?
-    private final AdapterView.OnItemSelectedListener dropdownListener = new AdapterView.OnItemSelectedListener() {
-        @Override
-        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            // if first item is selected, it's a placeholder. Treat as no input
-            if(position == 0) {
-                // Makes it look visually 'muted'
-//                ((TextView) view).setTextColor(Color.GRAY);
-            } else {
-                // else, an item is selected. Below uses the "ColorPrimaryDark" variable. This will allow us to
-                // keep universal themes and styling across the app.
-                ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimaryDark, getContext().getTheme()));
-                // Adds a visual UI response when selecting an item.
-                Toast.makeText
-                        (getContext(), "Selected : " + ((TextView) view).getText(), Toast.LENGTH_SHORT)
-                        .show();
-            }
-        }
-
-        @Override
-        public void onNothingSelected(AdapterView<?> parent) {
-
-        }
-    };
 
     private final AdapterView.OnItemSelectedListener numPeopleListener = new AdapterView.OnItemSelectedListener() {
         @Override
@@ -262,6 +228,9 @@ public class FourthFormFragment extends Fragment {
                 childcareMultiSelect.setVisibility(View.GONE);
                 //childcareSpinner.setVisibility(View.GONE);
                 textview_childcare.setVisibility(View.GONE);
+
+                // reset instance values to avoid early error checking
+                resetNumChildren();
                 // set the selection to "i dont have children" to trigger the other ones
                 childcareMultiSelect.setSelection(0);
 
@@ -315,10 +284,11 @@ public class FourthFormFragment extends Fragment {
             boolean looping = true;
 
             for (int i = 0; i < selections.size(); i++) {
-            //while (count > iterator && looping) {
+                //while (count > iterator && looping) {
                 // if any selection other than first option (no children) appears
                 //Log.d(TAG, "SELECTIONS: " + selections.get(i).toString());
-                if (selections.get(iterator) == 0) {
+                // dont need to loop? Works better when not looping. First item will always be first position
+                if (selections.get(0) == 0) {
                     // hide others
                     children1Spinner.setVisibility(View.GONE);
                     textview_children1.setVisibility(View.GONE);
@@ -335,24 +305,8 @@ public class FourthFormFragment extends Fragment {
                 }
                 // reset next field
                 children1Spinner.setSelection(0, true);
-                /*
-                if (selections.get(i) > 0) {
-                    // show others
-                    children1Spinner.setVisibility(View.VISIBLE);
-                    textview_children1.setVisibility(View.VISIBLE);
-                } else {
-                    // hide others
-                    children1Spinner.setVisibility(View.GONE);
-                    textview_children1.setVisibility(View.GONE);
-
-                    // TODO add if disabled, enable code
-                    if (isDisabled) {
-                        setEnabled(nextBtn);
-                    }
-                }
-
-                 */
             }
+            Log.d("**ONTOUCH**", "END 'runnable task'");
         }
     };
 
@@ -448,6 +402,7 @@ public class FourthFormFragment extends Fragment {
                     // error, too many people
                     children12Spinner.setVisibility(View.GONE);
                     textview_children12.setVisibility(View.GONE);
+                    // TODO calls sometimes when first field is set to 1. Fix
                     Toast toast = Toast.makeText(getContext(), "Can not have more children than " +
                             "people in household, please check again.", Toast.LENGTH_SHORT);
                     toast.show();
@@ -599,6 +554,13 @@ public class FourthFormFragment extends Fragment {
 
         private int getNumChildren() {
             return numChildren1 + numChildren5 + numChildren12 + numChildren18;
+        }
+
+        private void resetNumChildren() {
+            numChildren1 = 0;
+            numChildren5 = 0;
+            numChildren12 = 0;
+            numChildren18 = 0;
         }
 
         private String displayChildrenNums() {
