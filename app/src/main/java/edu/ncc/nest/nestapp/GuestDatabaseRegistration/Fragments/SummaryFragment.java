@@ -292,7 +292,7 @@ public class SummaryFragment extends Fragment  {
             db.insertData(fname + " " + lname, phoneNum, nccId, streetAddress1 + ", " + streetAddress2,
                     city, zip, state, affiliation, age, gender, dietary, otherProg, snap, employment, health, housing,
                     income, householdNum, childcareStatus, children1, children5, children12, children18,
-                    null, null, null);
+                    referrer, comments, volunteerFName + " " + volunteerLName, null);
 
 
 
