@@ -71,6 +71,9 @@ public class FourthFormFragment extends Fragment {
 
     private Button nextBtn;
 
+    // used as a final check on the next button
+    private boolean goodData = false;
+
     private final String TAG = "**NumChildren Test**";
 
     // flags for hiding/showing views
@@ -200,12 +203,24 @@ public class FourthFormFragment extends Fragment {
             result.putString("children12", Integer.toString(numChildren12));
             result.putString("children18", Integer.toString(numChildren18));
 
-            // sending bundle
-            getParentFragmentManager().setFragmentResult("sending_fourth_form_fragment_info", result);
+            // just make sure the first and second field are selected. The rest is handled by waterfall logic.
+            if (numPeopleSpinner.getSelectedItemPosition() == 0 || childcareMultiSelect.getSelectedIndices().isEmpty()) {
+                goodData = false;
+            } else {
+                goodData = true;
+            }
 
-            // navigate to the summary fragment when clicked
-            NavHostFragment.findNavController(FourthFormFragment.this)
-                    .navigate(R.id.action_DBR_FourthFormFragment_to_DBR_FifthFormFragment);
+            // sending bundle
+            if (goodData) {
+                getParentFragmentManager().setFragmentResult("sending_fourth_form_fragment_info", result);
+
+                // navigate to the summary fragment when clicked
+                NavHostFragment.findNavController(FourthFormFragment.this)
+                        .navigate(R.id.action_DBR_FourthFormFragment_to_DBR_FifthFormFragment);
+            } else {
+                Toast toast = Toast.makeText(getContext(), "Please make a selection before continuing.", Toast.LENGTH_SHORT);
+                toast.show();
+            }
 
         });
     }
@@ -229,8 +244,6 @@ public class FourthFormFragment extends Fragment {
                 //childcareSpinner.setVisibility(View.GONE);
                 textview_childcare.setVisibility(View.GONE);
 
-                // reset instance values to avoid early error checking
-                resetNumChildren();
                 // set the selection to "i dont have children" to trigger the other ones
                 childcareMultiSelect.setSelection(0);
 
@@ -244,6 +257,22 @@ public class FourthFormFragment extends Fragment {
             if (position > 0) {
                 numPeople = position;
             }
+
+            // check for a number conflict each time. Handles if the user went down the chain and then changed top number
+            if (isNumConflict()) {
+                // TODO disable next button
+                if (!isDisabled) {
+                    setDisabled(nextBtn);
+                }
+                // show toast
+                Toast toast = Toast.makeText(getContext(), "Can not have more children than " +
+                        "people in household, please check again.", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+
+            // reset instance values to avoid early error checking
+            // doing it every time to avoid conflicts and fixing bug 2
+            resetNumChildren();
 
             // force multiselect verification after changing selection.
             verifyMultiselect.run();
@@ -554,6 +583,11 @@ public class FourthFormFragment extends Fragment {
 
         private int getNumChildren() {
             return numChildren1 + numChildren5 + numChildren12 + numChildren18;
+        }
+
+        private boolean isNumConflict() {
+            // i know, can just call method above, but maybe this is faster?
+            return (numChildren1 + numChildren5 + numChildren12 + numChildren18) > numPeople;
         }
 
         private void resetNumChildren() {
