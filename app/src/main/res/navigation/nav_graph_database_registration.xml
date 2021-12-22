@@ -36,21 +36,21 @@
                    app:destination="@id/DBR_FirstFormFragment" />-->
 
         <action
-            android:id="@+id/action_DBR_StartFragment_to_ScannerFragment"
-            app:destination="@id/DBR_ScannerFragment" />
-
-        <action
             android:id="@+id/action_DBR_StartFragment_to_FirstFormFragment"
             app:destination="@id/DBR_FirstFormFragment" />
 
+        <action
+            android:id="@+id/action_DBR_StartFragment_to_ScannerFragment"
+            app:destination="@id/DBR_ScannerFragment"/>
 
 
     </fragment>
 
     <fragment
         android:id="@+id/DBR_ScannerFragment"
-        android:name="edu.ncc.nest.nestapp.GuestGoogleSheetRegistration.Fragments.SecondFormFragment"
-        android:label="@string/nav_graph_dbr_scanner_fragment_lbl">
+        android:name="edu.ncc.nest.nestapp.GuestDatabaseRegistration.Fragments.ScannerFragment"
+        android:label="ScannerFragment">
+
 
     </fragment>
 
