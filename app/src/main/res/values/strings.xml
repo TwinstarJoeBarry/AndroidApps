@@ -323,7 +323,7 @@
     <string name="housing_status">What is your housing status?</string>
 
     <!-- Strings used in fragment_guest_database_registration_fourth_form.xml -->
-    <string name="num_people_household">How many people are in your household?</string>
+    <string name="num_people_household">How many people are in your household? (including you)</string>
     <string name="childcare_status">What is your childcare status?</string>
     <string name="num_children_under_1">How many children that are 12 months or under are in your household?</string>
     <string name="num_children_1_to_5">How many children between the ages of 13 months and 5 years old are in your household?</string>
