@@ -76,9 +76,7 @@ public class ScannerFragment extends AbstractScannerFragment {
         super.onViewCreated(view, savedInstanceState);
 
         // Make sure we don't set formats until our super has a handle on the DecoratedBarcodeView
-         super.setDecoderFormats(BarcodeFormat.CODE_39); // why this?
-        //super.setDecoderFormats(BarcodeFormat.UPC_A);
-
+        super.setDecoderFormats(BarcodeFormat.CODE_39);
     }
 
     @Override

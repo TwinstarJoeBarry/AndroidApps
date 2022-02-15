@@ -23,7 +23,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryShaded"
+    android:background="@color/backgroundGray"
     tools:context=".GuestDatabaseRegistration.Activities.GuestDatabaseRegistrationActivity"
     android:orientation="vertical">
 
@@ -90,12 +90,11 @@
 
             </TextView>
 
-            <Spinner
+            <edu.ncc.nest.nestapp.GuestDatabaseRegistration.UIClasses.MultiSelectSpinner
                 android:id="@+id/grf_4_statusChildcare"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingVertical="16dp"
-                android:entries="@array/childcare_status"
                 android:paddingStart="0dp"
                 android:hint="@string/childcare_status"/>
 
@@ -186,11 +185,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-
-
                 android:backgroundTint="@color/colorPrimary"
                 android:text="@string/next"
-
                 android:textColor="@color/White" />
 
         </LinearLayout>

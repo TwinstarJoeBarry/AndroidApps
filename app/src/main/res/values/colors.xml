@@ -5,6 +5,12 @@
     <color name="colorPrimaryShaded">#006A5F</color>
     <color name="colorAccent">#D81B60</color>
     <color name="White">#FFFFFF</color>
+
+    <!-- TESTING NCC COLORS START ///////////////////////////////////////////////////////////////// -->
+    <color name="colorNCCPrimary">#02024C</color>
+    <color name="colorNCCSecondary">#ED7F1E</color>
+    <color name="colorNCCAccent">#6D8CA0</color>
+
     <color name="Green">#009245</color>
     <color name="Red">#9a031e</color>
     <color name="Yellow">#fcf300</color>

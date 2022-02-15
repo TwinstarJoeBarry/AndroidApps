@@ -45,6 +45,7 @@ public class ManualFragment extends Fragment {
         GuestRegistrySource db = new GuestRegistrySource(requireContext());
 
         //Test barcode value AAA-22545 (Does not function)
+        // Functioning barcode: GHI-9012
         //To test enter ABC-1234 in barcode value
         /*db.insertData("John Doe", "John.Doe@example.com", "555-555-5555", "01/23/45",
                 "123 Test St", "Test", "12345", "11111", null, null,
