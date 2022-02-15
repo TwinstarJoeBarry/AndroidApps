@@ -67,6 +67,11 @@ public class GuestFormTesting extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.home_btn) {
             home();
+            return true;
+        }
+        if(item.getItemId() == R.id.login_btn){
+            launchLoginActivity();
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -78,6 +83,14 @@ public class GuestFormTesting extends AppCompatActivity {
      */
     public void home() {
         Intent intent = new Intent(this, Choose.class);
+        startActivity(intent);
+    }
+
+    /**
+     * launchLoginActivity - starts the Login Activity
+     */
+    public void launchLoginActivity() {
+        Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
 

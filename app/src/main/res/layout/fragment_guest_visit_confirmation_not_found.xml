@@ -19,11 +19,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorNCCPrimary"
     android:gravity="center_horizontal"
-    android:paddingTop="5dp"
     android:orientation="vertical"
-    android:background="@color/colorPrimaryShaded"
-    tools:context=".GuestVisit.Fragments.ConfirmationFragment" >
+    android:theme="@style/NCCTestTheme"
+    tools:context=".GuestVisit.Fragments.ConfirmationFragment">
 
     <TextView
         android:id="@+id/confirmation_1_welcome_message"
@@ -31,28 +31,29 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="8dp"
+        android:background="@color/colorNCCPrimary"
+        android:backgroundTint="@color/colorNCCPrimary"
+        android:fontFamily="sans-serif-thin"
         android:shadowColor="@android:color/darker_gray"
-        android:shadowRadius="1"
         android:shadowDx="-4"
         android:shadowDy="4"
-        android:textSize="26sp"
-        android:textStyle="bold"
-        android:textAllCaps="true"
-        android:fontFamily="casual"
+        android:text="@string/fragment_gv_confirmation_not_found_title"
+        android:textAllCaps="false"
         android:textColor="@android:color/white"
-        android:text="@string/fragment_gv_confirmation_not_found_title" />
+        android:textSize="26sp"
+        android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="6dp"
         android:layout_marginVertical="4dp"
-        android:paddingHorizontal="24dp"
-        android:paddingVertical="18dp"
+        android:background="@drawable/background_dialog"
+        android:backgroundTint="@color/colorNCCAccent"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:backgroundTint="@color/colorPrimary"
-        android:background="@drawable/background_dialog" >
+        android:paddingHorizontal="24dp"
+        android:paddingVertical="18dp">
 
         <TextView
             android:id="@+id/confirmation_0_description_1"
@@ -60,10 +61,10 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="6dp"
             android:gravity="center"
-            android:textSize="16sp"
-            android:textStyle="bold|italic"
+            android:text="@string/fragment_gv_confirmation_not_found_msg"
             android:textColor="@android:color/white"
-            android:text="@string/fragment_gv_confirmation_not_found_msg" />
+            android:textSize="16sp"
+            android:textStyle="bold|italic" />
 
         <TextView
             android:id="@+id/confirmation_0_guest_id"
@@ -71,10 +72,10 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
             android:gravity="center"
-            android:textSize="16sp"
             android:textAllCaps="true"
-            android:textStyle="italic"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:textStyle="italic" />
 
         <TextView
             android:id="@+id/confirmation_0_description_2"
@@ -82,42 +83,57 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:gravity="center"
-            android:textSize="16sp"
-            android:textStyle="bold|italic"
+            android:text="@string/fragment_gv_confirmation_not_found_register_msg"
             android:textColor="@android:color/white"
-            android:text="@string/fragment_gv_confirmation_not_found_register_msg" />
+            android:textSize="16sp"
+            android:textStyle="bold|italic" />
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginHorizontal="6dp"
-        android:layout_marginBottom="6dp"
-        android:layout_marginTop="4dp"
-        android:orientation="horizontal"
-        android:gravity="bottom" >
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="390dp"
+        android:layout_height="415dp"
+        android:background="@drawable/guest_not_found_icon_small" />
+    <!--
+    Note: The original dimensions of the guest_not_found_icon was
+    Width - 390 dp X Height - 481 dp. Due to a visual issue, the image
+    was made smaller. The original size icon will still be made available in
+    the drawable folder.
+    -->
 
-        <Button
-            android:id="@+id/confirmation_0_return_btn"
-            android:layout_width="0dp"
-            android:layout_weight="0.5"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="1dp"
-            android:text="@string/fragment_gv_confirmation_not_found_return_btn"
-            style="@style/Widget.AppCompat.Button.Colored"
-            android:backgroundTint="@color/colorPrimary"/>
+<LinearLayout
+    android:layout_width="391dp"
+    android:layout_height="48dp"
+    android:layout_marginHorizontal="6dp"
+    android:layout_marginTop="4dp"
+    android:layout_marginBottom="6dp"
+    android:background="@color/colorNCCPrimary"
+    android:gravity="bottom"
+    android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/confirmation_0_register_btn"
-            android:layout_width="0dp"
-            android:layout_weight="0.5"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="1dp"
-            android:text="@string/register"
-            style="@style/Widget.AppCompat.Button.Colored"
-            android:backgroundTint="@color/colorPrimary"/>
+    <Button
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:id="@+id/confirmation_0_return_btn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="1dp"
+        android:layout_weight="0.5"
+        android:backgroundTint="@color/colorNCCSecondary"
+        android:text="@string/fragment_gv_confirmation_not_found_rescan_btn"
+        android:textColor="@color/White" />
 
-    </LinearLayout>
+    <Button
+        android:id="@+id/confirmation_0_register_btn"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:layout_weight="0.5"
+        android:backgroundTint="@color/colorNCCSecondary"
+        android:text="@string/register"
+        android:textColor="@color/White" />
+
+</LinearLayout>
 
 </LinearLayout>

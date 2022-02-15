@@ -76,6 +76,7 @@ public class GuestRegistryHelper extends SQLiteOpenHelper {
 
 
     //TODO: additional data to be added when the data when UI has it
+    public static final String  REFERRAL_INFO = "refInfo";
     public static final String ADDITIONAL_INFO = "addInfo";
     public static final String NAME_OF_VOLUNTEER = "nameOfVolunteer";
     public static final String BARCODE = "barcode";
@@ -127,7 +128,8 @@ public class GuestRegistryHelper extends SQLiteOpenHelper {
                 HEALTH + " TEXT, " + HOUSING + " TEXT, " + INCOME + " TEXT, "
                 + HOUSEHOLD_NUM + " TEXT, " + CHILDCARE_STATUS + " TEXT, " + CHILDREN_1 + " TEXT, " +
                 CHILDREN_5 + " TEXT, " + CHILDREN_12 + " TEXT, " + CHILDREN_18 + " TEXT, "
-                + ADDITIONAL_INFO + " TEXT, " + NAME_OF_VOLUNTEER + " TEXT, " + BARCODE + " TEXT);");
+                + REFERRAL_INFO + " TEXT," + ADDITIONAL_INFO + " TEXT, " + NAME_OF_VOLUNTEER +
+                " TEXT, " + BARCODE + " TEXT);");
 
     }
 

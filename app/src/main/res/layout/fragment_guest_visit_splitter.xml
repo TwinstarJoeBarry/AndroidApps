@@ -20,50 +20,73 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryShaded"
+    android:background="@color/colorNCCPrimary"
+    android:theme="@style/NCCTestTheme"
     tools:context=".GuestVisit.Fragments.QuestionnaireFragment">
 
     <TextView
         android:id="@+id/guest_visit_splitter_greeting"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="casual"
+        android:layout_marginTop="20dp"
+        android:fontFamily="sans-serif-thin"
         android:shadowColor="@android:color/darker_gray"
         android:shadowDx="-4"
         android:shadowDy="4"
         android:shadowRadius="1"
         android:text="@string/fragment_gv_splitter_title"
-        android:textAllCaps="true"
+        android:textAllCaps="false"
         android:textColor="@android:color/white"
         android:textSize="26sp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop= "20dp"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/barcode_selection_btn"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/colorPrimary"
-        android:text="@string/fragment_gv_splitter_bcb"
-        app:layout_constraintBottom_toBottomOf="@id/manual_selection_btn"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/guest_visit_splitter_greeting" />
-
-    <Button
-        android:id="@+id/manual_selection_btn"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/colorPrimary"
-        android:text="@string/fragment_gv_splitter_msb"
+    <LinearLayout
+        android:layout_width="390dp"
+        android:layout_height="590dp"
+        android:background="@drawable/manual_menu_small"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingHorizontal="24dp"
+        android:paddingVertical="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/barcode_selection_btn" />
+
+        app:layout_constraintTop_toBottomOf="@id/guest_visit_splitter_greeting">
+        <!--
+        Note: The original dimensions of the manual_menu was
+        Width - 390 dp X Height - 660 dp. Due to a visual issue, the image
+        was made smaller. The original size image will still be made available in
+        the drawable folder.
+         -->
+        <Button
+            android:id="@+id/barcode_selection_btn"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="250dp"
+            android:backgroundTint="@color/colorNCCSecondary"
+            android:text="@string/fragment_gv_splitter_bcb"
+            app:layout_constraintBottom_toBottomOf="@id/manual_selection_btn"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/guest_visit_splitter_greeting" />
+
+        <Button
+            android:id="@+id/manual_selection_btn"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:backgroundTint="@color/colorNCCSecondary"
+            android:text="@string/fragment_gv_splitter_msb"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/barcode_selection_btn" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -46,6 +46,9 @@ public class GuestVisitActivity extends AppCompatActivity {
         // Set the support action bar to the respective toolbar from the layout file
         setSupportActionBar((Toolbar) findViewById(R.id.guest_visit_toolbar));
 
+        //V Change made 12/21/21 V
+        getSupportActionBar().hide();
+
         //Initializing and opening the datasource for the Guest Registry database
         datasource = new GuestRegistrySource(this);
 
@@ -55,7 +58,7 @@ public class GuestVisitActivity extends AppCompatActivity {
                     "01-01-9999", "123 Simple Ave", "Nothingtown", "1234", "NY",
                     "NY", null, null, null, null, null,
                     null, null, null, null, null, null,
-                    null, null, null, null, null, "GHI-9012");
+                    null, null, null, null,null, null, "GHI-9012");
         }
     }
 
