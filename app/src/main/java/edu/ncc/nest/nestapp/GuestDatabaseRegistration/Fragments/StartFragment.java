@@ -64,12 +64,15 @@ public class StartFragment extends Fragment {
         });
 
         // Navigates to the ScannerFragment that reads a barcode
+        /*
         view.findViewById(R.id.barcode_scanner_btn).setOnClickListener(clickedView -> {
 
             NavHostFragment.findNavController(StartFragment.this)
                     .navigate(R.id.action_DBR_StartFragment_to_ScannerFragment);
 
         });
+
+         */
 
     }
 

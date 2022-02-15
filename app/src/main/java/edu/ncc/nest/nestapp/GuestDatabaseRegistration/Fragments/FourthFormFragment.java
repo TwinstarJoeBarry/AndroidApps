@@ -202,6 +202,12 @@ public class FourthFormFragment extends Fragment {
             result.putString("children5", Integer.toString(numChildren5));
             result.putString("children12", Integer.toString(numChildren12));
             result.putString("children18", Integer.toString(numChildren18));
+            /*
+            result.putString("children1", numChildren1);
+            result.putString("children5", children5);
+            result.putString("children12", children12);
+            result.putString("children18", children18);
+             */
 
             // just make sure the first and second field are selected. The rest is handled by waterfall logic.
             if (numPeopleSpinner.getSelectedItemPosition() == 0 || childcareMultiSelect.getSelectedIndices().isEmpty()) {
@@ -216,7 +222,7 @@ public class FourthFormFragment extends Fragment {
 
                 // navigate to the summary fragment when clicked
                 NavHostFragment.findNavController(FourthFormFragment.this)
-                        .navigate(R.id.action_DBR_FourthFormFragment_to_DBR_FifthFormFragment);
+                        .navigate(R.id.action_DBR_FourthFormFragment_to_DBR_ScannerFragment);
             } else {
                 Toast toast = Toast.makeText(getContext(), "Please make a selection before continuing.", Toast.LENGTH_SHORT);
                 toast.show();

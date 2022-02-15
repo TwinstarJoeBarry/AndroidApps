@@ -20,6 +20,7 @@ package edu.ncc.nest.nestapp.GuestDatabaseRegistration.Fragments;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -34,7 +35,9 @@ import androidx.fragment.app.FragmentResultListener;
 import androidx.navigation.fragment.NavHostFragment;
 
 
+import edu.ncc.nest.nestapp.Choose;
 import edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses.GuestRegistrySource;
+import edu.ncc.nest.nestapp.GuestFormTesting;
 import edu.ncc.nest.nestapp.R;
 import edu.ncc.nest.nestapp.databinding.FragmentGuestDatabaseRegistrationFourthFormBinding;
 import edu.ncc.nest.nestapp.databinding.FragmentGuestDatabaseRegistrationSummaryBinding;
@@ -92,6 +95,9 @@ public class SummaryFragment extends Fragment  {
     private String children5;
     private String children12;
     private String children18;
+
+    // barcode info
+    private String barcode;
 
     // fifth fragment information
     private String referrer;
@@ -266,6 +272,16 @@ public class SummaryFragment extends Fragment  {
                     }
                 });
 
+        getParentFragmentManager().setFragmentResultListener("sending_barcode_info",
+                this,
+                new FragmentResultListener() {
+                    @Override
+                    public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
+                        barcode = result.getString("registrationBarcode");
+                        Log.d("**BARCODE**", "BARCODE: " + barcode);
+                    }
+        });
+
         getParentFragmentManager().setFragmentResultListener("sending_fifth_form_fragment_info",
                 this, new FragmentResultListener() {
                     @Override
@@ -288,19 +304,24 @@ public class SummaryFragment extends Fragment  {
 
             // registering the guest to the database
             // TODO: null values needs to be retrieved and replaced.
+            String nameOfVolunteer = volunteerFName + " " + volunteerLName;
 
             db.insertData(fname + " " + lname, phoneNum, nccId, streetAddress1 + ", " + streetAddress2,
                     city, zip, state, affiliation, age, gender, dietary, otherProg, snap, employment, health, housing,
                     income, householdNum, childcareStatus, children1, children5, children12, children18,
-                    referrer, comments, volunteerFName + " " + volunteerLName, null);
+                    referrer, comments, nameOfVolunteer, barcode);
 
-
-
+            // go back to 'guest forms' page. decided this makes more sense than app home.
+            // see method definition below for explanation how to switch to to navigate to app home instead
+            createConfirmedDialog(); // show a dialog first so they know it worked.
 
             // Navigate back to splash screen.
             // later, make if/else to go to scanner or login if scanner already in db
+            /*
             NavHostFragment.findNavController(SummaryFragment.this)
                     .navigate(R.id.action_DBR_SummaryFragment_to_DBR_StartFragment);
+
+             */
         });
         // OnClickListener for the "Done" button
         //TODO store in database when done button is clicked
@@ -313,6 +334,38 @@ public class SummaryFragment extends Fragment  {
 //
 //        });
 
+    }
+
+    /**
+     * home method --
+     * description: this method goes to the nest home screen
+     */
+    public void home() {
+        // sending to guestform testing so they can login. Otherwise switch to "Choose.class" to go to app home.
+        Intent intent = new Intent(getActivity(), GuestFormTesting.class);
+        startActivity(intent);
+    }
+
+    public boolean createConfirmedDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        // if they don't press close, it wont trigger home(). Better to just not allow it so it ends properly
+        builder.setCancelable(false);
+        builder.setTitle("Thank you!");
+        builder.setMessage("Your registration has been confirmed. You will now be taken back to the guest forms page. You can now log in and start your first visit!");
+
+        // close button
+        builder.setPositiveButton(getResources().getString(R.string.close), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // just close the dialog
+                dialog.dismiss();
+                // go back to guest forms page
+                home();
+            }
+        });
+
+        builder.show();
+        return true;
     }
 
 }

@@ -93,14 +93,17 @@ public class ScannerFragment extends AbstractScannerFragment {
         // i think this is sending to a global bundle?
         // fragmentManager.setFragmentResult("FOOD ITEM", result);
 
+        // sending bundle
+        getParentFragmentManager().setFragmentResult("sending_barcode_info", result);
+
         Toast toast = Toast.makeText(getContext(), "Confirmed! Barcode is: " + barcode, Toast.LENGTH_SHORT);
         toast.show();
         // Navigate to NextFragment
-        /*
-        NavHostFragment.findNavController(edu.ncc.nest.nestapp.GuestDatabaseRegistration.Fragments.ScannerFragment.this)
-                .navigate((R.id.CED_SelectItemFragment));
 
-         */
+        NavHostFragment.findNavController(edu.ncc.nest.nestapp.GuestDatabaseRegistration.Fragments.ScannerFragment.this)
+                .navigate((R.id.action_DBR_ScannerFragment_to_DBR_FifthFormFragment));
+
+
     }
 
 }
