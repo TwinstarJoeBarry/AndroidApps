@@ -96,10 +96,10 @@ public class SecondFormFragment extends Fragment {
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-
+        super.onViewCreated(view, savedInstanceState);
         //Use Shared Preferences to store transitional data so data isn't lost when back button is pressed
         //For security we use private mode so only the app can access this info
-        SharedPreferences sharedPref = getActivity().getSharedPreferences("Back", Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = getActivity().getSharedPreferences("BackFrag2", Context.MODE_PRIVATE);
 
         //Ovveride default back button behaviour
         backbuttonCallback = new OnBackPressedCallback(true) {
@@ -119,6 +119,7 @@ public class SecondFormFragment extends Fragment {
                 editor.putInt("gender", binding.grf2Gender.getSelectedItemPosition());
                 editor.commit();
 
+                //set back button back to false then recall the back button invoking default behvio
                 backbuttonCallback.setEnabled(false);
                 getActivity().getOnBackPressedDispatcher().onBackPressed();
             }
@@ -126,8 +127,9 @@ public class SecondFormFragment extends Fragment {
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), backbuttonCallback);
 
 /*
+        TODO: Remove this when back instance state is tested successfully
         This was to give a warning that when back button is pressed data will not be saved.
-        This is no longer necesarry because data is now saved on back press.
+        This is no longer necessary because data is now saved on back press.
         
         backbuttonCallback = new OnBackPressedCallback(true) {
             @Override

@@ -19,7 +19,9 @@ package edu.ncc.nest.nestapp.GuestDatabaseRegistration.Fragments;
  */
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -64,7 +66,7 @@ public class ThirdFormFragment extends Fragment {
     // for testing
     MultiSelectSpinner multiselectDietary, multiselectEmployment, multiselectHealth, multiselectHousing;
     // instance variables for summary fragment
-    private String dietary, employment, health, housing, snap, programs, income, otherProg;
+    private String dietary, employment, health, housing, snap, programs, income;
     private Bundle result = new Bundle();
 
     // initialize backButtonCallback
@@ -84,7 +86,32 @@ public class ThirdFormFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // override back button to give a warning
+
+        SharedPreferences sharedPref = getActivity().getSharedPreferences("BackFrag3", Context.MODE_PRIVATE);
+        backbuttonCallback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                SharedPreferences.Editor editor = sharedPref.edit();
+
+                //Clear Shared preferences to make sure
+                editor.clear().commit();
+                editor.putInt("diet", binding.grf3Dietary.getSelectedItemPosition());
+                editor.putInt("employ", binding.grf3StatusEmployment.getSelectedItemPosition());
+                editor.putInt("health", binding.grf3StatusHealth.getSelectedItemPosition());
+                editor.putInt("housing", binding.grf3StatusHousing.getSelectedItemPosition());
+                editor.putInt("snap", binding.grf3Snap.getSelectedItemPosition());
+                editor.putInt("progrmas", binding.grf3OtherProgs.getSelectedItemPosition());
+                editor.putString("income", binding.grf3Income.getText().toString());
+                editor.commit();
+
+                //set back button back to false then recall the back button invoking default behvio
+                backbuttonCallback.setEnabled(false);
+                getActivity().getOnBackPressedDispatcher().onBackPressed();
+            }
+        };
+
+        //TODO: Remove this when back instance state is tested successfully
+        /*// override back button to give a warning
         backbuttonCallback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
@@ -118,6 +145,16 @@ public class ThirdFormFragment extends Fragment {
         // need to add the callback to the activities backpresseddispatcher stack.
         // if enabled, it will run this first. If disabled, it will run the default (next item in stack)
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), backbuttonCallback);
+*/
+
+        //Return possible saved bindings after back press
+        binding.grf3Dietary.setSelection(sharedPref.getInt("diet", 1));
+        binding.grf3StatusEmployment.setSelection(sharedPref.getInt("employ", 1));
+        binding.grf3StatusHealth.setSelection(sharedPref.getInt("health", 1));
+        binding.grf3StatusHousing.setSelection(sharedPref.getInt("housing", 1));
+        binding.grf3Snap.setSelection(sharedPref.getInt("snap", 1));
+        binding.grf3OtherProgs.setSelection(sharedPref.getInt("programs", 1));
+        binding.grf3Income.setText(sharedPref.getString("income", ""));
 
         // target multiselect spinners on the layout
         multiselectDietary = binding.grf3Dietary;
