@@ -37,6 +37,10 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 import edu.ncc.nest.nestapp.GuestDatabaseRegistration.DatabaseClasses.GuestRegistrySource;
 import edu.ncc.nest.nestapp.R;
 
@@ -65,6 +69,7 @@ public class FirstFormFragment extends Fragment {
 
     private String inputFirstName, inputLastName, inputPhoneNumber, inputNCCID;
     private Bundle result = new Bundle();
+    private List<String> stateInfo;
 
     private boolean validFName, validLName, validPhone, validNID, validInput = false;
 

@@ -19,7 +19,9 @@ package edu.ncc.nest.nestapp.GuestDatabaseRegistration.Fragments;
  */
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -35,6 +37,7 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentResultListener;
 import androidx.navigation.fragment.NavHostFragment;
 
@@ -62,11 +65,6 @@ public class SecondFormFragment extends Fragment {
     private String fname;
     private Bundle result = new Bundle();
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState){
-        super.onCreate(savedInstanceState);
-    }
-
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
@@ -91,15 +89,37 @@ public class SecondFormFragment extends Fragment {
 //            binding.grf2Gender.getItemIdAtPosition(1);
 //        }
         // Inflate the layout for this fragment
+
         binding = FragmentGuestDatabaseRegistrationSecondFormBinding.inflate(inflater, container, false);
         return binding.getRoot();
 
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        Log.d("TAG", "Obtaining first name");
+        SharedPreferences sharedPref = getActivity().getSharedPreferences("Back", Context.MODE_PRIVATE);
+        backbuttonCallback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.clear().commit();
+                editor.putString("adr1", binding.grf2Address1.getText().toString());
+                editor.putString("adr2", binding.grf2Address2.getText().toString());
+                editor.putString("city", binding.grf2City.getText().toString());
+                editor.putString("zip", binding.grf2Zip.getText().toString());
+                editor.putInt("state", binding.grf2State.getSelectedItemPosition());
+                editor.putInt("affiliation", binding.grf2Affiliation.getSelectedItemPosition());
+                editor.putInt("age", binding.grf2Age.getSelectedItemPosition());
+                editor.putInt("gender", binding.grf2Gender.getSelectedItemPosition());
+                editor.commit();
 
+                backbuttonCallback.setEnabled(false);
+                getActivity().getOnBackPressedDispatcher().onBackPressed();
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), backbuttonCallback);
+
+        //Blocked out back button ovveride
+/*
         // override back button to give a warning
         backbuttonCallback = new OnBackPressedCallback(true) {
             @Override
@@ -134,6 +154,9 @@ public class SecondFormFragment extends Fragment {
         // need to add the callback to the activities backpresseddispatcher stack.
         // if enabled, it will run this first. If disabled, it will run the default (next item in stack)
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), backbuttonCallback);
+*/
+
+        //Blocked out back button ovveride is above
 
         //Toast.makeText(getContext(), "WARNING: Pressing back will clear data. Please double check before continuing.", Toast.LENGTH_LONG).show();
 
@@ -146,9 +169,21 @@ public class SecondFormFragment extends Fragment {
                 });
 
          */
+        SharedPreferences.Editor editor = sharedPref.edit();
+        binding.grf2Address1.setText(sharedPref.getString("adr1", ""));
+        binding.grf2Address2.setText(sharedPref.getString("adr2", ""));
+        binding.grf2City.setText(sharedPref.getString("city", ""));
+        binding.grf2Zip.setText(sharedPref.getString("zip", ""));
+        binding.grf2State.setSelection(sharedPref.getInt("state", 1));
+        binding.grf2Affiliation.setSelection(sharedPref.getInt("affiliation", 1));
+        binding.grf2Age.setSelection(sharedPref.getInt("age", 1));
+        binding.grf2Gender.setSelection(sharedPref.getInt("gender", 1));
+        editor.clear().commit();
 
-                binding.nextButton.setOnClickListener(new View.OnClickListener() {
 
+
+
+        binding.nextButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         inputStreetAddress1 = ((EditText) getView().findViewById(R.id.grf_2_address1)).getText().toString();
@@ -219,18 +254,4 @@ public class SecondFormFragment extends Fragment {
                 });
 
     }
-
-//    @Override
-//    public void onSaveInstanceState(@NonNull Bundle outState){
-//        super.onSaveInstanceState(outState);
-//
-//        outState.putString("street address 1", inputStreetAddress1);
-//        outState.putString("street address 2", inputStreetAddress2);
-//        outState.putString("city", inputCity);
-//        outState.putString("state", inputState);
-//        outState.putString("zip", inputZip);
-//        outState.putString("affiliation", inputAffiliation);
-//        outState.putString("age", inputAge);
-//        outState.putString("gender", inputGender);
-//    }
-}
+    }
