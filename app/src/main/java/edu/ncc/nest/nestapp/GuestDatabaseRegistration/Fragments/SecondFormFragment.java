@@ -96,11 +96,18 @@ public class SecondFormFragment extends Fragment {
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+
+        //Use Shared Preferences to store transitional data so data isn't lost when back button is pressed
+        //For security we use private mode so only the app can access this info
         SharedPreferences sharedPref = getActivity().getSharedPreferences("Back", Context.MODE_PRIVATE);
+
+        //Ovveride default back button behaviour
         backbuttonCallback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
                 SharedPreferences.Editor editor = sharedPref.edit();
+
+                //Clear Shared preferences to make sure
                 editor.clear().commit();
                 editor.putString("adr1", binding.grf2Address1.getText().toString());
                 editor.putString("adr2", binding.grf2Address2.getText().toString());
@@ -118,9 +125,10 @@ public class SecondFormFragment extends Fragment {
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), backbuttonCallback);
 
-        //Blocked out back button ovveride
 /*
-        // override back button to give a warning
+        This was to give a warning that when back button is pressed data will not be saved.
+        This is no longer necesarry because data is now saved on back press.
+        
         backbuttonCallback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
@@ -169,7 +177,8 @@ public class SecondFormFragment extends Fragment {
                 });
 
          */
-        SharedPreferences.Editor editor = sharedPref.edit();
+
+        //Use shared preferences to write possible state data back after back button is pressed
         binding.grf2Address1.setText(sharedPref.getString("adr1", ""));
         binding.grf2Address2.setText(sharedPref.getString("adr2", ""));
         binding.grf2City.setText(sharedPref.getString("city", ""));
@@ -178,10 +187,6 @@ public class SecondFormFragment extends Fragment {
         binding.grf2Affiliation.setSelection(sharedPref.getInt("affiliation", 1));
         binding.grf2Age.setSelection(sharedPref.getInt("age", 1));
         binding.grf2Gender.setSelection(sharedPref.getInt("gender", 1));
-        editor.clear().commit();
-
-
-
 
         binding.nextButton.setOnClickListener(new View.OnClickListener() {
                     @Override
