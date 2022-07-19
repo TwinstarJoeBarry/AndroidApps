@@ -40,6 +40,9 @@ public class GuestDatabaseRegistrationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //Clear the back data for every new activity cycle of guest registration
+        deleteSharedPreferences("BackFrag2");
+
         setContentView(R.layout.activity_guest_database_registration);
 
         setSupportActionBar(findViewById(R.id.database_registration_toolbar));

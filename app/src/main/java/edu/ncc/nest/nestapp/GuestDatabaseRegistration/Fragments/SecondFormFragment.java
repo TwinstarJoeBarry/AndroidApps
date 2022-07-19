@@ -253,6 +253,7 @@ public class SecondFormFragment extends Fragment {
                         validInput = validStreetAddress1 & validCity & validZip;
 
                         if(validInput){
+                            sharedPref.edit().clear().commit();
                             getParentFragmentManager().setFragmentResult("sending_second_form_fragment_info", result);
                             NavHostFragment.findNavController(SecondFormFragment.this)
                                     .navigate(R.id.action_DBR_SecondFormFragment_to_DBR_ThirdFormFragment);
